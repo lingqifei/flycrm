@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:06:32
+<?php /* Smarty version 2.6.26, created on 2016-12-14 21:02:26
          compiled from fin_income_record/fin_income_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -41,7 +41,7 @@
 /FinIncomeRecord/fin_income_record_add/" target="navTab"
 		rel="fin_income_record_add" title="收入记录添加"><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
-/FinIncomeRecord/fin_income_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除选择</span></a></li>
+/FinIncomeRecord/fin_income_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
   </div>
   <ul>

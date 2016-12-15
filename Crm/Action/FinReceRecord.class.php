@@ -56,10 +56,13 @@ class FinReceRecord extends Action{
 			$paymoney	=$this->_REQUEST("pay_money");	
 			$intro		=$this->_REQUEST("intro");	
 			
-			$sql= "insert into fin_rece_record(cusID,salID,paydate,money,stages,blankID,intro,adt,create_userID) 
-								values('$cusID','$salID','$plandate','$paymoney','$stages','$blankID','$intro','".NOWTIME."','".SYS_USER_ID."');";
+			$sql= "insert into fin_rece_record(cusID,salID,paydate,money,stages,blankID,
+												intro,adt,create_userID) 
+								values('$cusID','$salID','$paydate','$paymoney','$stages','$blankID',
+									'$intro','".NOWTIME."','".SYS_USER_ID."');";
 			if($this->C($this->cacheDir)->update($sql)>0){
 				$this->L("SalOrder")->sal_order_pay_modify($cusID,$new_money=$paymoney);
+				$this->L("FinFlowRecord")->fin_flow_record_add('rece',$paymoney,$blankID,$salID);//添加流水
 				$this->L("Common")->ajax_json_success("操作成功","0","/FinReceRecord/fin_rece_record_show/");	
 			}
 		}
@@ -79,6 +82,7 @@ class FinReceRecord extends Action{
 					'$planID','$cusID','$salID','$blankID','$paydate','$money','$stages','$intro','".NOWTIME."','".SYS_USER_ID."');";
 		if($this->C($this->cacheDir)->update($sql)>0){
 			$this->L("SalOrder")->sal_order_pay_modify($cusID,$new_money=$money);
+			$this->L("FinFlowRecord")->fin_flow_record_add('rece',$money,$blankID,$salID);//添加流水
 			return true;
 		}else{
 			return false;	

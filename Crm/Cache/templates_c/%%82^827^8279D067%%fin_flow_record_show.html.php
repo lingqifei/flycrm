@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:05:49
+<?php /* Smarty version 2.6.26, created on 2016-12-14 20:58:11
          compiled from fin_flow_record/fin_flow_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -42,15 +42,7 @@
 /FinFlowRecord/fin_flow_record_add/" target="dialog"
 		rel="fin_flow_record_add" title="发送地址添加"><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
-/FinFlowRecord/fin_flow_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除选择</span></a></li>
-      <li><a class="edit"
-		href="<?php echo @ACT; ?>
-/FinFlowRecord/fin_flow_record_modify/id/{sid_user}/"
-		target="dialog" rel="fin_flow_record_modify" title="发送地址修改"><span>修改</span></a></li>
-      <li><a class="add"
-		href="<?php echo @ACT; ?>
-/FinFlowRecord/fin_flow_record_add_more/" target="navTab"
-		rel="fin_flow_record_add_more" title="批量添加发送地址"><span>批量添加</span></a></li>       
+/FinFlowRecord/fin_flow_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li> 
     </ul>
   </div>
   <ul>
@@ -80,7 +72,7 @@
 " type="checkbox"></td>
         <td align="left"><?php echo $this->_tpl_vars['v']['id']; ?>
 </td>
-        <td align="left"><?php echo $this->_tpl_vars['v']['visible']; ?>
+        <td align="left"><?php echo $this->_tpl_vars['v']['blankaccount']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['recemoney']; ?>
 </td>
@@ -90,7 +82,7 @@
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['intro']; ?>
 </td>
-        <td align="left"><?php echo $this->_tpl_vars['v']['create_userID']; ?>
+        <td align="left"><?php echo $this->_tpl_vars['v']['username']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['adt']; ?>
 </td>

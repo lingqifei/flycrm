@@ -17,6 +17,12 @@ class FinFlowRecord extends Action{
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select * from fin_flow_record  order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		if(is_array($list)){
+			foreach($list as $key=>$row){
+				$list[$key]["blankaccount"] = $this->L("FinBankAccount")->fin_bank_accoun_get_name($row['blankID']);
+				$list[$key]["username"] = $this->L("User")->user_get_name($row['create_userID']);
+			}
+		}
 		$assignArray = array('list'=>$list,
 							'totalMoney'=>$totalRs,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage
@@ -30,17 +36,22 @@ class FinFlowRecord extends Action{
 			$smarty->display('fin_flow_record/fin_flow_record_show.html');	
 	}		
 
-	public function fin_flow_record_add(){
-		if(empty($_POST)){
-			$parentID	=$this->fin_flow_record_select_tree();
-			$smarty     = $this->setSmarty();
-			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
-			$smarty->display('fin_flow_record/fin_flow_record_add.html');	
+	public function fin_flow_record_add($type='rece',$money=100,$blankID=1,$order='123456'){
+		$sql="select balance from fin_flow_record where blankID='$blankID' order by id desc";
+		$one=$this->C($this->cacheDir)->findOne($sql);
+		if($type=="pay"){//支出
+			$balance=$one["balance"]-$money;
+			$usql="insert into fin_flow_record(blankID,paymoney,balance,adt,create_userID) 
+								values('$blankID','$money','$balance','".NOWTIME."','".SYS_USER_ID."');";							
+		}elseif($type=="rece"){
+			$balance=$one["balance"]+$money;
+			$usql="insert into fin_flow_record(blankID,recemoney,balance,adt,create_userID) 
+								values('$blankID','$money','$balance','".NOWTIME."','".SYS_USER_ID."');";		
+		}
+		if($this->C($this->cacheDir)->update($usql)>0){
+			return true;
 		}else{
-			$sql= "insert into fin_flow_record(name,parentID,sort,visible,intro) 
-								values('$_POST[name]','$_POST[parentID]','$_POST[sort]','$_POST[visible]','$_POST[intro]');";
-			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功","1","/FinIncomeType/fin_flow_record_show/");		
+			return false;
 		}
 	}		
 	public function fin_flow_record_modify(){

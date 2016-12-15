@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:06:27
+<?php /* Smarty version 2.6.26, created on 2016-12-14 21:03:35
          compiled from fin_rece_plan/fin_rece_plan_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -42,7 +42,7 @@
 /FinRecePlan/fin_rece_plan_add/" target="navTab"
 		rel="fin_rece_plan_add" title="回款计划添加"><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
-/FinRecePlan/fin_rece_plan_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除选择</span></a></li>
+/FinRecePlan/fin_rece_plan_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
       <li><a class="edit"
 		href="<?php echo @ACT; ?>
 /FinRecePlan/fin_rece_plan_modify/id/{sid_user}/"

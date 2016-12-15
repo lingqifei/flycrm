@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:06:06
+<?php /* Smarty version 2.6.26, created on 2016-12-14 21:03:38
          compiled from fin_invoice_rece/fin_invoice_rece_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -41,7 +41,7 @@
 /FinInvoiceRece/fin_invoice_rece_add/" target="navTab"
 		rel="fin_invoice_rece_add" title="收票记录添加"><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
-/FinInvoiceRece/fin_invoice_rece_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除选择</span></a></li>
+/FinInvoiceRece/fin_invoice_rece_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
   </div>
   <ul>
