@@ -31,8 +31,10 @@ class CstService extends Action{
 		if( !empty($status) ){
 			$where_str .=" and s.status='$status'";
 		}	
+		$cus_name="";
 		if( !empty($cusID) ){
 			$where_str .=" and s.cusID='$cusID'";
+			$cus_name	=$this->L("Customer")->customer_get_name($cusID);
 		}		
 		//**************************************************************************
 		$countSql    = "select c.name as cst_name ,s.* from cst_service as s,cst_customer as c where $where_str";
@@ -42,7 +44,8 @@ class CstService extends Action{
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
+		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
+							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 		
 	}
@@ -59,10 +62,15 @@ class CstService extends Action{
 	}		
 	
 	public function cst_service_add(){
+		$cusID 		= $this->_REQUEST("cusID");
+		$cus_name 	= $this->_REQUEST("cus_name");
 		if(empty($_POST)){
+			if($cusID>0){ 
+				$cus_name=$this->L("Customer")->customer_get_name($cusID);
+			}
 			$status = $this->cst_service_status_select("status");
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("status"=>$status));
+			$smarty->assign(array("status"=>$status,"cusID"=>$cusID,"cus_name"=>$cus_name));
 			$smarty->display('cst_service/cst_service_add.html');	
 		}else{
 			$dt	     = date("Y-m-d H:i:s",time());
@@ -75,7 +83,7 @@ class CstService extends Action{
 								values('$cusID','$services','$servicesmodel','$linkmanID','$_POST[bdt]',
 								'$_POST[tlen]','$_POST[status]','$_POST[content]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");		
+			$this->L("Common")->ajax_json_success("操作成功",'1','/CstService/cst_service_show/');		
 		}
 	}		
 	
@@ -104,7 +112,7 @@ class CstService extends Action{
 							status='$_POST[status]',content='$_POST[content]',intro='$_POST[intro]'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");			
+			$this->L("Common")->ajax_json_success("操作成功",'1','/CstService/cst_service_show/');			
 		}
 	}
 	

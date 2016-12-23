@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-07-22 15:15:31
+<?php /* Smarty version 2.6.26, created on 2016-12-23 18:24:05
          compiled from customer/customer_show.html */ ?>
 
 <div class="pageHeader">
@@ -13,15 +13,12 @@
               <option value="zipcode">邮编</option>
               <option value="address">联系地址</option>
               <option value="intro">简介</option>
-            </select>
-          </td>
-          <td><input type="text" name="searchValue" />
-          </td>
+            </select></td>
+          <td><input type="text" name="searchValue" /></td>
           <td> 建档日期：
             <input type="text" class="date" name="bdt" size="15" readonly="true" />
             -
-            <input type="text" class="date" name="edt" size="15" readonly="true" />
-          </td>
+            <input type="text" class="date" name="edt" size="15" readonly="true" /></td>
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -37,7 +34,7 @@
             </ul></td>
         </tr>
       </table>
-	  <div class="subBar"></div>
+      <div class="subBar"></div>
     </div>
   </form>
 </div>
@@ -45,18 +42,29 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/Customer/customer_add/" target="navTab"><span>添加</span></a></li>
-      <li><a class="delete" href="<?php echo @ACT; ?>
-/Customer/customer_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
-      <li><a class="edit" href="<?php echo @ACT; ?>
-/Customer/customer_modify/id/{sid_user}/" target="navTab"><span>修改</span></a></li>
+/Customer/customer_add/"  rel="customer_add"  title="客户添加" target="dialog" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
+      <li><a class="delete" href="<?php echo @ACT; ?>
+/Customer/customer_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
+      <li><a class="edit" href="<?php echo @ACT; ?>
+/Customer/customer_modify/id/{sid_user}/" rel="customer_modify" target="dialog" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
       <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
-       <li><a class="email" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>邮件</span></a></li>
-       <li><a class="export" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
-       <li><a class="import" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导入</span></a></li>  <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
+      <li class="line">line</li>
+      <li><a class="email" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>邮件</span></a></li>
+      <li class="line">line</li>
+      <li><a class="export" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
+      <li class="line">line</li>
+      <li><a class="import" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导入</span></a></li>
+      <li class="line">line</li>
+      <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
+      <li class="line">line</li>
+      <li><a class="people" href="<?php echo @ACT; ?>
+/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="dialog" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
+      <li class="line">line</li>
+      <li><a class="pro" href="<?php echo @ACT; ?>
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -102,21 +110,17 @@
 </td>
       <td><?php echo $this->_tpl_vars['v']['address']; ?>
 </td>
-      <td>
-      <a title="客户联系人" target="navTab" href="<?php echo @ACT; ?>
+      <td><a title="客户联系人" target="dialog" href="<?php echo @ACT; ?>
 /CstLinkman/cst_linkman_show/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnAdd_tr">客户联系人</a> 
-      <a title="客户报价管理" target="navTab" href="<?php echo @ACT; ?>
+/" class="btnAdd_tr">客户联系人</a> <a title="客户报价管理" target="navTab" href="<?php echo @ACT; ?>
 /CstQuoted/cst_quoted_show/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnInfo">客户报价管理</a> 
-      
-      <a target="dialog"  href="<?php echo @ACT; ?>
+/" class="btnInfo">客户报价管理</a> <a target="navTab"  href="<?php echo @ACT; ?>
 /Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnView" rel="dlg_page1" title="[自定义标题]" width="800" height="480">查看</a>
-      </td>
+/" class="btnView" rel="dlg_page1" title="<?php echo $this->_tpl_vars['v']['name']; ?>
+" width="800" height="480">查看</a></td>
     </tr>
     <?php endforeach; endif; unset($_from); ?>
-    </tbody>
+      </tbody>
     
   </table>
   <div class="panelBar">

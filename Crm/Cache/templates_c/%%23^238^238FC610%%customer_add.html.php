@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-07-22 15:24:39
+<?php /* Smarty version 2.6.26, created on 2016-12-16 17:50:56
          compiled from customer/customer_add.html */ ?>
-<div class="divider"></div>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /Customer/customer_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
@@ -9,7 +8,7 @@
 				<legend>基础信息：</legend>
 			<p>
 				<label>客户名称：</label>
-				<input name="name" class="required" type="text" size="30" value="" alt="请输名称"/>
+				<input name="name" class="required" type="text" value="" alt="请输名称"/>
 			</p>
 			<p>
 				<label>客户来源：</label>
@@ -65,7 +64,7 @@
 			</p>
 			<div class="divider"></div>
 			<fieldset>
-				<legend>客户介绍：</legend>
+				<legend>详细介绍：</legend>
 					<dl class="nowrap">
 						<textarea name="intro" cols="80" rows="5"><?php echo $this->_tpl_vars['one']['intro']; ?>
 </textarea>

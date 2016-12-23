@@ -5,7 +5,7 @@ class CstLinkman extends Action{
 		_instance('Action/Auth');
 	}	
 	
-	public function cst_linkman(){
+	public function cst_linkman($cusID=0){
 	
 		//**获得传送来的数据作分页处理
 		$currentPage = $this->_REQUEST("pageNum");//第几页
@@ -17,15 +17,19 @@ class CstLinkman extends Action{
 		//**获得传送来的数据做条件来查询
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
-		$cusID			   = $this->_REQUEST("cusID");
-		$where_str = " l.cusID=s.id and l.create_userID in (".SYS_USER_VIEW.")";
+		if($cusID<=0) $cusID = $this->_REQUEST("cusID");
+		$where_str 		   = " l.cusID=s.id and l.create_userID in (".SYS_USER_VIEW.")";
 
 		if( !empty($searchValue) ){
 			$where_str .=" and l.$searchKeyword like '%$searchValue%'";
 		}
-		if( !empty($cusID) ){
+		
+		$cus_name="";
+		if(!empty($cusID) ){
 			$where_str .=" and l.cusID='$cusID'";
+			//$cus_name	=$this->L("Customer")->customer_get_name($cusID);
 		}
+		
 		//**************************************************************************
 		$countSql    = "select s.name as cst_name ,l.* from cst_linkman as l,cst_customer as s where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
@@ -34,7 +38,8 @@ class CstLinkman extends Action{
 						where $where_str 
 						order by l.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
+		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
+							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 		
 	}
@@ -47,8 +52,14 @@ class CstLinkman extends Action{
 	}		
 	
 	public function cst_linkman_add(){
+		$cusID 		= $this->_REQUEST("cusID");
+		$cus_name 	= $this->_REQUEST("cus_name");
 		if(empty($_POST)){
+			if($cusID>0){ 
+				$cus_name=$this->L("Customer")->customer_get_name($cusID);
+			}
 			$smarty = $this->setSmarty();
+			$smarty->assign(array("cusID"=>$cusID,"cus_name"=>$cus_name));
 			$smarty->display('cst_linkman/cst_linkman_add.html');	
 		}else{
 			$dt	     = date("Y-m-d H:i:s",time());

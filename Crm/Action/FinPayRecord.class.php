@@ -9,6 +9,7 @@ class FinPayRecord extends Action{
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
+		
 		$countSql    = 'select id from fin_pay_record';
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		
@@ -29,7 +30,8 @@ class FinPayRecord extends Action{
 			}
 		}
 		$assignArray = array('list'=>$list,'total_money'=>$moneyRs["sum_money"],
-								'supplier'=>$supplier,'posorder'=>$posorder,'supplier'=>$supplier,'supplier'=>$supplier,
+								'supplier'=>$supplier,'posorder'=>$posorder,
+								'supplier'=>$supplier,'supplier'=>$supplier,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 	}

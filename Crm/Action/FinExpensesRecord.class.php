@@ -84,8 +84,9 @@ class FinExpensesRecord extends Action{
 			$this->L("Common")->ajax_json_success("操作成功","1","/FinExpensesRecord/fin_expenses_record_show/");			
 		}
 	}	
+	//其实费用删除
 	public function fin_expenses_record_del(){
-		$id=$this->_REQUEST("ids");
+		$id	=$this->_REQUEST("ids");
 		$sql="delete from fin_expenses_record where id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/FinExpensesRecord/fin_expenses_record_show/");	

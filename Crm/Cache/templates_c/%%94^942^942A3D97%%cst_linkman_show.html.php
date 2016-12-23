@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:00:40
+<?php /* Smarty version 2.6.26, created on 2016-12-23 16:26:37
          compiled from cst_linkman/cst_linkman_show.html */ ?>
 
 <div class="pageHeader">
@@ -14,13 +14,10 @@
               <option value="zipcode">邮编</option>
               <option value="address">联系地址</option>
               <option value="intro">介绍</option>
-            </select>
-          </td>
-          <td><input type="text" name="searchValue" />
-          </td>
+            </select></td>
+          <td><input type="text" name="searchValue" /></td>
           <td> 建档日期：
-            <input type="text" class="date" readonly="true" />
-          </td>
+            <input type="text" class="date" readonly="true" /></td>
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -32,7 +29,7 @@
             </ul></td>
         </tr>
       </table>
-	  <div class="subBar"></div>
+      <div class="subBar"></div>
     </div>
   </form>
 </div>
@@ -40,13 +37,16 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_add/" target="dialog" rel="cst_linkman_add"><span>添加</span></a></li>
+/CstLinkman/cst_linkman_add/cusID/<?php echo $this->_tpl_vars['cusID']; ?>
+/" target="dialog" rel="cst_linkman_add" width="850" height="450" title="添加<?php echo $this->_tpl_vars['cus_name']; ?>
+联系人"><span>添加</span></a></li>
+      <li class="line">line</li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /CstLinkman/cst_linkman_del/" postType="string" title="确实要删除选择这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
-      <li><a class="edit" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_modify/id/{sid_user}/" target="dialog" rel="cst_linkman_modify"><span>修改</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
+      <li><a class="edit" href="<?php echo @ACT; ?>
+/CstLinkman/cst_linkman_modify/id/{sid_user}/" target="dialog" rel="cst_linkman_modify" width="850" height="450"><span>修改</span></a></li>
+      <li class="line">line</li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -86,7 +86,7 @@
 </td>
     </tr>
     <?php endforeach; endif; unset($_from); ?>
-    </tbody>
+      </tbody>
     
   </table>
   <div class="panelBar">

@@ -5,8 +5,8 @@
 				<legend>基础信息：</legend>
 			<p>
 				<label>客户名称：</label>
-				<input name="org.id" value="" type="hidden"/>
-				<input name="org.name" type="text" class="required"/>
+				<input name="org.id" value="#{$cusID}#" type="hidden"/>
+				<input name="org.name" value="#{$cus_name}#" type="text" class="required"/>
 				<a class="btnLook" href="#{$smarty.const.ACT}#/Customer/lookup_search/" lookupGroup="org">选择客户名称</a>	
 			</p>
 			<p>

@@ -15,6 +15,10 @@ class FinPayPlan extends Action{
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select * from fin_pay_plan  order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		
+		$moneySql    = 'select sum(money) as sum_money from fin_pay_plan';
+		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
+		
 		//供应商
 		$supplier= array();
 		$posorder= array();
@@ -25,8 +29,9 @@ class FinPayPlan extends Action{
 				$posorder[$row['id']] = $this->L("PosOrder")->pos_order_get_name($row['posID']);
 			}
 		}
-		$assignArray = array('list'=>$list,
-								'supplier'=>$supplier,'posorder'=>$posorder,'supplier'=>$supplier,'supplier'=>$supplier,
+		$assignArray = array('list'=>$list,'total_money'=>$moneyRs["sum_money"],
+								'supplier'=>$supplier,'posorder'=>$posorder,
+								'supplier'=>$supplier,'supplier'=>$supplier,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 	}

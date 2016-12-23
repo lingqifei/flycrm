@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:00:43
+<?php /* Smarty version 2.6.26, created on 2016-12-16 21:40:21
          compiled from cst_service/cst_service_show.html */ ?>
 
 <div class="pageHeader">
@@ -38,13 +38,15 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstService/cst_service_add/" target="navTab" rel="cst_service_add"  title="客户服务添加"><span>添加</span></a></li>
-      <li><a class="delete" href="<?php echo @ACT; ?>
-/CstService/cst_service_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
-      <li><a class="edit" href="<?php echo @ACT; ?>
-/CstService/cst_service_modify/id/{sid_user}/" target="navTab" rel="cst_service_modify"  title="客户服务修改"><span>修改</span></a></li>
+/CstService/cst_service_add/cusID/<?php echo $this->_tpl_vars['cusID']; ?>
+/" rel="cst_service_add"  target="dialog" width="850" height="450"  title="客户服务添加"><span>添加</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
+      <li><a class="delete" href="<?php echo @ACT; ?>
+/CstService/cst_service_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
+      <li><a class="edit" href="<?php echo @ACT; ?>
+/CstService/cst_service_modify/id/{sid_user}/" rel="cst_service_modify" target="dialog" width="850" height="450"  title="客户服务修改"><span>修改</span></a></li>
+      <li class="line">line</li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -58,8 +60,7 @@
         <th width="120">开始时间</th>
         <th width="80">花费时间(分)</th>
         <th width="150">状态</th>
-        <th width="120">建档时间</th>
-        <th>操作</th>
+        <th width="150">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -87,7 +88,6 @@
 </td>
       <td><?php echo $this->_tpl_vars['v']['adt']; ?>
 </td>
-      <td><a>发送短信</a> <a>发送邮件</a> </td>
     </tr>
     <?php endforeach; endif; unset($_from); ?>
     </tbody>

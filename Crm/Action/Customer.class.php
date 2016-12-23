@@ -111,7 +111,7 @@ class Customer extends Action{
 								'$_POST[website]','$_POST[tel]',
 								'$_POST[fax]','$_POST[email]','$_POST[zipcode]','$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");		
+			$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");		
 		}
 	}		
 	
@@ -137,7 +137,7 @@ class Customer extends Action{
 							zipcode='$_POST[zipcode]',address='$_POST[address]',intro='$_POST[intro]'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");			
+			$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");			
 		}
 	}
 	
@@ -146,7 +146,7 @@ class Customer extends Action{
 		$id	  = $this->_REQUEST("ids");
 		$sql  = "delete from cst_customer where id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->L("Common")->ajax_json_success("操作成功","1","/Supplier/customer_show/");	
+		$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");	
 	}	
 	
 	
@@ -179,9 +179,11 @@ class Customer extends Action{
 			$cusID	    = $this->_REQUEST("cusID");
 			$sql 		= "select * from cst_customer where id='$cusID'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
+			$linkman	= $this->L('CstLinkman')->cst_linkman($one["id"]);
 			$smarty  	= $this->setSmarty();
 			$dict	    = $this->L("CstDict")->cst_dict_arr();
-			$smarty->assign(array("one"=>$one,"dict"=>$dict));
+			$rtnArr		= array("one"=>$one,"dict"=>$dict,"linkman"=>$linkman);
+			$smarty->assign($rtnArr);
 			$smarty->display('customer/customer_show_one.html');		
 	}
 		

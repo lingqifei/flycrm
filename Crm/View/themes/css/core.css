@@ -266,10 +266,17 @@ a:hover {text-decoration:underline;}
 .panelBar .toolBar a.explod span { background-position:0 -1172px;}
 
 /*新增加ICON 工具栏目*/
+
+.panelBar .toolBar a.add span {background:url(../icons/edit_add.png) scroll left no-repeat;}
+.panelBar .toolBar a.delete span {background:url(../icons/cancel.png) scroll left no-repeat;}
+.panelBar .toolBar a.edit span {background:url(../icons/pencil.png) scroll left no-repeat;}
+
 .panelBar .toolBar a.total span {background:url(../icons/data_total.png) left no-repeat;}
 .panelBar .toolBar a.email span {background:url(../icons/email.png) left no-repeat;}
 .panelBar .toolBar a.export span {background:url(../icons/export.png) left no-repeat;}
 .panelBar .toolBar a.import span {background:url(../icons/import.png) scroll left no-repeat;}
+.panelBar .toolBar a.people span {background:url(../icons/people.png) scroll left no-repeat;}
+.panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
 
 
 

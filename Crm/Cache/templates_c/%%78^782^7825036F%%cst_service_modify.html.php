@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:04:37
+<?php /* Smarty version 2.6.26, created on 2016-12-16 21:08:53
          compiled from cst_service/cst_service_modify.html */ ?>
-<div class="divider"></div>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /CstService/cst_service_modify/id/<?php echo $this->_tpl_vars['one']['id']; ?>
@@ -68,14 +67,14 @@
 			<fieldset>
 				<legend>服务内容：</legend>
 					<dl class="nowrap">
-						<textarea name="content" cols="80" rows="5"><?php echo $this->_tpl_vars['one']['content']; ?>
+						<textarea name="content" cols="120" rows="3"><?php echo $this->_tpl_vars['one']['content']; ?>
 </textarea>
 					</dl>	
 			</fieldset>	
 			<fieldset>
 				<legend>备注：</legend>
 					<dl class="nowrap">
-						<textarea name="intro" cols="80" rows="5"><?php echo $this->_tpl_vars['one']['intro']; ?>
+						<textarea name="intro" cols="120" rows="3"><?php echo $this->_tpl_vars['one']['intro']; ?>
 </textarea>
 					</dl>	
 			</fieldset>	

@@ -1,4 +1,3 @@
-<div class="divider"></div>
 <div class="pageContent">
 	<form method="post" action="#{$smarty.const.ACT}#/CstService/cst_service_modify/id/#{$one.id}#" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
 		<div class="pageFormContent" layoutH="56">
@@ -49,13 +48,13 @@
 			<fieldset>
 				<legend>服务内容：</legend>
 					<dl class="nowrap">
-						<textarea name="content" cols="80" rows="5">#{$one.content}#</textarea>
+						<textarea name="content" cols="120" rows="3">#{$one.content}#</textarea>
 					</dl>	
 			</fieldset>	
 			<fieldset>
 				<legend>备注：</legend>
 					<dl class="nowrap">
-						<textarea name="intro" cols="80" rows="5">#{$one.intro}#</textarea>
+						<textarea name="intro" cols="120" rows="3">#{$one.intro}#</textarea>
 					</dl>	
 			</fieldset>	
 			
