@@ -15,11 +15,14 @@ class CstTrace extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-		$cus_name	   	   = $this->_REQUEST("cus_name");
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
+		$cus_name		= $this->_REQUEST("cus_name");
+		$searchKeyword	= $this->_REQUEST("searchKeyword");
+		$searchValue	= $this->_REQUEST("searchValue");
+		$cusID 			= $this->_REQUEST("cusID");
 		$where_str = " s.cusID=c.id ";
-
+		if(!empty($cusID) ){
+			$where_str .=" and s.cusID='$cusID'";
+		}
 		if( !empty($searchValue) ){
 			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
 		}
@@ -40,7 +43,11 @@ class CstTrace extends Action{
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
+		$assignArray = array('list'=>$list,
+								"numPerPage"=>$numPerPage,
+								"totalCount"=>$totalCount,
+								"currentPage"=>$currentPage
+						);	
 		return $assignArray;
 		
 	}
@@ -56,6 +63,19 @@ class CstTrace extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('cst_trace/cst_trace_show.html');	
 	}		
+
+
+	public function cst_trace_show_box(){
+			$assArr  			= $this->cst_trace();
+			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] 	= $this->cst_trace_status();
+			$assArr["chance"] 	= $this->L("CstChance")->cst_chance_arr();
+			$assArr["users"] 	= $this->L("User")->user_arr();
+			$smarty  			= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_trace/cst_trace_show_box.html');	
+	}	
 	
 	public function cst_trace_add(){
 		if(empty($_POST)){

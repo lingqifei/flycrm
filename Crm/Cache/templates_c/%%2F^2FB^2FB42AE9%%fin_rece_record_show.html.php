@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 21:02:37
+<?php /* Smarty version 2.6.26, created on 2017-02-07 17:54:05
          compiled from fin_rece_record/fin_rece_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -40,8 +40,10 @@
 		href="<?php echo @ACT; ?>
 /FinReceRecord/fin_rece_record_add/" target="navTab"
 		rel="fin_rece_record_add" title="回款计划添加"><span>添加</span></a></li>
+        <li class="line">line</li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
 /FinReceRecord/fin_rece_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
+      <li class="line">line</li>
     </ul>
   </div>
   <ul>
@@ -74,7 +76,7 @@
 </td>
         <td align="left"><?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['id']]; ?>
 </td>
-        <td align="left"><?php echo $this->_tpl_vars['salorder'][$this->_tpl_vars['v']['id']]; ?>
+        <td align="left"><?php echo $this->_tpl_vars['v']['business']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['paydate']; ?>
 </td>
@@ -108,13 +110,15 @@
       <div class="pages"><span>显示</span>
         <select class="combox"
 		name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
+          <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+          <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+          <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+          <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+          <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
         </select>
         <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
-条</span></div>
+条,金额合计:<font color="#FF0000"><?php echo $this->_tpl_vars['total_money']; ?>
+</font> </span></div>
       <div class="pagination" targetType="navTab"
 		totalCount="<?php echo $this->_tpl_vars['totalCount']; ?>
 " numPerPage="<?php echo $this->_tpl_vars['numPerPage']; ?>

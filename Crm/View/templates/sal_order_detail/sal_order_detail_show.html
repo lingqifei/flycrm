@@ -1,4 +1,3 @@
-
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="#{$smarty.const.ACT}#/SalOrderDetail/sal_order_detail_show/" method="post">
     <div class="searchBar">
@@ -38,8 +37,7 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="#{$smarty.const.ACT}#/CstQuoted/cst_quoted_add/" target="navTab" rel="cst_quoted_add"><span>添加</span></a></li>
-      <li><a class="delete" href="#{$smarty.const.ACT}#/CstQuoted/cst_quoted_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
+      <li><a class="delete" href="#{$smarty.const.ACT}#/SalOrderDetail/sal_order_detail_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li><a class="edit" href="#{$smarty.const.ACT}#/CstQuoted/cst_quoted_modify/id/{sid_user}/" target="navTab" rel="cst_quoted_modify"><span>修改</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>

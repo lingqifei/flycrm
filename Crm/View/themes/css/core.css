@@ -277,6 +277,9 @@ a:hover {text-decoration:underline;}
 .panelBar .toolBar a.import span {background:url(../icons/import.png) scroll left no-repeat;}
 .panelBar .toolBar a.people span {background:url(../icons/people.png) scroll left no-repeat;}
 .panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
+.panelBar .toolBar a.search span {background:url(../icons/search.png) scroll left no-repeat;}
+.panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
+.panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
 
 
 

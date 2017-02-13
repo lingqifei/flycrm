@@ -20,6 +20,10 @@ class CstQuoted extends Action{
 		$searchValue	   = $this->_REQUEST("searchValue");
 		$where_str = " s.cusID=c.id ";
 
+		$cusID = $this->_REQUEST("cusID");
+		if(!empty($cusID) ){
+			$where_str .=" and s.cusID='$cusID'";
+		}
 		if( !empty($searchValue) ){
 			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
 		}
@@ -44,8 +48,8 @@ class CstQuoted extends Action{
 			$operate[$row["id"]]=$this->cst_quoted_operate($row["status"],$row["id"]);
 			$money[$row["id"]]=_instance('Action/CstQuotedDetail')->cst_get_one_quoted_detail_money($row["id"]);
 		}
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,
-								"totalCount"=>$totalCount,"currentPage"=>$currentPage,
+		$assignArray = array('list'=>$list,
+								"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage,
 								"operate"=>$operate,"money"=>$money
 						);	
 		return $assignArray;
@@ -62,6 +66,18 @@ class CstQuoted extends Action{
 			$smarty  			= $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_quoted/cst_quoted_show.html');	
+	}		
+	
+	public function cst_quoted_show_box(){
+			$assArr  			= $this->cst_quoted();
+			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] 	= $this->cst_quoted_status();
+			$assArr["chance"] 	= $this->L("CstChance")->cst_chance_arr();
+			$assArr["users"] 	= $this->L("User")->user_arr();
+			$smarty  			= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_quoted/cst_quoted_show_box.html');	
 	}		
 	
 	public function cst_quoted_add(){

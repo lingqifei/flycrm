@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:03:11
+<?php /* Smarty version 2.6.26, created on 2017-01-20 12:03:56
          compiled from cst_filing/cst_filing_show.html */ ?>
 
 <div class="pageHeader">
@@ -42,18 +42,18 @@
       <li><a class="add" href="<?php echo @ACT; ?>
 /CstFiling/cst_filing_add/" target="navTab" rel="cst_filing_add" title="项目报备添加"><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
-/CstFiling/cst_filing_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
+/CstFiling/cst_filing_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
 /CstFiling/cst_filing_modify/id/{sid_user}/" target="navTab" rel="cst_filing_modify" title="项目报备修改"><span>修改</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="100">主题</th>
+	 	<th width="180">主题</th>
         <th width="120">客户名称</th>
         <th width="80">联系人</th>
         <th width="130">销售机会</th>
@@ -116,10 +116,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

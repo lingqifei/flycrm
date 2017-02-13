@@ -17,7 +17,6 @@ class CstLinkman extends Action{
 		//**获得传送来的数据做条件来查询
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
-		if($cusID<=0) $cusID = $this->_REQUEST("cusID");
 		$where_str 		   = " l.cusID=s.id and l.create_userID in (".SYS_USER_VIEW.")";
 
 		if( !empty($searchValue) ){
@@ -25,9 +24,9 @@ class CstLinkman extends Action{
 		}
 		
 		$cus_name="";
+		$cusID = $this->_REQUEST("cusID");
 		if(!empty($cusID) ){
 			$where_str .=" and l.cusID='$cusID'";
-			//$cus_name	=$this->L("Customer")->customer_get_name($cusID);
 		}
 		
 		//**************************************************************************
@@ -49,6 +48,15 @@ class CstLinkman extends Action{
 			$smarty  		= $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_linkman/cst_linkman_show.html');	
+	}
+
+	
+	//box在显示
+	public function cst_linkman_show_box(){
+			$assArr  		= $this->cst_linkman();
+			$smarty  		= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_linkman/cst_linkman_show_box.html');	
 	}		
 	
 	public function cst_linkman_add(){
@@ -72,7 +80,7 @@ class CstLinkman extends Action{
 										'$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 										
 			if($this->C($this->cacheDir)->update($sql)){
-				$this->L("Common")->ajax_json_success("操作成功",'1',"/CstLinkman/cst_linkman_show/cusID/{$cusID}/");
+				$this->L("Common")->ajax_json_success("操作成功",'2',"/CstLinkman/cst_linkman_show/cusID/{$cusID}/");
 			}	
 		}
 	}		

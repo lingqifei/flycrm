@@ -82,6 +82,19 @@ class Customer extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('customer/customer_show.html');	
 	}		
+	//查看客户详细
+	public function customer_show_one(){
+			$cusID	    = $this->_REQUEST("cusID");
+			$sql 		= "select * from cst_customer where id='$cusID'";
+			$one 		= $this->C($this->cacheDir)->findOne($sql);	
+			$linkman	= $this->L('CstLinkman')->cst_linkman();
+			$smarty  	= $this->setSmarty();
+			$dict	    = $this->L("CstDict")->cst_dict_arr();
+			$rtnArr		= array("one"=>$one,"dict"=>$dict,"linkman"=>$linkman);
+			$smarty->assign($rtnArr);
+			$smarty->display('customer/customer_show_one.html');		
+	}
+	
 	public function lookup_search(){
 			$assArr  		= $this->customer();
 			$assArr["dict"] = $this->L("CstDict")->cst_dict_arr();
@@ -150,6 +163,7 @@ class Customer extends Action{
 	}	
 	
 	
+	//返回客户
 	public function customer_arr(){
 		$rtArr  =array();
 		$sql	="select id,name from cst_customer";
@@ -162,6 +176,7 @@ class Customer extends Action{
 		return $rtArr;
 	}		
 	
+	//返回客户名称
 	public function customer_get_name($id){
 		if(empty($id)) $id=0;
 		$sql  ="select id,name from cst_customer where id in ($id)";	
@@ -175,16 +190,35 @@ class Customer extends Action{
 		return $str;
 	}		
 	
-	public function customer_show_one(){
-			$cusID	    = $this->_REQUEST("cusID");
-			$sql 		= "select * from cst_customer where id='$cusID'";
-			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$linkman	= $this->L('CstLinkman')->cst_linkman($one["id"]);
-			$smarty  	= $this->setSmarty();
-			$dict	    = $this->L("CstDict")->cst_dict_arr();
-			$rtnArr		= array("one"=>$one,"dict"=>$dict,"linkman"=>$linkman);
-			$smarty->assign($rtnArr);
-			$smarty->display('customer/customer_show_one.html');		
+
+	
+	public function customer_select_business(){
+		$order	=$this->L("SalOrder")->sal_order_select();
+		$contr	=$this->L("SalContract")->sal_contract_select();
+//		print_r($order);
+//		print_r($contr);
+/*            [id] => 4
+            [name] => 100
+            [money] => 1000
+            [bill_money] => 0
+            [zero_money] => 0
+            [back_money] => 0
+            [now_back_money] => 1000*/
+		$rtnArr	=array();
+		$key	=0;
+		foreach($order as $row){
+			$rtnArr[$key]			=$row;
+			$rtnArr[$key]["type"]	="sal_order";
+			$key++;
+		}
+		foreach($contr as $row){
+			$rtnArr[$key]=$row;
+			$rtnArr[$key]["type"]	="sal_contract";
+			$key++;
+		}
+		//print_r($rtnArr);
+		echo json_encode($rtnArr);
+		
 	}
 		
 }//

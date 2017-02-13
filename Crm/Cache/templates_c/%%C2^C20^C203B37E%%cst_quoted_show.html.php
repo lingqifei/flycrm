@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 16:12:19
+<?php /* Smarty version 2.6.26, created on 2017-01-20 12:01:00
          compiled from cst_quoted/cst_quoted_show.html */ ?>
 
 <div class="pageHeader">
@@ -42,7 +42,8 @@
       <li><a class="add" href="<?php echo @ACT; ?>
 /CstQuoted/cst_quoted_add/" target="navTab" rel="cst_quoted_add" title="产品报价添加"><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
-/CstQuoted/cst_quoted_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
+/CstQuoted/cst_quoted_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
 /CstQuoted/cst_quoted_modify/id/{sid_user}/" target="navTab" rel="cst_quoted_modify" title="产品报价修改"><span>修改</span></a></li>
       <li class="line">line</li>
@@ -60,11 +61,11 @@
         <th width="130">销售机会</th>
         <th width="80">金额</th>
 		<th width="80">创建人</th>
-        <th width="100">建档时间</th>
-        <th width="80">是否审核</th>
+        <th width="150">建档时间</th>
+        <th width="80">审核</th>
 		<th width="80">审核人员</th>
-        <th width="80">审核时间</th>
-        <th>操作</th>
+        <th width="150">审核时间</th>
+        <th width="150">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -94,9 +95,9 @@
 </td>
       <td><?php echo $this->_tpl_vars['status'][$this->_tpl_vars['v']['status']]; ?>
 </td>
-      <td><?php echo $this->_tpl_vars['v']['audit_dt']; ?>
+      <td><?php echo $this->_tpl_vars['users'][$this->_tpl_vars['v']['audit_userID']]; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['users'][$this->_tpl_vars['v']['audit_userID']]; ?>
+	  <td><?php echo $this->_tpl_vars['v']['audit_dt']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['operate'][$this->_tpl_vars['v']['id']]; ?>
 </td>
@@ -116,10 +117,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

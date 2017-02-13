@@ -12,10 +12,6 @@
 				<input type="text" value="" name="title" class="required">
 			</p>	
 			<p>
-				<label>金额：</label>
-				<input type="text" value="" name="money" class="required digits">
-			</p>		
-			<p>
 				<label>客户名称：</label>
 				<input id="cusID" name="org.id" value="" type="hidden"/>
 				<input name="org.name" type="text" class="required"/>
@@ -35,6 +31,12 @@
 					suggestUrl="#{$smarty.const.ACT}#/CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance"/>
 			</p>
 			<p>
+				<label>我方代表：</label>
+				<input id="our_userID" name="our.id" value="" type="hidden"/>
+				<input name="our.name" type="text" class="required"/>
+				<a class="btnLook" href="#{$smarty.const.ACT}#/User/lookup_search/" lookupGroup="our">选择客户</a>	
+			</p>
+			<p>
 				<label>订单签订时间：</label>
 				<input type="text" name="bdt" class="date required" readonly="true"/>
 				<a class="inputDateButton" href="javascript:;">选择</a>
@@ -45,12 +47,6 @@
 				<input type="text" name="edt" class="date required" readonly="true"/>
 				<a class="inputDateButton" href="javascript:;">选择</a>
 				<span class="info">yyyy-MM-dd</span>
-			</p>
-			<p>
-				<label>我方代表：</label>
-				<input id="our_userID" name="our.id" value="" type="hidden"/>
-				<input name="our.name" type="text" class="required"/>
-				<a class="btnLook" href="#{$smarty.const.ACT}#/User/lookup_search/" lookupGroup="our">选择客户</a>	
 			</p>
 			</fieldset>
 			<div class="divider"></div>			

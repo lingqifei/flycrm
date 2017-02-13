@@ -19,7 +19,7 @@ class SalContract extends Action{
 		$cus_name	   	   = $this->_REQUEST("cus_name");
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
-		$where_str = " c.id=s.cusID and s.create_userID in ('".SYS_USER_VIEW."')";
+		$where_str = " create_userID in ('".SYS_USER_VIEW."')";
 
 		if( !empty($searchValue) ){
 			$where_str .=" and $searchKeyword like '%$searchValue%'";
@@ -31,25 +31,39 @@ class SalContract extends Action{
 			$where_str .=" and adt < '$edt'";
 		}	
 		//**************************************************************************
-		$countSql    = "select s.id from sal_contract as s,cst_customer as c where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+		
+		$moneySql    = "select sum(money) as total_money,
+								sum(back_money) as total_back_money,
+								sum(zero_money) as total_zero_money,
+								sum(pay_money) as total_pay_money
+						 from sal_contract where $where_str";
+		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
+		
+		$countSql    = "select id from sal_contract where $where_str";
+		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select c.name as cst_name ,s.* from sal_contract as s,cst_customer as c
+		$sql		 = "select* from sal_contract
 						where $where_str 
-						order by s.id desc limit $beginRecord,$numPerPage";	
+						order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		foreach($list as $key=>$row){
 			$operate[$row["id"]]=$this->sal_contract_operate($row["status"],$row["id"]);
 			//$money[$row["id"]]=_instance('Action/SalContractDetail')->cst_get_one_quoted_detail_money($row["id"]);
 		}
+
+		$count_str	 =" 总金额合计:<font color='red'>".$moneyRs["total_money"]."</font>,";
+		$count_str	.=" 回款金额合计:<font color='red'>".$moneyRs["total_back_money"]."</font>,";
+		$count_str	.=" 去零金额合计:<font color='red'>".$moneyRs["total_zero_money"]."</font>,";
+		$count_str	.=" 交付金额合计:<font color='red'>".$moneyRs["total_pay_money"]."</font>";
 		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,
 								"totalCount"=>$totalCount,"currentPage"=>$currentPage,
-								"operate"=>$operate//,"money"=>$money
+								"operate"=>$operate,"count_str"=>$count_str
 						);	
 		return $assignArray;
 		
 	}
 	
+	//合同显示
 	public function sal_contract_show(){
 			$assArr  					= $this->sal_contract();
 			$assArr["customer"]			= $this->L("Customer")->customer_arr();
@@ -64,7 +78,54 @@ class SalContract extends Action{
 			$smarty  = $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('sal_contract/sal_contract_show.html');	
-	}		
+	}
+	
+	//合同显示
+	public function sal_contract_show_box(){
+			$assArr  					= $this->sal_contract();
+			$assArr["customer"]			= $this->L("Customer")->customer_arr();
+			$assArr["dict"] 			= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 			= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] 			= $this->sal_contract_status();
+			$assArr["pay_status"] 		= $this->sal_contract_pay_status();
+			$assArr["deliver_status"] 	= $this->sal_contract_deliver_status();
+			$assArr["bill_status"] 		= $this->sal_contract_bill_status();
+			$assArr["chance"] 			= $this->L("CstChance")->cst_chance_arr();
+			$assArr["users"]			= $this->L("User")->user_arr();
+			$smarty  = $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('sal_contract/sal_contract_show_box.html');	
+	}	
+	
+	//查看一条合同详细
+	public function sal_contract_show_one(){
+			$id		    = $this->_REQUEST("id");
+			$sql 		= "select * from sal_contract where id='$id'";
+			$one 		= $this->C($this->cacheDir)->findOne($sql);	
+			$customer   = $this->L("Customer")->customer_arr();
+			$linkman    = $this->L("CstLinkman")->cst_linkman_arr();
+			$dict		= $this->L("CstDict")->cst_dict_arr();
+			$chance		= $this->L("CstChance")->cst_chance_arr();
+			$users		= $this->L("User")->user_arr();
+			$status 	= $this->sal_contract_status();
+			$pay_status	= $this->sal_contract_pay_status();
+			$deliver_status = $this->sal_contract_deliver_status();
+			$bill_status= $this->sal_contract_bill_status();
+			$smarty  	= $this->setSmarty();
+			$smarty->assign(array("one"=>$one,
+									"customer"=>$customer,
+									"linkman"=>$linkman,
+									"dict"=>$dict,
+									"chance"=>$chance,
+									"status"=>$status,
+									"pay_status"=>$pay_status,
+									"deliver_status"=>$deliver_status,
+									"bill_status"=>$bill_status,
+									"users"=>$users
+							));
+			$smarty->display('sal_contract/sal_contract_show_one.html');		
+	}	
+			
 	
 	public function sal_contract_add(){
 		if(empty($_POST)){
@@ -130,6 +191,24 @@ class SalContract extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/SalContract/sal_contract_show/");	
 	}
+
+	//下拉选择回放数据
+	public function sal_contract_select($type=null){
+		$cusID  = $this->_REQUEST("cusID");
+		switch($type){
+			case "pay_status":
+				$where_str="and pay_status in(1,2)";
+				break;
+			case "bill_status":
+				$where_str="and bill_status in(1,2)";
+				break;
+			default:
+		}
+		$sql	= "select id,title as name,money,bill_money,zero_money,back_money,(money-zero_money-back_money) as now_back_money,(money-zero_money-bill_money) as now_bill_money from sal_contract where cusID='$cusID' $where_str order by id asc;";
+		$list	=$this->C($this->cacheDir)->findAll($sql);
+		return $list;
+	}
+		
 		
 	public function sal_contract_audit(){
 		$id	  	  = $this->_REQUEST("id");
@@ -138,41 +217,56 @@ class SalContract extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");				
 	}
+
+	//传入ID返回名字
+	public function sal_contract_get_name($id){
+		if(empty($id)) $id=0;
+		$sql  ="select id,title as name from sal_contract where id in ($id)";	
+		$list =$this->C($this->cacheDir)->findAll($sql);
+		$str  ="";
+		if(is_array($list)){
+			foreach($list as $row){
+				$str .= "|-".$row["name"]."&nbsp;";
+			}
+		}
+		return $str;
+	}
 		
 	public function sal_contract_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>临时单</div>",
-				"2"=>"<div style='color:#0000FF'>执行中</div>",
-				"2"=>"<div style='color:#008000'>完成</div>",
-				"4"=>"<div style='color:#ff0000'>撤销</div>"
+				"1"=>"<b style='color:#FFA500'>临时单</b>",
+				"2"=>"<b style='color:#0000FF'>执行中</b>",
+				"2"=>"<b style='color:#008000'>完成</b>",
+				"4"=>"<b style='color:#ff0000'>撤销</b>"
 		);
 	}
 
 
 	public function sal_contract_pay_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>未付</div>",
-				"2"=>"<div style='color:#0000FF'>部分</div>",
-				"3"=>"<div style='color:#008000'>已付</div>"
+				"1"=>"<b style='color:#FFA500'>未付</b>",
+				"2"=>"<b style='color:#0000FF'>部分</b>",
+				"3"=>"<b style='color:#008000'>已付</b>"
 		);
 	}
 	
 	public function sal_contract_deliver_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>需要</div>",
-				"2"=>"<div style='color:#0000FF'>部分</div>",
-				"3"=>"<div style='color:#008000'>全部</div>"
+				"1"=>"<b style='color:#FFA500'>需要</b>",
+				"2"=>"<b style='color:#0000FF'>部分</b>",
+				"3"=>"<b style='color:#008000'>全部</b>"
 		);
 	}
 
 	public function sal_contract_bill_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>需要</div>",
-				"2"=>"<div style='color:#008000'>部分</div>",
-				"3"=>"<div style='color:#008000'>全部</div>"
+				"1"=>"<b style='color:#FFA500'>需要</b>",
+				"2"=>"<b style='color:#008000'>部分</b>",
+				"3"=>"<b style='color:#008000'>全部</b>"
 		);
 	}
 	
+	//根据不同状态显示操作按钮
 	public function sal_contract_operate($status,$id){
 		switch($status){
 			case 1:
@@ -189,7 +283,48 @@ class SalContract extends Action{
 		}
 		return $str;
 	}
-
-			
+	
+	//付款修改合同付付款状态功能
+	public function sal_contract_pay_modify($cusID,$new_money){
+		$one		=$this->sal_contract_get_one($cusID);
+		$money		=$one["money"];
+		$back_money	=$one["back_money"];
+		if(($back_money+$new_money)>=$money){
+			$pay_status=3;//已付
+		}else{
+			$pay_status=2;//未付
+		}
+		//更新回款金额
+		$sql="update sal_contract set 
+							status=2,
+							pay_status='$pay_status',
+							back_money=back_money+'$new_money' 
+			 where id='$cusID';";
+		if($this->C($this->cacheDir)->update($sql)>0){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+	//收票修改订单功能
+	public function sal_contract_invo_modify($salID,$new_money){
+		$one		=$this->sal_order_get_one($salID);
+		$money		=$one["money"];
+		$bill_money	=$one["bill_money"];
+		if(($bill_money+$new_money)>=$money){
+			$bill_status=3;//已付
+		}else{
+			$bill_status=2;//部分
+		}
+		//更改付款金额
+		$sql="update sal_order set bill_status='$bill_status',
+								   bill_money=bill_money+'$new_money' 
+			  where id='$salID';";
+		if($this->C($this->cacheDir)->update($sql)>0){
+			return true;
+		}else{
+			return false;	
+		}
+	}			
 }
 ?>

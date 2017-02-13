@@ -1,109 +1,114 @@
 <form  action="#{$smarty.const.ACT}#/SalOrderDetail/sal_order_detail_add/id/#{$one.id}#/ord_number/#{$one.ord_number}#/" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)">
-<div class="pageContent">
-	<div class="pageFormContent" layoutH="97">
-			<fieldset>
-			<legend>订单信息：</legend>
-			<p>
-				<label>客户名称：</label>
-				<input id="cusID" name="org.id" value="#{$one.cusID}#" type="hidden" />
-				<input name="org.name" value="#{$customer[$one.cusID]}#" type="text" class="required" readonly="readonly"/>
-			</p>
-			
-			<p>
-				<label>接收人：</label>
-				<input name="linkman.id" value="#{$one.linkmanID}#" type="hidden"/>
-				<input class="required" value="#{$linkman[$one.linkmanID]}#" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
+<input type="hidden" name="order_number" value="#{$one.ord_number}#" />
+  <div class="pageContent">
+    <div class="pageFormContent" layoutH="58">
+      <fieldset>
+        <legend>订单信息：</legend>
+        <p>
+          <label>客户名称：</label>
+          <input id="cusID" name="org.id" value="#{$one.cusID}#" type="hidden" />
+          <input name="org.name" value="#{$customer[$one.cusID]}#" type="text" class="required" readonly="readonly"/>
+        </p>
+        <p>
+          <label>接收人：</label>
+          <input name="linkman.id" value="#{$one.linkmanID}#" type="hidden"/>
+          <input class="required" value="#{$linkman[$one.linkmanID]}#" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
 					suggestUrl="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="linkman" readonly="readonly"/>
-			</p>
-			<p>
-				<label>订单主题：</label>
-					<input name="title" class="required" type="text" value="#{$one.title}#" readonly="readonly"/>
-			</p>
-			<p>
-				<label>销售机会：</label>
-				<input name="chance.id" value="#{$one.chanceID}#" type="hidden"/>
-				<input class="required" value="#{$chance[$one.chanceID]}#" name="chance.title" type="text" postField="keyword" suggestFields="title" 
+        </p>
+        <p>
+          <label>订单主题：</label>
+          <input name="title" class="required" type="text" value="#{$one.title}#" readonly="readonly"/>
+        </p>
+        <p>
+          <label>销售机会：</label>
+          <input name="chance.id" value="#{$one.chanceID}#" type="hidden"/>
+          <input class="required" value="#{$chance[$one.chanceID]}#" name="chance.title" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="#{$smarty.const.ACT}#/CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance" readonly="readonly"/>
-			</p>
-			<p>
-				<label>订单签订时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.bdt}#" readonly="readonly"/>
-			</p>
-			<p>
-				<label>最晚发货时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.edt}#" readonly="readonly"/>
-			</p>			
-			<p>
-				<label>我方代表：</label>
-					<input name="our.id" value="#{$one.our_userID}#" type="hidden"/>
-				<input class="required" value="#{$users[$one.our_userID]}#" name="our.name" type="text" postField="keyword" suggestFields="title" 
+        </p>
+        <p>
+          <label>订单签订时间：</label>
+          <input name="title" class="required" type="text" value="#{$one.bdt}#" readonly="readonly"/>
+        </p>
+        <p>
+          <label>最晚发货时间：</label>
+          <input name="title" class="required" type="text" value="#{$one.edt}#" readonly="readonly"/>
+        </p>
+        <p>
+          <label>我方代表：</label>
+          <input name="our.id" value="#{$one.our_userID}#" type="hidden"/>
+          <input class="required" value="#{$users[$one.our_userID]}#" name="our.name" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="#{$smarty.const.ACT}#/User/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="our" readonly="readonly"/>
-			</p>
-			<p>
-				<label>建档时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.adt}#" readonly="readonly"/>
-			</p>			
-			</fieldset>
-			<div class="divider"></div>			
-		<div class="tabs">
-			<div class="tabsHeader">
-				<div class="tabsHeaderContent">
-					<ul>
-						<li class="selected"><a href="javascript:void(0)"><span>订单明细</span></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="tabsContent" style="height: 220px;">
-				<div>
-					<table class="list nowrap itemDetail" addButton="添加产品行数" width="100%">
-						<thead>
-							<tr>
-								<th type="lookup" name="items.name[]" lookupGroup="items" lookupUrl="#{$smarty.const.ACT}#/Product/lookup_search/" suggestFields="name[],pro_number[],model[],norm[],price[]" fieldClass="required">产品名称</th>
-								<th type="text" name="items.pro_number[]" size="12" fieldClass="required">产品编号</th>
-								<th type="text" name="items.model[]"  size="12" >型号</th>
-								<th type="text" name="items.norm[]"  size="12" >规格</th>
-								<th type="calculate" name="items.price[]" size="5" fieldClass="digits required">单 价(￥)</th>
-								<th type="calculate" name="items.orgCount[]" fieldClass="required digits" size="4">數 量</th>
-								<th type="calculate" name="items.orgDiscount[]" size="2">折 扣(%)</th>
-								<th type="text" name="items.orgTotal[]" size="8" readOnly>金 额(￥)</th>
-								<th onclick="calculate(this,1)" type="del" fieldClass="refreshAmount">删行</th>
-							</tr>
-						</thead>
-						<tbody>
-						#{foreach from=$list key=k item=v}#
-							<tr class="unitBox">
-								<td>
-								<input  name="items.name[]" type="text" postField="keyword" suggestFields="items.name[],pro_number[],model[],norm[],price[]" fieldClass="required" suggestUrl="#{$smarty.const.ACT}#/Product/lookup_search/" lookupGroup="items" class="required" value="#{$v.name}#" size="12"/>
-								<a class="btnLook" href="#{$smarty.const.ACT}#/Product/lookup_search/" lookupGroup="items" suggestFields="items.name[],pro_number[],model[],norm[],price[]" suffix="[]" >查找带回</a>									
-								</td>
-								<td><input type="text" name="items.pro_number[]" value="#{$v.pro_number}#" size="12" class="textInput"></td>
-								<td><input type="text" name="items.model[]"  size="12" value="#{$v.model}#"></td>
-								<td><input type="text" name="items.norm[]"  size="12" value="#{$v.norm}#"></td>
-								<td><input type="text" name="items.price[]" size="5" value="#{$v.price}#" onkeyup="calculate(this, 0);"  Class="digits required"></td>
-								<td><input type="text" name="items.orgCount[]" value="#{$v.number}#" onkeyup="calculate(this, 0);"  size="4" Class="digits required"> </td>
-								<td><input type="text" name="items.orgDiscount[]"  value="#{$v.rebate}#" onkeyup="calculate(this, 0);"  size="2"></td>
-								<td><input type="text" name="items.orgTotal[]" value="#{$v.money}#" size="8" readOnly></th>
-								<td><a href="javascript:void(0)" onclick="calculate(this, 1);" class="btnDel"></a></th>	
-						    </tr>
-						  #{/foreach}#					
-						</tbody>
-					</table>
-				</div>
-				
-				
-			</div>
-			<div class="tabsFooter">
-				<div class="tabsFooterContent"></div>
-			</div>
-		</div>
-		
-	</div>
-	<div class="formBar">
-<label style="float:left">累计数量:<input name="total_nums" size="3" type="text" readonly="readonly" /></label>
-    <label style="float:left">  折扣金额:<input name="odd_amount" size="5" type="text" /></label>
-    <label style="float:left">  应付金额:<input name="total_amount" size="8" type="text" readonly="readonly" /></label>
-    <label style="float:left">  实付金额:<input name="trade_amount" size="8" type="text" /></label>
-<!--    <label style="float:left">  制单人:<input name="createMan" value="{$Think.session.loginUserName}" size="10" type="text" readonly="true" /></label>    
+        </p>
+        <p>
+          <label>建档时间：</label>
+          <input name="title" class="required" type="text" value="#{$one.adt}#" readonly="readonly"/>
+        </p>
+      </fieldset>
+      <div class="divider"></div>
+      <div class="tabs">
+        <div class="tabsHeader">
+          <div class="tabsHeaderContent">
+            <ul>
+              <li class="selected"><a href="javascript:void(0)"><span>订单明细</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="tabsContent">
+          <div>
+            <table class="list nowrap itemDetail" addButton="添加产品行数" width="100%">
+              <thead>
+                <tr>
+                  <th type="lookup" name="items.name[]" lookupGroup="items" lookupUrl="#{$smarty.const.ACT}#/Product/lookup_search/" suggestFields="name[],pro_number[],model[],norm[],price[]" fieldClass="required">产品名称</th>
+                  <th type="text" name="items.pro_number[]" size="12" fieldClass="required">产品编号</th>
+                  <th type="text" name="items.model[]"  size="12" >型号</th>
+                  <th type="text" name="items.norm[]"  size="12" >规格</th>
+                  <th type="calculate" name="items.price[]" size="5" fieldClass="digits required">单 价(￥)</th>
+                  <th type="calculate" name="items.orgCount[]" fieldClass="required digits" size="4">數 量</th>
+                  <th type="calculate" name="items.orgDiscount[]" size="2">折 扣(%)</th>
+                  <th type="text" name="items.orgTotal[]" size="8" readOnly>金 额(￥)</th>
+                  <th onclick="calculate(this,1)" type="del" fieldClass="refreshAmount">删行</th>
+                </tr>
+              </thead>
+              <tbody>
+              #{foreach from=$list key=k item=v}#
+              <tr class="unitBox">
+                <td><input  name="items.name[]" type="text" postField="keyword" suggestFields="items.name[],pro_number[],model[],norm[],price[]" fieldClass="required" suggestUrl="#{$smarty.const.ACT}#/Product/lookup_search/" lookupGroup="items" class="required" value="#{$v.name}#" size="12"/><a class="btnLook" href="#{$smarty.const.ACT}#/Product/lookup_search/" lookupGroup="items" suggestFields="items.name[],pro_number[],model[],norm[],price[]" suffix="[]" >查找带回</a></td>
+                <td><input type="text" name="items.pro_number[]" value="#{$v.pro_number}#" size="12" class="textInput"></td>
+                <td><input type="text" name="items.model[]"  size="12" value="#{$v.model}#"></td>
+                <td><input type="text" name="items.norm[]"  size="12" value="#{$v.norm}#"></td>
+                <td><input type="text" name="items.price[]" size="5" value="#{$v.price}#" onkeyup="calculate(this, 0);"  Class="digits required"></td>
+                <td><input type="text" name="items.orgCount[]" value="#{$v.number}#" onkeyup="calculate(this, 0);"  size="4" Class="digits required"></td>
+                <td><input type="text" name="items.orgDiscount[]"  value="#{$v.rebate}#" onkeyup="calculate(this, 0);"  size="2"></td>
+                <td><input type="text" name="items.orgTotal[]" value="#{$v.money}#" size="8" readOnly>
+                  </th>
+                <td><a href="javascript:void(0)" onclick="calculate(this, 1);" class="btnDel"></a>
+                  </th>
+              </tr>
+              #{/foreach}#
+              </tbody>
+              
+            </table>
+          </div>
+        </div>
+        <div class="tabsFooter">
+          <div class="tabsFooterContent"></div>
+        </div>
+      </div>
+    </div>
+    <div class="formBar">
+      <label style="float:left">累计数量:
+        <input name="total_nums" size="3" type="text" readonly="readonly" />
+      </label>
+      <label style="float:left"> 折扣金额:
+        <input name="odd_amount" size="5" type="text" />
+      </label>
+      <label style="float:left"> 应付金额:
+        <input name="total_amount" size="8" type="text" readonly="readonly" />
+      </label>
+      <label style="float:left"> 实付金额:
+        <input name="trade_amount" size="8" type="text" />
+      </label>
+<!--          <label style="float:left">  制单人:<input name="createMan" value="{$Think.session.loginUserName}" size="10" type="text" readonly="true" /></label>    
 	<label style="float: left;">  入库:<input type="checkbox" id="goStock" name="goStock" value="1" checked="checked" /></label>
     <label style="float: left;">   付款:<input type="checkbox" id="goFunds" name="goFunds" value="1" checked="checked" /></label>
     <label style="float:left">   付款账户:
@@ -112,13 +117,25 @@
 	    <option value="{$vu.id}">{$vu.bankname}</option>
      </volist>
 	</SELECT>-->
-    </label>
-		<ul>
-			<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
-			<li><div class="button"><div class="buttonContent"><button class="close" type="button">关闭</button></div></div></li>
-		</ul>
-	</div>
-</div>
+      </label>
+      <ul>
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button class="close" type="button">关闭</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </form>
 <script type="text/javascript">
 <!--

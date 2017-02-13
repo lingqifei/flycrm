@@ -60,6 +60,18 @@ class CstFiling extends Action{
 			$smarty  			= $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_filing/cst_filing_show.html');	
+	}
+
+	public function cst_filing_show_box(){
+			$assArr  			= $this->cst_filing();
+			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] 	= $this->cst_filing_status();
+			$assArr["chance"] 	= $this->L("CstChance")->cst_chance_arr();
+			$assArr["users"] 	= $this->L("User")->user_arr();
+			$smarty  			= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_filing/cst_filing_show_box.html');	
 	}		
 	
 	public function cst_filing_add(){

@@ -18,8 +18,13 @@ class CstChance extends Action{
 		$cus_name	   	   = $this->_REQUEST("cus_name");
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
+		
 		$where_str = " s.cusID=c.id and s.create_userID in (".SYS_USER_VIEW.")";
-
+		
+		$cusID = $this->_REQUEST("cusID");
+		if(!empty($cusID) ){
+			$where_str .=" and s.cusID='$cusID'";
+		}
 		if( !empty($searchValue) ){
 			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
 		}
@@ -54,7 +59,18 @@ class CstChance extends Action{
 			$smarty  			= $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_chance/cst_chance_show.html');	
-	}		
+	}	
+	
+	public function cst_chance_show_box(){
+			$assArr  			= $this->cst_chance();
+			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] 	= $this->cst_chance_status();
+			$assArr["users"] 	= $this->L("User")->user_arr();
+			$smarty  			= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_chance/cst_chance_show_box.html');	
+	}	
 	
 	public function cst_chance_add(){
 		

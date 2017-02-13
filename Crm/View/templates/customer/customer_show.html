@@ -55,13 +55,16 @@
       <li class="line">line</li>
       <li><a class="people" href="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="dialog" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
       <li class="line">line</li>
-      <li><a class="pro" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
+      <li><a class="pro" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
+       <li class="line">line</li>
+      <li><a class="search" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+        <th width="50">操作</th>
         <th width="120">客户名称</th>
         <th width="120">电话</th>
         <th width="120">传真</th>
@@ -71,7 +74,7 @@
         <th width="100">经济类型</th>
         <th width="100">所属行业</th>
         <th width="150">地址</th>
-        <th width="100">操作</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -79,6 +82,8 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
+      <td>
+        <a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.id}#/" class="btnLook" rel="dlg_page1" title="#{$v.name}#" width="880" height="480">查看</a></td>
       <td>#{$v.name}#</td>
       <td>#{$v.tel}#</td>
       <td>#{$v.fax}#</td>
@@ -88,7 +93,7 @@
       <td>#{$dict[$v.ecotype]}#</td>
       <td>#{$dict[$v.trade]}#</td>
       <td>#{$v.address}#</td>
-      <td><a title="客户联系人" target="dialog" href="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show/cusID/#{$v.id}#/" class="btnAdd_tr">客户联系人</a> <a title="客户报价管理" target="navTab" href="#{$smarty.const.ACT}#/CstQuoted/cst_quoted_show/cusID/#{$v.id}#/" class="btnInfo">客户报价管理</a> <a target="navTab"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.id}#/" class="btnView" rel="dlg_page1" title="#{$v.name}#" width="800" height="480">查看</a></td>
+      
     </tr>
     #{/foreach}#
       </tbody>
@@ -102,10 +107,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
+      <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
+      <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
+      <option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
+      <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
       </select>
       <span>条，共#{$totalCount}#条</span> </div>
     <div class="pagination" targetType="navTab" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>

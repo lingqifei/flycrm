@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:03:07
+<?php /* Smarty version 2.6.26, created on 2017-02-09 15:50:24
          compiled from cst_chance/cst_chance_show.html */ ?>
-
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
 /CstChance/cst_chance_show/" method="post">
@@ -42,31 +41,32 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstChance/cst_chance_add/" target="navTab" rel="cst_chance_add" title="销售机会添加"><span>添加</span></a></li>
-      <li><a class="delete" href="<?php echo @ACT; ?>
-/CstChance/cst_chance_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
-      <li><a class="edit" href="<?php echo @ACT; ?>
-/CstChance/cst_chance_modify/id/{sid_user}/" target="navTab" rel="cst_chance_modify"  title="销售机会修改"><span>修改</span></a></li>
+/CstChance/cst_chance_add/" target="dialog" rel="cst_chance_add" title="销售机会添加" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
+      <li><a class="delete" href="<?php echo @ACT; ?>
+/CstChance/cst_chance_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
+      <li><a class="edit" href="<?php echo @ACT; ?>
+/CstChance/cst_chance_modify/id/{sid_user}/" target="dialog" rel="cst_chance_modify"  title="销售机会修改"><span>修改</span></a></li>
+      <li class="line">line</li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-		<th width="120">机会主题</th>
-        <th width="120">客户名称</th>
+		<th width="150">机会主题</th>
+        <th width="150">客户名称</th>
         <th width="80">联系人</th>
-        <th width="80">发现时间</th>
+        <th width="140">发现时间</th>
         <th width="150">客户需求</th>
-        <th width="80">预计签单时间</th>
+        <th width="140">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
-		<th width="60">当前阶段</th>
-		<th width="100">状态</th>
+		<th width="80">当前阶段</th>
+		<th width="80">状态</th>
 		<th width="80">建档人员</th>
-		<th width="80">建档时间</th>
+		<th width="140">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -117,10 +117,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

@@ -26,13 +26,13 @@
 			<p>
 				<label>联系人：</label>
 				<input name="linkman.id" value="#{$one.linkmanID}#" type="hidden"/>
-				<input class="required" value="#{$linkman[$one.linkmanID]}#" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
+				<input name="linkman.name"  value="#{$linkman[$one.linkmanID]}#" type="text" postField="keyword" suggestFields="name" 
 					suggestUrl="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="linkman"/>
 			</p>
 			<p>
 				<label>销售机会：</label>
 				<input name="chance.id" value="#{$one.chanceID}#" type="hidden"/>
-				<input class="required" value="#{$chance[$one.chanceID]}#" name="chance.title" type="text" postField="keyword" suggestFields="title" 
+				<input value="#{$chance[$one.chanceID]}#" name="chance.title" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="#{$smarty.const.ACT}#/CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance"/>
 			</p>
 			<p>

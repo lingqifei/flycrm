@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-23 18:24:05
+<?php /* Smarty version 2.6.26, created on 2017-02-07 16:35:18
          compiled from customer/customer_show.html */ ?>
 
 <div class="pageHeader">
@@ -64,6 +64,9 @@
 /CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="dialog" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
       <li class="line">line</li>
       <li><a class="pro" href="<?php echo @ACT; ?>
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
+       <li class="line">line</li>
+      <li><a class="search" href="<?php echo @ACT; ?>
 /CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
     </ul>
   </div>
@@ -71,6 +74,7 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+        <th width="50">操作</th>
         <th width="120">客户名称</th>
         <th width="120">电话</th>
         <th width="120">传真</th>
@@ -80,7 +84,7 @@
         <th width="100">经济类型</th>
         <th width="100">所属行业</th>
         <th width="150">地址</th>
-        <th width="100">操作</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -92,6 +96,11 @@
 ">
       <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
 " type="checkbox"></td>
+      <td>
+        <a target="dialog"  href="<?php echo @ACT; ?>
+/Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
+/" class="btnLook" rel="dlg_page1" title="<?php echo $this->_tpl_vars['v']['name']; ?>
+" width="880" height="480">查看</a></td>
       <td><?php echo $this->_tpl_vars['v']['name']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['tel']; ?>
@@ -110,14 +119,7 @@
 </td>
       <td><?php echo $this->_tpl_vars['v']['address']; ?>
 </td>
-      <td><a title="客户联系人" target="dialog" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnAdd_tr">客户联系人</a> <a title="客户报价管理" target="navTab" href="<?php echo @ACT; ?>
-/CstQuoted/cst_quoted_show/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnInfo">客户报价管理</a> <a target="navTab"  href="<?php echo @ACT; ?>
-/Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnView" rel="dlg_page1" title="<?php echo $this->_tpl_vars['v']['name']; ?>
-" width="800" height="480">查看</a></td>
+      
     </tr>
     <?php endforeach; endif; unset($_from); ?>
       </tbody>
@@ -133,10 +135,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

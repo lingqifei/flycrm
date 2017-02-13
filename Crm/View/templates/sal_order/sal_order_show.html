@@ -37,7 +37,9 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="#{$smarty.const.ACT}#/SalOrder/sal_order_add/" target="navTab" rel="sal_order_add" title="订单添加"><span>添加</span></a></li>
+      <li class="line">line</li>
       <li><a class="delete" href="#{$smarty.const.ACT}#/SalOrder/sal_order_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
+      <li class="line">line</li>
       <li><a class="edit" href="#{$smarty.const.ACT}#/SalOrder/sal_order_modify/id/{sid_user}/" target="navTab" rel="sal_order_modify" title="订单修改"><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
@@ -46,23 +48,22 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="100">主题</th>
-		<th width="80">订单编号</th>
-        <th width="120">客户名称</th>
-        <th width="80">接收人</th>
+	 	<th width="150">主题</th>
+		<th width="120">订单编号</th>
+        <th width="100">客户名称</th>
         <th width="80">销售机会</th>
-        <th width="80">合同金额</th>
-		<th width="80">去零金额</th>
-		<th width="80">回款金额</th>
-		<th width="80">付款金额</th>
-		<th width="80">开票金额</th>
-		<th width="80">签订时间</th>
-		<th width="80">发货时间</th>
-		<th width="60">我方代表</th>
-		<th width="60">状态</th>
-		<th width="80">付款状态</th>
-		<th width="80">发货状态</th>
-		<th width="80">开票状态</th>
+        <th width="70">总金额</th>
+		<th width="70">去零金额</th>
+		<th width="70">回款金额</th>
+		<th width="70">发货金额</th>
+		<th width="70">开票金额</th>
+		<th width="90">签订时间</th>
+		<th width="90">发货时间</th>
+		<th width="70">我方代表</th>
+		<th width="70">订单状态</th>
+		<th width="70">付款状态</th>
+		<th width="70">发货状态</th>
+		<th width="70">开票状态</th>
  		<th width="80">操作</th>
       </tr>
     </thead>
@@ -71,12 +72,11 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-	  <td>#{$v.title}#</td>
+	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/SalOrder/sal_order_show_one/id/#{$v.id}#/" class="btnLook" rel="sal_order_show_one" title="#{$v.name}#" width="880" height="480">查看销售订单</a>#{$v.title}#</td>
 	  <td>#{$v.ord_number}#</td>
 	  <td>#{$customer[$v.cusID]}#</td>
-	  <td>#{$linkman[$v.linkmanID]}#</td>
       <td>#{$chance[$v.chanceID]}#</td>
-	  <td>#{$money[$v.id]}#</td>
+	  <td>#{$v.money}#</td>
 	  <td>#{$v.zero_money}#</td>
 	  <td>#{$v.back_money}#</td>
 	  <td>#{$v.pay_money}#</td>
@@ -102,12 +102,13 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
+      <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
+      <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
+      <option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
+      <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
       </select>
-      <span>条，共#{$totalCount}#条</span> </div>
+      <span>条，共#{$totalCount}#条,#{$count_str}#</span> </div>
     <div class="pagination" targetType="navTab" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>
   </div>
 </div>

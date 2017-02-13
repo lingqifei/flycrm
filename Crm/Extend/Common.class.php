@@ -35,34 +35,7 @@ class Common {
 		echo "<script>";
 		echo "alertMsg.$type('$message');";
 		echo "navTab.closeCurrentTab();";
-		echo "</script>";
-/*		if($callbackType) echo "\$.pdialog.closeCurrent();";
-		echo "navTab.closeCurrentTab();";
-		echo "</script>";
-echo <<<EOD
-<textarea style="width:95%;height:200px">
-零起飞客户关系管理系统
-
-在线演示地址	http://www.lingqifei.com/
-下载地址	http://code.google.com/p/dwz/
-
-官方微博： http://weibo.com/dwzui
-
-零起飞i创始人：
-	[北京]杜权(UI设计)		d@j-ui.com
-	[杭州]吴平(Ajax开发)	w@j-ui.com
-	[北京]张慧华(Ajax开发)	z@j-ui.com
-
-新加入成员：
-	[北京]张涛	QQ:122794105
-	[北京]冀刚	QQ:63502308	jiweigang2008@tom.com
-	[北京]郑应海	QQ:55691650
-	[成都]COCO	QQ:80095667
-	
-有问题尽量发邮件或微博	
-</textarea>
-EOD;*/
-		
+		echo "</script>";		
 	}
 }
 ?>

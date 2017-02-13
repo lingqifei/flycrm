@@ -36,6 +36,7 @@ class CstService extends Action{
 			$where_str .=" and s.cusID='$cusID'";
 			$cus_name	=$this->L("Customer")->customer_get_name($cusID);
 		}		
+		
 		//**************************************************************************
 		$countSql    = "select c.name as cst_name ,s.* from cst_service as s,cst_customer as c where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
@@ -60,7 +61,19 @@ class CstService extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('cst_service/cst_service_show.html');	
 	}		
-	
+
+	//box在显示
+	public function cst_service_show_box(){
+			$assArr  		= $this->cst_service();
+			$assArr["dict"] = $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] = $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"] = $this->cst_service_status();
+			$assArr["statusselect"] = $this->cst_service_status_select("status");
+			$smarty  		= $this->setSmarty();
+			$smarty->assign($assArr);
+			$smarty->display('cst_service/cst_service_show_box.html');	
+	}
+
 	public function cst_service_add(){
 		$cusID 		= $this->_REQUEST("cusID");
 		$cus_name 	= $this->_REQUEST("cus_name");

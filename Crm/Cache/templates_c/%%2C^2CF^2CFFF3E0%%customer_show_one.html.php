@@ -1,180 +1,192 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-23 18:05:39
+<?php /* Smarty version 2.6.26, created on 2017-02-09 12:17:11
          compiled from customer/customer_show_one.html */ ?>
 <div class="tabs">
-  <div class="pageHeader">
-    <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
-/Customer/customer_show/" method="post">
-      <div class="searchBar">
-        <table class="searchContent">
-          <tr>
-            <td>客户名称：</td>
-            <td><?php echo $this->_tpl_vars['one']['name']; ?>
-</td>
-            <td> 客户来源：</td>
-            <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['source']]; ?>
-</td>
-             <td> 客户等级：</td>
-            <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['source']]; ?>
-</td>
-            <td> 经济类型：</td>
-            <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['source']]; ?>
-</td>            
-            <td> 所在行业：</td>
-            <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['source']]; ?>
-</td>    
-          </tr>
-        </table>
-        <div class="subBar"></div>
-        <div class="subBar"></div>
-        <div class="subBar"></div>
-      </div>
-    </form>
-  </div>
   <div class="tabsHeader">
     <div class="tabsHeaderContent">
       <ul>
-        <li><a href="javascript:;"><span>客户管理</span></a></li>
-        <li><a href="javascript:;"><span>销售管理</span></a></li>
-        <li><a href="javascript:;"><span>合同管理</span></a></li>
-        <li><a href="javascript:;"><span>订单管理</span></a></li>
-        <li><a href="javascript:;"><span>随访</span></a></li>
+        <li><a href="javascript:;"><span>基本信息</span></a></li>
+        <li><a href="javascript:;"><span>相关业务</span></a></li>
       </ul>
     </div>
   </div>
   <div class="tabsContent">
     <div>
-      <div layoutH="146" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
-        <ul class="tree treeFolder">
-          <li><a href="javascript">客户管理</a>
-            <ul>
-              <li><a href="<?php echo @ACT; ?>
-/Customer/customer_show/" target="ajax" rel="jbsxBox">客户记录</a></li>
-              <li><a href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/" target="ajax" rel="jbsxBox">联系人</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div id="jbsxBox" class="unitBox" style="margin-left:246px;"> 
-       <!--#include virtual="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/" --> 
-      </div>
+      <form method="post" action="<?php echo @ACT; ?>
+/Customer/customer_modify/id/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layoutH="120">
+          <fieldset>
+            <legend>基础信息：</legend>
+            <p>
+              <label>客户名称：</label>
+              <input name="name" class="required" type="text" size="30" value="<?php echo $this->_tpl_vars['one']['name']; ?>
+" alt="请输名称"/>
+            </p>
+            <p>
+              <label>客户来源：</label>
+              <input name="source.id" value="<?php echo $this->_tpl_vars['one']['source']; ?>
+" type="hidden"/>
+              <input class="required" value="<?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['source']]; ?>
+" name="source.name" type="text" postField="keyword" suggestFields="name" 
+					suggestUrl="<?php echo @ACT; ?>
+/CstDict/cst_dict_select/type/source/" lookupGroup="source"/>
+            </p>
+            <p>
+              <label>客户等级：</label>
+              <input name="level.id" value="<?php echo $this->_tpl_vars['one']['level']; ?>
+" type="hidden"/>
+              <input class="required" value="<?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['level']]; ?>
+" name="level.name" type="text" postField="keyword" suggestFields="name" 
+					suggestUrl="<?php echo @ACT; ?>
+/CstDict/cst_dict_select/type/level/" lookupGroup="level"/>
+            </p>
+            <p>
+              <label>经济类型：</label>
+              <input name="ecotype.id" value="<?php echo $this->_tpl_vars['one']['ecotype']; ?>
+" type="hidden"/>
+              <input class="required" name="ecotype.name"  value="<?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['ecotype']]; ?>
+" type="text" postField="keyword" suggestFields="name" 
+					suggestUrl="<?php echo @ACT; ?>
+/CstDict/cst_dict_select/type/ecotype/" lookupGroup="ecotype"/>
+            </p>
+            <p>
+              <label>所在行业：</label>
+              <input name="trade.id" value="<?php echo $this->_tpl_vars['one']['trade']; ?>
+" type="hidden"/>
+              <input class="required" name="trade.name" value="<?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['one']['trade']]; ?>
+" type="text" postField="keyword" suggestFields="name" 
+					suggestUrl="<?php echo @ACT; ?>
+/CstDict/cst_dict_select/type/trade/" lookupGroup="trade"/>
+            </p>
+            <p>
+              <label>公司网址：</label>
+              <input type="text" name="website" class="url" value="<?php echo $this->_tpl_vars['one']['website']; ?>
+" alt="例如:http://www.07fly.com">
+            </p>
+            <p>
+              <label>联系电话：</label>
+              <input type="text" value="<?php echo $this->_tpl_vars['one']['tel']; ?>
+" name="tel" class="required phone">
+            </p>
+            <p>
+              <label>传真：</label>
+              <input type="text" value="<?php echo $this->_tpl_vars['one']['fax']; ?>
+" name="fax" class="phone">
+            </p>
+            <p>
+              <label>邮箱：</label>
+              <input type="text" value="<?php echo $this->_tpl_vars['one']['email']; ?>
+" name="email" class="email">
+            </p>
+            <p>
+              <label>邮编：</label>
+              <input type="text" value="<?php echo $this->_tpl_vars['one']['zipcode']; ?>
+" name="zipcode">
+            </p>
+            <p>
+              <label>联系地址：</label>
+              <input type="text" value="<?php echo $this->_tpl_vars['one']['address']; ?>
+" name="address" size="30" >
+            </p>
+            <div class="divider"></div>
+            <fieldset>
+              <legend>客户介绍：</legend>
+              <dl class="nowrap">
+                <textarea name="intro" cols="80" rows="5"><?php echo $this->_tpl_vars['one']['intro']; ?>
+</textarea>
+              </dl>
+            </fieldset>
+          </fieldset>
+        </div>
+        <div class="formBar">
+          <ul>
+            <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+            <li>
+              <div class="buttonActive">
+                <div class="buttonContent">
+                  <button type="submit">保存</button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="button">
+                <div class="buttonContent">
+                  <button type="button" class="close">取消</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </form>
     </div>
     <div>
-      <div class="pageHeader" style="border:1px #B8D0D6 solid">
-        <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox');" action="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/" method="post">
-          <input type="hidden" name="pageNum" value="1" />
-          <input type="hidden" name="numPerPage" value="${model.numPerPage}" />
-          <input type="hidden" name="orderField" value="${param.orderField}" />
-          <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
-          <div class="searchBar">
-            <table class="searchContent">
-              <tr>
-                <td class="dateRange"> 尿检日期:
-                  <input type="text" value="" readonly="readonly" class="date" name="dateStart">
-                  <span class="limit">-</span>
-                  <input type="text" value="" readonly="readonly" class="date" name="dateEnd"></td>
-                <td> 尿检结果：
-                  <input type="radio" name="njjg" value="" checked="checked" />
-                  全部
-                  <input type="radio" name="njjg" value="1"/>
-                  阴性
-                  <input type="radio" name="njjg" value="2"/>
-                  阳性 </td>
-                <td> 病人编号：
-                  <input type="text" name="keyword" /></td>
-                <td><div class="buttonActive">
-                    <div class="buttonContent">
-                      <button type="submit">检索</button>
-                    </div>
-                  </div></td>
-              </tr>
-            </table>
-          </div>
-        </form>
-      </div>
-      <div class="panelBar">
-        <ul class="toolBar">
-          <li><a class="add" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_add/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="dialog" rel="cst_linkman_add" width="850" height="450" title="添加<?php echo $this->_tpl_vars['cus_name']; ?>
-联系人"><span>添加</span></a></li>
-          <li class="line">line</li>
-          <li><a class="delete" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_del/" postType="string" title="确实要删除选择这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
-          <li class="line">line</li>
-          <li><a class="edit" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_modify/id/{sid_user}/" target="dialog" rel="cst_linkman_modify" width="850" height="450"><span>修改</span></a></li>
-          <li class="line">line</li>
-        </ul>
-      </div>
-      <table class="table" width="100%" layoutH="260">
-        <thead>
-          <tr>
-            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th width="120">客户</th>
-            <th width="120">姓名</th>
-            <th width="120">性别</th>
-            <th width="120">职务</th>
-            <th width="120">手机</th>
-            <th width="120">QQ</th>
-            <th width="150">邮箱</th>
-          </tr>
-        </thead>
-        <tbody>
-        
-        <?php $_from = $this->_tpl_vars['linkman']['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
-?>
-        <tr target="sid_user" rel="<?php echo $this->_tpl_vars['v']['id']; ?>
-">
-          <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
-" type="checkbox"></td>
-          <td><?php echo $this->_tpl_vars['v']['cst_name']; ?>
-</td>
-          <td><?php echo $this->_tpl_vars['v']['name']; ?>
-</td>
-          <td><?php if ($this->_tpl_vars['v']['gender'] == 1): ?> 男 <?php else: ?> 女 <?php endif; ?> </td>
-          <td><?php echo $this->_tpl_vars['v']['postion']; ?>
-</td>
-          <td><?php echo $this->_tpl_vars['v']['mobile']; ?>
-</td>
-          <td><?php echo $this->_tpl_vars['v']['qicq']; ?>
-</td>
-          <td><?php echo $this->_tpl_vars['v']['email']; ?>
-</td>
-        </tr>
-        <?php endforeach; endif; unset($_from); ?>
-        </tbody>
-        
-      </table>
-      <div class="panelBar">
-        <form id="pagerForm" method="post" action="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/">
-          <input type="hidden" name="pageNum" value="1" />
-          <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['linkman']['numPerPage']; ?>
-" />
-          <input type="hidden" name="orderField" value="${param.orderField}" />
-        </form>
-        <div class="pages"> <span>显示</span>
-          <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox')">
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-          </select>
-          <span>条，共<?php echo $this->_tpl_vars['linkman']['totalCount']; ?>
-条</span> </div>
-        <div class="pagination" targetType="navTab" totalCount="<?php echo $this->_tpl_vars['linkman']['totalCount']; ?>
-" numPerPage="<?php echo $this->_tpl_vars['linkman']['numPerPage']; ?>
-" pageNumShown="10" currentPage="<?php echo $this->_tpl_vars['linkman']['currentPage']; ?>
-"></div>
+    	<div>
+        <div layoutH="36" style="float:left; display:block; overflow:auto; width:180px; border:solid 1px #CCC; line-height:21px; background:#fff">
+          <ul class="tree treeFolder expand">
+            <li><a href="javascript">客户管理</a>
+            	<ul>	
+                <li><a href="<?php echo @ACT; ?>
+/CstLinkman/cst_linkman_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">联系人</a></li>
+                <li><a href="<?php echo @ACT; ?>
+/CstService/cst_service_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">服务记录</a>
+                </li>
+                </ul>
+             </li>
+             <li><a href="javascript">销售管理</a>
+            	<ul>	
+                <li><a href="<?php echo @ACT; ?>
+/CstChance/cst_chance_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">销售机会</a></li>
+                <li><a href="<?php echo @ACT; ?>
+/CstTrace/cst_trace_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">跟踪记录</a>
+                <li><a href="<?php echo @ACT; ?>
+/CstQuoted/cst_quoted_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">产品报价</a></li>
+                <li><a href="<?php echo @ACT; ?>
+/CstFiling/cst_filing_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">项目报备</a>
+                </li>
+                </ul>
+             </li>
+             <li><a href="javascript">合同管理</a>
+            	<ul>	
+                <li><a href="<?php echo @ACT; ?>
+/SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">合同管理</a></li>
+                <li><a href="<?php echo @ACT; ?>
+/SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">交付计划</a>
+                <li><a href="<?php echo @ACT; ?>
+/SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">交付记录</a></li>
+                </ul>
+             </li>
+             <li><a href="javascript">销售订单</a>
+            	<ul>	
+                <li><a href="<?php echo @ACT; ?>
+/SalOrder/sal_order_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">销售订单</a></li>
+                <li><a href="<?php echo @ACT; ?>
+/SalOrder/sal_order_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
+/" target="ajax" rel="jbsxBox_cus">订单明细</a>
+                </ul>
+             </li>
+          </ul>
+        </div>
+        <div id="jbsxBox_cus" class="unitBox" style="margin-left:186px;">
+          
+        </div>
       </div>
     </div>
-    <div>病人服药情况</div>
-    <div>基线调查</div>
-    <div>随访</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
   <div class="tabsFooter">
     <div class="tabsFooterContent"></div>

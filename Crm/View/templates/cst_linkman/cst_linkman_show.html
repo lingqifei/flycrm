@@ -1,4 +1,3 @@
-
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show/" method="post">
     <div class="searchBar">
@@ -79,10 +78,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
+      <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
+      <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
+      <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
+      <option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
+      <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
       </select>
       <span>条，共#{$totalCount}#条</span> </div>
     <div class="pagination" targetType="navTab" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>
