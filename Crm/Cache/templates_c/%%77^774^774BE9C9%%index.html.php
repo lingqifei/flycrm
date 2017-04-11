@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-07-08 15:58:35
+<?php /* Smarty version 2.6.26, created on 2017-02-15 14:02:05
          compiled from index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -284,5 +284,6 @@ $(function(){
 </div>
 <div id="footer"><a href="http://bbs.07fly.com" target="dialog"><?php echo $this->_tpl_vars['sys']['copyright']; ?>
 </a></div>
+<div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
 </body>
 </html>

@@ -1,13 +1,13 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 11:57:01
+<?php /* Smarty version 2.6.26, created on 2017-03-23 11:52:37
          compiled from cst_chance/cst_chance_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>
 /CstChance/cst_chance_show_box/" method="post">
-  <input type="hidden" name="pageNum" value="1" />
-  <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['numPerPage']; ?>
+    <input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['numPerPage']; ?>
 " />
-  <input type="hidden" name="orderField" value="${param.orderField}" />
-  <input type="hidden" name="cusID" value="<?php echo $this->_tpl_vars['cusID']; ?>
+    <input type="hidden" name="orderField" value="${param.orderField}" />
+    <input type="hidden" name="cusID" value="<?php echo $this->_tpl_vars['cusID']; ?>
 " />
     <div class="searchBar">
       <table class="searchContent">
@@ -15,16 +15,14 @@
           <td><select class="combox" name="searchKeyword">
               <option value="title">机会主题</option>
               <option value="intro">客户需求</option>
-			  <option value="chance">可能性</option>
-			  <option value="money">预计金额</option>
-            </select>
-          </td>
-		  <td><input type="text" name="searchValue" /></td>		
+              <option value="chance">可能性</option>
+              <option value="money">预计金额</option>
+            </select></td>
+          <td><input type="text" name="searchValue" /></td>
           <td> 建档时间：
-            <input type="text" class="date" name="bdt" size="15" readonly="true" />
+            <input type="text" class="date" name="bdt" size="15" readonly />
             -
-            <input type="text" class="date" name="edt" size="15" readonly="true" />
-          </td>
+            <input type="text" class="date" name="edt" size="15" readonly /></td>
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -57,17 +55,17 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-		<th width="150">机会主题</th>
+        <th width="150">机会主题</th>
         <th width="80">联系人</th>
         <th width="140">发现时间</th>
         <th width="150">客户需求</th>
         <th width="140">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
-		<th width="80">当前阶段</th>
-		<th width="80">状态</th>
-		<th width="80">建档人员</th>
-		<th width="140">建档时间</th>
+        <th width="80">当前阶段</th>
+        <th width="80">状态</th>
+        <th width="80">建档人员</th>
+        <th width="140">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -79,41 +77,41 @@
 ">
       <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
 " type="checkbox"></td>
-	  <td><?php echo $this->_tpl_vars['v']['title']; ?>
+      <td><?php echo $this->_tpl_vars['v']['title']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
+      <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['finddt']; ?>
+      <td><?php echo $this->_tpl_vars['v']['finddt']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['intro']; ?>
+      <td><?php echo $this->_tpl_vars['v']['intro']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['billdt']; ?>
+      <td><?php echo $this->_tpl_vars['v']['billdt']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['money']; ?>
+      <td><?php echo $this->_tpl_vars['v']['money']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['chance']; ?>
+      <td><?php echo $this->_tpl_vars['v']['chance']; ?>
 %</td>
       <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['v']['salestage']]; ?>
 </td>
       <td><?php echo $this->_tpl_vars['status'][$this->_tpl_vars['v']['status']]; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['users'][$this->_tpl_vars['v']['create_userID']]; ?>
+      <td><?php echo $this->_tpl_vars['users'][$this->_tpl_vars['v']['create_userID']]; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['adt']; ?>
 </td>
     </tr>
     <?php endforeach; endif; unset($_from); ?>
-    </tbody>
+      </tbody>
     
   </table>
   <div class="panelBar">
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox_cus')">
-      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
-      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
-      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
-      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
-      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
+        <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+        <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+        <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+        <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+        <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

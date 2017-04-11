@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 15:11:53
+<?php /* Smarty version 2.6.26, created on 2017-02-15 14:01:04
          compiled from login.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,21 +38,18 @@
     <p class='copyright'>版权所有 零起飞网络</p>
 </div>
     </form>
+    <div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
 </body>
-
 <script type="text/javascript">
 
 $(function(){
-
     $('.rem').click(function(){
         $(this).toggleClass('selected');
     })
-
     $('#signup_select').click(function(){
         $('.form_row ul').show();
         event.cancelBubble = true;
     })
-
     $('#d').click(function(){
         $('.form_row ul').toggle();
         event.cancelBubble = true;
