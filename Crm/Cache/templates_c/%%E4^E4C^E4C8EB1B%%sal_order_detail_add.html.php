@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-07 09:12:28
+<?php /* Smarty version 2.6.26, created on 2017-05-18 15:08:09
          compiled from sal_order_detail/sal_order_detail_add.html */ ?>
 <form  action="<?php echo @ACT; ?>
 /SalOrderDetail/sal_order_detail_add/id/<?php echo $this->_tpl_vars['one']['id']; ?>
@@ -35,8 +35,8 @@
           <label>销售机会：</label>
           <input name="chance.id" value="<?php echo $this->_tpl_vars['one']['chanceID']; ?>
 " type="hidden"/>
-          <input class="required" value="<?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['one']['chanceID']]; ?>
-" name="chance.title" type="text" postField="keyword" suggestFields="title" 
+          <input name="chance.title" value="<?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['one']['chanceID']]; ?>
+"  type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="<?php echo @ACT; ?>
 /CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance" readonly="readonly"/>
         </p>

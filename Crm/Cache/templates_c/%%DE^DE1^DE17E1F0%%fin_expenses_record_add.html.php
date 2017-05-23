@@ -1,10 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 21:02:44
+<?php /* Smarty version 2.6.26, created on 2017-05-22 15:38:08
          compiled from fin_expenses_record/fin_expenses_record_add.html */ ?>
-<h2 class="contentTitle">支出记录添加</h2>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
-/FinExpensesRecord/fin_expenses_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-		<div class="pageFormContent nowrap" layoutH="97">
+/FinExpensesRecord/fin_expenses_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="56">
 			<fieldset>
 			<legend>基础信息：</legend>	
 			<dl>

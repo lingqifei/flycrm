@@ -11,32 +11,42 @@ class FinInvoicePay extends Action{
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
 		
-		$where_str	 = " 0=0 ";
 		if($id){
-		$where_str  .= " and id in($id)";
+			$where_str  = " id in($id)";
+		}else{
+			$where_str  = " id>0";
 		}
+		$busID		=$this->_REQUEST("busID");
+		$busType	=$this->_REQUEST("busType");	
 		
-		$countSql    = "select id from fin_invoice_pay where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+		if($busID){
+			$where_str .=" and salID='$busID'";
+		}
+		if($busType){
+			$where_str .=" and busType='$busType'";
+		}			
+		$countSql   = "select id from fin_invoice_pay where $where_str";
+		$totalCount = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 	
-		$moneySql    = "select sum(money) as sum_money from fin_invoice_pay where $where_str";
-		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
+		$moneySql   = "select sum(money) as sum_money from fin_invoice_pay where $where_str";
+		$moneyRs	= $this->C($this->cacheDir)->findOne($moneySql);
 		
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from fin_invoice_pay where $where_str order by id desc limit $beginRecord,$numPerPage";	
-		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		$sql		= "select * from fin_invoice_pay where $where_str order by id desc limit $beginRecord,$numPerPage";	
+		$list		= $this->C($this->cacheDir)->findAll($sql);
 		//供应商
 		$customer= array();
 		$salorder= array();
 		if(is_array($list)){
 			foreach($list as $key=>$row){
-				$list[$key]["create_user"]	  = $this->L("User")->user_get_name($row['create_userID']);
+				$list[$key]["create_user"] 	= $this->L("User")->user_get_name($row['create_userID']);
+				$list[$key]["business"]		= $this->L("FinFlowLinkBusiness")->fin_flow_link_bus($row['salID'],$row['busType']);
 				$customer[$row['id']] = $this->L("Customer")->customer_get_name($row['cusID']);
 				$salorder[$row['id']] = $this->L("SalOrder")->sal_order_get_name($row['salID']);
 			}
 		}
 		$assignArray = array('list'=>$list,'total_money'=>$moneyRs["sum_money"],
-								'customer'=>$customer,'salorder'=>$salorder,'customer'=>$customer,'customer'=>$customer,
+								'customer'=>$customer,'salorder'=>$salorder,'customer'=>$customer,
 								"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 	}
@@ -48,25 +58,7 @@ class FinInvoicePay extends Action{
 	}		
 	//主要用于BOX局部调用
 	public function fin_invoice_pay_show_box(){
-			
-			$busID	=$this->_REQUEST("busID");
-			$busType=$this->_REQUEST("busType");
-			if($busType=="sal_order"){
-				$where_str=" and type='sal_order';";
-			}elseif($busType=="sal_contract"){
-				$where_str=" and type='sal_contract';";
-			}
-			$sql	="select invID from fin_invoice_pay_list where busID='$busID' $where_str";
-			$id_list=$this->C($this->cacheDir)->findAll($sql);	
-			$id_str =array("1.1");
-			foreach($id_list as $row){
-				$id_str[]=$row["invID"];
-			}
-			$id_str = implode(",",$id_str);
-			
-			$list	= $this->fin_invoice_pay($id_str);
-			$list["busID"] 	 = $busID;
-			$list["busType"] = $busType;			
+			$list	= $this->fin_invoice_pay();		
 			$smarty = $this->setSmarty();
 			$smarty->assign($list);
 			$smarty->display('fin_invoice_pay/fin_invoice_pay_show_box.html');	
@@ -88,22 +80,21 @@ class FinInvoicePay extends Action{
 			$sal_type	=$this->_REQUEST("order_type");
 			$salID		=$this->_REQUEST("order_id");
 			$invo_number=$this->_REQUEST("invo_number");
-			$invo_money	=$this->_REQUEST("order_now_bill_money");
+			$invo_money	=$this->_REQUEST("order_now_bill_money");//当次开票金额
 			$intro		=$this->_REQUEST("intro");	
 			
 			$sql= "insert into fin_invoice_pay(cusID,salID,paydate,money,stages,invo_number,
-												name,intro,adt,create_userID) 
+												busType,name,intro,adt,create_userID) 
 								values('$cusID','$salID','$paydate','$invo_money','$stages','$invo_number',
-										'$name','$intro','".NOWTIME."','".SYS_USER_ID."');";
+								'$sal_type','$name','$intro','".NOWTIME."','".SYS_USER_ID."');";
 			$invoID=$this->C($this->cacheDir)->update($sql);
 			if($invoID>0){
-				$this->fin_invoice_pay_list_add($sal_type,$invoID,$salID,$cusID);
 				if($sal_type=="sal_order"){
-					$this->L("SalOrder")->sal_order_invo_modify($salID,$paymoney);//更改订单发票
+					$this->L("SalOrder")->sal_order_invo_modify($salID,$invo_money);//更改订单发票
 				}elseif($sal_type=="sal_contract"){
-					$this->L("SalContract")->sal_contract_invo_modify($salID,$paymoney);//更改合同发票金额
+					$this->L("SalContract")->sal_contract_invo_modify($salID,$invo_money);//更改合同发票金额
 				}
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinPayRecord/fin_invoice_pay_show/");	
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinPayRecord/fin_invoice_pay_show/");	
 			}
 		}
 	}	
@@ -129,8 +120,8 @@ class FinInvoicePay extends Action{
 		}
 	}	
 	public function fin_invoice_pay_del(){
-		$id=$this->_REQUEST("id");
-		$sql="delete from fin_invoice_pay where id='$id'";
+		$id =$this->_REQUEST("ids");
+		$sql="delete from fin_invoice_pay where  id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/FinInvoicePay/fin_invoice_pay_show/");	
 	}	

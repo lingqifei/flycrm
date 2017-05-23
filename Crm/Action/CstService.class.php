@@ -64,12 +64,12 @@ class CstService extends Action{
 
 	//box在显示
 	public function cst_service_show_box(){
-			$assArr  		= $this->cst_service();
-			$assArr["dict"] = $this->L("CstDict")->cst_dict_arr();
-			$assArr["linkman"] = $this->L("CstLinkman")->cst_linkman_arr();
-			$assArr["status"] = $this->cst_service_status();
+			$assArr  				= $this->cst_service();
+			$assArr["dict"] 		= $this->L("CstDict")->cst_dict_arr();
+			$assArr["linkman"] 		= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["status"]		= $this->cst_service_status();
 			$assArr["statusselect"] = $this->cst_service_status_select("status");
-			$smarty  		= $this->setSmarty();
+			$smarty = $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_service/cst_service_show_box.html');	
 	}

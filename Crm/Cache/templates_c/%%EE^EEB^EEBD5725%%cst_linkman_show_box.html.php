@@ -1,7 +1,8 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 10:07:28
+<?php /* Smarty version 2.6.26, created on 2017-05-12 22:52:29
          compiled from cst_linkman/cst_linkman_show_box.html */ ?>
 <div class="pageHeader">
-  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');"  action="<?php echo @ACT; ?>
+  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus_<?php echo $this->_tpl_vars['cusID']; ?>
+');"  action="<?php echo @ACT; ?>
 /CstLinkman/cst_linkman_show_box/" method="post">
       <input type="hidden" name="pageNum" value="1" />
       <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['numPerPage']; ?>
@@ -95,7 +96,8 @@
   </table>
   <div class="panelBar">
     <div class="pages"> <span>显示</span>
-      <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox_cus')">
+      <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox_cus_<?php echo $this->_tpl_vars['cusID']; ?>
+')">
       <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
       <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
       <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
@@ -104,7 +106,8 @@
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>
-    <div class="pagination" targetType="dialog" rel="jbsxBox_cus" totalCount="<?php echo $this->_tpl_vars['totalCount']; ?>
+    <div class="pagination" targetType="dialog" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['cusID']; ?>
+" totalCount="<?php echo $this->_tpl_vars['totalCount']; ?>
 " numPerPage="<?php echo $this->_tpl_vars['numPerPage']; ?>
 " pageNumShown="10" currentPage="<?php echo $this->_tpl_vars['currentPage']; ?>
 "></div>

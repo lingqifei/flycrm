@@ -207,7 +207,6 @@ class SalOrder extends Action{
 			default:
 		}
 		$sql	= "select id,title as name,money,bill_money,zero_money,back_money,(money-zero_money-back_money) as now_back_money,(money-zero_money-bill_money) as now_bill_money from sal_order where cusID='$cusID' $where_str order by id asc;";
-
 		$list	=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}

@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-11-18 21:32:47
+<?php /* Smarty version 2.6.26, created on 2017-05-13 00:08:24
          compiled from cst_trace/cst_trace_modify.html */ ?>
-<div class="divider"></div>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /CstTrace/cst_trace_modify/id/<?php echo $this->_tpl_vars['one']['id']; ?>

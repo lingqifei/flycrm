@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 12:17:11
+<?php /* Smarty version 2.6.26, created on 2017-05-12 22:11:46
          compiled from customer/customer_show_one.html */ ?>
 <div class="tabs">
   <div class="tabsHeader">
@@ -127,10 +127,12 @@
             	<ul>	
                 <li><a href="<?php echo @ACT; ?>
 /CstLinkman/cst_linkman_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">联系人</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">联系人</a></li>
                 <li><a href="<?php echo @ACT; ?>
 /CstService/cst_service_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">服务记录</a>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">服务记录</a>
                 </li>
                 </ul>
              </li>
@@ -138,16 +140,20 @@
             	<ul>	
                 <li><a href="<?php echo @ACT; ?>
 /CstChance/cst_chance_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">销售机会</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">销售机会</a></li>
                 <li><a href="<?php echo @ACT; ?>
 /CstTrace/cst_trace_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">跟踪记录</a>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">跟踪记录</a>
                 <li><a href="<?php echo @ACT; ?>
 /CstQuoted/cst_quoted_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">产品报价</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">产品报价</a></li>
                 <li><a href="<?php echo @ACT; ?>
 /CstFiling/cst_filing_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">项目报备</a>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">项目报备</a>
                 </li>
                 </ul>
              </li>
@@ -155,28 +161,34 @@
             	<ul>	
                 <li><a href="<?php echo @ACT; ?>
 /SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">合同管理</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">合同管理</a></li>
                 <li><a href="<?php echo @ACT; ?>
 /SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">交付计划</a>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">交付计划</a>
                 <li><a href="<?php echo @ACT; ?>
 /SalContract/sal_contract_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">交付记录</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">交付记录</a></li>
                 </ul>
              </li>
              <li><a href="javascript">销售订单</a>
             	<ul>	
                 <li><a href="<?php echo @ACT; ?>
 /SalOrder/sal_order_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">销售订单</a></li>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">销售订单</a></li>
                 <li><a href="<?php echo @ACT; ?>
 /SalOrder/sal_order_show_box/cusID/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" target="ajax" rel="jbsxBox_cus">订单明细</a>
+/" target="ajax" rel="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+">订单明细</a>
                 </ul>
              </li>
           </ul>
         </div>
-        <div id="jbsxBox_cus" class="unitBox" style="margin-left:186px;">
+        <div id="jbsxBox_cus_<?php echo $this->_tpl_vars['one']['id']; ?>
+" class="unitBox" style="margin-left:186px;">
           
         </div>
       </div>

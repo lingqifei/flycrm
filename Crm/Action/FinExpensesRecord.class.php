@@ -55,11 +55,12 @@ class FinExpensesRecord extends Action{
 			$blankID	=$this->_REQUEST("blank_id");
 			$intro		=$this->_REQUEST("intro");	
 			
-			$sql= "insert into fin_expenses_record(typeID,blankID,crt_date,money,intro,adt,create_userID) 
+			$sql="insert into fin_expenses_record(typeID,blankID,crt_date,money,intro,adt,create_userID) 
 								values('$typeID','$blankID','$crt_date','$money','$intro','".NOWTIME."','".SYS_USER_ID."');";
-			if($this->C($this->cacheDir)->update($sql)>0){
-				$this->L("FinFlowRecord")->fin_flow_record_add('pay',$money,$blankID,$typeID);//添加流水
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinPayRecord/fin_expenses_record_show/");	
+			$rtn=$this->C($this->cacheDir)->update($sql);
+			if($rtn>0){
+				$this->L("FinFlowRecord")->fin_flow_record_add('pay',$money,$blankID,$rtn,'fin_expenses_record');//添加流水
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinExpensesRecord/fin_expenses_record_show/");	
 			}
 		}
 	}	

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-23 11:52:37
+<?php /* Smarty version 2.6.26, created on 2017-05-22 09:10:34
          compiled from cst_chance/cst_chance_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>
@@ -41,7 +41,8 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a target="dialog" class="add" href="<?php echo @ACT; ?>
-/CstChance/cst_chance_add/" rel="cst_chance_add" title="销售机会添加" width="800" height="400"><span>添加</span></a></li>
+/CstChance/cst_chance_add/cusID/<?php echo $this->_tpl_vars['cusID']; ?>
+/" rel="cst_chance_add" title="销售机会添加" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
       <li><a class="delete"  href="<?php echo @ACT; ?>
 /CstChance/cst_chance_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>

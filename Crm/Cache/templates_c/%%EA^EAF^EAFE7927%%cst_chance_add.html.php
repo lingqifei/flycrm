@@ -1,15 +1,17 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-23 11:54:11
+<?php /* Smarty version 2.6.26, created on 2017-05-18 15:14:11
          compiled from cst_chance/cst_chance_add.html */ ?>
 <div class="pageContent">
   <form method="post" action="<?php echo @ACT; ?>
-/CstChance/cst_chance_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+/CstChance/cst_chance_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
     <div class="pageFormContent" layoutH="56">
       <fieldset>
         <legend>基础信息：</legend>
         <p>
           <label>客户名称：</label>
-          <input id="cusID" name="org.id" value="" type="hidden"/>
-          <input name="org.name" type="text" class="required"/>
+          <input id="cusID" name="org.id" value="<?php echo $this->_tpl_vars['cusID']; ?>
+" type="hidden"/>
+          <input name="org.name" type="text" value="<?php echo $this->_tpl_vars['cus_name']; ?>
+" class="required"/>
           <a class="btnLook" href="<?php echo @ACT; ?>
 /Customer/lookup_search/" lookupGroup="org">选择供应商</a> </p>
         <p>

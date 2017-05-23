@@ -53,11 +53,11 @@
       <li class="line">line</li>
       <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
       <li class="line">line</li>
-      <li><a class="people" href="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="dialog" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
+      <li><a class="people" href="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="navTab" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
       <li class="line">line</li>
-      <li><a class="pro" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
+      <li><a class="pro" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
        <li class="line">line</li>
-      <li><a class="search" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
+      <li><a class="search" href="#{$smarty.const.ACT}#/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -83,7 +83,7 @@
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
       <td>
-        <a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.id}#/" class="btnLook" rel="dlg_page1" title="#{$v.name}#" width="880" height="480">查看</a></td>
+        <a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.id}#/" rel="customer_show_one_#{$v.id}#" class="btnLook" title="#{$v.name}#" width="980" height="480">查看</a></td>
       <td>#{$v.name}#</td>
       <td>#{$v.tel}#</td>
       <td>#{$v.fax}#</td>

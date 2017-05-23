@@ -1,7 +1,6 @@
-<h2 class="contentTitle">采购订单修改</h2>
 <div class="pageContent">
-  <form method="post" action="#{$smarty.const.ACT}#/PosOrder/pos_order_modify/id/#{$one.id}#" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-    <div class="pageFormContent" layoutH="97">
+  <form method="post" action="#{$smarty.const.ACT}#/PosOrder/pos_order_modify/id/#{$one.id}#" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <div class="pageFormContent" layoutH="50">
       <fieldset>
         <legend>基础信息：</legend>
         <p>
@@ -14,13 +13,13 @@
         </p>
         <p>
           <label>供应商名称：</label>
-          <input id="supID"  name="org.id" value="#{$one.supID}#" type="hidden"/>
-          <input name="org.name" type="text" value="#{$one.sup_name}#" class="required"/>
-          <a class="btnLook" href="#{$smarty.const.ACT}#/Supplier/lookup_search/" lookupGroup="org">选择供应商</a> </p>
+          <input id="supID"  name="sup.id" value="#{$one.supID}#" type="hidden"/>
+          <input name="sup.name" type="text" value="#{$one.sup_name}#" class="required"/>
+          <a class="btnLook" href="#{$smarty.const.ACT}#/Supplier/lookup_search/" lookupGroup="sup">选择供应商</a> </p>
         <p>
           <label>联系人：</label>
           <input name="linkman.id" value="#{$one.linkmanID}#" type="hidden"/>
-          <input class="required" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
+          <input class="required" value="#{$linkman[$one.linkmanID]}#" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
 					suggestUrl="#{$smarty.const.ACT}#/SupLinkman/sup_linkman_select/supID/{supID}/" warn="请选择联系人名称" lookupGroup="linkman"/>
         </p>
         <p>
@@ -34,8 +33,8 @@
         <p>
           <label>我方代表：</label>
           <input id="our_userID" name="our.id" value="#{$one.our_userID}#" type="hidden"/>
-          <input name="our.name" type="text" class="required"/>
-          <a class="btnLook" href="#{$smarty.const.ACT}#/User/lookup_search/" lookupGroup="our">选择客户</a> </p>
+          <input name="our.name" value="#{$users[$one.our_userID]}#" type="text" class="required"/>
+          <a class="btnLook" href="#{$smarty.const.ACT}#/User/lookup_search/" lookupGroup="our">选择客服务</a> </p>
         <p>
           <label>总金额：</label>
           <input type="text" value="#{$one.money}#" name="money" class="required digits">

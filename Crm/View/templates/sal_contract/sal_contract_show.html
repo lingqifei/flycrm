@@ -36,11 +36,11 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="#{$smarty.const.ACT}#/SalContract/sal_contract_add/" target="navTab" rel="sal_contract_add" title="合同添加"><span>添加</span></a></li>
+      <li><a class="add" href="#{$smarty.const.ACT}#/SalContract/sal_contract_add/" target="dialog" rel="sal_contract_add" title="合同添加" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
       <li><a class="delete" href="#{$smarty.const.ACT}#/SalContract/sal_contract_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
-      <li><a class="edit" href="#{$smarty.const.ACT}#/SalContract/sal_contract_modify/id/{sid_user}/" target="navTab" rel="sal_contract_modify" title="合同修改"><span>修改</span></a></li>
+      <li><a class="edit" href="#{$smarty.const.ACT}#/SalContract/sal_contract_modify/id/{sid_user}/" target="dialog" rel="sal_contract_modify" title="合同修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -48,8 +48,7 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="100">主题</th>
-		<th width="80">合同编号</th>
+		<th width="100">合同编号</th>
         <th width="120">客户名称</th>
         <th width="80">接收人</th>
         <th width="80">销售机会</th>
@@ -69,12 +68,10 @@
       </tr>
     </thead>
     <tbody>
-    
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/SalContract/sal_contract_show_one/id/#{$v.id}#/" class="btnLook" rel="sal_contract_show_one" title="#{$v.name}#" width="880" height="480">查看合同订单</a>#{$v.title}#</td>
-	  <td>#{$v.con_number}#</td>
+	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/SalContract/sal_contract_show_one/id/#{$v.id}#/" rel="sal_contract_show_one" title="合同详细:#{$v.con_number}#-#{$customer[$v.cusID]}#" width="880" height="480">#{$v.con_number}#</a></td>
 	  <td>#{$customer[$v.cusID]}#</td>
 	  <td>#{$linkman[$v.linkmanID]}#</td>
       <td>#{$chance[$v.chanceID]}#</td>

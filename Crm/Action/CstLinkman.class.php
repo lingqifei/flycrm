@@ -77,10 +77,9 @@ class CstLinkman extends Action{
 												address,intro,adt,create_userID) 
 								values('$_POST[name]','$cusID','$_POST[gender]','$_POST[postion]',
 										'$_POST[mobile]','$_POST[tel]','$_POST[qicq]','$_POST[email]','$_POST[zipcode]',
-										'$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
-										
+										'$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";										
 			if($this->C($this->cacheDir)->update($sql)){
-				$this->L("Common")->ajax_json_success("操作成功",'2',"/CstLinkman/cst_linkman_show/cusID/{$cusID}/");
+				$this->L("Common")->ajax_json_success("操作成功",'2',"/CstLinkman/cst_linkman_show/");
 			}	
 		}
 	}		
@@ -104,7 +103,7 @@ class CstLinkman extends Action{
 							zipcode='$_POST[zipcode]',address='$_POST[address]',intro='$_POST[intro]'
 			 		where id='$id'";
 			if($this->C($this->cacheDir)->update($sql)>=0){
-				$this->L("Common")->ajax_json_success("操作成功",'1',"/CstLinkman/cst_linkman_show/cusID/{$cusID}/");
+				$this->L("Common")->ajax_json_success("操作成功",'2',"/CstLinkman/cst_linkman_show_box/");
 			}		
 		}
 	}

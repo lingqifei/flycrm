@@ -1,10 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-08 15:09:01
+<?php /* Smarty version 2.6.26, created on 2017-05-22 15:40:16
          compiled from fin_rece_record/fin_rece_record_add.html */ ?>
-<h2 class="contentTitle">回款记录添加</h2>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
-/FinReceRecord/fin_rece_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-		<div class="pageFormContent" layoutH="97">
+/FinReceRecord/fin_rece_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="50">
 			<fieldset>
 			<legend>基础信息：</legend>	
 			<p>

@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 16:12:37
+<?php /* Smarty version 2.6.26, created on 2017-05-12 23:37:05
          compiled from customer/customer_modify.html */ ?>
 <div class="pageContent">
   <form method="post" action="<?php echo @ACT; ?>
 /Customer/customer_modify/id/<?php echo $this->_tpl_vars['one']['id']; ?>
-/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
     <div class="pageFormContent" layoutH="56">
       <fieldset>
       <legend>基础信息：</legend>

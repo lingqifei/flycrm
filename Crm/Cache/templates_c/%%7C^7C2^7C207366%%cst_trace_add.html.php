@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-11-18 21:30:55
+<?php /* Smarty version 2.6.26, created on 2017-05-18 15:01:11
          compiled from cst_trace/cst_trace_add.html */ ?>
-<div class="divider"></div>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /CstTrace/cst_trace_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">

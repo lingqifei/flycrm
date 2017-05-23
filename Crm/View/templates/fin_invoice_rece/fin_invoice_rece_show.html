@@ -1,6 +1,6 @@
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
-	action="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_show" method="post">
+	action="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_show/" method="post">
     <div class="searchBar">
       <table class="searchContent">
         <tr>
@@ -32,8 +32,8 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add"
-		href="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_add/" target="navTab"
-		rel="fin_invoice_rece_add" title="收票记录添加"><span>添加</span></a></li>
+		href="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_add/" target="dialog"
+		rel="fin_invoice_rece_add" title="收票记录添加" width='850' height='450'><span>添加</span></a></li>
       <li> <a class="delete" href="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
   </div>
@@ -61,7 +61,7 @@
         <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
         <td align="left">#{$v.id}#</td>
         <td align="left">#{$supplier[$v.id]}#</td>
-        <td align="left">#{$posorder[$v.id]}#</td>
+        <td align="left"><a target="dialog"  href="#{$smarty.const.ACT}#/PosOrder/pos_order_show_one/id/#{$v.posID}#/" rel="pos_order_show_one" title="采购订单详细" width="880" height="480">#{$posorder[$v.id]}#</a></td>
         <td align="left">#{$v.recedate}#</td>
         <td align="left">#{$v.stages}#</td>
         <td align="left">#{$v.money}#</td>

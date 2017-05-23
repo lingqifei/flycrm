@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-08 18:18:57
+<?php /* Smarty version 2.6.26, created on 2017-05-20 21:29:55
          compiled from sal_order/sal_order_show.html */ ?>
 
 <div class="pageHeader">
@@ -40,13 +40,13 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/SalOrder/sal_order_add/" target="navTab" rel="sal_order_add" title="订单添加"><span>添加</span></a></li>
+/SalOrder/sal_order_add/" target="dialog" rel="sal_order_add" title="订单添加" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /SalOrder/sal_order_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/SalOrder/sal_order_modify/id/{sid_user}/" target="navTab" rel="sal_order_modify" title="订单修改"><span>修改</span></a></li>
+/SalOrder/sal_order_modify/id/{sid_user}/" target="dialog" rel="sal_order_modify" title="订单修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -54,7 +54,6 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="150">主题</th>
 		<th width="120">订单编号</th>
         <th width="100">客户名称</th>
         <th width="80">销售机会</th>
@@ -84,11 +83,10 @@
 " type="checkbox"></td>
 	  <td><a target="dialog"  href="<?php echo @ACT; ?>
 /SalOrder/sal_order_show_one/id/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnLook" rel="sal_order_show_one" title="<?php echo $this->_tpl_vars['v']['name']; ?>
-" width="880" height="480">查看销售订单</a><?php echo $this->_tpl_vars['v']['title']; ?>
-</td>
-	  <td><?php echo $this->_tpl_vars['v']['ord_number']; ?>
-</td>
+/" rel="sal_order_show_one" title="订单明细：<?php echo $this->_tpl_vars['v']['ord_number']; ?>
+-<?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['ord_number']; ?>
+</a></td>
 	  <td><?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
 </td>
       <td><?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['v']['chanceID']]; ?>

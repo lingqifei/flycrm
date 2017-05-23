@@ -30,10 +30,10 @@
 		$v=substr(strip_tags($v),0,30);
 		$_GET[$id]=common_htmlspecialchars($v);
 	}
-	foreach($_COOKIE  as $id=>$v){
+/*	foreach($_COOKIE  as $id=>$v){
 		$v=substr(strip_tags($v),0,32);
 		$_COOKIE[$id]=common_htmlspecialchars($v);
-	}
+	}*/
 
 	function quotesGPC() {
 		$_POST = array_map("addSlash", $_POST);

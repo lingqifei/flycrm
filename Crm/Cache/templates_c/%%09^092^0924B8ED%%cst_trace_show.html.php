@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-20 11:55:21
+<?php /* Smarty version 2.6.26, created on 2017-05-20 21:31:48
          compiled from cst_trace/cst_trace_show.html */ ?>
 
 <div class="pageHeader">
@@ -40,14 +40,13 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstTrace/cst_trace_add/" target="navTab" rel="cst_trace_add" title="跟踪记录添加"><span>添加</span></a></li>
+/CstTrace/cst_trace_add/" target="dialog" rel="cst_trace_add" title="跟踪记录添加" width="850" height="450"><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /CstTrace/cst_trace_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/CstTrace/cst_trace_modify/id/{sid_user}/" target="navTab" rel="cst_trace_modify" title="跟踪记录修改"><span>修改</span></a></li>
+/CstTrace/cst_trace_modify/id/{sid_user}/" target="dialog" rel="cst_trace_modify" title="跟踪记录修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -58,9 +57,9 @@
         <th width="80">联系人</th>
         <th width="130">联系时间</th>
         <th width="80">我方联系人</th>
-		<th width="80">对应机会</th>
-        <th width="100">跟踪方式</th>
-        <th width="100">当前阶段</th>
+		<th width="150">对应机会</th>
+        <th width="100">销售阶段</th>
+        <th width="100">销售方式</th>
         <th width="100">状态</th>
         <th>主题</th>
       </tr>

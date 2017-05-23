@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-20 12:01:00
+<?php /* Smarty version 2.6.26, created on 2017-04-11 12:09:22
          compiled from cst_quoted/cst_quoted_show.html */ ?>
 
 <div class="pageHeader">
@@ -40,12 +40,12 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstQuoted/cst_quoted_add/" target="navTab" rel="cst_quoted_add" title="产品报价添加"><span>添加</span></a></li>
+/CstQuoted/cst_quoted_add/" target="dialog" rel="cst_quoted_add" title="产品报价添加" width="850" height="450"><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /CstQuoted/cst_quoted_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/CstQuoted/cst_quoted_modify/id/{sid_user}/" target="navTab" rel="cst_quoted_modify" title="产品报价修改"><span>修改</span></a></li>
+/CstQuoted/cst_quoted_modify/id/{sid_user}/" target="dialog" rel="cst_quoted_modify" title="产品报价修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
     </ul>

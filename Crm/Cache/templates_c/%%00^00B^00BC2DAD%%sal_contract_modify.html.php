@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-09-12 16:58:02
+<?php /* Smarty version 2.6.26, created on 2017-04-11 12:18:56
          compiled from sal_contract/sal_contract_modify.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
@@ -46,8 +46,8 @@
 				<label>销售机会：</label>
 				<input name="chance.id" value="<?php echo $this->_tpl_vars['one']['chanceID']; ?>
 " type="hidden"/>
-				<input class="required" value="<?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['one']['chanceID']]; ?>
-" name="chance.title" type="text" postField="keyword" suggestFields="title" 
+				<input name="chance.title" value="<?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['one']['chanceID']]; ?>
+" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="<?php echo @ACT; ?>
 /CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance"/>
 			</p>

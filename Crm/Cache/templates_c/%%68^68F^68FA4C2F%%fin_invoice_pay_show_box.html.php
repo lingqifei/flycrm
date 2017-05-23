@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-08 16:16:52
+<?php /* Smarty version 2.6.26, created on 2017-05-22 22:21:53
          compiled from fin_invoice_pay/fin_invoice_pay_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this,'jbsxBox');"
@@ -49,10 +49,10 @@
         <tr>
           <th width="22"><input type="checkbox" group="ids"
 					class="checkboxCtrl"></th>
-          <th align="left" width="100">发票编号</th>
+          <th align="left" width="60">发票编号</th>
           <th align="left" width="150">发票内容</th>
           <th align="left" width="60">发票金额</th>
-          <th align="left" width="150">客户名称</th>
+          <th align="left" width="200">客户名称</th>
           <th align="left" width="80">开票日期</th>
           <th align="left" width="60">开票其次</th>
           <th align="left">开票人</th>

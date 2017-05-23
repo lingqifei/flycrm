@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 21:03:38
+<?php /* Smarty version 2.6.26, created on 2017-05-22 22:53:08
          compiled from fin_invoice_rece/fin_invoice_rece_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
 	action="<?php echo @ACT; ?>
-/FinInvoiceRece/fin_invoice_rece_show" method="post">
+/FinInvoiceRece/fin_invoice_rece_show/" method="post">
     <div class="searchBar">
       <table class="searchContent">
         <tr>
@@ -38,8 +38,8 @@
     <ul class="toolBar">
       <li><a class="add"
 		href="<?php echo @ACT; ?>
-/FinInvoiceRece/fin_invoice_rece_add/" target="navTab"
-		rel="fin_invoice_rece_add" title="收票记录添加"><span>添加</span></a></li>
+/FinInvoiceRece/fin_invoice_rece_add/" target="dialog"
+		rel="fin_invoice_rece_add" title="收票记录添加" width='850' height='450'><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
 /FinInvoiceRece/fin_invoice_rece_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
@@ -74,8 +74,10 @@
 </td>
         <td align="left"><?php echo $this->_tpl_vars['supplier'][$this->_tpl_vars['v']['id']]; ?>
 </td>
-        <td align="left"><?php echo $this->_tpl_vars['posorder'][$this->_tpl_vars['v']['id']]; ?>
-</td>
+        <td align="left"><a target="dialog"  href="<?php echo @ACT; ?>
+/PosOrder/pos_order_show_one/id/<?php echo $this->_tpl_vars['v']['posID']; ?>
+/" rel="pos_order_show_one" title="采购订单详细" width="880" height="480"><?php echo $this->_tpl_vars['posorder'][$this->_tpl_vars['v']['id']]; ?>
+</a></td>
         <td align="left"><?php echo $this->_tpl_vars['v']['recedate']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['stages']; ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 20:58:11
+<?php /* Smarty version 2.6.26, created on 2017-05-22 16:07:45
          compiled from fin_flow_record/fin_flow_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -56,7 +56,8 @@
           <th align="left" width="100">收入</th>
           <th align="left" width="100">支出</th>
           <th align="left" width="100">余额</th>
-          <th align="left">备注</th>
+          <th align="left" width="150">关联单号</th>
+          <th align="left" width="250">备注</th>
           <th align="left">创建人</th>
           <th align="left">创建时间</th>
         </tr>
@@ -79,6 +80,8 @@
         <td align="left"><?php echo $this->_tpl_vars['v']['paymoney']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['balance']; ?>
+</td>
+        <td align="left"><?php echo $this->_tpl_vars['v']['business']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['intro']; ?>
 </td>

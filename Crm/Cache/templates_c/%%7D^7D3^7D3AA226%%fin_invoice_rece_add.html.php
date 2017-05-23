@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-23 18:48:17
+<?php /* Smarty version 2.6.26, created on 2017-05-22 22:27:10
          compiled from fin_invoice_rece/fin_invoice_rece_add.html */ ?>
-<h2 class="contentTitle">收录记录添加</h2>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /FinInvoiceRece/fin_invoice_rece_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">

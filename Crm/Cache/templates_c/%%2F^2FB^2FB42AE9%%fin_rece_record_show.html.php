@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-07 17:54:05
+<?php /* Smarty version 2.6.26, created on 2017-05-22 15:41:57
          compiled from fin_rece_record/fin_rece_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
 	action="<?php echo @ACT; ?>
-/FinReceRecord/fin_rece_record_show" method="post">
+/FinReceRecord/fin_rece_record_show/" method="post">
     <div class="searchBar">
       <table class="searchContent">
         <tr>
@@ -38,8 +38,8 @@
     <ul class="toolBar">
       <li><a class="add"
 		href="<?php echo @ACT; ?>
-/FinReceRecord/fin_rece_record_add/" target="navTab"
-		rel="fin_rece_record_add" title="回款计划添加"><span>添加</span></a></li>
+/FinReceRecord/fin_rece_record_add/" target="dialog"
+		rel="fin_rece_record_add" title="回款记录添加" width='850' height='450'><span>添加</span></a></li>
         <li class="line">line</li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
 /FinReceRecord/fin_rece_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-04-11 12:01:06
+<?php /* Smarty version 2.6.26, created on 2017-05-12 23:32:53
          compiled from index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -214,7 +214,7 @@ $(function(){
 ?><!--显示二级菜单-->
                 <li><a href="<?php echo @ACT; ?>
 <?php echo $this->_tpl_vars['v3']['url']; ?>
-" target="navTab" rel="<?php echo $this->_tpl_vars['v3']['name']; ?>
+" target="navTab" rel="<?php echo $this->_tpl_vars['v3']['url']; ?>
 "><?php echo $this->_tpl_vars['v3']['name']; ?>
 </a></li>
                 <?php endforeach; endif; unset($_from); ?>

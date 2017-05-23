@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-08 20:27:34
+<?php /* Smarty version 2.6.26, created on 2017-05-20 21:27:24
          compiled from sal_contract/sal_contract_show.html */ ?>
 
 <div class="pageHeader">
@@ -40,13 +40,13 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/SalContract/sal_contract_add/" target="navTab" rel="sal_contract_add" title="合同添加"><span>添加</span></a></li>
+/SalContract/sal_contract_add/" target="dialog" rel="sal_contract_add" title="合同添加" width="850" height="450"><span>添加</span></a></li>
       <li class="line">line</li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /SalContract/sal_contract_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/SalContract/sal_contract_modify/id/{sid_user}/" target="navTab" rel="sal_contract_modify" title="合同修改"><span>修改</span></a></li>
+/SalContract/sal_contract_modify/id/{sid_user}/" target="dialog" rel="sal_contract_modify" title="合同修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -54,8 +54,7 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="100">主题</th>
-		<th width="80">合同编号</th>
+		<th width="100">合同编号</th>
         <th width="120">客户名称</th>
         <th width="80">接收人</th>
         <th width="80">销售机会</th>
@@ -75,7 +74,6 @@
       </tr>
     </thead>
     <tbody>
-    
     <?php $_from = $this->_tpl_vars['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
@@ -85,11 +83,10 @@
 " type="checkbox"></td>
 	  <td><a target="dialog"  href="<?php echo @ACT; ?>
 /SalContract/sal_contract_show_one/id/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnLook" rel="sal_contract_show_one" title="<?php echo $this->_tpl_vars['v']['name']; ?>
-" width="880" height="480">查看合同订单</a><?php echo $this->_tpl_vars['v']['title']; ?>
-</td>
-	  <td><?php echo $this->_tpl_vars['v']['con_number']; ?>
-</td>
+/" rel="sal_contract_show_one" title="合同详细:<?php echo $this->_tpl_vars['v']['con_number']; ?>
+-<?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['con_number']; ?>
+</a></td>
 	  <td><?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>

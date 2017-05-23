@@ -4,19 +4,33 @@ class FinPayRecord extends Action{
 	public function __construct() {
 		_instance('Action/Auth');
 	}	
-	public function fin_pay_record(){
+	public function fin_pay_record($id=null){
 		$currentPage = $this->_REQUEST("pageNum");//第几页
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
 		
-		$countSql    = 'select id from fin_pay_record';
+		$posID		 =$this->_REQUEST("posID");
+		$where_str	 = " 0=0 ";
+		if($id){
+			$where_str  = "id in($id)";
+		}else{
+			$where_str  = "id>0";
+		}
+		
+		if($posID){
+			$where_str .=" and posID='$posID'";
+		}
+		
+		
+		$countSql    = "select id from fin_pay_record where $where_str ";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		
-		$moneySql    = 'select sum(money) as sum_money from fin_pay_record';
+		$moneySql    = "select sum(money) as sum_money from fin_pay_record  where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from fin_pay_record  order by id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select * from fin_pay_record  where $where_str 
+						order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		//供应商
 		$supplier= array();
@@ -40,6 +54,14 @@ class FinPayRecord extends Action{
 			$smarty  = $this->setSmarty();
 			$smarty->assign($list);//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('fin_pay_record/fin_pay_record_show.html');	
+	}	
+
+	//主要用于BOX局部调用
+	public function fin_pay_record_show_box(){
+			$list	 = $this->fin_pay_record();
+			$smarty = $this->setSmarty();
+			$smarty->assign($list);
+			$smarty->display('fin_pay_record/fin_pay_record_show_box.html');	
 	}		
 	
 	public function fin_pay_record_add(){
@@ -63,8 +85,8 @@ class FinPayRecord extends Action{
 											'$intro','".NOWTIME."','".SYS_USER_ID."');";
 			if($this->C($this->cacheDir)->update($sql)>0){
 				$this->L("PosOrder")->pos_order_pay_modify($posID,$new_money=$paymoney);
-				$this->L("FinFlowRecord")->fin_flow_record_add('pay',$paymoney,$blankID,$posID);
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinPayRecord/fin_pay_record_show/");	
+				$this->L("FinFlowRecord")->fin_flow_record_add('pay',$paymoney,$blankID,$posID,'pos_order');
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinPayRecord/fin_pay_record_show/");	
 			}
 		}
 	}		
@@ -83,7 +105,7 @@ class FinPayRecord extends Action{
 					'$planID','$posID','$supID','$blankID','$paydate','$money','$stages','$intro','".NOWTIME."','".SYS_USER_ID."');";
 		if($this->C($this->cacheDir)->update($sql)>0){
 			$this->L("PosOrder")->pos_order_pay_modify($posID,$new_money=$money);//更新订单
-			$this->L("FinFlowRecord")->fin_flow_record_add('pay',$money,$blankID,$posID);//添加流水
+			$this->L("FinFlowRecord")->fin_flow_record_add('pay',$money,$blankID,$posID,'pos_order');//添加流水
 			return true;
 		}else{
 			return false;	

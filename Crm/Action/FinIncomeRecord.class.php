@@ -57,9 +57,10 @@ class FinIncomeRecord extends Action{
 			
 			$sql= "insert into fin_income_record(typeID,blankID,crt_date,money,intro,adt,create_userID) 
 								values('$typeID','$blankID','$crt_date','$money','$intro','".NOWTIME."','".SYS_USER_ID."');";
-			if($this->C($this->cacheDir)->update($sql)>0){
-				$this->L("FinFlowRecord")->fin_flow_record_add('rece',$money,$blankID,$typeID);//添加流水
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinPayRecord/fin_income_record_show/");	
+			$rtn=$this->C($this->cacheDir)->update($sql);
+			if($rtn>0){
+				$this->L("FinFlowRecord")->fin_flow_record_add('rece',$money,$blankID,$rtn,'fin_income_record');//添加流水
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinIncomeRecord/fin_income_record_show/");	
 			}
 		}
 	}	

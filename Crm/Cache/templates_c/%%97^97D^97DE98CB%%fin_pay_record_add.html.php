@@ -1,10 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 17:54:15
+<?php /* Smarty version 2.6.26, created on 2017-05-22 16:10:46
          compiled from fin_pay_record/fin_pay_record_add.html */ ?>
-<h2 class="contentTitle">付款记录添加</h2>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
-/FinPayRecord/fin_pay_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-		<div class="pageFormContent" layoutH="97">
+/FinPayRecord/fin_pay_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="50">
 			<fieldset>
 			<legend>基础信息：</legend>	
 			<p>

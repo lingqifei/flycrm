@@ -15,13 +15,14 @@ class CstChance extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-		$cus_name	   	   = $this->_REQUEST("cus_name");
+		
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
 		
 		$where_str = " s.cusID=c.id and s.create_userID in (".SYS_USER_VIEW.")";
 		
-		$cusID = $this->_REQUEST("cusID");
+		$cusID 		= $this->_REQUEST("cusID");
+		$cus_name   = $this->_REQUEST("cus_name");
 		if(!empty($cusID) ){
 			$where_str .=" and s.cusID='$cusID'";
 		}
@@ -45,7 +46,8 @@ class CstChance extends Action{
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
+		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
+						"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 		
 	}
@@ -73,11 +75,15 @@ class CstChance extends Action{
 	}	
 	
 	public function cst_chance_add(){
-		
+		$cusID 		= $this->_REQUEST("cusID");
+		$cus_name 	= $this->_REQUEST("cus_name");		
 		if(empty($_POST)){
 			$status = $this->cst_chance_status_select("status");
+			if($cusID>0){ 
+				$cus_name=$this->L("Customer")->customer_get_name($cusID);
+			}
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("status"=>$status));
+			$smarty->assign(array("status"=>$status,"cusID"=>$cusID,"cus_name"=>$cus_name));
 			$smarty->display('cst_chance/cst_chance_add.html');	
 		
 		}else{
@@ -86,12 +92,14 @@ class CstChance extends Action{
 			$linkmanID   = $this->_REQUEST("linkman_id");
 			$salestage   = $this->_REQUEST("salestage_id");
 			$salemode    = $this->_REQUEST("salemode_id");
-			
-			$sql     = "insert into cst_chance(cusID,salestage,linkmanID,finddt,billdt,money,chance,status,title,intro,adt) 
+			$sql     = "insert into cst_chance(cusID,salestage,linkmanID,finddt,billdt,
+												money,chance,status,title,intro,adt,
+												create_userID) 
 								values('$cusID','$salestage','$linkmanID','$_POST[finddt]','$_POST[billdt]',
-								'$_POST[money]','$_POST[chance]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt');";
+									'$_POST[money]','$_POST[chance]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt',
+									'".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");		
+			$this->L("Common")->ajax_json_success("操作成功",'2','/CstChance/cst_chance_show/');		
 		}
 		
 	}		
@@ -122,7 +130,7 @@ class CstChance extends Action{
 							status='$_POST[status]',title='$_POST[title]',intro='$_POST[intro]'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");			
+			$this->L("Common")->ajax_json_success("操作成功",'2','/CstChance/cst_chance_show/');				
 		}
 	}
 	

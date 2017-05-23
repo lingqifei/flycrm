@@ -5,19 +5,30 @@ class FinInvoiceRece extends Action{
 		_instance('Action/Auth');
 	}	
 	
-	public function fin_invoice_rece(){
+	public function fin_invoice_rece($id=null){
 		$currentPage = $this->_REQUEST("pageNum");//第几页
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
-		$countSql    = 'select id from fin_invoice_rece';
+		
+		$posID		 =$this->_REQUEST("posID");
+		if($id){
+			$where_str  = " and id in($id)";
+		}else{
+			$where_str  = " id>0";
+		}
+		if($posID){
+			$where_str .=" and posID='$posID'";
+		}		
+		$countSql    = "select id from fin_invoice_rece where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 	
-		$moneySql    = 'select sum(money) as sum_money from fin_invoice_rece';
+		$moneySql    = "select sum(money) as sum_money from fin_invoice_rece where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
 		
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from fin_invoice_rece  order by id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select * from fin_invoice_rece 
+						where $where_str order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		//供应商
 		$supplier= array();
@@ -35,11 +46,18 @@ class FinInvoiceRece extends Action{
 		return $assignArray;
 	}
 	public function fin_invoice_rece_show(){
-			$list	 = $this->fin_invoice_rece();
-			$smarty  = $this->setSmarty();
-			$smarty->assign($list);//框架变量注入同样适用于smarty的assign方法
-			$smarty->display('fin_invoice_rece/fin_invoice_rece_show.html');	
+		$list	 = $this->fin_invoice_rece();
+		$smarty  = $this->setSmarty();
+		$smarty->assign($list);//框架变量注入同样适用于smarty的assign方法
+		$smarty->display('fin_invoice_rece/fin_invoice_rece_show.html');	
 	}		
+
+	public function fin_invoice_rece_show_box(){
+		$list	 = $this->fin_invoice_rece();
+		$smarty  = $this->setSmarty();
+		$smarty->assign($list);
+		$smarty->display('fin_invoice_rece/fin_invoice_rece_show_box.html');	
+	}	
 
 	public function fin_invoice_rece_add(){
 		if(empty($_POST)){
@@ -91,8 +109,8 @@ class FinInvoiceRece extends Action{
 		}
 	}	
 	public function fin_invoice_rece_del(){
-		$id=$this->_REQUEST("id");
-		$sql="delete from fin_invoice_rece where id='$id'";
+		$id =$this->_REQUEST("ids");
+		$sql="delete from fin_invoice_rece where id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/FinInvoiceRece/fin_invoice_rece_show/");	
 	}	

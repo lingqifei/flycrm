@@ -1,10 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 20:44:31
+<?php /* Smarty version 2.6.26, created on 2017-05-22 15:32:09
          compiled from fin_income_record/fin_income_record_add.html */ ?>
-<h2 class="contentTitle">收入记录添加</h2>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
-/FinIncomeRecord/fin_income_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-		<div class="pageFormContent nowrap" layoutH="97">
+/FinIncomeRecord/fin_income_record_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="56">
 			<fieldset>
 			<legend>基础信息：</legend>	
 			<dl>

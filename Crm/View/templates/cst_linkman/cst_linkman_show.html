@@ -58,8 +58,8 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-      <td>#{$v.cst_name}#</td>
-      <td>#{$v.name}#</td>
+      <td><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
+      <td>#{$v.name}#</a></td>
       <td>#{ if $v.gender eq 1 }# 男 #{else}# 女 #{/if}# </td>
       <td>#{$v.postion}#</td>
       <td>#{$v.mobile}#</td>

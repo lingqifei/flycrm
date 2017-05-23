@@ -32,8 +32,8 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add"
-		href="#{$smarty.const.ACT}#/FinInvoicePay/fin_invoice_pay_add/" target="navTab"
-		rel="fin_invoice_pay_add" title="开票记录添加"><span>添加</span></a></li>
+		href="#{$smarty.const.ACT}#/FinInvoicePay/fin_invoice_pay_add/" target="dialog"
+		rel="fin_invoice_pay_add" title="开票记录添加" width='850' height='450'><span>添加</span></a></li>
       <li> <a class="delete" href="#{$smarty.const.ACT}#/FinInvoicePay/fin_invoice_pay_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
   </div>
@@ -61,7 +61,7 @@
         <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
         <td align="left">#{$v.id}#</td>
         <td align="left">#{$customer[$v.id]}#</td>
-        <td align="left">#{$salorder[$v.id]}#</td>
+        <td align="left">#{$v.business}#</td>
         <td align="left">#{$v.paydate}#</td>
         <td align="left">#{$v.stages}#</td>
         <td align="left">#{$v.money}#</td>

@@ -1,5 +1,5 @@
 <div class="pageHeader">
-  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');"  action="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show_box/" method="post">
+  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus_#{$cusID}#');"  action="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_show_box/" method="post">
       <input type="hidden" name="pageNum" value="1" />
       <input type="hidden" name="numPerPage" value="#{$numPerPage}#" />
       <input type="hidden" name="orderField" value="${param.orderField}" />
@@ -75,7 +75,7 @@
   </table>
   <div class="panelBar">
     <div class="pages"> <span>显示</span>
-      <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox_cus')">
+      <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value},'jbsxBox_cus_#{$cusID}#')">
       <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
       <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
       <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
@@ -83,6 +83,6 @@
       <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
       </select>
       <span>条，共#{$totalCount}#条</span> </div>
-    <div class="pagination" targetType="dialog" rel="jbsxBox_cus" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>
+    <div class="pagination" targetType="dialog" rel="jbsxBox_cus_#{$cusID}#" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>
   </div>
 </div>

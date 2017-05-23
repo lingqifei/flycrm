@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 21:03:34
+<?php /* Smarty version 2.6.26, created on 2017-05-22 22:10:54
          compiled from fin_invoice_pay/fin_invoice_pay_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
@@ -38,8 +38,8 @@
     <ul class="toolBar">
       <li><a class="add"
 		href="<?php echo @ACT; ?>
-/FinInvoicePay/fin_invoice_pay_add/" target="navTab"
-		rel="fin_invoice_pay_add" title="开票记录添加"><span>添加</span></a></li>
+/FinInvoicePay/fin_invoice_pay_add/" target="dialog"
+		rel="fin_invoice_pay_add" title="开票记录添加" width='850' height='450'><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
 /FinInvoicePay/fin_invoice_pay_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>
@@ -74,7 +74,7 @@
 </td>
         <td align="left"><?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['id']]; ?>
 </td>
-        <td align="left"><?php echo $this->_tpl_vars['salorder'][$this->_tpl_vars['v']['id']]; ?>
+        <td align="left"><?php echo $this->_tpl_vars['v']['business']; ?>
 </td>
         <td align="left"><?php echo $this->_tpl_vars['v']['paydate']; ?>
 </td>

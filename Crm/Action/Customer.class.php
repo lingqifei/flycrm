@@ -81,7 +81,8 @@ class Customer extends Action{
 			$smarty  		= $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('customer/customer_show.html');	
-	}		
+	}	
+		
 	//查看客户详细
 	public function customer_show_one(){
 			$cusID	    = $this->_REQUEST("cusID");
@@ -103,6 +104,7 @@ class Customer extends Action{
 			$smarty->display('customer/lookup_search.html');	
 	}	
 	
+	//高级搜索
 	public function advanced_search(){
 		$smarty  = $this->setSmarty();
 		$smarty->display('customer/advanced_search.html');	
@@ -124,7 +126,7 @@ class Customer extends Action{
 								'$_POST[website]','$_POST[tel]',
 								'$_POST[fax]','$_POST[email]','$_POST[zipcode]','$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");		
+			$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");		
 		}
 	}		
 	
@@ -150,7 +152,7 @@ class Customer extends Action{
 							zipcode='$_POST[zipcode]',address='$_POST[address]',intro='$_POST[intro]'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");			
+			$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");			
 		}
 	}
 	
@@ -159,7 +161,7 @@ class Customer extends Action{
 		$id	  = $this->_REQUEST("ids");
 		$sql  = "delete from cst_customer where id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");	
+		$this->L("Common")->ajax_json_success("操作成功","2","/Customer/customer_show/");	
 	}	
 	
 	

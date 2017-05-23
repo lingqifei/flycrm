@@ -32,7 +32,7 @@
 			<p>
 				<label>销售机会：</label>
 				<input name="chance.id" value="#{$one.chanceID}#" type="hidden"/>
-				<input class="required" value="#{$chance[$one.chanceID]}#" name="chance.title" type="text" postField="keyword" suggestFields="title" 
+				<input name="chance.title" value="#{$chance[$one.chanceID]}#" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="#{$smarty.const.ACT}#/CstChance/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="chance"/>
 			</p>
 			<p>

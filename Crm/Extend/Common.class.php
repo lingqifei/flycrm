@@ -1,6 +1,6 @@
 <?php
 class Common {
-	function ajax_json_success($message,$callbackType="",$forwardUrl=""){
+	function ajax_json_success($message,$callbackType="",$tabId="",$forwardUrl=""){
 		//$callbackType=!empty($callbackType)?"forward":"";
 		switch($callbackType){
 			case 1:
@@ -17,8 +17,9 @@ class Common {
 		$menu=array(
 				  "statusCode"=>"200", 
 				  "message"=>$message, 
-				  "navTabId"=>"", 
-				  "rel"=>"1", 
+				  "navTabId"=>$tabId, 
+				  "reloadFlag"=>$tabId, 
+				  "rel"=>$tabId, 
 				  "callbackType"=>$callbackTypeStr,
 				  "forwardUrl"=> $forwardUrl
 		 );

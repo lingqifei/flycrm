@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-14 21:02:32
+<?php /* Smarty version 2.6.26, created on 2017-05-22 15:37:57
          compiled from fin_expenses_record/fin_expenses_record_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
 	action="<?php echo @ACT; ?>
-/FinExpensesRecord/fin_expenses_record_show" method="post">
+/FinExpensesRecord/fin_expenses_record_show/" method="post">
     <div class="searchBar">
       <table class="searchContent">
         <tr>
@@ -38,7 +38,7 @@
     <ul class="toolBar">
       <li><a class="add"
 		href="<?php echo @ACT; ?>
-/FinExpensesRecord/fin_expenses_record_add/" target="navTab"
+/FinExpensesRecord/fin_expenses_record_add/" target="dialog"
 		rel="fin_expenses_record_add" title="支出记录添加"><span>添加</span></a></li>
       <li> <a class="delete" href="<?php echo @ACT; ?>
 /FinExpensesRecord/fin_expenses_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>

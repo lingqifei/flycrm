@@ -44,6 +44,8 @@ class CstQuoted extends Action{
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		$operate=array();
+		$money	=array();
 		foreach($list as $key=>$row){
 			$operate[$row["id"]]=$this->cst_quoted_operate($row["status"],$row["id"]);
 			$money[$row["id"]]=_instance('Action/CstQuotedDetail')->cst_get_one_quoted_detail_money($row["id"]);

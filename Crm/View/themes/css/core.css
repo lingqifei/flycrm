@@ -363,6 +363,9 @@ table.list a:hover {text-decoration:underline; line-height:20px;}
 table.list td span.error {z-index:-1}
 table.nowrap tbody tr {border-bottom:solid 1px #ededed;}
 
+table .btn{color:#3C7FB1; font-size:11px; line-height:20px;border:solid #06F 1px;border-radius: 2px;}
+table .btn:hover {text-decoration:underline; line-height:20px;background:#06F;color:#fff;}
+
 /* Taskbar */
 #taskbar { overflow:hidden; height:29px; border-style:solid; border-width: 0; border-color:#0f3255; background-color:#112746; background-repeat:repeat-x; position:absolute; z-index:30;}
 #taskbar .taskbarContent { display:block; overflow:hidden; height:29px; position:relative;}

@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-12-03 14:07:26
+<?php /* Smarty version 2.6.26, created on 2017-05-13 08:22:34
          compiled from cst_linkman/cst_linkman_modify.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
 /CstLinkman/cst_linkman_modify/id/<?php echo $this->_tpl_vars['one']['id']; ?>
-" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
 		<div class="pageFormContent" layoutH="56">
 
 			<p>

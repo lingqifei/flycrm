@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 15:05:24
+<?php /* Smarty version 2.6.26, created on 2017-05-22 18:09:59
          compiled from pos_order/pos_order_show.html */ ?>
 
 <div class="pageHeader">
@@ -40,28 +40,26 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/PosOrder/pos_order_add/" target="navTab" rel="pos_order_add" title="采购订单添加"><span>添加</span></a></li>
+/PosOrder/pos_order_add/" target="dialog" rel="pos_order_add" title="采购订单添加"><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /PosOrder/pos_order_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>批量删除</span></a></li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/PosOrder/pos_order_modify/id/{sid_user}/" target="navTab" rel="pos_order_modify" title="采购订单修改"><span>修改</span></a></li>
+/PosOrder/pos_order_modify/id/{sid_user}/" target="dialog" rel="pos_order_modify" title="采购订单修改" width='850' height='450'><span>修改</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-	 	<th width="100">主题</th>
-		<th width="80">订单编号</th>
+	 	<th width="150">主题</th>
+		<th width="100">订单编号</th>
         <th width="120">客户名称</th>
         <th width="80">联系人</th>
 		<th width="100">采购时间</th>
 		<th width="100">预计到货时间</th>
         <th width="80">总金额</th>
 		<th width="80">去零金额</th>
-		<th width="80">回款金额</th>
 		<th width="80">付款金额</th>
 		<th width="80">入库金额</th>
 		<th width="80">已收票金额</th>
@@ -84,8 +82,12 @@
 " type="checkbox"></td>
 	  <td><?php echo $this->_tpl_vars['v']['title']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['pos_number']; ?>
-</td>
+	  <td><a target="dialog"  href="<?php echo @ACT; ?>
+/PosOrder/pos_order_show_one/id/<?php echo $this->_tpl_vars['v']['id']; ?>
+/" rel="pos_order_show_one" title="采购订单详细:<?php echo $this->_tpl_vars['v']['pos_number']; ?>
+-<?php echo $this->_tpl_vars['supplier'][$this->_tpl_vars['v']['supID']]; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['pos_number']; ?>
+</a></td>
 	  <td><?php echo $this->_tpl_vars['supplier'][$this->_tpl_vars['v']['supID']]; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
@@ -97,8 +99,6 @@
 	  <td><?php echo $this->_tpl_vars['v']['money']; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['v']['zero_money']; ?>
-</td>
-	  <td><?php echo $this->_tpl_vars['v']['back_money']; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['v']['pay_money']; ?>
 </td>

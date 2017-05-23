@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 14:41:01
+<?php /* Smarty version 2.6.26, created on 2017-05-22 09:11:36
          compiled from sal_contract/sal_contract_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>
@@ -73,7 +73,6 @@
 		<th width="80">付款状态</th>
 		<th width="80">交付状态</th>
 		<th width="80">开票状态</th>
- 
       </tr>
     </thead>
     <tbody>

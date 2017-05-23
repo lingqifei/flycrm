@@ -13,7 +13,7 @@ class FinReceRecord extends Action{
 
 		$where_str	 = " 0=0 ";
 		if($id){
-		$where_str  .= " and id in($id)";
+			$where_str  .= " and id in($id)";
 		}
 		$countSql    = "select id from fin_rece_record where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
@@ -30,7 +30,7 @@ class FinReceRecord extends Action{
 			foreach($list as $key=>$row){
 				$list[$key]["create_user"]	 = $this->L("User")->user_get_name($row['create_userID']);
 				$list[$key]["blankaccount"]	 = $this->L("FinBankAccount")->fin_bank_accoun_get_name($row['blankID']);
-				$list[$key]["business"]		 =$this->fin_rece_record_list_view($row["id"]);
+				$list[$key]["business"]		 = $this->L("FinFlowLinkBusiness")->fin_flow_link_bus($row['salID'],$row['busType']);
 				$customer[$row['id']] = $this->L("Customer")->customer_get_name($row['cusID']);
 				$salorder[$row['id']] = $this->L("SalOrder")->sal_order_get_name($row['salID']);
 			}
@@ -74,6 +74,7 @@ class FinReceRecord extends Action{
 			$smarty->display('fin_rece_record/fin_rece_record_show_box.html');	
 	}	
 	
+	//回款增加
 	public function fin_rece_record_add(){
 		if(empty($_POST)){
 			$smarty  = $this->setSmarty();
@@ -91,20 +92,25 @@ class FinReceRecord extends Action{
 			$intro		=$this->_REQUEST("intro");	
 			
 			$sql= "insert into fin_rece_record(cusID,salID,paydate,money,stages,blankID,
-												intro,adt,create_userID) 
+												intro,adt,create_userID,busType) 
 								values('$cusID','$salID','$paydate','$paymoney','$stages','$blankID',
-									'$intro','".NOWTIME."','".SYS_USER_ID."');";
-			$receID=$this->C($this->cacheDir)->update($sql);
+									'$intro','".NOWTIME."','".SYS_USER_ID."','$sal_type');";
+			
+			$receID=$this->C($this->cacheDir)->update($sql);//返回收款单号
+			
 			if($receID>0){
-				$this->fin_rece_record_list_add($sal_type,$receID,$salID,$cusID);
+		
 				if($sal_type=="sal_order"){
 					$this->L("SalOrder")->sal_order_pay_modify($salID,$paymoney);//更改订单回款金额
 				}elseif($sal_type=="sal_contract"){
 					$this->L("SalContract")->sal_contract_pay_modify($salID,$paymoney);//更改合同回款金额
 				}
 
-				$this->L("FinFlowRecord")->fin_flow_record_add('rece',$paymoney,$blankID,$salID);//添加流水
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinReceRecord/fin_rece_record_show/");	
+				$flowID=$this->L("FinFlowRecord")->fin_flow_record_add('rece',$paymoney,$blankID,$salID,$sal_type);//添加流水
+				
+				//$this->fin_rece_record_list_add($sal_type,$receID,$salID,$cusID,$flowID);//增加关联单号
+				
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinReceRecord/fin_rece_record_show/");	
 			}
 		}
 	}		
@@ -115,7 +121,7 @@ class FinReceRecord extends Action{
 		$this->L("Common")->ajax_json_success("操作成功","1","/FinReceRecord/fin_rece_record_show/");	
 	}
 	
-	//回款记录添加回款计划 to 回款记录
+	//回款记录添加 回款计划 to 回款记录
 	public function fin_rece_plan_record_add($planID,$cusID,$salID,$blankID,$paydate,$money,$stages,$intro){
 		$sql= "insert into fin_rece_record(
 					planID,cusID,salID,blankID,paydate,money,stages,intro,adt,create_userID) 
@@ -130,7 +136,7 @@ class FinReceRecord extends Action{
 		}	
 	}
 
-	//关联业务选择
+	//回款关联业务选择
 	public function fin_rece_get_customer_business(){
 		$order	=$this->L("SalOrder")->sal_order_select('pay_status');
 		$contr	=$this->L("SalContract")->sal_contract_select('pay_status');
@@ -159,37 +165,6 @@ class FinReceRecord extends Action{
 		echo json_encode($rtnArr);
 		
 	}
-	
-	//财务关联客户业务，订单和合同
-	public function fin_rece_record_list_add($type,$receID,$busID,$cusID){
-		$sql="insert into fin_rece_record_list(type,receID,busID,cusID) 
-											values('$type','$receID','$busID','$cusID');";	
-		
-		if($this->C($this->cacheDir)->update($sql)>0){
-			return true;
-		}else{
-			return false;	
-		}									
-	}
-	//根据财务ID显示关联的订单、合同号
-	public function fin_rece_record_list_view($receID){		
-		$sql="select * from fin_rece_record_list where receID='$receID'";
-		$one=$this->C($this->cacheDir)->findOne($sql);
-		switch($one["type"])
-		{
-			case "sal_order":
-				$name=$this->L("SalOrder")->sal_order_get_name($one["busID"]);
-				$rtn ="<a target='dialog' rel='sal_order_show_one' href='".ACT."/SalOrder/sal_order_show_one/id/".$one["busID"]."/' width='880' height='480'>".$name."</a>";
-				 break;
-			case "sal_contract":
-				$name=$this->L("SalContract")->sal_contract_get_name($one["busID"]);
-				$rtn ="<a target='dialog' rel='sal_order_show_one' href='".ACT."/SalContract/sal_contract_show_one/id/".$one["busID"]."/' width='880' height='480'>".$name."</a>";
-				 break;
-			default:
-				$rtn ="";
-		}		
-		return $rtn;								
-	}	
 		
 }//
 ?>

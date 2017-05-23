@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-06 20:46:26
+<?php /* Smarty version 2.6.26, created on 2017-05-18 15:05:30
          compiled from sal_order/sal_order_modify.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
@@ -11,7 +11,7 @@
 			<p>
 				<label>订单编号：</label>
 				<input type="text" value="<?php echo $this->_tpl_vars['one']['ord_number']; ?>
-" name="con_number" class="required" >
+" name="ord_number" class="required"  readonly="readonly">
 			</p>
 			<p>
 				<label>主题：</label>

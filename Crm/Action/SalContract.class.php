@@ -17,35 +17,41 @@ class SalContract extends Action{
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
 		$cus_name	   	   = $this->_REQUEST("cus_name");
+		$cusID 			   = $this->_REQUEST("cusID");
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
-		$where_str = " create_userID in ('".SYS_USER_VIEW."')";
-
+		
+		$where_str = " s.cusID=c.id  and s.create_userID in ('".SYS_USER_VIEW."')";
+		if(!empty($cusID) ){
+			$where_str .=" and s.cusID='$cusID'";
+		}
 		if( !empty($searchValue) ){
-			$where_str .=" and $searchKeyword like '%$searchValue%'";
+			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
 		}	
 		if( !empty($bdt) ){
-			$where_str .=" and adt >= '$bdt'";
+			$where_str .=" and s.adt >= '$bdt'";
 		}			
 		if( !empty($edt) ){
-			$where_str .=" and adt < '$edt'";
+			$where_str .=" and s.adt < '$edt'";
 		}	
 		//**************************************************************************
 		
-		$moneySql    = "select sum(money) as total_money,
-								sum(back_money) as total_back_money,
-								sum(zero_money) as total_zero_money,
-								sum(pay_money) as total_pay_money
-						 from sal_contract where $where_str";
+		$moneySql    = "select sum(s.money) as total_money,
+								sum(s.back_money) as total_back_money,
+								sum(s.zero_money) as total_zero_money,
+								sum(s.pay_money) as total_pay_money
+						 from sal_contract as s,cst_customer as c where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
 		
-		$countSql    = "select id from sal_contract where $where_str";
+		$countSql    = "select s.id from sal_contract as s,cst_customer as c where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select* from sal_contract
+		$sql		 = "select s.* from sal_contract as s,cst_customer as c
 						where $where_str 
-						order by id desc limit $beginRecord,$numPerPage";	
+						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		
+		$operate	 = array();
 		foreach($list as $key=>$row){
 			$operate[$row["id"]]=$this->sal_contract_operate($row["status"],$row["id"]);
 			//$money[$row["id"]]=_instance('Action/SalContractDetail')->cst_get_one_quoted_detail_money($row["id"]);
@@ -129,7 +135,7 @@ class SalContract extends Action{
 	
 	public function sal_contract_add(){
 		if(empty($_POST)){
-			$number = date("YmdHis").rand(10,99);
+			$number = date("ymdh").rand(10,99);
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("number"=>$number));
 			$smarty->display('sal_contract/sal_contract_add.html');	

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-06 11:24:12
+<?php /* Smarty version 2.6.26, created on 2017-05-22 08:58:14
          compiled from cst_linkman/cst_linkman_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
@@ -70,10 +70,14 @@
 ">
       <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
 " type="checkbox"></td>
-      <td><?php echo $this->_tpl_vars['v']['cst_name']; ?>
-</td>
+      <td><a target="dialog"  href="<?php echo @ACT; ?>
+/Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['cusID']; ?>
+/" rel="customer_show_one_<?php echo $this->_tpl_vars['v']['id']; ?>
+" title="<?php echo $this->_tpl_vars['v']['cst_name']; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['cst_name']; ?>
+</a></td>
       <td><?php echo $this->_tpl_vars['v']['name']; ?>
-</td>
+</a></td>
       <td><?php if ($this->_tpl_vars['v']['gender'] == 1): ?> 男 <?php else: ?> 女 <?php endif; ?> </td>
       <td><?php echo $this->_tpl_vars['v']['postion']; ?>
 </td>

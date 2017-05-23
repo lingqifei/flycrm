@@ -1,6 +1,6 @@
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);"
-	action="#{$smarty.const.ACT}#/FinExpensesRecord/fin_expenses_record_show" method="post">
+	action="#{$smarty.const.ACT}#/FinExpensesRecord/fin_expenses_record_show/" method="post">
     <div class="searchBar">
       <table class="searchContent">
         <tr>
@@ -32,7 +32,7 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add"
-		href="#{$smarty.const.ACT}#/FinExpensesRecord/fin_expenses_record_add/" target="navTab"
+		href="#{$smarty.const.ACT}#/FinExpensesRecord/fin_expenses_record_add/" target="dialog"
 		rel="fin_expenses_record_add" title="支出记录添加"><span>添加</span></a></li>
       <li> <a class="delete" href="#{$smarty.const.ACT}#/FinExpensesRecord/fin_expenses_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
     </ul>

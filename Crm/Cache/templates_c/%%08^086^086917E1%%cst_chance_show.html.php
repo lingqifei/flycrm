@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 15:50:24
+<?php /* Smarty version 2.6.26, created on 2017-05-18 15:19:55
          compiled from cst_chance/cst_chance_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
@@ -47,7 +47,7 @@
 /CstChance/cst_chance_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/CstChance/cst_chance_modify/id/{sid_user}/" target="dialog" rel="cst_chance_modify"  title="销售机会修改"><span>修改</span></a></li>
+/CstChance/cst_chance_modify/id/{sid_user}/" target="dialog" rel="cst_chance_modify"  title="销售机会修改" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -58,9 +58,9 @@
 		<th width="150">机会主题</th>
         <th width="150">客户名称</th>
         <th width="80">联系人</th>
-        <th width="140">发现时间</th>
-        <th width="150">客户需求</th>
-        <th width="140">预计签单时间</th>
+        <th width="80">发现时间</th>
+        <th width="200">客户需求</th>
+        <th width="80">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
 		<th width="80">当前阶段</th>

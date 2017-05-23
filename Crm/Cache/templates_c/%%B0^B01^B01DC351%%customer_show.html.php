@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-07 16:35:18
+<?php /* Smarty version 2.6.26, created on 2017-05-20 21:54:42
          compiled from customer/customer_show.html */ ?>
 
 <div class="pageHeader">
@@ -61,13 +61,13 @@
       <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
       <li class="line">line</li>
       <li><a class="people" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="dialog" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
+/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="navTab" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
       <li class="line">line</li>
       <li><a class="pro" href="<?php echo @ACT; ?>
-/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
        <li class="line">line</li>
       <li><a class="search" href="<?php echo @ACT; ?>
-/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="dialog" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
@@ -99,8 +99,9 @@
       <td>
         <a target="dialog"  href="<?php echo @ACT; ?>
 /Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
-/" class="btnLook" rel="dlg_page1" title="<?php echo $this->_tpl_vars['v']['name']; ?>
-" width="880" height="480">查看</a></td>
+/" rel="customer_show_one_<?php echo $this->_tpl_vars['v']['id']; ?>
+" class="btnLook" title="<?php echo $this->_tpl_vars['v']['name']; ?>
+" width="980" height="480">查看</a></td>
       <td><?php echo $this->_tpl_vars['v']['name']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['tel']; ?>

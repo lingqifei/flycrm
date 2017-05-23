@@ -51,7 +51,7 @@ class PosOrder extends Action{
 	public function pos_order_show(){
 			$assArr  				= $this->pos_order();
 			$assArr["supplier"]		= $this->L("Supplier")->supplier_arr();
-			$assArr["linkman"] 		= $this->L("CstLinkman")->cst_linkman_arr();
+			$assArr["linkman"] 		= $this->L("SupLinkman")->sup_linkman_arr();
 			$assArr["status"] 		= $this->pos_order_status();
 			$assArr["pay_status"] 	= $this->pos_order_pay_status();
 			$assArr["into_status"]  = $this->pos_order_into_status();
@@ -62,6 +62,33 @@ class PosOrder extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('pos_order/pos_order_show.html');	
 	}		
+	
+	
+	//查看订单详细
+	public function pos_order_show_one(){
+			$id		    		= $this->_REQUEST("id");
+			$sql 				= "select * from pos_order where id='$id'";
+			$one 				= $this->C($this->cacheDir)->findOne($sql);	
+			$one["sup_name"]  	= $this->L("Supplier")->supplier_get_name($one["supID"]);
+			$linkman    		= $this->L("SupLinkman")->sup_linkman_arr();
+			$users				= $this->L("User")->user_arr();
+			$status 			= $this->pos_order_status();
+			$pay_status 		= $this->pos_order_pay_status();
+			$into_status  		= $this->pos_order_into_status();
+			$bill_status 		= $this->pos_order_bill_status();
+
+			$smarty  			= $this->setSmarty();
+			$smarty->assign(array("one"=>$one,
+								"linkman"=>$linkman,
+								"users"=>$users,
+								"status"=>$status,
+								"pay_status"=>$pay_status,
+								"into_status"=>$into_status,
+								"bill_status"=>$bill_status,
+								));
+			$smarty->display('pos_order/pos_order_show_one.html');
+			
+	}
 	
 	public function pos_order_add(){
 		if(empty($_POST)){
@@ -100,33 +127,31 @@ class PosOrder extends Action{
 			$sql 				= "select * from pos_order where id='$id'";
 			$one 				= $this->C($this->cacheDir)->findOne($sql);	
 			$one["sup_name"]  	= $this->L("Supplier")->supplier_get_name($one["supID"]);
-			$linkman    		= $this->L("CstLinkman")->cst_linkman_arr();
-			$dict				= $this->L("CstDict")->cst_dict_arr();
-			$chance				= $this->L("CstChance")->cst_chance_arr();
+			$linkman    		= $this->L("SupLinkman")->sup_linkman_arr();
 			$users				= $this->L("User")->user_arr();
 			$smarty  			= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,
-			
 								"linkman"=>$linkman,
-								"dict"=>$dict,
-								"chance"=>$chance,
 								"users"=>$users));
 			$smarty->display('pos_order/pos_order_modify.html');
 				
 		}else{//更新保存数据
 		
-			$supID   	 = $this->_REQUEST("org_id");
+			$supID   	 = $this->_REQUEST("sup_id");
 			$linkmanID   = $this->_REQUEST("linkman_id");
-			$chanceID   = $this->_REQUEST("chance_id");
+			$our_userID  = $this->_REQUEST("our_id");
 			$sql= "update pos_order set 
-							pos_number='$_POST[pos_number]',
 							money='$_POST[money]',
-							supID='$supID',linkmanID='$linkmanID',our_userID='$our_userID',
-							bdt='$_POST[bdt]',edt='$_POST[edt]',
-							title='$_POST[title]',intro='$_POST[intro]'
+							supID='$supID',
+							linkmanID='$linkmanID',
+							our_userID='$our_userID',
+							bdt='$_POST[bdt]',
+							edt='$_POST[edt]',
+							title='$_POST[title]',
+							intro='$_POST[intro]'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");			
+				$this->L("Common")->ajax_json_success("操作成功","2","/PosOrder/pos_order_show/");		
 		}
 	}
 	
@@ -150,39 +175,39 @@ class PosOrder extends Action{
 	//订单状态
 	public function pos_order_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>临时单</div>",
-				"2"=>"<div style='color:#0000FF'>执行中</div>",
-				"2"=>"<div style='color:#008000'>完成</div>",
-				"4"=>"<div style='color:#ff0000'>撤销</div>"
+				"1"=>"<b style='color:#FFA500'>临时单</b>",
+				"2"=>"<b style='color:#0000FF'>执行中</b>",
+				"2"=>"<b style='color:#008000'>完成</b>",
+				"4"=>"<b style='color:#ff0000'>撤销</b>"
 		);
 	}
 	
 	//付款状态
 	public function pos_order_pay_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>未付</div>",
-				"2"=>"<div style='color:#FF0000'>部分</div>",
-				"3"=>"<div style='color:#8A2BE2'>已付</div>"
+				"1"=>"<b style='color:#FFA500'>未付</b>",
+				"2"=>"<b style='color:#FF0000'>部分</b>",
+				"3"=>"<b style='color:#8A2BE2'>已付</b>"
 		);
 	}
 	
 	//放库状态
 	public function pos_order_into_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>需要</div>",
-				"2"=>"<div style='color:#FF0000'>已录明细</div>",
-				"3"=>"<div style='color:#8A2BE2'>待入库</div>",
-				"4"=>"<div style='color:#0000FF'>部分</div>",
-				"5"=>"<div style='color:#008000'>全部</div>"
+				"1"=>"<b style='color:#FFA500'>需要</b>",
+				"2"=>"<b style='color:#FF0000'>已录明细</b>",
+				"3"=>"<b style='color:#8A2BE2'>待入库</b>",
+				"4"=>"<b style='color:#0000FF'>部分</b>",
+				"5"=>"<b style='color:#008000'>全部</b>"
 		);
 	}
 	
 	//发票状态
 	public function pos_order_bill_status(){
 		return  array(
-				"1"=>"<div style='color:#FFA500'>需要</div>",
-				"2"=>"<div style='color:#008000'>部分</div>",
-				"3"=>"<div style='color:#008000'>已开</div>"
+				"1"=>"<b style='color:#FFA500'>需要</b>",
+				"2"=>"<b style='color:#008000'>部分</b>",
+				"3"=>"<b style='color:#008000'>已开</b>"
 		);
 	}
 	
