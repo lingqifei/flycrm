@@ -265,11 +265,20 @@ class PosOrder extends Action{
 	}	
 	
 	//下拉选择回放数据
-	public function pos_order_select(){
+	public function pos_order_select($type=null){
 		$supID  = $this->_REQUEST("supID");
-		$sql	= "select id,title as name,money,bill_money,zero_money,pay_money,(money-zero_money-pay_money) as plan_money from pos_order where supID='$supID' order by id asc;";
+		switch($type){
+			case "pay_status":
+				$where_str="and pay_status in(1,2)";
+				break;
+			case "bill_status":
+				$where_str="and bill_status in(1,2)";
+				break;
+			default:
+		}
+		$sql	= "select id,title as name,money,bill_money,zero_money,pay_money,(money-zero_money-pay_money) as now_pay_money,(money-bill_money) as now_bill_money from pos_order where supID='$supID' {$where_str} order by id asc;";
 		$list	=$this->C($this->cacheDir)->findAll($sql);
-		echo json_encode($list);
+		return $list;
 	}
 
 	//传入ID返回名字

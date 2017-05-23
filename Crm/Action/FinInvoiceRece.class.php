@@ -74,7 +74,7 @@ class FinInvoiceRece extends Action{
 			$billmoney	=$this->_REQUEST("bill_money");
 			$name		=$this->_REQUEST("name");
 			$invo_number=$this->_REQUEST("invo_number");
-			$invo_money	=$this->_REQUEST("invo_money");
+			$invo_money	=$this->_REQUEST("order_now_bill_money");//收票金额
 			$intro		=$this->_REQUEST("intro");	
 			
 			$sql= "insert into fin_invoice_rece(posID,supID,recedate,money,stages,invo_number,
@@ -83,13 +83,12 @@ class FinInvoiceRece extends Action{
 										'$name','$intro','".NOWTIME."','".SYS_USER_ID."');";
 			if($this->C($this->cacheDir)->update($sql)>0){
 				$this->L("PosOrder")->pos_order_invo_modify($posID,$new_money=$invo_money);
-				$this->L("Common")->ajax_json_success("操作成功","0","/FinPayRecord/fin_invoice_rece_show/");	
+				$this->L("Common")->ajax_json_success("操作成功","2","/FinInvoiceRece/fin_invoice_rece_show/");	
 			}
 		}
 	}	
 
-
-	
+	//收票
 	public function fin_invoice_rece_modify(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -169,6 +168,29 @@ class FinInvoiceRece extends Action{
 			}
 		}
 		return $rtArr;
-	}			
+	}	
+//关联业务选择
+	public function fin_invoice_get_supplier_business(){
+		$order	=$this->L("PosOrder")->pos_order_select('bill_status');
+/*		print_r($order);
+		print_r($contr);*/
+/*            [id] => 4
+            [name] => 100
+            [money] => 1000
+            [bill_money] => 0
+            [zero_money] => 0
+            [back_money] => 0
+            [now_back_money] => 1000*/
+		$rtnArr	=array();
+		$key	=0;
+		foreach($order as $row){
+			$rtnArr[$key]			=$row;
+			$rtnArr[$key]["type"]	="pos_order";
+			$key++;
+		}
+		//print_r($rtnArr);
+		echo json_encode($rtnArr);
+	}
+		
 }//
 ?>

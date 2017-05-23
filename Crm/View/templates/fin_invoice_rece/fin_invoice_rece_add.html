@@ -1,6 +1,6 @@
 <div class="pageContent">
-	<form method="post" action="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
-		<div class="pageFormContent" layoutH="97">
+	<form method="post" action="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_rece_add/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="50">
 			<fieldset>
 			<legend>基础信息：</legend>	
 			<p>
@@ -14,7 +14,7 @@
 				<label>采购订单：</label>
 				<input name="order.id" value="" type="hidden"/>
 				<input class="required" name="order.name" type="text" postField="keyword" suggestFields="name" 
-					suggestUrl="#{$smarty.const.ACT}#/PosOrder/pos_order_select/supID/{supID}/" warn="请选择采购订单" lookupGroup="order"/>
+					suggestUrl="#{$smarty.const.ACT}#/FinInvoiceRece/fin_invoice_get_supplier_business/supID/{supID}/" warn="请选择采购订单" lookupGroup="order"/>
 			</p>
 			<p>
 				<label>收票日期：</label>
@@ -52,7 +52,7 @@
             </p>
             <p>
             	<label>发票金额：</label>
-				<input name="invo_money" value="" type="text"/>
+				<input name="order.now_bill_money" value="" type="text"/>
             </p>
 			</fieldset>
 			<div class="divider"></div>			

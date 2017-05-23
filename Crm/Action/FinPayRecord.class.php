@@ -76,7 +76,7 @@ class FinPayRecord extends Action{
 			$blankID	=$this->_REQUEST("blank_id");
 			$stages		=$this->_REQUEST("stages");
 			$paydate	=$this->_REQUEST("paydate");
-			$paymoney	=$this->_REQUEST("pay_money");	
+			$paymoney	=$this->_REQUEST("order_now_pay_money");//支付金额	
 			$intro		=$this->_REQUEST("intro");	
 			
 			$sql= "insert into fin_pay_record(posID,supID,paydate,money,stages,blankID,
@@ -110,6 +110,29 @@ class FinPayRecord extends Action{
 		}else{
 			return false;	
 		}	
+	}
+
+//关联业务选择
+	public function fin_pay_get_business(){
+		$order	=$this->L("PosOrder")->pos_order_select('pay_status');
+/*		print_r($order);
+		print_r($contr);*/
+/*            [id] => 4
+            [name] => 100
+            [money] => 1000
+            [bill_money] => 0
+            [zero_money] => 0
+            [back_money] => 0
+            [now_back_money] => 1000*/
+		$rtnArr	=array();
+		$key	=0;
+		foreach($order as $row){
+			$rtnArr[$key]			=$row;
+			$rtnArr[$key]["type"]	="pos_order";
+			$key++;
+		}
+		//print_r($rtnArr);
+		echo json_encode($rtnArr);
 	}
 		
 }//
