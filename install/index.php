@@ -189,9 +189,9 @@ if(isset($_POST['install'])){
     
 
 	if(!isset($installerrors)){
-		$SqlLines = @file('cms.sql');
+		$SqlLines = @file('crm.sql');
 		if (!$SqlLines) {
-			$installerrors[] = '无法加载数据文件: install/ljcms_v1.sql';
+			$installerrors[] = '无法加载数据文件: install/crm.sql';
 		} else {
 			if(!$confirmprefix) {
 				if($query = mysql_query("SHOW TABLES FROM $dbname")) {
