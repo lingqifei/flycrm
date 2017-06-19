@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-20 21:31:48
+<?php /* Smarty version 2.6.26, created on 2017-06-19 09:20:16
          compiled from cst_trace/cst_trace_show.html */ ?>
 
 <div class="pageHeader">
@@ -55,12 +55,13 @@
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
         <th width="120">客户名称</th>
         <th width="80">联系人</th>
+        <th width="100">状态</th>
         <th width="130">联系时间</th>
         <th width="80">我方联系人</th>
 		<th width="150">对应机会</th>
         <th width="100">销售阶段</th>
         <th width="100">销售方式</th>
-        <th width="100">状态</th>
+        
         <th>主题</th>
       </tr>
     </thead>
@@ -77,6 +78,8 @@
  </td>
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
+      <td><?php echo $this->_tpl_vars['status'][$this->_tpl_vars['v']['status']]; ?>
+</td>
 	  <td><?php echo $this->_tpl_vars['v']['bdt']; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['users'][$this->_tpl_vars['v']['create_userID']]; ?>
@@ -87,8 +90,7 @@
 </td>
       <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['v']['salemode']]; ?>
 </td>
-      <td><?php echo $this->_tpl_vars['status'][$this->_tpl_vars['v']['status']]; ?>
-</td>
+      
       <td><?php echo $this->_tpl_vars['v']['title']; ?>
 </td>
     </tr>

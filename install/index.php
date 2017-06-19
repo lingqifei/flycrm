@@ -74,10 +74,10 @@ echo "<html>
 $footer = '</td></tr></table></body></html>';
 
 /* 判断是否安装 */
-@include($rootpath . 'source/conf/config.inc.php');
+@include($rootpath . 'source/Config/Config.inc.php');
 if(defined('FLYCRM')){
 	echo "<font class=ohredb><b>07FLY-CRM客户管理系统已经安装!</b></font><BR><BR>
-	如果您希望重新安装，请先删除source/conf/config.inc.php文件的 <br />define('FLYCRM',true);<br /><br /><a href='../index.php'>返回首页</a>";
+	如果您希望重新安装，请先删除source/Config/Config.inc.php文件的 <br />define('FLYCRM',true);<br /><br /><a href='../index.php'>返回首页</a>";
 	echo $footer;
 	exit();
 }
@@ -87,7 +87,7 @@ $servername      = isset($_POST['install']) ? trim($_POST['servername'])		: 'loc
 $dbname          = isset($_POST['install']) ? trim($_POST['dbname'])            : '';
 $dbusername      = isset($_POST['install']) ? trim($_POST['dbusername'])        : '';
 $dbpassword      = isset($_POST['install']) ? trim($_POST['dbpassword'])        : '';
-$tableprefix     = isset($_POST['install']) ? trim($_POST['tableprefix'])       : 'ljcms_';//表的前缀
+$tableprefix     = isset($_POST['install']) ? trim($_POST['tableprefix'])       : 'fly_';//表的前缀
 $confirmprefix   = isset($_POST['install']) ? trim($_POST['confirmprefix'])	    : '';//判断表是否存在
 
 $username        = isset($_POST['install']) ? trim($_POST['username'])			: '';//帐号密码
@@ -102,16 +102,16 @@ $tableprefix_err = 0;
 if(isset($_POST['install'])){
 
 	/* 判断是否有可写权限 */
-	@chmod($rootpath.'Crm/config/', 0777);
+	@chmod($rootpath.'Crm/Config/', 0777);
 
-	if (!is_writable($rootpath.'Crm/config/'))
-		$installerrors[] = '请将Crm/config/文件夹的属性设置为: 777';
+	if (!is_writable($rootpath.'Crm/Config/'))
+		$installerrors[] = '请将Crm/Config/文件夹的属性设置为: 777';
 
-	if(!is_writeable($rootpath.'Crm/config/config.php')) {
-		$installerrors[] = '请将系统配置文件Crm/config/config.php设置为可写, 即属性设置为: 777';
+	if(!is_writeable($rootpath.'Crm/Config/Config.php')) {
+		$installerrors[] = '请将系统配置文件Crm/Config/Config.php设置为可写, 即属性设置为: 777';
 	}
 
-//	if(!is_writeable($rootpath.'source/conf/config.inc.php')) {
+//	if(!is_writeable($rootpath.'source/Config/Config.inc.php')) {
 //		$installerrors[] = '请将系统配置文件source/conf/config.inc.php设置为可写, 即属性设置为: 777';
 //	}
 
@@ -270,7 +270,7 @@ if(isset($_POST['install'])){
 	
 ); 
 ?>";
-				$configfilenum = fopen ($rootpath . "/Crm/config/config.php","w");
+				$configfilenum = fopen ($rootpath . "/Crm/Config/Config.php","w");
 				ftruncate($configfilenum, 0);
 				fwrite($configfilenum, $config_contents);
 				fclose($configfilenum);

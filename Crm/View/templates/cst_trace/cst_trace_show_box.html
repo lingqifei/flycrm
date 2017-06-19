@@ -1,6 +1,6 @@
 
 <div class="pageHeader">
-  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="#{$smarty.const.ACT}#/CstTrace/cst_trace_show/" method="post">
+  <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="#{$smarty.const.ACT}#/CstTrace/cst_chance_show_box/" method="post">
       <input type="hidden" name="pageNum" value="1" />
       <input type="hidden" name="numPerPage" value="#{$numPerPage}#" />
       <input type="hidden" name="orderField" value="${param.orderField}" />
@@ -36,10 +36,10 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="#{$smarty.const.ACT}#/CstTrace/cst_trace_add/" target="dialog" rel="cst_trace_add" title="跟踪记录添加"><span>添加</span></a></li>
+      <li><a class="add" href="#{$smarty.const.ACT}#/CstTrace/cst_trace_add/cusID/#{$cusID}#/" target="dialog" rel="cst_trace_add" title="跟踪记录添加" width=850 height=450><span>添加</span></a></li>
       <li><a class="delete" href="#{$smarty.const.ACT}#/CstTrace/cst_trace_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
-      <li><a class="edit" href="#{$smarty.const.ACT}#/CstTrace/cst_trace_modify/id/{sid_user}/" target="dialog" rel="cst_trace_modify" title="跟踪记录修改"><span>修改</span></a></li>
+      <li><a class="edit" href="#{$smarty.const.ACT}#/CstTrace/cst_trace_modify/id/{sid_user}/" target="dialog" rel="cst_trace_modify" title="跟踪记录修改" width=850 height=450><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -47,7 +47,6 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="120">客户名称</th>
         <th width="80">联系人</th>
         <th width="130">联系时间</th>
         <th width="80">我方联系人</th>
@@ -63,7 +62,6 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-	  <td>#{$v.cst_name}# </td>
 	  <td>#{$linkman[$v.linkmanID]}#</td>
 	  <td>#{$v.bdt}#</td>
 	  <td>#{$users[$v.create_userID]}#</td>

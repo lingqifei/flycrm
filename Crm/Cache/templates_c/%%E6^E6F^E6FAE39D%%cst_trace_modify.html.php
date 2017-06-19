@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-13 00:08:24
+<?php /* Smarty version 2.6.26, created on 2017-06-19 10:07:36
          compiled from cst_trace/cst_trace_modify.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
@@ -65,21 +65,32 @@
 				<?php echo $this->_tpl_vars['status']; ?>
 
 			</p>	
-			</fieldset>
-			<div class="divider"></div>			
-			
-			<fieldset>
-				<legend>主题：</legend>
-					<dl class="nowrap">
-						<input name="title" class="required" type="text" size="50" value="<?php echo $this->_tpl_vars['one']['title']; ?>
+            <p>
+            <label>沟通主题：</label>
+               <input name="title" class="required" type="text" size="30" value="<?php echo $this->_tpl_vars['one']['title']; ?>
 " alt="请输联系主题内容"/>
-					</dl>	
+            </p>	
+			</fieldset>
+            <fieldset>	
 				<legend>备注：</legend>
-					<dl class="nowrap">
-						<textarea name="intro" cols="80" rows="5"><?php echo $this->_tpl_vars['one']['intro']; ?>
+                <dl class="nowrap">
+                    <textarea name="intro" cols="80" rows="3"><?php echo $this->_tpl_vars['one']['intro']; ?>
 </textarea>
-					</dl>	
-			</fieldset>		
+                </dl>	
+			</fieldset>	
+			<div class="divider"></div>			
+			<fieldset>
+				<legend>计划下次沟通：</legend>
+			<p>
+				<label>下次沟通时间：</label>
+				<input type="text" name="nextbdt" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true"/>
+				<a class="inputDateButton" href="javascript:;">选择</a>
+			</p>
+            <p>
+            <label>下次沟通主题：</label>
+               <input name="nexttitle" class="" type="text"  size="30" alt="请输下次计划联系主题内容"/>	
+            </p>
+            </fieldset>	
 			
 		</div>
 		<div class="formBar">

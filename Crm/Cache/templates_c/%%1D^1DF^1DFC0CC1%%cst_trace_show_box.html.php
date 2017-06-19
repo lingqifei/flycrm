@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 11:43:31
+<?php /* Smarty version 2.6.26, created on 2017-06-19 09:06:01
          compiled from cst_trace/cst_trace_show_box.html */ ?>
 
 <div class="pageHeader">
@@ -42,12 +42,13 @@
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="<?php echo @ACT; ?>
-/CstTrace/cst_trace_add/" target="dialog" rel="cst_trace_add" title="跟踪记录添加"><span>添加</span></a></li>
+/CstTrace/cst_trace_add/cusID/<?php echo $this->_tpl_vars['cusID']; ?>
+/" target="dialog" rel="cst_trace_add" title="跟踪记录添加" width=850 height=450><span>添加</span></a></li>
       <li><a class="delete" href="<?php echo @ACT; ?>
 /CstTrace/cst_trace_del/" postType="string" title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" ><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="edit" href="<?php echo @ACT; ?>
-/CstTrace/cst_trace_modify/id/{sid_user}/" target="dialog" rel="cst_trace_modify" title="跟踪记录修改"><span>修改</span></a></li>
+/CstTrace/cst_trace_modify/id/{sid_user}/" target="dialog" rel="cst_trace_modify" title="跟踪记录修改" width=850 height=450><span>修改</span></a></li>
       <li class="line">line</li>
     </ul>
   </div>
@@ -55,7 +56,6 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="120">客户名称</th>
         <th width="80">联系人</th>
         <th width="130">联系时间</th>
         <th width="80">我方联系人</th>
@@ -75,8 +75,6 @@
 ">
       <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
 " type="checkbox"></td>
-	  <td><?php echo $this->_tpl_vars['v']['cst_name']; ?>
- </td>
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['v']['bdt']; ?>

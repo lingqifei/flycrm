@@ -49,12 +49,13 @@
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
         <th width="120">客户名称</th>
         <th width="80">联系人</th>
+        <th width="100">状态</th>
         <th width="130">联系时间</th>
         <th width="80">我方联系人</th>
 		<th width="150">对应机会</th>
         <th width="100">销售阶段</th>
         <th width="100">销售方式</th>
-        <th width="100">状态</th>
+        
         <th>主题</th>
       </tr>
     </thead>
@@ -65,12 +66,13 @@
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
 	  <td>#{$v.cst_name}# </td>
 	  <td>#{$linkman[$v.linkmanID]}#</td>
+      <td>#{$status[$v.status]}#</td>
 	  <td>#{$v.bdt}#</td>
 	  <td>#{$users[$v.create_userID]}#</td>
 	  <td>#{$chance[$v.chanceID]}#</td>
       <td>#{$dict[$v.salestage]}#</td>
       <td>#{$dict[$v.salemode]}#</td>
-      <td>#{$status[$v.status]}#</td>
+      
       <td>#{$v.title}#</td>
     </tr>
     #{/foreach}#
