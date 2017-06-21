@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 15:49:07
+<?php /* Smarty version 2.6.26, created on 2017-06-19 21:38:49
          compiled from method/method_show.html */ ?>
 
 <div class="pageHeader">
@@ -6,7 +6,7 @@
 /Method/method_show" method="post">
 	<div class="searchBar">
 		
-		<!--<table class="searchContent">
+		<table class="searchContent">
 			<tr>
 				<td>
 					我的客户：<input type="text" name="keyword" />
@@ -25,7 +25,7 @@
 					建档日期：<input type="text" class="date" readonly="true" />
 				</td>
 			</tr>
-		</table>-->
+		</table>
 		<div class="subBar">
 			<ul>
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
