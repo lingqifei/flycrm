@@ -11,13 +11,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 导出 07fly_oa 的数据库结构
-DROP DATABASE IF EXISTS `07fly_oa`;
 CREATE DATABASE IF NOT EXISTS `07fly_oa` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `07fly_oa`;
 
 
 -- 导出  表 07fly_oa.cst_chance 结构
-DROP TABLE IF EXISTS `cst_chance`;
 CREATE TABLE IF NOT EXISTS `cst_chance` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -34,19 +32,17 @@ CREATE TABLE IF NOT EXISTS `cst_chance` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_chance 的数据：~2 rows (大约)
+-- 正在导出表  07fly_oa.cst_chance 的数据：~1 rows (大约)
 DELETE FROM `cst_chance`;
 /*!40000 ALTER TABLE `cst_chance` DISABLE KEYS */;
 INSERT INTO `cst_chance` (`id`, `cusID`, `linkmanID`, `finddt`, `billdt`, `salestage`, `money`, `chance`, `userID`, `title`, `intro`, `status`, `create_userID`, `adt`) VALUES
-	(12, 1, '71', '2017-05-22', '2017-05-31', 38, 1000, 50, 0, '企业网站制作', '', 1, 4, '2017-05-23 20:37:48'),
-	(13, 1, '71', '2017-06-15', '2017-06-15', 38, 555, 50, 0, 'sss', 'sssss', 4, 4, '2017-06-01 10:04:36');
+	(5, 2, '7', '2017-01-17', '2017-01-12', 39, 57, 56, 0, '第一次报价', '', 1, 4, '2017-01-10 11:56:27');
 /*!40000 ALTER TABLE `cst_chance` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_customer 结构
-DROP TABLE IF EXISTS `cst_customer`;
 CREATE TABLE IF NOT EXISTS `cst_customer` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
@@ -61,27 +57,30 @@ CREATE TABLE IF NOT EXISTS `cst_customer` (
   `address` varchar(256) NOT NULL,
   `website` varchar(256) NOT NULL,
   `zipcode` varchar(64) NOT NULL,
+  `linkman` varchar(64) NOT NULL,
+  `mobile` varchar(64) NOT NULL,
   `tel` varchar(256) NOT NULL,
   `fax` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
+  `main_pro` varchar(1024) NOT NULL COMMENT '主营产品',
+  `talk` varchar(1024) NOT NULL COMMENT '沟通情况',
   `status` varchar(256) NOT NULL,
   `intro` text NOT NULL,
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13150 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.cst_customer 的数据：~2 rows (大约)
 DELETE FROM `cst_customer`;
 /*!40000 ALTER TABLE `cst_customer` DISABLE KEYS */;
-INSERT INTO `cst_customer` (`id`, `name`, `cst_number`, `region`, `source`, `ecotype`, `level`, `trade`, `satisfy`, `credit`, `address`, `website`, `zipcode`, `tel`, `fax`, `email`, `status`, `intro`, `create_userID`, `adt`) VALUES
-	(1, '零起飞网络', '', 0, 36, 27, 1, 24, 3, 3, '成都市校园路368号', 'http://www.07fly.com', '610000', '02861833149', '02861833149', 'WEB@07fly.com', '', '这个客户还是可以呀', 4, '2013-09-06 15:28:22'),
-	(3, '测试客户', '', 0, 34, 28, 1, 24, 3, 3, '', 'http://www.07fly.com', '', '02888888', '', '', '', '', 0, '2016-06-03 09:56:33');
+INSERT INTO `cst_customer` (`id`, `name`, `cst_number`, `region`, `source`, `ecotype`, `level`, `trade`, `satisfy`, `credit`, `address`, `website`, `zipcode`, `linkman`, `mobile`, `tel`, `fax`, `email`, `main_pro`, `talk`, `status`, `intro`, `create_userID`, `adt`) VALUES
+	(1, '零起飞网络', '', 0, 36, 27, 1, 24, 3, 3, '成都市校园路368号', 'http://www.07fly.com', '610000', '', '', '02861833149', '02861833149', 'WEB@07fly.com', '', '没接电话', '', '这个客户还是可以呀', 4, '2013-09-06 15:28:22'),
+	(3, '测试客户', '', 0, 34, 28, 1, 24, 3, 3, '', 'http://www.07fly.com', '', '', '', '02888888', '', '', '', '', '', '', 0, '2016-06-03 09:56:33');
 /*!40000 ALTER TABLE `cst_customer` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_dict 结构
-DROP TABLE IF EXISTS `cst_dict`;
 CREATE TABLE IF NOT EXISTS `cst_dict` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -89,15 +88,15 @@ CREATE TABLE IF NOT EXISTS `cst_dict` (
   `sort` smallint(8) NOT NULL,
   `visible` smallint(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_dict 的数据：~35 rows (大约)
+-- 正在导出表  07fly_oa.cst_dict 的数据：~45 rows (大约)
 DELETE FROM `cst_dict`;
 /*!40000 ALTER TABLE `cst_dict` DISABLE KEYS */;
 INSERT INTO `cst_dict` (`id`, `name`, `type`, `sort`, `visible`) VALUES
 	(1, 'VIP客户', 'level', 1, 1),
 	(23, '一般客户', 'level', 4, 1),
-	(24, '生产制造业', 'trade', 1, 1),
+	(24, '工业品企业', 'trade', 1, 1),
 	(25, '国有经济', 'ecotype', 1, 1),
 	(26, '集体经济', 'ecotype', 2, 1),
 	(27, '私营经济', 'ecotype', 3, 1),
@@ -129,12 +128,21 @@ INSERT INTO `cst_dict` (`id`, `name`, `type`, `sort`, `visible`) VALUES
 	(53, '上门', 'salemode', 2, 1),
 	(54, '维护', 'services', 4, 1),
 	(55, '现场', 'servicesmodel', 3, 1),
-	(56, '邮寄', 'salemode', 3, 1);
+	(56, '邮寄', 'salemode', 3, 1),
+	(57, '网络', 'salemode', 4, 1),
+	(58, '网络', 'servicesmodel', 4, 1),
+	(59, '消费品企业', 'trade', 1, 1),
+	(60, '原材料企业', 'trade', 1, 1),
+	(61, '农业企业', 'trade', 1, 1),
+	(62, '没接电话', 'talk', 1, 1),
+	(63, '不需要', 'talk', 2, 1),
+	(64, '挂了', 'talk', 3, 1),
+	(65, '空号', 'talk', 4, 1),
+	(66, '加微信号', 'talk', 5, 1);
 /*!40000 ALTER TABLE `cst_dict` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_dict_type 结构
-DROP TABLE IF EXISTS `cst_dict_type`;
 CREATE TABLE IF NOT EXISTS `cst_dict_type` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) CHARACTER SET utf8 DEFAULT NULL COMMENT '字典名称',
@@ -158,7 +166,6 @@ INSERT INTO `cst_dict_type` (`id`, `name`, `value`) VALUES
 
 
 -- 导出  表 07fly_oa.cst_filing 结构
-DROP TABLE IF EXISTS `cst_filing`;
 CREATE TABLE IF NOT EXISTS `cst_filing` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -175,18 +182,19 @@ CREATE TABLE IF NOT EXISTS `cst_filing` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_filing 的数据：~1 rows (大约)
+-- 正在导出表  07fly_oa.cst_filing 的数据：~3 rows (大约)
 DELETE FROM `cst_filing`;
 /*!40000 ALTER TABLE `cst_filing` DISABLE KEYS */;
 INSERT INTO `cst_filing` (`id`, `cusID`, `linkmanID`, `chanceID`, `userID`, `applicant_userID`, `audit_userID`, `audit_dt`, `title`, `intro`, `support`, `status`, `create_userID`, `adt`) VALUES
-	(6, 1, 71, 12, 0, 4, 4, '2017-06-06 15:44:27', '00000', '111', '', 2, 4, '2017-06-06 15:44:11');
+	(1, 1, 2, 1, 0, 0, 4, '2017-02-09 11:49:35', '项目报价', '项目介绍', '', 1, 0, '2013-09-09 21:34:14'),
+	(4, 1, 2, 2, 0, 5, 4, '2016-06-12 15:02:30', '这是一个不错的项目的呢', '', '', 2, 4, '2013-09-23 10:34:50'),
+	(5, 1, 2, 2, 0, 5, 4, '2016-12-22 11:23:32', '这是一个不错的项目的呢', '', '需要技术部门和销售部门的支持和帮助的呢', 3, 4, '2013-09-23 10:35:16');
 /*!40000 ALTER TABLE `cst_filing` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_linkman 结构
-DROP TABLE IF EXISTS `cst_linkman`;
 CREATE TABLE IF NOT EXISTS `cst_linkman` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -203,19 +211,27 @@ CREATE TABLE IF NOT EXISTS `cst_linkman` (
   `create_userID` int(16) NOT NULL DEFAULT '0',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_linkman 的数据：~2 rows (大约)
+-- 正在导出表  07fly_oa.cst_linkman 的数据：~11 rows (大约)
 DELETE FROM `cst_linkman`;
 /*!40000 ALTER TABLE `cst_linkman` DISABLE KEYS */;
 INSERT INTO `cst_linkman` (`id`, `cusID`, `name`, `gender`, `postion`, `tel`, `mobile`, `qicq`, `email`, `zipcode`, `address`, `intro`, `create_userID`, `adt`) VALUES
-	(71, 1, '李先生', 1, '技术员', '', '18030402705', '', '', '', '', '', 4, '2017-05-23 20:20:53'),
-	(72, 1, '马老师', 1, '商务代表', '', '18782911541', '', '', '', '', '', 4, '2017-05-23 20:22:37');
+	(3, 2, '零起飞', 1, '经理', '', '18030402705', '', '', '', '', '', 4, '2016-06-02 14:59:00'),
+	(5, 4, 'Mr Lee', 1, '经理', '18030402705', '18030402705', '', '', '', '', '', 4, '2016-06-12 15:18:05'),
+	(6, 4, '222', 1, '22', '', '22222222', '', '', '', '', '', 4, '2016-06-12 15:20:43'),
+	(7, 2, '网易163组', 1, '经理', '18030402705', '18030402705', '1871720801', 'goodmuzi@qq.com', '610000', '成都市天涯', '', 4, '2016-06-12 15:33:28'),
+	(8, 7, '李大爷', 1, '经理', '', '13800000000', '', '', '', '', '基', 4, '2016-12-16 21:00:21'),
+	(35, 4, 'niaomuniao', 1, '经理', '', '13800000000', '', '', '', '', '', 4, '2017-01-10 11:57:03'),
+	(36, 2, '添加', 1, '经理', '', '13800000000', '', '', '', '', '', 4, '2017-01-10 11:58:31'),
+	(37, 2, '添加', 1, '经理', '', '13800000000', '', '', '', '', '', 4, '2017-01-10 11:58:37'),
+	(38, 7, '修改', 1, '经理', '', '138000000000', '', '', '', '', '', 4, '2017-01-10 11:59:03'),
+	(56, 2, '赵老师', 1, '经理', '', '13800000000', '', '', '', '', '', 4, '2017-02-09 11:32:02'),
+	(74, 19, '李君', 0, '', '', '', '', '', '', '', '', 0, '2017-07-13 11:54:03');
 /*!40000 ALTER TABLE `cst_linkman` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_quoted 结构
-DROP TABLE IF EXISTS `cst_quoted`;
 CREATE TABLE IF NOT EXISTS `cst_quoted` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -236,14 +252,19 @@ CREATE TABLE IF NOT EXISTS `cst_quoted` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_quoted 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.cst_quoted 的数据：~5 rows (大约)
 DELETE FROM `cst_quoted`;
 /*!40000 ALTER TABLE `cst_quoted` DISABLE KEYS */;
+INSERT INTO `cst_quoted` (`id`, `cusID`, `linkmanID`, `chanceID`, `userID`, `quoted_userID`, `audit_userID`, `title`, `intro`, `delivery_intro`, `payment_intro`, `audit_dt`, `transport_intro`, `status`, `create_userID`, `adt`) VALUES
+	(5, 1, 2, 2, 0, 0, 0, '报价人111111111111', '', '', '', NULL, '', 3, 0, '2013-09-09 20:43:01'),
+	(6, 1, 2, 2, 0, 3, 4, '主要是NAs5000', '', '', '', '0000-00-00 00:00:00', '', 2, 4, '2013-09-23 10:59:50'),
+	(7, 4, 0, 0, 0, 0, 4, '主要针对设计网站', '', '苦', '苦', '2017-01-20 11:58:09', 'adf', 3, 4, '2016-06-12 15:01:53'),
+	(8, 2, 3, 5, 0, 0, 0, '表白江', '', '一个月之内交货', '首付300，\r\n一次付600', NULL, '', 1, 4, '2017-02-06 15:59:15'),
+	(9, 2, 3, 5, 0, 0, 0, '表白江', '', '一个月之内交货', '首付300，\r\n一次付600', NULL, '', 1, 4, '2017-02-06 15:59:30');
 /*!40000 ALTER TABLE `cst_quoted` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_quoted_detail 结构
-DROP TABLE IF EXISTS `cst_quoted_detail`;
 CREATE TABLE IF NOT EXISTS `cst_quoted_detail` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `quotedID` int(16) NOT NULL,
@@ -261,14 +282,18 @@ CREATE TABLE IF NOT EXISTS `cst_quoted_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_quoted_detail 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.cst_quoted_detail 的数据：~4 rows (大约)
 DELETE FROM `cst_quoted_detail`;
 /*!40000 ALTER TABLE `cst_quoted_detail` DISABLE KEYS */;
+INSERT INTO `cst_quoted_detail` (`id`, `quotedID`, `pro_number`, `name`, `model`, `norm`, `price`, `rebate`, `number`, `money`, `intro`, `userID`, `adt`) VALUES
+	(1, 1, '20880345', '神舟电脑', 'HP660 D6', 'D6', 10, 2, 10, 98, '', 0, '2013-09-22 09:55:32'),
+	(2, 1, '20880345', '神舟电脑', 'HP660 D6', 'D6', 10, 0, 5, 50, '', 0, '2013-09-22 09:55:32'),
+	(3, 1, 'X807651', 'AAA计费产品', 'N8000', '套', 9800, 0, 1, 9800, '', 0, '2013-09-22 09:55:32'),
+	(4, 6, '20880345', '神舟电脑', 'HP660 D6', 'D6', 10, 0, 2, 20, '', 0, '2013-09-23 11:01:43');
 /*!40000 ALTER TABLE `cst_quoted_detail` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.cst_service 结构
-DROP TABLE IF EXISTS `cst_service`;
 CREATE TABLE IF NOT EXISTS `cst_service` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -284,18 +309,106 @@ CREATE TABLE IF NOT EXISTS `cst_service` (
   `create_userID` int(16) NOT NULL DEFAULT '0',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.cst_service 的数据：~1 rows (大约)
+-- 正在导出表  07fly_oa.cst_service 的数据：~10 rows (大约)
 DELETE FROM `cst_service`;
 /*!40000 ALTER TABLE `cst_service` DISABLE KEYS */;
 INSERT INTO `cst_service` (`id`, `cusID`, `linkmanID`, `services`, `servicesmodel`, `price`, `status`, `bdt`, `tlen`, `content`, `intro`, `create_userID`, `adt`) VALUES
-	(19, 0, 0, 46, 50, 0, 3, '2017-05-11 17:59:52', '', '', '', 4, '2017-05-31 17:52:40');
+	(7, 4, 5, 46, 50, 0, 2, '2016-06-12 15:47:35', '10', '', '', 0, '2016-06-12 15:47:48'),
+	(10, 2, 3, 46, 49, 0, 2, '2016-12-16 21:42:41', '', '', '', 4, '2016-12-16 21:42:45'),
+	(11, 2, 3, 46, 49, 0, 2, '2016-12-16 21:42:41', '67', '', '', 4, '2016-12-16 21:43:48'),
+	(12, 1, 2, 47, 49, 0, 3, '2016-12-24 21:43:58', '', '112', '122222', 4, '2016-12-16 21:44:08'),
+	(13, 1, 13, 46, 50, 0, 1, '2017-01-09 20:25:25', '', '', '', 4, '2016-12-23 18:03:43'),
+	(14, 1, 10, 45, 49, 0, 1, '2016-12-31 18:50:59', '', '', '', 4, '2016-12-23 18:07:08'),
+	(15, 1, 2, 46, 49, 0, 3, '2017-02-09 10:08:38', '5', '', '', 4, '2017-02-09 10:08:43'),
+	(16, 10, 60, 45, 49, 0, 2, '2017-05-17 18:02:00', '5', '', '', 4, '2017-05-03 18:02:12'),
+	(17, 10, 60, 45, 49, 0, 1, '2017-05-12 22:12:42', '30', '', '', 4, '2017-05-12 22:12:48'),
+	(18, 16, 64, 45, 49, 0, 1, '2017-05-20 08:31:08', '30', '', '', 4, '2017-05-13 08:31:17');
 /*!40000 ALTER TABLE `cst_service` ENABLE KEYS */;
 
 
+-- 导出  表 07fly_oa.cst_talk 结构
+CREATE TABLE IF NOT EXISTS `cst_talk` (
+  `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
+  `cusID` int(16) NOT NULL,
+  `name` varchar(1024) NOT NULL,
+  `create_userID` int(16) NOT NULL DEFAULT '0',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COMMENT='打电话沟通记录';
+
+-- 正在导出表  07fly_oa.cst_talk 的数据：~63 rows (大约)
+DELETE FROM `cst_talk`;
+/*!40000 ALTER TABLE `cst_talk` DISABLE KEYS */;
+INSERT INTO `cst_talk` (`id`, `cusID`, `name`, `create_userID`, `adt`) VALUES
+	(1, 1, '暂时不需要', 4, '2017-07-17 17:59:57'),
+	(2, 1, '没接电话', 4, '2017-07-17 18:06:09'),
+	(3, 1, '暂时不需要', 4, '2017-07-17 18:07:53'),
+	(4, 1, '没接电话', 4, '2017-07-17 18:08:23'),
+	(5, 1, '没接电话', 4, '2017-07-17 18:09:15'),
+	(6, 1, '没接电话', 4, '2017-07-17 18:11:14'),
+	(7, 1, '暂时不需要', 4, '2017-07-17 18:11:19'),
+	(8, 1, '没接电话', 4, '2017-07-17 18:12:08'),
+	(9, 1, '暂时不需要', 4, '2017-07-17 18:12:44'),
+	(10, 1, '没接电话', 4, '2017-07-17 18:16:47'),
+	(11, 1, '暂时不需要', 4, '2017-07-17 18:18:53'),
+	(12, 1, '暂时不需要', 4, '2017-07-17 18:20:03'),
+	(13, 1, '没接电话', 4, '2017-07-17 18:20:14'),
+	(14, 5458, '不需要', 4, '2017-07-22 10:25:33'),
+	(15, 4890, '不需要', 4, '2017-07-22 10:42:30'),
+	(16, 4889, '空号', 4, '2017-07-22 10:44:12'),
+	(17, 4887, '空号', 4, '2017-07-22 10:51:58'),
+	(18, 4888, '不需要', 4, '2017-07-22 10:53:01'),
+	(19, 4886, '空号', 4, '2017-07-22 10:55:53'),
+	(20, 4885, '关机', 4, '2017-07-22 10:56:59'),
+	(21, 4884, '不需要', 4, '2017-07-22 11:06:02'),
+	(22, 4883, '暂时不需要', 4, '2017-07-22 11:07:13'),
+	(23, 4882, '不需要', 4, '2017-07-22 11:08:24'),
+	(24, 4881, '不需要', 4, '2017-07-22 11:09:34'),
+	(25, 4880, '空号', 4, '2017-07-22 11:10:11'),
+	(26, 4879, '不需要', 4, '2017-07-22 11:11:49'),
+	(27, 4878, '没接电话', 4, '2017-07-22 11:12:46'),
+	(28, 4877, '不需要', 4, '2017-07-22 11:13:50'),
+	(29, 4871, '不需要', 4, '2017-07-22 11:14:59'),
+	(30, 4870, '空号', 4, '2017-07-22 11:15:36'),
+	(31, 4869, '空号', 4, '2017-07-22 11:16:55'),
+	(32, 4868, '空号', 4, '2017-07-22 11:17:20'),
+	(33, 4867, '空号', 4, '2017-07-22 11:17:48'),
+	(34, 5847, '加微信', 4, '2017-07-22 11:20:24'),
+	(35, 5846, '没接电话', 4, '2017-07-22 15:55:53'),
+	(36, 5846, '没接电话', 4, '2017-07-22 15:56:01'),
+	(37, 5845, '不需要', 4, '2017-07-22 15:59:22'),
+	(38, 5844, '不需要', 4, '2017-07-22 16:02:04'),
+	(39, 5843, '没接电话', 4, '2017-07-22 16:02:54'),
+	(40, 5842, '没接电话', 4, '2017-07-22 16:03:37'),
+	(41, 5841, '不需要', 4, '2017-07-22 16:05:15'),
+	(42, 5840, '不需要', 4, '2017-07-22 16:07:07'),
+	(43, 5802, '没接电话', 4, '2017-07-22 16:09:09'),
+	(44, 13125, '不需要', 4, '2017-08-05 09:49:14'),
+	(45, 13125, '不需要', 4, '2017-08-05 09:49:14'),
+	(46, 13125, '不需要', 4, '2017-08-05 09:49:20'),
+	(47, 13123, '没接电话', 4, '2017-08-05 09:51:03'),
+	(48, 13123, '没接电话', 4, '2017-08-05 09:51:03'),
+	(49, 13149, '没接电话', 4, '2017-08-05 09:51:29'),
+	(50, 13149, '没接电话', 4, '2017-08-05 09:51:29'),
+	(51, 13149, '挂了', 4, '2017-08-05 09:51:52'),
+	(52, 13122, '不需要', 4, '2017-08-05 09:53:02'),
+	(53, 13118, '不需要', 4, '2017-08-05 10:27:13'),
+	(54, 13111, '不需要', 4, '2017-08-05 10:28:12'),
+	(55, 13109, '没接电话', 4, '2017-08-05 10:29:01'),
+	(56, 10893, '没接电话', 4, '2017-08-05 10:30:26'),
+	(57, 10890, '空号', 4, '2017-08-05 10:31:04'),
+	(58, 10889, '不需要', 4, '2017-08-05 10:32:04'),
+	(59, 10885, '不需要', 4, '2017-08-05 10:33:23'),
+	(60, 10883, '没接电话', 4, '2017-08-05 10:34:30'),
+	(61, 13147, '不需要', 4, '2017-08-05 10:36:35'),
+	(62, 13126, '不需要', 4, '2017-08-05 10:37:50'),
+	(63, 13082, '不需要', 4, '2017-08-05 10:39:06');
+/*!40000 ALTER TABLE `cst_talk` ENABLE KEYS */;
+
+
 -- 导出  表 07fly_oa.cst_trace 结构
-DROP TABLE IF EXISTS `cst_trace`;
 CREATE TABLE IF NOT EXISTS `cst_trace` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `cusID` int(16) NOT NULL,
@@ -310,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `cst_trace` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.cst_trace 的数据：~0 rows (大约)
 DELETE FROM `cst_trace`;
@@ -318,8 +431,35 @@ DELETE FROM `cst_trace`;
 /*!40000 ALTER TABLE `cst_trace` ENABLE KEYS */;
 
 
+-- 导出  表 07fly_oa.cst_website 结构
+CREATE TABLE IF NOT EXISTS `cst_website` (
+  `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
+  `cusID` int(16) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `url` varchar(1024) NOT NULL COMMENT '网址',
+  `bdt` date NOT NULL,
+  `edt` date NOT NULL,
+  `ftp_ip` varchar(256) NOT NULL COMMENT 'FTP ip',
+  `ftp_account` varchar(256) NOT NULL COMMENT 'FTP 帐号',
+  `ftp_pwd` varchar(256) NOT NULL COMMENT 'FTP 密码',
+  `icp_account` varchar(256) NOT NULL,
+  `icp_pwd` varchar(256) NOT NULL,
+  `icp_num` varchar(256) NOT NULL,
+  `address` varchar(1024) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL DEFAULT '0',
+  `status` int(2) NOT NULL DEFAULT '1' COMMENT '网站状态1=新增，2=续费，',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  07fly_oa.cst_website 的数据：~0 rows (大约)
+DELETE FROM `cst_website`;
+/*!40000 ALTER TABLE `cst_website` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cst_website` ENABLE KEYS */;
+
+
 -- 导出  表 07fly_oa.email_from 结构
-DROP TABLE IF EXISTS `email_from`;
 CREATE TABLE IF NOT EXISTS `email_from` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `server` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -389,7 +529,6 @@ INSERT INTO `email_from` (`id`, `server`, `port`, `account`, `password`, `name`,
 
 
 -- 导出  表 07fly_oa.email_from_group 结构
-DROP TABLE IF EXISTS `email_from_group`;
 CREATE TABLE IF NOT EXISTS `email_from_group` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -405,7 +544,6 @@ INSERT INTO `email_from_group` (`id`, `name`) VALUES
 
 
 -- 导出  表 07fly_oa.email_mb 结构
-DROP TABLE IF EXISTS `email_mb`;
 CREATE TABLE IF NOT EXISTS `email_mb` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -431,7 +569,6 @@ INSERT INTO `email_mb` (`id`, `name`, `content`, `cnt`, `editor`, `adddatetime`)
 
 
 -- 导出  表 07fly_oa.email_receiver 结构
-DROP TABLE IF EXISTS `email_receiver`;
 CREATE TABLE IF NOT EXISTS `email_receiver` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `account` varchar(256) NOT NULL,
@@ -454,7 +591,6 @@ INSERT INTO `email_receiver` (`id`, `account`, `name`, `visible`, `cnt`, `groupI
 
 
 -- 导出  表 07fly_oa.email_receiver_group 结构
-DROP TABLE IF EXISTS `email_receiver_group`;
 CREATE TABLE IF NOT EXISTS `email_receiver_group` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -470,7 +606,6 @@ INSERT INTO `email_receiver_group` (`id`, `name`) VALUES
 
 
 -- 导出  表 07fly_oa.email_scheme 结构
-DROP TABLE IF EXISTS `email_scheme`;
 CREATE TABLE IF NOT EXISTS `email_scheme` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -493,7 +628,6 @@ INSERT INTO `email_scheme` (`id`, `name`, `fromID`, `receiverID`, `contentID`, `
 
 
 -- 导出  表 07fly_oa.email_scheme_log 结构
-DROP TABLE IF EXISTS `email_scheme_log`;
 CREATE TABLE IF NOT EXISTS `email_scheme_log` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `schemeID` varchar(256) NOT NULL,
@@ -505,7 +639,7 @@ CREATE TABLE IF NOT EXISTS `email_scheme_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.email_scheme_log 的数据：~36 rows (大约)
+-- 正在导出表  07fly_oa.email_scheme_log 的数据：~37 rows (大约)
 DELETE FROM `email_scheme_log`;
 /*!40000 ALTER TABLE `email_scheme_log` DISABLE KEYS */;
 INSERT INTO `email_scheme_log` (`id`, `schemeID`, `sendfrom`, `receiver`, `subject`, `status`, `adddatetime`) VALUES
@@ -544,12 +678,12 @@ INSERT INTO `email_scheme_log` (`id`, `schemeID`, `sendfrom`, `receiver`, `subje
 	(294, '4', '654062906@139.com', 'lx_howlet@163.com', '成都网站制作、07FLY网站建设、域名空间服务', 'No', '2016-05-06 16:19:54'),
 	(295, '4', '654062906@139.com', 'admin@jz21.net', '成都私人做网站;工作室接单制作;免费ICP备案', 'No', '2016-05-06 16:19:55'),
 	(296, '4', '193126257@139.com', 'lx_mai@163.com', '网站设计与制作报价说明', 'Yes', '2016-05-06 16:19:57'),
-	(297, '4', '1783134869@139.com', 'lx_howlet@163.com', '网站优化排名07FLY报价', 'Yes', '2016-05-06 16:19:59');
+	(297, '4', '1783134869@139.com', 'lx_howlet@163.com', '网站优化排名07FLY报价', 'Yes', '2016-05-06 16:19:59'),
+	(298, '4', '228629414@139.com', 'admin@jz21.net', '零起飞提供网站运营维护服务', 'No', '2016-06-13 16:10:43');
 /*!40000 ALTER TABLE `email_scheme_log` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_bank_account 结构
-DROP TABLE IF EXISTS `fin_bank_account`;
 CREATE TABLE IF NOT EXISTS `fin_bank_account` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -571,7 +705,6 @@ INSERT INTO `fin_bank_account` (`id`, `name`, `card`, `address`, `holders`, `sor
 
 
 -- 导出  表 07fly_oa.fin_expenses_record 结构
-DROP TABLE IF EXISTS `fin_expenses_record`;
 CREATE TABLE IF NOT EXISTS `fin_expenses_record` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `typeID` int(16) NOT NULL COMMENT '费用类别',
@@ -582,7 +715,7 @@ CREATE TABLE IF NOT EXISTS `fin_expenses_record` (
   `adt` datetime NOT NULL,
   `crt_date` date NOT NULL COMMENT '产生日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.fin_expenses_record 的数据：~0 rows (大约)
 DELETE FROM `fin_expenses_record`;
@@ -591,7 +724,6 @@ DELETE FROM `fin_expenses_record`;
 
 
 -- 导出  表 07fly_oa.fin_expenses_type 结构
-DROP TABLE IF EXISTS `fin_expenses_type`;
 CREATE TABLE IF NOT EXISTS `fin_expenses_type` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -613,7 +745,6 @@ INSERT INTO `fin_expenses_type` (`id`, `name`, `parentID`, `sort`, `visible`, `i
 
 
 -- 导出  表 07fly_oa.fin_flow_record 结构
-DROP TABLE IF EXISTS `fin_flow_record`;
 CREATE TABLE IF NOT EXISTS `fin_flow_record` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `balance` float NOT NULL COMMENT '费用类别',
@@ -626,43 +757,82 @@ CREATE TABLE IF NOT EXISTS `fin_flow_record` (
   `adt` datetime NOT NULL,
   `create_userID` int(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_flow_record 的数据：~26 rows (大约)
+-- 正在导出表  07fly_oa.fin_flow_record 的数据：~66 rows (大约)
 DELETE FROM `fin_flow_record`;
 /*!40000 ALTER TABLE `fin_flow_record` DISABLE KEYS */;
 INSERT INTO `fin_flow_record` (`id`, `balance`, `paymoney`, `recemoney`, `blankID`, `busID`, `busType`, `intro`, `adt`, `create_userID`) VALUES
-	(62, 100, 0, 100, 1, 0, '', '', '2017-05-23 22:44:16', 4),
-	(63, 200, 0, 100, 1, 0, '', '', '2017-05-24 09:48:33', 4),
-	(64, 300, 0, 100, 1, 0, '', '', '2017-05-24 13:59:42', 4),
-	(65, 654645, 0, 654645, 0, 10, 'fin_income_record', '', '2017-05-24 14:00:04', 4),
-	(66, 400, 0, 100, 1, 0, '', '', '2017-05-25 11:28:26', 4),
-	(67, 500, 0, 100, 1, 0, '', '', '2017-05-25 11:28:33', 4),
-	(68, 600, 0, 100, 1, 0, '', '', '2017-05-25 15:29:00', 4),
-	(69, 700, 0, 100, 1, 0, '', '', '2017-05-26 09:40:38', 4),
-	(70, 800, 0, 100, 1, 0, '', '', '2017-05-26 09:40:44', 4),
-	(71, 900, 0, 100, 1, 0, '', '', '2017-05-27 10:14:27', 4),
-	(72, 1000, 0, 100, 1, 0, '', '', '2017-05-30 01:47:35', 4),
-	(73, 1100, 0, 100, 1, 0, '', '', '2017-05-30 21:34:41', 4),
-	(74, 1200, 0, 100, 1, 0, '', '', '2017-05-30 22:03:54', 4),
-	(75, 1300, 0, 100, 1, 0, '', '', '2017-05-31 15:37:57', 4),
-	(76, 1400, 0, 100, 1, 0, '', '', '2017-06-04 00:45:43', 4),
-	(77, 1500, 0, 100, 1, 0, '', '', '2017-06-04 00:45:54', 4),
-	(78, 1600, 0, 100, 1, 0, '', '', '2017-06-04 00:45:57', 4),
-	(79, 1700, 0, 100, 1, 0, '', '', '2017-06-05 10:08:54', 4),
-	(80, 1800, 0, 100, 1, 0, '', '', '2017-06-05 10:09:05', 4),
-	(81, 1900, 0, 100, 1, 0, '', '', '2017-06-06 16:56:38', 4),
-	(82, 2000, 0, 100, 1, 0, '', '', '2017-06-07 11:37:38', 4),
-	(83, 2100, 0, 100, 1, 0, '', '', '2017-06-07 11:37:52', 4),
-	(84, 2200, 0, 100, 1, 0, '', '', '2017-06-07 11:38:20', 4),
-	(85, 2300, 0, 100, 1, 0, '', '', '2017-06-07 11:38:40', 4),
-	(86, 2400, 0, 100, 1, 0, '', '', '2017-06-07 11:38:56', 4),
-	(87, 2500, 0, 100, 1, 0, '', '', '2017-06-07 11:42:19', 4);
+	(1, 0, -100, 5, 1, 0, '0', '初始金额为0', '2016-04-05 11:32:00', 1),
+	(2, -100, 100, 0, 1, 0, '0', '', '2016-12-14 17:34:26', 4),
+	(3, -200, 100, 0, 1, 0, '0', '', '2016-12-14 17:34:27', 4),
+	(4, -300, 100, 0, 1, 0, '0', '', '2016-12-14 17:34:27', 4),
+	(5, -400, 100, 0, 1, 0, '0', '', '2016-12-14 17:34:27', 4),
+	(6, -500, 100, 0, 1, 0, '0', '', '2016-12-14 17:36:01', 4),
+	(7, -600, 100, 0, 1, 0, '0', '', '2016-12-14 17:36:12', 4),
+	(8, -700, 100, 0, 1, 0, '0', '', '2016-12-14 17:36:13', 4),
+	(9, -800, 100, 0, 1, 0, '0', '', '2016-12-14 17:36:13', 4),
+	(10, -700, 0, 100, 1, 0, '0', '', '2016-12-14 17:36:22', 4),
+	(11, -600, 0, 100, 1, 0, '0', '', '2016-12-14 17:36:22', 4),
+	(12, -500, 0, 100, 1, 0, '0', '', '2016-12-14 17:36:22', 4),
+	(13, -400, 0, 100, 1, 0, '0', '', '2016-12-14 17:36:23', 4),
+	(14, -300, 0, 100, 1, 0, '0', '', '2016-12-14 17:36:23', 4),
+	(15, -200, 0, 100, 1, 0, '0', '', '2016-12-14 17:40:05', 4),
+	(16, -1200, 1000, 0, 1, 0, '0', '', '2016-12-14 17:54:37', 4),
+	(17, -2200, 1000, 0, 1, 0, '0', '', '2016-12-14 17:55:48', 4),
+	(18, -3200, 1000, 0, 1, 0, '0', '', '2016-12-14 17:56:36', 4),
+	(19, -4200, 1000, 0, 1, 0, '0', '', '2016-12-14 17:56:55', 4),
+	(20, -3200, 0, 1000, 1, 0, '0', '', '2016-12-14 18:02:07', 4),
+	(21, -3100, 0, 100, 1, 0, '0', '', '2016-12-14 20:55:39', 4),
+	(22, -2111, 0, 989, 1, 0, '0', '', '2016-12-14 20:56:02', 4),
+	(23, -2879, 768, 0, 1, 0, '0', '', '2016-12-14 21:03:01', 4),
+	(24, -768, 768, 0, 2, 0, '0', '', '2016-12-14 21:03:14', 4),
+	(25, -2829, 0, 50, 1, 0, '0', '', '2016-12-14 22:05:48', 4),
+	(26, -468, 0, 300, 2, 0, '0', '', '2017-02-07 09:42:39', 4),
+	(27, 32, 0, 500, 2, 0, '0', '', '2017-02-07 09:50:56', 4),
+	(28, -2729, 0, 100, 1, 0, '0', '', '2017-02-07 10:21:48', 4),
+	(29, -2729, 0, 0, 1, 0, '0', '', '2017-02-07 10:52:20', 4),
+	(30, -2729, 0, 0, 1, 0, '0', '', '2017-02-07 10:52:38', 4),
+	(31, -2529, 0, 200, 1, 0, '0', '', '2017-02-07 10:54:12', 4),
+	(32, -2524, 0, 5, 1, 0, '0', '', '2017-02-07 12:04:07', 4),
+	(33, -2519, 0, 5, 1, 0, '0', '', '2017-02-07 12:06:12', 4),
+	(34, -2514, 0, 5, 1, 0, '0', '', '2017-02-07 12:09:56', 4),
+	(35, -2509, 0, 5, 1, 0, '0', '', '2017-02-07 12:10:18', 4),
+	(36, -2504, 0, 5, 1, 0, '0', '', '2017-02-07 12:19:23', 4),
+	(37, -2404, 0, 100, 1, 0, '0', '', '2017-02-07 15:05:25', 4),
+	(38, -2304, 0, 100, 1, 0, '0', '', '2017-02-07 15:06:46', 4),
+	(39, -2154, 0, 150, 1, 0, '0', '', '2017-02-07 15:11:18', 4),
+	(40, -1654, 0, 500, 1, 0, '0', '', '2017-02-07 15:16:04', 4),
+	(41, -1154, 0, 500, 1, 0, '0', '', '2017-02-07 20:38:25', 4),
+	(42, 146, 0, 1300, 1, 0, '0', '', '2017-04-11 14:43:59', 4),
+	(43, 1446, 0, 1300, 1, 0, '0', '', '2017-05-03 17:43:32', 4),
+	(44, 2346, 0, 900, 1, 0, '0', '', '2017-05-03 20:58:29', 4),
+	(45, 2446, 0, 100, 1, 0, '0', '', '2017-05-03 21:57:45', 4),
+	(46, 132, 0, 100, 2, 5, '0', '', '2017-05-22 14:58:21', 4),
+	(47, 3446, 0, 1000, 1, 6, 'fin_income_record', '', '2017-05-22 15:00:36', 4),
+	(48, -1368, 1500, 0, 2, 5, 'fin_expenses_record', '', '2017-05-22 15:25:47', 4),
+	(49, -368, 0, 1000, 2, 7, 'fin_income_record', '', '2017-05-22 15:31:10', 4),
+	(50, 400, 0, 768, 2, 8, 'fin_income_record', '', '2017-05-22 15:32:19', 4),
+	(51, 10399, 0, 9999, 2, 9, 'fin_income_record', '', '2017-05-22 15:36:44', 4),
+	(52, 400, 9999, 0, 2, 6, 'fin_expenses_record', '', '2017-05-22 15:38:29', 4),
+	(53, 3546, 0, 100, 1, 8, 'sal_contract', '', '2017-05-22 15:52:27', 4),
+	(54, 3646, 0, 100, 1, 0, '', '', '2017-05-22 16:08:05', 4),
+	(55, 2646, 1000, 0, 1, 8, 'fin_pay_record', '', '2017-05-22 16:14:31', 4),
+	(56, 500, 0, 100, 2, 17, 'sal_order', '', '2017-05-22 16:21:58', 4),
+	(57, -500, 1000, 0, 2, 5, 'pos_order', '', '2017-05-22 21:31:12', 4),
+	(58, -500, 0, 0, 2, 9, 'pos_order', '', '2017-05-23 17:13:45', 4),
+	(59, -500, 0, 0, 2, 9, 'pos_order', '', '2017-05-23 17:15:01', 4),
+	(60, 1846, 800, 0, 1, 9, 'pos_order', '', '2017-05-23 17:15:32', 4),
+	(61, 1656, 190, 0, 1, 9, 'pos_order', '', '2017-05-23 17:19:26', 4),
+	(62, 2456, 0, 800, 1, 9, 'sal_contract', '', '2017-06-19 09:36:32', 4),
+	(63, 4756, 0, 2300, 1, 10, 'sal_contract', '', '2017-06-26 21:18:26', 4),
+	(64, 7056, 0, 2300, 1, 11, 'sal_contract', '', '2017-06-26 21:18:48', 4),
+	(65, 8056, 0, 1000, 1, 12, 'sal_contract', '', '2017-06-30 12:29:28', 4),
+	(66, 7556, 500, 0, 1, 7, 'fin_expenses_record', '', '2017-07-31 14:22:07', 4);
 /*!40000 ALTER TABLE `fin_flow_record` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_income_record 结构
-DROP TABLE IF EXISTS `fin_income_record`;
 CREATE TABLE IF NOT EXISTS `fin_income_record` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `typeID` int(16) NOT NULL COMMENT '费用类别',
@@ -673,18 +843,15 @@ CREATE TABLE IF NOT EXISTS `fin_income_record` (
   `adt` datetime NOT NULL,
   `crt_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_income_record 的数据：~1 rows (大约)
+-- 正在导出表  07fly_oa.fin_income_record 的数据：~0 rows (大约)
 DELETE FROM `fin_income_record`;
 /*!40000 ALTER TABLE `fin_income_record` DISABLE KEYS */;
-INSERT INTO `fin_income_record` (`id`, `typeID`, `create_userID`, `blankID`, `money`, `intro`, `adt`, `crt_date`) VALUES
-	(10, 16, 4, 0, 654645, '', '2017-05-24 14:00:04', '2017-05-23');
 /*!40000 ALTER TABLE `fin_income_record` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_income_type 结构
-DROP TABLE IF EXISTS `fin_income_type`;
 CREATE TABLE IF NOT EXISTS `fin_income_type` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -705,7 +872,6 @@ INSERT INTO `fin_income_type` (`id`, `name`, `parentID`, `sort`, `visible`, `int
 
 
 -- 导出  表 07fly_oa.fin_invoice_pay 结构
-DROP TABLE IF EXISTS `fin_invoice_pay`;
 CREATE TABLE IF NOT EXISTS `fin_invoice_pay` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `salID` int(16) NOT NULL COMMENT '合同订单号',
@@ -729,7 +895,6 @@ DELETE FROM `fin_invoice_pay`;
 
 
 -- 导出  表 07fly_oa.fin_invoice_pay_list 结构
-DROP TABLE IF EXISTS `fin_invoice_pay_list`;
 CREATE TABLE IF NOT EXISTS `fin_invoice_pay_list` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `invID` int(16) unsigned NOT NULL DEFAULT '0' COMMENT '发票ID',
@@ -739,14 +904,15 @@ CREATE TABLE IF NOT EXISTS `fin_invoice_pay_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_invoice_pay_list 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.fin_invoice_pay_list 的数据：~1 rows (大约)
 DELETE FROM `fin_invoice_pay_list`;
 /*!40000 ALTER TABLE `fin_invoice_pay_list` DISABLE KEYS */;
+INSERT INTO `fin_invoice_pay_list` (`id`, `invID`, `busID`, `cusID`, `type`) VALUES
+	(1, 10, 13, 1, 'sal_order');
 /*!40000 ALTER TABLE `fin_invoice_pay_list` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_invoice_rece 结构
-DROP TABLE IF EXISTS `fin_invoice_rece`;
 CREATE TABLE IF NOT EXISTS `fin_invoice_rece` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `posID` int(16) NOT NULL COMMENT '关联采购号',
@@ -762,14 +928,21 @@ CREATE TABLE IF NOT EXISTS `fin_invoice_rece` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_invoice_rece 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.fin_invoice_rece 的数据：~7 rows (大约)
 DELETE FROM `fin_invoice_rece`;
 /*!40000 ALTER TABLE `fin_invoice_rece` DISABLE KEYS */;
+INSERT INTO `fin_invoice_rece` (`id`, `posID`, `supID`, `money`, `recedate`, `stages`, `create_userID`, `invo_number`, `name`, `intro`, `adt`) VALUES
+	(6, 7, 12, 200, '2016-05-07', 1213, 4, '', 'laoyang', '', '2016-05-06 18:10:00'),
+	(7, 7, 12, 500, '2016-05-07', 1213, 4, '', 'laoyang', '', '2016-05-06 18:10:18'),
+	(8, 7, 12, 30, '2016-05-07', 1213, 4, '', 'laoyang', '', '2016-05-06 18:10:26'),
+	(9, 5, 12, 0, '2017-05-23', 2, 4, '', '完了吧', '', '2017-05-23 16:33:18'),
+	(10, 5, 12, 800, '2017-05-23', 3, 4, '', '职工', '', '2017-05-23 16:37:33'),
+	(11, 9, 13, 1000, '2017-05-23', 1, 4, '', '服务器发票', '', '2017-05-23 16:43:09'),
+	(12, 9, 13, 100, '2017-05-23', 3, 4, '', '职工', '', '2017-05-23 17:05:10');
 /*!40000 ALTER TABLE `fin_invoice_rece` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_pay_plan 结构
-DROP TABLE IF EXISTS `fin_pay_plan`;
 CREATE TABLE IF NOT EXISTS `fin_pay_plan` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `posID` int(16) NOT NULL COMMENT '采购订单号',
@@ -792,7 +965,6 @@ DELETE FROM `fin_pay_plan`;
 
 
 -- 导出  表 07fly_oa.fin_pay_record 结构
-DROP TABLE IF EXISTS `fin_pay_record`;
 CREATE TABLE IF NOT EXISTS `fin_pay_record` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `planID` int(16) unsigned NOT NULL DEFAULT '0' COMMENT '关联付款记划',
@@ -816,7 +988,6 @@ DELETE FROM `fin_pay_record`;
 
 
 -- 导出  表 07fly_oa.fin_rece_plan 结构
-DROP TABLE IF EXISTS `fin_rece_plan`;
 CREATE TABLE IF NOT EXISTS `fin_rece_plan` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `receID` int(16) unsigned NOT NULL DEFAULT '0' COMMENT '关联回款计划',
@@ -833,14 +1004,17 @@ CREATE TABLE IF NOT EXISTS `fin_rece_plan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_rece_plan 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.fin_rece_plan 的数据：~3 rows (大约)
 DELETE FROM `fin_rece_plan`;
 /*!40000 ALTER TABLE `fin_rece_plan` DISABLE KEYS */;
+INSERT INTO `fin_rece_plan` (`id`, `receID`, `salID`, `cusID`, `blankID`, `money`, `plandate`, `stages`, `create_userID`, `ifpay`, `intro`, `adt`) VALUES
+	(1, 0, 7, 1, 0, 1000, '2016-06-24 00:00:00', 1, 4, 'YES', '', '2016-06-02 11:12:33'),
+	(2, 0, 7, 1, 0, 1000, '2016-06-09 00:00:00', 2, 4, 'YES', '', '2016-06-02 11:48:20'),
+	(3, 0, 8, 1, 0, 56, '2016-06-30 00:00:00', 2, 4, 'YES', '', '2016-06-02 14:38:19');
 /*!40000 ALTER TABLE `fin_rece_plan` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fin_rece_record 结构
-DROP TABLE IF EXISTS `fin_rece_record`;
 CREATE TABLE IF NOT EXISTS `fin_rece_record` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `salID` int(16) NOT NULL COMMENT '合同订单号',
@@ -856,7 +1030,7 @@ CREATE TABLE IF NOT EXISTS `fin_rece_record` (
   `adt` datetime NOT NULL,
   `create_userID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.fin_rece_record 的数据：~0 rows (大约)
 DELETE FROM `fin_rece_record`;
@@ -865,7 +1039,6 @@ DELETE FROM `fin_rece_record`;
 
 
 -- 导出  表 07fly_oa.fin_rece_record_list 结构
-DROP TABLE IF EXISTS `fin_rece_record_list`;
 CREATE TABLE IF NOT EXISTS `fin_rece_record_list` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `receID` int(16) unsigned NOT NULL DEFAULT '0' COMMENT '关联回款',
@@ -876,35 +1049,91 @@ CREATE TABLE IF NOT EXISTS `fin_rece_record_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fin_rece_record_list 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.fin_rece_record_list 的数据：~56 rows (大约)
 DELETE FROM `fin_rece_record_list`;
 /*!40000 ALTER TABLE `fin_rece_record_list` DISABLE KEYS */;
+INSERT INTO `fin_rece_record_list` (`id`, `receID`, `busID`, `cusID`, `flowID`, `type`) VALUES
+	(1, 16, 13, 1, 0, 'sal_order'),
+	(2, 17, 13, 1, 0, ''),
+	(3, 18, 13, 1, 0, 'sal_order'),
+	(4, 19, 13, 1, 0, 'sal_order'),
+	(5, 20, 5, 1, 0, 'sal_contract'),
+	(6, 21, 5, 1, 0, 'sal_contract'),
+	(7, 22, 5, 1, 0, 'sal_contract'),
+	(8, 23, 5, 1, 0, 'sal_contract'),
+	(9, 24, 5, 1, 0, 'sal_contract'),
+	(10, 25, 13, 1, 0, 'sal_order'),
+	(11, 26, 4, 1, 0, 'sal_contract'),
+	(12, 27, 4, 1, 0, 'sal_contract'),
+	(13, 0, 0, 0, 0, '27'),
+	(14, 0, 0, 0, 0, '26'),
+	(15, 0, 0, 0, 0, '25'),
+	(16, 0, 0, 0, 0, '24'),
+	(17, 0, 0, 0, 0, '23'),
+	(18, 0, 0, 0, 0, '22'),
+	(19, 0, 0, 0, 0, '21'),
+	(20, 0, 0, 0, 0, '20'),
+	(21, 0, 0, 0, 0, '19'),
+	(22, 0, 0, 0, 0, '18'),
+	(23, 0, 0, 0, 0, '17'),
+	(24, 0, 0, 0, 0, '16'),
+	(25, 0, 0, 0, 0, '15'),
+	(26, 0, 0, 0, 0, '14'),
+	(27, 0, 0, 0, 0, '13'),
+	(28, 0, 0, 0, 0, '12'),
+	(29, 0, 0, 0, 0, '11'),
+	(30, 0, 0, 0, 0, '10'),
+	(31, 0, 0, 0, 0, '9'),
+	(32, 0, 0, 0, 0, '8'),
+	(33, 0, 0, 0, 0, '27'),
+	(34, 0, 0, 0, 0, '26'),
+	(35, 0, 0, 0, 0, '25'),
+	(36, 0, 0, 0, 0, '24'),
+	(37, 0, 0, 0, 0, '23'),
+	(38, 0, 0, 0, 0, '22'),
+	(39, 0, 0, 0, 0, '21'),
+	(40, 0, 0, 0, 0, '20'),
+	(41, 0, 0, 0, 0, '19'),
+	(42, 0, 0, 0, 0, '18'),
+	(43, 0, 0, 0, 0, '17'),
+	(44, 0, 0, 0, 0, '16'),
+	(45, 0, 0, 0, 0, '15'),
+	(46, 0, 0, 0, 0, '14'),
+	(47, 0, 0, 0, 0, '13'),
+	(48, 0, 0, 0, 0, '12'),
+	(49, 0, 0, 0, 0, '11'),
+	(50, 0, 0, 0, 0, '10'),
+	(51, 0, 0, 0, 0, '9'),
+	(52, 0, 0, 0, 0, '8'),
+	(53, 28, 6, 9, 0, 'sal_contract'),
+	(54, 29, 6, 9, 0, 'sal_contract'),
+	(55, 30, 8, 11, 0, 'sal_contract'),
+	(56, 31, 8, 11, 45, 'sal_contract');
 /*!40000 ALTER TABLE `fin_rece_record_list` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_config 结构
-DROP TABLE IF EXISTS `fly_sys_config`;
 CREATE TABLE IF NOT EXISTS `fly_sys_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.fly_sys_config 的数据：~17 rows (大约)
 DELETE FROM `fly_sys_config`;
 /*!40000 ALTER TABLE `fly_sys_config` DISABLE KEYS */;
 INSERT INTO `fly_sys_config` (`id`, `name`, `value`) VALUES
-	(16, 'title', '07FLY-CRM开源客户关系管理系统-零起飞网络工作室'),
+	(16, 'title', '07FLY-CRM'),
 	(17, 'login_title', '07FLY-CRM'),
 	(18, 'login_logo', '/images/20160304205404780.jpg'),
 	(19, 'manage_logo', ''),
-	(20, 'companyname', '零起飞网络工作室'),
+	(20, 'companyname', '零起飞网络'),
 	(21, 'principal', '零起飞'),
-	(22, 'tel', '18030402705'),
+	(22, 'tel', '07fly'),
 	(23, 'address', '07fly'),
-	(24, 'copyright', '零起飞网络工作室'),
+	(24, 'copyright', '零起飞工作室'),
 	(25, 'i_title', '零起飞客户关系管理系统'),
 	(26, 'i_weibo', '官方微博:http://weibo.com/u/2299441430'),
 	(27, 'i_note', ''),
@@ -917,7 +1146,6 @@ INSERT INTO `fly_sys_config` (`id`, `name`, `value`) VALUES
 
 
 -- 导出  表 07fly_oa.fly_sys_dept 结构
-DROP TABLE IF EXISTS `fly_sys_dept`;
 CREATE TABLE IF NOT EXISTS `fly_sys_dept` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -928,26 +1156,21 @@ CREATE TABLE IF NOT EXISTS `fly_sys_dept` (
   `fax` varchar(32) CHARACTER SET utf8 NOT NULL,
   `intro` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=armscii8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=armscii8;
 
--- 正在导出表  07fly_oa.fly_sys_dept 的数据：~9 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_dept 的数据：~5 rows (大约)
 DELETE FROM `fly_sys_dept`;
 /*!40000 ALTER TABLE `fly_sys_dept` DISABLE KEYS */;
 INSERT INTO `fly_sys_dept` (`id`, `name`, `parentID`, `sort`, `visible`, `tel`, `fax`, `intro`) VALUES
-	(1, '生产部门', 0, 1, 1, '12345677', '02888133145', '主要是用来产的哟'),
-	(2, '销售部门', 0, 0, 1, '028 8976214', '028 8976214', ''),
-	(4, '销售一部', 2, 10, 1, '0281234567', '028 8846575', ''),
-	(5, '组一部', 4, 1, 0, '1234568', '864676', ''),
-	(7, '组二', 5, 2, 1, '13688888888', '1233', ''),
+	(1, '技术部', 0, 1, 1, '12345677', '02888133145', '主要是用来产的哟'),
+	(2, '商务部', 0, 0, 1, '028 8976214', '028 8976214', ''),
+	(6, '董事会', 0, 1, 1, '', '', ''),
 	(8, '222', 1, 11, 1, '111', '22', ''),
-	(9, '222', 1, 11, 1, '111', '22', ''),
-	(10, '开发部门', 0, 2, 1, '110', '110110', ''),
-	(11, '研发一部', 10, 1, 1, '1101', '1101010', '');
+	(9, '222', 1, 11, 1, '111', '22', '');
 /*!40000 ALTER TABLE `fly_sys_dept` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_log 结构
-DROP TABLE IF EXISTS `fly_sys_log`;
 CREATE TABLE IF NOT EXISTS `fly_sys_log` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `ipaddr` varchar(16) NOT NULL,
@@ -964,7 +1187,6 @@ DELETE FROM `fly_sys_log`;
 
 
 -- 导出  表 07fly_oa.fly_sys_menu 结构
-DROP TABLE IF EXISTS `fly_sys_menu`;
 CREATE TABLE IF NOT EXISTS `fly_sys_menu` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
@@ -974,9 +1196,9 @@ CREATE TABLE IF NOT EXISTS `fly_sys_menu` (
   `sort` int(4) NOT NULL,
   `visible` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fly_sys_menu 的数据：~88 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_menu 的数据：~89 rows (大约)
 DELETE FROM `fly_sys_menu`;
 /*!40000 ALTER TABLE `fly_sys_menu` DISABLE KEYS */;
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES
@@ -993,7 +1215,7 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 	(11, '订单管理', '', '#', 2, 24, 1),
 	(12, '供应商基本信息', '', '#', 3, 31, 1),
 	(13, '采购管理', '', '#', 3, 32, 1),
-	(14, '库存管理', '', '#', 3, 33, 1),
+	(14, '库存管理', 'kucun', '#', 3, 33, 0),
 	(15, '系统参数', 'system', '/Sys/sys_config/', 4, 111, 1),
 	(16, '系统菜单', '', '/Menu/menu_show/', 4, 112, 1),
 	(17, '系统授权信息', 'serial', '#', 4, 113, 0),
@@ -1026,8 +1248,8 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 	(44, '产品报价', '', '/CstQuoted/cst_quoted_show/', 9, 223, 1),
 	(45, '项目报备', '', '/CstFiling/cst_filing_show/', 9, 224, 1),
 	(46, '合同管理', 'sale contract', '/SalContract/sal_contract_show/', 10, 231, 1),
-	(47, '交付计划', 'Contract', '/SalContract/sal_contract_show/', 10, 232, 1),
-	(48, '交付记录', 'Contact', '/SalContract/sal_contract_show/', 10, 233, 1),
+	(47, '交付计划', 'Contract', '/SalContract/sal_contract_show/', 10, 232, 0),
+	(48, '交付记录', 'Contact', '/SalContract/sal_contract_show/', 10, 233, 0),
 	(49, '销售订单', 'Sale order', '/SalOrder/sal_order_show/', 11, 241, 1),
 	(50, '订单明细', 'Order Sale', '/SalOrderDetail/sal_order_detail_show/', 11, 242, 1),
 	(51, '供应商列表', 'Supplier', '/Supplier/supplier_show/', 12, 311, 1),
@@ -1067,12 +1289,12 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 	(85, '邮件模板', 'moban', '/EmailSend/email_mb_show/', 81, 0, 1),
 	(86, '日志跟踪', 'schemeLog', '/EmailSend/email_scheme_log_show/', 81, 1, 1),
 	(87, '财务流水', 'Flow', '/FinFlowRecord/fin_flow_record_show/', 64, 1, 1),
-	(88, '23232323', '2323', '链接地址', 22, 32323, 1);
+	(88, '网站管理', 'website', '/CstWebsite/cst_website_show/', 10, 232, 1),
+	(89, '沟通记录', '栏目名称', '/CstDict/cst_dict_show/type/talk/', 7, 1, 1);
 /*!40000 ALTER TABLE `fly_sys_menu` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_method 结构
-DROP TABLE IF EXISTS `fly_sys_method`;
 CREATE TABLE IF NOT EXISTS `fly_sys_method` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `menuID` int(4) NOT NULL,
@@ -1081,9 +1303,9 @@ CREATE TABLE IF NOT EXISTS `fly_sys_method` (
   `sort` int(4) NOT NULL,
   `visible` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fly_sys_method 的数据：~61 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_method 的数据：~59 rows (大约)
 DELETE FROM `fly_sys_method`;
 /*!40000 ALTER TABLE `fly_sys_method` DISABLE KEYS */;
 INSERT INTO `fly_sys_method` (`id`, `menuID`, `name`, `value`, `sort`, `visible`) VALUES
@@ -1145,14 +1367,11 @@ INSERT INTO `fly_sys_method` (`id`, `menuID`, `name`, `value`, `sort`, `visible`
 	(58, 63, '财务类型', '财务类型', 42, 1),
 	(59, 63, '付款管理', '付款管理', 43, 1),
 	(60, 63, '回款管理', '回款管理', 44, 1),
-	(61, 63, '收入开支', '收入开支', 45, 0),
-	(62, 79, '栏目名称', '链接地址', 2, 1),
-	(63, 79, '栏目名称', '链接地址', 2, 1);
+	(61, 63, '收入开支', '收入开支', 45, 1);
 /*!40000 ALTER TABLE `fly_sys_method` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_position 结构
-DROP TABLE IF EXISTS `fly_sys_position`;
 CREATE TABLE IF NOT EXISTS `fly_sys_position` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -1161,9 +1380,9 @@ CREATE TABLE IF NOT EXISTS `fly_sys_position` (
   `visible` tinyint(2) NOT NULL DEFAULT '1',
   `intro` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=armscii8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=armscii8;
 
--- 正在导出表  07fly_oa.fly_sys_position 的数据：~6 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_position 的数据：~5 rows (大约)
 DELETE FROM `fly_sys_position`;
 /*!40000 ALTER TABLE `fly_sys_position` DISABLE KEYS */;
 INSERT INTO `fly_sys_position` (`id`, `name`, `parentID`, `sort`, `visible`, `intro`) VALUES
@@ -1171,13 +1390,11 @@ INSERT INTO `fly_sys_position` (`id`, `name`, `parentID`, `sort`, `visible`, `in
 	(3, '总经理', 2, 10, 1, ''),
 	(4, '财务总监', 3, 20, 1, ''),
 	(5, '人事总监', 3, 21, 0, ''),
-	(7, '技术总监', 3, 31, 1, ''),
-	(8, '1', 7, 1, 1, '');
+	(7, '技术总监', 3, 31, 1, '');
 /*!40000 ALTER TABLE `fly_sys_position` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_power 结构
-DROP TABLE IF EXISTS `fly_sys_power`;
 CREATE TABLE IF NOT EXISTS `fly_sys_power` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `master` varchar(64) NOT NULL,
@@ -1186,28 +1403,25 @@ CREATE TABLE IF NOT EXISTS `fly_sys_power` (
   `access_value` text NOT NULL,
   `operation` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fly_sys_power 的数据：~11 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_power 的数据：~9 rows (大约)
 DELETE FROM `fly_sys_power`;
 /*!40000 ALTER TABLE `fly_sys_power` DISABLE KEYS */;
 INSERT INTO `fly_sys_power` (`id`, `master`, `master_value`, `access`, `access_value`, `operation`) VALUES
-	(7, 'role', '12', 'SYS_MENU', '1,81,85,83,82,86,84,4,15,61,16,17,18,20,19,5,21,23,22,24,7,29,30,31,32,33,34,35,36,6,25,27,26,28,2,8,37,38,39,40,41,9,42,43,44,45,10,46,47,48,11,49,50,3,12,51,52,53,13,54,55,14,56,57,58,59,60,63,64,87,65,69,70,71,66,72,73,74,67,75,76,77,68,78,79,80', NULL),
-	(8, 'role', '12', 'SYS_METHOD', 'dept_show,dept_add,dept_del,role_show,role_add,role_modify,role_del,position_add,position_show,position_del,user_show,user_add,user_modify,user_del,pro_dict_show,pro_dict_add,pro_type_show,pro_type_add,pro_type_modify,pro_type_del,product_show,product_add,product_modify,product_del,customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del,cst_chance_show,cst_chance_add,cst_chance_modify,cst_chance_del,cst_trace_show,cst_trace_add,cst_trace_del,cst_trace_modify,cst_quoted_show,cst_quoted_add,cst_quoted_modify,cst_quoted_del,cst_filing_show,cst_filing_add,cst_filing_modify,cst_filing_del', NULL),
+	(7, 'role', '12', 'SYS_MENU', '1,4,15,61,16,17,18,20,19,5,21,23,22,24,7,89,29,30,31,32,33,34,35,36,6,25,27,26,28,81,85,83,82,86,84,2,8,37,38,39,40,41,9,42,43,44,45,10,46,88,47,48,11,49,50,3,12,51,52,53,13,54,55,14,56,57,58,59,60,63,64,87,65,69,70,71,66,72,73,74,67,75,76,77,68,78,79,80', NULL),
+	(8, 'role', '12', 'SYS_METHOD', 'dept_show,dept_add,dept_modify,dept_del,role_show,role_add,role_modify,role_del,position_add,position_show,position_del,postion_del,user_show,user_add,user_modify,user_del,pro_dict_show,pro_dict_add,pro_type_show,pro_type_add,pro_type_modify,pro_type_del,product_show,product_add,product_modify,product_del,customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del,cst_chance_show,cst_chance_add,cst_chance_modify,cst_chance_del,cst_trace_show,cst_trace_add,cst_trace_del,cst_trace_modify,cst_quoted_show,cst_quoted_add,cst_quoted_modify,cst_quoted_del,cst_filing_show,cst_filing_add,cst_filing_modify,cst_filing_del', NULL),
 	(9, 'role', '12', 'SYS_AREA', '0', NULL),
-	(10, 'role', '13', 'SYS_MENU', '1,5,21,23,22,24,7,29,30,31,32,33,34,35,36,6,25,27,26,28,2,8,37,38,39,40,41,9,42,43,44,45,10,46,47,48,11,49,50,3,12,51,52,53,13,54,55,14,56,57,58,59,60', NULL),
+	(10, 'role', '13', 'SYS_MENU', '1,7,29,30,31,32,33,34,35,36,6,25,27,26,28,2,8,37,38,39,40,41,9,42,43,44,45,10,46,47,48,11,49,50', NULL),
 	(12, 'role', '13', 'SYS_AREA', '0', NULL),
-	(13, 'role', '14', 'SYS_MENU', '1,4,15,61,16,17,18,20,19,5,21,23,22,24,7,29,30,31,32,33,34,35,36,6,25,27,26,28,8,37,38,39,40,41,9,42,43,44,45,10,46,47,48,11,49,50,3,12,51,52,53,13,54,55,14,56,57,58,59,60', NULL),
-	(14, 'role', '14', 'SYS_METHOD', 'dept_show,dept_add,pro_dict_show,pro_dict_add,pro_type_show,pro_type_add,pro_type_modify,pro_type_del,product_show,product_add,product_modify,product_del,customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del,cst_chance_show,cst_chance_add,cst_chance_modify,cst_chance_del,cst_trace_show,cst_trace_add,cst_trace_del,cst_trace_modify,cst_quoted_del,cst_quoted_add,cst_quoted_modify,cst_filing_show,cst_filing_add,cst_filing_modify,cst_filing_del', NULL),
-	(15, 'role', '14', 'SYS_AREA', '0', NULL),
-	(16, 'role', '15', 'SYS_MENU', '4,15,61,16,17,18,20,19,5,21,23,22,24,7,29,30,31,32,33,34,35,36,6,25,27,26,28,81,85,83,82,86,84,8,37,38,39,40,41,10,46,47,48,11,49,50,12,51,52,53,13,54,55,14,56,57,58,59,60,64,87,65,69,70,71,66,72,73,74,67,75,76,77,68,78,79,80', NULL),
-	(17, 'role', '15', 'SYS_METHOD', 'dept_show,dept_add,dept_modify,dept_del,role_show,role_add,role_modify,role_del,position_add,position_show,position_del,postion_del,user_show,user_add,user_modify,user_del,pro_dict_show,pro_dict_add,pro_type_show,pro_type_add,pro_type_modify,pro_type_del,product_show,product_add,product_modify,product_del,customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del', NULL),
-	(18, 'role', '15', 'SYS_AREA', '0', NULL);
+	(13, 'role', '14', 'SYS_MENU', '2,8,37,38,39,40,41,9,42,43,44,45,10,46,47,48,11,49,50,63,64,87,65,69,70,71,66,72,73,74,67,75,76,77,68,78,79,80', NULL),
+	(14, 'role', '14', 'SYS_METHOD', 'customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del,cst_chance_show,cst_chance_add,cst_chance_modify,cst_chance_del,cst_trace_show,cst_trace_add,cst_trace_del,cst_trace_modify,cst_quoted_show,cst_quoted_add,cst_quoted_modify,cst_quoted_del,cst_filing_show,cst_filing_add,cst_filing_modify,cst_filing_del', NULL),
+	(15, 'role', '14', 'SYS_AREA', '', NULL),
+	(16, 'role', '13', 'SYS_METHOD', 'dept_show,dept_add,dept_del,role_show,role_add,role_modify,role_del,position_add,position_show,position_del,user_show,user_add,user_modify,user_del,pro_dict_show,pro_dict_add,pro_type_show,pro_type_add,pro_type_modify,pro_type_del,product_show,product_add,product_modify,product_del,customer_show,customer_add,customer_modify,customer_del,cst_linkman_show,cst_linkman_add,cst_linkman_modify,cst_linkman_del,cst_service_show,cst_service_add,cst_service_modify,cst_service_del,cst_chance_show,cst_chance_add,cst_chance_modify,cst_chance_del,cst_trace_show,cst_trace_add,cst_trace_del,cst_trace_modify,cst_quoted_show,cst_quoted_add,cst_quoted_modify,cst_quoted_del,cst_filing_show,cst_filing_add,cst_filing_modify,cst_filing_del', NULL);
 /*!40000 ALTER TABLE `fly_sys_power` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_region 结构
-DROP TABLE IF EXISTS `fly_sys_region`;
 CREATE TABLE IF NOT EXISTS `fly_sys_region` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `parentID` int(4) NOT NULL,
@@ -4632,28 +4846,25 @@ INSERT INTO `fly_sys_region` (`id`, `parentID`, `name`, `type`) VALUES
 
 
 -- 导出  表 07fly_oa.fly_sys_role 结构
-DROP TABLE IF EXISTS `fly_sys_role`;
 CREATE TABLE IF NOT EXISTS `fly_sys_role` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `sort` int(16) NOT NULL DEFAULT '0',
   `name` varchar(32) DEFAULT NULL,
   `intro` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.fly_sys_role 的数据：~4 rows (大约)
+-- 正在导出表  07fly_oa.fly_sys_role 的数据：~3 rows (大约)
 DELETE FROM `fly_sys_role`;
 /*!40000 ALTER TABLE `fly_sys_role` DISABLE KEYS */;
 INSERT INTO `fly_sys_role` (`id`, `sort`, `name`, `intro`) VALUES
 	(12, 1, '超级管理员', '权限介绍'),
-	(13, 2, '一般管理员', '主要是部门级一权限'),
-	(14, 123, 'xxx', 'xxx'),
-	(15, 5, '开发人员角色', '');
+	(13, 2, '销售人员', '主要是部门销售人员使用'),
+	(14, 123, '财务人员', '主要是记录财务相关的');
 /*!40000 ALTER TABLE `fly_sys_role` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.fly_sys_user 结构
-DROP TABLE IF EXISTS `fly_sys_user`;
 CREATE TABLE IF NOT EXISTS `fly_sys_user` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `account` varchar(32) NOT NULL,
@@ -4672,21 +4883,20 @@ CREATE TABLE IF NOT EXISTS `fly_sys_user` (
   `intro` varchar(1024) NOT NULL,
   `adt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  07fly_oa.fly_sys_user 的数据：~4 rows (大约)
 DELETE FROM `fly_sys_user`;
 /*!40000 ALTER TABLE `fly_sys_user` DISABLE KEYS */;
 INSERT INTO `fly_sys_user` (`id`, `account`, `password`, `name`, `gender`, `tel`, `mobile`, `qicq`, `address`, `zipcode`, `email`, `roleID`, `deptID`, `positionID`, `intro`, `adt`) VALUES
-	(3, 'test', 'test', '张三', '1', '02868133149', '1871720801', '', '成都市', '', 'mai@163.com', 13, 11, 2, '', NULL),
-	(4, 'admin', 'admin123456', '测试员', '1', '', '1366789876', '', '', '', '', 12, 5, 4, '', NULL),
-	(5, 'A9088', '123456', '李四', '1', '6280999', '13689000', '', '成都市天下埠', '610000', 'web@07fly.com', 12, 7, 3, '', '2013-09-11 14:11:10'),
-	(6, 'A9088', '123456', '张三', '1', '6280999', '13689000', '574249', '成都市天下埠', '610000', 'web@07fly.com', 12, 7, 3, '', '2013-09-11 14:11:45');
+	(3, 'test', 'test', '张三', '1', '02868133149', '1871720801', '', '成都市', '', 'mai@163.com', 13, 2, 2, '', NULL),
+	(4, 'admin', 'admin123456', '超管', '1', '', '1366789876', '', '', '', '', 12, 1, 7, '', NULL),
+	(7, 'cw', 'cw', '财务专员', '1', '', '13800000000', '', '', '', '', 14, 2, 4, '', '2017-06-26 15:59:39'),
+	(8, 'xs', 'xs', '销售员1', '1', '', '18030402705', '', '', '', '', 13, 2, 5, '', '2017-06-26 16:00:21');
 /*!40000 ALTER TABLE `fly_sys_user` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.pos_order 结构
-DROP TABLE IF EXISTS `pos_order`;
 CREATE TABLE IF NOT EXISTS `pos_order` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `pos_number` varchar(50) NOT NULL COMMENT '采购编号',
@@ -4711,19 +4921,20 @@ CREATE TABLE IF NOT EXISTS `pos_order` (
   `create_userID` int(11) NOT NULL COMMENT '创建用户',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.pos_order 的数据：~2 rows (大约)
+-- 正在导出表  07fly_oa.pos_order 的数据：~4 rows (大约)
 DELETE FROM `pos_order`;
 /*!40000 ALTER TABLE `pos_order` DISABLE KEYS */;
 INSERT INTO `pos_order` (`id`, `pos_number`, `supID`, `linkmanID`, `chanceID`, `bdt`, `edt`, `our_userID`, `money`, `zero_money`, `back_money`, `pay_money`, `into_money`, `bill_money`, `title`, `intro`, `status`, `pay_status`, `into_status`, `bill_status`, `create_userID`, `adt`) VALUES
-	(1, '2017053021321540', 13, 0, 0, '2017-05-30', '2017-06-01', 6, 222, 22, 0, 111, 0, 0, '111', '11111', 1, 1, 1, 1, 4, '2017-05-30 21:32:52'),
-	(2, '2017060311451375', 1, 0, 0, '2017-06-03', '2017-06-16', 4, 526, 526, 0, 2526, 0, 0, '办公用品', '', 1, 1, 1, 1, 4, '2017-06-03 11:46:08');
+	(5, '2013092315534549', 12, 2, 0, '2013-09-24', '2013-10-12', 6, 1000, 0, 0, 6000, 0, 1000, '这是测试订单', '', 1, 3, 1, 3, 4, '2013-09-23 15:54:14'),
+	(7, '2016050321364580', 12, 2, 0, '2016-05-03', '2016-05-18', 4, 880, 80, 0, 200, 0, 880, '零起飞企业建站', '', 1, 2, 1, 3, 4, '2016-05-03 21:37:13'),
+	(8, '2016111821335467', 12, 1, 0, '2016-11-18', '2016-11-26', 4, 100, 0, 0, 1100, 0, 0, '一批电脑', '', 1, 3, 1, 1, 4, '2016-11-18 21:34:37'),
+	(9, '2017052316392792', 13, 4, 0, '2017-05-23', '2017-05-24', 6, 1000, 0, 0, 1000, 0, 1100, '服务器订单', '', 1, 3, 1, 3, 4, '2017-05-23 16:41:27');
 /*!40000 ALTER TABLE `pos_order` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.pos_order_detail 结构
-DROP TABLE IF EXISTS `pos_order_detail`;
 CREATE TABLE IF NOT EXISTS `pos_order_detail` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `posID` int(16) unsigned NOT NULL DEFAULT '0',
@@ -4740,16 +4951,19 @@ CREATE TABLE IF NOT EXISTS `pos_order_detail` (
   `create_userID` int(16) NOT NULL COMMENT '归属人员',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.pos_order_detail 的数据：~0 rows (大约)
+-- 正在导出表  07fly_oa.pos_order_detail 的数据：~3 rows (大约)
 DELETE FROM `pos_order_detail`;
 /*!40000 ALTER TABLE `pos_order_detail` DISABLE KEYS */;
+INSERT INTO `pos_order_detail` (`id`, `posID`, `pro_number`, `pos_number`, `name`, `model`, `norm`, `price`, `rebate`, `number`, `money`, `intro`, `create_userID`, `adt`) VALUES
+	(21, 6, 'X807651', '2013092315534549', 'AAA计费产品', 'N8000', '套', 9800, 0, 2, 19600, '', 4, '2016-05-03 11:59:24'),
+	(22, 7, '20880345', '2016050321364580', '200M', 'M', 'M', 500, 1, 6, 2970, '', 4, '2016-05-03 21:38:46'),
+	(23, 8, '20880345', '2016111821335467', '200M', 'M', 'M', 500, 0, 1, 500, '', 4, '2016-11-18 21:35:06');
 /*!40000 ALTER TABLE `pos_order_detail` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.pro_dict 结构
-DROP TABLE IF EXISTS `pro_dict`;
 CREATE TABLE IF NOT EXISTS `pro_dict` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -4772,7 +4986,6 @@ INSERT INTO `pro_dict` (`id`, `name`, `type`, `sort`, `visible`) VALUES
 
 
 -- 导出  表 07fly_oa.pro_dict_type 结构
-DROP TABLE IF EXISTS `pro_dict_type`;
 CREATE TABLE IF NOT EXISTS `pro_dict_type` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) CHARACTER SET utf8 DEFAULT NULL COMMENT '字典名称',
@@ -4791,7 +5004,6 @@ INSERT INTO `pro_dict_type` (`id`, `name`, `value`) VALUES
 
 
 -- 导出  表 07fly_oa.pro_product 结构
-DROP TABLE IF EXISTS `pro_product`;
 CREATE TABLE IF NOT EXISTS `pro_product` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -4819,7 +5031,6 @@ INSERT INTO `pro_product` (`id`, `name`, `pro_number`, `typeID`, `price`, `model
 
 
 -- 导出  表 07fly_oa.pro_type 结构
-DROP TABLE IF EXISTS `pro_type`;
 CREATE TABLE IF NOT EXISTS `pro_type` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -4844,13 +5055,13 @@ INSERT INTO `pro_type` (`id`, `name`, `parentID`, `sort`, `visible`, `intro`) VA
 
 
 -- 导出  表 07fly_oa.sal_contract 结构
-DROP TABLE IF EXISTS `sal_contract`;
 CREATE TABLE IF NOT EXISTS `sal_contract` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `con_number` varchar(50) NOT NULL COMMENT '合同编号',
   `cusID` int(16) NOT NULL,
   `linkmanID` int(16) NOT NULL,
   `chanceID` int(16) NOT NULL,
+  `websiteID` int(16) NOT NULL COMMENT '关联网站',
   `bdt` date NOT NULL,
   `edt` date NOT NULL,
   `our_userID` int(16) NOT NULL COMMENT '我方联系人',
@@ -4865,23 +5076,19 @@ CREATE TABLE IF NOT EXISTS `sal_contract` (
   `pay_status` smallint(1) NOT NULL DEFAULT '1',
   `deliver_status` smallint(1) NOT NULL DEFAULT '1',
   `bill_status` smallint(1) NOT NULL DEFAULT '1',
+  `renew_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '续费状态',
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.sal_contract 的数据：~3 rows (大约)
+-- 正在导出表  07fly_oa.sal_contract 的数据：~0 rows (大约)
 DELETE FROM `sal_contract`;
 /*!40000 ALTER TABLE `sal_contract` DISABLE KEYS */;
-INSERT INTO `sal_contract` (`id`, `con_number`, `cusID`, `linkmanID`, `chanceID`, `bdt`, `edt`, `our_userID`, `money`, `zero_money`, `back_money`, `pay_money`, `bill_money`, `title`, `intro`, `status`, `pay_status`, `deliver_status`, `bill_status`, `create_userID`, `adt`) VALUES
-	(1, '1705241188', 12, 0, 0, '2017-05-01', '2018-05-01', 5, 987654321, 0, 0, 0, 0, '航天飞机销售合同', '', 1, 1, 1, 1, 4, '2017-05-24 11:41:16'),
-	(2, '1705241188', 12, 0, 0, '2017-05-01', '2018-05-01', 5, 987654321, 0, 0, 0, 0, '航天飞机销售合同', '', 1, 1, 1, 1, 4, '2017-05-24 11:41:22'),
-	(3, '1706030675', 1, 0, 12, '2017-06-03', '2017-06-03', 6, 23, 0, 0, 0, 0, '2333', '', 1, 1, 1, 1, 4, '2017-06-03 18:07:32');
 /*!40000 ALTER TABLE `sal_contract` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.sal_order 结构
-DROP TABLE IF EXISTS `sal_order`;
 CREATE TABLE IF NOT EXISTS `sal_order` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `ord_number` varchar(50) NOT NULL COMMENT '合同编号',
@@ -4905,21 +5112,18 @@ CREATE TABLE IF NOT EXISTS `sal_order` (
   `create_userID` int(11) NOT NULL COMMENT '创建用户',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.sal_order 的数据：~4 rows (大约)
+-- 正在导出表  07fly_oa.sal_order 的数据：~2 rows (大约)
 DELETE FROM `sal_order`;
 /*!40000 ALTER TABLE `sal_order` DISABLE KEYS */;
 INSERT INTO `sal_order` (`id`, `ord_number`, `cusID`, `linkmanID`, `chanceID`, `bdt`, `edt`, `our_userID`, `money`, `zero_money`, `back_money`, `pay_money`, `bill_money`, `title`, `intro`, `status`, `pay_status`, `deliver_status`, `bill_status`, `create_userID`, `adt`) VALUES
-	(1, '20170524114332', 1, 72, 0, '2017-05-24', '2017-05-31', 4, 2010000, 0, 0, 0, 0, '航天飞机销售', '', 1, 1, 1, 1, 4, '2017-05-24 11:44:03'),
-	(2, '20170524151441', 1, 0, 0, '2017-05-24', '2017-05-24', 6, 0, 0, 0, 0, 0, '23123', '', 1, 1, 1, 1, 4, '2017-05-24 15:15:16'),
-	(3, '20170603180520', 1, 71, 13, '2017-06-03', '2017-06-15', 0, 0, 0, 0, 0, 0, '23', '', 1, 1, 1, 1, 4, '2017-06-03 18:05:46'),
-	(4, '20170604012604', 1, 72, 0, '2017-06-04', '2017-06-04', 6, 0, 0, 0, 0, 0, 'demo', '', 1, 1, 1, 1, 4, '2017-06-04 01:26:36');
+	(16, '20170509180550', 1, 62, 6, '2017-05-08', '2017-05-10', 0, 0, 0, 0, 0, 0, '第一次报价', '', 1, 1, 1, 3, 4, '2017-05-09 18:06:08'),
+	(17, '11111', 16, 64, 0, '2017-05-18', '2017-05-18', 3, 200, 0, 100, 0, 200, '二次报价', '', 2, 2, 1, 3, 4, '2017-05-18 15:03:07');
 /*!40000 ALTER TABLE `sal_order` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.sal_order_detail 结构
-DROP TABLE IF EXISTS `sal_order_detail`;
 CREATE TABLE IF NOT EXISTS `sal_order_detail` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `orderID` int(16) unsigned NOT NULL DEFAULT '0',
@@ -4936,19 +5140,17 @@ CREATE TABLE IF NOT EXISTS `sal_order_detail` (
   `create_userID` int(16) NOT NULL COMMENT '归属人员',
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.sal_order_detail 的数据：~2 rows (大约)
+-- 正在导出表  07fly_oa.sal_order_detail 的数据：~1 rows (大约)
 DELETE FROM `sal_order_detail`;
 /*!40000 ALTER TABLE `sal_order_detail` DISABLE KEYS */;
 INSERT INTO `sal_order_detail` (`id`, `orderID`, `pro_number`, `ord_number`, `name`, `model`, `norm`, `price`, `rebate`, `number`, `money`, `intro`, `create_userID`, `adt`) VALUES
-	(2, 1, 'X807651', '20170524114332', '100M', 'N8000', '个', 10000, 0, 1, 10000, '', 4, '2017-05-24 11:44:47'),
-	(3, 1, '20880345', '20170524114332', '200M', 'M', 'M', 200000, 0, 10, 2000000, '', 4, '2017-05-24 11:44:47');
+	(75, 17, '20880345', '11111', '200M', 'M', 'M', 200, 0, 1, 200, '', 4, '2017-05-18 15:08:27');
 /*!40000 ALTER TABLE `sal_order_detail` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.sup_linkman 结构
-DROP TABLE IF EXISTS `sup_linkman`;
 CREATE TABLE IF NOT EXISTS `sup_linkman` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `supID` int(16) NOT NULL,
@@ -4964,18 +5166,20 @@ CREATE TABLE IF NOT EXISTS `sup_linkman` (
   `intro` text NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 正在导出表  07fly_oa.sup_linkman 的数据：~1 rows (大约)
+-- 正在导出表  07fly_oa.sup_linkman 的数据：~4 rows (大约)
 DELETE FROM `sup_linkman`;
 /*!40000 ALTER TABLE `sup_linkman` DISABLE KEYS */;
 INSERT INTO `sup_linkman` (`id`, `supID`, `name`, `gender`, `postion`, `tel`, `mobile`, `qicq`, `email`, `zipcode`, `address`, `intro`, `adt`) VALUES
-	(1, 0, '1313', 1, '13131', '131313131', '18610441438', '', '', '', '', '', '2017-05-24 13:46:06');
+	(1, 12, '枭哥', 1, '技术部', '02888641234', '13688868655', '1585925559', 'web@07fly.com', '610000', '成都市新路', '这个小伙子不错,一个很好的人的呀', '2013-09-06 10:26:59'),
+	(2, 12, '二娃', 1, '1', '12345678', '12345678', '', '1@1.com', '', '', '', '2013-09-23 14:16:55'),
+	(3, 12, '三娃', 1, '1', '12345678', '12345678', '', '1@1.com', '', '', '', '2013-09-23 14:17:00'),
+	(4, 13, '李大爷', 1, '经理', '', '18030402705', '', '', '', '', '', '2016-04-24 22:07:37');
 /*!40000 ALTER TABLE `sup_linkman` ENABLE KEYS */;
 
 
 -- 导出  表 07fly_oa.sup_supplier 结构
-DROP TABLE IF EXISTS `sup_supplier`;
 CREATE TABLE IF NOT EXISTS `sup_supplier` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
