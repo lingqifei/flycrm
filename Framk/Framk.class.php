@@ -7,7 +7,6 @@
  * @author   shawn fon <shawn.fon@gmail.com>
  +------------------------------------------------------------------------------
  */
- 
 class Framk {	
 	public function __construct() {
  /*
