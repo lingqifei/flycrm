@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-06-19 08:47:30
+<?php /* Smarty version 2.6.26, created on 2017-07-17 18:22:38
          compiled from cst_chance/cst_chance_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>

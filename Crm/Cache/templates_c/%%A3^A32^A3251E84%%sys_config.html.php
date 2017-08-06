@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 15:45:54
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:37:22
          compiled from sys/sys_config.html */ ?>
 <h2 class="contentTitle">常规设置</h2>
 <div class="pageContent">

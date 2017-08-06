@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-18 15:14:11
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:37:06
          compiled from cst_chance/cst_chance_add.html */ ?>
 <div class="pageContent">
   <form method="post" action="<?php echo @ACT; ?>

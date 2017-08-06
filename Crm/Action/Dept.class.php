@@ -111,21 +111,30 @@ class Dept extends Action{
 	
 	//得到一个部门的得到下面子部门的编号
 	public function dept_get_sub_dept($deptID){
-		$subArr  	=array();
-		$sql		="select id,name,parentID from fly_sys_dept";
+		
+		$sql		="select id,name,parentID from fly_sys_dept where parentID='$deptID'";
 		$list		=$this->C($this->cacheDir)->findAll($sql);
-		$tree   	=$this->L("Tree")->arrToTree($list,$deptID);
-		$subArr  	=$this->dept_get_sub_out($tree);
-		$subArr[]	=$deptID;
-		return $subArr;
+		if(!empty($list)){
+			$dept_ids   = $deptID.",";	
+		}else{
+			$dept_ids   = $deptID;
+		}
+		foreach($list as $key=>$row){
+			$dept_ids .=$this->dept_get_sub_dept($row["id"]);
+		}
+		return $dept_ids;
 	}	
 		//左边菜单栏输出
 	public function dept_get_sub_out($tree){
+		echo "<br>dept_get_sub_out<br>";
 		foreach($tree as $t){
-			if(empty($t['parentID'])){
-				$rtArr[] .= $t['id'];
-			}else{
+			print_r($t['parentID']);
+			if(!empty($t['parentID'])&&is_array($t['parentID'])){
 				$rtArr[] .=  $this->dept_get_sub_dept($t['parentID']);
+			}else{
+				echo "最后一组";
+				$rtArr[] .= $t['id'];
+				
 			}
 		} 
 		return $rtArr;

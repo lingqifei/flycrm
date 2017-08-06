@@ -10,10 +10,12 @@ class FinFlowRecord extends Action{
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
+		
 		$countSql    = 'select id from fin_flow_record';
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$totalSql	 = 'select sum(paymoney) as payTotal,sum(recemoney) as receTotal from fin_flow_record';
 		$totalRs	 = $this->C($this->cacheDir)->findOne($totalSql);
+		
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select * from fin_flow_record  order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);

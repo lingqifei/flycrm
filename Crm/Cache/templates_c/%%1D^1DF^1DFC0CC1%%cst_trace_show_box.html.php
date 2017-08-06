@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2017-06-19 09:06:01
+<?php /* Smarty version 2.6.26, created on 2017-07-17 18:22:38
          compiled from cst_trace/cst_trace_show_box.html */ ?>
 
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>
-/CstTrace/cst_trace_show/" method="post">
+/CstTrace/cst_chance_show_box/" method="post">
       <input type="hidden" name="pageNum" value="1" />
       <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['numPerPage']; ?>
 " />

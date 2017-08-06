@@ -4,10 +4,15 @@
     <div class="searchBar">
       <table class="searchContent">
         <tr>
-          <td><select class="combox" name="searchKeyword">
-              <option value="name"  #{if $searchKeyword eq 'name'}# selected="selected" #{/if}#>名称</option>
-            </select></td>
-          <td><input type="text" name="searchValue" value="#{$searchValue}#" /></td>
+          <td>客户名称</td>
+          <td>
+            <input name="cus.id" value="#{$cusID}#" type="hidden"/>
+            <input name="cus.name" value="#{$cus_name}#" type="text" class="required"/></td>
+          <td width="1"><a class="btnLook" href="#{$smarty.const.ACT}#/Customer/lookup_search/" lookupGroup="cus">选择客户名称</a></td>
+          <td>回款日期:</td>
+          <td><input type="text" name="sdt" size='10' class="date" value="#{$sdt}#" />
+            -
+            <input type="text" name="edt" size='10' class="date" value="#{$edt}#" /></td>
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -34,7 +39,7 @@
       <li><a class="add"
 		href="#{$smarty.const.ACT}#/FinReceRecord/fin_rece_record_add/" target="dialog"
 		rel="fin_rece_record_add" title="回款记录添加" width='850' height='450'><span>添加</span></a></li>
-        <li class="line">line</li>
+      <li class="line">line</li>
       <li> <a class="delete" href="#{$smarty.const.ACT}#/FinReceRecord/fin_rece_record_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
       <li class="line">line</li>
     </ul>
@@ -62,7 +67,7 @@
       <tr target="sid_user" rel="#{$v.id}#">
         <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
         <td align="left">#{$v.id}#</td>
-        <td align="left">#{$customer[$v.id]}#</td>
+        <td align="left"><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$customer[$v.id]}#</a></td>
         <td align="left">#{$v.business}#</td>
         <td align="left">#{$v.paydate}#</td>
         <td align="left">#{$v.stages}#</td>
@@ -84,6 +89,8 @@
 		name="numPerPage" value="#{$numPerPage}#" />
         <input type="hidden"
 		name="orderField" value="${param.orderField}" />
+        <input type="hidden" name="sdt" value="#{$sdt}#" />
+        <input type="hidden" name="edt" value="#{$edt}#" />
       </form>
       <div class="pages"><span>显示</span>
         <select class="combox"

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-22 08:58:14
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:33:46
          compiled from cst_linkman/cst_linkman_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
@@ -52,11 +52,12 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="120">客户</th>
+        <th width="220">客户</th>
         <th width="120">姓名</th>
         <th width="120">性别</th>
         <th width="120">职务</th>
         <th width="120">手机</th>
+        <th width="120">座机</th>
         <th width="120">QQ</th>
         <th width="150">邮箱</th>
       </tr>
@@ -82,6 +83,8 @@
       <td><?php echo $this->_tpl_vars['v']['postion']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['mobile']; ?>
+</td>
+      <td><?php echo $this->_tpl_vars['v']['tel']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['qicq']; ?>
 </td>

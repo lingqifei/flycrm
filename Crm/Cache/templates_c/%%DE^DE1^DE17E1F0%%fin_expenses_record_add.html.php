@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-22 15:38:08
+<?php /* Smarty version 2.6.26, created on 2017-07-31 14:21:48
          compiled from fin_expenses_record/fin_expenses_record_add.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>

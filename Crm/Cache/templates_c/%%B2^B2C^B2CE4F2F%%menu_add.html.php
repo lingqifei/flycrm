@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-11-21 11:23:20
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:37:36
          compiled from menu/menu_add.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>

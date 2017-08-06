@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-22 09:11:36
+<?php /* Smarty version 2.6.26, created on 2017-07-22 08:06:15
          compiled from sal_contract/sal_contract_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus');" action="<?php echo @ACT; ?>

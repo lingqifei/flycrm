@@ -52,6 +52,11 @@
 				<input name="our.name" type="text" class="required" value="#{$users[$one.our_userID]}#" />
 				<a class="btnLook" href="#{$smarty.const.ACT}#/User/lookup_search/" lookupGroup="our">选择客户</a>	
 			</p>
+			<p>
+				<label>合同类型：</label>
+				<input type="radio"	name="renew_status" value="1" checked="checked" />新增&nbsp;&nbsp;
+                <input type="radio"	name="renew_status" value="2" />续费
+			</p>
 			</fieldset>
 			<div class="divider"></div>			
 		

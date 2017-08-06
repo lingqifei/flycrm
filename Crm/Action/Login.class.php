@@ -60,6 +60,7 @@ class Login extends Action{
 		$one 		 = $this->C($this->cacheDir)->findOne($sql);
 		if(!empty($one)){
 			$role=_instance('Action/User')->user_get_power($one["id"]);
+			//print_r($role);
 			//权限返回值为一维数组，为系统用户私有数据
 			$_SESSION["CRM"]["USER"]["menu"]		= explode(",",implode(",",($role["SYS_MENU"]) ) );
 			$_SESSION["CRM"]["USER"]["menustr"]		= implode(",",($role["SYS_MENU"]) );
@@ -73,6 +74,8 @@ class Login extends Action{
 	
 			$_SESSION["CRM"]["NEED"]["menu"] 		= $this->L("Menu")->menu_auth_arr();
 			$_SESSION["CRM"]["NEED"]["method"] 		= $this->L("Method")->method_auth_arr();
+			
+			//定义SESSION变量值
 			$_SESSION["CRM"]["USER"]["account"]		= $username;
 			$_SESSION["CRM"]["USER"]["userID"]		= $one["id"];
 			$_SESSION["CRM"]["USER"]["viewID"]		= implode(",",$this->L("User")->user_get_sub_user($one["id"]));

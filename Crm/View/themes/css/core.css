@@ -278,8 +278,8 @@ a:hover {text-decoration:underline;}
 .panelBar .toolBar a.people span {background:url(../icons/people.png) scroll left no-repeat;}
 .panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
 .panelBar .toolBar a.search span {background:url(../icons/search.png) scroll left no-repeat;}
-.panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
-.panelBar .toolBar a.pro span {background:url(../icons/production.png) scroll left no-repeat;}
+.panelBar .toolBar a.talk span {background:url(../icons/talk.png) scroll left no-repeat;}
+.panelBar .toolBar a.task span {background:url(../icons/task.png) scroll left no-repeat;}
 
 
 
@@ -635,6 +635,7 @@ a.btnEdit{background-position: -138px 0}
 a.btnSelect{background-position: -92px 0}
 a.btnLook{background-position: -161px 0}
 a.btnAttach{background-position: -183px 0}
+
 .center a.btnAdd, .center a.btnDel, .center a.btnView, .center a.btnEdit, .center a.btnSelect, .center a.btnInfo, 
 .center a.btnAssign, .center a.btnLook, .center a.btnAttach {display:inline-block;float:none}
 .right a.btnAdd, .right a.btnDel, .right a.btnView, .right a.btnEdit, .right a.btnSelect, .right a.btnInfo, 

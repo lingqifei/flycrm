@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-30 14:59:13
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:38:57
          compiled from user/user_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>

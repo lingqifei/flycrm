@@ -3,8 +3,7 @@ class Auth extends Action {
 
 	private $cacheDir = ''; //缓存目录
 
-	public
-	function __construct() {
+	public function __construct() {
 		$this->check_login();
 		$this->authorization();
 		@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //定义
@@ -14,8 +13,7 @@ class Auth extends Action {
 
 
 	//检查是否有登录
-	public
-	function check_login() {
+	public function check_login() {
 		if ( empty( $_SESSION[ "CRM" ][ "USER" ][ "method" ] ) || empty( $_SESSION[ "CRM" ][ "USER" ][ "menu" ] ) ) {
 			if ( @$_SESSION[ "CRM" ][ "USER" ][ 'check' ] != 1 ) {
 				$_SESSION[ "CRM" ][ "USER" ][ 'check' ] = 1;
@@ -25,8 +23,7 @@ class Auth extends Action {
 	}
 
 	//判断是有执行方法的权限
-	public
-	function authorization() {
+	public function authorization() {
 		if ( isset( $_SESSION[ "CRM" ][ "NEED" ][ "method" ] ) ) {
 			if ( in_array( METHOD_NAME, $_SESSION[ "CRM" ][ "NEED" ][ "method" ] ) ) {
 				if ( !in_array( METHOD_NAME, $_SESSION[ "CRM" ][ "USER" ][ "method" ] ) ) {
@@ -38,8 +35,7 @@ class Auth extends Action {
 
 	//得需要验证的栏目和方法
 	//返回：array("1",3,5,5) array('add',modify,del...);
-	public
-	function auth_menu_tree_arr() {
+	public function auth_menu_tree_arr() {
 		$menu = $_SESSION[ "CRM" ][ "USER" ][ "menustr" ];
 		if ( !empty( $menu ) ) {
 			$sql = "select * from fly_sys_menu where visible='1' and id in ($menu)  order by sort asc,id desc;";
@@ -52,8 +48,7 @@ class Auth extends Action {
 	}
 
 	//界面初始化操作
-	public
-	function sys_default_conf() {
+	public function sys_default_conf() {
 		return array(
 			'title' => 'AAARadius宽带计费系统',
 			'companyname' => 'AAARadius宽带计费系统',

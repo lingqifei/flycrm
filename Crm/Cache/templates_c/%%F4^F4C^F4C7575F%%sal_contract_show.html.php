@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-20 21:27:24
+<?php /* Smarty version 2.6.26, created on 2017-07-17 18:25:22
          compiled from sal_contract/sal_contract_show.html */ ?>
 
 <div class="pageHeader">
@@ -55,21 +55,22 @@
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
 		<th width="100">合同编号</th>
-        <th width="120">客户名称</th>
-        <th width="80">接收人</th>
+        <th width="50">类型</th>
+        <th width="150">客户名称</th>
+        <th width="60">客户代表</th>
         <th width="80">销售机会</th>
-        <th width="80">合同金额</th>
-		<th width="80">去零金额</th>
-		<th width="80">回款金额</th>
-		<th width="80">交付金额</th>
-		<th width="80">开票金额</th>
+        <th width="60">合同金额</th>
+		<th width="60">去零金额</th>
+		<th width="60">回款金额</th>
+		<th width="60">交付金额</th>
+		<th width="60">开票金额</th>
 		<th width="80">有效期起始</th>
 		<th width="80">有效期终止</th>
 		<th width="60">我方代表</th>
 		<th width="60">状态</th>
-		<th width="80">付款状态</th>
-		<th width="80">交付状态</th>
-		<th width="80">开票状态</th>
+		<th width="60">付款状态</th>
+		<th width="60">交付状态</th>
+		<th width="60">开票状态</th>
  
       </tr>
     </thead>
@@ -87,8 +88,11 @@
 -<?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
 " width="880" height="480"><?php echo $this->_tpl_vars['v']['con_number']; ?>
 </a></td>
+      <td><?php echo $this->_tpl_vars['renew_status'][$this->_tpl_vars['v']['renew_status']]; ?>
+</td>
 	  <td><?php echo $this->_tpl_vars['customer'][$this->_tpl_vars['v']['cusID']]; ?>
 </td>
+      
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
       <td><?php echo $this->_tpl_vars['chance'][$this->_tpl_vars['v']['chanceID']]; ?>

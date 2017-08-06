@@ -171,7 +171,7 @@ class User extends Action{
 		$role   = explode(",",$one["roleID"]);
 		if(is_array($role)){
 			foreach($role as $k=>$v){
-				$power=$this->L("Role")->role_get_one($v);
+				$power=$this->L("Role")->role_get_one($v);//多个权限叠加进去
 				foreach($power as $key=>$val){
 					$pArr[$key][]=$val;
 				}
@@ -179,14 +179,13 @@ class User extends Action{
 		}
 		return $pArr;	
 	}	
-	//获取同
+	
+	//获取同当前用户管理的用户编号
 	public function user_get_sub_user($id=null){
-		$id = 4;
 		$sql	 = "select deptID from fly_sys_user where id='$id'";	
 		$one 	 = $this->C($this->cacheDir)->findOne($sql);
-		$deptArr = $this->L("Dept")->dept_get_sub_dept($one["deptID"]);//得到部门，以及管属下面部门编号 
-		$deptStr = is_array($deptArr)?implode(",",$deptArr):0;
-		
+		$deptStr = $this->L("Dept")->dept_get_sub_dept($one["deptID"]);//得到部门，以及管属下面部门编号 
+		$deptStr = rtrim($deptStr, ',');
 		//查询这个部门下所有的员工编号
 		$sql	 = "select id,name,account from fly_sys_user where deptID in ($deptStr)";	
 		$list 	 = $this->C($this->cacheDir)->findAll($sql);

@@ -78,7 +78,7 @@ class Role extends Action{
 			$sort 		= $_POST["sort"];
 			$menuID		= is_array($_POST["menuID"])?implode(',',$_POST["menuID"]):0;
 			$methodID	= is_array($_POST["methodID"])?implode(',',$_POST["methodID"]):0;
-			$areaID		= is_array($_POST["areaID"])?implode(',',$_POST["areaID"]):0;
+			//$areaID		= is_array($_POST["areaID"])?implode(',',$_POST["areaID"]):0;
 			
 			$this->C($this->cacheDir)->begintrans();
 			
@@ -88,12 +88,12 @@ class Role extends Action{
 			}	
 			$sqlstr1 = "update  fly_sys_power set  access_value='$menuID' where master='role' and access='SYS_MENU' and master_value='$id'";
 			$sqlstr2 = "update  fly_sys_power set  access_value='$methodID' where master='role' and access='SYS_METHOD' and master_value='$id'";
-			$sqlstr3 = "update  fly_sys_power set  access_value='$areaID' where master='role' and access='SYS_AREA' and master_value='$id'";
+			//$sqlstr3 = "update  fly_sys_power set  access_value='$areaID' where master='role' and access='SYS_AREA' and master_value='$id'";
 			
 /*			echo $sqlstr1."<hr>";
 			echo $sqlstr2."<hr>";
 			echo $sqlstr3."<hr>";*/
-			if($this->C($this->cacheDir)->update($sqlstr1)<0 || $this->C($this->cacheDir)->update($sqlstr2)<0 || $this->C($this->cacheDir)->update($sqlstr3)<0){
+			if($this->C($this->cacheDir)->update($sqlstr1)<0 || $this->C($this->cacheDir)->update($sqlstr2)<0){
 				$this->C($this->cacheDir)->rollback();
 			}
 			$this->C($this->cacheDir)->commit();

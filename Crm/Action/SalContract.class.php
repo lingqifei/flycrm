@@ -76,6 +76,7 @@ class SalContract extends Action{
 			$assArr["dict"] 			= $this->L("CstDict")->cst_dict_arr();
 			$assArr["linkman"] 			= $this->L("CstLinkman")->cst_linkman_arr();
 			$assArr["status"] 			= $this->sal_contract_status();
+			$assArr["renew_status"] 	= $this->sal_contract_renew_status();
 			$assArr["pay_status"] 		= $this->sal_contract_pay_status();
 			$assArr["deliver_status"] 	= $this->sal_contract_deliver_status();
 			$assArr["bill_status"] 		= $this->sal_contract_bill_status();
@@ -93,6 +94,7 @@ class SalContract extends Action{
 			$assArr["dict"] 			= $this->L("CstDict")->cst_dict_arr();
 			$assArr["linkman"] 			= $this->L("CstLinkman")->cst_linkman_arr();
 			$assArr["status"] 			= $this->sal_contract_status();
+			$assArr["renew_status"] 	= $this->sal_contract_renew_status();
 			$assArr["pay_status"] 		= $this->sal_contract_pay_status();
 			$assArr["deliver_status"] 	= $this->sal_contract_deliver_status();
 			$assArr["bill_status"] 		= $this->sal_contract_bill_status();
@@ -145,13 +147,48 @@ class SalContract extends Action{
 			$linkmanID  = $this->_REQUEST("linkman_id");
 			$chanceID   = $this->_REQUEST("chance_id");
 			$our_userID	= $this->_REQUEST("our_id");
-			$sql       	= "insert into sal_contract(con_number,money,cusID,linkmanID,chanceID,our_userID,bdt,edt,title,intro,adt,create_userID) 
-								values('$_POST[con_number]','$_POST[money]','$cusID','$linkmanID','$chanceID','$our_userID',
-								'$_POST[bdt]','$_POST[edt]','$_POST[title]','$_POST[intro]','$dt','".SYS_USER_ID."');";
+			$renew_status= $this->_REQUEST("renew_status");
+			$sql       	= "insert into sal_contract(con_number,money,cusID,linkmanID,chanceID,
+							renew_status,websiteID,
+							our_userID,bdt,edt,title,intro,adt,create_userID) 
+								values('$_POST[con_number]','$_POST[money]','$cusID','$linkmanID','$chanceID',
+								'$_POST[renew_status]','$_POST[websiteID]',
+								'$our_userID','$_POST[bdt]','$_POST[edt]','$_POST[title]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
-	}		
+	}	
+	
+	function sal_contract_add_save($data){
+			$adt     	= date("Y-m-d H:i:s",time());
+			$con_number = $data["con_number"];
+			$cusID   	= $data["cusID"];
+			$money 		= $data["money"];
+			$linkmanID  = $data["linkmanID"];
+			$chanceID   = $data["chanceID"];
+			$our_userID	= $data["our_userID"];
+			$renew_status= $data["renew_status"];
+			$websiteID  = $data["websiteID"];
+			$bdt        = $data["bdt"];
+			$edt        = $data["edt"];
+			$title      = $data["title"];
+			$intro      = $data["intro"];
+			$sql       	= "insert into sal_contract(con_number,money,cusID,linkmanID,chanceID,
+							renew_status,websiteID,
+							our_userID,bdt,edt,title,intro,adt,create_userID) 
+								values('$con_number','$money','$cusID','$linkmanID','$chanceID',
+								'$renew_status','$websiteID',
+								'$our_userID','$bdt','$edt','$title','$intro','$adt','".SYS_USER_ID."');";
+			if($this->C($this->cacheDir)->update($sql)>0){
+				return true;
+			}else{
+				return false;	
+			}	
+	}	
+
+
+
+	//查询一条记录
 	public function sal_contract_get_one($id=""){
 		if($id){
 			$sql 		= "select * from sal_contract where id='$id'";
@@ -160,6 +197,7 @@ class SalContract extends Action{
 		}	
 	}	
 	
+	//修改
 	public function sal_contract_modify(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -238,16 +276,26 @@ class SalContract extends Action{
 		return $str;
 	}
 		
+	//合同状态
 	public function sal_contract_status(){
 		return  array(
 				"1"=>"<b style='color:#FFA500'>临时单</b>",
 				"2"=>"<b style='color:#0000FF'>执行中</b>",
-				"2"=>"<b style='color:#008000'>完成</b>",
+				"3"=>"<b style='color:#008000'>完成</b>",
 				"4"=>"<b style='color:#ff0000'>撤销</b>"
 		);
 	}
 
+	//合同续费状态
+	public function sal_contract_renew_status(){
+		return  array(
+				"1"=>"<b style='color:#FFA500'>新增</b>",
+				"2"=>"<b style='color:#0000FF'>续费</b>",
+				"3"=>"<b style='color:#008000'>流失</b>"
+		);
+	}
 
+	//付款状态
 	public function sal_contract_pay_status(){
 		return  array(
 				"1"=>"<b style='color:#FFA500'>未付</b>",
@@ -256,6 +304,7 @@ class SalContract extends Action{
 		);
 	}
 	
+	//开票状态
 	public function sal_contract_deliver_status(){
 		return  array(
 				"1"=>"<b style='color:#FFA500'>需要</b>",
@@ -264,6 +313,7 @@ class SalContract extends Action{
 		);
 	}
 
+	//交付状态
 	public function sal_contract_bill_status(){
 		return  array(
 				"1"=>"<b style='color:#FFA500'>需要</b>",

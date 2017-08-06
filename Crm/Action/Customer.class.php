@@ -21,11 +21,14 @@ class Customer extends Action{
 		$linkman   = $this->_REQUEST("linkman");
 		$ecotype   = $this->_REQUEST("ecotype_id");
 		$trade     = $this->_REQUEST("trade_id");
+		$trade_name= $this->_REQUEST("trade_name");
 		$fax   	   = $this->_REQUEST("fax");
 		$email     = $this->_REQUEST("email");
 		$address   = $this->_REQUEST("address");	
 		$bdt   	   = $this->_REQUEST("bdt");
 		$edt   	   = $this->_REQUEST("edt");
+		
+		
 		$where_str = " create_userID in (".SYS_USER_VIEW.")";
 		
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
@@ -70,7 +73,9 @@ class Customer extends Action{
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select * from cst_customer  where $where_str order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
+		$assignArray = array('list'=>$list,
+							"trade"=>$trade,"trade_name"=>$trade_name,"bdt"=>$bdt,"edt"=>$edt,
+							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 		
 	}
@@ -121,11 +126,19 @@ class Customer extends Action{
 			$trade   = $this->_REQUEST("trade_id");
 			$level   = $this->_REQUEST("level_id");
 			
-			$sql     = "insert into cst_customer(name,source,level,ecotype,trade,website,tel,fax,email,zipcode,address,intro,adt,create_userID) 
-								values('$_POST[name]','$source','$level','$ecotype','$trade',
+			$sql     = "insert into cst_customer(name,source,level,ecotype,trade,linkman,mobile,
+									website,tel,fax,email,
+									zipcode,address,intro,adt,create_userID) 
+								values('$_POST[name]','$source','$level','$ecotype','$trade','$_POST[linkman]','$_POST[mobile]',
 								'$_POST[website]','$_POST[tel]',
 								'$_POST[fax]','$_POST[email]','$_POST[zipcode]','$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
-			$this->C($this->cacheDir)->update($sql);	
+								
+			$cusID=$this->C($this->cacheDir)->update($sql);	
+			
+			$sql     = "insert into cst_linkman(name,cusID,mobile,adt,create_userID) 
+								values('$_POST[linkman]','$cusID','$_POST[mobile]','$dt','".SYS_USER_ID."');";	
+			
+			$this->C($this->cacheDir)->update($sql);
 			$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");		
 		}
 	}		

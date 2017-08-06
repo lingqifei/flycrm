@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2016-06-13 16:10:23
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:38:58
          compiled from position/position_show.html */ ?>
 
 <div class="pageHeader">

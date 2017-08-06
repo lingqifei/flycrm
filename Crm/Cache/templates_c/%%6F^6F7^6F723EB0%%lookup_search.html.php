@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2016-11-18 21:30:57
+<?php /* Smarty version 2.6.26, created on 2017-07-22 10:39:25
          compiled from customer/lookup_search.html */ ?>
 
 <div class="pageHeader">
 	<form action="<?php echo @ACT; ?>
-/Supplier/lookup_search/" method="post" onsubmit="return dwzSearch(this, 'dialog');">
+/Customer/lookup_search/" method="post" onsubmit="return dwzSearch(this, 'dialog');">
 	<div class="searchBar">
 		<ul class="searchContent">
 			<li>

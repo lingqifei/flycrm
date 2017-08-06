@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-13 08:01:43
+<?php /* Smarty version 2.6.26, created on 2017-07-17 17:35:02
          compiled from customer/customer_add.html */ ?>
 <div class="pageContent">
 	<form method="post" action="<?php echo @ACT; ?>
@@ -43,7 +43,15 @@
 				<input type="text" value="" name="website" class="url" title="例如：http://www.07fly.com">
 			</p>
 			<p>
-				<label>联系电话：</label>
+				<label>联系人员：</label>
+				<input type="text" value="" name="linkman" class="required">
+			</p>
+			<p>
+				<label>手机：</label>
+				<input type="text" value="" name="mobile" class="required phone">
+			</p>
+			<p>
+				<label>电话：</label>
 				<input type="text" value="" name="tel" class="required phone">
 			</p>	
 			<p>

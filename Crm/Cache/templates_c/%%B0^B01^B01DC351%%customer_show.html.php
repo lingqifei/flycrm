@@ -1,6 +1,5 @@
-<?php /* Smarty version 2.6.26, created on 2017-05-20 21:54:42
+<?php /* Smarty version 2.6.26, created on 2017-07-18 15:59:58
          compiled from customer/customer_show.html */ ?>
-
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
 /Customer/customer_show/" method="post">
@@ -16,9 +15,20 @@
             </select></td>
           <td><input type="text" name="searchValue" /></td>
           <td> 建档日期：
-            <input type="text" class="date" name="bdt" size="15" readonly="true" />
+            <input type="text" class="date" name="bdt" size="15" readonly="true" value="<?php echo $this->_tpl_vars['bdt']; ?>
+" />
             -
-            <input type="text" class="date" name="edt" size="15" readonly="true" /></td>
+            <input type="text" class="date" name="edt" size="15" readonly="true" value="<?php echo $this->_tpl_vars['edt']; ?>
+"  /></td>
+            <td>所属行业：</td>
+            <td>
+            	<input name="trade.id" value="<?php echo $this->_tpl_vars['trade']; ?>
+" type="hidden"/>
+				<input class="required" value="<?php echo $this->_tpl_vars['trade_name']; ?>
+" name="trade.name" type="text" postField="keyword" suggestFields="name" 
+					suggestUrl="<?php echo @ACT; ?>
+/CstDict/cst_dict_select/type/trade/" lookupGroup="trade"/></td>
+            
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -50,41 +60,35 @@
       <li><a class="edit" href="<?php echo @ACT; ?>
 /Customer/customer_modify/id/{sid_user}/" rel="customer_modify" target="dialog" width="850" height="450"><span>修改</span></a></li>
       <li class="line">line</li>
-      <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
-      <li class="line">line</li>
-      <li><a class="email" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>邮件</span></a></li>
-      <li class="line">line</li>
-      <li><a class="export" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出</span></a></li>
-      <li class="line">line</li>
-      <li><a class="import" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导入</span></a></li>
-      <li class="line">line</li>
-      <li><a class="total" href="#" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>统计</span></a></li>
+      <li><a class="talk" href="<?php echo @ACT; ?>
+/CstTalk/cst_talk_show/cusID/{sid_user}/" target="dialog" targetType="navTab" title="沟通记录"><span>沟通记录</span></a></li>
       <li class="line">line</li>
       <li><a class="people" href="<?php echo @ACT; ?>
-/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="navTab" title="联系人" width="850" height="450"><span>联系人</span></a></li>    
+/CstLinkman/cst_linkman_show/cusID/{sid_user}/"  rel="cst_linkman_show"  target="navTab" title="联系人" width="850" height="450"><span>联系人</span></a></li>
       <li class="line">line</li>
       <li><a class="pro" href="<?php echo @ACT; ?>
-/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>  
-       <li class="line">line</li>
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>
+      <li class="line">line</li>
       <li><a class="search" href="<?php echo @ACT; ?>
-/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>      
+/CstService/cst_service_show/cusID/{sid_user}/"  rel="customer_modify"  target="navTab" title="服务记录" width="850" height="450"><span>服务</span></a></li>
     </ul>
   </div>
   <table class="table" width="100%" layoutH="138">
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="50">操作</th>
-        <th width="120">客户名称</th>
-        <th width="120">电话</th>
-        <th width="120">传真</th>
-        <th width="120">邮箱</th>
-        <th width="80">等级</th>
-        <th width="80">来源</th>
-        <th width="100">经济类型</th>
-        <th width="100">所属行业</th>
-        <th width="150">地址</th>
-        
+        <th width="50">编号</th>
+        <th width="150">客户名称</th>
+        <th width="50">联系人</th>
+        <th width="100">手机</th>
+        <th width="80">电话</th>
+        <th width="100">沟通记录</th>
+        <th width="60">等级</th>
+        <th width="60">来源</th>
+        <th width="60">经济类型</th>
+        <th width="80">所属行业</th>
+        <th width="100">主营产品</th>
+        <th width="100">地址</th>
       </tr>
     </thead>
     <tbody>
@@ -96,19 +100,21 @@
 ">
       <td><input name="ids" value="<?php echo $this->_tpl_vars['v']['id']; ?>
 " type="checkbox"></td>
-      <td>
-        <a target="dialog"  href="<?php echo @ACT; ?>
+      <td><?php echo $this->_tpl_vars['v']['id']; ?>
+</td>
+      <td><a target="dialog"  href="<?php echo @ACT; ?>
 /Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['id']; ?>
 /" rel="customer_show_one_<?php echo $this->_tpl_vars['v']['id']; ?>
-" class="btnLook" title="<?php echo $this->_tpl_vars['v']['name']; ?>
-" width="980" height="480">查看</a></td>
-      <td><?php echo $this->_tpl_vars['v']['name']; ?>
+" title="<?php echo $this->_tpl_vars['v']['name']; ?>
+" width="980" height="480"><?php echo $this->_tpl_vars['v']['name']; ?>
+</a></td>
+      <td><?php echo $this->_tpl_vars['v']['linkman']; ?>
+</td>
+      <td><?php echo $this->_tpl_vars['v']['mobile']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['tel']; ?>
 </td>
-      <td><?php echo $this->_tpl_vars['v']['fax']; ?>
-</td>
-      <td><?php echo $this->_tpl_vars['v']['email']; ?>
+      <td><?php echo $this->_tpl_vars['v']['talk']; ?>
 </td>
       <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['v']['level']]; ?>
 </td>
@@ -118,9 +124,10 @@
 </td>
       <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['v']['trade']]; ?>
 </td>
+      <td><?php echo $this->_tpl_vars['v']['main_pro']; ?>
+</td>
       <td><?php echo $this->_tpl_vars['v']['address']; ?>
 </td>
-      
     </tr>
     <?php endforeach; endif; unset($_from); ?>
       </tbody>
@@ -133,14 +140,23 @@
       <input type="hidden" name="numPerPage" value="<?php echo $this->_tpl_vars['numPerPage']; ?>
 " />
       <input type="hidden" name="orderField" value="${param.orderField}" />
+      
+       <input type="hidden" name="trade_id" value="<?php echo $this->_tpl_vars['trade']; ?>
+" />
+       <input type="hidden" name="trade_name" value="<?php echo $this->_tpl_vars['trade_name']; ?>
+" />
+       <input type="hidden" name="bdt" value="<?php echo $this->_tpl_vars['bdt']; ?>
+" />
+       <input type="hidden" name="edt" value="<?php echo $this->_tpl_vars['edt']; ?>
+" />
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-      <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
-      <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
-      <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
-      <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
-      <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
+        <option value="20" <?php if ($this->_tpl_vars['numPerPage'] == '20'): ?> selected="selected" <?php endif; ?>>20</option>
+        <option value="50" <?php if ($this->_tpl_vars['numPerPage'] == '50'): ?> selected="selected" <?php endif; ?>>50</option>
+        <option value="100" <?php if ($this->_tpl_vars['numPerPage'] == '100'): ?> selected="selected" <?php endif; ?>>100</option>
+        <option value="200" <?php if ($this->_tpl_vars['numPerPage'] == '200'): ?> selected="selected" <?php endif; ?>>200</option>
+        <option value="500" <?php if ($this->_tpl_vars['numPerPage'] == '500'): ?> selected="selected" <?php endif; ?>>500</option>
       </select>
       <span>条，共<?php echo $this->_tpl_vars['totalCount']; ?>
 条</span> </div>

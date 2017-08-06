@@ -44,11 +44,12 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="120">客户</th>
+        <th width="220">客户</th>
         <th width="120">姓名</th>
         <th width="120">性别</th>
         <th width="120">职务</th>
         <th width="120">手机</th>
+        <th width="120">座机</th>
         <th width="120">QQ</th>
         <th width="150">邮箱</th>
       </tr>
@@ -63,6 +64,7 @@
       <td>#{ if $v.gender eq 1 }# 男 #{else}# 女 #{/if}# </td>
       <td>#{$v.postion}#</td>
       <td>#{$v.mobile}#</td>
+      <td>#{$v.tel}#</td>
       <td>#{$v.qicq}#</td>
       <td>#{$v.email}#</td>
     </tr>

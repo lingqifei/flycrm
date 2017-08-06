@@ -11,10 +11,30 @@ class FinReceRecord extends Action{
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
 
-		$where_str	 = " 0=0 ";
-		if($id){
-			$where_str  .= " and id in($id)";
+
+		$busID		=$this->_REQUEST("busID");
+		$busType	=$this->_REQUEST("busType");
+
+		$sdt		=$this->_REQUEST("sdt");
+		$edt		=$this->_REQUEST("edt");
+	
+		$where_str	 = " id>0 ";
+		if($busID){
+			$where_str  .= " and salID='$busID'";
 		}
+		if($busType){
+			$where_str  .= " and busType='$busType'";
+		}
+		
+
+		if($sdt){
+			$where_str  .= " and paydate>='$sdt'";
+		}
+
+		if($edt){
+			$where_str  .= " and paydate<='$edt'";
+		}
+		
 		$countSql    = "select id from fin_rece_record where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$moneySql    = "select sum(money) as sum_money from fin_rece_record  where $where_str";
@@ -37,6 +57,7 @@ class FinReceRecord extends Action{
 		}
 		$assignArray = array('list'=>$list,'total_money'=>$moneyRs["sum_money"],
 								'customer'=>$customer,'salorder'=>$salorder,'customer'=>$customer,'customer'=>$customer,
+							'sdt'=>$sdt,'edt'=>$edt,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
 	}
@@ -49,26 +70,7 @@ class FinReceRecord extends Action{
 	
 	//主要用于BOX局部调用
 	public function fin_rece_record_show_box(){
-			
-			$busID		=$this->_REQUEST("busID");
-			$busType	=$this->_REQUEST("busType");
-			$where_str 	="";
-			if($busType=="sal_order"){
-				$where_str=" and type='sal_order';";
-			}elseif($busType=="sal_order"){
-				$where_str=" and type='sal_contract';";
-			}
-			$sql	="select receID from fin_rece_record_list where busID='$busID' $where_str";
-			
-			$id_list=$this->C($this->cacheDir)->findAll($sql);	
-			$id_str =array("1.1");
-			foreach($id_list as $row){
-				$id_str[]=$row["receID"];
-			}
-			$id_str = implode(",",$id_str);
-			$list	= $this->fin_rece_record($id_str);
-			$list["busID"] 	 = $busID;
-			$list["busType"] = $busType;
+			$list	= $this->fin_rece_record();
 			$smarty = $this->setSmarty();
 			$smarty->assign($list);
 			$smarty->display('fin_rece_record/fin_rece_record_show_box.html');	
