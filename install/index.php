@@ -203,7 +203,6 @@ if(isset($_POST['install'])){
 					}
 				}
 			}
-
 			if(!$tableprefix_err){
 				$CurrentQuery = '';
 				$CurrentLine = '';
@@ -229,7 +228,7 @@ if(isset($_POST['install'])){
 				/* 生成配置文件 */
 				$config_contents="<?php
 /**
- * @CopyRight  (C)2006-2011 07fly Development team Inc.
+ * @CopyRight  (C)2006-2017 07fly Development team Inc.
  * @WebSite    www.07fly.com www.07fly.top
  * @Author     07fly.com <web@07fly.com>
  * @Brief      07flyCRM v1.x
@@ -267,7 +266,6 @@ if(isset($_POST['install'])){
 		'left_delimiter'  => '#{',
 		'right_delimiter' => '}#',
 	),
-	
 ); 
 ?>";
 				$configfilenum = fopen ($rootpath . "/Crm/Config/Config.php","w");
