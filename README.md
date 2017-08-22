@@ -24,3 +24,7 @@
 #技术支持
     QQ群: 575085787
     论坛：http://bbs.07fly.net/
+
+#在线帮助手册
+	
+	http://www.07fly.top/crm/
