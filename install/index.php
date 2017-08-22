@@ -130,11 +130,11 @@ if(isset($_POST['install'])){
 	if($password != $confirmpassword)
 		$installerrors[] = '管理密码与确认密码不匹配.';
 */
-	if(strlen($tableprefix) == 0){
+/*	if(strlen($tableprefix) == 0){
 		$installerrors[] = '请输入数据库表前缀.';
 	}else if(!preg_match('/^[A-Za-z0-9]+_$/', $tableprefix)){
 		$installerrors[] = '数据库表前缀只能是英文字母或数字, 而且必需以 _ 结尾.';
-	}
+	}*/
 
 
 	// Determine if MySql is installed
@@ -165,7 +165,7 @@ if(isset($_POST['install'])){
 						if($sqlversion >= '4.1'){
 							mysql_query("set names 'utf8'");
 							mysql_query("SET COLLATION_CONNECTION='utf8_general_ci'");
-							mysql_query("ALTER DATABASE $dbname DEFAULT CHARACTER SET utf8 COLLATE 'utf8_general_ci'");           
+							mysql_query("ALTER DATABASE $dbname DEFAULT CHARACTER SET utf8 COLLATE 'utf8_general_ci'");
 						}
 
 						if($sqlversion >= '5.0'){
@@ -216,14 +216,14 @@ if(isset($_POST['install'])){
 					if (substr(trim($CurrentLine), -1, 1) == ';'){
 						$CurrentQuery = str_replace("ljcms_",$tableprefix,$CurrentQuery);
 						//echo $CurrentQuery;
+						//echo "<hr>";
 						DB_Query($CurrentQuery);
 						$CurrentQuery = '';						
 					}
 				}
+				
+				//写入数据帐号密码
 				//DB_Query ("INSERT INTO " . $tableprefix . "admin VALUES (1, '$username', '".md5($password)."', 0, 1, ".time().", 1, 0, 0, '', '') ");
-
-				/* 生成数据库链接文件 */
-
 
 				/* 生成配置文件 */
 				$config_contents="<?php
@@ -276,9 +276,9 @@ if(isset($_POST['install'])){
 
 				echo '<font class=ohblueb>恭喜: 07FLY-CRM客户管理系统 安装成功!</font><br /><br />请在删除07FLY-CRM安装目录(./install/)后继续!
 					<br /><br />
-					1)、<a href="' . $rootpath . 'index.php" target="_blank"><b>点击进入网站首页!</b></a>
+					1)、<a href="' . $rootpath . 'Crm/index.php" target="_blank"><b>点击进入系统登录页面!</b></a>
 					<br /><br />
-					2)、<a href="' . $rootpath . 'admin/" target="_blank"><b>点击这里进入管理中心!</b></a><br /><br />';
+					';
 			}
 		}
 	}
@@ -323,10 +323,10 @@ if(!isset($_POST['install']) OR isset($installerrors) OR $tableprefix_err){
 	<td valign="middle">数据库密码：</td>
 	<td valign="middle" align="right"><input type="text" name="dbpassword" value="' . $dbpassword . '" /></td>
 	</tr>
-	<tr valign="middle">
+	<!--<tr valign="middle">
 	<td valign="middle">数据库表前缀：</td>
 	<td valign="middle" align="right"><input type="text" name="tableprefix" value="' . $tableprefix . '" /></td>
-	</tr>';
+	</tr>-->';
 
 	if($tableprefix_err OR $confirmprefix){
 		echo '<tr>
@@ -341,15 +341,15 @@ if(!isset($_POST['install']) OR isset($installerrors) OR $tableprefix_err){
 	<table width="92%" border="0" cellpadding="0" cellspacing="0" align="center" class="maintable">
 	<tr>
 	<td valign="middle">用户名：</td>
-	<td valign="middle" align="right"><input type="text" name="username" value="' . $username . '" /></td>
+	<td valign="middle" align="right"><input type="text" name="username" value="admin" readonly /></td>
 	</tr>
 	<tr>
 	<td valign="middle">登录密码：</td>
-	<td valign="middle" align="right"><input type="text" name="password" value="' . $password . '" /></td>
+	<td valign="middle" align="right"><input type="text" name="password" value="admin123456" readonly /></td>
 	</tr>
 	<tr>
 	<td valign="middle">确认密码：</td>
-	<td valign="middle" align="right"><input type="text" name="confirmpassword" value="' . $confirmpassword . '" /></td>
+	<td valign="middle" align="right"><input type="text" name="confirmpassword" value="admin123456" readonly/></td>
 	</tr>
 	</table>
 	<br /><br /><center><input type="submit" name="install" value="安装 07FLYCRM" /></center>
