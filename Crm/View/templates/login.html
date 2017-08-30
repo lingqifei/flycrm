@@ -7,29 +7,29 @@
 <link rel="stylesheet" type="text/css" href="#{$smarty.const.APP}#/View/ui/login/css/register.css"/>
 </head>
 <body>
- <form class="signup_form_form" id="signup_form" method="post" action="" data-secure-action="#{$smarty.const.ACT}#/Index/login" data-secure-ajax-action="">
-<div class='signup_container'>
+<form class="signup_form_form" id="signup_form" method="post" action="" data-secure-action="#{$smarty.const.ACT}#/Index/login" data-secure-ajax-action="">
+  <div class='signup_container'>
     <h1 class='signup_title'>#{$sys.companyname}#</h1>
     <img src='#{$smarty.const.APP}#/View/ui/login/images/people.png' id='admin'/>
     <div id="signup_forms" class="signup_forms clearfix">
-
-                    <div class="form_row first_row">
-                       <!-- <label for="signup_email">请输入用户名</label><div class='tip ok'></div>-->
-                        <input type="text" name="username" placeholder="请输入用户名" id="signup_name" data-required="required">
-                    </div>
-                    <div class="form_row">
-                       <!-- <label for="signup_password">请输入密码</label><div class='tip error'></div>-->
-                        <input type="password" name="password" placeholder="请输入密码" id="signup_password" data-required="required">
-                    </div>
-                    
-       
+      <div class="form_row first_row"> 
+        <!-- <label for="signup_email">请输入用户名</label><div class='tip ok'></div>-->
+        <input type="text" name="username" placeholder="请输入用户名" id="signup_name" data-required="required">
+      </div>
+      <div class="form_row"> 
+        <!-- <label for="signup_password">请输入密码</label><div class='tip error'></div>-->
+        <input type="password" name="password" placeholder="请输入密码" id="signup_password" data-required="required">
+      </div>
     </div>
-	<div>#{$txtinfo}#</div>
-    <div class="login-btn-set"><div class='rem'>记住我</div> <input id="login" type="submit" class='login-btn' value=""></div>
+    <div>#{$txtinfo}#</div>
+    <div class="login-btn-set">
+      <div class='rem'>记住我</div>
+      <input id="login" type="submit" class='login-btn' value="">
+    </div>
     <p class='copyright'>版权所有 零起飞网络</p>
-</div>
-    </form>
-    <div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
+  </div>
+</form>
+<div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
 </body>
 <script type="text/javascript">
 
@@ -61,5 +61,4 @@ $(function(){
 
 
 </script>
-
 </html>

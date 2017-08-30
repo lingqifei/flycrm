@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-07-17 17:33:13
+<?php /* Smarty version 2.6.26, created on 2017-08-29 22:21:13
          compiled from index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -150,8 +150,8 @@ $(function(){
 /Cache/<?php echo $this->_tpl_vars['sys']['manager_spath']; ?>
 ' width="200" height="50" /> <?php endif; ?>
       <ul class="nav">
-        <li><a href="https://me.alipay.com/lingqifei" target="_blank">捐赠</a></li>
-        <li><a href="changepwd.html" target="dialog" width="600">设置</a></li>
+        <li><a href="http://www.07fly.com/" target="_blank">建站</a></li>
+        <li><a href="http://www.07fly.top/" target="_blank">官网</a></li>
         <li><a href="http://blog.csdn.net/lx_mai" target="_blank">博客</a></li>
         <li><a href="http://weibo.com/u/2299441430" target="_blank">微博</a></li>
         <li><a href="http://bbs.07fly.net" target="_blank">论坛</a></li>
@@ -247,11 +247,11 @@ $(function(){
         <div class="page unitBox">
           <div class="accountInfo">
             <div class="alertInfo">
-              <h2><a href="http://www.07fly.com/" target="_blank">零起飞客户关系管理系统</a></h2>
-              <a href="http://www.07fly.com/" target="_blank">零起飞客户关系管理系统演示视频</a> </div>
+              <h2><a href="http://oa.07fly.com/" target="_blank">07FLY-CRM官方演示系统</a></h2>
+              <a href="http://cms.07fly.com/" target="_blank">07FLY-CMS官方演示系统</a> </div>
             <div class="right">
-              <p><a href="http://www.07fly.com/" target="_blank" style="line-height:19px">使用手册(CHM)</a></p>
-              <p><a href="http://www.07fly.com/" target="_blank" style="line-height:19px">开发视频教材</a></p>
+              <p><a href="http://www.07fly.top/crm/" target="_blank" style="line-height:19px">07FLY-CRM安装使用手册</a></p>
+              <p><a href="http://www.07fly.top/a/crm/" target="_blank" style="line-height:19px">07FLY-CRM开发资料说明</a></p>
             </div>
             <p><span>零起飞客户关系管理系统</span></p>
             <p>零起飞官方微博:<a href="http://weibo.com/u/2299441430" target="_blank">http://weibo.com/u/2299441430</a></p>
@@ -273,8 +273,8 @@ $(function(){
             <?php echo $this->_tpl_vars['sys']['i_ser']; ?>
  
           </div>
-          <div style="width:230px;position: absolute;top:60px;right:0" layoutH="80">
-            <iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="no" src="<?php echo $this->_tpl_vars['sys']['i_web']; ?>
+          <div style="width:320px;position: absolute;top:60px;right:0" layoutH="50">
+            <iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="yes" src="<?php echo $this->_tpl_vars['sys']['i_web']; ?>
 "></iframe>
           </div>
         </div>
@@ -282,8 +282,13 @@ $(function(){
     </div>
   </div>
 </div>
-<div id="footer"><a href="http://bbs.07fly.net" target="dialog"><?php echo $this->_tpl_vars['sys']['copyright']; ?>
-</a></div>
+<div id="footer">
+版权所有:<a href="http://www.07fly.top" target="_blank">成都零起飞网络工作室<!--<?php echo $this->_tpl_vars['sys']['copyright']; ?>
+--></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1871720801&amp;site=qq&amp;menu=yes">QQ：1871720801</a>
+
+</div>
 <div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
 </body>
 </html>
