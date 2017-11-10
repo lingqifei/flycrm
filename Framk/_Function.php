@@ -57,7 +57,7 @@
 			$str = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $str);
 			$str = str_replace(
 			array('and',"insert","delete","update","select","%20","count","chr","truncate"),
-			array('an d',"Ｉnsert","Ｄelete","Ｕpdate","Ｓelect","","Ｃount","Ｃhr","Ｔruncate"),
+			array('an d',"Ｉnsert","Ｄelete","Ｕpdate","Ｓelect","","count","Ｃhr","Ｔruncate"),
 			$str);
 			return $str;
 	}

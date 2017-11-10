@@ -102,7 +102,10 @@ class Mysql{
 	public function commit() {
 		return mysql_query("COMMIT");//开始事务定义
 	}
-				
+
+	public function version(){
+		return  mysql_get_server_info();
+	}				
 	
 /*
 析构函数关闭数据库连接

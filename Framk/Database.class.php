@@ -117,6 +117,18 @@ private $transTimes;
         }
         return true;
     }
+	
+    /**
+    * 数据库版本号
+    * @access function 
+    * @return boolen
+    */	
+	
+	public function version(){
+		$result = $this->db->version();
+		return $result;
+	}
+	
 
  /*  +------------------------------------------------------------------------------ */		
 
