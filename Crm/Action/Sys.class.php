@@ -10,7 +10,7 @@
  * @author      NIAOMUNIAO <1585925559@QQ.com>
  * @package     system
  * @version     1.0
- * @link        http://www.07fly.net
+ * @link        http://www.07fly.net http://www.07fly.top
  */	 
  
  
@@ -25,8 +25,6 @@
  * 
  *[function]
  * sys_log_add($info)						添加日志记录
- *
- *
  * sys_menu($id=null)						系统栏目和权限列表
  * sys_role()								获得所有角色信息
  * sys_role_show()							调用模板显示记录
@@ -43,7 +41,6 @@
  * sys_user_del()							删除
  * sys_user_modify()						修改
  * sys_user_get_power($id=null)				传入ID，返回系统用户的所有权限
- *
  *[/function]
  */
  

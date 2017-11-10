@@ -50,15 +50,15 @@
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
 		<th width="150">机会主题</th>
-        <th width="150">客户名称</th>
+        <th width="200">客户名称</th>
         <th width="80">联系人</th>
         <th width="80">发现时间</th>
         <th width="200">客户需求</th>
         <th width="80">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
-		<th width="80">当前阶段</th>
-		<th width="80">状态</th>
+		<th width="70">当前阶段</th>
+		<th width="50">状态</th>
 		<th width="80">建档人员</th>
 		<th width="140">建档时间</th>
       </tr>
@@ -69,7 +69,7 @@
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
 	  <td>#{$v.title}#</td>
-	  <td>#{$v.cst_name}# </td>
+	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
 	  <td>#{$linkman[$v.linkmanID]}#</td>
 	  <td>#{$v.finddt}#</td>
 	  <td>#{$v.intro}#</td>

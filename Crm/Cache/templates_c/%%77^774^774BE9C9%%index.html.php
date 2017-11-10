@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-08-29 22:21:13
+<?php /* Smarty version 2.6.26, created on 2017-11-01 15:47:19
          compiled from index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -289,6 +289,17 @@ $(function(){
 技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1871720801&amp;site=qq&amp;menu=yes">QQ：1871720801</a>
 
 </div>
-<div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
+<div style="display:none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04426875a8b2ae1ac713f95543808356";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
 </body>
 </html>

@@ -7,7 +7,7 @@
         <p>
           <label>客户名称：</label>
           <input id="cusID" name="org.id" value="#{$one.cusID}#" type="hidden" />
-          <input name="org.name" value="#{$customer[$one.cusID]}#" type="text" class="required" readonly="readonly"/>
+          <input name="org.name" value="#{$customer[$one.cusID]}#" type="text"  readonly="readonly"/>
         </p>
         <p>
           <label>接收人：</label>
@@ -17,7 +17,7 @@
         </p>
         <p>
           <label>订单主题：</label>
-          <input name="title" class="required" type="text" value="#{$one.title}#" readonly="readonly"/>
+          <input name="title"  type="text" value="#{$one.title}#" readonly="readonly"/>
         </p>
         <p>
           <label>销售机会：</label>
@@ -27,21 +27,21 @@
         </p>
         <p>
           <label>订单签订时间：</label>
-          <input name="title" class="required" type="text" value="#{$one.bdt}#" readonly="readonly"/>
+          <input name="overdt" type="text" value="#{$one.bdt}#" readonly="readonly"/>
         </p>
         <p>
           <label>最晚发货时间：</label>
-          <input name="title" class="required" type="text" value="#{$one.edt}#" readonly="readonly"/>
+          <input name="lastsend" type="text" value="#{$one.edt}#" readonly="readonly"/>
         </p>
         <p>
           <label>我方代表：</label>
           <input name="our.id" value="#{$one.our_userID}#" type="hidden"/>
-          <input class="required" value="#{$users[$one.our_userID]}#" name="our.name" type="text" postField="keyword" suggestFields="title" 
+          <input name="our.name" value="#{$users[$one.our_userID]}#" type="text" postField="keyword" suggestFields="title" 
 					suggestUrl="#{$smarty.const.ACT}#/User/cst_chance_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="our" readonly="readonly"/>
         </p>
         <p>
           <label>建档时间：</label>
-          <input name="title" class="required" type="text" value="#{$one.adt}#" readonly="readonly"/>
+          <input name="adt" type="text" value="#{$one.adt}#" readonly="readonly"/>
         </p>
       </fieldset>
       <div class="divider"></div>

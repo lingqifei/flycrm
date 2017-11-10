@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-08-30 08:32:04
+<?php /* Smarty version 2.6.26, created on 2017-11-01 15:47:41
          compiled from login.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,7 +38,17 @@
     <p class='copyright'>版权所有 零起飞网络</p>
   </div>
 </form>
-<div style="display:none"><script src="http://s11.cnzz.com/stat.php?id=1261270154&web_id=1261270154" language="JavaScript"></script></div>
+<div style="display:none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?04426875a8b2ae1ac713f95543808356";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div>
 </body>
 <script type="text/javascript">
 

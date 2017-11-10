@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-07-17 17:37:04
+<?php /* Smarty version 2.6.26, created on 2017-11-02 16:33:49
          compiled from cst_chance/cst_chance_show.html */ ?>
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="<?php echo @ACT; ?>
@@ -56,15 +56,15 @@
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
 		<th width="150">机会主题</th>
-        <th width="150">客户名称</th>
+        <th width="200">客户名称</th>
         <th width="80">联系人</th>
         <th width="80">发现时间</th>
         <th width="200">客户需求</th>
         <th width="80">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
-		<th width="80">当前阶段</th>
-		<th width="80">状态</th>
+		<th width="70">当前阶段</th>
+		<th width="50">状态</th>
 		<th width="80">建档人员</th>
 		<th width="140">建档时间</th>
       </tr>
@@ -80,8 +80,12 @@
 " type="checkbox"></td>
 	  <td><?php echo $this->_tpl_vars['v']['title']; ?>
 </td>
-	  <td><?php echo $this->_tpl_vars['v']['cst_name']; ?>
- </td>
+	  <td><a target="dialog"  href="<?php echo @ACT; ?>
+/Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['cusID']; ?>
+/" rel="customer_show_one_<?php echo $this->_tpl_vars['v']['id']; ?>
+" title="<?php echo $this->_tpl_vars['v']['cst_name']; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['cst_name']; ?>
+</a></td>
 	  <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
 	  <td><?php echo $this->_tpl_vars['v']['finddt']; ?>

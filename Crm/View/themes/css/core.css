@@ -280,6 +280,11 @@ a:hover {text-decoration:underline;}
 .panelBar .toolBar a.search span {background:url(../icons/search.png) scroll left no-repeat;}
 .panelBar .toolBar a.talk span {background:url(../icons/talk.png) scroll left no-repeat;}
 .panelBar .toolBar a.task span {background:url(../icons/task.png) scroll left no-repeat;}
+.panelBar .toolBar a.filesave span {background:url(../icons/filesave.png) scroll left no-repeat;}
+.panelBar .toolBar a.reload span {background:url(../icons/reload.png) scroll left no-repeat;}
+.panelBar .toolBar a.reset span {background:url(../icons/reset.png) scroll left no-repeat;}
+.panelBar .toolBar a.redo span {background:url(../icons/redo.png) scroll left no-repeat;}
+.panelBar .toolBar a.reset span {background:url(../icons/reset.png) scroll left no-repeat;}
 
 
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-07-17 18:22:19
+<?php /* Smarty version 2.6.26, created on 2017-11-02 16:29:56
          compiled from cst_service/cst_service_show.html */ ?>
 
 <div class="pageHeader">
@@ -55,12 +55,12 @@
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
         <th width="120">服务类型</th>
         <th width="120">方式</th>
-        <th width="120">客户名称</th>
+        <th width="200">客户名称</th>
         <th width="120">联系人</th>
         <th width="120">开始时间</th>
         <th width="80">花费时间(分)</th>
-        <th width="150">状态</th>
-        <th width="150">建档时间</th>
+        <th width="100">状态</th>
+        <th width="100">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -76,8 +76,14 @@
 </td>
       <td><?php echo $this->_tpl_vars['dict'][$this->_tpl_vars['v']['servicesmodel']]; ?>
 </td>
-      <td><?php echo $this->_tpl_vars['v']['cst_name']; ?>
- </td>
+      <td>
+<a target="dialog"  href="<?php echo @ACT; ?>
+/Customer/customer_show_one/cusID/<?php echo $this->_tpl_vars['v']['cusID']; ?>
+/" rel="customer_show_one_<?php echo $this->_tpl_vars['v']['id']; ?>
+" title="<?php echo $this->_tpl_vars['v']['cst_name']; ?>
+" width="880" height="480"><?php echo $this->_tpl_vars['v']['cst_name']; ?>
+</a>      
+       </td>
       <td><?php echo $this->_tpl_vars['linkman'][$this->_tpl_vars['v']['linkmanID']]; ?>
 </td>
       <td><?php echo $this->_tpl_vars['v']['adt']; ?>

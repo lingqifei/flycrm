@@ -81,7 +81,8 @@ class SalOrderDetail extends Action{
 		$sql	="select * from sal_order_detail $where";
 		$list	=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
-	}		
+	}	
+	//订单明细增加	
 	public function sal_order_detail_add(){
 		$orderID=$this->_REQUEST("id");	
 		if(empty($_POST)){
@@ -139,7 +140,7 @@ class SalOrderDetail extends Action{
 		}
 	}		
 	
-	
+	//明细修改
 	public function sal_order_detail_modify(){
 		$id	= $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -168,7 +169,7 @@ class SalOrderDetail extends Action{
 		}
 	}
 	
-		
+	//明细删除
 	public function sal_order_detail_del(){
 		$id	  = $this->_REQUEST("ids");
 		$sql  = "delete from sal_order_detail where id in ($id)";

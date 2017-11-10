@@ -96,7 +96,7 @@ class CstTrace extends Action{
 			$chanceID   = $this->_REQUEST("chance_id");
 			$sql       	= "insert into cst_trace(cusID,salestage,salemode,linkmanID,chanceID,
 												bdt,status,title,intro,adt) 
-								values('$cusID','$salestage','$salemode','$linkmanID',$chanceID,
+								values('$cusID','$salestage','$salemode','$linkmanID','$chanceID',
 								'$_POST[bdt]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt');";
 			$this->C($this->cacheDir)->update($sql);	
 			
@@ -106,7 +106,7 @@ class CstTrace extends Action{
 			if(!empty($nextbdt) && !empty($nexttitle)){
 				$sql= "insert into cst_trace(cusID,salestage,salemode,linkmanID,chanceID,
 												bdt,status,title,intro,adt) 
-								values('$cusID','$salestage','$salemode','$linkmanID',$chanceID,
+								values('$cusID','$salestage','$salemode','$linkmanID','$chanceID',
 								'$_POST[nextbdt]','1','$_POST[nexttitle]','$_POST[intro]','$dt');";	
 				$this->C($this->cacheDir)->update($sql);								
 			}

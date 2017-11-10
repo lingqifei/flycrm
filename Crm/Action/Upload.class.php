@@ -1,6 +1,6 @@
 <?php 
 /**
- * The Temp file of AAA.
+ * 上传操作
  *
  * All Manager Finance , orderinfo
  *
@@ -10,7 +10,7 @@
  * @author      NIAOMUNIAO <1585925559@QQ.com>
  * @package     system
  * @version     1.0
- * @link        http://www.07fly.net
+ * @link        http://www.07fly.net http://www.07fly.top
  * @version   Ajax.class.php  add by NIAOMUNIAO 2013-07-27 16:48 
  */	 
 
@@ -114,7 +114,6 @@ class Upload extends Action{
 	}
 
 	public function upload_img(){
-		
 		if(empty($_POST)){
 			$smarty = $this->setSmarty();
 			$smarty->display('upload/upload.html');			

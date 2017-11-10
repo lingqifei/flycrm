@@ -85,6 +85,7 @@ class CstWebsite extends Action{
 			$smarty->display('cst_website/cst_website_show_box.html');	
 	}		
 	
+	//网站增加
 	public function cst_website_add(){
 		$cusID 		= $this->_REQUEST("cusID");
 		$cus_name 	= $this->_REQUEST("cus_name");

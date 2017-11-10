@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-07-17 18:22:37
+<?php /* Smarty version 2.6.26, created on 2017-11-02 15:59:57
          compiled from cst_linkman/cst_linkman_show_box.html */ ?>
 <div class="pageHeader">
   <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox_cus_<?php echo $this->_tpl_vars['cusID']; ?>

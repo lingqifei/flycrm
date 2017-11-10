@@ -278,6 +278,64 @@ function initUI(_box){
 	if ($.fn.pagerForm) $("form[rel=pagerForm]", $p).pagerForm({parentBox:$p});
 
 	// 这里放其他第三方jQuery插件...
+	 //select all Checkbox open dialog
+	 $("a[target=selectCheckbox]", $p).each(function(){
+		function _getIds(selectedIds, targetType){
+			var ids = "";
+			var $box = targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel();
+			$box.find("input:checked").filter("[name='"+selectedIds+"']").each(function(i){
+				var val = $(this).val();
+				ids += i==0 ? val : ","+val;
+			});
+			return ids;
+		}  
+		$(this).click(function(event){
+		var $this = $(this);
+		var title = $this.attr("title") || $this.text();
+		var rel = $this.attr("rel") || "ids";
+		
+		var targetType = $this.attr("targetType");
+		var ids = "";
+		var $box = targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel();
+		
+		$box.find("input:checked").filter("[name='"+rel+"']").each(function(i){
+		var val = $(this).val();
+			ids += i==0 ? val : ","+val;
+		});
+		if (!ids) {
+		alertMsg.error($this.attr("warn") || DWZ.msg("alertSelectMsg"));
+		return false;
+		}
+	/*	if (ids.indexOf(',')!=-1) {
+		alertMsg.error("只能选择一条信息");
+		return false;
+		}*/
+		var options = {};
+		var w = $this.attr("width");
+		var h = $this.attr("height");
+		if (w) options.width = w;
+		if (h) options.height = h;
+		options.max = eval($this.attr("max") || "false");
+		options.mask = eval($this.attr("mask") || "false");
+		options.maxable = eval($this.attr("maxable") || "true");
+		options.minable = eval($this.attr("minable") || "true");
+		options.fresh = eval($this.attr("fresh") || "true");
+		options.resizable = eval($this.attr("resizable") || "true");
+		options.drawable = eval($this.attr("drawable") || "true");
+		options.close = eval($this.attr("close") || "");
+		options.param = $this.attr("param") || "";
+		var url = ($this.attr("href")).replaceTmById($(event.target).parents(".unitBox:first"));
+		url = url + "ids/"+ ids + "/";
+		DWZ.debug(url);
+		if (!url.isFinishedTm()) {
+			alertMsg.error($this.attr("warn") || DWZ.msg("alertSelectMsg"));
+			return false;
+		}
+		$.pdialog.open(url, rel, title, options);
+		return false;
+		});
+	 })
+	 //select all Checkbox open dialog end ...
 }
 
 

@@ -47,12 +47,12 @@
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
         <th width="120">服务类型</th>
         <th width="120">方式</th>
-        <th width="120">客户名称</th>
+        <th width="200">客户名称</th>
         <th width="120">联系人</th>
         <th width="120">开始时间</th>
         <th width="80">花费时间(分)</th>
-        <th width="150">状态</th>
-        <th width="150">建档时间</th>
+        <th width="100">状态</th>
+        <th width="100">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -62,7 +62,9 @@
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
       <td>#{$dict[$v.services]}#</td>
       <td>#{$dict[$v.servicesmodel]}#</td>
-      <td>#{$v.cst_name}# </td>
+      <td>
+<a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a>      
+       </td>
       <td>#{$linkman[$v.linkmanID]}#</td>
       <td>#{$v.adt}#</td>
       <td>#{$v.tlen}#</td>
