@@ -71,7 +71,6 @@ class Login extends Action{
 			$_SESSION["CRM"]["USER"]["methodstr"]	= implode(",",($role["SYS_METHOD"]) );
 			
 			//这是得到系统权限需要检查的总表
-	
 			$_SESSION["CRM"]["NEED"]["menu"] 		= $this->L("Menu")->menu_auth_arr();
 			$_SESSION["CRM"]["NEED"]["method"] 		= $this->L("Method")->method_auth_arr();
 			
@@ -81,11 +80,9 @@ class Login extends Action{
 			$_SESSION["CRM"]["USER"]["viewID"]		= implode(",",$this->L("User")->user_get_sub_user($one["id"]));
 
 			@define('SYS_USER_ACCOUNT',$_SESSION["CRM"]["USER"]["account"]);//定义
-			@define('SYS_USER_ID',     $_SESSION["CRM"]["USER"]["userID"]);//定义
-			@define('SYS_USER_VIEW',   $_SESSION["CRM"]["USER"]["viewID"]);//定义查看的权限			
-			
-
-				
+			@define('SYS_USER_ID', $_SESSION["CRM"]["USER"]["userID"]);//定义
+			@define('SYS_USER_VIEW',$_SESSION["CRM"]["USER"]["viewID"]);//定义查看的权限			
+		
 			//print_r(_instance('Action/Menu')->menu_auth_arr());
 			//print_r($_SESSION["CRM"]["NEED"]["menu"]);
 			

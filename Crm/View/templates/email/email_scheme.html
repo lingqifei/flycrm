@@ -34,13 +34,15 @@
       <li><a class="add"
 		href="#{$smarty.const.ACT}#/EmailSend/email_scheme_add/" target="navTab"
 		rel="email_scheme_add" title="模板添加"><span>添加</span></a></li>
-      <li> <a class="delete" href="#{$smarty.const.ACT}#/EmailSend/email_scheme_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除选择</span></a></li>
+     <li class="line">line</li>
+      <li> <a class="delete" href="#{$smarty.const.ACT}#/EmailSend/email_scheme_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
+      <li class="line">line</li>
       <li><a class="edit"
 		href="#{$smarty.const.ACT}#/EmailSend/email_scheme_modify/id/{sid_user}/"
 		target="navTab" rel="email_scheme_modify" title="模板修改"><span>修改</span></a></li>
-        
-      <li><a class="icon" href="#{$smarty.const.ACT}#/EmailSend/email_scheme_run/id/{sid_user}/" postType="string" title="方案执行"  target="dialog" width=600 height=400 rel="email_scheme_run"><span>执行</span></a></li>
-      <li><a class="icon" href="#{$smarty.const.ACT}#/EmailSend/email_scheme_run/id/{sid_user}/" postType="string" title="方案执行"  target="dialog" width=600 height=400 rel="email_scheme_log_show"><span>发送日志</span></a></li>
+      <li class="line">line</li>
+      <li><a class="icon" href="#{$smarty.const.ACT}#/EmailSend/email_scheme_run/id/{sid_user}/" postType="string" title="方案执行"  target="dialog" width=600 height=400 rel="email_scheme_run"><span>执行方案</span></a></li>
+      <li class="line">line</li>
        
     </ul>
   </div>

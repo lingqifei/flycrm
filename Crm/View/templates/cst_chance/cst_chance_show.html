@@ -4,21 +4,18 @@
       <table class="searchContent">
         <tr>
           <td> 客户名称：
-            <input type="text" name="cus_name" size="15" />
-          </td>
+            <input type="text" name="cus_name" size="15" /></td>
           <td><select class="combox" name="searchKeyword">
               <option value="title">机会主题</option>
               <option value="intro">客户需求</option>
-			  <option value="chance">可能性</option>
-			  <option value="money">预计金额</option>
-            </select>
-          </td>
-		  <td><input type="text" name="searchValue" /></td>		
+              <option value="chance">可能性</option>
+              <option value="money">预计金额</option>
+            </select></td>
+          <td><input type="text" name="searchValue" /></td>
           <td> 建档时间：
-            <input type="text" class="date" name="bdt" size="15" readonly="true" />
+            <input type="text" class="date" name="bdt" size="15" readonly />
             -
-            <input type="text" class="date" name="edt" size="15" readonly="true" />
-          </td>
+            <input type="text" class="date" name="edt" size="15" readonly /></td>
           <td><ul>
               <li>
                 <div class="buttonActive">
@@ -30,7 +27,7 @@
             </ul></td>
         </tr>
       </table>
-	  <div class="subBar"></div>
+      <div class="subBar"></div>
     </div>
   </form>
 </div>
@@ -49,7 +46,7 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-		<th width="150">机会主题</th>
+        <th width="150">机会主题</th>
         <th width="200">客户名称</th>
         <th width="80">联系人</th>
         <th width="80">发现时间</th>
@@ -57,10 +54,10 @@
         <th width="80">预计签单时间</th>
         <th width="60">预计金额</th>
         <th width="60">可能性</th>
-		<th width="70">当前阶段</th>
-		<th width="50">状态</th>
-		<th width="80">建档人员</th>
-		<th width="140">建档时间</th>
+        <th width="70">当前阶段</th>
+        <th width="50">状态</th>
+        <th width="80">建档人员</th>
+        <th width="140">建档时间</th>
       </tr>
     </thead>
     <tbody>
@@ -68,21 +65,21 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-	  <td>#{$v.title}#</td>
-	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
-	  <td>#{$linkman[$v.linkmanID]}#</td>
-	  <td>#{$v.finddt}#</td>
-	  <td>#{$v.intro}#</td>
-	  <td>#{$v.billdt}#</td>
-	  <td>#{$v.money}#</td>
-	  <td>#{$v.chance}#%</td>
+      <td>#{$v.title}#</td>
+      <td><a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
+      <td>#{$linkman[$v.linkmanID]}#</td>
+      <td>#{$v.finddt}#</td>
+      <td>#{$v.intro}#</td>
+      <td>#{$v.billdt}#</td>
+      <td>#{$v.money}#</td>
+      <td>#{$v.chance}#%</td>
       <td>#{$dict[$v.salestage]}#</td>
       <td>#{$status[$v.status]}#</td>
-	  <td>#{$users[$v.create_userID]}#</td>
+      <td>#{$users[$v.create_userID]}#</td>
       <td>#{$v.adt}#</td>
     </tr>
     #{/foreach}#
-    </tbody>
+      </tbody>
     
   </table>
   <div class="panelBar">
@@ -93,11 +90,11 @@
     </form>
     <div class="pages"> <span>显示</span>
       <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-      <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
-      <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
-      <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
-      <option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
-      <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
+        <option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
+        <option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
+        <option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
+        <option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
+        <option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
       </select>
       <span>条，共#{$totalCount}#条</span> </div>
     <div class="pagination" targetType="navTab" totalCount="#{$totalCount}#" numPerPage="#{$numPerPage}#" pageNumShown="10" currentPage="#{$currentPage}#"></div>

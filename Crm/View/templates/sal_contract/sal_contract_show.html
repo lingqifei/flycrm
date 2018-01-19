@@ -14,9 +14,9 @@
           </td>
 		  <td><input type="text" name="searchValue" /></td>		 
           <td> 联系时间：
-            <input type="text" class="date" name="bdt" size="15" readonly="true" />
+            <input type="text" class="date" name="bdt" size="15" readonly />
             -
-            <input type="text" class="date" name="edt" size="15" readonly="true" />
+            <input type="text" class="date" name="edt" size="15" readonly />
           </td>
           <td><ul>
               <li>
@@ -48,23 +48,23 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-		<th width="100">合同编号</th>
+		<th width="80">合同编号</th>
         <th width="50">类型</th>
         <th width="150">客户名称</th>
         <th width="60">客户代表</th>
         <th width="80">销售机会</th>
         <th width="60">合同金额</th>
-		<th width="60">去零金额</th>
-		<th width="60">回款金额</th>
-		<th width="60">交付金额</th>
-		<th width="60">开票金额</th>
-		<th width="80">有效期起始</th>
-		<th width="80">有效期终止</th>
-		<th width="60">我方代表</th>
-		<th width="60">状态</th>
-		<th width="60">付款状态</th>
-		<th width="60">交付状态</th>
-		<th width="60">开票状态</th>
+			<th width="60">去零金额</th>
+			<th width="60">回款金额</th>
+			<th width="60">交付金额</th>
+			<th width="60">开票金额</th>
+			<th width="80">有效期起始</th>
+			<th width="80">有效期终止</th>
+			<th width="60">我方代表</th>
+			<th width="60">状态</th>
+			<th width="60">付款状态</th>
+			<th width="60">交付状态</th>
+			<th width="60">开票状态</th>
  
       </tr>
     </thead>
@@ -72,10 +72,11 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-	  <td><a target="dialog"  href="#{$smarty.const.ACT}#/SalContract/sal_contract_show_one/id/#{$v.id}#/" rel="sal_contract_show_one" title="合同详细:#{$v.con_number}#-#{$customer[$v.cusID]}#" width="880" height="480">#{$v.con_number}#</a></td>
+	  <td><a target="dialog" href="#{$smarty.const.ACT}#/SalContract/sal_contract_show_one/id/#{$v.id}#/" rel="sal_contract_show_one" title="合同详细:#{$v.con_number}#-#{$customer[$v.cusID]}#" width="880" height="480">#{$v.con_number}#</a></td>
       <td>#{$renew_status[$v.renew_status]}#</td>
-	  <td>#{$customer[$v.cusID]}#</td>
-      
+	  <td>
+<a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$customer[$v.cusID]}#</a>	  
+	  </td>
 	  <td>#{$linkman[$v.linkmanID]}#</td>
       <td>#{$chance[$v.chanceID]}#</td>
 	  <td>#{$v.money}#</td>

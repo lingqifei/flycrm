@@ -137,7 +137,7 @@ class SalContract extends Action{
 	
 	public function sal_contract_add(){
 		if(empty($_POST)){
-			$number = date("ymdh").rand(10,99);
+			$number = date("ymdH").rand(10,99);
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("number"=>$number));
 			$smarty->display('sal_contract/sal_contract_add.html');	
@@ -148,12 +148,13 @@ class SalContract extends Action{
 			$chanceID   = $this->_REQUEST("chance_id");
 			$our_userID	= $this->_REQUEST("our_id");
 			$renew_status= $this->_REQUEST("renew_status");
-			$sql       	= "insert into sal_contract(con_number,money,cusID,linkmanID,chanceID,
-							renew_status,websiteID,
+			$sql  = "insert into sal_contract(con_number,money,cusID,linkmanID,chanceID,
+							renew_status,
 							our_userID,bdt,edt,title,intro,adt,create_userID) 
 								values('$_POST[con_number]','$_POST[money]','$cusID','$linkmanID','$chanceID',
-								'$_POST[renew_status]','$_POST[websiteID]',
+								'$_POST[renew_status]',
 								'$our_userID','$_POST[bdt]','$_POST[edt]','$_POST[title]','$_POST[intro]','$dt','".SYS_USER_ID."');";
+			
 			$this->C($this->cacheDir)->update($sql);	
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
@@ -184,10 +185,7 @@ class SalContract extends Action{
 			}else{
 				return false;	
 			}	
-	}	
-
-
-
+	}
 	//查询一条记录
 	public function sal_contract_get_one($id=""){
 		if($id){
@@ -195,8 +193,7 @@ class SalContract extends Action{
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
 			return $one;
 		}	
-	}	
-	
+	}
 	//修改
 	public function sal_contract_modify(){
 		$id	 = $this->_REQUEST("id");

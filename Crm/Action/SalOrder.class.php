@@ -127,7 +127,7 @@ class SalOrder extends Action{
 	
 	public function sal_order_add(){
 		if(empty($_POST)){
-			$number = date("YmdHis");
+			$number = date("ymdH").rand(10,99);
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("number"=>$number));
 			$smarty->display('sal_order/sal_order_add.html');	

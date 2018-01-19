@@ -12,10 +12,17 @@ class Dept extends Action{
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage = empty($currentPage)?1:$currentPage;
 		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
-		$countSql    = 'select id from fly_sys_dept';
+
+		$name = $this->_REQUEST("name");//方法名
+		$where_str=" where id>0 ";
+		if(!empty($name)){
+			$where_str .=" and name like '%$name%'";
+		}
+	
+		$countSql   = "select id from fly_sys_dept $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from fly_sys_dept  order by id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select * from fly_sys_dept $where_str order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;

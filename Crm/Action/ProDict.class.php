@@ -6,15 +6,27 @@ class ProDict extends Action{
 	}	
 	
 	public function pro_dict(){
-		$currentPage = $this->_REQUEST("pageNum");//第几页
-		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
-		$type		 = $this->_REQUEST("type");
-		$currentPage = empty($currentPage)?1:$currentPage;
-		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
-		$countSql    = "select id from pro_dict where type='$type'";
+		$currentPage	= $this->_REQUEST("pageNum");//第几页
+		$numPerPage		= $this->_REQUEST("numPerPage");//每页多少条
+		$currentPage	= empty($currentPage)?1:$currentPage;
+		$numPerPage		= empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
+		
+		
+		//**************************************************************************
+		//**获得传送来的数据做条件来查询
+		$type		= $this->_REQUEST("type");
+		$name		= $this->_REQUEST("name");
+		$where_str 	= " where type='$type' ";	
+		if( !empty($name) ){
+			$where_str .=" and name like '%$name%'";
+		}
+		
+		$countSql    = "select id from pro_dict $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from pro_dict where type='$type' order by sort asc, id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select * from pro_dict $where_str order by sort asc, id desc limit $beginRecord,$numPerPage";	
+		
+		
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$assignArray = array('list'=>$list,"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage,"type"=>$type);	
 		return $assignArray;

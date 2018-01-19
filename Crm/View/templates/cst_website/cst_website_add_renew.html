@@ -1,5 +1,6 @@
 <div class="pageContent">
 	<form method="post" action="#{$smarty.const.ACT}#/CstWebsite/cst_website_add_renew/" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+	<input type="hidden" name="id" value="#{$website.id}#">
 		<div class="pageFormContent" layoutH="56">
 			<fieldset>
 			<legend>基础信息：</legend>
@@ -10,7 +11,7 @@
 			<p>
 				<label>主题：</label>
 				<input type="text" value="#{$website.name}#续费" name="title" class="required">
-                <input type="hidden" value="#{$website.id}#" name="websiteID" class="required">
+           <input type="hidden" value="#{$website.id}#" name="websiteID" class="required">
 			</p>	
 			<p>
 				<label>金额：</label>
@@ -20,19 +21,19 @@
 			
 			<p>
 				<label>联系人：</label>
-                <input id="cusID" name="cus.id" value="#{$website.cusID}#" type="hidden"/>
+           <input id="cusID" name="cus.id" value="#{$website.cusID}#" type="hidden"/>
 				<input name="linkman.id" value="" type="hidden"/>
 				<input class="required" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
 					suggestUrl="#{$smarty.const.ACT}#/CstLinkman/cst_linkman_select/cusID/{cusID}/" warn="请选择客户名称" lookupGroup="linkman"/>
 			</p>
 			<p>
 				<label>有效期起始：</label>
-				<input type="text" name="bdt" value="#{$website.edt}#" class="date required" readonly="true"/>
+				<input type="text" name="bdt" value="#{$website.edt}#" class="date required" readonly/>
 				<a class="inputDateButton" href="javascript:;">选择</a>
 			</p>
 			<p>
 				<label>有效期终止：</label>
-				<input type="text" name="edt" class="date required" readonly="true"/>
+				<input type="text" name="edt" class="date required" readonly/>
 				<a class="inputDateButton" href="javascript:;">选择</a>
 			</p>
 			<p>

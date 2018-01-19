@@ -10,12 +10,12 @@
             </select></td>
           <td><input type="text" name="searchValue" /></td>
           <td> 开始时间：
-            <input type="text" name="bdt" class="date" size="10" readonly="true" value="#{$bdt}#" />至
-            <input type="text" name="edt" class="date" readonly="true"  size="10" value="#{$edt}#"/>
+            <input type="text" name="bdt" class="date" size="10" readonly value="#{$bdt}#" />至
+            <input type="text" name="edt" class="date" readonly  size="10" value="#{$edt}#"/>
           </td>
           <td> 结束时间：
-            <input type="text" name="bdt1" class="date" size="10" readonly="true" value="#{$bdt1}#" />至
-            <input type="text" name="edt1" class="date" readonly="true"  size="10" value="#{$edt1}#"/>
+            <input type="text" name="bdt1" class="date" size="10" readonly value="#{$bdt1}#" />至
+            <input type="text" name="edt1" class="date" readonly  size="10" value="#{$edt1}#"/>
           </td>
           <td><ul>
               <li>
@@ -49,8 +49,8 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-        <th width="150">客户名称</th>
         <th width="120">网站名称</th>
+        <th width="150">客户名称</th>
         <th width="120">网址</th>
         <th width="100">开始时间</th>
         <th width="100">到期时间</th>
@@ -68,8 +68,8 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-      <td><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
       <td>#{$v.name}#</a></td>
+      <td><a target="dialog"  href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
       <td>#{$v.url}#</a></td>
       <td>#{$v.bdt}#</a></td>
       <td>#{$v.edt}#</a></td>

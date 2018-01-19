@@ -11,7 +11,7 @@ class Index extends Action{
 		$sysinfo  = $this->L('Sys')->get_sys_info();
 		
 		if(empty($serial)){
-			//$sysinfo=array_merge($sysinfo,$this->L('Auth')->sys_default_conf());
+			$sysinfo=array_merge($sysinfo,$this->L('Auth')->sys_default_conf());
 		}
 		$smarty   = $this->setSmarty();
 		$smarty->assign(array("menu"=>$menu_arr,'sys'=>$sysinfo));//框架变量注入同样适用于smarty的assign方法

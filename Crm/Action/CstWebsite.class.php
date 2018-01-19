@@ -125,22 +125,23 @@ class CstWebsite extends Action{
 				$smarty->assign(array("number"=>$number,"website"=>$website));
 				$smarty->display('cst_website/cst_website_add_renew.html');		
 			}else{
-				$sql = "select * from cst_website where id='$id'";
-				$one = $this->C($this->cacheDir)->findOne($sql);
 				$data["con_number"] =$this->_REQUEST("con_number");	
-				$data["cusID"]   	= $this->_REQUEST("cus_id");
-				$data["linkmanID"]  = $this->_REQUEST("linkman_id");//客户代表
-				$data["chanceID"]   = $this->_REQUEST("chance_id");
+				$data["cusID"]		= $this->_REQUEST("cus_id");
+				$data["linkmanID"]	= $this->_REQUEST("linkman_id");//客户代表
+				$data["chanceID"]  = $this->_REQUEST("chance_id");
 				$data["our_userID"]	= $this->_REQUEST("our_id");//我方代表
-				$data["title"]	    = $this->_REQUEST("title");
+				$data["title"]	   = $this->_REQUEST("title");
 				$data["websiteID"]	= $this->_REQUEST("websiteID");
 				$data["renew_status"]= $this->_REQUEST("renew_status");
 				$data["money"]	= $this->_REQUEST("money");
 				$data["bdt"]	= $this->_REQUEST("bdt");
 				$data["edt"]	= $this->_REQUEST("edt");
 				$data["intro"]	= $this->_REQUEST("intro");
+				//增加合同
 				$rtn=$this->L("SalContract")->sal_contract_add_save($data);
 				if($rtn){
+					$usql="update cst_website set edt='".$data["edt"]."' where id='$id'";//更新时间
+					$this->C($this->cacheDir)->updt($usql);
 					$this->L("Common")->ajax_json_success("操作成功",'2',"/CstWebsite/cst_website_show/");
 				}
 												

@@ -2,55 +2,28 @@
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="#{$smarty.const.ACT}#/Menu/menu_show" method="post">
     <div class="searchBar">
-      <ul class="searchContent">
-        <li>
-          <label>我的客户：</label>
-          <input name="customer" type="text"/>
-        </li>
-        <li>
-          <select class="combox" name="province">
-            <option value="">所有省市</option>
-            <option value="北京">北京</option>
-            <option value="上海">上海</option>
-            <option value="天津">天津</option>
-            <option value="重庆">重庆</option>
-            <option value="广东">广东</option>
-          </select>
-        </li>
-      </ul>
-      
-      <!--<table class="searchContent">
+		<table class="searchContent">
 			<tr>
-				<td>
-					我的客户：<input type="text" name="keyword" />
-				</td>
-				<td>
-					<select class="combox" name="province">
-						<option value="">所有省市</option>
-						<option value="北京">北京</option>
-						<option value="上海">上海</option>
-						<option value="天津">天津</option>
-						<option value="重庆">重庆</option>
-						<option value="广东">广东</option>
-					</select>
-				</td>
-				<td>
-					建档日期：<input type="text" class="date" readonly="true" />
-				</td>
+			  <td> 菜单名称：
+				<input type="text" name="name" />
+			  </td>
+			  <td><ul>
+				  <li>
+					<div class="buttonActive">
+					  <div class="buttonContent">
+						<button type="submit">检索</button>
+					  </div>
+					</div>
+				  </li>
+				</ul></td>
 			</tr>
-		</table>-->
-      <div class="subBar">
-        <ul>
-          <li>
-            <div class="buttonActive">
-              <div class="buttonContent">
-                <button type="submit">检索</button>
-              </div>
-            </div>
-          </li>
-          <li><a class="button" href="#{$smarty.const.ACT}#/Menu/search/" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
-        </ul>
-      </div>
+		  </table>
+		<table class="subBar">
+        <tr>
+          <td> 说明： </td>
+          <td> 在这里你可以设置添加你新开发的模块，添加完成后会显示在左侧栏目列表中</td>
+        </tr>
+      </table>
     </div>
   </form>
 </div>
@@ -68,16 +41,16 @@
 <table class="table" width="100%" layoutH="138">
   <thead>
     <tr>
-      <th width="80">菜单编号</th>
+      <th width="80">编号</th>
       <th width="80">状态</th>
       <th width="120">菜单名称</th>
-      <th>链接地址</th>
+      <th>菜单链接地址</th>
     </tr>
   </thead>
   <tbody>
   
   #{$list}#
-    </tbody>
+  </tbody>
   
 </table>
 <div class="panelBar">

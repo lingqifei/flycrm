@@ -1,46 +1,46 @@
 <form  action="#{$smarty.const.ACT}#/PosOrderDetail/pos_order_detail_add/id/#{$one.id}#/pos_number/#{$one.pos_number}#/" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)">
 <div class="pageContent">
-	<div class="pageFormContent" layoutH="97">
+	<div class="pageFormContent" layoutH="55">
 			<fieldset>
 			<legend>采购订单信息：</legend>
 			<p>
 				<label>采购订单主题：</label>
-					<input name="title" class="required" type="text" value="#{$one.title}#" readonly="readonly"/>
+					<input name="title" class="required" type="text" value="#{$one.title}#" readonly/>
 			</p>
 			<p>
 				<label>采购总金额：</label>
-					<input name="money" class="required" type="text" value="#{$one.money}#" readonly="readonly"/>
+					<input name="money" class="required" type="text" value="#{$one.money}#" readonly/>
 			</p>
 			<p>
 				<label>供应商名称：</label>
 				<input id="supID" name="org.id" value="#{$one.supID}#" type="hidden" />
-				<input name="org.name" value="#{$supplier[$one.supID]}#" type="text" class="required" readonly="readonly"/>
+				<input name="org.name" value="#{$supplier[$one.supID]}#" type="text" class="required" readonly/>
 			</p>
 			
 			<p>
 				<label>联系人员：</label>
 				<input name="linkman.id" value="#{$one.linkmanID}#" type="hidden"/>
 				<input class="required" value="#{$linkman[$one.linkmanID]}#" name="linkman.name" type="text" postField="keyword" suggestFields="name" 
-					suggestUrl="#{$smarty.const.ACT}#/SupLinkman/pos_linkman_select/supID/{supID}/" warn="请选择供应商名称" lookupGroup="linkman" readonly="readonly"/>
+					suggestUrl="#{$smarty.const.ACT}#/SupLinkman/pos_linkman_select/supID/{supID}/" warn="请选择供应商名称" lookupGroup="linkman" readonly/>
 			</p>
 
 			<p>
 				<label>采购订单时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.bdt}#" readonly="readonly"/>
+					<input name="title" class="required" type="text" value="#{$one.bdt}#" readonly/>
 			</p>
 			<p>
 				<label>预计到货时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.edt}#" readonly="readonly"/>
+					<input name="title" class="required" type="text" value="#{$one.edt}#" readonly/>
 			</p>			
 			<p>
 				<label>我方代表：</label>
 					<input name="our.id" value="#{$one.our_userID}#" type="hidden"/>
 				<input class="required" value="#{$users[$one.our_userID]}#" name="our.name" type="text" postField="keyword" suggestFields="title" 
-					suggestUrl="#{$smarty.const.ACT}#/User/cst_chance_select/supID/{supID}/" warn="请选择供应商名称" lookupGroup="our" readonly="readonly"/>
+					suggestUrl="#{$smarty.const.ACT}#/User/cst_chance_select/supID/{supID}/" warn="请选择供应商名称" lookupGroup="our" readonly/>
 			</p>
 			<p>
 				<label>建档时间：</label>
-					<input name="title" class="required" type="text" value="#{$one.adt}#" readonly="readonly"/>
+					<input name="title" class="required" type="text" value="#{$one.adt}#" readonly/>
 			</p>			
 			</fieldset>
 			<div class="divider"></div>			
@@ -52,7 +52,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="tabsContent" style="height: 220px;">
+			<div class="tabsContent" style="height: 260px;">
 				<div>
 					<table class="list nowrap itemDetail" addButton="添加产品行数" width="100%">
 						<thead>
@@ -88,8 +88,6 @@
 						</tbody>
 					</table>
 				</div>
-				
-				
 			</div>
 			<div class="tabsFooter">
 				<div class="tabsFooterContent"></div>
@@ -98,9 +96,9 @@
 		
 	</div>
 	<div class="formBar">
-<label style="float:left">累计数量:<input name="total_nums" size="3" type="text" readonly="readonly" /></label>
+<label style="float:left">累计数量:<input name="total_nums" size="3" type="text" readonly /></label>
     <label style="float:left">  折扣金额:<input name="odd_amount" size="5" type="text" /></label>
-    <label style="float:left">  应付金额:<input name="total_amount" size="8" type="text" readonly="readonly" /></label>
+    <label style="float:left">  应付金额:<input name="total_amount" size="8" type="text" readonly /></label>
     <label style="float:left">  实付金额:<input name="trade_amount" size="8" type="text" /></label>
 <!--    <label style="float:left">  制单人:<input name="createMan" value="{$Think.session.loginUserName}" size="10" type="text" readonly="true" /></label>    
 	<label style="float: left;">  入库:<input type="checkbox" id="goStock" name="goStock" value="1" checked="checked" /></label>

@@ -112,18 +112,20 @@ class Sys extends Action{
 			$newpassword1	= $_POST["newpassword1"];
 			if( $newpassword != $newpassword1 ){
 				$this->L("Common")->ajax_json_error("两次密码不一样,请细心检查是否因大小写原因造成");	
+				exit;
 			}
 			$sql= "select id from fly_sys_user where account='".$_SESSION["system"]["user"]["account"]."' and password='$oldpassword';";
 			$one= $this->C($this->cacheDir)->findOne($sql);
 			if(!empty($one)){ 
 				$sql = "update fly_sys_user set password='$newpassword' where account='".$_SESSION["system"]["user"]["account"]."';";
 				if($this->C($this->cacheDir)->update($sql)>=0){
-					$this->L("Common")->ajax_json_success("操作成功");		
+					$this->L("Common")->ajax_json_success("操作成功");
+					exit;
 				}
 			}else{
-				$this->L("Common")->ajax_json_error("两次密码不一样,请细心检查是否因大小写原因造成");
+				$this->L("Common")->ajax_json_error("输入的旧密码不正确,请细心检查是否因大小写原因造成");
+				exit;
 			}
-			
 		}
 	}
 	
@@ -264,6 +266,7 @@ class Sys extends Action{
 		} while(true);
 		fclose ($handle);
 		$onlist = json_decode($contents,true);*/
+		$onlist = array();
 
 		//本地数据
 		$dirname= $this->L("Upload")->upload_upgrade_path();
@@ -281,10 +284,11 @@ class Sys extends Action{
 		$smarty->display('sys/sys_upgrade.html');			
 	
 	}
+	
 	public function sys_upgrade_local(){
 		
-		$step 	    = $this->_REQUEST("step");
-		$filename   = $this->_REQUEST("filename");
+		$step		= $this->_REQUEST("step");
+		$filename  = $this->_REQUEST("filename");
 		//本地数据，源文件所在地
 		$dirname= $this->L("Upload")->upload_upgrade_path();
 		$zipfile= $this->L("File")->dir_replace($dirname."/".$filename);
@@ -300,12 +304,14 @@ class Sys extends Action{
 			$step	=2;	
 			$sbtxt	="下一步升级系统";							
 		}elseif($step==2){
+			/*
 			$savepath 	=$this->L('File')->dir_replace(APP_ROOT);
 			$archive	=$this->L("PclZip","$zipfile");
 			if ($archive->extract(PCLZIP_OPT_PATH, "$savepath") == 0) {
 				exec("tar -zxvf $zipfile -C /");
 				//die("Error : ".$archive->errorInfo(true));
-			}			
+			}	
+			*/		
 			$txt 	="<p>系统升级完成!</p><p>程序已经覆盖当前系统目录</p> ";		
 			$step	=3;	
 			$sbtxt	="当前系统升级完成,下一步升级数据库结构";			
@@ -418,19 +424,13 @@ class Sys extends Action{
 		} */ 		
 	}
 	
-	
 	//导入升级文件删除
 	public function sys_upgrade_del(){
 		$dirname  = $this->L("Upload")->upload_upgrade_path();
 		$filename = ($_GET["filename"])?$_GET["filename"]:$_POST["filename"];
 		$this->File()->unlink_file($dirname.$filename);
 		$this->L("Common")->ajax_json_success("删除成功","1","/Sys/sys_upgrade/");		
-	}	
-
-	
-   
-
-
+	}
 
 }//end class
 ?>

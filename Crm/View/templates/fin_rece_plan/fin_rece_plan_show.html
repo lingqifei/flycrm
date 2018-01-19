@@ -34,10 +34,13 @@
       <li><a class="add"
 		href="#{$smarty.const.ACT}#/FinRecePlan/fin_rece_plan_add/" target="navTab"
 		rel="fin_rece_plan_add" title="回款计划添加"><span>添加</span></a></li>
+      <li class="line">line</li>
       <li> <a class="delete" href="#{$smarty.const.ACT}#/FinRecePlan/fin_rece_plan_del/" postType="string" title="确定要删除吗?"  target="selectedTodo" rel="ids"><span>删除</span></a></li>
+      <li class="line">line</li>
       <li><a class="edit"
 		href="#{$smarty.const.ACT}#/FinRecePlan/fin_rece_plan_modify/id/{sid_user}/"
-		target="navTab" rel="fin_rece_plan_acctio" title="确认回款"><span>回款</span></a></li>  
+		target="navTab" rel="fin_rece_plan_acctio" title="确认回款"><span>回款</span></a></li>
+   		<li class="line">line</li>
     </ul>
   </div>
   <ul>
@@ -87,12 +90,12 @@
 		name="orderField" value="${param.orderField}" />
       </form>
       <div class="pages"><span>显示</span>
-        <select class="combox"
-		name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
+        <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option value="20" #{if $numPerPage eq '20'}# selected="selected" #{/if}#>20</option>
+				<option value="50" #{if $numPerPage eq '50'}# selected="selected" #{/if}#>50</option>
+				<option value="100" #{if $numPerPage eq '100'}# selected="selected" #{/if}#>100</option>
+				<option value="200" #{if $numPerPage eq '200'}# selected="selected" #{/if}#>200</option>
+				<option value="500" #{if $numPerPage eq '500'}# selected="selected" #{/if}#>500</option>
         </select>
         <span>条，共#{$totalCount}#条</span></div>
       <div class="pagination" targetType="navTab"

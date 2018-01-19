@@ -92,7 +92,7 @@ class PosOrder extends Action{
 	
 	public function pos_order_add(){
 		if(empty($_POST)){
-			$number = date("YmdHis").rand(10,99);
+			$number = date("ymdH").rand(10,99);
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("number"=>$number));
 			$smarty->display('pos_order/pos_order_add.html');	

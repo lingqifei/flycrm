@@ -27,7 +27,7 @@ class Auth extends Action {
 		if ( isset( $_SESSION[ "CRM" ][ "NEED" ][ "method" ] ) ) {
 			if ( in_array( METHOD_NAME, $_SESSION[ "CRM" ][ "NEED" ][ "method" ] ) ) {
 				if ( !in_array( METHOD_NAME, $_SESSION[ "CRM" ][ "USER" ][ "method" ] ) ) {
-					$this->L( "Common" )->alert( "您无权限进行当前的操作！如果需要使用请联系管理员~", "info", "close" );
+					$this->L( "Common" )->ajax_alert( "您无权限进行当前的操作！如果需要使用请联系管理员~", "info", "close" );
 				}
 			}
 		}
@@ -50,21 +50,21 @@ class Auth extends Action {
 	//界面初始化操作
 	public function sys_default_conf() {
 		return array(
-			'title' => 'AAARadius宽带计费系统',
-			'companyname' => 'AAARadius宽带计费系统',
-			'adtitle' => '网络无处不在，你选择没有错~相信我们就是相信你自己 ',
-			'principal' => '鸟木鸟',
+			'title' => '07FLY-CRM客户关系管理系统',
+			'companyname' => '成都零起飞网络工作室',
+			'adtitle' => '您的需求我们来实现，用我们的真诚打造您的品牌。 ',
+			'principal' => '开发人生',
 			'tel' => '18030402705 ',
-			'address' => '成都市一环路南二段 ',
+			'address' => '成都市校园路东368号 ',
 			'email' => 'goodmuzi@qq.com ',
 			'login_logo' => '',
 			'manage_logo' => '',
-			'login_title' => 'AAARadius宽带计费系统 ',
-			'copyright' => 'Copyright © 2014 - AAARadius ',
-			'i_title' => 'AAA宽带认证管理系统 ',
+			'login_title' => '07FLY-CRM',
+			'copyright' => 'Copyright © 2017 - 07FLY-CRM ',
+			'i_title' => '07FLY-CRM客户关系管理系统 ',
 			'i_weibo' => '官方微博:http://weibo.com/u/2299441430 ',
-			'i_note' => '<script type="text/javascript" src="http://bbs.07fly.com/api.php?mod=js&bid=39"></script>',
-			'i_web' => 'http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=430&fansRow=1&ptype=1&speed=100&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=2299441430&verifier=c7a29d34&dpc=1',
+			'i_note' => '<script type="text/javascript" src="http://bbs.07fly.net"></script>',
+			'i_web' => 'http://www.07fly.top/a/crm',
 			'i_copy' => '
 <div class="divider"></div>
 <h2>有限担保和免责声明:</h2>
@@ -79,11 +79,9 @@ class Auth extends Action {
 <h2>有偿服务请联系:</h2>
 <pre style="margin:5px;line-height:1.6em;">
 <font color="#FF0000">定制化开发,公司培训,技术支持,解决使用过程中出现的全部疑难问题</font>
-开发团队：零起飞
-销售团队：四川卓迈科技
-技术交流：<a href="http://bbs.07fly.com/">论坛交流</a>
-技术支持：aaanas@qq.com
-
+开发团队：零起飞网络
+合作电话：18030402705(李先生)
+技术支持：goodmuzi@qq.com
 </pre>'
 		);
 	}

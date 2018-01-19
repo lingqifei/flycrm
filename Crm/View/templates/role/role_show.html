@@ -2,54 +2,27 @@
 <div class="pageHeader">
   <form onsubmit="return navTabSearch(this);" action="#{$smarty.const.ACT}#/Role/role_show" method="post">
     <div class="searchBar">
-      <ul class="searchContent">
-        <li>
-          <label>我的客户：</label>
-          <input name="customer" type="text"/>
-        </li>
-        <li>
-          <select class="combox" name="province">
-            <option value="">所有省市</option>
-            <option value="北京">北京</option>
-            <option value="上海">上海</option>
-            <option value="天津">天津</option>
-            <option value="重庆">重庆</option>
-            <option value="广东">广东</option>
-          </select>
-        </li>
-      </ul>
-      <!--<table class="searchContent">
-			<tr>
-				<td>
-					我的客户：<input type="text" name="keyword" />
-				</td>
-				<td>
-					<select class="combox" name="province">
-						<option value="">所有省市</option>
-						<option value="北京">北京</option>
-						<option value="上海">上海</option>
-						<option value="天津">天津</option>
-						<option value="重庆">重庆</option>
-						<option value="广东">广东</option>
-					</select>
-				</td>
-				<td>
-					建档日期：<input type="text" class="date" readonly="true" />
-				</td>
-			</tr>
-		</table>-->
-      <div class="subBar">
-        <ul>
-          <li>
-            <div class="buttonActive">
-              <div class="buttonContent">
-                <button type="submit">检索</button>
-              </div>
-            </div>
-          </li>
-          <li><a class="button" href="#{$smarty.const.ACT}#/Role/search/" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
-        </ul>
-      </div>
+      <table class="searchContent">
+        <tr>
+          <td> 名称：
+            <input type="text" name="name" /></td>
+          <td><ul>
+              <li>
+                <div class="buttonActive">
+                  <div class="buttonContent">
+                    <button type="submit">检索</button>
+                  </div>
+                </div>
+              </li>
+            </ul></td>
+        </tr>
+      </table>
+      <table class="subBar">
+        <tr>
+          <td> 说明： </td>
+          <td>权限功能主要是控制用户登录之后的权限，如菜单栏目，以前菜单栏目上面的操作动作如：添加，删除，修改等功能</td>
+        </tr>
+      </table>
     </div>
   </form>
 </div>
@@ -57,7 +30,9 @@
 <div class="panelBar">
   <ul class="toolBar">
     <li><a class="add" href="#{$smarty.const.ACT}#/Role/role_add/" target="navTab" rel="role_add"><span>添加</span></a></li>
-    <li><a class="delete" href="#{$smarty.const.ACT}#/Role/role_del/id/{sid_user}/" target="ajaxTodo" title="确定要删除吗?"><span>删除选择</span></a></li>
+    <li class="line">line</li>
+    <li><a class="delete" href="#{$smarty.const.ACT}#/Role/role_del/id/{sid_user}/" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+    <li class="line">line</li>
     <li><a class="edit" href="#{$smarty.const.ACT}#/Role/role_modify/id/{sid_user}/" target="navTab" rel="role_add"><span>修改</span></a></li>
   </ul>
 </div>
@@ -80,10 +55,10 @@
     <td>#{$v.sort}#</td>
     <td>#{$v.name}#</td>
     <td>#{$v.intro}#</td>
-    <td><a>发送短信</a> <a>发送邮件</a> </td>
+    <td><a>发送短信</a> <a>发送邮件</a></td>
   </tr>
   #{/foreach}#
-  </tbody>
+    </tbody>
   
 </table>
 <div class="panelBar">
