@@ -7,7 +7,7 @@ class Dispatcher {
 	public function __construct() {		
 		$scriptName= $_SERVER ['SCRIPT_NAME'];
 		$requestURI= $_SERVER ['REQUEST_URI'];		
-		$appName = str_replace (array('/index.php','/AAA.php','/Crm.php','/Net.php','/Cus.php','/os.php'), '', $scriptName );
+		$appName = str_replace (array('/index.php'), '', $scriptName );
 		define ( 'APP_HTTP', ( str_replace (APP_NAME, '', $appName ) ) );	//定义项目相http地址
 		define ( 'APP',   ( strlen(APP_NAME)===0 ? $appName : $appName.'/'.APP_NAME) );	//定义项目名	
 		define ( 'ACT',   ( $GLOBALS['ReWrite'] ? $appName : $scriptName) );//定义访问路径前缀
