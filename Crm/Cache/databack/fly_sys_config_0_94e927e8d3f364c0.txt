@@ -1,0 +1,17 @@
+INSERT INTO `fly_sys_config` VALUES('16','title','07FLY-CRM');
+INSERT INTO `fly_sys_config` VALUES('17','login_title','07FLY-CRM');
+INSERT INTO `fly_sys_config` VALUES('18','login_logo','/images/20160304205404780.jpg');
+INSERT INTO `fly_sys_config` VALUES('19','manage_logo','');
+INSERT INTO `fly_sys_config` VALUES('20','companyname','零起飞网络');
+INSERT INTO `fly_sys_config` VALUES('21','principal','零起飞');
+INSERT INTO `fly_sys_config` VALUES('22','tel','07fly');
+INSERT INTO `fly_sys_config` VALUES('23','address','07fly');
+INSERT INTO `fly_sys_config` VALUES('24','copyright','零起飞工作室');
+INSERT INTO `fly_sys_config` VALUES('25','i_title','零起飞客户关系管理系统');
+INSERT INTO `fly_sys_config` VALUES('26','i_weibo','官方微博:http://weibo.com/u/2299441430');
+INSERT INTO `fly_sys_config` VALUES('27','i_note','');
+INSERT INTO `fly_sys_config` VALUES('28','i_web','http://widget.weibo.com/weiboshow/index.php?language=&amp;width=0&amp;height=550&amp;fansRow=2&amp;ptype=1&amp;speed=0&amp;skin=1&amp;isTitle=1&amp;noborder=1&amp;isWeibo=1&amp;isFans=0&amp;uid=2299441430&amp;verifier=c7a29d34&amp;dpc=1');
+INSERT INTO `fly_sys_config` VALUES('29','i_copy','<div class=\"divider\"></div>\r\n<h2>有限担保和免责声明:</h2>\r\n<pre style=\"margin:5px;line-height:1.6em\">\r\n本软件及所附带的文件是作为不提供任何明确的或隐含的赔偿或担保的形式提供的。\r\n用户出于自愿而使用本软件，您必须了解使用本软件的风险，在尚未购买产品技术服务之前，\r\n我们不承诺提供任何形式的技术支持、使用担保，也不承担任何因使用本软件而产生问题的相关责任。\r\n究相关责任的权力。\r\n</pre>');
+INSERT INTO `fly_sys_config` VALUES('30','i_ser','<div class=\"divider\"></div>\r\n<h2>有偿服务请联系:</h2>\r\n<pre style=\"margin:5px;line-height:1.6em;\">\r\n定制化开发，公司培训，技术支持\r\n开发团队：零起飞\r\n技术交流：<a href=\"http://bbs.07fly.net/\" target=\"_blank\">论坛交流</a>\r\n技术支持：goodkfrs@qq.com\r\n</pre>');
+INSERT INTO `fly_sys_config` VALUES('33','login_spath','/images/20170109202452375.png');
+INSERT INTO `fly_sys_config` VALUES('34','manager_spath','/images/20160719111804731.png');

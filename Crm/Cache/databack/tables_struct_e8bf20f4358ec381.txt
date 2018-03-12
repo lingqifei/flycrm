@@ -1,0 +1,862 @@
+DROP TABLE IF EXISTS `cst_chance`;
+
+CREATE TABLE `cst_chance` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `linkmanID` varchar(256) NOT NULL,
+  `finddt` date NOT NULL COMMENT '发现时间',
+  `billdt` date NOT NULL COMMENT '预计签单时间',
+  `salestage` int(4) NOT NULL,
+  `money` int(11) NOT NULL,
+  `chance` int(2) NOT NULL COMMENT '预计可能性',
+  `userID` int(16) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` varchar(256) NOT NULL,
+  `status` smallint(1) NOT NULL default '1',
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_customer`;
+
+CREATE TABLE `cst_customer` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL,
+  `cst_number` varchar(64) NOT NULL,
+  `region` int(16) NOT NULL,
+  `source` int(16) NOT NULL,
+  `ecotype` int(16) NOT NULL,
+  `level` int(16) NOT NULL,
+  `trade` int(16) NOT NULL,
+  `satisfy` smallint(6) NOT NULL default '3' COMMENT '满意度（1-5），默认为3',
+  `credit` smallint(2) NOT NULL default '3' COMMENT '信用度（1-5），默认为3',
+  `address` varchar(256) NOT NULL,
+  `website` varchar(256) NOT NULL,
+  `zipcode` varchar(64) NOT NULL,
+  `linkman` varchar(64) NOT NULL,
+  `mobile` varchar(64) NOT NULL,
+  `tel` varchar(256) NOT NULL,
+  `fax` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `main_pro` varchar(1024) NOT NULL COMMENT '主营产品',
+  `talk` varchar(1024) NOT NULL COMMENT '沟通情况',
+  `status` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户信息表';
+
+DROP TABLE IF EXISTS `cst_dict`;
+
+CREATE TABLE `cst_dict` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `type` varchar(256) NOT NULL,
+  `sort` smallint(8) NOT NULL,
+  `visible` smallint(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_dict_type`;
+
+CREATE TABLE `cst_dict_type` (
+  `id` int(4) unsigned NOT NULL auto_increment,
+  `name` varchar(256) character set utf8 default NULL COMMENT '字典名称',
+  `value` varchar(32) character set utf8 default NULL COMMENT '字典标签',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `cst_filing`;
+
+CREATE TABLE `cst_filing` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `chanceID` int(16) NOT NULL,
+  `userID` int(16) NOT NULL,
+  `applicant_userID` int(16) NOT NULL,
+  `audit_userID` int(16) NOT NULL,
+  `audit_dt` datetime default NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `support` text NOT NULL COMMENT '所需支持',
+  `status` smallint(1) NOT NULL default '1' COMMENT '1=未审核2=同意3=否决',
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_linkman`;
+
+CREATE TABLE `cst_linkman` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `gender` smallint(1) NOT NULL,
+  `postion` varchar(256) NOT NULL,
+  `tel` varchar(256) NOT NULL,
+  `mobile` varchar(256) NOT NULL,
+  `qicq` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `zipcode` varchar(256) NOT NULL,
+  `address` varchar(1024) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL default '0',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_quoted`;
+
+CREATE TABLE `cst_quoted` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `chanceID` int(16) NOT NULL,
+  `userID` int(16) NOT NULL,
+  `quoted_userID` int(16) NOT NULL,
+  `audit_userID` int(16) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `delivery_intro` text NOT NULL,
+  `payment_intro` text NOT NULL,
+  `audit_dt` datetime default NULL,
+  `transport_intro` text NOT NULL,
+  `status` smallint(1) NOT NULL default '1' COMMENT '1=未审核2=同意3=否决',
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_quoted_detail`;
+
+CREATE TABLE `cst_quoted_detail` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `quotedID` int(16) NOT NULL,
+  `pro_number` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `norm` varchar(64) NOT NULL,
+  `price` int(16) NOT NULL,
+  `rebate` int(16) NOT NULL,
+  `number` int(16) NOT NULL,
+  `money` int(16) NOT NULL,
+  `intro` text NOT NULL,
+  `userID` int(16) NOT NULL COMMENT '归属人员',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_service`;
+
+CREATE TABLE `cst_service` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `services` int(4) NOT NULL,
+  `servicesmodel` int(4) NOT NULL,
+  `price` int(11) NOT NULL,
+  `status` smallint(1) NOT NULL COMMENT '1=无需处理，2未处理，3=处理中，4处理完成',
+  `bdt` datetime NOT NULL,
+  `tlen` varchar(64) NOT NULL,
+  `content` text NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL default '0',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_talk`;
+
+CREATE TABLE `cst_talk` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `name` varchar(1024) NOT NULL,
+  `create_userID` int(16) NOT NULL default '0',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='打电话沟通记录';
+
+DROP TABLE IF EXISTS `cst_trace`;
+
+CREATE TABLE `cst_trace` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(11) NOT NULL,
+  `chanceID` int(11) NOT NULL,
+  `bdt` datetime NOT NULL,
+  `salestage` int(4) NOT NULL,
+  `salemode` int(4) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` varchar(256) NOT NULL,
+  `status` smallint(1) NOT NULL default '1',
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cst_website`;
+
+CREATE TABLE `cst_website` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `cusID` int(16) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `url` varchar(1024) NOT NULL COMMENT '网址',
+  `bdt` date NOT NULL,
+  `edt` date NOT NULL,
+  `ftp_ip` varchar(256) NOT NULL COMMENT 'FTP ip',
+  `ftp_account` varchar(256) NOT NULL COMMENT 'FTP 帐号',
+  `ftp_pwd` varchar(256) NOT NULL COMMENT 'FTP 密码',
+  `icp_account` varchar(256) NOT NULL,
+  `icp_pwd` varchar(256) NOT NULL,
+  `icp_num` varchar(256) NOT NULL,
+  `address` varchar(1024) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL default '0',
+  `status` int(2) NOT NULL default '1' COMMENT '网站状态1=新增，2=续费，',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `email_from`;
+
+CREATE TABLE `email_from` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `server` varchar(32) character set utf8 NOT NULL,
+  `port` varchar(50) NOT NULL,
+  `account` varchar(256) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `cnt` int(11) NOT NULL default '1',
+  `groupID` int(11) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `email_from_group`;
+
+CREATE TABLE `email_from_group` (
+  `id` int(16) NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `email_mb`;
+
+CREATE TABLE `email_mb` (
+  `id` int(16) NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `content` text,
+  `cnt` int(11) default '1',
+  `editor` varchar(32) default NULL,
+  `adddatetime` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `email_receiver`;
+
+CREATE TABLE `email_receiver` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `account` varchar(256) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `cnt` int(11) NOT NULL default '1',
+  `groupID` int(11) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `email_receiver_group`;
+
+CREATE TABLE `email_receiver_group` (
+  `id` int(16) NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `email_scheme`;
+
+CREATE TABLE `email_scheme` (
+  `id` int(16) NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `fromID` int(11) default NULL,
+  `receiverID` int(11) default NULL,
+  `contentID` varchar(50) default NULL,
+  `intro` varchar(1024) default NULL,
+  `adddatetime` datetime NOT NULL,
+  `uptime` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `email_scheme_log`;
+
+CREATE TABLE `email_scheme_log` (
+  `id` int(16) NOT NULL auto_increment,
+  `schemeID` varchar(256) NOT NULL,
+  `sendfrom` varchar(256) default NULL,
+  `receiver` varchar(256) default NULL,
+  `subject` varchar(256) default NULL,
+  `status` varchar(50) default NULL,
+  `adddatetime` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_bank_account`;
+
+CREATE TABLE `fin_bank_account` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `card` varchar(256) NOT NULL,
+  `address` varchar(256) NOT NULL,
+  `holders` varchar(256) NOT NULL,
+  `sort` smallint(2) NOT NULL,
+  `visible` smallint(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_expenses_record`;
+
+CREATE TABLE `fin_expenses_record` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `typeID` int(16) NOT NULL COMMENT '费用类别',
+  `create_userID` int(16) NOT NULL,
+  `blankID` int(16) NOT NULL,
+  `money` int(16) NOT NULL,
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `crt_date` date NOT NULL COMMENT '产生日期',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_expenses_type`;
+
+CREATE TABLE `fin_expenses_type` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(32) character set utf8 NOT NULL,
+  `parentID` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `fin_flow_record`;
+
+CREATE TABLE `fin_flow_record` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `balance` float NOT NULL COMMENT '费用类别',
+  `paymoney` float NOT NULL,
+  `recemoney` float NOT NULL,
+  `blankID` int(16) NOT NULL,
+  `busID` int(16) NOT NULL COMMENT '关联单号',
+  `busType` varchar(128) NOT NULL COMMENT '单号类型',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `create_userID` int(16) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_income_record`;
+
+CREATE TABLE `fin_income_record` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `typeID` int(16) NOT NULL COMMENT '费用类别',
+  `create_userID` int(16) NOT NULL,
+  `blankID` int(16) NOT NULL,
+  `money` int(16) NOT NULL,
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `crt_date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_income_type`;
+
+CREATE TABLE `fin_income_type` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(32) character set utf8 NOT NULL,
+  `parentID` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `fin_invoice_pay`;
+
+CREATE TABLE `fin_invoice_pay` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `salID` int(16) NOT NULL COMMENT '合同订单号',
+  `cusID` int(16) NOT NULL COMMENT '客户号',
+  `money` int(16) NOT NULL,
+  `paydate` date NOT NULL COMMENT '开票时间',
+  `stages` int(11) NOT NULL,
+  `invo_number` varchar(256) NOT NULL default '0',
+  `name` varchar(256) NOT NULL default '0',
+  `busType` varchar(256) NOT NULL default '0' COMMENT '订单类型',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `create_userID` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_invoice_pay_list`;
+
+CREATE TABLE `fin_invoice_pay_list` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `invID` int(16) unsigned NOT NULL default '0' COMMENT '发票ID',
+  `busID` int(16) NOT NULL COMMENT '合同订单号',
+  `cusID` int(16) NOT NULL COMMENT '客户号',
+  `type` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_invoice_rece`;
+
+CREATE TABLE `fin_invoice_rece` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `posID` int(16) NOT NULL COMMENT '关联采购号',
+  `supID` int(16) NOT NULL COMMENT '供应商号',
+  `money` int(16) NOT NULL,
+  `recedate` date NOT NULL COMMENT '收票时间',
+  `stages` int(11) NOT NULL,
+  `create_userID` int(11) NOT NULL,
+  `invo_number` varchar(256) NOT NULL default '0',
+  `name` varchar(256) NOT NULL default '0',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_pay_plan`;
+
+CREATE TABLE `fin_pay_plan` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `posID` int(16) NOT NULL COMMENT '采购订单号',
+  `supID` int(16) NOT NULL COMMENT '供应商号',
+  `blankID` int(16) NOT NULL COMMENT '关联帐号',
+  `money` int(16) NOT NULL,
+  `plandate` date NOT NULL COMMENT '计划付款时间',
+  `stages` int(11) NOT NULL,
+  `ifpay` varchar(50) NOT NULL default 'NO' COMMENT 'NO/YES',
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_pay_record`;
+
+CREATE TABLE `fin_pay_record` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `planID` int(16) unsigned NOT NULL default '0' COMMENT '关联付款记划',
+  `posID` int(16) NOT NULL COMMENT '采购订单号',
+  `supID` int(16) NOT NULL COMMENT '供应商号',
+  `blankID` int(16) NOT NULL COMMENT '关联帐号',
+  `paydate` date NOT NULL,
+  `money` int(16) NOT NULL,
+  `stages` int(11) NOT NULL,
+  `ifpay` smallint(6) NOT NULL default '0' COMMENT '0=未付 1=已经付',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `create_userID` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_rece_plan`;
+
+CREATE TABLE `fin_rece_plan` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `receID` int(16) unsigned NOT NULL default '0' COMMENT '关联回款计划',
+  `salID` int(16) NOT NULL COMMENT '合同订单号',
+  `cusID` int(16) NOT NULL COMMENT '客户号',
+  `blankID` int(16) NOT NULL COMMENT '关联帐号',
+  `money` int(16) NOT NULL,
+  `plandate` datetime NOT NULL COMMENT '计划回款时间',
+  `stages` int(11) NOT NULL,
+  `create_userID` int(11) NOT NULL,
+  `ifpay` varchar(50) NOT NULL default 'NO' COMMENT 'NO=未付 YES=已经付',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_rece_record`;
+
+CREATE TABLE `fin_rece_record` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `salID` int(16) NOT NULL COMMENT '合同订单号',
+  `planID` int(16) NOT NULL default '0',
+  `cusID` int(16) NOT NULL COMMENT '客户号',
+  `blankID` int(16) NOT NULL COMMENT '关联帐号',
+  `money` int(16) NOT NULL,
+  `paydate` date NOT NULL COMMENT '计划回款时间',
+  `stages` int(11) NOT NULL,
+  `ifpay` smallint(6) NOT NULL default '0' COMMENT '0=未付 1=已经付',
+  `busType` varchar(128) NOT NULL default '0' COMMENT '关联业务类型',
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  `create_userID` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fin_rece_record_list`;
+
+CREATE TABLE `fin_rece_record_list` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `receID` int(16) unsigned NOT NULL default '0' COMMENT '关联回款',
+  `busID` int(16) NOT NULL COMMENT '合同订单号',
+  `cusID` int(16) NOT NULL COMMENT '客户号',
+  `flowID` int(16) NOT NULL COMMENT '关联财务流水',
+  `type` varchar(50) NOT NULL default 'NO' COMMENT '订单类型',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_config`;
+
+CREATE TABLE `fly_sys_config` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_dept`;
+
+CREATE TABLE `fly_sys_dept` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(32) character set utf8 NOT NULL,
+  `parentID` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `tel` varchar(32) character set utf8 default NULL,
+  `fax` varchar(32) character set utf8 NOT NULL,
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `fly_sys_log`;
+
+CREATE TABLE `fly_sys_log` (
+  `id` int(16) NOT NULL auto_increment,
+  `ipaddr` varchar(16) NOT NULL,
+  `content` text,
+  `editor` varchar(32) default NULL,
+  `adddatetime` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_menu`;
+
+CREATE TABLE `fly_sys_menu` (
+  `id` int(4) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL,
+  `name_en` varchar(64) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `parentID` int(4) NOT NULL,
+  `sort` int(4) NOT NULL,
+  `visible` int(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_method`;
+
+CREATE TABLE `fly_sys_method` (
+  `id` int(4) unsigned NOT NULL auto_increment,
+  `menuID` int(4) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `value` varchar(64) NOT NULL,
+  `sort` int(4) NOT NULL,
+  `visible` int(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_position`;
+
+CREATE TABLE `fly_sys_position` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(32) character set utf8 NOT NULL,
+  `parentID` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `fly_sys_power`;
+
+CREATE TABLE `fly_sys_power` (
+  `id` int(16) NOT NULL auto_increment,
+  `master` varchar(64) NOT NULL,
+  `master_value` varchar(64) NOT NULL,
+  `access` varchar(64) NOT NULL,
+  `access_value` text NOT NULL,
+  `operation` varchar(64) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_region`;
+
+CREATE TABLE `fly_sys_region` (
+  `id` int(4) NOT NULL auto_increment,
+  `parentID` int(4) NOT NULL,
+  `name` varchar(12) NOT NULL,
+  `type` int(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='地区表';
+
+DROP TABLE IF EXISTS `fly_sys_role`;
+
+CREATE TABLE `fly_sys_role` (
+  `id` int(16) NOT NULL auto_increment,
+  `sort` int(16) NOT NULL default '0',
+  `name` varchar(32) default NULL,
+  `intro` varchar(1024) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fly_sys_user`;
+
+CREATE TABLE `fly_sys_user` (
+  `id` int(16) NOT NULL auto_increment,
+  `account` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `name` varchar(32) default NULL,
+  `gender` varchar(2) default NULL,
+  `tel` varchar(32) default NULL,
+  `mobile` varchar(32) default NULL,
+  `qicq` varchar(32) default NULL,
+  `address` varchar(256) default NULL,
+  `zipcode` varchar(256) default NULL,
+  `email` varchar(128) default NULL,
+  `roleID` int(16) NOT NULL,
+  `deptID` int(16) NOT NULL,
+  `positionID` int(16) NOT NULL,
+  `intro` varchar(1024) NOT NULL,
+  `adt` datetime default NULL,
+  `identity` varchar(50) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pos_order`;
+
+CREATE TABLE `pos_order` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `pos_number` varchar(50) NOT NULL COMMENT '采购编号',
+  `supID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `chanceID` int(16) NOT NULL,
+  `bdt` date NOT NULL,
+  `edt` date NOT NULL,
+  `our_userID` int(16) NOT NULL COMMENT '我方联系人',
+  `money` int(16) NOT NULL,
+  `zero_money` int(16) NOT NULL COMMENT '去零金额',
+  `back_money` int(16) NOT NULL,
+  `pay_money` int(16) NOT NULL COMMENT '付款金额',
+  `into_money` int(16) NOT NULL COMMENT '入库金额',
+  `bill_money` int(16) NOT NULL COMMENT '收票金额',
+  `title` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `status` smallint(1) NOT NULL default '1' COMMENT '1=未审核2=同意3=否决',
+  `pay_status` smallint(1) NOT NULL default '1',
+  `into_status` smallint(1) NOT NULL default '1',
+  `bill_status` smallint(1) NOT NULL default '1',
+  `create_userID` int(11) NOT NULL COMMENT '创建用户',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pos_order_detail`;
+
+CREATE TABLE `pos_order_detail` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `posID` int(16) unsigned NOT NULL default '0',
+  `pro_number` varchar(64) NOT NULL,
+  `pos_number` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `norm` varchar(64) NOT NULL,
+  `price` int(16) NOT NULL,
+  `rebate` int(16) NOT NULL,
+  `number` int(16) NOT NULL,
+  `money` int(16) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL COMMENT '归属人员',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pro_dict`;
+
+CREATE TABLE `pro_dict` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `type` varchar(256) NOT NULL,
+  `sort` smallint(8) NOT NULL,
+  `visible` smallint(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pro_dict_type`;
+
+CREATE TABLE `pro_dict_type` (
+  `id` int(4) unsigned NOT NULL auto_increment,
+  `name` varchar(256) character set utf8 default NULL COMMENT '字典名称',
+  `value` varchar(32) character set utf8 default NULL COMMENT '字典标签',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `pro_product`;
+
+CREATE TABLE `pro_product` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(256) NOT NULL,
+  `pro_number` varchar(256) NOT NULL,
+  `typeID` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `model` varchar(256) NOT NULL,
+  `norm` varchar(256) NOT NULL,
+  `supID` int(16) NOT NULL,
+  `image` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产中列表\r\n';
+
+DROP TABLE IF EXISTS `pro_type`;
+
+CREATE TABLE `pro_type` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(32) character set utf8 NOT NULL,
+  `parentID` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `visible` tinyint(2) NOT NULL default '1',
+  `intro` varchar(1024) character set utf8 default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+
+DROP TABLE IF EXISTS `sal_contract`;
+
+CREATE TABLE `sal_contract` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `con_number` varchar(50) NOT NULL COMMENT '合同编号',
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `chanceID` int(16) NOT NULL,
+  `websiteID` int(16) NOT NULL COMMENT '关联网站',
+  `bdt` date NOT NULL,
+  `edt` date NOT NULL,
+  `our_userID` int(16) NOT NULL COMMENT '我方联系人',
+  `money` int(16) NOT NULL,
+  `zero_money` int(16) NOT NULL COMMENT '去零金额',
+  `back_money` int(16) NOT NULL,
+  `pay_money` int(16) NOT NULL,
+  `bill_money` int(16) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `status` smallint(1) NOT NULL default '1' COMMENT '1=未审核2=同意3=否决',
+  `pay_status` smallint(1) NOT NULL default '1',
+  `deliver_status` smallint(1) NOT NULL default '1',
+  `bill_status` smallint(1) NOT NULL default '1',
+  `renew_status` smallint(1) NOT NULL default '1' COMMENT '续费状态',
+  `create_userID` int(16) NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `sal_order`;
+
+CREATE TABLE `sal_order` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `ord_number` varchar(50) NOT NULL COMMENT '合同编号',
+  `cusID` int(16) NOT NULL,
+  `linkmanID` int(16) NOT NULL,
+  `chanceID` int(16) NOT NULL,
+  `bdt` date NOT NULL,
+  `edt` date NOT NULL,
+  `our_userID` int(16) NOT NULL COMMENT '我方联系人',
+  `money` int(16) NOT NULL,
+  `zero_money` int(16) NOT NULL COMMENT '去零金额',
+  `back_money` int(16) NOT NULL,
+  `pay_money` int(16) NOT NULL,
+  `bill_money` int(16) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `status` smallint(1) NOT NULL default '1' COMMENT '1=未审核2=同意3=否决',
+  `pay_status` smallint(1) NOT NULL default '1',
+  `deliver_status` smallint(1) NOT NULL default '1',
+  `bill_status` smallint(1) NOT NULL default '1',
+  `create_userID` int(11) NOT NULL COMMENT '创建用户',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `sal_order_detail`;
+
+CREATE TABLE `sal_order_detail` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `orderID` int(16) unsigned NOT NULL default '0',
+  `pro_number` varchar(64) NOT NULL,
+  `ord_number` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `norm` varchar(64) NOT NULL,
+  `price` int(16) NOT NULL,
+  `rebate` int(16) NOT NULL,
+  `number` int(16) NOT NULL,
+  `money` int(16) NOT NULL,
+  `intro` text NOT NULL,
+  `create_userID` int(16) NOT NULL COMMENT '归属人员',
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `sup_linkman`;
+
+CREATE TABLE `sup_linkman` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `supID` int(16) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `gender` smallint(1) NOT NULL,
+  `postion` varchar(256) NOT NULL,
+  `tel` varchar(256) NOT NULL,
+  `mobile` varchar(256) NOT NULL,
+  `qicq` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `zipcode` varchar(256) NOT NULL,
+  `address` varchar(1024) NOT NULL,
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `sup_supplier`;
+
+CREATE TABLE `sup_supplier` (
+  `id` int(16) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL,
+  `region` int(16) NOT NULL,
+  `userID` int(16) NOT NULL,
+  `level` int(16) NOT NULL,
+  `ecotype` int(16) NOT NULL,
+  `trade` int(16) NOT NULL,
+  `satisfy` smallint(6) NOT NULL default '3' COMMENT '满意度（1-5），默认为3',
+  `credit` smallint(2) NOT NULL default '3' COMMENT '信用度（1-5），默认为3',
+  `address` varchar(256) NOT NULL,
+  `linkman` varchar(256) NOT NULL,
+  `website` varchar(256) NOT NULL,
+  `zipcode` varchar(64) NOT NULL,
+  `tel` varchar(256) NOT NULL,
+  `fax` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `intro` text NOT NULL,
+  `adt` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

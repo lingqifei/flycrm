@@ -1,0 +1,1 @@
+INSERT INTO `email_from_group` VALUES('4','发送地址组');

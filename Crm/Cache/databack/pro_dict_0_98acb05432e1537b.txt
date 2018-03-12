@@ -1,0 +1,5 @@
+INSERT INTO `pro_dict` VALUES('1','个','unit','1','1');
+INSERT INTO `pro_dict` VALUES('2','件','unit','2','1');
+INSERT INTO `pro_dict` VALUES('3','套','unit','3','1');
+INSERT INTO `pro_dict` VALUES('4','销售类','nature','1','1');
+INSERT INTO `pro_dict` VALUES('5','采购类','nature','2','1');

@@ -1,0 +1,4 @@
+INSERT INTO `fly_sys_role` VALUES('1','1','超级管理员','超组管理员');
+INSERT INTO `fly_sys_role` VALUES('12','1','系统管理员','权限介绍');
+INSERT INTO `fly_sys_role` VALUES('13','2','销售人员','主要是部门销售人员使用');
+INSERT INTO `fly_sys_role` VALUES('14','123','财务人员','主要是记录财务相关的');

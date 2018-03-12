@@ -1,0 +1,6 @@
+INSERT INTO `pro_type` VALUES('10','空间域名','0','1','1','');
+INSERT INTO `pro_type` VALUES('11','英文域名','10','1','1','');
+INSERT INTO `pro_type` VALUES('12','中文域名','10','2','1','');
+INSERT INTO `pro_type` VALUES('13','网站空间','0','1','1','');
+INSERT INTO `pro_type` VALUES('14','虚拟空间','13','2','0','');
+INSERT INTO `pro_type` VALUES('15','VPS空间','13','2','0','');

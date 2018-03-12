@@ -1,0 +1,1 @@
+INSERT INTO `fin_invoice_pay_list` VALUES('1','10','13','1','sal_order');

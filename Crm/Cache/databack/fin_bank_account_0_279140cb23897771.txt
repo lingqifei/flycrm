@@ -1,0 +1,2 @@
+INSERT INTO `fin_bank_account` VALUES('1','工商银行','9855824408011','成都大天路','李先生','1','1');
+INSERT INTO `fin_bank_account` VALUES('2','农业银行','624404040231212','成都市犀浦','李枭','2','1');

@@ -1,0 +1,3 @@
+INSERT INTO `email_receiver` VALUES('1','lx_mai@163.com','1','1','35','5','');
+INSERT INTO `email_receiver` VALUES('2','lx_howlet@163.com','2','1','34','5','');
+INSERT INTO `email_receiver` VALUES('3','admin@jz21.net','3','1','34','5','');
