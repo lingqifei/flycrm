@@ -1,4 +1,14 @@
-<?php	 
+<?php
+/*
+ * 系统用户管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class User extends Action{	
 
 	private $cacheDir='';//缓存目录
@@ -150,7 +160,7 @@ class User extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/User/user_show/");	
 	}	
-	
+	//返回所用系统用户数据，以数组方式
 	public function user_arr(){
 		$rtArr  =array();
 		$sql	="select id,name from fly_sys_user";
@@ -165,7 +175,7 @@ class User extends Action{
 
 	//得到一个系统用户权限
 	//return Array ( [sys_menu] => Array ( [0] => 10,101,102,105,20,30,50 [1] => 1,507 ) )
-	public function user_get_power($id=null){
+	public function user_get_power($id=1){
 		$sql	= "select roleID from fly_sys_user where id='$id'";				 
 		$one 	= $this->C($this->cacheDir)->findOne($sql);
 		$role   = explode(",",$one["roleID"]);
@@ -210,5 +220,5 @@ class User extends Action{
 		return $str;
 	}
 
-}//
+}//end class
 ?>

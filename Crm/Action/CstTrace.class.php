@@ -1,12 +1,20 @@
-<?php	 
+<?php
+/*
+ * 客户跟踪记录类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class CstTrace extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
 		_instance('Action/Auth');
 	}	
-	
 	public function cst_trace(){
-	
 		//**获得传送来的数据作分页处理
 		$currentPage = $this->_REQUEST("pageNum");//第几页
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
@@ -62,7 +70,6 @@ class CstTrace extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('cst_trace/cst_trace_show.html');	
 	}		
-
 
 	public function cst_trace_show_box(){
 			$assArr  			= $this->cst_trace();
@@ -188,5 +195,5 @@ class CstTrace extends Action{
 		return $string;
 	}		
 			
-}//
+}//end class
 ?>

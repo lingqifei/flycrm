@@ -1,4 +1,14 @@
 <?php
+/*
+ * 权限分配类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Auth extends Action {
 
 	private $cacheDir = ''; //缓存目录
@@ -6,19 +16,17 @@ class Auth extends Action {
 	public function __construct() {
 		$this->check_login();
 		$this->authorization();
-		@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //定义
-		@define( 'SYS_USER_ID', $_SESSION[ "CRM" ][ "USER" ][ "userID" ] ); //定义
-		@define( 'SYS_USER_VIEW', $_SESSION[ "CRM" ][ "USER" ][ "viewID" ] ); //定义查看的权限		
+		@define( 'SYS_USER_ACCOUNT', $_SESSION["CRM"]["USER"]["account"] ); //定义
+		@define( 'SYS_USER_ID', $_SESSION["CRM"]["USER"]["userID" ] ); //定义
+		@define( 'SYS_USER_VIEW', $_SESSION["CRM"]["USER"]["viewID" ] ); //定义查看的权限		
 	}
-
-
 	//检查是否有登录
 	public function check_login() {
-		if ( empty( $_SESSION[ "CRM" ][ "USER" ][ "method" ] ) || empty( $_SESSION[ "CRM" ][ "USER" ][ "menu" ] ) ) {
-			if ( @$_SESSION[ "CRM" ][ "USER" ][ 'check' ] != 1 ) {
-				$_SESSION[ "CRM" ][ "USER" ][ 'check' ] = 1;
+		if ( empty( $_SESSION["CRM"]["USER" ]["account"] ) || empty( $_SESSION["CRM"]["USER"]["userID"] ) ) {
+			//if ($_SESSION["CRM"]["USER"]['ischeck'] != 1 ) {
+				//$_SESSION["CRM"]["USER"]['ischeck'] = 1;
 				$this->location( "", 'Login/login', 0 );
-			}
+			//}
 		}
 	}
 
@@ -32,7 +40,7 @@ class Auth extends Action {
 			}
 		}
 	}
-
+	
 	//得需要验证的栏目和方法
 	//返回：array("1",3,5,5) array('add',modify,del...);
 	public function auth_menu_tree_arr() {
@@ -86,6 +94,5 @@ class Auth extends Action {
 		);
 	}
 
-} //
-
+}//end class
 ?>

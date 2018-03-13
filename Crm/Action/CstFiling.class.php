@@ -1,4 +1,14 @@
 <?php
+/*
+ * 项目报备类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class CstFiling extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -141,8 +151,6 @@ class CstFiling extends Action{
 	public function cst_filing_status(){
 		return  array("1"=>"未审核","2"=>"同意","3"=>"否决");
 	}
-
-	
 	public function cst_filing_operate($status,$id){
 		switch($status){
 			case 1:
@@ -159,5 +167,5 @@ class CstFiling extends Action{
 		return $str;
 	}
 			
-}//
+}//end class
 ?>

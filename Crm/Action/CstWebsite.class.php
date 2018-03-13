@@ -1,4 +1,14 @@
-<?php 
+<?php
+/*
+ * 网站管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class CstWebsite extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -17,14 +27,10 @@ class CstWebsite extends Action{
 		//**获得传送来的数据做条件来查询
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
-		
 		$bdt	   = $this->_REQUEST("bdt");
 		$edt	   = $this->_REQUEST("edt");
-		
 		$bdt1	   = $this->_REQUEST("bdt1");
 		$edt1	   = $this->_REQUEST("edt1");		
-		
-		
 		$where_str 		   = " w.cusID=s.id and w.create_userID in (".SYS_USER_VIEW.")";
 
 		if( !empty($searchValue) ){
@@ -44,7 +50,6 @@ class CstWebsite extends Action{
 		if( !empty($edt1) ){
 			$where_str .=" and w.edt<'$edt1'";
 		}		
-		
 		
 		$cus_name="";
 		$cusID = $this->_REQUEST("cusID");
@@ -216,5 +221,5 @@ class CstWebsite extends Action{
 		);
 	}
 					
-}//
+}//end class
 ?>

@@ -1,4 +1,14 @@
-<?php	
+<?php
+/*
+ * 费用支出类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 //费用其他支出 
 class FinExpensesRecord extends Action{	
 	private $cacheDir='';//缓存目录
@@ -64,8 +74,6 @@ class FinExpensesRecord extends Action{
 			}
 		}
 	}	
-
-
 	
 	public function fin_expenses_record_modify(){
 		$id	 = $this->_REQUEST("id");
@@ -104,5 +112,5 @@ class FinExpensesRecord extends Action{
 		}
 		return $rtArr;
 	}			
-}//
+}//end class for 07fly.com
 ?>

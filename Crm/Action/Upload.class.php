@@ -7,24 +7,12 @@
  * @copyright   Copyright (C) 2012-2015 07FLY Network Technology Co,LTD (www.07FLY.com)
  *				All rights reserved.
  * @license     LGPL 
- * @author      NIAOMUNIAO <1585925559@QQ.com>
+ * @author      NIAOMUNIAO <1871720801@QQ.com>
  * @package     system
  * @version     1.0
  * @link        http://www.07fly.net http://www.07fly.top
  * @version   Ajax.class.php  add by NIAOMUNIAO 2013-07-27 16:48 
  */	 
-
-/**
- * Enter description here... （必须）
- *
- * [example]
- * $Ajax = new User ();
- * $Ajax->main();
- * $Ajax = $user->ajax_package_option($uid);  * 
- * [/example]
- * 
- */
-
 class Upload extends Action{	
 
 	private $cacheDir='';//缓存目录

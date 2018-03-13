@@ -1,4 +1,14 @@
-<?php	 
+<?php
+/*
+ * 付款计划类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class FinPayPlan extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -100,5 +110,5 @@ class FinPayPlan extends Action{
 		$this->L("Common")->ajax_json_success("操作成功","1","/FinPayPlan/fin_pay_plan_show/");	
 	}	
 		
-}//
+}//end class
 ?>

@@ -1,4 +1,14 @@
-<?php	 
+<?php
+/*
+ * 产品字典类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class ProDict extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -78,5 +88,5 @@ class ProDict extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/ProDict/pro_dict_show/type/$type/");	
 	}			
-}//
+}//end class
 ?>

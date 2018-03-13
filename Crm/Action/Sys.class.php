@@ -1,49 +1,14 @@
 <?php
-/**
- * The Temp file of AAA.
+/*
+ * 系统参数配置类
  *
- * All Manager Finance , orderinfo
- *
- * @copyright   Copyright (C) 2012-2015 07FLY Network Technology Co,LTD (www.07FLY.com)
- *				All rights reserved.
- * @license     LGPL 
- * @author      NIAOMUNIAO <1585925559@QQ.com>
- * @package     system
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
  * @version     1.0
- * @link        http://www.07fly.net http://www.07fly.top
+ * @link       http://www.07fly.top
  */	 
- 
- 
-  /**
- * Manger user custoer ,add,renew,change package
- *
- * [example]
- * $User = new User ();
- * $User->main();
- * $User = $user->user_show();  * 
- * [/example]
- * 
- *[function]
- * sys_log_add($info)						添加日志记录
- * sys_menu($id=null)						系统栏目和权限列表
- * sys_role()								获得所有角色信息
- * sys_role_show()							调用模板显示记录
- * sys_role_power_one($id)					传入角色ID，返回角色的所有权限
- * sys_role_add()							添加
- * sys_role_del()							删除
- * sys_role_modify()						修改
- * sys_role_checked($inputname,$id=null)	查询所有记录，并且通checkbox选择框形式返回
- * sys_role_get_name($id)					传入编号ID，返回相对应的名
- * 
- * sys_user()								获得所有系统用户信息
- * sys_user_show()							调用模板显示记录
- * sys_user_add()							添加
- * sys_user_del()							删除
- * sys_user_modify()						修改
- * sys_user_get_power($id=null)				传入ID，返回系统用户的所有权限
- *[/function]
- */
- 
 class Sys extends Action{	
 	
 	private $cacheDir='';//缓存目录

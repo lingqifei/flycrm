@@ -1,4 +1,14 @@
 <?php
+/*
+ * 客户管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Customer extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -6,7 +16,6 @@ class Customer extends Action{
 	}	
 	
 	public function customer(){
-	
 		//**获得传送来的数据作分页处理
 		$currentPage = $this->_REQUEST("pageNum");//第几页
 		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
@@ -204,7 +213,13 @@ class Customer extends Action{
 		}
 		return $str;
 	}		
-	
+	public function customer_get_one($id=""){
+    if($id){
+      $sql = "select * from cst_customer where id='$id'";
+      $one = $this->C($this->cacheDir)->findOne($sql);	
+      return $one;
+    }	
+	}	
 
 	
 	public function customer_select_business(){
@@ -236,5 +251,5 @@ class Customer extends Action{
 		
 	}
 		
-}//
+}//end class
 ?>

@@ -1,17 +1,14 @@
 <?php
-/**
- * The Data file of AAA.
+/*
+ * 数据配置类
  *
- * All Manager Data of userinfo
- *
- * @copyright   Copyright (C) 2012-2015 07FLY Network Technology Co,LTD (www.07FLY.com)
- *				All rights reserved.
- * @license     LGPL 
- * @author      NIAOMUNIAO <1585925559@QQ.com>
- * @package     system
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
  * @version     1.0
- * @link        http://www.07fly.net
- */
+ * @link       http://www.07fly.top
+ */	 
 class Data extends Action{	
 	private $cacheDir='';//缓存目录
 	

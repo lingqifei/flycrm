@@ -1,4 +1,14 @@
-<?php 
+<?php
+/*
+ * 部门管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Dept extends Action{	
 	
 	private $cacheDir='';//缓存目录
@@ -115,7 +125,6 @@ class Dept extends Action{
 		}
 		return $rtArr;
 	}	
-	
 	//得到一个部门的得到下面子部门的编号
 	public function dept_get_sub_dept($deptID){
 		
@@ -145,7 +154,6 @@ class Dept extends Action{
 			}
 		} 
 		return $rtArr;
-	}
-				
-}//
+	}			
+}//end class
 ?>

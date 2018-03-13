@@ -1,4 +1,14 @@
-<?php	 
+<?php
+/*
+ * 产品管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Product extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -112,5 +122,5 @@ class Product extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功","1","/Product/product_show/");	
 	}			
-}//
+}//end class
 ?>

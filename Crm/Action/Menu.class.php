@@ -1,4 +1,14 @@
 <?php
+/*
+ * 系统菜单管理类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Menu extends Action{	
 	
 	var $common;
@@ -146,5 +156,5 @@ class Menu extends Action{
 		return $rtArr;
 	}		
 			
-}//
+}//end class
 ?>

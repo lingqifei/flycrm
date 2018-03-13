@@ -1,4 +1,14 @@
-<?php 
+<?php
+/*
+ * 销售机会类
+ *
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class CstChance extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
@@ -104,10 +114,8 @@ class CstChance extends Action{
 		
 	}		
 	
-	
 	public function cst_chance_modify(){
 		$id	  	 = $this->_REQUEST("id");
-		
 		if(empty($_POST)){
 			$sql 		= "select * from cst_chance where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
@@ -119,11 +127,9 @@ class CstChance extends Action{
 			$smarty->assign(array("one"=>$one,"customer"=>$customer,"linkman"=>$linkman,"dict"=>$dict,"status"=>$status));
 			$smarty->display('cst_chance/cst_chance_modify.html');	
 		}else{//更新保存数据
-		
 			$cusID   = $this->_REQUEST("org_id");
 			$linkmanID   = $this->_REQUEST("linkman_id");
 			$salestage   = $this->_REQUEST("salestage_id");
-			
 			$sql= "update cst_chance set 
 							cusID='$cusID',linkmanID='$linkmanID',salestage='$salestage',
 							finddt='$_POST[finddt]',billdt='$_POST[billdt]',money='$_POST[money]',chance='$_POST[chance]',
@@ -134,7 +140,6 @@ class CstChance extends Action{
 		}
 	}
 	
-		
 	public function cst_chance_del(){
 		$id	  = $this->_REQUEST("ids");
 		$sql  = "delete from cst_chance where id in ($id)";
@@ -177,5 +182,5 @@ class CstChance extends Action{
 		return $string;
 	}		
 			
-}//
+}//end class
 ?>
