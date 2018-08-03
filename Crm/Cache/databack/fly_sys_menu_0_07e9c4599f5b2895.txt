@@ -16,7 +16,7 @@ INSERT INTO `fly_sys_menu` VALUES('15','系统参数','system','/Sys/sys_config/
 INSERT INTO `fly_sys_menu` VALUES('16','系统菜单','','/Menu/menu_show/','4','112','1');
 INSERT INTO `fly_sys_menu` VALUES('17','密码修改','serial','/Sys/sys_password_modify/','4','113','1');
 INSERT INTO `fly_sys_menu` VALUES('18','系统日志管理','system log','#','4','114','0');
-INSERT INTO `fly_sys_menu` VALUES('19','数据库备份恢复','database','/SysData/sys_data/','4','115','1');
+INSERT INTO `fly_sys_menu` VALUES('19','数据库管理','database','/SysData/sys_data/','4','115','1');
 INSERT INTO `fly_sys_menu` VALUES('20','系统升级','#','/Sys/sys_upgrade/','4','115','1');
 INSERT INTO `fly_sys_menu` VALUES('21','部门管理','','/Dept/dept_show/','5','115','1');
 INSERT INTO `fly_sys_menu` VALUES('22','岗位管理','','/Position/position_show/','5','122','1');
@@ -59,7 +59,7 @@ INSERT INTO `fly_sys_menu` VALUES('58','入库明细','','/SupLinkman/sup_linkma
 INSERT INTO `fly_sys_menu` VALUES('59','出库订单','','/SupLinkman/sup_linkman_show/','14','334','1');
 INSERT INTO `fly_sys_menu` VALUES('60','出库明细','','/SupLinkman/sup_linkman_show/','14','335','1');
 INSERT INTO `fly_sys_menu` VALUES('61','系统方法','System Model','/Method/method_show/','4','112','1');
-INSERT INTO `fly_sys_menu` VALUES('62','栏目名称','栏目名称','链接地址','0','1','1');
+INSERT INTO `fly_sys_menu` VALUES('62','栏目名称','栏目名称','链接地址','0','1','0');
 INSERT INTO `fly_sys_menu` VALUES('63','财务管理','Finace','Finace','0','40','1');
 INSERT INTO `fly_sys_menu` VALUES('64','统计分析','统计分析','统计分析','63','41','1');
 INSERT INTO `fly_sys_menu` VALUES('65','财务类型','财务类型','财务类型','63','42','1');

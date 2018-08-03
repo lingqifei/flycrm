@@ -16,7 +16,7 @@ CREATE TABLE `cst_chance` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_customer`;
 
@@ -46,7 +46,7 @@ CREATE TABLE `cst_customer` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户信息表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户信息表';
 
 DROP TABLE IF EXISTS `cst_dict`;
 
@@ -57,7 +57,7 @@ CREATE TABLE `cst_dict` (
   `sort` smallint(8) NOT NULL,
   `visible` smallint(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_dict_type`;
 
@@ -66,7 +66,7 @@ CREATE TABLE `cst_dict_type` (
   `name` varchar(256) character set utf8 default NULL COMMENT '字典名称',
   `value` varchar(32) character set utf8 default NULL COMMENT '字典标签',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `cst_filing`;
 
@@ -86,7 +86,7 @@ CREATE TABLE `cst_filing` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_linkman`;
 
@@ -106,7 +106,7 @@ CREATE TABLE `cst_linkman` (
   `create_userID` int(16) NOT NULL default '0',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_quoted`;
 
@@ -128,7 +128,7 @@ CREATE TABLE `cst_quoted` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_quoted_detail`;
 
@@ -147,7 +147,7 @@ CREATE TABLE `cst_quoted_detail` (
   `userID` int(16) NOT NULL COMMENT '归属人员',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_service`;
 
@@ -166,7 +166,7 @@ CREATE TABLE `cst_service` (
   `create_userID` int(16) NOT NULL default '0',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_talk`;
 
@@ -177,7 +177,7 @@ CREATE TABLE `cst_talk` (
   `create_userID` int(16) NOT NULL default '0',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='打电话沟通记录';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='打电话沟通记录';
 
 DROP TABLE IF EXISTS `cst_trace`;
 
@@ -192,10 +192,12 @@ CREATE TABLE `cst_trace` (
   `title` varchar(256) NOT NULL,
   `intro` varchar(256) NOT NULL,
   `status` smallint(1) NOT NULL default '1',
+  `nextbdt` datetime NOT NULL COMMENT '下次联系时间',
+  `nexttitle` varchar(256) NOT NULL COMMENT '下次沟通主题',
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `cst_website`;
 
@@ -218,7 +220,7 @@ CREATE TABLE `cst_website` (
   `status` int(2) NOT NULL default '1' COMMENT '网站状态1=新增，2=续费，',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `email_from`;
 
@@ -234,7 +236,7 @@ CREATE TABLE `email_from` (
   `groupID` int(11) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `email_from_group`;
 
@@ -242,7 +244,7 @@ CREATE TABLE `email_from_group` (
   `id` int(16) NOT NULL auto_increment,
   `name` varchar(256) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `email_mb`;
 
@@ -254,7 +256,7 @@ CREATE TABLE `email_mb` (
   `editor` varchar(32) default NULL,
   `adddatetime` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `email_receiver`;
 
@@ -267,7 +269,7 @@ CREATE TABLE `email_receiver` (
   `groupID` int(11) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `email_receiver_group`;
 
@@ -275,7 +277,7 @@ CREATE TABLE `email_receiver_group` (
   `id` int(16) NOT NULL auto_increment,
   `name` varchar(256) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `email_scheme`;
 
@@ -289,7 +291,7 @@ CREATE TABLE `email_scheme` (
   `adddatetime` datetime NOT NULL,
   `uptime` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `email_scheme_log`;
 
@@ -302,7 +304,7 @@ CREATE TABLE `email_scheme_log` (
   `status` varchar(50) default NULL,
   `adddatetime` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_bank_account`;
 
@@ -315,7 +317,7 @@ CREATE TABLE `fin_bank_account` (
   `sort` smallint(2) NOT NULL,
   `visible` smallint(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_expenses_record`;
 
@@ -329,7 +331,7 @@ CREATE TABLE `fin_expenses_record` (
   `adt` datetime NOT NULL,
   `crt_date` date NOT NULL COMMENT '产生日期',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_expenses_type`;
 
@@ -341,7 +343,7 @@ CREATE TABLE `fin_expenses_type` (
   `visible` tinyint(2) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `fin_flow_record`;
 
@@ -357,7 +359,7 @@ CREATE TABLE `fin_flow_record` (
   `adt` datetime NOT NULL,
   `create_userID` int(16) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_income_record`;
 
@@ -371,7 +373,7 @@ CREATE TABLE `fin_income_record` (
   `adt` datetime NOT NULL,
   `crt_date` date NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_income_type`;
 
@@ -383,7 +385,7 @@ CREATE TABLE `fin_income_type` (
   `visible` tinyint(2) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `fin_invoice_pay`;
 
@@ -401,7 +403,7 @@ CREATE TABLE `fin_invoice_pay` (
   `adt` datetime NOT NULL,
   `create_userID` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_invoice_pay_list`;
 
@@ -412,7 +414,7 @@ CREATE TABLE `fin_invoice_pay_list` (
   `cusID` int(16) NOT NULL COMMENT '客户号',
   `type` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_invoice_rece`;
 
@@ -429,7 +431,7 @@ CREATE TABLE `fin_invoice_rece` (
   `intro` text NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_pay_plan`;
 
@@ -446,7 +448,7 @@ CREATE TABLE `fin_pay_plan` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_pay_record`;
 
@@ -464,7 +466,7 @@ CREATE TABLE `fin_pay_record` (
   `adt` datetime NOT NULL,
   `create_userID` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_rece_plan`;
 
@@ -482,7 +484,7 @@ CREATE TABLE `fin_rece_plan` (
   `intro` text NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_rece_record`;
 
@@ -501,7 +503,7 @@ CREATE TABLE `fin_rece_record` (
   `adt` datetime NOT NULL,
   `create_userID` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fin_rece_record_list`;
 
@@ -513,7 +515,7 @@ CREATE TABLE `fin_rece_record_list` (
   `flowID` int(16) NOT NULL COMMENT '关联财务流水',
   `type` varchar(50) NOT NULL default 'NO' COMMENT '订单类型',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_config`;
 
@@ -523,7 +525,7 @@ CREATE TABLE `fly_sys_config` (
   `value` text NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_dept`;
 
@@ -537,7 +539,7 @@ CREATE TABLE `fly_sys_dept` (
   `fax` varchar(32) character set utf8 NOT NULL,
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `fly_sys_log`;
 
@@ -548,7 +550,7 @@ CREATE TABLE `fly_sys_log` (
   `editor` varchar(32) default NULL,
   `adddatetime` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_menu`;
 
@@ -561,7 +563,7 @@ CREATE TABLE `fly_sys_menu` (
   `sort` int(4) NOT NULL,
   `visible` int(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_method`;
 
@@ -573,7 +575,7 @@ CREATE TABLE `fly_sys_method` (
   `sort` int(4) NOT NULL,
   `visible` int(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_position`;
 
@@ -585,7 +587,7 @@ CREATE TABLE `fly_sys_position` (
   `visible` tinyint(2) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `fly_sys_power`;
 
@@ -597,7 +599,7 @@ CREATE TABLE `fly_sys_power` (
   `access_value` text NOT NULL,
   `operation` varchar(64) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_region`;
 
@@ -617,7 +619,7 @@ CREATE TABLE `fly_sys_role` (
   `name` varchar(32) default NULL,
   `intro` varchar(1024) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `fly_sys_user`;
 
@@ -633,14 +635,14 @@ CREATE TABLE `fly_sys_user` (
   `address` varchar(256) default NULL,
   `zipcode` varchar(256) default NULL,
   `email` varchar(128) default NULL,
-  `roleID` int(16) NOT NULL,
+  `roleID` varchar(50) NOT NULL,
   `deptID` int(16) NOT NULL,
   `positionID` int(16) NOT NULL,
   `intro` varchar(1024) NOT NULL,
   `adt` datetime default NULL,
   `identity` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `pos_order`;
 
@@ -668,7 +670,7 @@ CREATE TABLE `pos_order` (
   `create_userID` int(11) NOT NULL COMMENT '创建用户',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `pos_order_detail`;
 
@@ -688,7 +690,7 @@ CREATE TABLE `pos_order_detail` (
   `create_userID` int(16) NOT NULL COMMENT '归属人员',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `pro_dict`;
 
@@ -699,7 +701,7 @@ CREATE TABLE `pro_dict` (
   `sort` smallint(8) NOT NULL,
   `visible` smallint(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `pro_dict_type`;
 
@@ -708,7 +710,7 @@ CREATE TABLE `pro_dict_type` (
   `name` varchar(256) character set utf8 default NULL COMMENT '字典名称',
   `value` varchar(32) character set utf8 default NULL COMMENT '字典标签',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `pro_product`;
 
@@ -727,7 +729,7 @@ CREATE TABLE `pro_product` (
   `visible` tinyint(2) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产中列表\r\n';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='产中列表\r\n';
 
 DROP TABLE IF EXISTS `pro_type`;
 
@@ -739,7 +741,7 @@ CREATE TABLE `pro_type` (
   `visible` tinyint(2) NOT NULL default '1',
   `intro` varchar(1024) character set utf8 default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 DROP TABLE IF EXISTS `sal_contract`;
 
@@ -768,7 +770,7 @@ CREATE TABLE `sal_contract` (
   `create_userID` int(16) NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `sal_order`;
 
@@ -795,7 +797,7 @@ CREATE TABLE `sal_order` (
   `create_userID` int(11) NOT NULL COMMENT '创建用户',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `sal_order_detail`;
 
@@ -815,7 +817,7 @@ CREATE TABLE `sal_order_detail` (
   `create_userID` int(16) NOT NULL COMMENT '归属人员',
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `sup_linkman`;
 
@@ -834,7 +836,7 @@ CREATE TABLE `sup_linkman` (
   `intro` text NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `sup_supplier`;
 
@@ -858,5 +860,5 @@ CREATE TABLE `sup_supplier` (
   `intro` text NOT NULL,
   `adt` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

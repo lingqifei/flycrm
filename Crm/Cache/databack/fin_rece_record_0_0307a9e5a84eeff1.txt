@@ -22,3 +22,16 @@ INSERT INTO `fin_rece_record` VALUES('49','19','0','967','1','900','2017-12-21',
 INSERT INTO `fin_rece_record` VALUES('50','29','0','274','1','1500','2018-01-08','1','0','sal_contract','转帐','2018-01-10 13:09:26','4');
 INSERT INTO `fin_rece_record` VALUES('51','21','0','289','1','2500','2018-01-09','1','0','sal_contract','支付宝收帐','2018-01-10 13:09:57','4');
 INSERT INTO `fin_rece_record` VALUES('52','18','0','13156','1','1000','2018-01-12','1','0','sal_contract','','2018-01-16 17:39:03','4');
+INSERT INTO `fin_rece_record` VALUES('53','30','0','289','1','800','2018-02-25','1','0','sal_contract','','2018-02-28 11:58:06','4');
+INSERT INTO `fin_rece_record` VALUES('54','17','0','13156','1','1000','2018-01-19','1','0','sal_contract','','2018-02-28 12:17:40','4');
+INSERT INTO `fin_rece_record` VALUES('55','13','0','13151','1','2000','2018-02-07','3','0','sal_contract','','2018-02-28 12:20:51','4');
+INSERT INTO `fin_rece_record` VALUES('56','32','0','13156','1','1000','2018-03-05','1000','0','sal_contract','','2018-03-07 14:38:50','4');
+INSERT INTO `fin_rece_record` VALUES('57','31','0','232','1','800','2018-03-05','1','0','sal_contract','','2018-03-07 14:39:32','4');
+INSERT INTO `fin_rece_record` VALUES('58','34','0','9','1','600','2018-03-26','1','0','sal_contract','','2018-03-26 13:17:08','4');
+INSERT INTO `fin_rece_record` VALUES('59','35','0','254','1','1000','2018-03-26','1','0','sal_contract','网站一年续费','2018-03-26 16:59:24','4');
+INSERT INTO `fin_rece_record` VALUES('60','37','0','12','1','600','2018-04-24','1','0','sal_contract','','2018-04-26 09:46:12','4');
+INSERT INTO `fin_rece_record` VALUES('61','36','0','11','1','3600','2018-04-18','1','0','sal_contract','三年续费','2018-04-26 09:46:57','4');
+INSERT INTO `fin_rece_record` VALUES('62','38','0','289','1','800','2018-06-10','1','0','sal_contract','','2018-06-24 20:46:08','4');
+INSERT INTO `fin_rece_record` VALUES('63','41','0','289','1','800','2018-07-17','1','0','sal_contract','18年续费','2018-07-18 14:28:11','4');
+INSERT INTO `fin_rece_record` VALUES('64','39','0','17','1','1500','2018-06-25','1','0','sal_contract','必是信任科技 ','2018-07-18 14:28:54','4');
+INSERT INTO `fin_rece_record` VALUES('65','40','0','13','1','1500','2018-06-25','1','0','sal_contract','','2018-07-18 14:29:29','4');
