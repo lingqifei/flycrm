@@ -45,13 +45,15 @@
     <thead>
       <tr>
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+		   <th width="150">客户名称</th>
+		   <th width="50">联系人</th>
+		   <th width="50">我方联系人</th>
+        <th>联系时间内容</th>
         <th width="130">联系时间</th>
-        <th>主题</th>
-        <th width="80">联系人</th>
-        <th width="150">客户名称</th>
-        <th width="80">状态</th>
-        <th width="80">我方联系人</th>
-        <th width="150">对应机会</th>
+        <th width="130">下次联系时间</th>
+        <th width="150">下次沟通主题</th>
+        
+        <th width="100">对应机会</th>
         <th width="80">销售阶段</th>
         <th width="80">销售方式</th>
         
@@ -62,16 +64,17 @@
     #{foreach from=$list key=k item=v}#
     <tr target="sid_user" rel="#{$v.id}#">
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
-      <td>#{$v.bdt}#</td>
+		 <td><a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a> </td>
+		 <td>#{$v.linkman_name}#</td>
+		 <td>#{$v.create_user_name}#</td>
       <td>#{$v.title}#</td>
-      <td>#{$linkman[$v.linkmanID]}#</td>
-      <td><a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a> </td>
-      <td>#{$status[$v.status]}#</td>
-      <td>#{$users[$v.create_userID]}#</td>
-      <td>#{$chance[$v.chanceID]}#</td>
-      <td>#{$dict[$v.salestage]}#</td>
-      <td>#{$dict[$v.salemode]}#</td>
+      <td>#{$v.bdt}#</td>
+      <td>#{$v.nextbdt}#</td>
+      <td>#{$v.nexttitle}#</td>
       
+      <td>#{$v.chance_name}#</td>
+      <td>#{$v.salestage_name}#</td>
+		 <td>#{$v.salemode_name}#</td>
     </tr>
     #{/foreach}#
       </tbody>

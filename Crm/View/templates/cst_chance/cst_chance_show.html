@@ -67,15 +67,15 @@
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
       <td>#{$v.title}#</td>
       <td><a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$v.cst_name}#</a></td>
-      <td>#{$linkman[$v.linkmanID]}#</td>
+      <td>#{$v.linkman_name}#</td>
       <td>#{$v.finddt}#</td>
       <td>#{$v.intro}#</td>
       <td>#{$v.billdt}#</td>
       <td>#{$v.money}#</td>
       <td>#{$v.chance}#%</td>
-      <td>#{$dict[$v.salestage]}#</td>
-      <td>#{$status[$v.status]}#</td>
-      <td>#{$users[$v.create_userID]}#</td>
+      <td>#{$v.salestage_name}#</td>
+      <td>#{$v.status_name}#</td>
+      <td>#{$v.create_user_name}#</td>
       <td>#{$v.adt}#</td>
     </tr>
     #{/foreach}#

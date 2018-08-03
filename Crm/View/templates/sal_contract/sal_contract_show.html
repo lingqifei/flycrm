@@ -50,6 +50,7 @@
         <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
 		<th width="80">合同编号</th>
         <th width="50">类型</th>
+        <th width="100">主题</th>
         <th width="150">客户名称</th>
         <th width="60">客户代表</th>
         <th width="80">销售机会</th>
@@ -74,6 +75,7 @@
       <td><input name="ids" value="#{$v.id}#" type="checkbox"></td>
 	  <td><a target="dialog" href="#{$smarty.const.ACT}#/SalContract/sal_contract_show_one/id/#{$v.id}#/" rel="sal_contract_show_one" title="合同详细:#{$v.con_number}#-#{$customer[$v.cusID]}#" width="880" height="480">#{$v.con_number}#</a></td>
       <td>#{$renew_status[$v.renew_status]}#</td>
+      <td>#{$v.title}#</td>
 	  <td>
 <a target="dialog" href="#{$smarty.const.ACT}#/Customer/customer_show_one/cusID/#{$v.cusID}#/" rel="customer_show_one_#{$v.id}#" title="#{$v.cst_name}#" width="880" height="480">#{$customer[$v.cusID]}#</a>	  
 	  </td>

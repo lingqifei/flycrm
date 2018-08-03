@@ -40,15 +40,6 @@
           <label>沟通时间：</label>
           <input type="text" name="bdt" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly/>
           <a class="inputDateButton" href="javascript:;">选择</a> </p>
-        <p>
-          <label>当前状态：</label>
-          #{$status}# </p>
-      </fieldset>
-      <fieldset>
-        <legend>备注：</legend>
-        <dl class="nowrap">
-          <textarea name="intro" cols="80" rows="3">#{$one.intro}#</textarea>
-        </dl>
       </fieldset>
       <div class="divider"></div>
       <fieldset>
@@ -61,6 +52,13 @@
           <label>下次沟通主题：</label>
           <input name="nexttitle" class="" type="text"  size="30" alt="请输下次计划联系主题内容"/>
         </p>
+      </fieldset>
+      <div class="divider"></div>
+      <fieldset>
+        <legend>备注：</legend>
+        <dl class="nowrap">
+          <textarea name="intro" cols="80" rows="3">#{$one.intro}#</textarea>
+        </dl>
       </fieldset>
     </div>
     <div class="formBar">
