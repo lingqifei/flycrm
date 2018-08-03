@@ -25,40 +25,45 @@ class SalOrder extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-		$cus_name	   	   = $this->_REQUEST("cus_name");
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
-		$where_str 		   = " create_userID in (".SYS_USER_VIEW.")";
-
+		$cus_name	  = $this->_REQUEST("cus_name");
+		$cusID 		  = $this->_REQUEST("cusID");
+		$searchKeyword = $this->_REQUEST("searchKeyword");
+		$searchValue  = $this->_REQUEST("searchValue");
+		$where_str 	  = " s.cusID=c.id and s.create_userID in (".SYS_USER_VIEW.")";
+		if(!empty($cusID) ){
+			$where_str .=" and s.cusID='$cusID'";
+		}
 		if( !empty($searchValue) ){
-			$where_str .=" and $searchKeyword like '%$searchValue%'";
+			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
 		}	
 		if( !empty($bdt) ){
-			$where_str .=" and adt >= '$bdt'";
+			$where_str .=" and s.adt >= '$bdt'";
 		}			
 		if( !empty($edt) ){
-			$where_str .=" and adt < '$edt'";
+			$where_str .=" and s.adt < '$edt'";
 		}	
 		//**************************************************************************
 		
-		$moneySql    = "select sum(money) as total_money,
-								sum(back_money) as total_back_money,
-								sum(zero_money) as total_zero_money,
-								sum(pay_money) as total_pay_money
-						 from sal_order where $where_str";
+		$moneySql    = "select sum(s.money) as total_money,
+								sum(s.back_money) as total_back_money,
+								sum(s.zero_money) as total_zero_money,
+								sum(s.pay_money) as total_pay_money
+						 from sal_order as s,cst_customer as c where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
 		
-		$countSql    = "select id from sal_order where $where_str";
+		$countSql    = "select s.id from sal_order as s,cst_customer as c where $where_str";
 		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from sal_order
+		$sql		 = "select s.*,c.name as cst_name from sal_order as s,cst_customer as c
 						where $where_str 
-						order by id desc 
+						order by s.id desc 
 						limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$operate     = array();
+		$operate   	= array();
 		$money		 = array();
+		$status		 = $this->sal_order_status();
 		foreach($list as $key=>$row){
+			$list[$key]['status_name']	=$status[$row['status']];
 			$operate[$row["id"]]=$this->sal_order_operate($row["status"],$row["id"]);
 			$money[$row["id"]]	=$this->L("SalOrderDetail")->sal_get_one_order_detail_money($row["id"]);
 		}

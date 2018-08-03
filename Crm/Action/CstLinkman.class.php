@@ -33,15 +33,19 @@ class CstLinkman extends Action{
 			$where_str .=" and l.$searchKeyword like '%$searchValue%'";
 		}
 		
-		$cus_name="";
-		$cusID = $this->_REQUEST("cusID");
+		$cus_name	=$this->_REQUEST("cus_name");
+		$name		=$this->_REQUEST("name");
+		$cusID 		=$this->_REQUEST("cusID");
 		if(!empty($cusID) ){
 			$where_str .=" and l.cusID='$cusID'";
 		}
+		if(!empty($name) ){
+			$where_str .=" and l.name like '%$name%'";
+		}
 		
 		//**************************************************************************
-		$countSql    = "select s.name as cst_name ,l.* from cst_linkman as l,cst_customer as s where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+		$countSql   = "select s.name as cst_name ,l.* from cst_linkman as l,cst_customer as s where $where_str";
+		$totalCount	 = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select s.name as cst_name ,l.* from cst_linkman as l,cst_customer as s
 						where $where_str 
@@ -130,7 +134,18 @@ class CstLinkman extends Action{
 		$sql	="select id,name from cst_linkman where cusID='$cusID' order by id asc;";
 		$list	=$this->C($this->cacheDir)->findAll($sql);
 		echo json_encode($list);
-	}	
+	}
+	public function cst_linkman_opt($cusID,$inputdiv,$optvalue=null){
+		$where 	=empty($cusID)?"":"where cusID='$cusID'";
+		$sql	="select id,name from cst_linkman $where order by id asc;";
+		$list	=$this->C($this->cacheDir)->findAll($sql);
+		$opthtml="<select name='$inputdiv'>";
+		foreach($list as $row){
+        $opthtml .="<option value='".$row['id']."'>".$row['name']."</option>";
+		}
+		$opthtml .='</select>';
+		return $opthtml;
+	}
 		
 	public function cst_linkman_arr($cusID=""){
 		$rtArr  =array();
@@ -143,6 +158,20 @@ class CstLinkman extends Action{
 			}
 		}
 		return $rtArr;
-	}				
+	}
+	//返回联系人名称
+	public function cst_linkman_get_name($id){
+		if(empty($id)) $id=0;
+		$sql  ="select id,name from cst_linkman where id in ($id)";	
+		$list =$this->C($this->cacheDir)->findAll($sql);
+		$str  ="";
+		if(is_array($list)){
+			foreach($list as $row){
+				$str .= "|-".$row["name"]."&nbsp;";
+			}
+		}
+		return $str;
+	}
+	
 }//end class
 ?>

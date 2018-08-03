@@ -16,10 +16,10 @@ class CstTrace extends Action{
 	}	
 	public function cst_trace(){
 		//**获得传送来的数据作分页处理
-		$currentPage = $this->_REQUEST("pageNum");//第几页
-		$numPerPage  = $this->_REQUEST("numPerPage");//每页多少条
-		$currentPage = empty($currentPage)?1:$currentPage;
-		$numPerPage  = empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
+		$currentPage 	= $this->_REQUEST("pageNum");//第几页
+		$numPerPage		= $this->_REQUEST("numPerPage");//每页多少条
+		$currentPage 	= empty($currentPage)?1:$currentPage;
+		$numPerPage  	= empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
@@ -45,13 +45,22 @@ class CstTrace extends Action{
 			$where_str .=" and adt < '$edt'";
 		}	
 		//**************************************************************************
-		$countSql    = "select c.name as cst_name ,s.* from cst_trace as s,cst_customer as c where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+		$countSql   = "select c.name as cst_name ,s.* from cst_trace as s,cst_customer as c where $where_str";
+		$totalCount	 = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select c.name as cst_name ,s.* from cst_trace as s,cst_customer as c
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		$status		 =$this->cst_trace_status();
+		foreach($list as $key=>$row){
+			$list[$key]['salestage_name']	=$this->L("CstDict")->cst_dict_get_name($row['salestage']);
+			$list[$key]['salemode_name']	=$this->L("CstDict")->cst_dict_get_name($row['salemode']);
+			$list[$key]['linkman_name']	 	=$this->L("CstLinkman")->cst_linkman_get_name($row['linkmanID']);
+			$list[$key]['status_name']	 	=$status[$row['status']];
+			$list[$key]['chance_name']	 	=$this->L("CstChance")->cst_chance_get_name($row['chanceID']);
+			$list[$key]['create_user_name']	=$this->L("User")->user_get_name($row['create_userID']);
+		}
 		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
 								"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage
 						);	
@@ -60,13 +69,8 @@ class CstTrace extends Action{
 	}
 	
 	public function cst_trace_show(){
-			$assArr  			= $this->cst_trace();
-			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
-			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
-			$assArr["status"] 	= $this->cst_trace_status();
-			$assArr["chance"] 	= $this->L("CstChance")->cst_chance_arr();
-			$assArr["users"] 	= $this->L("User")->user_arr();
-			$smarty  			= $this->setSmarty();
+			$assArr  = $this->cst_trace();
+			$smarty  = $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_trace/cst_trace_show.html');	
 	}		
@@ -101,22 +105,23 @@ class CstTrace extends Action{
 			$salemode   = $this->_REQUEST("salemode_id");
 			$linkmanID  = $this->_REQUEST("linkman_id");
 			$chanceID   = $this->_REQUEST("chance_id");
-			$sql       	= "insert into cst_trace(cusID,salestage,salemode,linkmanID,chanceID,
-												bdt,status,title,intro,adt) 
-								values('$cusID','$salestage','$salemode','$linkmanID','$chanceID',
-								'$_POST[bdt]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt');";
+			$nextbdt   	= $this->_REQUEST("nextbdt");
+			$nexttitle 	 = $this->_REQUEST("nexttitle");	
+			$sql       	= "insert into cst_trace(cusID,salestage,salemode,linkmanID,chanceID,nextbdt,nexttitle,
+												bdt,status,title,intro,adt,create_userID) 
+								values('$cusID','$salestage','$salemode','$linkmanID','$chanceID','$nextbdt','$nexttitle',
+								'$_POST[bdt]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt','".SYS_USER_ID."');";
 			$this->C($this->cacheDir)->update($sql);	
 			
-			$nextbdt   = $this->_REQUEST("nextbdt");
-			$nexttitle = $this->_REQUEST("nexttitle");			
-			//当计划下次沟通时，增加一条计划沟通计划status=1
+					
+			/*//当计划下次沟通时，增加一条计划沟通计划status=1
 			if(!empty($nextbdt) && !empty($nexttitle)){
 				$sql= "insert into cst_trace(cusID,salestage,salemode,linkmanID,chanceID,
 												bdt,status,title,intro,adt) 
 								values('$cusID','$salestage','$salemode','$linkmanID','$chanceID',
 								'$_POST[nextbdt]','1','$_POST[nexttitle]','$_POST[intro]','$dt');";	
 				$this->C($this->cacheDir)->update($sql);								
-			}
+			}*/
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
 	}		
@@ -181,7 +186,7 @@ class CstTrace extends Action{
 		$this->L("Common")->ajax_json_success("操作成功","1","/CstTrace/cst_trace_show/");	
 	}	
 	public function cst_trace_status(){
-		return  array("1"=>"<b style='color:#FFA500'>计划联系</b>","2"=>"<b style='color:#008000'>已经联系</b>");
+		return array("1"=>"<b style='color:#FFA500'>计划联系</b>","2"=>"<b style='color:#008000'>已经联系</b>");
 	}
 	public function cst_trace_status_select($inputname,$value=""){
 		$data=$this->cst_trace_status();
@@ -194,6 +199,14 @@ class CstTrace extends Action{
 		$string.="</select>";
 		return $string;
 	}		
-			
+	public function cst_trace_get_last_one($cusID=""){
+			if($cusID){
+			  $sql = "select * from cst_trace
+					  where cusID='$cusID' order by id desc limit 0,1;
+					  ";
+			  $one = $this->C($this->cacheDir)->findOne($sql);	
+			  return $one;
+			}	
+	}			
 }//end class
 ?>

@@ -86,7 +86,7 @@ class CstDict extends Action{
 		$this->L("Common")->ajax_json_success("操作成功","1","/CstDict/cst_dict_show/type/$type/");	
 	}	
 	public function cst_dict_select(){
-		$type   = $this->_REQUEST("type");
+		$type  = $this->_REQUEST("type");
 		$sql	="select id,name from cst_dict where type='$type' order by sort asc;";
 		$list	=$this->C($this->cacheDir)->findAll($sql);
 		echo json_encode($list);
@@ -102,6 +102,21 @@ class CstDict extends Action{
 			}
 		}
 		return $rtArr;
-	}				
+	}
+
+	//返回字典名称
+	public function cst_dict_get_name($id){
+		if(empty($id)) $id=0;
+		$sql  ="select id,name from cst_dict where id in ($id)";	
+		$list =$this->C($this->cacheDir)->findAll($sql);
+		$str  ="";
+		if(is_array($list)){
+			foreach($list as $row){
+				$str .= "|-".$row["name"]."&nbsp;";
+			}
+		}
+		return $str;
+	}	
+	
 }//end class
 ?>

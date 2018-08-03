@@ -209,7 +209,7 @@ class User extends Action{
 	//传入ID返回名字
 	public function user_get_name($id){
 		if(empty($id)) $id=0;
-		$sql  ="select id,account as name from fly_sys_user where id in ($id)";	
+		$sql  ="select id,name from fly_sys_user where id in ($id)";	
 		$list =$this->C($this->cacheDir)->findAll($sql);
 		$str  ="";
 		if(is_array($list)){

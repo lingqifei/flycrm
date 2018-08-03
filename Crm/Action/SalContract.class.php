@@ -26,12 +26,12 @@ class SalContract extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-		$cus_name	   	   = $this->_REQUEST("cus_name");
-		$cusID 			   = $this->_REQUEST("cusID");
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
+		$cus_name	  = $this->_REQUEST("cus_name");
+		$cusID 		  = $this->_REQUEST("cusID");
+		$searchKeyword = $this->_REQUEST("searchKeyword");
+		$searchValue  = $this->_REQUEST("searchValue");
 		
-		$where_str = " s.cusID=c.id  and s.create_userID in ('".SYS_USER_VIEW."')";
+		$where_str = " s.cusID=c.id and s.create_userID in ('".SYS_USER_VIEW."')";
 		if(!empty($cusID) ){
 			$where_str .=" and s.cusID='$cusID'";
 		}
@@ -53,17 +53,18 @@ class SalContract extends Action{
 						 from sal_contract as s,cst_customer as c where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
 		
-		$countSql    = "select s.id from sal_contract as s,cst_customer as c where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	
+		$countSql   = "select s.id from sal_contract as s,cst_customer as c where $where_str";
+		$totalCount	 = $this->C($this->cacheDir)->countRecords($countSql);	
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select s.* from sal_contract as s,cst_customer as c
+		$sql		 = "select s.*,c.name as cst_name from sal_contract as s,cst_customer as c
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		
+		$status		 =$this->sal_contract_status();
 		$operate	 = array();
 		foreach($list as $key=>$row){
-			$operate[$row["id"]]=$this->sal_contract_operate($row["status"],$row["id"]);
+			$operate[$row["id"]]		=$this->sal_contract_operate($row["status"],$row["id"]);
+			$list[$key]['status_name']	=$status[$row['status']];
 			//$money[$row["id"]]=_instance('Action/SalContractDetail')->cst_get_one_quoted_detail_money($row["id"]);
 		}
 

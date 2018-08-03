@@ -45,7 +45,6 @@ class Customer extends Action{
 		if( !empty($searchValue) ){
 			$where_str .=" and $searchKeyword like '%$searchValue%'";
 		}
-		
 		if( !empty($name) ){
 			$where_str .=" and name like '%$name%'";
 		}
@@ -82,6 +81,10 @@ class Customer extends Action{
 		$beginRecord = ($currentPage-1)*$numPerPage;
 		$sql		 = "select * from cst_customer  where $where_str order by id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		$trace		 = $this->L('CstTrace');
+		foreach($list as $key=>$row){
+			$list[$key]['cst_trace']=$trace->cst_trace_get_last_one($row['id']);
+		}
 		$assignArray = array('list'=>$list,
 							"trade"=>$trade,"trade_name"=>$trade_name,"bdt"=>$bdt,"edt"=>$edt,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
@@ -99,12 +102,12 @@ class Customer extends Action{
 		
 	//查看客户详细
 	public function customer_show_one(){
-			$cusID	    = $this->_REQUEST("cusID");
+			$cusID	   = $this->_REQUEST("cusID");
 			$sql 		= "select * from cst_customer where id='$cusID'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
 			$linkman	= $this->L('CstLinkman')->cst_linkman();
 			$smarty  	= $this->setSmarty();
-			$dict	    = $this->L("CstDict")->cst_dict_arr();
+			$dict	   = $this->L("CstDict")->cst_dict_arr();
 			$rtnArr		= array("one"=>$one,"dict"=>$dict,"linkman"=>$linkman);
 			$smarty->assign($rtnArr);
 			$smarty->display('customer/customer_show_one.html');		
@@ -120,7 +123,7 @@ class Customer extends Action{
 	
 	//高级搜索
 	public function advanced_search(){
-		$smarty  = $this->setSmarty();
+		$smarty = $this->setSmarty();
 		$smarty->display('customer/advanced_search.html');	
 	}	
 	
@@ -129,32 +132,36 @@ class Customer extends Action{
 			$smarty = $this->setSmarty();
 			$smarty->display('customer/customer_add.html');	
 		}else{
-			$dt	     = date("Y-m-d H:i:s",time());
-			$source  = $this->_REQUEST("source_id");
-			$ecotype = $this->_REQUEST("ecotype_id");
-			$trade   = $this->_REQUEST("trade_id");
-			$level   = $this->_REQUEST("level_id");
-			
-			$sql     = "insert into cst_customer(name,source,level,ecotype,trade,linkman,mobile,
-									website,tel,fax,email,
-									zipcode,address,intro,adt,create_userID) 
-								values('$_POST[name]','$source','$level','$ecotype','$trade','$_POST[linkman]','$_POST[mobile]',
-								'$_POST[website]','$_POST[tel]',
-								'$_POST[fax]','$_POST[email]','$_POST[zipcode]','$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
-								
-			$cusID=$this->C($this->cacheDir)->update($sql);	
-			
-			$sql     = "insert into cst_linkman(name,cusID,mobile,adt,create_userID) 
-								values('$_POST[linkman]','$cusID','$_POST[mobile]','$dt','".SYS_USER_ID."');";	
-			
-			$this->C($this->cacheDir)->update($sql);
-			$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");		
+			$rtn=$this->customer_add_save();
+			if($rtn){
+				$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");		
+			}	
 		}
 	}		
-	
-	
+	//保存数据
+	public function customer_add_save(){
+		$dt	  	= date("Y-m-d H:i:s",time());
+		$source = $this->_REQUEST("source_id");
+		$ecotype= $this->_REQUEST("ecotype_id");
+		$trade	= $this->_REQUEST("trade_id");
+		$level 	= $this->_REQUEST("level_id");
+		$sql   = "insert into cst_customer(name,source,level,ecotype,trade,linkman,mobile,
+								website,tel,fax,email,
+								zipcode,address,intro,adt,create_userID) 
+							values('$_POST[name]','$source','$level','$ecotype','$trade','$_POST[linkman]','$_POST[mobile]',
+							'$_POST[website]','$_POST[tel]','$_POST[fax]','$_POST[email]',
+							'$_POST[zipcode]','$_POST[address]','$_POST[intro]','$dt','".SYS_USER_ID."');";
+
+		$cusID =$this->C($this->cacheDir)->update($sql);
+		if($cusID>0){
+			$sql="insert into cst_linkman(name,cusID,mobile,adt,create_userID) 
+							values('$_POST[linkman]','$cusID','$_POST[mobile]','$dt','".SYS_USER_ID."');";	
+			$this->C($this->cacheDir)->update($sql);
+		}
+		return $cusID;
+	}	
 	public function customer_modify(){
-		$id	  	 = $this->_REQUEST("id");		
+		$id	= $this->_REQUEST("id");		
 		if(empty($_POST)){
 			$sql 		= "select * from cst_customer where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
@@ -177,13 +184,12 @@ class Customer extends Action{
 			$this->L("Common")->ajax_json_success("操作成功",'2',"/Customer/customer_show/");			
 		}
 	}
-	
 		
 	public function customer_del(){
 		$id	  = $this->_REQUEST("ids");
 		$sql  = "delete from cst_customer where id in ($id)";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->L("Common")->ajax_json_success("操作成功","2","/Customer/customer_show/");	
+		$this->L("Common")->ajax_json_success("操作成功","1","/Customer/customer_show/");	
 	}	
 	
 	
@@ -214,11 +220,14 @@ class Customer extends Action{
 		return $str;
 	}		
 	public function customer_get_one($id=""){
-    if($id){
-      $sql = "select * from cst_customer where id='$id'";
-      $one = $this->C($this->cacheDir)->findOne($sql);	
-      return $one;
-    }	
+		if($id){
+		  $sql = "select c.*,dict.name as level_name from cst_customer as c 
+		  		  left join cst_dict as dict on c.`level`=dict.id
+				  where c.id='$id';
+				  ";
+		  $one = $this->C($this->cacheDir)->findOne($sql);	
+		  return $one;
+		}	
 	}	
 
 	

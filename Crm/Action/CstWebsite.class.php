@@ -31,6 +31,7 @@ class CstWebsite extends Action{
 		$edt	   = $this->_REQUEST("edt");
 		$bdt1	   = $this->_REQUEST("bdt1");
 		$edt1	   = $this->_REQUEST("edt1");		
+		$status	   = $this->_REQUEST("status");		
 		$where_str 		   = " w.cusID=s.id and w.create_userID in (".SYS_USER_VIEW.")";
 
 		if( !empty($searchValue) ){
@@ -51,6 +52,10 @@ class CstWebsite extends Action{
 			$where_str .=" and w.edt<'$edt1'";
 		}		
 		
+		if( !empty($status) ){
+			$where_str .=" and w.status='$status'";
+		}		
+		
 		$cus_name="";
 		$cusID = $this->_REQUEST("cusID");
 		if(!empty($cusID) ){
@@ -65,7 +70,8 @@ class CstWebsite extends Action{
 						where $where_str 
 						order by w.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
+		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,'status'=>$status,
+							 'searchKeyword'=>$searchKeyword,'searchValue'=>$searchValue,
 							'bdt'=>$bdt,'edt'=>$edt,'bdt1'=>$bdt1,'edt1'=>$edt1,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
@@ -75,7 +81,7 @@ class CstWebsite extends Action{
 	public function cst_website_show(){
 			$assArr  		= $this->cst_website();
 			$smarty  		= $this->setSmarty();
-			$assArr["status"] = $this->cst_website_status();
+			$assArr["status_arr"] = $this->cst_website_status();
 			$smarty->assign($assArr);
 			$smarty->display('cst_website/cst_website_show.html');	
 	}
@@ -102,9 +108,9 @@ class CstWebsite extends Action{
 			$smarty->assign(array("cusID"=>$cusID,"cus_name"=>$cus_name));
 			$smarty->display('cst_website/cst_website_add.html');	
 		}else{
-			$dt	     = date("Y-m-d H:i:s",time());
-			$cusID   = $this->_REQUEST("org_id");
-			$sql     = "insert into cst_website(name,cusID,url,
+			$dt	   = date("Y-m-d H:i:s",time());
+			$cusID	= $this->_REQUEST("org_id");
+			$sql   = "insert into cst_website(name,cusID,url,
 												icp_account,icp_pwd,icp_num,
 												ftp_ip,ftp_account,ftp_pwd,
 												bdt,edt,
@@ -179,8 +185,8 @@ class CstWebsite extends Action{
 	//查询一条记录
 	public function cst_website_get_one($id=""){
 		if($id){
-			$sql 		= "select * from cst_website where id='$id'";
-			$one 		= $this->C($this->cacheDir)->findOne($sql);	
+			$sql = "select * from cst_website where id='$id'";
+			$one = $this->C($this->cacheDir)->findOne($sql);	
 			return $one;
 		}	
 	}	

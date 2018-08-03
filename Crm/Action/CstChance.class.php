@@ -56,6 +56,13 @@ class CstChance extends Action{
 						where $where_str 
 						order by s.id desc limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
+		$status		 = $this->cst_chance_status();
+		foreach($list as $key=>$row){
+			$list[$key]['salestage_name']	=$this->L("CstDict")->cst_dict_get_name($row['salestage']);
+			$list[$key]['linkman_name']	 	=$this->L("CstLinkman")->cst_linkman_get_name($row['linkmanID']);
+			$list[$key]['status_name']	 	=$status[$row['status']];
+			$list[$key]['create_user_name']	=$this->L("User")->user_get_name($row['create_userID']);
+		}
 		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
 						"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
@@ -63,12 +70,8 @@ class CstChance extends Action{
 	}
 	
 	public function cst_chance_show(){
-			$assArr  			= $this->cst_chance();
-			$assArr["dict"] 	= $this->L("CstDict")->cst_dict_arr();
-			$assArr["linkman"] 	= $this->L("CstLinkman")->cst_linkman_arr();
-			$assArr["status"] 	= $this->cst_chance_status();
-			$assArr["users"] 	= $this->L("User")->user_arr();
-			$smarty  			= $this->setSmarty();
+			$assArr = $this->cst_chance();
+			$smarty = $this->setSmarty();
 			$smarty->assign($assArr);
 			$smarty->display('cst_chance/cst_chance_show.html');	
 	}	
@@ -97,23 +100,31 @@ class CstChance extends Action{
 			$smarty->display('cst_chance/cst_chance_add.html');	
 		
 		}else{
-			$dt	     = date("Y-m-d H:i:s",time());
-			$cusID   = $this->_REQUEST("org_id");
-			$linkmanID   = $this->_REQUEST("linkman_id");
-			$salestage   = $this->_REQUEST("salestage_id");
-			$salemode    = $this->_REQUEST("salemode_id");
-			$sql     = "insert into cst_chance(cusID,salestage,linkmanID,finddt,billdt,
-												money,chance,status,title,intro,adt,
-												create_userID) 
-								values('$cusID','$salestage','$linkmanID','$_POST[finddt]','$_POST[billdt]',
-									'$_POST[money]','$_POST[chance]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt',
-									'".SYS_USER_ID."');";
-			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功",'2','/CstChance/cst_chance_show/');		
+			$rtn=$this->cst_chance_add_save();
+			if($rtn>0){
+				$this->L("Common")->ajax_json_success("操作成功",'2','/CstChance/cst_chance_show/');	
+			}	
 		}
-		
 	}		
-	
+
+	public function cst_chance_add_save(){
+		$cusID 		= $this->_REQUEST("cusID");
+		$cus_name	= $this->_REQUEST("cus_name");		
+		$dt			= date("Y-m-d H:i:s",time());
+		$cusID    = $this->_REQUEST("org_id");
+		$linkmanID	= $this->_REQUEST("linkman_id");
+		$salestage 	= $this->_REQUEST("salestage_id");
+		$salemode  = $this->_REQUEST("salemode_id");
+		$sql 		= "insert into cst_chance(cusID,salestage,linkmanID,finddt,billdt,
+											money,chance,status,title,intro,adt,
+											create_userID) 
+							values('$cusID','$salestage','$linkmanID','$_POST[finddt]','$_POST[billdt]',
+								'$_POST[money]','$_POST[chance]','$_POST[status]','$_POST[title]','$_POST[intro]','$dt',
+								'".SYS_USER_ID."');";
+			$rtn=$this->C($this->cacheDir)->update($sql);	
+			return $rtn;
+	}	
+
 	public function cst_chance_modify(){
 		$id	  	 = $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -153,6 +164,17 @@ class CstChance extends Action{
 		$list	=$this->C($this->cacheDir)->findAll($sql);
 		echo json_encode($list);
 	}	
+	public function cst_chance_opt($cusID,$inputdiv,$optvalue=null){
+		$where 	=empty($cusID)?"":"where cusID='$cusID'";
+		$sql	="select id,name from cst_chance $where order by sort asc;";
+		$list	=$this->C($this->cacheDir)->findAll($sql);
+		$opthtml="<select name='$inputdiv'>";
+		foreach($list as $row){
+        $opthtml .="<option value='".$row['id']."'>".$row['name']."</option>";
+		}
+		$opthtml .='</select>';
+		return $opthtml;
+	}
 	public function cst_chance_arr($cusID=""){
 		$rtArr  =array();
 		$where  =empty($cusID)?"":" where cusID='$cusID'";
@@ -164,10 +186,24 @@ class CstChance extends Action{
 			}
 		}
 		return $rtArr;
-	}	
+	}
+	
+	//返回字典名称
+	public function cst_chance_get_name($id){
+		if(empty($id)) $id=0;
+		$sql  ="select id,title from cst_chance where id in ($id)";	
+		$list =$this->C($this->cacheDir)->findAll($sql);
+		$str  ="";
+		if(is_array($list)){
+			foreach($list as $row){
+				$str .= "|-".$row["title"]."&nbsp;";
+			}
+		}
+		return $str;
+	}
 	
 	public function cst_chance_status(){
-		return  array("1"=>"跟踪","2"=>"成功","3"=>"失败","4"=>"搁置","5"=>"失效");
+		return array("1"=>"跟踪","2"=>"成功","3"=>"失败","4"=>"搁置","5"=>"失效");
 		    
 	}
 	public function cst_chance_status_select($inputname,$value=""){

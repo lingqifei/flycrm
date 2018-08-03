@@ -65,24 +65,24 @@ class Sys extends Action{
 		}
 		return $assArr;		
 	}
-
 	//系统密码设置
 	public function sys_password_modify(){
 		if(empty($_POST)){
 			$smarty = $this->setSmarty();
 			$smarty->display('sys/sys_password_modify.html');					
 		}else{
-			$oldpassword	= $_POST["oldpassword"];
-			$newpassword	= $_POST["newpassword"];
-			$newpassword1	= $_POST["newpassword1"];
+			$oldpassword	= trim($_POST["oldpassword"]);
+			$newpassword	= trim($_POST["newpassword"]);
+			$newpassword1	= trim($_POST["newpassword1"]);
+
 			if( $newpassword != $newpassword1 ){
 				$this->L("Common")->ajax_json_error("两次密码不一样,请细心检查是否因大小写原因造成");	
 				exit;
 			}
-			$sql= "select id from fly_sys_user where account='".$_SESSION["system"]["user"]["account"]."' and password='$oldpassword';";
+			$sql= "select id from fly_sys_user where account='".SYS_USER_ACCOUNT."' and password='$oldpassword'";
 			$one= $this->C($this->cacheDir)->findOne($sql);
 			if(!empty($one)){ 
-				$sql = "update fly_sys_user set password='$newpassword' where account='".$_SESSION["system"]["user"]["account"]."';";
+				$sql = "update fly_sys_user set password='$newpassword' where account='".SYS_USER_ACCOUNT."';";
 				if($this->C($this->cacheDir)->update($sql)>=0){
 					$this->L("Common")->ajax_json_success("操作成功");
 					exit;
