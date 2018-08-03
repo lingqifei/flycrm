@@ -332,7 +332,7 @@ a:hover {text-decoration:underline;}
 .grid .gridHeader th { padding:0 3px; border-style:solid; border-width:0 1px 1px 0; vertical-align:top; white-space:nowrap; line-height:21px; cursor:default;}
 .grid .gridHeader th.hover, .grid .gridHeader th.thSelected { background-position:0 -50px;}
 .grid .gridTbody td { border-right:solid 1px #ededed; overflow:hidden; padding:0 3px; border-bottom:solid 1px #ededed; vertical-align:middle; line-height:21px;}
-.grid .gridTbody td div { display:block; overflow:hidden; height:21px; white-space:nowrap; line-height:21px;}
+.grid .gridTbody td div { display:block; overflow:hidden;/* height:21px; white-space:nowrap;*/ line-height:21px;}
 .grid .gridTbody td div a{line-height:21px;}
 
 .grid .gridRow { border-style:solid; border-width:0 0 1px 0; cursor:default;}
