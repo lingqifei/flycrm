@@ -1,2 +1,0 @@
-INSERT INTO `fin_income_type` VALUES('16','营业外收入','0','1','1','这是其它之外的收入');
-INSERT INTO `fin_income_type` VALUES('18','好业务收入','0','2','1','');

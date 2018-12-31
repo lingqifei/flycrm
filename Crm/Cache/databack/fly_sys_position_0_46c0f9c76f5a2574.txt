@@ -1,5 +1,0 @@
-INSERT INTO `fly_sys_position` VALUES('2','董事会','0','1','1','董事会，管理全公司的信息的');
-INSERT INTO `fly_sys_position` VALUES('3','总经理','2','10','1','');
-INSERT INTO `fly_sys_position` VALUES('4','财务总监','3','20','1','');
-INSERT INTO `fly_sys_position` VALUES('5','人事总监','3','21','0','');
-INSERT INTO `fly_sys_position` VALUES('7','技术总监','3','31','1','');
