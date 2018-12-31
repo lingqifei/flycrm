@@ -19,11 +19,11 @@
 
 #演示地址
 
-    (v1)版本：http://oa.07fly.com
+    (v1)版本：[http://oa.07fly.com](http://oa.07fly.com)
     账号：admin
     密码：admin123456
 
-    (v2)版本：http://erp.07fly.com
+    (v2)版本：[http://erp.07fly.com](http://erp.07fly.com)
     账号：admin
     密码：admin123456
 
@@ -32,11 +32,11 @@
 #技术支持
 
     QQ群: 575085787
-    论坛：http://bbs.07fly.net/
+    论坛：[http://bbs.07fly.net/](http://bbs.07fly.net)
 
 #在线帮助手册
 	
-    http://www.07fly.top/crm/
+    [http://www.07fly.top/crm/](http://www.07fly.top/crm/)
 
 #零起飞开源项目:
 
@@ -51,7 +51,7 @@
     定制化开发,公司培训,技术支持,解决使用过程中出现的全部疑难问题
     开发团队：零起飞网络
     合作电话：18030402705(李先生)
-    技术支持：goodmuzi@qq.com
+    技术支持：web@07fly.com
 
 #有限担保和免责声明:
 
