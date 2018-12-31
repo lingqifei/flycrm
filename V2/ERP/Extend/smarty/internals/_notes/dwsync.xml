@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="core.assign_smarty_interface.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896567922983" remote="131618639400000000" Dst="0" />
+<file name="core.assemble_plugin_filepath.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896568543030" remote="131618639400000000" Dst="0" />
+<file name="core.get_include_path.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896568673370" remote="131618639400000000" Dst="0" />
+<file name="core.create_dir_structure.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896568272997" remote="131618639400000000" Dst="0" />
+<file name="core.display_debug_console.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896570173241" remote="131618639400000000" Dst="0" />
+<file name="core.is_secure.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569193189" remote="131618639400000000" Dst="0" />
+<file name="core.get_microtime.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896570983345" remote="131618639400000000" Dst="0" />
+<file name="core.get_php_resource.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896568843067" remote="131618639400000000" Dst="0" />
+<file name="core.is_trusted.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896570053230" remote="131618639400000000" Dst="0" />
+<file name="core.load_plugins.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896571263370" remote="131618639400000000" Dst="0" />
+<file name="core.load_resource_plugin.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569703187" remote="131618639400000000" Dst="0" />
+<file name="core.read_cache_file.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569893205" remote="131618639400000000" Dst="0" />
+<file name="core.process_cached_inserts.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896572043526" remote="131618639400000000" Dst="0" />
+<file name="core.process_compiled_include.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896568333000" remote="131618639400000000" Dst="0" />
+<file name="core.rmdir.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569343170" remote="131618639400000000" Dst="0" />
+<file name="core.rm_auto.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569073155" remote="131618639400000000" Dst="0" />
+<file name="core.run_insert_handler.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896567942950" remote="131618639400000000" Dst="0" />
+<file name="core.smarty_include_php.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896571293379" remote="131618639400000000" Dst="0" />
+<file name="core.write_cache_file.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896569533159" remote="131618639400000000" Dst="0" />
+<file name="core.write_compiled_include.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896571603414" remote="131618639400000000" Dst="0" />
+<file name="core.write_compiled_resource.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896571633413" remote="131618639400000000" Dst="0" />
+<file name="core.write_file.php" server="118.123.243.249//dggxs_com/wwwroot/" local="130256896570943326" remote="131618639400000000" Dst="0" />
+</dwsync>
