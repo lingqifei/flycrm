@@ -5,9 +5,9 @@
  * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
  * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
  * @author      kfrs <goodkfrs@QQ.com>
- * @package     admin.Book
+ * @package     admin.Customer
  * @version     1.0
- * @link       http://www.07fly.top
+ * @link       http://www.07fly.top 
  */	 
 class Customer extends Action{	
 	private $cacheDir='';//缓存目录
@@ -24,74 +24,90 @@ class Customer extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-
 		$name	   = $this->_REQUEST("name");
 		$tel	   = $this->_REQUEST("tel");
 		$linkman   = $this->_REQUEST("linkman");
 		$ecotype   = $this->_REQUEST("ecotype_id");
-		$trade     = $this->_REQUEST("trade_id");
-		$trade_name= $this->_REQUEST("trade_name");
-		$fax   	   = $this->_REQUEST("fax");
-		$email     = $this->_REQUEST("email");
+		$trade    = $this->_REQUEST("trade_id");
+		$trade_name = $this->_REQUEST("trade_name");
+		$fax   	  = $this->_REQUEST("fax");
+		$email    = $this->_REQUEST("email");
 		$address   = $this->_REQUEST("address");	
-		$bdt   	   = $this->_REQUEST("bdt");
-		$edt   	   = $this->_REQUEST("edt");
+		$bdt   	  = $this->_REQUEST("bdt");
+		$edt   	  = $this->_REQUEST("edt");
+		$orderField = $this->_REQUEST("orderField");
+		$orderDirection = $this->_REQUEST("orderDirection");
+	
 		
-		
-		$where_str = " create_userID in (".SYS_USER_VIEW.")";
+		$where_str = " c.create_userID in (".SYS_USER_VIEW.")";
 		
 		$searchKeyword	   = $this->_REQUEST("searchKeyword");
 		$searchValue	   = $this->_REQUEST("searchValue");
 		if( !empty($searchValue) ){
-			$where_str .=" and $searchKeyword like '%$searchValue%'";
+			$where_str .=" and c.$searchKeyword like '%$searchValue%'";
 		}
 		if( !empty($name) ){
-			$where_str .=" and name like '%$name%'";
+			$where_str .=" and c.name like '%$name%'";
 		}
 		if( !empty($tel) ){
-			$where_str .=" and tel like '%$tel%'";
+			$where_str .=" and c.tel like '%$tel%'";
 		}	
 		if( !empty($linkman) ){
-			$where_str .=" and linkman like '%$linkman%'";
+			$where_str .=" and c.linkman like '%$linkman%'";
 		}	
 		if( !empty($ecotype) ){
-			$where_str .=" and ecotype ='$ecotype'";
+			$where_str .=" and c.ecotype ='$ecotype'";
 		}	
 		if( !empty($trade) ){
-			$where_str .=" and trade ='$trade'";
+			$where_str .=" and c.trade ='$trade'";
 		}	
 		if( !empty($fax) ){
-			$where_str .=" and fax like '%$fax%'";
+			$where_str .=" and c.fax like '%$fax%'";
 		}	
 		if( !empty($email) ){
-			$where_str .=" and email like '%$email%'";
+			$where_str .=" and c.email like '%$email%'";
 		}	
 		if( !empty($address) ){
-			$where_str .=" and address like '%$address%'";
+			$where_str .=" and c.address like '%$address%'";
 		}	
 		if( !empty($bdt) ){
-			$where_str .=" and adt >= '$bdt'";
+			$where_str .=" and c.adt >= '$bdt'";
 		}			
 		if( !empty($edt) ){
-			$where_str .=" and adt < '$edt'";
-		}		
+			$where_str .=" and c.adt < '$edt'";
+		}	
+		
+		$order_by="order by";
+		if( $orderField=='by_nextbdt' ){
+			$order_by .=" t.nextbdt $orderDirection";
+		}else if($orderField=='by_bdt'){
+			$order_by .=" t.bdt $orderDirection";
+		}else{
+			$order_by .=" c.id desc";
+		}
+		
 		//**************************************************************************
-		$countSql    = "select id from cst_customer where $where_str";
-		$totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+		$countSql    = "select c.* from cst_customer as c left join 
+						 (select bdt,nextbdt,cusID,title from ( select id,bdt,nextbdt,cusID,title from cst_trace order by id desc) as b  group by cusID  ) t on c.id=t.cusID
+							where $where_str";
+		$totalCount = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select * from cst_customer  where $where_str order by id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select c.*,t.* from cst_customer as c left join 
+						(select bdt,nextbdt,cusID,title from ( select id,bdt,nextbdt,cusID,title from cst_trace order by id desc) as b  group by cusID  ) t on c.id=t.cusID
+						where $where_str $order_by limit $beginRecord,$numPerPage";	
+
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$trace		 = $this->L('CstTrace');
 		foreach($list as $key=>$row){
 			$list[$key]['cst_trace']=$trace->cst_trace_get_last_one($row['id']);
 		}
-		$assignArray = array('list'=>$list,
+		$assignArray = array('list'=>$list,'orderField'=>$orderField,'orderDirection'=>$orderDirection,
 							"trade"=>$trade,"trade_name"=>$trade_name,"bdt"=>$bdt,"edt"=>$edt,
 							"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage);	
 		return $assignArray;
-		
 	}
 	
+	//客户列表显示
 	public function customer_show(){
 			$assArr  		= $this->customer();
 			$assArr["dict"] = $this->L("CstDict")->cst_dict_arr();
@@ -127,6 +143,7 @@ class Customer extends Action{
 		$smarty->display('customer/advanced_search.html');	
 	}	
 	
+	//客户增加
 	public function customer_add(){
 		if(empty($_POST)){
 			$smarty = $this->setSmarty();

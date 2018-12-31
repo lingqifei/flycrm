@@ -12,7 +12,7 @@
 class FinBankAccount extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
-		_instance('Action/Auth');
+		_instance('Action/sysmanage/Auth');
 	}	
 	
 	public function fin_bank_account(){

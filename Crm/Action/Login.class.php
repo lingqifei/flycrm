@@ -18,22 +18,24 @@ class Login extends Action{
 	public function login(){
 		$config = $this->get_sys_config();
 		
-		if(is_mobile()){
+/*		if(is_mobile()){
 			$login_mbfile = "wxapp/login.html";
 		}else{
 			$login_mbfile = "login.html";
-		}
+		}*/
+		$login_mbfile = "login.html";
 		if(empty($_POST)){
 			$smarty  = $this->setSmarty();
 			$smarty->assign(array('sys'=>$config));
 			$smarty->display($login_mbfile);	
 		}else{
 			if($this->login_auth()){
-				if(is_mobile()){
-					$this->location("",'wxapp/WxIndex/index/',0);		
-				}else{
-					$this->location("",'Index',0);			
-				}
+//				if(is_mobile()){
+//					$this->location("",'wxapp/WxIndex/index/',0);		
+//				}else{
+//					$this->location("",'Index',0);			
+//				}
+				$this->location("",'/Index',0);			
 			}else{
 				$list = array("sys"=>$config,
 								"txtinfo"=>"输入的信息有误~~",

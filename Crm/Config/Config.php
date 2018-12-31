@@ -29,7 +29,7 @@
 		'DBport'    => '3306',
 		'DBuser'    => 'root',
 		'DBpsw'     => 'root',
-		'DBname'    => 'lqf_crm'
+		'DBname'    => '07fly_crm'
 	),
 	
 	'setSmarty'=>array(

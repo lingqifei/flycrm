@@ -20,6 +20,8 @@ class CstTrace extends Action{
 		$numPerPage		= $this->_REQUEST("numPerPage");//每页多少条
 		$currentPage 	= empty($currentPage)?1:$currentPage;
 		$numPerPage  	= empty($numPerPage)?$GLOBALS["pageSize"]:$numPerPage;
+		$orderField 	= $this->_REQUEST("orderField");
+		$orderDirection = $this->_REQUEST("orderDirection");
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
@@ -28,41 +30,51 @@ class CstTrace extends Action{
 		$searchValue	= $this->_REQUEST("searchValue");
 		$cusID 			= $this->_REQUEST("cusID");
 		$cus_name   	= $this->_REQUEST("cus_name");
-		$where_str = " s.cusID=c.id ";
+		$where_str = " t.create_userID in (".SYS_USER_VIEW.") ";
 		if(!empty($cusID) ){
-			$where_str .=" and s.cusID='$cusID'";
+			$where_str .=" and t.cusID='$cusID'";
 		}
 		if( !empty($searchValue) ){
-			$where_str .=" and s.$searchKeyword like '%$searchValue%'";
+			$where_str .=" and t.$searchKeyword like '%$searchValue%'";
 		}
 		if( !empty($cus_name) ){
 			$where_str .=" and c.name like '%$cus_name%'";
 		}		
 		if( !empty($bdt) ){
-			$where_str .=" and adt >= '$bdt'";
+			$where_str .=" and t.adt >= '$bdt'";
 		}			
 		if( !empty($edt) ){
-			$where_str .=" and adt < '$edt'";
-		}	
+			$where_str .=" and t.adt < '$edt'";
+		}
+		
+		$order_by="order by";
+		if( $orderField=='by_nextbdt' ){
+			$order_by .=" t.nextbdt $orderDirection";
+		}else if($orderField=='by_bdt'){
+			$order_by .=" t.bdt $orderDirection";
+		}else{
+			$order_by .=" t.id desc";
+		}
 		//**************************************************************************
-		$countSql   = "select c.name as cst_name ,s.* from cst_trace as s,cst_customer as c where $where_str";
+		$countSql   = "select c.name as cst_name ,t.* from cst_trace as t 
+						left join cst_customer as c on t.cusID=c.id
+						where $where_str";
 		$totalCount	 = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord = ($currentPage-1)*$numPerPage;
-		$sql		 = "select c.name as cst_name ,s.* from cst_trace as s,cst_customer as c
-						where $where_str 
-						order by s.id desc limit $beginRecord,$numPerPage";	
+		$sql		 = "select c.name as cst_name ,t.* from cst_trace as t
+						left join cst_customer as c on t.cusID=c.id
+						where $where_str $order_by limit $beginRecord,$numPerPage";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
-		$status		 =$this->cst_trace_status();
 		foreach($list as $key=>$row){
 			$list[$key]['salestage_name']	=$this->L("CstDict")->cst_dict_get_name($row['salestage']);
 			$list[$key]['salemode_name']	=$this->L("CstDict")->cst_dict_get_name($row['salemode']);
 			$list[$key]['linkman_name']	 	=$this->L("CstLinkman")->cst_linkman_get_name($row['linkmanID']);
-			$list[$key]['status_name']	 	=$status[$row['status']];
 			$list[$key]['chance_name']	 	=$this->L("CstChance")->cst_chance_get_name($row['chanceID']);
 			$list[$key]['create_user_name']	=$this->L("User")->user_get_name($row['create_userID']);
 		}
 		$assignArray = array('list'=>$list,'cusID'=>$cusID,'cus_name'=>$cus_name,
-								"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage
+								"numPerPage"=>$numPerPage,"totalCount"=>$totalCount,"currentPage"=>$currentPage,
+							 	'orderField'=>$orderField,'orderDirection'=>$orderDirection
 						);	
 		return $assignArray;
 		

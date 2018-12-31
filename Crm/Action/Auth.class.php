@@ -25,7 +25,7 @@ class Auth extends Action {
 		if ( empty( $_SESSION["CRM"]["USER" ]["account"] ) || empty( $_SESSION["CRM"]["USER"]["userID"] ) ) {
 			//if ($_SESSION["CRM"]["USER"]['ischeck'] != 1 ) {
 				//$_SESSION["CRM"]["USER"]['ischeck'] = 1;
-				$this->location( "", 'Login/login', 0 );
+				$this->location( "", '/Login/login', 0 );
 			//}
 		}
 	}
@@ -51,7 +51,7 @@ class Auth extends Action {
 			$data = _instance( 'Extend/Tree' )->arrToTree( $list, 0 );
 			return $data;
 		} else {
-			$this->location( "", 'Login/login', 0 );
+			$this->location( "", '/Login/login', 0 );
 		}
 	}
 
