@@ -207,7 +207,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_add/'
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_add/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="modify"){
@@ -218,7 +221,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="linkman"){
@@ -229,7 +235,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="service"){
@@ -239,7 +248,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_add/customer_id/'+customer_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="chance"){
@@ -249,7 +261,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="trace"){
@@ -259,7 +274,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/index.php/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="del"){
