@@ -24,18 +24,11 @@ class User extends Action{
 		//**************************************************************************
 		
 		//**获得传送来的数据做条件来查询
-		$name	   = $this->_REQUEST("name");
-		$tel	   = $this->_REQUEST("tel");
-		$where_str = "u.id != 0";
-		
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
-		if( !empty($searchValue) ){
-			$where_str .=" and $searchKeyword like '%$searchValue%'";
-		}
-		
-		if( !empty($name) ){
-			$where_str .=" and name like '%$name%'";
+		$keywords = $this->_REQUEST("keywords");
+		$where_str= "u.id != 0";
+
+		if( !empty($keywords) ){
+			$where_str .=" and (u.account like '%$keywords%' or u.name like '%$keywords%' or u.mobile like '%$keywords%' or u.qicq like '%$keywords%' or u.address like '%$keywords%' or u.intro like '%$keywords%')";
 		}	
 		//**************************************************************************
 		$countSql   = "select u.id from fly_sys_user as u 
@@ -64,7 +57,7 @@ class User extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('sysmanage/user_show.html');	
 	}		
-	public function lookup_search(){
+/*	public function lookup_search(){
 			$assArr  			= $this->user();
 			$assArr["dept"] 	= $this->dept->dept_arr();
 			$assArr["position"] = $this->postion->position_arr();
@@ -73,7 +66,7 @@ class User extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('sysmanage/lookup_search.html');	
 	}	
-	
+	*/
 	public function user_add(){
 		if(empty($_POST)){
 			$dept 		= $this->dept->dept_select_tree("deptID");
@@ -103,13 +96,13 @@ class User extends Action{
 										'$positionID','$roleID','$mobile','$tel',
 										'$qicq','$email','$zipcode','$address','$intro','$dt');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->location("操作成功","/sysmanage/User/user_show/");		
+			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}		
 	
 	
 	public function user_modify(){
-		$id	  	 = $this->_REQUEST("id");
+		$id	  	 = $this->_REQUEST("user_id");
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_user where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
@@ -142,16 +135,16 @@ class User extends Action{
 							zipcode='$zipcode',address='$address',intro='$intro'
 			 		where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->location("操作成功","/sysmanage/User/user_show/");			
+			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}
 	
 		
 	public function user_del(){
-		$id	  = $this->_REQUEST("ids");
-		$sql  = "delete from fly_sys_user where id in ($id)";
+		$id	  = $this->_REQUEST("user_id");
+		$sql  = "delete from fly_sys_user where id in ($id) and id!='1'";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->location("操作成功","/sysmanage/User/user_show/");
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
 	
 	public function user_list(){
@@ -188,7 +181,7 @@ class User extends Action{
 			foreach($role as $k=>$v){
 				$sub_role_arr= $this->role->role_all_child($v);//得到这个角色所有下组角色
 				if(!empty($sub_role_arr)){//查询子角色下所有用户
-					$role_txt	 =implode(',',$sub_role_arr);
+					$role_txt=implode(',',$sub_role_arr);
 					$sql	 = "select id,name,account from fly_sys_user where roleID in ($role_txt)";	
 					$list 	 = $this->C($this->cacheDir)->findAll($sql);
 					foreach($list as $key=>$row){

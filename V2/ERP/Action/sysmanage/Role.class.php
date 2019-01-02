@@ -223,15 +223,15 @@ class Role extends Action{
 	}	
 	
 	public function role_del(){
-		$id=$this->_REQUEST("id");
-		$sqlstr1 = "delete from fly_sys_role where id in ($id)";	
-		$sqlstr2 = "delete from fly_sys_power where master_value in ($id) and master='role'";										
+		$role_id=$this->_REQUEST("role_id");
+		$sqlstr1 = "delete from fly_sys_role where id in ($role_id)";	
+		$sqlstr2 = "delete from fly_sys_power where master_value in ($role_id) and master='role'";										
 		$this->C($this->cacheDir)->begintrans();
 		if($this->C($this->cacheDir)->update($sqlstr1)<0 || $this->C($this->cacheDir)->update($sqlstr2)<0 ){
 			$this->C($this->cacheDir)->rollback();
 		}
 		$this->C($this->cacheDir)->commit();
-		$this->L("Common")->ajax_json_success("操作成功","1","/sysmanage/Role/role_show/");	
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}		
 
 	//系统栏目和权限列表
@@ -331,8 +331,7 @@ class Role extends Action{
 					'sort'=>$this->_REQUEST( "sort" )
 				 );
 		$this->C( $this->cacheDir )->modify('fly_sys_role',$upt_data,"id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 	//修改名称
 	public
@@ -343,8 +342,7 @@ class Role extends Action{
 					'name'=>$this->_REQUEST( "name" )
 				 );
 		$this->C( $this->cacheDir )->modify('fly_sys_role',$upt_data,"id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 	//递归获取所有的子分类的ID
 	function get_all_child($array,$id){
