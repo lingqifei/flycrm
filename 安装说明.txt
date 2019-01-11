@@ -20,7 +20,7 @@
 1.把crm.sql 导入到MYSQL数据库中，把ERP/Config/config.php中的数据库名称，账号密码改成自己的。
 2.把程序放在php版本大于5.3的环境中，如：http://127.0.0.1/  账号 admin 密码:admin123456
 3.界面是hAdmin，请使用IE8以上，或是谷歌浏览器。效果比较好
-
+4.目前分为两个版本，V1，V2
 
 (v1)演示地址：http://oa.07fly.com
 账号：admin
