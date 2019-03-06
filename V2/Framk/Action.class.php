@@ -104,9 +104,7 @@ class Action {
 	//跳转 
 	public function location($msg='',$url='',$type=0,$sec='3') {
 		$url=ACT.$url;
-		$app=APP;
 		$tmp="";
-		$info="";
 		if(is_array($msg)){
 			foreach($msg as $key=>$va_msg){
 				$tmp .="<li> ".($key+1).") ".$va_msg."</li>";
@@ -114,66 +112,17 @@ class Action {
 		}else{
 				$tmp = $msg;
 		}
-
-if($msg==""){
-echo <<<EOT
-	<script language="javascript" type="text/javascript">window.location.href="{$url}";</script>
-EOT;	
-}		
-if($type==1){
-$info= <<<EOT
-<section id="message" alt=1>
-	<h4 class="alert_error">{$tmp}</h4>
-	<h4 class="alert_info">系统将在<span id="totalSecond">3</span>秒钟后自动跳转，如果页面没有跳转请点击<a href='javascript:window.history.go(-1);' style='color:#ff0000'>【这里】</a></h4>
-</section>
-EOT;
-}else{
-$info= <<<EOT
-<section id="message" alt=0>
-	<div class="alert alert-success">{$tmp}</div>
-	<h4 class="alert_info">系统将在<span id="totalSecond">3</span>秒钟后自动跳转，如果页面没有跳转请点击<a href='{$url}' style='color:#ff0000'>【这里】</a></h4>
-</section>
-EOT;
-}	    
-echo <<<EOT
-<!doctype html>
-<head>
-<meta charset="utf-8"/>
-<link rel="shortcut icon" href="favicon.ico"> 
-<link href="{$app}/View/template/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-<link href="{$app}/View/template/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-<link href="{$app}/View/template/css/animate.css" rel="stylesheet">
-<link href="{$app}/View/template/css/style.css?v=4.1.0" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-<div class="wrapper wrapper-content animated fadeIn">
-	<div class="row">
-		<div class="col-sm-12">{$info}</div>
-	</div>
-</div>
-</body>
-</html>
-<script language="javascript" type="text/javascript"> 
-	var i = 1; 
-	var intervalid; 
-	intervalid = setInterval("autoTimefun()", 1000); 
-	function autoTimefun() { 
-		if (i == 0) { 
-			if({$type}==1){
-				window.history.go(-1);
-			}else{
-				window.location.href = "{$url}"; 
-			}
-				
-			clearInterval(intervalid); 
-		} 
-		document.getElementById("totalSecond").innerHTML = i; 
-		i--; 
-	} 
-</script> 
-EOT;
-		exit; 		 
+	
+		if($type>0){
+			$smarty = $this->setSmarty();
+			$smarty->assign( array( "message" => $tmp) );
+			$smarty->display( 'alert.html' );
+			exit;
+			
+		}else{
+			header("Location: $url");
+			exit;
+		}
 	} //end function location 
 }
 ?>
