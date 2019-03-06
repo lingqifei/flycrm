@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 17:47:17
+<?php /* Smarty version 2.6.26, created on 2019-01-09 11:03:01
          compiled from index.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@
             <ul class="dropdown-menu animated fadeInRight">
               <!-- <li><a class="J_menuItem" href="form_avatar.html">修改头像</a> </li>-->
               <li><a class="J_menuItem" href="<?php echo @ACT; ?>
-//sysmanage/Index/index/">管理中心</a> </li>
+/sysmanage/Index/index/">管理中心</a> </li>
               <!--<li><a class="J_menuItem" href="mailbox.html">信箱</a> </li>-->
               <li class="divider"></li>
               <li><a href="<?php echo @ACT; ?>
@@ -97,25 +97,17 @@
           </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-          <li class="dropdown" id="status_all">
-          <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-bell"></i> <span class="label label-primary" id="status_0">5</span> </a>
-          <ul class="dropdown-menu dropdown-alerts">
-            <li><a class="J_menuItem" href="<?php echo @ACT; ?>
+          <li class="dropdown"> <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-user"></i>会员</a>
+            <ul class="dropdown-menu dropdown-alerts">
+              <li><a class="J_menuItem" href="<?php echo @ACT; ?>
 /admin/GoodsOrder/goods_order_show/">
-              <div>未处理订单</div>
-              </a> </li>
-            <li class="divider"></li>
-            </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <div class="text-center link-block"><a class="J_menuItem" href="<?php echo @ACT; ?>
-/admin/HotelOrder/hotel_order_show/"> <strong>查看所有 </strong> <i class="fa fa-angle-right"></i> </a> </div>
-            </li>
-          </ul>
+                <div>修改密码</div>
+                </a> </li>
+              <li class="divider"></li>
+            </ul>
           </li>
           <li><a class="dropdown-toggle count-info" href="<?php echo @ACT; ?>
-/sysmanage/Login/logout/"> <i class="fa fa-user"></i> </a> </li>
+/sysmanage/Login/logout/"> <i class="fa fa-sign-out"></i>登出</a> </li>
         </ul>
       </nav>
     </div>

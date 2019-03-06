@@ -186,7 +186,7 @@ class PosContract extends Action{
 			$smarty->display('erp/pos_contract_detail.html');		
 	}	
 			
-	
+	//合同添加 
 	public function pos_contract_add(){
 		$supplier_id= $this->_REQUEST("supplier_id");
 		if(empty($_POST)){
@@ -410,7 +410,7 @@ class PosContract extends Action{
 				 		'status_name_html'=>'<span class="label label-primary">已录明细<span>',
 						'status_operation' => array(
                  	'0' => array(
-                        'act' => 'stock',
+                        'act' => 'stock_into',
                         'color' => '#7266BA',
                         'name' => '生成入库单'
                     ),
@@ -431,13 +431,13 @@ class PosContract extends Action{
 				 		'status_name_html'=>'<span class="label label-info">部分<span>',
 						'status_operation' => array(
 							'0' => array(
-                        'act' => 'stock',
+                        'act' => 'stock_into',
                         'color' => '#23B7E5',
                         'name' => '生成入库单'
                     ),
                  ),
 					),
-			"4"=>array(
+			"5"=>array(
 				 		'status_name'=>'全部',
 				 		'status_name_html'=>'<span class="sucess">全部<span>',
 						'status_operation' => array(),
@@ -491,6 +491,29 @@ class PosContract extends Action{
 		$upd_date=array('status'=>$status);
 		$this->C($this->cacheDir)->modify('pos_contract',$upd_date,"contract_id='$contract_id'");
 		return true;
-	}			
+	}	
+	
+	//入库之后改合同付收货状态功能
+	public function pos_contract_modify_rece_status($contract_id){
+		$totalSql= "select sum(owe_num) as total_owe_num,sum(into_num) as total_into_num,sum(num) as total_num
+				   from pos_contract_list  where contract_id='$contract_id'";	
+		$totalRs = $this->C($this->cacheDir)->findOne($totalSql);
+		
+		if($totalRs['total_owe_num']>0){
+			$rece_status='4';
+		}else if($totalRs['total_owe_num']==0){
+			$rece_status='5';
+		}
+		if($totalRs['total_into_num']==0){
+			$rece_status='2';	
+		}
+		if($totalRs['total_num']==0){
+			$rece_status='1';	
+		}		
+
+		$this->C($this->cacheDir)->modify('pos_contract',array('rece_status'=>$rece_status),"contract_id='$contract_id'");
+		return true;
+	}	
+	
 }
 ?>

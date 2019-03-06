@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:09:04
+<?php /* Smarty version 2.6.26, created on 2019-01-03 15:49:32
          compiled from crm/cst_customer_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -222,7 +222,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_add/'
+/index.php/crm/CstCustomer/cst_customer_add/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="modify"){
@@ -235,7 +238,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/' //iframe的url
+/index.php/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="linkman"){
@@ -248,7 +254,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/' //iframe的url
+/index.php/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="service"){
@@ -259,7 +268,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_add/customer_id/'+customer_id+'/' //iframe的url
+/index.php/crm/CstService/cst_service_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="chance"){
@@ -270,7 +282,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/' //iframe的url
+/index.php/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="trace"){
@@ -281,7 +296,10 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/' //iframe的url
+/index.php/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;
 		}else if(single_act=="del"){

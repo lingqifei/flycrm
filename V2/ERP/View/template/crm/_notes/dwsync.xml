@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="cst_website_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907166460736587" remote="131907155400000000" Dst="0" />
-<file name="sal_contract_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907167027628844" remote="131907156000000000" Dst="0" />
-<file name="cst_trace_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907167840175378" remote="131907156600000000" Dst="0" />
-<file name="cst_customer_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907338383200266" remote="131907327600000000" Dst="0" />
+<file name="cst_website_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907166460736587" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914138849317389" remote="131915557200000000" Dst="0" />
+<file name="cst_trace_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907167840175378" remote="131915557200000000" Dst="0" />
+<file name="cst_customer_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907338383200266" remote="131915557200000000" Dst="0" />
+<file name="cst_chance_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131920802517096650" remote="131920791600000000" Dst="0" />
+<file name="cst_chance_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131920802577936132" remote="131920791600000000" Dst="0" />
+<file name="cst_chance_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131908840349178727" remote="131915557200000000" Dst="0" />
+<file name="cst_customer_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131903767650046765" remote="131915557200000000" Dst="0" />
+<file name="cst_customer_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131903788942456386" remote="131915557200000000" Dst="0" />
+<file name="cst_customer_detail.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131903935849378817" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087949970739" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087950010762" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087950130880" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_type_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087950170913" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_type_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087950220916" remote="131915557200000000" Dst="0" />
+<file name="cst_linkman_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904388210000000" remote="131915557200000000" Dst="0" />
+<file name="cst_dict_type_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087950281164" remote="131915557200000000" Dst="0" />
+<file name="cst_linkman_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904387746808195" remote="131915557200000000" Dst="0" />
+<file name="cst_linkman_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904388916039654" remote="131915557200000000" Dst="0" />
+<file name="cst_service_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131889213502631613" remote="131915557200000000" Dst="0" />
+<file name="cst_service_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904394162179274" remote="131915557200000000" Dst="0" />
+<file name="cst_trace_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904405012971715" remote="131915557200000000" Dst="0" />
+<file name="cst_trace_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131890927196578236" remote="131915557200000000" Dst="0" />
+<file name="cst_service_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904588550378016" remote="131915557200000000" Dst="0" />
+<file name="cst_website_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904618203204758" remote="131915557200000000" Dst="0" />
+<file name="cst_website_add_renew.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907108818719207" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131891814707534374" remote="131915557200000000" Dst="0" />
+<file name="cst_website_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904618288062900" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_list_detail.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131910817071199607" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_detail.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131898355821340116" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_list_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904447536557724" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_list_stock_out.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914281322618685" remote="131915557200000000" Dst="0" />
+<file name="sal_contract_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131892276453412201" remote="131915557200000000" Dst="0" />
 </dwsync>

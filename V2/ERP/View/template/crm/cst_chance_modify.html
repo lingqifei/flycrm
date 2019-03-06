@@ -35,7 +35,6 @@
         <label class="col-sm-2 control-label">当前阶段</label>
         <div class="col-sm-8">
           <select data-placeholder="选择当前阶段..." name="salestage" class="chosen-select salestage-chose-select" style="width: 200px;" tabindex="2">
-            <option value="">请选当前阶段</option>   
 					  #{foreach from=$salestage key=k item=v}#	  
             <option value="#{$v.dict_id}#" hassubinfo="true">#{$v.name}#</option>
 					  #{/foreach}#

@@ -12,22 +12,9 @@ class Login extends Action{
 	public function login(){
 		$config =$this->get_sys_config();
 		if(empty($_POST)){
-			$smarty  = $this->setSmarty();
+			$smarty = $this->setSmarty();
 			$smarty->assign(array('sys'=>$config));
 			$smarty->display('sysmanage/login.html');		
-		}else{
-			if($this->login_auth()){
-				$this->location("",'/sysmanage/Index',0);			
-			}else{
-				$list = array("sys"=>$config,
-								"txtinfo"=>"输入的信息有误~~",
-								"account"=>$_POST["account"],
-								"password"=>$_POST["password"]
-							);
-				$smarty = $this->setSmarty();
-				$smarty->assign($list);
-				$smarty->display('sysmanage/login.html');					
-			}
 		}
 	}
 	
@@ -35,10 +22,15 @@ class Login extends Action{
 	public function login_auth(){
 		$account	= $this->_REQUEST("account");
 		$password 	= $this->_REQUEST("password");
+		
+		if(empty($account) || empty($password)){
+			$this->L("Common")->ajax_json_error("帐号密码不能为空");	
+			exit;
+		}
+		
 		$sql 		= "select * from fly_sys_user where account='$account' and password='$password'";	
 		$one 		= $this->C($this->cacheDir)->findOne($sql);
 		if(!empty($one)){
-			
 			//定义SESSION变量值
 			$_SESSION["CRM"]["USER"]["account"]		= $one["account"];
 			$_SESSION["CRM"]["USER"]["userID"]		= $one["id"];
@@ -66,11 +58,10 @@ class Login extends Action{
 
 			@define('SYS_USER_ACCOUNT',$_SESSION["CRM"]["USER"]["account"]);//定义
 			@define('SYS_USER_ID', $_SESSION["CRM"]["USER"]["userID"]);//定义
-			@define('SYS_USER_VIEW',$_SESSION["CRM"]["USER"]["viewID"]);//定义查看下级用户的权限					
-				
-			return true;
+			@define('SYS_USER_VIEW',$_SESSION["CRM"]["USER"]["viewID"]);//定义查看下级用户的权限						
+			$this->L("Common")->ajax_json_success(ACT."/sysmanage/Index/");
 		}else{
-			return false;
+			$this->L("Common")->ajax_json_error("帐号密码输入错误");	
 		}
 	}
 	

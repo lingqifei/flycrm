@@ -123,10 +123,15 @@ class Menu extends Action{
 			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/menu_add.html');	
 		}else{
-			$sql= "insert into fly_sys_menu(name,name_en,url,parentID,sort,visible) 
-								values('$_POST[name]','$_POST[name_en]','$_POST[url]','$_POST[parentID]','$_POST[sort]','$_POST[visible]');";
-			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");	
+			$into_data=array(
+						'name'=>$this->_REQUEST( "name" ),
+						'url'=>$this->_REQUEST( "url" ),
+						'parentID'=>$this->_REQUEST( "parentID" ),
+						'sort'=>$this->_REQUEST( "sort" ),
+						'visible'=>$this->_REQUEST( "visible" )
+					 );
+			$this->C( $this->cacheDir )->insert('fly_sys_menu',$into_data);
+			$this->L("Common")->ajax_json_success("操作成功");
 		}
 	}
 	//修改
@@ -140,21 +145,15 @@ class Menu extends Action{
 			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));
 			$smarty->display('sysmanage/menu_modify.html');	
 		}else{
-			$name	 = $this->_REQUEST("name");
-			$name_en	 = $this->_REQUEST("name_en");
-			$url	 = $this->_REQUEST("url");
-			$parentID	 = $this->_REQUEST("parentID");
-			$sort	 = $this->_REQUEST("sort");
-			$visible	 = $this->_REQUEST("visible");
-			
-			$sql= "update fly_sys_menu set name='$name',name_en='$name_en',
-											url='$url',
-											parentID='$parentID',
-											sort='$sort',
-											visible='$visible'
-					where id='$id'";
-			$this->C($this->cacheDir)->update($sql);	
-			$this->L("Common")->ajax_json_success("操作成功");	
+			$upt_data=array(
+						'name'=>$this->_REQUEST( "name" ),
+						'url'=>$this->_REQUEST( "url" ),
+						'parentID'=>$this->_REQUEST( "parentID" ),
+						'sort'=>$this->_REQUEST( "sort" ),
+						'visible'=>$this->_REQUEST( "visible" )
+					 );
+			$this->C( $this->cacheDir )->modify('fly_sys_menu',$upt_data,"id='$id'",true);
+			$this->L("Common")->ajax_json_success("操作成功");
 		}
 	}
 	//删除

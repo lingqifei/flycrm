@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:33:58
+<?php /* Smarty version 2.6.26, created on 2019-02-16 23:08:04
          compiled from sysmanage/role_check_power.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,8 @@ unset($_smarty_tpl_vars);
         </div>
         <div class="ibox-content">
 			<form id="pagerForm" method="post" class="form-inline">
-			  <input type="hidden" name="role_id" value="1">
+			  <input type="hidden" name="role_id" value="<?php echo $this->_tpl_vars['role_id']; ?>
+">
           <div class="treeClassBody"><?php echo $this->_tpl_vars['treeHtml']; ?>
 </div>
 				<div class="ibox-content"><button type="button" class="btn btn-info save-data">保存数据</button></div>

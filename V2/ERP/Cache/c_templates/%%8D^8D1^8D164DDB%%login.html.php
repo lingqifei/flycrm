@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 17:52:11
+<?php /* Smarty version 2.6.26, created on 2019-01-04 18:47:51
          compiled from sysmanage/login.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +20,7 @@
 /View/template/css/style.css?v=4.1.0" rel="stylesheet">
 <link href="<?php echo @APP; ?>
 /View/template/css/07fly.css" rel="stylesheet">
+
 <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
@@ -37,13 +38,13 @@
   <form class="m-t" role="form" action="<?php echo @ACT; ?>
 /sysmanage/Login/login/" method="post">
    <div class="form-group">
-    <input type="text" name="account" class="form-control" placeholder="用户名" value="admin" required="">
+    <input type="text" name="account" class="form-control" placeholder="用户名">
    </div>
    <div class="form-group">
-    <input type="password" name="password" class="form-control" placeholder="密码" value="admin123456" required="">
+    <input type="password" name="password" class="form-control" placeholder="密码">
    </div>
-   <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-   <p class="text-muted text-center"> <a href="#">版权所有:成都零起飞网络工作室 </a> </p>
+   <button type="button" class="btn btn-primary block full-width m-b login-btn">登 录</button>
+   <p class="text-muted text-center"> <a href="http://www.07fly.top">版权所有:成都零起飞网络工作室 </a> </p>
   </form>
  </div>
 </div>
@@ -53,6 +54,16 @@
 /View/template/js/jquery.min.js?v=2.1.4"></script> 
 <script src="<?php echo @APP; ?>
 /View/template/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- layer javascript --> 
+<script src="<?php echo @APP; ?>
+/View/template/js/plugins/layer/layer.min.js"></script> 
+<!-- Data picker -->
+<script src="<?php echo @APP; ?>
+/View/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="<?php echo @APP; ?>
+/View/template/js/plugins/datapicker/bootstrap-datetimepicker.js"></script>
+<script src="<?php echo @APP; ?>
+/View/template/js/plugins/datapicker/bootstrap-datetimepicker.zh-CN.js"></script>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -61,6 +72,26 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+	
+//绑定删除图片
+$("body").on("click", ".login-btn", function() {
+	FormData=$("form").serialize();
+	$.ajax({
+		type: "POST",
+		url: "<?php echo @ACT; ?>
+/sysmanage/Login/login_auth/",
+		data:FormData,
+		dataType:"json",
+		success: function(data){
+			if(data.statusCode=='200'){
+				layer.msg('操作成功', {icon: 1}); 	
+				window.location.href=data.message;
+			}else{
+				layer.msg(data.message, {icon: 5}); 	
+			}
+		}
+	});		
+});
 </script>
 </body>
 </html>

@@ -91,7 +91,8 @@
                 <th width="100" orderField="by_startdate" class="sort-filed"><span>开始时间</span></th>
                 <th width="100" orderField="by_enddate" class="sort-filed"><span>结束时间</span></th>
                 <th width="80"><span>合同状态</span></th>
-                <th  width="100" class="text-center">操作</th>
+				  		<th width="80"><span>交付状态</span></th>
+                <th width="100" class="text-center">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +133,13 @@
 		</td>
 		<td><%=list[i]['start_date']%></td>
 		<td><%=list[i]['end_date']%></td>
-		<td><%:=list[i]['status_arr']['status_name_html']%></td>	
+		<td><%:=list[i]['status_arr']['status_name_html']%></td>
+		<td>
+			<p><%:=list[i]['deliver_status_arr']['status_name_html']%></p>
+			<% for(var j=0;j<list[i]['deliver_status_arr']['status_operation'].length;j++) { %>
+			<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['contract_id']%>" data-act="<%=list[i]['deliver_status_arr']['status_operation'][j]['act']%>"><font color="<%=list[i]['deliver_status_arr']['status_operation'][j]['color']%>"><%=list[i]['deliver_status_arr']['status_operation'][j]['name']%></font></a></p>
+			<% } %>
+		</td>
 		<td align="center">
 		<% for(var j=0;j<list[i]['status_arr']['status_operation'].length;j++) { %>
 		<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['contract_id']%>" data-act="<%=list[i]['status_arr']['status_operation'][j]['act']%>"><font color="<%=list[i]['status_arr']['status_operation'][j]['color']%>"><%=list[i]['status_arr']['status_operation'][j]['name']%></font></a></p>
@@ -227,7 +234,33 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/crm/SalContractList/sal_contract_list_add/contract_id/'+contract_id+'/'
+				content: '#{$smarty.const.ACT}#/crm/SalContractList/sal_contract_list_add/contract_id/'+contract_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;	
+		}else if(single_act=="list_detail"){
+			layer.open({
+				type: 2,
+				title: '合同明细列表',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/crm/SalContractList/sal_contract_list_detail/contract_id/'+contract_id+'/'
+			});			
+			return false;	
+		}else if(single_act=="stock_out"){
+			layer.open({
+				type: 2,
+				title: '生成出库单',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/crm/SalContractList/sal_contract_list_stock_out/contract_id/'+contract_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
 			});			
 			return false;	
 		}else if(single_act=="delete"){
@@ -246,6 +279,20 @@ $(document).ready(function () {
 			});
 		}else if(single_act=="detail"){
 			window.location.href='#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_detail/contract_id/'+contract_id+'/';
+		}else if(single_act=="list_del"){
+			act_url="#{$smarty.const.ACT}#/index.php/crm/SalContractList/sal_contract_list_del/";
+			$.ajax({
+				type: "POST",
+				url: act_url,
+				data:{"contract_id":contract_id},
+				dataType:"json",
+				success: function(data){
+					if(data.statusCode=='200'){
+						layer.msg('操作成功', {icon: 1}); 
+						turnPage(1);
+					}
+				}
+			});
 		}
 	});
 	

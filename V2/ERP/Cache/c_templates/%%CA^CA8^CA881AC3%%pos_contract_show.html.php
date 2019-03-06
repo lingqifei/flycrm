@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:34:29
+<?php /* Smarty version 2.6.26, created on 2019-01-09 09:25:18
          compiled from erp/pos_contract_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@ unset($_smarty_tpl_vars);
                   </ul>
                 </div>
               </div>
-              <div class="col-sm-9 m-b-xs text-right"> 
+              <div class="col-sm-9 m-b-xs text-right">
                 <div class="form-group text-left  pd-b-5">
                   <select data-placeholder="有效期起始..." name="start_date" class="chosen-select" style="width: 150px;" >
                     <option value="0">有效期起始所有</option>
@@ -103,7 +103,13 @@ unset($_smarty_tpl_vars);
             <tbody>
             </tbody>
           </table>
-			<table class="table 07fly-table"><tfoot class="ibox-content"><tr><td align="center" class="pagestring"></td></tr></tfoot></table>
+          <table class="table 07fly-table">
+            <tfoot class="ibox-content">
+              <tr>
+                <td align="center" class="pagestring"></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </div>
@@ -243,6 +249,31 @@ $(document).ready(function () {
 				area: ['100%', '100%'],
 				content: '<?php echo @ACT; ?>
 /erp/PosContractList/pos_contract_list_add/contract_id/'+contract_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;	
+		}else if(single_act=="list_detail"){
+			layer.open({
+				type: 2,
+				title: '采购合同明细列表',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '<?php echo @ACT; ?>
+/erp/PosContractList/pos_contract_list_detail/contract_id/'+contract_id+'/'
+			});			
+			return false;	
+		}else if(single_act=="stock_into"){
+			layer.open({
+				type: 2,
+				title: '生成入库单',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '<?php echo @ACT; ?>
+/erp/PosContractList/pos_contract_list_stock_into/contract_id/'+contract_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}

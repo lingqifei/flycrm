@@ -131,7 +131,7 @@ class Role extends Action{
 		$role =(!empty($role))?$role:array('SYS_MENU'=>'0','SYS_METHOD'=>'0',);
 		$treeHtml=$this->getTreeChecked($tree,$role);
 		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml) );
+		$smarty->assign( array( "treeHtml" => $treeHtml,'role_id'=>$role_id) );
 		$smarty->display( 'sysmanage/role_check_power.html' );
 	}
 	//权限保存

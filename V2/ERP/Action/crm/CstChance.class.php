@@ -83,8 +83,8 @@ class CstChance extends Action{
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$dict		 = $this->dict->cst_dict_arr();
 		foreach($list as $key=>$row){
-			$list[$key]['salestage_name']	=$dict[$row['salestage']];
-			$list[$key]['linkman']	 	=$this->linkman->cst_linkman_get_one($row['linkman_id']);
+			$list[$key]['salestage_name']=@$dict[$row['salestage']];
+			$list[$key]['linkman']	 	 =$this->linkman->cst_linkman_get_one($row['linkman_id']);
 			//$list[$key]['status_name']	 	=$status[$row['status']];
 			//$list[$key]['create_user_name']	=$this->L("User")->user_get_name($row['create_user_id']);
 		}

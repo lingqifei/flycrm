@@ -26,7 +26,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-sm-9 m-b-xs text-right"> 
+              <div class="col-sm-9 m-b-xs text-right">
                 <div class="form-group text-left  pd-b-5">
                   <select data-placeholder="有效期起始..." name="start_date" class="chosen-select" style="width: 150px;" >
                     <option value="0">有效期起始所有</option>
@@ -97,7 +97,13 @@
             <tbody>
             </tbody>
           </table>
-			<table class="table 07fly-table"><tfoot class="ibox-content"><tr><td align="center" class="pagestring"></td></tr></tfoot></table>
+          <table class="table 07fly-table">
+            <tfoot class="ibox-content">
+              <tr>
+                <td align="center" class="pagestring"></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </div>
@@ -229,6 +235,29 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['100%', '100%'],
 				content: '#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_add/contract_id/'+contract_id+'/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;	
+		}else if(single_act=="list_detail"){
+			layer.open({
+				type: 2,
+				title: '采购合同明细列表',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_detail/contract_id/'+contract_id+'/'
+			});			
+			return false;	
+		}else if(single_act=="stock_into"){
+			layer.open({
+				type: 2,
+				title: '生成入库单',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_stock_into/contract_id/'+contract_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}

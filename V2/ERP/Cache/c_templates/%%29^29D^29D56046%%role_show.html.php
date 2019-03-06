@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:23:50
+<?php /* Smarty version 2.6.26, created on 2019-01-02 13:53:57
          compiled from sysmanage/role_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -9,27 +9,27 @@ unset($_smarty_tpl_vars);
  ?>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="ibox float-e-margins">
-				<div class="ibox-title">
-					<h5><i class="fa fa-home"></i>角色管理</h5>
-					<div class="ibox-tools"> <a href="<?php echo @ACT; ?>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5><i class="fa fa-home"></i>角色管理</h5>
+          <div class="ibox-tools"> <a href="<?php echo @ACT; ?>
 /sysmanage/Role/role_add/" >
-						<button type="button" class="btn btn-xs btn-primary"><i class='fa fa-plus'></i> 添加</button>
-						</a> <a href="?">
-						<button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button>
-						</a> </div>
-				</div>
-				<div class="ibox-content">
-					<div class="treeClassBody"><?php echo $this->_tpl_vars['treeHtml']; ?>
+            <button type="button" class="btn btn-xs btn-primary"><i class='fa fa-plus'></i> 添加</button>
+            </a> <a href="?">
+            <button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button>
+            </a> </div>
+        </div>
+        <div class="ibox-content">
+          <div class="treeClassBody"><?php echo $this->_tpl_vars['treeHtml']; ?>
 </div>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-	</body>
+</body>
 </html>
 <script type="text/javascript">
 $(document).ready(function () {
@@ -79,6 +79,20 @@ $(document).ready(function () {
 				}
 			});			
 			return false;		
+		}else if(single_act=="del"){
+			$.ajax({
+				type: "POST",
+				url: "<?php echo @ACT; ?>
+/index.php/sysmanage/Role/role_del/",
+				data:{"role_id":role_id},
+				dataType:"json",
+				success: function(data){
+					if(data.statusCode=='200'){
+						layer.msg('操作成功', {icon: 1});   
+					}
+					console.log(data.message);
+				}
+			});
 		}
 	});
 	
@@ -93,10 +107,10 @@ $(document).ready(function () {
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
+				console.log(data.message);
 			}
 		});
 	});
@@ -111,10 +125,10 @@ $(document).ready(function () {
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
+				console.log(data.message);
 			}
 		});
 	});
@@ -129,10 +143,10 @@ $(document).ready(function () {
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
+				console.log(data.message);
 			}
 		});
 	});

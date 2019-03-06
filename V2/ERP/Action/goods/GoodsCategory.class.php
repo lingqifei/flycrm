@@ -129,9 +129,15 @@ class GoodsCategory extends Action {
 		return $rtn;
 	}
 
+	//得到一条记录
+	public function goods_category_get_one($category_id) {
+		$sql= "select *,category_name as text,category_id as tags from fly_goods_category where category_id='$category_id';";
+		$list = $this->C( $this->cacheDir )->findOne( $sql );
+		return $list;
+	}
 	
-	public
-	function goods_category_show() {
+	
+	public function goods_category_show() {
 		$list =$this->goods_category();
 		$tree =$this->getTree($list, 0 );
 		$treeHtml=$this->getTreeHtml($tree);

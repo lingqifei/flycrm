@@ -135,7 +135,7 @@ class SalContract extends Action{
 		$moneySql    = "select sum(s.money) as total_money,
 								sum(s.back_money) as total_back_money,
 								sum(s.zero_money) as total_zero_money,
-								sum(s.pay_money) as total_pay_money,
+								sum(s.deliver_money) as total_deliver_money,
 								sum(s.owe_money) as total_owe_money
 						 from sal_contract as s,cst_customer as c where $where_str";
 		$moneyRs	 = $this->C($this->cacheDir)->findOne($moneySql);
@@ -150,15 +150,11 @@ class SalContract extends Action{
 		foreach($list as $key=>$row){
 			$list[$key]['linkman']	 	=$this->linkman->cst_linkman_get_one($row['linkman_id']);
 			$list[$key]['status_arr']	=$this->sal_contract_status($row['status']);
+			$list[$key]['deliver_status_arr']	=$this->sal_contract_deliver_status($row['deliver_status']);
 			$list[$key]['invoice_status_arr']	=$this->sal_contract_invoice_status($row['invoice_status']);
 			$list[$key]['back_status_arr']	=$this->sal_contract_back_status($row['back_status']);
 			$list[$key]['our_user_arr']	=$this->sys_user->user_get_one($row['our_user_id']);
 		}
-
-		$count_str	 =" 总金额合计:<font color='red'>".$moneyRs["total_money"]."</font>,";
-		$count_str	.=" 回款金额合计:<font color='red'>".$moneyRs["total_back_money"]."</font>,";
-		$count_str	.=" 去零金额合计:<font color='red'>".$moneyRs["total_zero_money"]."</font>,";
-		$count_str	.=" 交付金额合计:<font color='red'>".$moneyRs["total_pay_money"]."</font>";
 		$assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum,"countMoney"=>$moneyRs);	
 		return $assignArray;
 	}
@@ -409,21 +405,6 @@ class SalContract extends Action{
 		return ($key)?$data[$key]:$data;
 	}
 
-	//合同续费状态
-	public function sal_contract_renew_status($key=null){
-		$data=array(
-			"1"=>array(
-				 		'status_name'=>'新增',
-				 		'status_name_html'=>'<span class="label label-info">新增<span>',
-					),
-			"2"=>array(
-				 		'status_name'=>'续费',
-				 		'status_name_html'=>'<span class="label label-info">续费<span>',
-					)
-		);
-		return ($key)?$data[$key]:$data;
-	}
-
 	//回款状态
 	public function sal_contract_back_status($key=null){
 		$data=array(
@@ -446,28 +427,56 @@ class SalContract extends Action{
 		return ($key)?$data[$key]:$data;
 	}
 	
-	//交付状态
+	//交货状态
 	public function sal_contract_deliver_status($key=null){
 		$data=array(
-			"0"=>array(
-				 		'status_name'=>'不需要',
-						'color'=>'#7266BA',
-				 		'status_name_html'=>'<span class="label label-info">需要<span>',
-					),
 			"1"=>array(
 				 		'status_name'=>'需要',
-						'color'=>'#FAD733',
-				 		'status_name_html'=>'<span class="label label-info">需要<span>',
-					),
+				 		'status_name_html'=>'<span class="label label-warning">需要<span>',
+						'status_operation' => array(
+                    '0' => array(
+                        'act' => 'list_add',
+                        'color' => '#23B7E5',
+                        'name' => '录入明细'
+                    )
+                ),
+				),
 			"2"=>array(
-				 		'status_name'=>'部分',
-						'color'=>'#23B7E5',
-				 		'status_name_html'=>'<span class="label label-info">部分<span>',
+				 		'status_name'=>'已录明细',
+				 		'status_name_html'=>'<span class="label label-primary">已录明细<span>',
+						'status_operation' => array(
+                 	'0' => array(
+                        'act' => 'stock_out',
+                        'color' => '#7266BA',
+                        'name' => '生成入库单'
+                    ),
+                    '1' => array(
+                        'act' => 'list_del',
+                        'color' => '#F05050',
+                        'name' => '删除明细'
+                    )
+                	),
 					),
 			"3"=>array(
+				 		'status_name'=>'待入库',
+				 		'status_name_html'=>'<span class="label label-danger">待入库<span>',
+						'status_operation' => array( ),
+					),
+			"4"=>array(
+				 		'status_name'=>'部分',
+				 		'status_name_html'=>'<span class="label label-info">部分<span>',
+						'status_operation' => array(
+							'0' => array(
+                        'act' => 'stock_out',
+                        'color' => '#23B7E5',
+                        'name' => '生成入库单'
+                    ),
+                 ),
+					),
+			"5"=>array(
 				 		'status_name'=>'全部',
-						'color'=>'#27C24C',
-				 		'status_name_html'=>'<span class="label label-info">全部<span>',
+				 		'status_name_html'=>'<span class="sucess">全部<span>',
+						'status_operation' => array(),
 					)
 		);
 		return ($key)?$data[$key]:$data;
@@ -506,10 +515,15 @@ class SalContract extends Action{
 		$one =$this->sal_contract_get_one($contract_id);
 		$back_status=$one['back_status'];
 		$invoice_status=$one['invoice_status'];
+		$deliver_status=$one['deliver_status'];//0表示不需要交付
 		//回款，发票，都开完了
-		if($back_status=='3' && $invoice_status=='3'){
+		if($back_status=='3' && $invoice_status=='3' && $deliver_status=='5'){
 			$status='3';//完成状态
-		}else if($back_status=='1' && $invoice_status=='1'){
+		}else if($back_status=='3' && $invoice_status=='3' && $deliver_status=='0'){
+			$status='3';//完成状态
+		}else if($back_status=='1' && $invoice_status=='1' && $deliver_status=='1'){
+			$status='1';//临时状态
+		}else if($back_status=='1' && $invoice_status=='1' && $deliver_status=='0'){
 			$status='1';//临时状态
 		}else{
 			$status='2';
@@ -517,6 +531,29 @@ class SalContract extends Action{
 		$upd_date=array('status'=>$status);
 		$this->C($this->cacheDir)->modify('sal_contract',$upd_date,"contract_id='$contract_id'");
 		return true;
-	}		
+	}	
+	
+	//出库库之后改合同付收货状态功能
+	public function sal_contract_modify_deliver_status($contract_id){
+		$totalSql= "select sum(owe_num) as total_owe_num,sum(out_num) as total_out_num,sum(num) as total_num
+				   from sal_contract_list  where contract_id='$contract_id'";	
+		$totalRs = $this->C($this->cacheDir)->findOne($totalSql);
+		
+		if($totalRs['total_owe_num']>0){
+			$deliver_status='4';
+		}else if($totalRs['total_owe_num']==0){
+			$deliver_status='5';
+		}
+		if($totalRs['total_out_num']==0){
+			$deliver_status='2';	
+		}
+		if($totalRs['total_num']==0){
+			$deliver_status='1';	
+		}		
+
+		$this->C($this->cacheDir)->modify('sal_contract',array('deliver_status'=>$deliver_status),"contract_id='$contract_id'");
+		return true;
+	}	
+	
 }
 ?>

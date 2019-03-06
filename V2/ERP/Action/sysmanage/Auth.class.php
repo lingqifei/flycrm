@@ -19,7 +19,7 @@ class Auth extends Action {
 	//检查是否有登录
 	public function check_login() {
 		if ( empty( $_SESSION[ "CRM" ][ "USER" ][ "userID" ] )) {
-			$this->location( "请登录", '/sysmanage/Login/login',0);
+			$this->location( "请登录", '/sysmanage/Login/login');
 		}
 	}
 
@@ -47,7 +47,7 @@ class Auth extends Action {
 			$data = _instance( 'Extend/Tree' )->arrToTree( $list, 0 );
 			return $data;
 		} else {
-			$this->location( "请登录", '/sysmanage/Login/login', 0 );
+			$this->location( "请登录", '/sysmanage/Login/login');
 		}
 	}
 
