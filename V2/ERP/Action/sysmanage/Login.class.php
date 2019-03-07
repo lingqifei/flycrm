@@ -1,8 +1,19 @@
 <?php 
 /*
- * 后台登录类
  *
+ * sysmanage.Login  后台登录   
+ *
+ * =========================================================
+ * 零起飞网络 - 专注于网站建设服务和行业系统开发
+ * 以质量求生存，以服务谋发展，以信誉创品牌 !
+ * ----------------------------------------------
+ * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author ：kfrs <goodkfrs@QQ.com> 574249366
+ * @version ：1.0
+ * @link ：http://www.07fly.top 
  */	
+
 class Login extends Action{	
 	private $cacheDir='';//缓存目录
 	private $auth;
@@ -28,8 +39,8 @@ class Login extends Action{
 			exit;
 		}
 		
-		$sql 		= "select * from fly_sys_user where account='$account' and password='$password'";	
-		$one 		= $this->C($this->cacheDir)->findOne($sql);
+		$sql = "select * from fly_sys_user where account='$account' and password='".md5($password)."'";	
+		$one = $this->C($this->cacheDir)->findOne($sql);
 		if(!empty($one)){
 			//定义SESSION变量值
 			$_SESSION["CRM"]["USER"]["account"]		= $one["account"];
@@ -79,11 +90,9 @@ class Login extends Action{
 	public function get_sys_config(){
 		$sql 	= "select * from fly_sys_config;";
 		$list	= $this->C($this->cacheDir)->findAll($sql);
-		
-		if(is_array($list)){
-			foreach($list as $key=>$row){
-				$assArr[$row["name"]] = $row["value"];
-			}
+		$assArr=array();
+		foreach($list as $key=>$row){
+			$assArr[$row["name"]] = $row["value"];
 		}
 		return $assArr;		
 	}

@@ -1,8 +1,18 @@
 <?php
 /*
- * 后台数据库备份还原类
  *
- */
+ * sysmanage.SysData  数据库备份恢复   
+ *
+ * =========================================================
+ * 零起飞网络 - 专注于网站建设服务和行业系统开发
+ * 以质量求生存，以服务谋发展，以信誉创品牌 !
+ * ----------------------------------------------
+ * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author ：kfrs <goodkfrs@QQ.com> 574249366
+ * @version ：1.0
+ * @link ：http://www.07fly.top 
+ */	
 
 class SysData extends Action {
 
@@ -24,8 +34,7 @@ class SysData extends Action {
 
 	}
 
-	public
-	function sys_data() {
+	public function sys_data() {
 		$tables = $this->sys_data_showtables();
 		$smarty = $this->setSmarty();
 		$smarty->assign( array( "list" => $tables ) );
@@ -33,8 +42,7 @@ class SysData extends Action {
 	}
 
 	//执行备份数据库
-	public
-	function sys_data_back() {
+	public function sys_data_back() {
 		$tables = $this->sys_data_showtables();
 		$smarty = $this->setSmarty();
 		$smarty->assign( array( "list" => $tables ) );
@@ -42,8 +50,7 @@ class SysData extends Action {
 	}
 
 	//执行备份函数
-	public
-	function sys_data_back_done() {
+	public function sys_data_back_done() {
 
 		$bkdir = $this->bkdir;
 		$fp = $this->L( "File" );
@@ -253,9 +260,8 @@ class SysData extends Action {
 		//分页备份代码结束
 	}
 
-
-	public
-	function sys_data_res() {
+	//数据恢复
+	public function sys_data_res() {
 		$bkdir = $this->bkdir;
 		$fp = $this->L( "File" );
 		$list = $fp->list_dir_info( $bkdir );
@@ -278,9 +284,9 @@ class SysData extends Action {
 		$smarty->assign( array( "list" => $filelists, "structfile" => $structfile ) );
 		$smarty->display( 'sysmanage/sys_data_res.html' );
 	}
-
-	public
-	function sys_data_res_done() {
+	
+	//数据库恢复执行
+	public function sys_data_res_done() {
 		$bkdir = $this->bkdir;
 		$fp = $this->L( "File" );
 
@@ -365,9 +371,9 @@ class SysData extends Action {
 			exit();
 		}
 	}
-
-	public
-	function sys_data_showtables() {
+	
+	//获取系统表
+	public function sys_data_showtables() {
 		$sql = "SHOW TABLES";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
 		foreach ( $list as $key => $row ) {
@@ -379,14 +385,15 @@ class SysData extends Action {
 		}
 		return $list;
 	}
-
-	public
-	function get_table_filed( $tabname ) {
+	
+	//获得表的字段
+	public function get_table_filed( $tabname ) {
 		$sql = "SHOW FULL COLUMNS FROM $tabname";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
 	}
-
+	
+	//提示信息输出
 	function put_info( $msg1, $msg2 ) {
 		$msginfo = "<html>\n<head>
 			<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />

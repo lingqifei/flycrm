@@ -34,39 +34,40 @@ class FinIncomeType extends Action{
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		
-		foreach ( $tree as $key=>$t ) {
-			$kg="";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$kg="";
+				for($x=1;$x<$t['level'];$x++) {
+					$kg .="<i class='fly-fl'>|—</i>";
+				}
+				if ( $t[ 'children' ] == '' ) {
+					$html .= "<li><div class='fly-row lines'>
+									<i class='fly-fl'>&nbsp;</i>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
+
+									<div  class='fly-col-2 fly-fr fly-tr'>
+										<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+										<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+										<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+									</div>
+									<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+							  </li>";
+				} else {
+					$html .= "<li><div class='fly-row lines'>
+									<lable class='fly-col-1'>[+]</lable>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
+									<div  class='fly-col-2  fly-fr fly-tr'>
+										<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+										<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+										<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+									</div>
+									<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
+								";
+					$html .= $this->getTreeHtml( $t[ 'children' ] );
+					$html .= "</li>";
+				}
 			}
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;

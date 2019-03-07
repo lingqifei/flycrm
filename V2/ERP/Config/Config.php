@@ -1,8 +1,4 @@
 <?php
-/**
- * @CopyRight  (C)2006-2011 07fly Development team Inc.
-**/
-//用户配置
  return array (
 
 	'URLMode'   => 0,			
@@ -13,19 +9,15 @@
 	'Debug'     => true,  
 	'Session'   => true,
 	'pageSize'  =>10,
-	'xml'=>array(
-		'path'=>EXTEND.'xml',
-		'root'=>'niaomuniao',
-	),	
 	'DB'=>array(
 		'Persistent'=>false,
 		'DBtype'    => 'Mysql',
-		'DBcharSet' => 'utf8',
+		'DBcharSet' => 'UTF-8',
 		'DBhost'    => 'localhost',
 		'DBport'    => '3306',
 		'DBuser'    => 'root',
 		'DBpsw'     => 'root',
-		'DBname'    => '07fly_erp'
+		'DBname'    => 'test_07flyerp'
 	),
 	'setSmarty'=>array(
 		'template_dir'    => VIEW.'template',
@@ -34,4 +26,3 @@
 		'right_delimiter' => '}#',
 	),	
 ); 
-?>

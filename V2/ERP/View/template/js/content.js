@@ -155,15 +155,25 @@ $('.ajaxSearchForm').click(function(){
 	turnPage(1);
 });
 
+$("body").on("blur", ".tfootPageBar", function() {
+	pageNum=$(".07fly-table tfoot td input[name='pageNum']").val();
+	if(pageNum===undefined){pageNum='';}
+	ajaxSearchFormData = $("form").serialize();
+	turnPage(pageNum);	
+});
 
 //获取分页数据
-function turnPage(page)
+function turnPage(pageNum)
 {
   //获取查询表单数据
    ajaxSearchFormData = $("form").serialize();
+	pageSize=$(".07fly-table tfoot td input[name='pageSize']").val();
+	console.log(JSON.stringify(pageSize));
+	//alert(pageSize);
+	if(pageSize===undefined) pageSize='';
 	//alert(ajaxSearchFormData);
   //ajax 请求数据
-  ajaxPostJsonData=ajaxSearchFormData+"&pageNum="+page+"&pageSize="+pageSize+"&orderField="+orderField+"&orderDirection="+orderDirection;
+  ajaxPostJsonData=ajaxSearchFormData+"&pageNum="+pageNum+"&pageSize="+pageSize+"&orderField="+orderField+"&orderDirection="+orderDirection;
   $.ajax({
     type: 'POST',
     url: ajaxUrl,     //这里是请求的后台地址，自己定义
@@ -217,13 +227,12 @@ function getPageBar(pageNum, pageSize, totalCount) {
 	}
 	var pageBar;
 	pageBar = "<div class='ibox-content'>";
-	pageBar += "共 "+totalCount+"条 <div class=\"btn-group\">";
-
+	pageBar += "<div class=\"btn-group\"> <span class='btn btn-white'> 共 "+totalCount+"条 </span>";
+	pageBar += "<span class='btn btn-white'> 每页 <input type='text' name='pageSize' class='tfootPageBar pageSize' style='width:50px;height:20px;border:solid #ccc 1px;' value='"+pageSize+"'> 条 </span>";
 	//如果不是第一页
-	if (pageNum != 1) {
-		pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(1)'>首页</a></span>";
-		pageBar += "<span type=\"button\" class=\"btn btn-white\"><a href='javascript:turnPage(" + (pageNum - 1) + ")'><<</a></span>";
-	}
+	
+	pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(1);'>首页</a></span>";
+	pageBar += "<span type=\"button\" class=\"btn btn-white\"><a href='javascript:turnPage(" + (pageNum - 1) + ")'><< </a> </span>";
 
 	//显示的页码按钮(5个)
 	var start = 1,
@@ -248,17 +257,20 @@ function getPageBar(pageNum, pageSize, totalCount) {
 
 	for (var i = start; i <= end; i++) {
 		if (i == pageNum) {
-			pageBar += "<span class='btn btn-white active' onclick='javascript:turnPage(" + i + ")'>" + i + "</span>";
+			pageBar += "<span class='btn btn-white active'><a href='javascript:turnPage(" + i + ")'>" + i + "</a></span>";
 		} else {
-			pageBar += "<span class='btn btn-white' onclick='javascript:turnPage(" + i + ")'>" + i + "</span>";
+			pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(" + i + ")'>" + i + "</a></span>";
 		}
 	}
 
 	//如果不是最后页
-	if (pageNum != totalPage) {
-		pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(" + (parseInt(pageNum) + 1) + ")'>>></a></span>";
-		pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(" + totalPage + ")'>尾页</a></span>";
-	}
+	/*if (pageNum != totalPage) {
+		pageBar += "<span class='btn btn-white' onlick='javascript:turnPage(" + (parseInt(pageNum) + 1) + ")'>>></span>";
+		pageBar += "<span class='btn btn-white' onlick='javascript:turnPage(" + totalPage + ")'>尾页</span>";
+	}*/
+	pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(" + (parseInt(pageNum) + 1) + ")'>>></a></span>";
+	pageBar += "<span class='btn btn-white' ><a href='javascript:turnPage(" + totalPage + ")'>尾页</a></span>";	
+	pageBar += "<span class='btn btn-white'> 跳 <input type='text' name='pageNum' class='tfootPageBar pageNum' style='width:50px;height:20px;border:solid #ccc 1px;'> 页 <a>GO</a></span>";
 	pageBar += "</div></div>";
 	$(".07fly-table tfoot td").html(pageBar);
 }

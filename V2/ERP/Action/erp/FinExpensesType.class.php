@@ -34,7 +34,7 @@ class FinExpensesType extends Action{
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		
+		if(!empty($tree)){
 		foreach ( $tree as $key=>$t ) {
 			$kg="";
 			for($x=1;$x<$t['level'];$x++) {
@@ -68,6 +68,7 @@ class FinExpensesType extends Action{
 				$html .= $this->getTreeHtml( $t[ 'children' ] );
 				$html .= "</li>";
 			}
+		}
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}

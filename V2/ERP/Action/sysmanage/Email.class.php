@@ -1,4 +1,19 @@
 <?php
+/*
+ *
+ * sysmanage.Email  邮箱配置   
+ *
+ * =========================================================
+ * 零起飞网络 - 专注于网站建设服务和行业系统开发
+ * 以质量求生存，以服务谋发展，以信誉创品牌 !
+ * ----------------------------------------------
+ * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author ：kfrs <goodkfrs@QQ.com> 574249366
+ * @version ：1.0
+ * @link ：http://www.07fly.top 
+ */	
+
 class Email extends Action {
 	private $cacheDir = ''; //缓存目录
 	public
@@ -7,8 +22,7 @@ class Email extends Action {
 	}
 
 	//得到邮件系统配置参数
-	public
-	function email_show() {
+	public function email_show() {
 		$sql = "select * from fly_config_email;";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
 		if ( is_array( $list ) ) {
@@ -19,8 +33,7 @@ class Email extends Action {
 		return $assArr;
 	}
 	//邮件系统配置
-	public
-	function email_config() {
+	public function email_config() {
 		if ( empty( $_POST ) ) {
 			$config = $this->email_show();
 			$smarty = $this->setSmarty();

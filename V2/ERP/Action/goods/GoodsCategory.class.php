@@ -22,8 +22,9 @@ class GoodsCategory extends Action {
 	}
 
 	public function goods_category() {
-		$sql	= "select *,category_name as text,category_id as tags from fly_goods_category order by sort asc;";
-		$list 	= $this->C( $this->cacheDir )->findAll( $sql );
+		$list	=array();
+		$sql	="select *,category_name as text,category_id as tags from fly_goods_category order by sort asc;";
+		$list 	=$this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
 	}
 	
@@ -43,39 +44,41 @@ class GoodsCategory extends Action {
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		foreach ( $tree as $t ) {
-			$kg="";
-			//$fx=($t['level']>1)?"|——":"";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
-								
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
-									<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
-									<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+		if(!empty($tree)){
+			foreach ( $tree as $k=>$t ) {
+				$kg="";
+				//$fx=($t['level']>1)?"|——":"";
+				for($x=1;$x<$t['level'];$x++) {
+					$kg .="<i class='fly-fl'>|—</i>";
+				}
+				if ( $t[ 'children' ] == '' ) {
+					$html .= "<li><div class='fly-row lines'>
+									<i class='fly-fl'>&nbsp;</i>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
+
+									<div  class='fly-col-2 fly-fr fly-tr'>
+										<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
+										<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
+										<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+									</div>
+									<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
-									<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
-									<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+							  </li>";
+				} else {
+					$html .= "<li><div class='fly-row lines'>
+									<lable class='fly-col-1'>[+]</lable>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
+									<div  class='fly-col-2  fly-fr fly-tr'>
+										<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
+										<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
+										<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+									</div>
+									<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
+								";
+					$html .= $this->getTreeHtml( $t[ 'children' ] );
+					$html .= "</li>";
+				}
 			}
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;

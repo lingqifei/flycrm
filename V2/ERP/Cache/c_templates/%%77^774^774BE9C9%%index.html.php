@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-01-09 11:03:01
+<?php /* Smarty version 2.6.26, created on 2019-03-07 11:25:35
          compiled from index.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -97,7 +97,8 @@
           </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-          <li class="dropdown"> <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-user"></i>会员</a>
+          <li class="dropdown"> <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-user"></i><?php echo $this->_tpl_vars['sys_account']; ?>
+</a>
             <ul class="dropdown-menu dropdown-alerts">
               <li><a class="J_menuItem" href="<?php echo @ACT; ?>
 /admin/GoodsOrder/goods_order_show/">
@@ -198,8 +199,7 @@ var func = function (){
 
 var playSound = function () {
     var borswer = window.navigator.userAgent.toLowerCase();
-    if ( borswer.indexOf( "ie" ) >= 0 )
-    {
+    if ( borswer.indexOf( "ie" ) >= 0 ){
         //IE内核浏览器
         var strEmbed = '<embed name="embedPlay" src="/upload/video.wav" autostart="true" hidden="true" loop="false"></embed>';
         if ( $( "body" ).find( "embed" ).length <= 0 )
@@ -209,17 +209,13 @@ var playSound = function () {
         //浏览器不支持 audion，则使用 embed 播放
         embed.volume = 100;
         //embed.play();这个不需要
-    } else
-    {
+    } else{
         //非IE内核浏览器
         var strAudio = "<audio id='audioPlay' src='/upload/video.wav' hidden='true'>";
-
         if($("#audioPlay").length<=0){
             $( "body" ).append( strAudio );
         }
-
         var audio = document.getElementById( "audioPlay" );
-
         //浏览器支持 audio
         audio.play();
     }
