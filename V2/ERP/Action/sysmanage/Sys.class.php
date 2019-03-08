@@ -47,23 +47,21 @@ class Sys extends Action{
 			$smarty = $this->setSmarty();
 			$smarty->display('sysmanage/sys_password_modify.html');					
 		}else{
-			$oldpassword	= $_POST["oldpassword"];
-			$newpassword	= $_POST["newpassword"];
-			$newpassword1	= $_POST["newpassword1"];
+			$oldpassword	= md5($_POST["oldpassword"]);
+			$newpassword	= md5($_POST["newpassword"]);
+			$newpassword1	= md5($_POST["newpassword1"]);
 			if( $newpassword != $newpassword1 ){
-				$this->location("两次密码不一样,请细心检查是否因大小写原因造成","",2);	
+				$this->L("Common")->ajax_json_error("两次密码不一样,请细心检查是否因大小写原因造成");
 			}
 			$sql= "select id from fly_sys_user where account='".SYS_USER_ACCOUNT."' and password='$oldpassword';";
 			$one= $this->C($this->cacheDir)->findOne($sql);
 			if(!empty($one)){ 
-				$sql = "update fly_sys_user set 
-							password='$newpassword' 
-						where account='".SYS_USER_ACCOUNT."';";
+				$sql = "update fly_sys_user set password='$newpassword' where account='".SYS_USER_ACCOUNT."';";
 				if($this->C($this->cacheDir)->update($sql)>=0){
-					$this->location("操作成功");		
+					$this->L("Common")->ajax_json_success("操作成功");	
 				}
 			}else{
-				$this->location("输入的旧密码不正确请重新输入","",2);
+				$this->L("Common")->ajax_json_error("输入的旧密码不正确请重新输入");
 			}
 			
 		}

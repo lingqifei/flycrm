@@ -86,27 +86,25 @@ class User extends Action{
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_add.html');	
-		}else{
-			$account	= $this->_REQUEST("account");
-			$password	= $this->_REQUEST("password");
-			$name	   = $this->_REQUEST("name");
-			$gender	   = $this->_REQUEST("gender");
-			$deptID	   = $this->_REQUEST("deptID");
-			$positionID	= $this->_REQUEST("positionID");
-			$roleID	   = $this->_REQUEST("roleID");
-			$mobile	   = $this->_REQUEST("mobile");
-			$tel	   = $this->_REQUEST("tel");
-			$qicq	   = $this->_REQUEST("qicq");
-			$email	   = $this->_REQUEST("email");
-			$zipcode	= $this->_REQUEST("zipcode");
-			$address	= $this->_REQUEST("address");
-			$intro	   = $this->_REQUEST("intro");
-			$dt	     = date("Y-m-d H:i:s",time());
-			$sql     = "insert into fly_sys_user(account,password,name,gender,deptID,positionID,roleID,mobile,tel,qicq,email,zipcode,address,intro,adt) 
-								values('$account','$password','$name','$gender','$deptID',
-										'$positionID','$roleID','$mobile','$tel',
-										'$qicq','$email','$zipcode','$address','$intro','$dt');";
-			$this->C($this->cacheDir)->update($sql);	
+		}else{			
+			$into_data=array(
+				'account'=>$this->_REQUEST("account"),
+				'password'=>md5($this->_REQUEST("password")),
+				'name'=>$this->_REQUEST("name"),
+				'gender'=>$this->_REQUEST("gender"),
+				'deptID'=>$this->_REQUEST("deptID"),
+				'positionID'=>$this->_REQUEST("positionID"),
+				'roleID'=>$this->_REQUEST("roleID"),
+				'mobile'=>$this->_REQUEST("mobile"),
+				'tel'=>$this->_REQUEST("tel"),
+				'qicq'=>$this->_REQUEST("qicq"),
+				'email'=>$this->_REQUEST("email"),
+				'zipcode'=>$this->_REQUEST("zipcode"),
+				'address'=>$this->_REQUEST("address"),
+				'intro'=>$this->_REQUEST("intro"),
+				'adt'=>NOWTIME
+			);
+			$this->C($this->cacheDir)->insert('fly_sys_user',$into_data);
 			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}		
@@ -124,28 +122,41 @@ class User extends Action{
 			$smarty->assign(array("one"=>$one,"dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_modify.html');	
 		}else{//更新保存数据
-			
-			$account	= $this->_REQUEST("account");
-			$password	= $this->_REQUEST("password");
-			$name	   = $this->_REQUEST("name");
-			$gender	   = $this->_REQUEST("gender");
-			$deptID	   = $this->_REQUEST("deptID");
-			$positionID	= $this->_REQUEST("positionID");
-			$roleID	   = $this->_REQUEST("roleID");
-			$mobile	   = $this->_REQUEST("mobile");
-			$tel	   = $this->_REQUEST("tel");
-			$qicq	   = $this->_REQUEST("qicq");
-			$email	   = $this->_REQUEST("email");
-			$zipcode	= $this->_REQUEST("zipcode");
-			$address	= $this->_REQUEST("address");
-			$intro	   = $this->_REQUEST("intro");			
-			
-			$sql= "update fly_sys_user set 
-							name='$name',password='$password',gender='$gender',deptID='$deptID',positionID='$positionID',
-							roleID='$roleID',mobile='$mobile',tel='$tel',qicq='$qicq',email='$email',
-							zipcode='$zipcode',address='$address',intro='$intro'
-			 		where id='$id'";
-			$this->C($this->cacheDir)->update($sql);	
+			if($this->_REQUEST("password")){
+				$post_data=array(
+					'account'=>$this->_REQUEST("account"),
+					'password'=>md5($this->_REQUEST("password")),
+					'name'=>$this->_REQUEST("name"),
+					'gender'=>$this->_REQUEST("gender"),
+					'deptID'=>$this->_REQUEST("deptID"),
+					'positionID'=>$this->_REQUEST("positionID"),
+					'roleID'=>$this->_REQUEST("roleID"),
+					'mobile'=>$this->_REQUEST("mobile"),
+					'tel'=>$this->_REQUEST("tel"),
+					'qicq'=>$this->_REQUEST("qicq"),
+					'email'=>$this->_REQUEST("email"),
+					'zipcode'=>$this->_REQUEST("zipcode"),
+					'address'=>$this->_REQUEST("address"),
+					'intro'=>$this->_REQUEST("intro")
+				);	
+			}else{
+				$post_data=array(
+					'account'=>$this->_REQUEST("account"),
+					'name'=>$this->_REQUEST("name"),
+					'gender'=>$this->_REQUEST("gender"),
+					'deptID'=>$this->_REQUEST("deptID"),
+					'positionID'=>$this->_REQUEST("positionID"),
+					'roleID'=>$this->_REQUEST("roleID"),
+					'mobile'=>$this->_REQUEST("mobile"),
+					'tel'=>$this->_REQUEST("tel"),
+					'qicq'=>$this->_REQUEST("qicq"),
+					'email'=>$this->_REQUEST("email"),
+					'zipcode'=>$this->_REQUEST("zipcode"),
+					'address'=>$this->_REQUEST("address"),
+					'intro'=>$this->_REQUEST("intro")
+				);
+			}
+			$this->C($this->cacheDir)->modify('fly_sys_user',$post_data,"id='$id'");
 			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}
