@@ -242,7 +242,7 @@ if(isset($_POST['install'])){
 	'ActionDir' => 'hiddenDir/',
 	'htmlExt'   => '.html',
 	'ReWrite'   => false,
-	'Debug'     => true,  
+	'Debug'     => false,  
 	'Session'   => true,
 	'pageSize'  =>20,
 	'xml'=>array(
@@ -276,7 +276,7 @@ if(isset($_POST['install'])){
 
 				echo '<font class=ohblueb>恭喜: 07FLY-CRM客户管理系统 安装成功!</font><br /><br />请在删除07FLY-CRM安装目录(./install/)后继续!
 					<br /><br />
-					1)、<a href="' . $rootpath . 'Crm/index.php" target="_blank"><b>点击进入系统登录页面!</b></a>
+					1)、<a href="' . $rootpath . '/index.php" target="_blank"><b>点击进入系统登录页面!</b></a>
 					<br /><br />
 					';
 			}
