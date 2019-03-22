@@ -39,11 +39,11 @@
 <file name="pos_contract_list_stock_into.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914708942865299" remote="131915557800000000" Dst="0" />
 <file name="pos_contract_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131900342755195387" remote="131915557800000000" Dst="0" />
 <file name="pos_contract_list_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914787060920227" remote="131915557800000000" Dst="0" />
-<file name="pos_contract_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914707147559744" remote="131915557800000000" Dst="0" />
-<file name="stock_goods_sku_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914741075190872" remote="131915557800000000" Dst="0" />
+<file name="pos_contract_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131968531377276250" remote="131974757400000000" Dst="0" />
+<file name="stock_goods_sku_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131968532966337532" remote="131974757400000000" Dst="0" />
 <file name="stock_into_list_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914739311026883" remote="131915557800000000" Dst="0" />
-<file name="stock_out_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914270525894071" remote="131915557800000000" Dst="0" />
-<file name="stock_into_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914043152128981" remote="131915557800000000" Dst="0" />
+<file name="stock_out_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131968535272471701" remote="131974757400000000" Dst="0" />
+<file name="stock_into_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131968534261968598" remote="131974757400000000" Dst="0" />
 <file name="stock_out_list_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131914739908289572" remote="131915557800000000" Dst="0" />
 <file name="stock_store_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131911357950340848" remote="131915557800000000" Dst="0" />
 <file name="stock_store_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131911360638459959" remote="131915557800000000" Dst="0" />

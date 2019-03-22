@@ -102,6 +102,9 @@
 .w200{width:200px;}
 
 .pd-b-5{padding-bottom: 5px;}
+.mr-t-5{margin-top:5px;}
+.mr-b-5{margin-bottom:5px;}
+.line-h25{line-height:25px;}
 
 /*上传插件样式*/
 .imgupload{width:100%;padding:5px;}

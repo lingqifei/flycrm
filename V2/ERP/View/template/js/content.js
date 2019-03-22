@@ -58,13 +58,31 @@ $(function () {
 	$(".checkboxCtrl").on('click', function () {
 		$("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
 	});
-
+	
+	//全局返回
 	$(".btn-back-reply").on('click', function () {
 		window.history.go(-1);
 	});
+
+	//操作说明打开
+	$("body").on("click", ".btn-help-detail", function() {
+		type=$(this).attr('data-type');
+		parent.layer.open({
+			type: 2,
+			title: '操作说明',
+			closeBtn: 1,
+			anim: 0,
+			shadeClose:true,
+			area: ['50%', '50%'],
+			content: '/index.php/sysmanage/HelpDoc/help_doc/type/'+type+'/',
+			end: function(){ }
+		});	
+		return false;
+	
+	});
 	
 	//树形目录展开，折叠
-	$(".treeClassBody lable").click(function(){ 
+	$("body").on("click", ".treeClassBody lable", function() {
 		var UL = $(this).parent().siblings("ul");
 		$(this).html('');
 		if(UL.css("display")=="none"){ 
@@ -76,12 +94,12 @@ $(function () {
 		} 
 	});
 	//时间选择器
-	$('.searchDateRange .input-daterange').datepicker({
-		keyboardNavigation: false,
-		forceParse: false,
-		autoclose: true
-	});
-	//添加
+//	$('.searchDateRange .input-daterange').datepicker({
+//		keyboardNavigation: false,
+//		forceParse: false,
+//		autoclose: true
+//	});
+	//表格行超出之后隐藏
 	$("body").on("click", ".overflow-td", function() {
 		 var that = $(this);
 		 var cont = $(this).html();
@@ -92,16 +110,16 @@ $(function () {
 		});
 
 	});
-/*
-	$(".treeClassBody li").hover(
-		function(){
-			$(this).css("background-color","#ccc");
-			$(this).parent().siblings("li").css("background-color","#fff");
-		} ,
-		function(){
-			$(this).css("background-color","#fff");
-		} 
-	) ;*/
+
+//	$(".treeClassBody li").hover(
+//		function(){
+//			$(this).css("background-color","#ccc");
+//			$(this).parent().siblings("li").css("background-color","#fff");
+//		} ,
+//		function(){
+//			$(this).css("background-color","#fff");
+//		} 
+//	) ;
 	
 });
 
@@ -131,6 +149,8 @@ var orderDirection='';
 var pageSize='';
 var pageNum='';
 var ajaxSearchFormData='';
+
+//数据排序操作
 $('.07fly-table .sort-filed').click(function(){
 	$(this).toggleClass(function(){
 		orderField=$(this).attr('orderField');
@@ -155,6 +175,7 @@ $('.ajaxSearchForm').click(function(){
 	turnPage(1);
 });
 
+//设置分页每页条数及跳转页数
 $("body").on("blur", ".tfootPageBar", function() {
 	pageNum=$(".07fly-table tfoot td input[name='pageNum']").val();
 	if(pageNum===undefined){pageNum='';}
