@@ -4,7 +4,7 @@
 	'URLMode'   => 0,			
 	'ActionDir' => 'hiddenDir/',
 	'htmlExt'  => '.html',
-	'ReWrite'  => true,
+	'ReWrite'  => false,
 	'Router'  => '',
 	'Debug'     => true,  
 	'Session'   => true,
@@ -17,7 +17,7 @@
 		'DBport'    => '3306',
 		'DBuser'    => 'root',
 		'DBpsw'     => 'root',
-		'DBname'    => 'test_07flyerp'
+		'DBname'    => '07fly_erp'
 	),
 	'setSmarty'=>array(
 		'template_dir'    => VIEW.'template',
