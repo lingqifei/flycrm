@@ -377,7 +377,7 @@ class SalContract extends Action{
 					),
 			"4"=>array(
 				 		'status_name'=>'撤销',
-				 		'status_name_html'=>'<span class="label">撤销<span>',
+				 		'status_name_html'=>'<span class="label label-danger">撤销<span>',
 						'status_operation' => array(
                    '0' => array(
                         'act' => 'detail',
@@ -411,7 +411,7 @@ class SalContract extends Action{
 			"1"=>array(
 				 		'status_name'=>'未付',
 				 		'color'=>'#FAD733',
-				 		'status_name_html'=>'<span class="label label-info">未付<span>',
+				 		'status_name_html'=>'<span class="label label-warning">未付<span>',
 					),
 			"2"=>array(
 				 		'status_name'=>'部分',
@@ -421,7 +421,7 @@ class SalContract extends Action{
 			"3"=>array(
 				 		'status_name'=>'已付',
 						'color'=>'#27C24C',
-				 		'status_name_html'=>'<span class="label label-info">已付<span>',
+				 		'status_name_html'=>'<span class="label label-sucess">已付<span>',
 					)
 		);
 		return ($key)?$data[$key]:$data;

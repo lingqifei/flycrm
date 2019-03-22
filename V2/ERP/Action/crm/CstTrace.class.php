@@ -17,6 +17,7 @@ class CstTrace extends Action{
 	private $cacheDir='';//缓存目录
 	public function __construct() {
 		_instance('Action/sysmanage/Auth');
+		$this->msg=_instance('Action/sysmanage/Message');
 		$this->dict=_instance('Action/crm/CstDict');
 		$this->customer=_instance('Action/crm/CstCustomer');
 		$this->linkman=_instance('Action/crm/CstLinkman');
@@ -119,14 +120,18 @@ class CstTrace extends Action{
 				'create_user_id'=>SYS_USER_ID,
 			);
 			if($this->C($this->cacheDir)->insert('cst_trace',$into_data)){
-				
 				$upt_data=array(
 					'conn_time'=>$this->_REQUEST("conn_time"),
 					'conn_body'=>$this->_REQUEST("intro"),
 					'next_time'=>$this->_REQUEST("next_time"),
 				);
 				$this->C($this->cacheDir)->modify('cst_customer',$upt_data,"customer_id='$customer_id'");
-				$this->L("Common")->ajax_json_success("操作成功");
+				//增加消息提醒
+				$next_time=$this->_REQUEST('next_time');
+				if(!empty($next_time) && $next_time<>'0000-00-00'){
+					$this->msg->message_add(SYS_USER_ID,'预约联系',$this->_REQUEST("name"),'cst_customer',$customer_id,$next_time);
+				}				
+				//$this->L("Common")->ajax_json_success("操作成功");
 			}
 		}
 	}		

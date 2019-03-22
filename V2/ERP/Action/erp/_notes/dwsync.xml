@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="FinBankAccount.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131901838773191173" remote="131915557200000000" Dst="0" />
+<file name="FinCapitalRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131902811183933317" remote="131915557200000000" Dst="0" />
+<file name="FinExpensesRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131902785139760263" remote="131915557200000000" Dst="0" />
+<file name="FinExpensesType.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131964090623118445" remote="131968434000000000" Dst="0" />
+<file name="FinFlowLinkBusiness.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131902858959689798" remote="131915557200000000" Dst="0" />
+<file name="FinIncomeRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904634782315773" remote="131915557200000000" Dst="0" />
+<file name="FinIncomeType.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131964090393275050" remote="131968434000000000" Dst="0" />
+<file name="FinFlowRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904577900172756" remote="131915557200000000" Dst="0" />
+<file name="FinPayPlan.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904546144641955" remote="131915557200000000" Dst="0" />
+<file name="FinInvoicePay.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904640473080241" remote="131915557200000000" Dst="0" />
+<file name="FinInvoiceRece.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904650915274292" remote="131915557200000000" Dst="0" />
+<file name="FinPayRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904651151835087" remote="131915557200000000" Dst="0" />
+<file name="FinRecePlan.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904561224658610" remote="131915557200000000" Dst="0" />
+<file name="FinReceRecord.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131904640948237541" remote="131915557200000000" Dst="0" />
+<file name="PosContract.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131968528791576394" remote="131974757400000000" Dst="0" />
+<file name="PosContractList.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914783686617203" remote="131915557200000000" Dst="0" />
+<file name="StockGoodsSku.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914725274479112" remote="131915557200000000" Dst="0" />
+<file name="StockInto.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914042971661758" remote="131915557200000000" Dst="0" />
+<file name="StockIntoList.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914066606986166" remote="131915557200000000" Dst="0" />
+<file name="StockOut.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914305101945979" remote="131915557200000000" Dst="0" />
+<file name="SupLinkman.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087934219590" remote="131915557200000000" Dst="0" />
+<file name="StockOutList.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914268500716840" remote="131915557200000000" Dst="0" />
+<file name="StockStore.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131913364231151819" remote="131915557200000000" Dst="0" />
+<file name="SupSupplier.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087934259619" remote="131915557200000000" Dst="0" />
+</dwsync>

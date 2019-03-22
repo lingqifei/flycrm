@@ -174,7 +174,14 @@ class User extends Action{
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
-
+	
+	//根据权限编号查询出用户
+	function user_list_role($role){
+		$role_txt=empty($role)?'0':implode(',',$role);
+		$sql ="select * from fly_sys_user where roleID in($role_txt)";
+		$list=$this->C($this->cacheDir)->findAll($sql);
+		return $list;
+	}
 	
 	//得到一个系统用户权限
 	//return Array ( [sys_menu] => Array ( [0] => 10,101,102,105,20,30,50 [1] => 1,507 ) )
@@ -234,5 +241,7 @@ class User extends Action{
 		$one =$this->C($this->cacheDir)->findOne($sql);
 		return $one;
 	}
+
+	
 }//
 ?>

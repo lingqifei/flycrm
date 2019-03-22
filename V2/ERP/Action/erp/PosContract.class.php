@@ -355,7 +355,7 @@ class PosContract extends Action{
 					),
 			"4"=>array(
 				 		'status_name'=>'撤销',
-				 		'status_name_html'=>'<span class="label">撤销<span>',
+				 		'status_name_html'=>'<span class="label label-danger">撤销<span>',
 						'status_operation' => array(
                    '0' => array(
                         'act' => 'detail',
@@ -369,7 +369,7 @@ class PosContract extends Action{
 	}
 
 
-	//回款状态
+	//付款状态
 	public function pos_contract_pay_status($key=null){
 		$data=array(
 			"1"=>array(

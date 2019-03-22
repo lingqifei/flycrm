@@ -33,12 +33,39 @@ class SysData extends Action {
 		$this->bkdir = CACHE . "/databack/";
 
 	}
-
+	
+	//数据库备份
 	public function sys_data() {
 		$tables = $this->sys_data_showtables();
 		$smarty = $this->setSmarty();
 		$smarty->assign( array( "list" => $tables ) );
 		$smarty->display( 'sysmanage/sys_data.html' );
+	}
+	
+	//权限初始化
+	public function sys_data_role_init() {
+		$sql="select id from fly_sys_menu";
+		$list=$this->C( $this->cacheDir )->findAll($sql);
+		$menu=array();
+		foreach($list as $row){
+			$menu[]=$row['id'];
+		}
+		
+		$sql="select value from fly_sys_method";
+		$list=$this->C( $this->cacheDir )->findAll($sql);
+		$meth=array();
+		foreach($list as $row){
+			$meth[]=$row['value'];
+		}
+		$menu=implode( ",", $menu );
+		$meth=implode( ",", $meth );
+		$sql="update `fly_sys_power` set access_value='$menu' where master='role' and master_value='1' and access='SYS_MENU'";
+		
+		$this->C( $this->cacheDir )->update($sql);
+		$sql="update `fly_sys_power` set access_value='$meth' where master='role' and master_value='1' and access='SYS_METHOD'";
+		$this->C( $this->cacheDir )->update($sql);	
+		$this->L("Common")->ajax_json_success("操作成功");	
+		
 	}
 
 	//执行备份数据库
@@ -51,10 +78,8 @@ class SysData extends Action {
 
 	//执行备份函数
 	public function sys_data_back_done() {
-
 		$bkdir = $this->bkdir;
 		$fp = $this->L( "File" );
-
 		$tablearr = $this->_REQUEST( "tablearr" ); //需要备份的表
 		$isstruct = $this->_REQUEST( "isstruct" ); //备份表结构
 		$startpos = $this->_REQUEST( "startpos" ); //开始表的位置
