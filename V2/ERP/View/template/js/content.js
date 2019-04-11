@@ -22,6 +22,22 @@
 //    $('body').append(gohome);
 //}
 
+
+//为true输出日志
+var debug = true;
+/**
+ * 打印日志
+ */
+function log(data) {
+	if (debug) {
+		if (typeof (data) == "object") {
+			console.log(JSON.stringify(data)); //console.log(JSON.stringify(data, null, 4));
+		} else {
+			console.log(data);
+		}
+	}
+}
+
 //animation.css
 function animationHover(element, animation) {
 	element = $(element);
