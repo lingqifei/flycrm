@@ -19,8 +19,9 @@
                 <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 基本设置</a> </li>
                 <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">商品详细</a> </li>
                 <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">商品图片</a> </li>
-                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">商品属性</a> </li>
-                <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">商品规格</a> </li>
+                
+                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">商品规格</a> </li>
+				     <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">商品属性</a> </li>
               </ul>
               <div class="tab-content">
                 <div id="tab-1" class="tab-pane active">
@@ -75,6 +76,12 @@
                       </div>
                     </div>
                     <div class="form-group">
+                      <label class="col-sm-2 control-label">商品库存：</label>
+                      <div class="col-sm-10">
+                        <input name="cost_price" class="form-control" type="digits" value="#{$one.stock}#" placeholder="商品成本价格"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label class="col-sm-2 control-label">商品排序：</label>
                       <div class="col-sm-8">
                         <input name="sort" class="form-control" type="digits" value="#{$one.sort}#" placeholder="排序号"/>
@@ -101,20 +108,13 @@
                     <div class="actbtn"> <img src="#{$smarty.const.APP}#/View/template/img/webuploader.png" onClick="javascript:imgupload('imglist');"> </div>
                   </div>
                 </div>
-				  		<div id="tab-4" class="tab-pane">4444</div>
-				  		<div id="tab-5" class="tab-pane">
-							<div class="ibox-content">
-								<a class="btn btn-info btn-outline create_spec" href="javascript:void();">编辑规格</a>
-							</div>
-							<div class="ibox-content">
-								批量设置： 
-								<a href="javascript:void(0);" class="batch_modify_sale">销售价格</a>&nbsp;&nbsp;
-								<a href="javascript:void(0);" class="batch_modify_market">市场价格</a> &nbsp;&nbsp;
-								<a href="javascript:void(0);" class="batch_modify_cost">成本价格</a>&nbsp;&nbsp;  
-								<a href="javascript:void(0);" class="batch_modify_stock">库存</a> &nbsp;&nbsp;
-							</div>
-				  			<div class="ibox-content" id="create_spec_show"></div>
-				  		</div>
+                
+                <div id="tab-4" class="tab-pane">
+                  <div class="ibox-content"> <a class="btn btn-info btn-outline create_spec" href="javascript:void(0);">编辑规格</a> </div>
+                  <div class="ibox-content"> 批量设置： <a href="javascript:void(0);" class="batch_modify_sale">销售价格</a>&nbsp;&nbsp; <a href="javascript:void(0);" class="batch_modify_market">市场价格</a> &nbsp;&nbsp; <a href="javascript:void(0);" class="batch_modify_cost">成本价格</a>&nbsp;&nbsp; <a href="javascript:void(0);" class="batch_modify_stock">库存</a> &nbsp;&nbsp; </div>
+                  <div class="ibox-content" id="create_spec_show"></div>
+                </div>
+				  		<div id="tab-4" class="tab-pane">功能开发中。。。</div>
               </div>
             </div>
             <div class="panel-body">
@@ -152,6 +152,7 @@ $(document).ready(function () {
 			content: '#{$smarty.const.ACT}#/goods/GoodsSpec/goods_spec_create/create_id/create_spec_show/'//iframe的url
 		});	
 	});
+	//批量设置插件
 	layer.config({
 		path: '#{$smarty.const.APP}#/View/template/js/plugins/layer/', //layer.js所在的目录，可以是绝对目录，也可以是相对目录
 		extend: 'extend/layer.ext.js'

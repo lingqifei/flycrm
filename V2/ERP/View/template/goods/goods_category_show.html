@@ -8,7 +8,7 @@
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
 					<h5><i class="fa fa-home"></i> 商品分类</h5>
-					<div class="ibox-tools"> <a href="#{$smarty.const.ACT}#/goods/GoodsCategory/goods_category_add/" >
+					<div class="ibox-tools"> <a href="javascript:void(0);" class="single_operation" data-act="add">
 						<button type="button" class="btn btn-xs btn-primary"><i class='fa fa-plus'></i> 添加</button>
 						</a> <a href="?">
 						<button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button>
@@ -28,54 +28,73 @@
 $(document).ready(function () {
 	//更改排序
 	$("body").on("blur", ".treeSort", function() {
-		id =$(this).attr("data-id");
+		category_id =$(this).attr("data-id");
 		sort =$(this).val();
 		$.ajax({
 			type: "POST",
 			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsCategory/goods_category_modify_sort/",
-			data:{"sort":sort,"id":id},
+			data:{"sort":sort,"category_id":category_id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
 			}
 		});
 	});
-	//更改排序
+	//更改名称
 	$("body").on("blur", ".treeName", function() {
-		id =$(this).attr("data-id");
+		category_id =$(this).attr("data-id");
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsCategory/goods_category_modify_name/",
-			data:{"name":value,"id":id},
+			url: "#{$smarty.const.ACT}#/goods/GoodsCategory/goods_category_modify_name/",
+			data:{"name":value,"category_id":category_id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
 			}
 		});
 	});
-	//更改排序
-	$("body").on("blur", ".treeUrl", function() {
-		id =$(this).attr("data-id");
-		value =$(this).val();
-		$.ajax({
-			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Dept/dept_modify_url/",
-			data:{"url":value,"id":id},
-			dataType:"json",
-			success: function(data){
-				if(data.rtnstatus=='success'){
-					layer.msg('操作成功', {icon: 1});   
+	$("body").on("click", ".single_operation", function() {
+		category_id =$(this).attr("data-id");
+		single_act =$(this).attr("data-act")
+		if(single_act=="add"){
+			layer.open({
+				type: 2,
+				title: '添加分类',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['800px', '500px'],
+				content: '#{$smarty.const.ACT}#/goods/GoodsCategory/goods_category_add/category_id/'+category_id+'/' //iframe的url
+			});			
+			return false;	
+		}else if(single_act=="modify"){
+			layer.open({
+				type: 2,
+				title: '修改分类',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['800px', '500px'],
+				content: '#{$smarty.const.ACT}#/goods/GoodsCategory/goods_category_modify/category_id/'+category_id+'/' //iframe的url
+			});			
+			return false;
+		}else if(single_act=="del"){
+			act_url="#{$smarty.const.ACT}#/goods/GoodsCategory/goods_category_del/";
+			$.ajax({
+				type: "POST",
+				url: act_url,
+				data:{"category_id":category_id},
+				dataType:"json",
+				success: function(data){
+					if(data.statusCode=='200'){
+						layer.msg('操作成功', {icon: 1}); 
+					}
 				}
-				console.log(data.rtnstatus);
-			}
-		});
+			});			
+		}
 	});
 });
 </script>

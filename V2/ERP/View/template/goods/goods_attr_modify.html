@@ -7,7 +7,7 @@
 		<div class="col-sm-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>属性类型修改</h5>
+          <h5>类型修改</h5>
           <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary btn-back-reply"><i class='fa fa-reply'></i> 返回</button>
           </div>
@@ -15,7 +15,7 @@
         <div class="ibox-content">
           <form class="form-horizontal" method="post" action="#{$smarty.const.ACT}#/goods/GoodsAttr/goods_attr_modify/attr_id/#{$one.attr_id}#/">
             <div class="form-group">
-              <label class="col-sm-2 control-label">属性类型名称：</label>
+              <label class="col-sm-2 control-label">类型名称：</label>
               <div class="col-sm-8">
                 <input name="attr_name" class="form-control" type="text" value="#{$one.attr_name}#" required/>
               </div>
@@ -79,6 +79,8 @@
     </div>
 	</div>
 </div>
+<!-- 自定义js --> 
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
 $(document).ready(function () {
 	$('.i-checks').iCheck({

@@ -43,9 +43,9 @@
                     <input type="radio" id="option3" name="options">
                     推荐</label>
                 </div>
-				  		<div class="input-group pd-b-5">
+                <div class="input-group pd-b-5">
                   <input type="text" name="goods_name" placeholder="请输入商品名字关键词" class="form-control">
-				  		</div>
+                </div>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn  dropdown-toggle"><span class="caret"></span></button>
                   <div class="dropdown-menu">
@@ -68,8 +68,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="input-group">
-                  <span class="input-group-btn">
+                <div class="input-group"> <span class="input-group-btn">
                   <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
                   </span> </div>
               </div>
@@ -179,6 +178,7 @@ $(document).ready(function () {
 			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_recommend_off/";
 		}else if(batch_act=="del"){
 			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_del/";
+			
 		}else if(batch_act=="online"){
 			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_online/";
 		}else if(batch_act=="offline"){
@@ -196,6 +196,7 @@ $(document).ready(function () {
 				}
 			},
 			complete: function () {//完成响应
+				turnPage(1);
 			}
 		});
 	});
@@ -222,6 +223,7 @@ $(document).ready(function () {
 			success: function(data){
 				if(data.rtnstatus=='success'){
 					layer.msg('操作成功', {icon: 1}); 
+					turnPage(1);
 				}
 			}
 		});
