@@ -259,5 +259,5 @@ function write_config( $url ) {
 	$configfile = str_replace( "===db_pwd===", $db_pwd, $configfile );
 	$configfile = str_replace( "===db_name===", $db_name, $configfile );
 	$configfile = str_replace( "===db_port===", $db_port, $configfile );
-	@file_put_contents( '../ERP/Config/config.php', $configfile );
+	@file_put_contents( '../ERP/Config/Config.php', $configfile );
 }
