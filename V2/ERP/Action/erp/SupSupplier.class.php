@@ -76,7 +76,7 @@ class SupSupplier extends Action{
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$dict		 = $this->dict->cst_dict_arr();
 		foreach($list as $key=>$row){
-			$list[$key]['ecotype_name']=$dict[$row['ecotype']];
+			$list[$key]['ecotype_name']=$this->dict->cst_dict_get_name($row['ecotype']);
 			//$list[$key]['level_name']=$dict[$row['level']];
 			$list[$key]['trade_name']=$dict[$row['trade']];
 		}

@@ -134,9 +134,9 @@ class CstDict extends Action{
 	}
 
 	//返回字典名称
-	public function cst_dict_get_name($id){
-		if(empty($id)) $id=0;
-		$sql  ="select id,name from cst_dict where id in ($id)";	
+	public function cst_dict_get_name($dict_id){
+		if(empty($dict_id)) $dict_id=0;
+		$sql  ="select dict_id,name from cst_dict where dict_id in ($dict_id)";	
 		$list =$this->C($this->cacheDir)->findAll($sql);
 		$str  ="";
 		if(is_array($list)){

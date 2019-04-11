@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
 <file name="GoodsCategory.class.php" server="211.149.238.19//07fly_shop/wwwroot/" local="131886490125699723" remote="131886479400000000" Dst="0" />
-<file name="Goods.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131905271487618833" remote="131915557200000000" Dst="0" />
-<file name="GoodsAttr.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882227265049186" remote="131915557200000000" Dst="0" />
-<file name="GoodsCategory.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131964089950270512" remote="131968434000000000" Dst="0" />
+<file name="Goods.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131980601169239725" remote="131980596000000000" Dst="0" />
+<file name="GoodsAttr.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131980555467987906" remote="131980596000000000" Dst="0" />
+<file name="GoodsCategory.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131980534399515016" remote="131980596000000000" Dst="0" />
 <file name="GoodsAttrValue.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882226907999800" remote="131915557200000000" Dst="0" />
 <file name="GoodsBrand.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882226668404516" remote="131915557200000000" Dst="0" />
-<file name="GoodsSku.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131896112942606127" remote="131915557200000000" Dst="0" />
+<file name="GoodsSku.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131980601226961796" remote="131980596000000000" Dst="0" />
 <file name="GoodsSpec.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882227992706300" remote="131915557200000000" Dst="0" />
 <file name="GoodsImg.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882228421363318" remote="131915557200000000" Dst="0" />
 <file name="GoodsSpecValue.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131882227711724306" remote="131915557200000000" Dst="0" />

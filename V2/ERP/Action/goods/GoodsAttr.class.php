@@ -122,17 +122,15 @@ class GoodsAttr extends Action {
 		}
 	}
 	
-	public
-	function goods_attr_del() {
+	public function goods_attr_del() {
 		$id = $this->_REQUEST( "id" );
-		$sql = "delete from fly_goods_attr where category_id='$id'";
+		$sql = "delete from fly_goods_attr where attr_id='$id'";
 		$this->C( $this->cacheDir )->update( $sql );
 		$this->location( "操作成功", "/goods/GoodsAttr/goods_attr_show/" );
 	}
 	
 	//是否启用
-	public
-	function goods_attr_modify_visible() {
+	public function goods_attr_modify_visible() {
 		$id=$this->_REQUEST('id');	
 		$upt_data=array(
 					'visible'=>$this->_REQUEST( "visible" )
@@ -142,8 +140,7 @@ class GoodsAttr extends Action {
 		echo json_encode($rtnArr);
 	}	
 	//更排序
-	public
-	function goods_attr_modify_sort() {
+	public function goods_attr_modify_sort() {
 		$id=$this->_REQUEST('id');	
 		$upt_data=array(
 					'sort'=>$this->_REQUEST( "sort" )

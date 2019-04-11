@@ -246,7 +246,13 @@ class CstWebsite extends Action{
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
-	
+	//开启维护
+	public function cst_website_open(){
+		$website_id	 = $this->_REQUEST("website_id");
+		$sql  = "update cst_website set status='1' where website_id in ($website_id)";
+		$this->C($this->cacheDir)->update($sql);	
+		$this->L("Common")->ajax_json_success("操作成功");	
+	}	
 	
 	//查询一条记录
 	public function cst_website_get_one($id=""){

@@ -140,7 +140,7 @@ class Goods extends Action{
 			$smarty->display('goods/goods_add.html');	
 		}else{
 			if($this->goods_add_save()){
-				//$this->location("操作成功","/goods/Goods/goods_show/");
+				$this->location("操作成功","/goods/Goods/goods_show/");
 			}
 				
 		}
@@ -159,27 +159,43 @@ class Goods extends Action{
 			'sale_price'=>$this->_REQUEST("sale_price"),
 			'cost_price'=>$this->_REQUEST("cost_price"),
 			'sort'=>$this->_REQUEST("sort"),
+			'stock'=>$this->_REQUEST("stock"),
 			'defaultpic'=>!empty($imglistname)?$imglistname[0]:"",
-			'state'=>$this->_REQUEST("state")
+			'state'=>$this->_REQUEST("state"),
+			'create_time'=>NOWTIME,
 		);
 		$goods_id=$this->C($this->cacheDir)->insert('fly_goods',$postdata);
+		$goods_name=$this->_REQUEST("goods_name");
 		if($goods_id>0){
-			$datalist=array(
-				'sku_name'=>$this->_REQUEST("sku_name"),
-				'sku_value_items'=>$this->_REQUEST("sku_value_items"),
-				'sku_sale_price'=>$this->_REQUEST("sku_sale_price"),
-				'sku_market_price'=>$this->_REQUEST("sku_market_price"),
-				'sku_cost_price'=>$this->_REQUEST("sku_cost_price"),
-				'sku_stock'=>$this->_REQUEST("sku_stock"),
-			);
+			//判断是否使用规格
+			if(!empty($this->_REQUEST("sku_name"))){
+				$datalist=array(
+					'sku_name'=>$this->_REQUEST("sku_name"),
+					'sku_value_items'=>$this->_REQUEST("sku_value_items"),
+					'sku_sale_price'=>$this->_REQUEST("sku_sale_price"),
+					'sku_market_price'=>$this->_REQUEST("sku_market_price"),
+					'sku_cost_price'=>$this->_REQUEST("sku_cost_price"),
+					'sku_stock'=>$this->_REQUEST("sku_stock"),
+				);				
+			}else{
+				$datalist=array(
+					'sku_name'=>array($this->_REQUEST("goods_name")),
+					'sku_value_items'=>array($this->_REQUEST("goods_name")),
+					'sku_sale_price'=>array($this->_REQUEST("sale_price")),
+					'sku_market_price'=>array($this->_REQUEST("market_price")),
+					'sku_cost_price'=>array($this->_REQUEST("cost_price")),
+					'sku_stock'=>array($this->_REQUEST("stock")),
+				);					
+			}
+
 			$this->goods_img->goods_img_add_save($goods_id,$imglistname);
-			$this->goods_sku->goods_sku_add_save($goods_id,$datalist);
+			$this->goods_sku->goods_sku_add_save($goods_id,$datalist,$goods_name);
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+	//修改
 	public function goods_modify(){
 		$goods_id	  	 = $this->_REQUEST("goods_id");
 		if(empty($_POST)){
@@ -193,6 +209,7 @@ class Goods extends Action{
 			$smarty->display('goods/goods_modify.html');	
 		}else{//更新保存数据
 			$imglistname=$this->_REQUEST("imglistname");
+			$goods_name=$this->_REQUEST("goods_name");
 			$upt_data=array(
 				'goods_name'=>$this->_REQUEST("goods_name"),
 				'category_id'=>$this->_REQUEST("category_id"),
@@ -207,8 +224,10 @@ class Goods extends Action{
 				'state'=>$this->_REQUEST("state"),
 				'update_time'=>NOWTIME
 			);
-			$rtn=$this->C($this->cacheDir)->modify('fly_goods',$upt_data,"goods_id='$goods_id'");	
-			if($rtn>0){
+			//修改商品数据
+			$this->C($this->cacheDir)->modify('fly_goods',$upt_data,"goods_id='$goods_id'");	
+			//判断是否使用规格
+			if(!empty($this->_REQUEST("sku_name"))){
 				$datalist=array(
 					'sku_name'=>$this->_REQUEST("sku_name"),
 					'sku_value_items'=>$this->_REQUEST("sku_value_items"),
@@ -217,20 +236,25 @@ class Goods extends Action{
 					'sku_cost_price'=>$this->_REQUEST("sku_cost_price"),
 					'sku_stock'=>$this->_REQUEST("sku_stock"),
 					'update_time'=>NOWTIME
-				);
-				$this->goods_img->goods_img_add_save($goods_id,$imglistname);
-				$this->goods_sku->goods_sku_add_save($goods_id,$datalist);
-				return true;
+				);				
 			}else{
-				return false;
+				$datalist=array(
+					'sku_name'=>array($this->_REQUEST("goods_name")),
+					'sku_value_items'=>array($this->_REQUEST("goods_name")),
+					'sku_sale_price'=>array($this->_REQUEST("sale_price")),
+					'sku_market_price'=>array($this->_REQUEST("market_price")),
+					'sku_cost_price'=>array($this->_REQUEST("cost_price")),
+					'sku_stock'=>array($this->_REQUEST("stock")),
+					'update_time'=>NOWTIME
+				);					
 			}
-			
-			//$this->L("Common")->ajax_json_success("操作成功","2","/goods/Goods/goods_show/");		
+			$this->goods_img->goods_img_add_save($goods_id,$imglistname);
+			$this->goods_sku->goods_sku_add_save($goods_id,$datalist,$goods_name);
+			$this->location("操作成功","/goods/Goods/goods_show/");		
 		}
 	}
 	//排序
-	public
-	function goods_modify_sort() {
+	public function goods_modify_sort() {
 		$goods_id=$this->_REQUEST('goods_id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(
@@ -257,8 +281,7 @@ class Goods extends Action{
 	}
 	
 	//上架
-	public
-	function goods_modify_online() {
+	public function goods_modify_online() {
 		$goods_id=$this->_REQUEST('goods_id');	
 		$upt_data=array(
 					'state'=>'1'
@@ -268,8 +291,7 @@ class Goods extends Action{
 		echo json_encode($rtnArr);
 	}
 	//下架
-	public
-	function goods_modify_offline() {
+	public function goods_modify_offline() {
 		$goods_id=$this->_REQUEST('goods_id');	
 		$upt_data=array(
 					'state'=>'0'
@@ -279,8 +301,7 @@ class Goods extends Action{
 		echo json_encode($rtnArr);
 	}	
 	//推荐
-	public
-	function goods_modify_recommend() {
+	public function goods_modify_recommend() {
 		$goods_id=$this->_REQUEST('goods_id');	
 		$upt_data=array(
 					'is_recommend'=>'1'
@@ -290,8 +311,7 @@ class Goods extends Action{
 		echo json_encode($rtnArr);
 	}
 	//取消推荐
-	public
-	function goods_modify_recommend_off() {
+	public function goods_modify_recommend_off() {
 		$goods_id=$this->_REQUEST('goods_id');	
 		$upt_data=array(
 					'is_recommend'=>'0'

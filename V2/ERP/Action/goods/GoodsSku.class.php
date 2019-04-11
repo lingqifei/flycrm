@@ -21,7 +21,7 @@ class GoodsSku extends Action {
 		$this->auth = _instance( 'Action/sysmanage/Auth' );
 	}
 
-	public function goods_sku_add_save($goods_id,$datalist){
+	public function goods_sku_add_save($goods_id,$datalist,$goods_name=null){
 		//print_r($datalist);
 		//统一删除商品所有图片
 		$this->C($this->cacheDir)->delete('fly_goods_sku',"goods_id='$goods_id'");
@@ -29,6 +29,7 @@ class GoodsSku extends Action {
 			foreach($datalist['sku_name'] as $key=>$sku){
 				$into_data=array(
 					'goods_id'=>$goods_id,
+					'goods_name'=>$goods_name,
 					'sku_name'=>$datalist['sku_name'][$key],
 					'sku_value_items'=>$datalist['sku_value_items'][$key],
 					'market_price'=>$datalist['sku_market_price'][$key],

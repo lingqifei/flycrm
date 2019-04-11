@@ -57,9 +57,9 @@ class GoodsCategory extends Action {
 									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
 
 									<div  class='fly-col-2 fly-fr fly-tr'>
-										<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
-										<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
-										<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+										<a class='single_operation' data-act='add' data-id='".$t['category_id']."'>增加下级</a> 
+										<a class='single_operation' data-act='modify' data-id='".$t['category_id']."'>修改</a> 
+										<a class='single_operation' data-act='del' data-id='".$t['category_id']."'>删除</a>
 									</div>
 									<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
@@ -69,9 +69,9 @@ class GoodsCategory extends Action {
 									<lable class='fly-col-1'>[+]</lable>
 									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['category_id']."' value='".$t['category_name']."' class='form-control w150 treeName'/></div>
 									<div  class='fly-col-2  fly-fr fly-tr'>
-										<a href='".ACT."/goods/GoodsCategory/goods_category_add/pid/".$t['category_id']."/'>增加下级</a> 
-										<a href='".ACT."/goods/GoodsCategory/goods_category_modify/id/".$t['category_id']."/'>修改</a> 
-										<a href='".ACT."/goods/GoodsCategory/goods_category_del/id/".$t['category_id']."/'>删除</a>
+										<a class='single_operation' data-act='add' data-id='".$t['category_id']."'>增加下级</a> 
+										<a class='single_operation' data-act='modify' data-id='".$t['category_id']."'>修改</a> 
+										<a class='single_operation' data-act='del' data-id='".$t['category_id']."'>删除</a>
 									</div>
 									<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['category_id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
@@ -151,8 +151,8 @@ class GoodsCategory extends Action {
 
 	public function goods_category_add() {
 		if ( empty( $_POST ) ) {
-			$pid=$this->_REQUEST('pid');
-			$parent_id = $this->goods_category_select('parent_id',$pid);
+			$category_id=$this->_REQUEST('category_id');
+			$parent_id = $this->goods_category_select('parent_id',$category_id);
 			$smarty = $this->setSmarty();
 			$smarty->assign( array( "parent_id" => $parent_id ) );
 			$smarty->display( 'goods/goods_category_add.html' );
@@ -174,15 +174,14 @@ class GoodsCategory extends Action {
 					'description'=>$description
 				 );
 			$this->C( $this->cacheDir )->insert('fly_goods_category',$data );
-			$this->location( "操作成功", "/goods/GoodsCategory/goods_category_show/" );
+			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}
 	
-	public
-	function goods_category_modify() {
-		$id = $this->_REQUEST( "id" );
+	public function goods_category_modify() {
+		$category_id = $this->_REQUEST( "category_id" );
 		if ( empty( $_POST ) ) {
-			$sql = "select * from fly_goods_category where category_id='$id'";
+			$sql = "select * from fly_goods_category where category_id='$category_id'";
 			$one = $this->C( $this->cacheDir )->findOne( $sql );
 			$parent_id = $this->goods_category_select( "parent_id", $one[ "parent_id" ] );
 			$smarty = $this->setSmarty();
@@ -206,41 +205,37 @@ class GoodsCategory extends Action {
 					'keywords'=>$keywords,
 					'description'=>$description
 				 );
-			$this->C( $this->cacheDir )->modify('fly_goods_category',$data,"category_id='$id'",true);
-			$this->location( "操作成功", "/goods/GoodsCategory/goods_category_show/" );
+			$this->C( $this->cacheDir )->modify('fly_goods_category',$data,"category_id='$category_id'",true);
+			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}
 	
-	public
-	function goods_category_del() {
-		$id = $this->_REQUEST( "id" );
-		$sql = "delete from fly_goods_category where category_id='$id'";
+	public function goods_category_del() {
+		$category_id = $this->_REQUEST( "category_id" );
+		$sql = "delete from fly_goods_category where category_id='$category_id'";
 		$this->C( $this->cacheDir )->update( $sql );
-		$this->location( "操作成功", "/goods/GoodsCategory/goods_category_show/" );
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 	//排序
-	public
-	function goods_category_modify_sort() {
-		$id		=$this->_REQUEST('id');	
+	public function goods_category_modify_sort() {
+		$category_id		=$this->_REQUEST('category_id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(
 					'sort'=>$this->_REQUEST( "sort" )
 				 );
-		$this->C( $this->cacheDir )->modify('fly_goods_category',$upt_data,"category_id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
+		$this->C( $this->cacheDir )->modify('fly_goods_category',$upt_data,"category_id='$category_id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 	//修改名称
 	public
 	function goods_category_modify_name() {
-		$id		=$this->_REQUEST('id');	
+		$category_id		=$this->_REQUEST('category_id');	
 		$name	=$this->_REQUEST('name');	
 		$upt_data=array(
 					'category_name'=>$this->_REQUEST( "name" )
 				 );
-		$this->C( $this->cacheDir )->modify('fly_sys_position',$upt_data,"category_id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
+		$this->C( $this->cacheDir )->modify('fly_goods_category',$upt_data,"category_id='$category_id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 
 	//递归获取所有的子分类的ID
@@ -255,8 +250,7 @@ class GoodsCategory extends Action {
 		return $arr;
 	}
 	//获得所有子类id,通过数组形式返回
-	public
-	function goods_category_all_child($pid){
+	public function goods_category_all_child($pid){
 		$data =$this->goods_category();
 		$child=$this->get_all_child($data,$pid);
 		return $child;
