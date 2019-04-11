@@ -642,10 +642,10 @@ DROP TABLE IF EXISTS `fly_goods_attr_relation`;
 
 CREATE TABLE `fly_goods_attr_relation` (
   `attr_relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL DEFAULT '0' COMMENT '店铺ID',
+  `goods_id` int(11) NOT NULL COMMENT '商品ID',
   `attr_id` int(10) unsigned NOT NULL COMMENT '属性编号',
   `attr_name` varchar(255) NOT NULL DEFAULT '' COMMENT '属性名称',
-  `goods_id` int(11) NOT NULL COMMENT '商品ID',
-  `shop_id` int(11) NOT NULL DEFAULT '0' COMMENT '店铺ID',
   `attr_value_id` int(11) NOT NULL COMMENT '属性值id',
   `attr_value_name` varchar(255) NOT NULL DEFAULT '' COMMENT '属性值的名称',
   `attr_value_data` varchar(255) NOT NULL DEFAULT '' COMMENT '属性值名称对应最终数据',
@@ -839,6 +839,21 @@ CREATE TABLE `fly_sys_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统菜单栏目';
 
+DROP TABLE IF EXISTS `fly_sys_message`;
+
+CREATE TABLE `fly_sys_message` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `msg_type` varchar(256) NOT NULL COMMENT '消息类型',
+  `msg_title` varchar(256) NOT NULL COMMENT '消息主题',
+  `flag` tinyint(4) NOT NULL DEFAULT '-1' COMMENT '-1=未查看，1=查看',
+  `url_type` varchar(50) NOT NULL,
+  `url_id` int(11) NOT NULL DEFAULT '0',
+  `owner_user_id` int(2) NOT NULL DEFAULT '0' COMMENT '所属用户编号',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `remind_time` datetime NOT NULL COMMENT '提醒时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='消息信息';
+
 DROP TABLE IF EXISTS `fly_sys_method`;
 
 CREATE TABLE `fly_sys_method` (
@@ -909,6 +924,19 @@ CREATE TABLE `fly_sys_user` (
   `identity` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+
+DROP TABLE IF EXISTS `fly_sys_user_notice`;
+
+CREATE TABLE `fly_sys_user_notice` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) NOT NULL COMMENT '标题',
+  `content` text NOT NULL COMMENT '通知内容',
+  `status` int(2) NOT NULL DEFAULT '-1' COMMENT '-1=未查看，1=查看',
+  `owner_user_id` int(2) NOT NULL DEFAULT '0' COMMENT '接收人员编号',
+  `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '发布人员的编号',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统员工通知信息';
 
 DROP TABLE IF EXISTS `fly_sys_user_role`;
 
