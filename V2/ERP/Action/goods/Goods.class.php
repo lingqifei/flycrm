@@ -166,9 +166,10 @@ class Goods extends Action{
 		);
 		$goods_id=$this->C($this->cacheDir)->insert('fly_goods',$postdata);
 		$goods_name=$this->_REQUEST("goods_name");
+		$sku_name=$this->_REQUEST("sku_name");
 		if($goods_id>0){
 			//判断是否使用规格
-			if(!empty($this->_REQUEST("sku_name"))){
+			if(!empty($sku_name)){
 				$datalist=array(
 					'sku_name'=>$this->_REQUEST("sku_name"),
 					'sku_value_items'=>$this->_REQUEST("sku_value_items"),
@@ -210,6 +211,7 @@ class Goods extends Action{
 		}else{//更新保存数据
 			$imglistname=$this->_REQUEST("imglistname");
 			$goods_name=$this->_REQUEST("goods_name");
+			$sku_name=$this->_REQUEST("sku_name");
 			$upt_data=array(
 				'goods_name'=>$this->_REQUEST("goods_name"),
 				'category_id'=>$this->_REQUEST("category_id"),
@@ -227,7 +229,7 @@ class Goods extends Action{
 			//修改商品数据
 			$this->C($this->cacheDir)->modify('fly_goods',$upt_data,"goods_id='$goods_id'");	
 			//判断是否使用规格
-			if(!empty($this->_REQUEST("sku_name"))){
+			if(!empty($sku_name)){
 				$datalist=array(
 					'sku_name'=>$this->_REQUEST("sku_name"),
 					'sku_value_items'=>$this->_REQUEST("sku_value_items"),
