@@ -100,7 +100,8 @@ class Role extends Action{
 			}
 			$checked=in_array($t['id'],$role_menu)?"checked":"";
 			
-			if ( $t[ 'children' ] == '' ) {
+			//if ( $t[ 'children' ] == '' ) { //修改判断为空
+			if ( empty($t[ 'children' ]) ) {
 				$method=$this->L('sysmanage/Method')->method_arr_checkbox($t['id'],$role_method);
 				$html .= "<li><div class='fly-row lines'>
 								<i class='fly-fl'>&nbsp;</i>
