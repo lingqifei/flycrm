@@ -15,8 +15,7 @@
         <div class="ibox-content table-responsive">
           <div class="row">
             <form id="pagerForm" method="post" class="form-inline">
-              <div class="col-sm-3 m-b-xs">
-				  		<a class="btn btn-info single_operation" href="javascript:void(0);" data-act="add"><i class="fa fa-plus"></i>添加</a>
+              <div class="col-sm-3 m-b-xs"> <a class="btn btn-info single_operation" href="javascript:void(0);" data-act="add"><i class="fa fa-plus"></i>添加</a>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-deault dropdown-toggle">批量操作 <span class="caret"></span></button>
                   <ul class="dropdown-menu">
@@ -25,9 +24,9 @@
                 </div>
               </div>
               <div class="col-sm-9 m-b-xs text-right">
-				  		<div class="input-group pd-b-5">
+                <div class="input-group pd-b-5">
                   <input type="text" name="keywords" placeholder="请输入商品名称或者SKU名称关键字" class="form-control">
-				  		</div>
+                </div>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
                   <div class="dropdown-menu">
@@ -46,8 +45,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="input-group">
-                  <span class="input-group-btn">
+                <div class="input-group"> <span class="input-group-btn">
                   <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
                   </span> </div>
               </div>
@@ -57,11 +55,11 @@
             <thead>
               <tr>
                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-				  		<th width="120"><span>采购单号</span></th>
-				  		<th width="120"><span>商品编号/SKUID</span></th>
+                <th width="120"><span>采购单号</span></th>
+                <th width="120"><span>商品编号/SKUID</span></th>
                 <th width="200" orderField="by_supplier" class="sort-filed"><span>商品名称/SKU名称</span></th>
-				  		<th width="100"><span>数量</span></th>
-				  		<th width="120"><span>采购单价</span></th>
+                <th width="100"><span>数量</span></th>
+                <th width="120"><span>采购单价</span></th>
                 <th width="120"><span>金额</span></th>
                 <th width="80"><span>入库数量</span></th>
                 <th><span>原厂编码</span></th>
@@ -70,7 +68,13 @@
             <tbody>
             </tbody>
           </table>
-			  <table class="table 07fly-table"><tfoot class="ibox-content"><tr><td align="center" class="pagestring"></td></tr></tfoot></table>
+          <table class="table 07fly-table">
+            <tfoot class="ibox-content">
+              <tr>
+                <td align="center" class="pagestring"></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </div>
@@ -83,8 +87,14 @@
 	<tr>
 		<td><input name="sku_id" class="checkboxCtrlId" value="<%=list[i]['sku_id']%>" type="checkbox"></td>
 		<td><%=list[i]['contract']['title']%></td>
-		<td><%=list[i]['goods_id']%>【<%=list[i]['sku_id']%>】</td>
-		<td><%=list[i]['goods_name']%>【<%=list[i]['sku_name']%>】</td>
+		<td>
+			<p>商品：<%=list[i]['goods_id']%></p>
+			<p>SKU：<%=list[i]['sku_id']%></p>
+		</td>
+		<td>
+			<p>商品名：<%=list[i]['goods_name']%></p>
+			<p>SKU名：<%=list[i]['sku_name']%></p>
+		</td>
 		<td><%=list[i]['num']%></td>
 		<td><%=list[i]['cost_price']%></td>
 		<td><%=list[i]['goods_money']%></td>

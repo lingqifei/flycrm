@@ -56,8 +56,8 @@
             <thead>
               <tr>
                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-				  		<th width="120"><span>商品编号/SKUID</span></th>
-                <th width="200" orderField="by_supplier" class="sort-filed"><span>商品名称/SKU名称</span></th>
+				  		<th width="120"><span>商品ID/SKU ID</span></th>
+                <th orderField="by_supplier" class="sort-filed"><span>商品名称/SKU名称</span></th>
 				  		<th width="100"><span>库存数量</span></th>
 				  		<th width="120"><span>商品类型</span></th>
 				  		<th width="120"><span>仓库名称</span></th>
@@ -65,7 +65,7 @@
                 <th width="80"><span>成本价格</span></th>
                 <th width="80"><span>成本金额</span></th>
                 <th width="80"><span>预计利润</span></th>
-                <th><span>原厂编码</span></th>
+                <th width="100"><span>原厂编码</span></th>
               </tr>
             </thead>
             <tbody>
@@ -83,8 +83,14 @@
 <% for(var i=0;i<list.length;i++) { %>
 	<tr>
 		<td><input name="sku_id" class="checkboxCtrlId" value="<%=list[i]['sku_id']%>" type="checkbox"></td>
-		<td><%=list[i]['goods_id']%>【<%=list[i]['sku_id']%>】</td>
-		<td><%=list[i]['goods_name']%>【<%=list[i]['sku_name']%>】</td>
+		<td>
+			<p>商品：<%=list[i]['goods_id']%></p>
+			<p>SKU：<%=list[i]['sku_id']%></p>
+		</td>
+		<td>
+			<p>商品名：<%=list[i]['goods_name']%></p>
+			<p>SKU名：<%=list[i]['sku_name']%></p>
+		</td>
 		<td><%=list[i]['stock']%></td>
 		<td><%=list[i]['goods_category']['category_name']%></td>	
 		<td><%=list[i]['store']['name']%></td>	
