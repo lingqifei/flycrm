@@ -107,7 +107,7 @@ class CstDict extends Action{
 		}
 	}	
 	public function cst_dict_del(){		
-		$goods_id = $this->_REQUEST("goods_id");
+		$dict_id = $this->_REQUEST("dict_id");
 		$sql	= "delete from cst_dict where dict_id in ($dict_id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");		
