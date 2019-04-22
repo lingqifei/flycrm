@@ -62,7 +62,7 @@ class SysConfig extends Action{
 				$sql="update fly_sys_config set value='".$v."' where varname='".$key."'";
 				$this->C($this->cacheDir)->update($sql);
 			}
-			$this->location('操作成功',"sysmanage/SysConfig/sys_config/");
+			$this->location('操作成功',"/sysmanage/SysConfig/sys_config/");
 			//$this->L("Common")->ajax_json_success("操作成功",'1',"/sysmanage/sysconfig/SysConfig/sys_config/");
 		}
 	}
