@@ -20,7 +20,7 @@ class StockOutList extends Action{
 	private $shop='';//缓存目录
 	public function __construct() {
 		$this->auth=_instance('Action/sysmanage/Auth');
-		$this->goods_category=_instance('Action/Goods/GoodsCategory');
+		$this->goods_category=_instance('Action/goods/GoodsCategory');
 		$this->store=_instance('Action/erp/StockStore');
 		$this->stock_out=_instance('Action/erp/StockOut');
 	}	

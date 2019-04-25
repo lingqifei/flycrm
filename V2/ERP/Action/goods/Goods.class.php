@@ -20,9 +20,9 @@ class Goods extends Action{
 	private $shop='';//缓存目录
 	public function __construct() {
 		$this->auth=_instance('Action/sysmanage/Auth');
-		$this->goods_gategory=_instance('Action/Goods/GoodsCategory');
-		$this->goods_img=_instance('Action/Goods/GoodsImg');
-		$this->goods_sku=_instance('Action/Goods/GoodsSku');
+		$this->goods_gategory=_instance('Action/goods/GoodsCategory');
+		$this->goods_img=_instance('Action/goods/GoodsImg');
+		$this->goods_sku=_instance('Action/goods/GoodsSku');
 	}	
 	public function goods(){
 		//**获得传送来的数据作分页处理
