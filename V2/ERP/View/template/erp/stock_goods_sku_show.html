@@ -15,7 +15,6 @@
             <form id="pagerForm" method="post" class="form-inline">
               <div class="col-sm-3 m-b-xs">
 				  		<a href="?" class="btn  btn-default"> <i class="fa fa-refresh"> 刷新</i></a>
-				  		<a class="btn btn-info single_operation" href="javascript:void(0);" data-act="add"><i class="fa fa-plus"></i> 添加</a>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-deault dropdown-toggle">批量操作 <span class="caret"></span></button>
                   <ul class="dropdown-menu">
@@ -118,9 +117,9 @@ $(document).ready(function () {
 		}); 
 		sku_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_modify_recommend/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -148,7 +147,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_add/',
+				content: '#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -168,7 +167,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -183,7 +182,5 @@ $(document).ready(function () {
 			});
 		}
 	});
-	
-	
 });
 </script>
