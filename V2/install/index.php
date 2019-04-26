@@ -36,7 +36,7 @@ $html_header = <<<EOF
       <h5>07FLY-CRM客户关系管理系统</h5>
       <h2>系统安装向导</h2>
     </div>
-    <div class="version">版本: V2.2018.001</div>
+    <div class="version">版本: V2.2018.002</div>
   </div>
 </div>
 EOF;
