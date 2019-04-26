@@ -2,6 +2,7 @@
 $env_items = array();
 $dirfile_items = array(
 		array('type' => 'dir', 'path' => 'ERP/Config'),
+		array('type' => 'file', 'path' => 'ERP/Config/Config.php'),
 		array('type' => 'dir', 'path' => 'install'),
 );
 

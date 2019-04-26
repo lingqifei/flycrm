@@ -132,7 +132,6 @@ function step3( & $install_error, & $install_recover ) {
 	$sitepath = str_replace( 'install', "", $sitepath );
 	$auto_site_url = strtolower( 'http://' . $_SERVER[ 'HTTP_HOST' ] . $sitepath );
 	write_config( $auto_site_url );
-
 	$_charset = strtolower( DBCHARSET );
 	$mysqli->select_db( $db_name );
 	$mysqli->set_charset( $_charset );
@@ -233,11 +232,28 @@ function showjsmessage( $message ) {
 	flush();
 	ob_flush();
 }
+define('FILE_APPEND', 1); 
+if (!function_exists("file_put_contents")) { 
+    function file_put_contents($n, $d, $flag = false) { 
+        $mode = ($flag == FILE_APPEND || strtoupper($flag) == 'FILE_APPEND') ? 'a' : 'w'; 
+        $f = fopen($n, $mode); 
+        if ($f === false) { 
+            return 0; 
+        } else { 
+            if (is_array($d)) $d = implode($d); 
+            $bytes_written = fwrite($f, $d); 
+            fclose($f); 
+            return $bytes_written; 
+        } 
+    } 
+
+} 
+
 //写入config文件
 function write_config( $url ) {
 	extract( $GLOBALS, EXTR_SKIP );
 	$config = 'data/config.php';
-	$configfile = @file_get_contents( $config );
+	$configfile = file_get_contents( $config );
 	$configfile = trim( $configfile );
 	$configfile = substr( $configfile, -2 ) == '?>' ? substr( $configfile, 0, -2 ) : $configfile;
 	$charset = 'UTF-8';
@@ -259,5 +275,6 @@ function write_config( $url ) {
 	$configfile = str_replace( "===db_pwd===", $db_pwd, $configfile );
 	$configfile = str_replace( "===db_name===", $db_name, $configfile );
 	$configfile = str_replace( "===db_port===", $db_port, $configfile );
-	@file_put_contents( '../ERP/Config/Config.php', $configfile );
+	file_put_contents( '../ERP/Config/Config.php', $configfile );
 }
+
