@@ -1,9 +1,6 @@
 INSERT INTO `fly_sys_menu` VALUES('1','系统管理','SystemManage','cogs','0','1','1');
 INSERT INTO `fly_sys_menu` VALUES('2','客户管理','Customer','user','0','20','1');
 INSERT INTO `fly_sys_menu` VALUES('3','统计分析','','line-chart','0','50','1');
-INSERT INTO `fly_sys_menu` VALUES('1','系统管理','SystemManage','cogs','0','1','1');
-INSERT INTO `fly_sys_menu` VALUES('2','客户管理','Customer','user','0','20','1');
-INSERT INTO `fly_sys_menu` VALUES('3','统计分析','','line-chart','0','50','1');
 INSERT INTO `fly_sys_menu` VALUES('4','系统设置','','#','1','11','1');
 INSERT INTO `fly_sys_menu` VALUES('5','组织结构','','#','1','12','1');
 INSERT INTO `fly_sys_menu` VALUES('6','商品管理','','goods','1','13','1');
@@ -179,6 +176,7 @@ INSERT INTO `fly_sys_method` VALUES('102','89','删除','cst_dict_del','3','1');
 INSERT INTO `fly_sys_method` VALUES('103','29','添加 ','cst_dict_type_add','1','1');
 INSERT INTO `fly_sys_method` VALUES('104','29','修改','cst_dict_type_modify','1','1');
 INSERT INTO `fly_sys_method` VALUES('105','29','删除','cst_dict_type_del','3','1');
+
 
 #部门管理
 INSERT INTO `fly_sys_dept` VALUES('1','技术部','0','1','1','12345677','02888133145','主要是用来产的哟');
