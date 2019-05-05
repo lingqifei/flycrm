@@ -19,7 +19,7 @@ class CstDict extends Action{
 		_instance('Action/sysmanage/Auth');
 		$this->dict_type=_instance('Action/crm/CstDictType');
 	}	
-	
+	//数据查询
 	public function cst_dict(){
 		//**获得传送来的数据作分页处理
 		$pageNum = $this->_REQUEST("pageNum");//第几页
@@ -54,6 +54,8 @@ class CstDict extends Action{
 		echo json_encode($assArr);
 	}		
 	//返回一个二维数组
+	//指定类型返回指定类型
+	//返回所有数据字典
 	public function cst_dict_list($typetag=null){
 		$rtArr	=array();
 		$where	=(!empty($typetag))?" where typetag='$typetag'":"";
@@ -106,12 +108,14 @@ class CstDict extends Action{
 			$this->location("操作成功","/crm/CstDict/cst_dict_show/");			
 		}
 	}	
+	//删除
 	public function cst_dict_del(){		
 		$dict_id = $this->_REQUEST("dict_id");
 		$sql	= "delete from cst_dict where dict_id in ($dict_id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");		
 	}	
+	//根据类型返回数据
 	public function cst_dict_select(){
 		$type  = $this->_REQUEST("type");
 		$sql	="select id,name from cst_dict where type='$type' order by sort asc;";
@@ -136,37 +140,40 @@ class CstDict extends Action{
 	//返回字典名称
 	public function cst_dict_get_name($dict_id){
 		if(empty($dict_id)) $dict_id=0;
-		$sql  ="select dict_id,name from cst_dict where dict_id in ($dict_id)";	
-		$list =$this->C($this->cacheDir)->findAll($sql);
-		$str  ="";
-		if(is_array($list)){
-			foreach($list as $row){
-				$str .= "|-".$row["name"]."&nbsp;";
-			}
+		$sql ="select dict_id,name from cst_dict where dict_id in ($dict_id)";	
+		$one =$this->C($this->cacheDir)->findOne($sql);
+		if($one){
+			return $one['name'];
+		}else{
+			return '';
 		}
-		return $str;
 	}	
 	//是否启用
-	public
-	function cst_dict_modify_visible() {
-		$id=$this->_REQUEST('id');	
+	public function cst_dict_modify_visible() {
+		$dict_id =$this->_REQUEST('dict_id');	
 		$upt_data=array(
 					'visible'=>$this->_REQUEST( "visible" )
 				 );
-		$this->C( $this->cacheDir )->modify('cst_dict',$upt_data,"dict_id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
+		$this->C( $this->cacheDir )->modify('cst_dict',$upt_data,"dict_id='$dict_id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");
 	}	
 	//更排序
-	public
-	function cst_dict_modify_sort() {
-		$id=$this->_REQUEST('id');	
+	public function cst_dict_modify_sort() {
+		$dict_id =$this->_REQUEST('dict_id');	
 		$upt_data=array(
 					'sort'=>$this->_REQUEST( "sort" )
 				 );
-		$this->C( $this->cacheDir )->modify('cst_dict',$upt_data,"dict_id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
-	}	
+		$this->C( $this->cacheDir )->modify('cst_dict',$upt_data,"dict_id='$dict_id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");
+	}
+	//更改名称
+	public function cst_dict_modify_name() {
+		$dict_id =$this->_REQUEST('dict_id');	
+		$upt_data=array(
+					'name'=>$this->_REQUEST( "name" )
+				 );
+		$this->C( $this->cacheDir )->modify('cst_dict',$upt_data,"dict_id='$dict_id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");
+	}
 }//end class
 ?>

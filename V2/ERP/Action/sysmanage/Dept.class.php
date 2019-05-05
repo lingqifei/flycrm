@@ -15,16 +15,13 @@
  */	
 
 class Dept extends Action {
-
-	private $cacheDir = 'c_sysmange'; //缓存目录
+	private $cacheDir = ''; //缓存目录
 	private $auth;
-	public
-	function __construct() {
+	public function __construct() {
 		$this->auth = _instance( 'Action/sysmanage/Auth' );
 	}
 
-	public
-	function dept() {
+	public function dept() {
 		$sql	= "select * from fly_sys_dept order by sort asc;";
 		$list 	= $this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
@@ -58,9 +55,9 @@ class Dept extends Action {
 								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
 								
 								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Dept/dept_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Dept/dept_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Dept/dept_del/id/".$t['id']."/'>删除</a>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
 								</div>
 								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 							</div>
@@ -70,9 +67,9 @@ class Dept extends Action {
 								<lable class='fly-col-1'>[+]</lable>
 								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
 								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Dept/dept_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Dept/dept_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Dept/dept_del/id/".$t['id']."/'>删除</a>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
 								</div>
 								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 							</div>
@@ -84,8 +81,7 @@ class Dept extends Action {
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
 
-	public
-	function dept_show() {
+	public function dept_show() {
 		$list =$this->dept();
 		$tree =$this->getTree($list, 0 );
 		$treeHtml=$this->getTreeHtml($tree);
@@ -94,11 +90,10 @@ class Dept extends Action {
 		$smarty->display( 'sysmanage/dept_show.html' );
 	}
 
-	public
-	function dept_add() {
+	public function dept_add() {
 		if ( empty( $_POST ) ) {
-			$sid=$this->_REQUEST('sid');
-			$parentID = $this->dept_select_tree( "parentID" ,$sid);
+			$pid=$this->_REQUEST('pid');
+			$parentID = $this->dept_select_tree( "parentID" ,$pid);
 			$smarty = $this->setSmarty();
 			$smarty->assign( array( "parentID" => $parentID ) );
 			$smarty->display( 'sysmanage/dept_add.html' );
@@ -110,13 +105,6 @@ class Dept extends Action {
 			$sort = $this->_REQUEST( "sort" );
 			$visible = $this->_REQUEST( "visible" );
 			$intro = $this->_REQUEST( "intro" );
-			
-			
-
-			$sql = "insert into fly_sys_dept(name,tel,fax,parentID,sort,visible,intro) 
-								values('$name','$tel','$fax','$parentID','$sort','$visible','$intro');";
-			//$this->C( $this->cacheDir )->update( $sql );
-			
 			$data=array(
 					'name'=>$name,
 					'tel'=>$tel,
@@ -127,12 +115,11 @@ class Dept extends Action {
 					'intro'=>$intro
 					   );
 			$this->C( $this->cacheDir )->insert('fly_sys_dept',$data );
-			$this->location( "操作成功", "/sysmanage/Dept/dept_show/" );
+			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}
 	
-	public
-	function dept_modify() {
+	public function dept_modify() {
 		$id = $this->_REQUEST( "id" );
 		if ( empty( $_POST ) ) {
 			$sql = "select * from fly_sys_dept where id='$id'";
@@ -159,7 +146,7 @@ class Dept extends Action {
 											intro='$intro'
 					where id='$id'";
 			$this->C( $this->cacheDir )->update( $sql );
-			$this->location( "操作成功", "/sysmanage/Dept/dept_show/" );
+			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}
 	
@@ -198,8 +185,7 @@ class Dept extends Action {
 		return $dept_ids;
 	}
 	//排序
-	public
-	function dept_modify_sort() {
+	public function dept_modify_sort() {
 		$id		=$this->_REQUEST('id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(

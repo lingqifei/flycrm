@@ -18,6 +18,7 @@ class CstLinkman extends Action{
 	public function __construct() {
 		_instance('Action/sysmanage/Auth');
 		$this->customer=_instance('Action/crm/CstCustomer');
+		$this->field_ext=_instance('Action/crm/CstFieldExt');
 	}	
 	
 	public function cst_linkman($cusID=0){
@@ -75,19 +76,21 @@ class CstLinkman extends Action{
 		$assArr  = $this->cst_linkman();
 		echo json_encode($assArr);
 	}
+	//浏览
 	public function cst_linkman_show(){
 		$assArr  		= $this->cst_linkman();
 		$smarty  		= $this->setSmarty();
 		$smarty->assign($assArr);
 		$smarty->display('crm/cst_linkman_show.html');	
 	}	
-	
+	//添加
 	public function cst_linkman_add(){
 		$customer_id= $this->_REQUEST("customer_id");
 		if(empty($_POST)){
 			$customer=$this->customer->cst_customer_list();
+			$field_ext=$this->field_ext->cst_field_ext_html('cst_linkman');//扩展字段
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("customer_id"=>$customer_id,"customer"=>$customer));
+			$smarty->assign(array("customer_id"=>$customer_id,"customer"=>$customer,"field_ext"=>$field_ext));
 			$smarty->display('crm/cst_linkman_add.html');	
 		}else{
 			$into_data=array(
@@ -103,7 +106,18 @@ class CstLinkman extends Action{
 				'intro'=>$this->_REQUEST("intro"),
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
-			);										
+			);	
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('cst_linkman');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
 			if($this->C($this->cacheDir)->insert('cst_linkman',$into_data)){
 				$this->L("Common")->ajax_json_success("操作成功");
 			}	
@@ -116,9 +130,16 @@ class CstLinkman extends Action{
 		if(empty($_POST)){
 			$sql 		= "select * from cst_linkman where linkman_id='$linkman_id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
+			//扩展字段操作
+			$field_ext=$this->field_ext->cst_field_ext_html('cst_linkman',$one);
+			$option	=$this->field_ext->cst_field_ext_option('cst_linkman','option');
+			$options=array();
+			foreach($option as $k){
+				$options[$k]=$one[$k];
+			}
 			$customer	=$this->customer->cst_customer_list();
 			$smarty  	= $this->setSmarty();
-			$smarty->assign(array("one"=>$one,"customer"=>$customer));
+			$smarty->assign(array("one"=>$one,"customer"=>$customer,"field_ext"=>$field_ext,"options"=>$options));
 			$smarty->display('crm/cst_linkman_modify.html');	
 		}else{//更新保存数据
 			$into_data=array(
@@ -134,7 +155,18 @@ class CstLinkman extends Action{
 				'intro'=>$this->_REQUEST("intro"),
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
-			);		
+			);	
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('cst_linkman');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************
 			$this->C($this->cacheDir)->modify('cst_linkman',$into_data,"linkman_id='$linkman_id'");
 			$this->L("Common")->ajax_json_success("操作成功");
 		}

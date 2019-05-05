@@ -55,11 +55,10 @@ class Position extends Action{
 				$html .= "<li><div class='fly-row lines'>
 								<i class='fly-fl'>&nbsp;</i>
 								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								
 								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Position/position_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Position/position_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Position/position_del/id/".$t['id']."/'>删除</a>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
 								</div>
 								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 							</div>
@@ -69,9 +68,9 @@ class Position extends Action{
 								<lable class='fly-col-1'>[+]</lable>
 								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
 								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Position/position_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Position/position_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Position/position_del/id/".$t['id']."/'>删除</a>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
 								</div>
 								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 							</div>
@@ -105,7 +104,8 @@ class Position extends Action{
 	
 	public function position_add(){
 		if(empty($_POST)){
-			$parentID	=$this->position_select_tree("parentID");
+			$pid=$this->_REQUEST('pid');
+			$parentID	=$this->position_select_tree("parentID",$pid);
 			$smarty     = $this->setSmarty();
 			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/position_add.html');	
@@ -113,7 +113,7 @@ class Position extends Action{
 			$sql= "insert into fly_sys_position(name,parentID,sort,visible,intro) 
 								values('$_POST[name]','$_POST[parentID]','$_POST[sort]','$_POST[visible]','$_POST[intro]');";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->location("操作成功","/sysmanage/Position/position_show/");		
+			$this->L("Common")->ajax_json_success("操作成功");		
 		}
 	}		
 	public function position_modify(){
@@ -131,14 +131,14 @@ class Position extends Action{
 											 visible='$_POST[visible]',intro='$_POST[intro]'
 					where id='$id'";
 			$this->C($this->cacheDir)->update($sql);	
-			$this->location("操作成功","/sysmanage/Position/position_show/");			
+			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}	
 	public function position_del(){
 		$id=$this->_REQUEST("id");
 		$sql="delete from fly_sys_position where id='$id'";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->location("操作成功","/sysmanage/Position/position_show/");	
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
 	
 	public function position_table_tree($sid =""){

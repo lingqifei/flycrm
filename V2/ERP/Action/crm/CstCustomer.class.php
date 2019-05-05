@@ -18,6 +18,8 @@ class CstCustomer extends Action{
 	public function __construct() {
 		_instance('Action/sysmanage/Auth');
 		$this->dict=_instance('Action/crm/CstDict');
+		$this->comm=_instance('Extend/Common');
+		$this->field_ext=_instance('Action/crm/CstFieldExt');
 	}	
 	
 	public function cst_customer(){
@@ -49,60 +51,14 @@ class CstCustomer extends Action{
 		
 		//到期时间
 		if( !empty($conn_time) ){
-			switch($conn_time){
-				case '3d' :
-					$date_range=date('Y-m-d',strtotime("-3 day",time()));
-					break;
-				case '7d' :
-					$date_range=date('Y-m-d',strtotime("-7 day",time()));
-					break;
-				case '15d' :
-					$date_range=date('Y-m-d',strtotime("-15 day",time()));	
-					break;
-				case '1m' :
-					$date_range=date('Y-m-d',strtotime("-1 month",time()));	
-					break;
-				case '3m' :
-					$date_range=date('Y-m-d',strtotime("-3 month",time()));	
-					break;
-				case '6m' :
-					$date_range=date('Y-m-d',strtotime("-6 month",time()));	
-					break;
-				case '12m' :
-					$date_range=date('Y-m-d',strtotime("-12 month",time()));	
-					break;
-					
-			}
+			$date_range=$this->comm->date_range('-1',$conn_time);
 			$where_str .=" and c.conn_time>'$date_range' and c.conn_time<>'0000-00-00 00:00:00'";
 		}
 
-		//到期时间
+		//下次联系
 		if( !empty($next_time) ){
-			switch($next_time){
-				case '3d' :
-					$date_range=date('Y-m-d',strtotime("+3 day",time()));
-					break;
-				case '7d' :
-					$date_range=date('Y-m-d',strtotime("+7 day",time()));
-					break;
-				case '15d' :
-					$date_range=date('Y-m-d',strtotime("+15 day",time()));	
-					break;
-				case '1m' :
-					$date_range=date('Y-m-d',strtotime("+1 month",time()));	
-					break;
-				case '3m' :
-					$date_range=date('Y-m-d',strtotime("+3 month",time()));	
-					break;
-				case '6m' :
-					$date_range=date('Y-m-d',strtotime("+6 month",time()));	
-					break;
-				case '12m' :
-					$date_range=date('Y-m-d',strtotime("+12 month",time()));	
-					break;
-					
-			}
-			$where_str .=" and c.next_time<'$date_range' and c.next_time<>'0000-00-00 00:00:00'";
+			$date_range=$this->comm->date_range('1',$next_time);
+			$where_str .=" and c.next_time<'$date_range' and c.next_time>='".NOWTIME."'";
 		}
 		
 		$order_by="order by";
@@ -155,8 +111,9 @@ class CstCustomer extends Action{
 			$ecotype =$this->dict->cst_dict_list('ecotype');//经济类型
 			$source =$this->dict->cst_dict_list('source');//来源
 			$level =$this->dict->cst_dict_list('level');//等级
+			$field_ext=$this->field_ext->cst_field_ext_html('cst_customer');//扩展字段
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade));
+			$smarty->assign(array("source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade,"field_ext"=>$field_ext));
 			$smarty->display('crm/cst_customer_add.html');	
 		}
 	}		
@@ -178,6 +135,18 @@ class CstCustomer extends Action{
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
 			);
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('cst_customer');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
+		
 			$customer_id=$this->C($this->cacheDir)->insert('cst_customer',$into_data);
 			if($customer_id>0){
 				$upt_data=array(
@@ -204,8 +173,15 @@ class CstCustomer extends Action{
 			$ecotype=$this->dict->cst_dict_list('ecotype');//经济类型
 			$source =$this->dict->cst_dict_list('source');//来源
 			$level	=$this->dict->cst_dict_list('level');//等级
+			//扩展字段操作
+			$field_ext=$this->field_ext->cst_field_ext_html('cst_customer',$one);
+			$option	=$this->field_ext->cst_field_ext_option('cst_customer','option');
+			$options=array();
+			foreach($option as $k){
+				$options[$k]=$one[$k];
+			}
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("one"=>$one,"source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade));
+			$smarty->assign(array("one"=>$one,"source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade,"field_ext"=>$field_ext,"options"=>$options));
 			$smarty->display('crm/cst_customer_modify.html');	
 			
 		}else{//更新保存数据
@@ -223,26 +199,45 @@ class CstCustomer extends Action{
 				'address'=>$this->_REQUEST("address"),
 				'intro'=>$this->_REQUEST("intro")
 			);
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('cst_customer');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
+			
 			$this->C($this->cacheDir)->modify('cst_customer',$into_data,"customer_id='$customer_id'");
 			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}
-	
+	//详细
 	public function cst_customer_detail(){
 		$customer_id = $this->_REQUEST("customer_id");
 		$one =$this->cst_customer_get_one($customer_id);
+		//加入扩展数据
+		$field_ext_list=$this->field_ext->cst_field_ext_list('cst_customer');
+		$field_one_list=array();
+		foreach($field_ext_list as $row){
+			$field_name =$row['field_name'];
+			$field_one_list[$row['field_name']]=array('show_name'=>$row['show_name'],'field_name'=>$row['field_name'],'field_value'=>$one[$field_name]);
+		}
 		$smarty = $this->setSmarty();
-		$smarty->assign(array("one"=>$one));
+		$smarty->assign(array("one"=>$one,"field_one_list"=>$field_one_list));
 		$smarty->display('crm/cst_customer_detail.html');			
 	}
-	
+	//删除
 	public function cst_customer_del(){
 		$customer_id = $this->_REQUEST("customer_id");
 		$sql  = "delete from cst_customer where customer_id in ($customer_id)";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
-			
+	//查询一条记录
 	public function cst_customer_get_one($customer_id=""){
 		if($customer_id){
 			$sql = "select * from cst_customer where customer_id='$customer_id' ";
@@ -255,7 +250,5 @@ class CstCustomer extends Action{
 			return $one;
 		}	
 	}	
-
-		
 }//end class
 ?>

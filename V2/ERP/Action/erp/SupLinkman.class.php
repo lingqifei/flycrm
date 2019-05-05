@@ -14,6 +14,7 @@ class SupLinkman extends Action{
 	public function __construct() {
 		$this->dict=_instance('Action/crm/CstDict');
 		$this->supplier=_instance('Action/erp/SupSupplier');
+		$this->field_ext=_instance('Action/crm/CstFieldExt');
 	}	
 	
 	public function sup_linkman(){
@@ -78,8 +79,9 @@ class SupLinkman extends Action{
 		$supplier_id= $this->_REQUEST("supplier_id");
 		if(empty($_POST)){
 			$supplier=$this->supplier->sup_supplier_list();
+			$field_ext=$this->field_ext->cst_field_ext_html('sup_linkman');//扩展字段
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("supplier_id"=>$supplier_id,"supplier"=>$supplier));
+			$smarty->assign(array("supplier_id"=>$supplier_id,"supplier"=>$supplier,"field_ext"=>$field_ext));
 			$smarty->display('erp/sup_linkman_add.html');	
 		}else{
 			$into_data=array(
@@ -95,7 +97,18 @@ class SupLinkman extends Action{
 				'intro'=>$this->_REQUEST("intro"),
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
-			);										
+			);	
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('sup_linkman');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
 			if($this->C($this->cacheDir)->insert('sup_linkman',$into_data)){
 				$this->L("Common")->ajax_json_success("操作成功");
 			}	
@@ -108,8 +121,15 @@ class SupLinkman extends Action{
 			$sql 		= "select * from sup_linkman where linkman_id='$linkman_id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
 			$supplier=$this->supplier->sup_supplier_list();
+			//扩展字段操作
+			$field_ext=$this->field_ext->cst_field_ext_html('sup_linkman',$one);
+			$option	=$this->field_ext->cst_field_ext_option('sup_linkman','option');
+			$options=array();
+			foreach($option as $k){
+				$options[$k]=$one[$k];
+			}
 			$smarty  	= $this->setSmarty();
-			$smarty->assign(array("one"=>$one,"supplier"=>$supplier));
+			$smarty->assign(array("one"=>$one,"supplier"=>$supplier,"field_ext"=>$field_ext,"options"=>$options));
 			$smarty->display('erp/sup_linkman_modify.html');	
 		}else{//更新保存数据
 			$into_data=array(
@@ -123,7 +143,18 @@ class SupLinkman extends Action{
 				'email'=>$this->_REQUEST("email"),
 				'address'=>$this->_REQUEST("address"),
 				'intro'=>$this->_REQUEST("intro"),
-			);		
+			);
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('sup_linkman');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
 			$this->C($this->cacheDir)->modify('sup_linkman',$into_data,"linkman_id='$linkman_id'");
 			$this->L("Common")->ajax_json_success("操作成功");
 		}

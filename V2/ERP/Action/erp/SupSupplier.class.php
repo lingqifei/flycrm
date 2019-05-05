@@ -18,6 +18,7 @@ class SupSupplier extends Action{
 	public function __construct() {
 		_instance('Action/sysmanage/Auth');
 		$this->dict=_instance('Action/crm/CstDict');
+		$this->field_ext=_instance('Action/crm/CstFieldExt');
 	}	
 	
 	public function sup_supplier(){
@@ -105,8 +106,9 @@ class SupSupplier extends Action{
 		if(empty($_POST)){
 			$trade=$this->dict->cst_dict_list('trade');
 			$ecotype =$this->dict->cst_dict_list('ecotype');
+			$field_ext=$this->field_ext->cst_field_ext_html('sup_supplier');//扩展字段
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("trade"=>$trade,"ecotype"=>$ecotype));
+			$smarty->assign(array("trade"=>$trade,"ecotype"=>$ecotype,"field_ext"=>$field_ext));
 			$smarty->display('erp/sup_supplier_add.html');	
 		}else{
 			$into_data=array(
@@ -122,6 +124,17 @@ class SupSupplier extends Action{
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
 			);
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('sup_supplier');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************	
 			$supplier_id=$this->C($this->cacheDir)->insert('sup_supplier',$into_data);
 			if($supplier_id>0){
 				$into_data=array(
@@ -145,8 +158,15 @@ class SupSupplier extends Action{
 			$one 	=$this->C($this->cacheDir)->findOne($sql);	
 			$trade	=$this->dict->cst_dict_list('trade');
 			$ecotype=$this->dict->cst_dict_list('ecotype');
+			//扩展字段操作
+			$field_ext=$this->field_ext->cst_field_ext_html('sup_supplier',$one);
+			$option	=$this->field_ext->cst_field_ext_option('sup_supplier','option');
+			$options=array();
+			foreach($option as $k){
+				$options[$k]=$one[$k];
+			}
 			$smarty =$this->setSmarty();
-			$smarty->assign(array("one"=>$one,"trade"=>$trade,"ecotype"=>$ecotype));
+			$smarty->assign(array("one"=>$one,"trade"=>$trade,"ecotype"=>$ecotype,"field_ext"=>$field_ext,"options"=>$options));
 			$smarty->display('erp/sup_supplier_modify.html');	
 		}else{//更新保存数据
 			$into_data=array(
@@ -160,6 +180,17 @@ class SupSupplier extends Action{
 				'address'=>$this->_REQUEST("address"),
 				'intro'=>$this->_REQUEST("intro")
 			);
+			//******************************************************
+			//处理扩展字段
+			//合并主表数据和扩展字段数据
+			$fields=$this->field_ext->cst_field_ext_list('sup_supplier');
+			$ext_data=array();
+			foreach($fields as $row){
+				$field=$row['field_name'];
+				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+			}
+			$into_data=array_merge($into_data,$ext_data);
+			//******************************************************
 			$this->C($this->cacheDir)->modify('sup_supplier',$into_data,"supplier_id='$supplier_id'");
 			$this->L("Common")->ajax_json_success("操作成功");			
 		}

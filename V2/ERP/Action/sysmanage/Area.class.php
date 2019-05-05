@@ -1,25 +1,19 @@
 <?php
 /*
+ * 地区管理类
  *
- * sysmanage.Area  地区管理   
- *
- * =========================================================
- * 零起飞网络 - 专注于网站建设服务和行业系统开发
- * 以质量求生存，以服务谋发展，以信誉创品牌 !
- * ----------------------------------------------
- * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
- * @author ：kfrs <goodkfrs@QQ.com> 574249366
- * @version ：1.0
- * @link ：http://www.07fly.top 
- */	
-
+ * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author      kfrs <goodkfrs@QQ.com>
+ * @package     admin.Book
+ * @version     1.0
+ * @link       http://www.07fly.top
+ */	 
 class Area extends Action{	
-	private $cacheDir='c_sysmange';//缓存目录
+	private $cacheDir='';//缓存目录
 	private $tree='';//数形
 	
-	public
-	function area() {
+	public function area() {
 		$sql	= "select * from fly_sys_area  where visible='1' order by sort asc;";
 		$list 	= $this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
@@ -41,52 +35,79 @@ class Area extends Action{
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';	
-		foreach ( $tree as $key=>$t ) {
-			$kg="";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Dept/area_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Dept/area_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Dept/area_del/id/".$t['id']."/'>删除</a>
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$kg="";
+				for($x=1;$x<$t['level'];$x++) {
+					$kg .="<i class='fly-fl'>|—</i>";
+				}
+				if ( $t[ 'children' ] == '' ) {
+					$html .= "<li><div class='fly-row lines'>
+									<i class='fly-fl'>&nbsp;</i>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
+
+									<div  class='fly-col-2 fly-fr fly-tr'>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+									</div>
+									<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a href='".ACT."/sysmanage/Dept/area_add/sid/".$t['id']."/'>增加下级</a> 
-									<a href='".ACT."/sysmanage/Dept/area_modify/id/".$t['id']."/'>修改</a> 
-									<a href='".ACT."/sysmanage/Dept/area_del/id/".$t['id']."/'>删除</a>
+							  </li>";
+				} else {
+					$html .= "<li><div class='fly-row lines'>
+									<lable class='fly-col-1'>[+]</lable>
+									<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
+									<div  class='fly-col-2  fly-fr fly-tr'>
+									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
+									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
+									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
+									</div>
+									<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
 								</div>
-								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
+								";
+					$html .= $this->getTreeHtml( $t[ 'children' ] );
+					$html .= "</li>";
+				}
 			}
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
 
-	public
-	function area_show() {
+	public function area_show() {
 		$list =$this->area();
-		$tree =$this->getTree($list, 1);
+		$tree =$this->getTree($list, 0);
 		$treeHtml=$this->getTreeHtml($tree);
 		$smarty = $this->setSmarty();
 		$smarty->assign( array( "treeHtml" => $treeHtml) );
 		$smarty->display( 'sysmanage/area_show.html' );
 	}	
+	
+	public function area_add(){
+		if(empty($_POST)){
+			$pid=$this->_REQUEST('pid');
+			$parentID=$this->area_select_tree('parentID',$pid);
+			$smarty	= $this->setSmarty();
+			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
+			$smarty->display('sysmanage/area_add.html');	
+		}else{
+			$name	 = $this->_REQUEST("name");
+			$parentID= $this->_REQUEST("parentID");
+			$sort	 = $this->_REQUEST("sort");
+			$visible = $this->_REQUEST("visible");
+			$intro	 = $this->_REQUEST("intro");			
+			$data=array(
+					'name'=>$name,
+					'parentID'=>$parentID,
+					'sort'=>$sort,
+					'visible'=>$visible,
+					'intro'=>$intro
+					   );
+			$this->C( $this->cacheDir )->insert('fly_sys_area',$data );
+			$this->L("Common")->ajax_json_success("操作成功");	
+		}
+	}
+	
 	public function area_modify(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -102,29 +123,36 @@ class Area extends Action{
 			$sort	 = $this->_REQUEST("sort");
 			$visible = $this->_REQUEST("visible");
 			$intro	 = $this->_REQUEST("intro");	
-			$sql= "update fly_sys_area set name='$name',parentID='$parentID',sort='$sort', visible='$visible',intro='$intro' where id='$id'";
-			$this->C($this->cacheDir)->update($sql);	
-			$this->location("操作成功","/sysmanage/Area/area_show/");			
+			$data=array(
+					'name'=>$name,
+					'parentID'=>$parentID,
+					'sort'=>$sort,
+					'visible'=>$visible,
+					'intro'=>$intro
+					   );
+			$this->C( $this->cacheDir )->modify('fly_sys_area',$data,"id='$id'");
+			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}	
 	public function area_del(){
 		$id=$this->_REQUEST("id");
 		$sql="delete from fly_sys_area where id='$id'";
 		$this->C($this->cacheDir)->update($sql);	
-		$this->location("操作成功","/sysmanage/Area/area_show/");	
+		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
 	
+	//树形展示
 	public function area_table_tree($sid =""){
 			$sql	 = "select * from fly_sys_area order by sort asc;";	
 			$list	 = $this->C($this->cacheDir)->findAll($sql);	
 			$this->tree->tree($list);
-
 			return $this->tree->get_tree(0, "<tr target='sid_user' rel='\$id'><td><input name='ids' value='\$id\' type='checkbox'></td><td> \$sort</td> <td>\$spacer \$name</td> <td> \$intro</td> <td><a href='".ACT."/sysmanage/Area/area_modify/id/\$id/' class='btn btn-info btn-xs'><i class='fa fa-paste'></i> 修改</a>&nbsp;
                   	<a href='".ACT."/sysmanage/Area/area_del/id/\$id/' class='btn btn-danger btn-xs'><i class='fa fa-remove'></i> 删除</a></tr>", 0, '' , "");
 	}	
+	//树形下拉
 	public function area_select_tree($tag,$sid =""){
 			$tree	 = _instance('Extend/Tree');
-			$sql	 = "select * from fly_sys_area  order by sort asc;";	
+			$sql	 = "select * from fly_sys_area order by sort asc;";	
 			$list	 = $this->C($this->cacheDir)->findAll($sql);	
 			$tree->tree($list);	
 			$parentID  = "<select name=\"$tag\"  class=\"form-control\">";
@@ -190,6 +218,27 @@ class Area extends Action{
 			}
 		}
 		return $str;
+	}
+	//排序
+	public function area_modify_sort() {
+		$id		=$this->_REQUEST('id');	
+		$sort	=$this->_REQUEST('sort');	
+		$upt_data=array(
+					'sort'=>$this->_REQUEST( "sort" )
+				 );
+		$this->C( $this->cacheDir )->modify('fly_sys_area',$upt_data,"id='$id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");	
+	}
+	//修改名称
+	public
+	function area_modify_name() {
+		$id		=$this->_REQUEST('id');	
+		$name	=$this->_REQUEST('name');	
+		$upt_data=array(
+					'name'=>$this->_REQUEST( "name" )
+				 );
+		$this->C( $this->cacheDir )->modify('fly_sys_area',$upt_data,"id='$id'",true);
+		$this->L("Common")->ajax_json_success("操作成功");
 	}
 }//
 ?>
