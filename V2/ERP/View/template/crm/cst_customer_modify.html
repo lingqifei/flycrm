@@ -90,6 +90,7 @@
           <textarea name="intro" class="form-control">#{$one.intro}#</textarea>
         </div>
       </div>
+		 #{$field_ext}#
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-8">
           <button class="btn btn-w-m btn-info save-form" type="button">保存数据</button>
@@ -116,7 +117,11 @@ $(document).ready(function () {
 	$(".level-chosen-select").val("#{$one.level}#").trigger("chosen:updated");
 	$(".ecotype-chosen-select").val("#{$one.ecotype}#").trigger("chosen:updated");
 	$(".trade-chosen-select").val("#{$one.trade}#").trigger("chosen:updated");
-
+	//扩展字段+联动
+  #{foreach from=$options key=k item=v}#	
+	$(".#{$k}#-chosen-select").val("#{$v}#").trigger("chosen:updated");
+  #{/foreach}#
+	
 	//数据保存
 	$("body").on("click", ".save-form", function() {
 		FormData=$("form").serialize();

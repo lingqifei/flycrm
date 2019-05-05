@@ -2,186 +2,179 @@
 <html>
 #{include file="header.html"}#
 <body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="ibox float-e-margins">
-    <div class="ibox-title">
-      <h5><i class="fa fa-home"></i>客户详细</h5>
-      <div class="ibox-tools">
-        <button type="button" class="btn btn-xs btn-primary btn-back-reply"><i class="fa fa-reply"></i> 返回</button>
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-sm-10">
+        <div class="m-b-md">
+          <h3>#{$one.name}#</h3>
+        </div>
+      </div>
+      <div class="col-sm-2 text-right"> <a href="javascript:void(0)" class=" btn btn-default single_operation" data-id="#{$one.customer_id}#" data-act="modify"><i class="fa fa-edit"></i>修改</a> </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p><strong>客户来源：</strong>#{$one.source_name}#</p>
+        <p><strong>客户等级：</strong>#{$one.level_name}#</p>
+        <p><strong>经济类型：</strong>#{$one.ecotype_name}#</p>
+        <p><strong>行业类型：</strong>#{$one.trade_name}#</p>
+        <p><strong>最近联系：</strong>#{$one.conn_time}#</p>
+        <p><strong>联系内容：</strong>#{$one.conn_body}#</p>
+        <p><strong>下次联系时间：</strong>#{$one.next_time}#</p>
+      </div>
+      <div class="col-sm-6">
+        <p><strong>创建时间：</strong>#{$one.create_time}#</p>
+        <p><strong>客户名称：</strong>#{$one.name}#</p>
+        <p><strong>客户代表：</strong>#{$one.linkman}#</p>
+        <p><strong>联系手机：</strong>#{$one.mobile}#</p>
+        <p><strong>联系电话：</strong>#{$one.tel}#</p>
+        <p><strong>联系邮箱：</strong>#{$one.email}#</p>
+        <p><strong>联系地址：</strong>#{$one.address}#</p>
+        <p><strong>客户介绍：</strong>#{$one.intro}#</p>
       </div>
     </div>
-    <div class="ibox-content">
-      <div class="row">
-        <div class="col-sm-10">
-          <div class="m-b-md">
-            <h3>#{$one.name}#</h3>
-          </div>
-        </div>
-        <div class="col-sm-2 text-right"> <a href="javascript:void(0)" class=" btn btn-default single_operation" data-id="#{$one.customer_id}#" data-act="modify"><i class="fa fa-edit"></i>修改</a> </div>
+    <div class="row"> #{foreach from=$field_one_list key=k item=v}#
+      <div class="col-sm-6">
+        <p><strong>#{$v.show_name}#：</strong>#{$v.field_value}#</p>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="ibox-content ">
-            <p><strong>客户来源：</strong>#{$one.source_name}#</p>
-            <p><strong>客户等级：</strong>#{$one.level_name}#</p>
-            <p><strong>经济类型：</strong>#{$one.ecotype_name}#</p>
-            <p><strong>行业类型：</strong>#{$one.trade_name}#</p>
-            <p><strong>最近联系：</strong>#{$one.conn_time}#</p>
-            <p><strong>联系内容：</strong>#{$one.conn_body}#</p>
-            <p><strong>下次联系时间：</strong>#{$one.next_time}#</p>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="ibox-content ">
-            <p><strong>创建时间：</strong>#{$one.create_time}#</p>
-            <p><strong>客户名称：</strong>#{$one.name}#</p>
-            <p><strong>客户代表：</strong>#{$one.linkman}#</p>
-            <p><strong>联系手机：</strong>#{$one.mobile}#</p>
-            <p><strong>联系电话：</strong>#{$one.tel}#</p>
-            <p><strong>联系邮箱：</strong>#{$one.email}#</p>
-            <p><strong>联系地址：</strong>#{$one.address}#</p>
-            <p><strong>客户介绍：</strong>#{$one.intro}#</p>
-          </div>
-        </div>
-      </div>
-      <div class="row m-t-sm">
-        <div class="col-sm-12">
-          <div class="panel blank-panel">
-            <div class="panel-heading">
-              <div class="panel-options">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="?#tab-1" data-toggle="tab" >跟踪记录</a></li>
-                  <li class=""><a href="?#tab-2" data-toggle="tab">联系人</a> </li>
-                  <li class=""><a href="?#tab-3" data-toggle="tab">销售机会</a> </li>
-                  <li class=""><a href="?#tab-4" data-toggle="tab">产品报价</a> </li>
-                  <li class=""><a href="?#tab-5" data-toggle="tab">服务记录</a> </li>
-                  <li class=""><a href="?#tab-6" data-toggle="tab">销售合同</a> </li>
-                </ul>
-              </div>
+      #{/foreach}# </div>
+    <div class="row m-t-sm">
+      <div class="col-sm-12">
+        <div class="panel blank-panel">
+          <div class="panel-heading">
+            <div class="panel-options">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="?#tab-1" data-toggle="tab" >跟踪记录</a></li>
+                <li class=""><a href="?#tab-2" data-toggle="tab">联系人</a> </li>
+                <li class=""><a href="?#tab-3" data-toggle="tab">销售机会</a> </li>
+                <li class=""><a href="?#tab-4" data-toggle="tab">产品报价</a> </li>
+                <li class=""><a href="?#tab-5" data-toggle="tab">服务记录</a> </li>
+                <li class=""><a href="?#tab-6" data-toggle="tab">销售合同</a> </li>
+              </ul>
             </div>
-            <div class="panel-body">
-              <div class="tab-content">
-                <div class="tab-pane active" id="tab-1">
-                  <table class="table table-hover sorttable 07fly-table" width="100%">
-                    <thead>
-                      <tr>
-                        <th><span>跟踪记录主题</span></th>
-                        <th width="150"><span>最近联系时间</span></th>
-                        <th width="150"><span>沟通内容</span></th>
-                        <th width="150"><span>下次联系时间</span></th>
-                        <th width="80"><span>沟通方式</span></th>
-                        <th width="80"><span>当前阶段</span></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <table class="table 07fly-table">
-                    <tfoot class="ibox-content">
-                      <tr>
-                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="trace">添加沟通记录</a></td>
-                        <td align="center" class="pagestring"></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <div class="tab-pane" id="tab-2">
-                  <table class="table table-hover sorttable 07fly-table" width="100%">
-                    <thead>
-                      <tr>
-                        <th width="120"><span>姓名</span></th>
-                        <th width="80"><span>性别</span></th>
-                        <th width="120"><span>职位</span></th>
-                        <th width="120"><span>手机</span></th>
-                        <th width="120"><span>座机</span></th>
-                        <th width="120"><span>QQ</span></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <table class="table 07fly-table">
-                    <tfoot class="ibox-content">
-                      <tr>
-                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="linkman">添加联系人</a></td>
-                        <td align="center" class="pagestring"></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <div class="tab-pane" id="tab-3">
-                  <table class="table table-hover sorttable 07fly-table" width="100%">
-                    <thead>
-                      <tr>
-                        <th><span>销售机会主题</span></th>
-                        <th width="120"><span>发现时间</span></th>
-                        <th width="120"><span>预计签单时间</span></th>
-                        <th width="100"><span>预计金额</span></th>
-                        <th width="80"><span>当前阶段</span></th>
-                        <th width="120"><span>需求</span></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <table class="table">
-                    <tfoot class="ibox-content">
-                      <tr>
-                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="chance">添加销售机会</a></td>
-                        <td colspan="9" align="center"></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <div class="tab-pane" id="tab-4"> 功能开发中。。444。 </div>
-                <div class="tab-pane" id="tab-5">
-                  <table class="table table-hover sorttable 07fly-table" width="100%">
-                    <thead>
-                      <tr>
-                        <th width="120"><span>服务类型</span></th>
-                        <th width="120"><span>服务方式</span></th>
-                        <th width="150"><span>服务时间</span></th>
-                        <th width="100"><span>花费时间</span></th>
-                        <th><span>服务内容</span></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <table class="table 07fly-table">
-                    <tfoot class="ibox-content">
-                      <tr>
-                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="service">添加服务记录</a></td>
-                        <td align="center" class="pagestring"></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <div class="tab-pane" id="tab-6">
-                  <table class="table table-hover sorttable 07fly-table" width="100%">
-                    <thead>
-                      <tr>
-                        <th><span>合同主题</span></th>
-                        <th width="100"><span>合同金额</span></th>
-                        <th width="120"><span>回款/金额/状态</span></th>
-                        <th width="120"><span>发票/金额/状态</span></th>
-                        <th width="100"><span>开始时间</span></th>
-                        <th width="100"><span>结束时间</span></th>
-                        <th width="80"><span>合同状态</span></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                  <table class="table">
-                    <tfoot class="ibox-content">
-                      <tr>
-                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="contract">添加销售合同</a></td>
-                        <td colspan="10" align="center"></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
+          </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab-1">
+                <table class="table table-hover sorttable 07fly-table" width="100%">
+                  <thead>
+                    <tr>
+                      <th><span>跟踪记录主题</span></th>
+                      <th width="150"><span>最近联系时间</span></th>
+                      <th width="150"><span>沟通内容</span></th>
+                      <th width="150"><span>下次联系时间</span></th>
+                      <th width="80"><span>沟通方式</span></th>
+                      <th width="80"><span>当前阶段</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table class="table 07fly-table">
+                  <tfoot class="ibox-content">
+                    <tr>
+                      <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="trace">添加沟通记录</a></td>
+                      <td align="center" class="pagestring"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab-2">
+                <table class="table table-hover sorttable 07fly-table" width="100%">
+                  <thead>
+                    <tr>
+                      <th width="120"><span>姓名</span></th>
+                      <th width="80"><span>性别</span></th>
+                      <th width="120"><span>职位</span></th>
+                      <th width="120"><span>手机</span></th>
+                      <th width="120"><span>座机</span></th>
+                      <th width="120"><span>QQ</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table class="table 07fly-table">
+                  <tfoot class="ibox-content">
+                    <tr>
+                      <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="linkman">添加联系人</a></td>
+                      <td align="center" class="pagestring"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab-3">
+                <table class="table table-hover sorttable 07fly-table" width="100%">
+                  <thead>
+                    <tr>
+                      <th><span>销售机会主题</span></th>
+                      <th width="120"><span>发现时间</span></th>
+                      <th width="120"><span>预计签单时间</span></th>
+                      <th width="100"><span>预计金额</span></th>
+                      <th width="80"><span>当前阶段</span></th>
+                      <th width="120"><span>需求</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table class="table">
+                  <tfoot class="ibox-content">
+                    <tr>
+                      <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="chance">添加销售机会</a></td>
+                      <td colspan="9" align="center"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab-4"> 功能开发中。。444。 </div>
+              <div class="tab-pane" id="tab-5">
+                <table class="table table-hover sorttable 07fly-table" width="100%">
+                  <thead>
+                    <tr>
+                      <th width="120"><span>服务类型</span></th>
+                      <th width="120"><span>服务方式</span></th>
+                      <th width="150"><span>服务时间</span></th>
+                      <th width="100"><span>花费时间</span></th>
+                      <th><span>服务内容</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table class="table 07fly-table">
+                  <tfoot class="ibox-content">
+                    <tr>
+                      <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="service">添加服务记录</a></td>
+                      <td align="center" class="pagestring"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab-6">
+                <table class="table table-hover sorttable 07fly-table" width="100%">
+                  <thead>
+                    <tr>
+                      <th><span>合同主题</span></th>
+                      <th width="100"><span>合同金额</span></th>
+                      <th width="120"><span>回款/金额/状态</span></th>
+                      <th width="120"><span>发票/金额/状态</span></th>
+                      <th width="100"><span>开始时间</span></th>
+                      <th width="100"><span>结束时间</span></th>
+                      <th width="80"><span>合同状态</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table class="table">
+                  <tfoot class="ibox-content">
+                    <tr>
+                      <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary single_operation" data-id="#{$one.customer_id}#" data-act="contract">添加销售合同</a></td>
+                      <td colspan="10" align="center"></td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
           </div>

@@ -76,7 +76,7 @@
             </tbody>
             <tfoot class="ibox-content">
               <tr>
-                <td colspan="5" align="center"></td>
+                <td colspan="8" align="center"></td>
               </tr>
             </tfoot>
           </table>
@@ -90,7 +90,7 @@
 	<tr>
 		<td><input name="dict_id" class="checkboxCtrlId" value="<%=list[i]['dict_id']%>" type="checkbox"></td>
 		<td><%=list[i]['dict_id']%></td>
-		<td><%=list[i]['name']%></td>
+		<td><input type="text" name="name" value="<%=list[i]['name']%>" class="form-control w150 modify_name" data-id="<%=list[i]['dict_id']%>"></td>
 		<td><%=list[i]['typename']%></td>
 		<td><%=list[i]['typetag']%></td>
 		<td><input type="text" name="sort" value="<%=list[i]['sort']%>" class="form-control w50 modify_sort" data-id="<%=list[i]['dict_id']%>" size="5"></td>
@@ -105,7 +105,7 @@
 		</td>
 		<td width='10'>
 			<div class="btn-group">
-				<button data-toggle="dropdown" class="btn btn-info dropdown-toggle">操作 <span class="caret"></span></button>
+				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">操作 <span class="caret"></span></button>
 				<ul class="dropdown-menu">
 					<li><a href="#{$smarty.const.ACT}#/crm/CstDict/cst_dict_modify/dict_id/<%=list[i]['dict_id']%>/">修改</a></li>
 					<li><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['dict_id']%>" data-act="del">删除</a></li>
@@ -176,7 +176,7 @@ $('.chosen-select').chosen().change(function(){
 	});
 
 	$("body").on("click", ".onoffswitch-checkbox", function() {
-			id =$(this).attr("data-id")
+			dict_id =$(this).attr("data-id")
 			ischecked=$(this).prop('checked');
 			if(ischecked){
 			   visble='1';
@@ -186,29 +186,45 @@ $('.chosen-select').chosen().change(function(){
 			$.ajax({
 				type: "POST",
 				url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_visible/",
-				data:{"visble":visble,"dict_id":id},
+				data:{"visble":visble,"dict_id":dict_id},
 				dataType:"json",
 				success: function(data){
-					if(data.rtnstatus=='success'){
+					if(data.statusCode=='200'){
 						layer.msg('操作成功', {icon: 1});   
 					}
-					console.log(data.rtnstatus);
+					log(data.statusCode);
 				}
 			});
 		});
 	$("body").on("blur", ".modify_sort", function() {
-		id 	=$(this).attr("data-id")
+		dict_id	=$(this).attr("data-id")
 		sort=$(this).val();
 		$.ajax({
 			type: "POST",
 			url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_sort/",
-			data:{"sort":sort,"id":id},
+			data:{"sort":sort,"dict_id":dict_id},
 			dataType:"json",
 			success: function(data){
-				if(data.rtnstatus=='success'){
+				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1});   
 				}
-				console.log(data.rtnstatus);
+				log(data.statusCode);
+			}
+		});
+	});	
+	$("body").on("blur", ".modify_name", function() {
+		dict_id	=$(this).attr("data-id")
+		name=$(this).val();
+		$.ajax({
+			type: "POST",
+			url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_name/",
+			data:{"name":name,"dict_id":dict_id},
+			dataType:"json",
+			success: function(data){
+				if(data.statusCode=='200'){
+					layer.msg('操作成功', {icon: 1});   
+				}
+				log(data.statusCode);
 			}
 		});
 	});	
