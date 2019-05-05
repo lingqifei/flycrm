@@ -78,6 +78,25 @@ CREATE TABLE `cst_dict_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='字典分类';
 
+DROP TABLE IF EXISTS `cst_field_ext`;
+
+CREATE TABLE `cst_field_ext` (
+  `field_ext_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
+  `main_table` varchar(50) NOT NULL COMMENT '关联主表',
+  `ext_table` varchar(50) NOT NULL COMMENT '扩展表名',
+  `show_name` varchar(256) NOT NULL COMMENT '表单名称',
+  `field_name` varchar(256) NOT NULL COMMENT '字段名称',
+  `field_type` varchar(50) NOT NULL COMMENT '单文本=varchar,文本=text,多行文本=textarea,整数=int,小数=float,图片=img,下拉=option,单选=radio,复选=checkbox',
+  `default` varchar(256) NOT NULL COMMENT '字段默认值',
+  `maxlength` varchar(256) NOT NULL COMMENT '最大值',
+  `desc` varchar(256) NOT NULL COMMENT '表单说明',
+  `visible` smallint(1) NOT NULL DEFAULT '1' COMMENT '是否使用',
+  `create_user_id` int(16) NOT NULL DEFAULT '0',
+  `sort` int(16) NOT NULL DEFAULT '0' COMMENT '显示排序',
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`field_ext_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户字段扩展表';
+
 DROP TABLE IF EXISTS `cst_filing`;
 
 CREATE TABLE `cst_filing` (
@@ -783,8 +802,11 @@ DROP TABLE IF EXISTS `fly_sys_area`;
 CREATE TABLE `fly_sys_area` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `parentID` int(4) NOT NULL,
+  `sort` int(4) NOT NULL,
   `name` varchar(12) NOT NULL,
   `type` int(1) NOT NULL,
+  `visible` int(1) NOT NULL,
+  `intro` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='地区表';
 

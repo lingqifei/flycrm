@@ -1,22 +1,24 @@
 INSERT INTO `fly_sys_menu` VALUES('1','系统管理','SystemManage','cogs','0','1','1');
 INSERT INTO `fly_sys_menu` VALUES('2','客户管理','Customer','user','0','20','1');
 INSERT INTO `fly_sys_menu` VALUES('3','统计分析','','line-chart','0','50','1');
+INSERT INTO `fly_sys_menu` VALUES('1','系统管理','SystemManage','cogs','0','1','1');
+INSERT INTO `fly_sys_menu` VALUES('2','客户管理','Customer','user','0','20','1');
+INSERT INTO `fly_sys_menu` VALUES('3','统计分析','','line-chart','0','50','1');
 INSERT INTO `fly_sys_menu` VALUES('4','系统设置','','#','1','11','1');
 INSERT INTO `fly_sys_menu` VALUES('5','组织结构','','#','1','12','1');
 INSERT INTO `fly_sys_menu` VALUES('6','商品管理','','goods','1','13','1');
 INSERT INTO `fly_sys_menu` VALUES('7','数据字典','','#','1','13','1');
-INSERT INTO `fly_sys_menu` VALUES('8','客户管理','','customer','2','21','0');
+INSERT INTO `fly_sys_menu` VALUES('8','消息通知','','/sysmanage/Message/message_show/','4','116','1');
 INSERT INTO `fly_sys_menu` VALUES('9','销售管理','','sal','2','22','0');
 INSERT INTO `fly_sys_menu` VALUES('10','合同管理','','contract','2','23','0');
 INSERT INTO `fly_sys_menu` VALUES('11','订单管理','','orders','2','24','0');
 INSERT INTO `fly_sys_menu` VALUES('12','供应商管理','','users','0','31','1');
-#栏目数据
 INSERT INTO `fly_sys_menu` VALUES('13','采购管理','','ship','0','32','1');
 INSERT INTO `fly_sys_menu` VALUES('14','库存管理','kucun','cube','0','40','1');
 INSERT INTO `fly_sys_menu` VALUES('15','系统参数','system','/sysmanage/SysConfig/sys_config/','4','111','1');
 INSERT INTO `fly_sys_menu` VALUES('16','系统菜单','','/sysmanage/Menu/menu_show/','4','112','1');
 INSERT INTO `fly_sys_menu` VALUES('17','密码修改','serial','/sysmanage/Sys/sys_password_modify/','4','113','1');
-INSERT INTO `fly_sys_menu` VALUES('18','好业务收入','system log','#','4','114','0');
+INSERT INTO `fly_sys_menu` VALUES('18','商品规格','system log','/goods/GoodsSpec/goods_spec_show/','6','135','1');
 INSERT INTO `fly_sys_menu` VALUES('19','数据库管理','database','/sysmanage/SysData/sys_data/','4','115','1');
 INSERT INTO `fly_sys_menu` VALUES('20','系统升级','#','/sysmanage/Sys/sys_upgrade/','4','115','1');
 INSERT INTO `fly_sys_menu` VALUES('21','部门管理','','/sysmanage/Dept/dept_show/','5','115','1');
@@ -26,7 +28,7 @@ INSERT INTO `fly_sys_menu` VALUES('24','用户管理','Sys User Management','/sy
 INSERT INTO `fly_sys_menu` VALUES('25','商品列表','product_dict','/goods/Goods/goods_show/','6','131','1');
 INSERT INTO `fly_sys_menu` VALUES('26','商品分类','','/goods/GoodsCategory/goods_category_show/','6','132','1');
 INSERT INTO `fly_sys_menu` VALUES('27','商品品牌','ProductType','/goods/GoodsBrand/goods_brand_show/','6','132','1');
-INSERT INTO `fly_sys_menu` VALUES('28','商品规格','','/goods/GoodsAttr/goods_attr_show/','6','134','1');
+INSERT INTO `fly_sys_menu` VALUES('28','商品类型','','/goods/GoodsAttr/goods_attr_show/','6','134','1');
 INSERT INTO `fly_sys_menu` VALUES('29','字典管理','','/crm/CstDict/cst_dict_show/','7','141','1');
 INSERT INTO `fly_sys_menu` VALUES('30','仓库管理','','/erp/StockStore/stock_store_show/','1','142','1');
 INSERT INTO `fly_sys_menu` VALUES('31','经济类型','','/crm/CstDict/cst_dict_show/type/ecotype/','7','143','0');
@@ -37,9 +39,9 @@ INSERT INTO `fly_sys_menu` VALUES('35','服务类型','Service Type','/crm/CstDi
 INSERT INTO `fly_sys_menu` VALUES('36','服务方式','','/crm/CstDict/cst_dict_show/type/servicesmodel/','7','148','0');
 INSERT INTO `fly_sys_menu` VALUES('37','客户列表','Customer List','/crm/CstCustomer/cst_customer_show/','2','211','1');
 INSERT INTO `fly_sys_menu` VALUES('38','客户联系人','Customer Linkman','/crm/CstLinkman/cst_linkman_show/','2','212','1');
-INSERT INTO `fly_sys_menu` VALUES('39','纪念日','#','/crm/CstLinkman/cst_linkman_show/','8','213','0');
+INSERT INTO `fly_sys_menu` VALUES('39','公告通知','#','/sysmanage/Notice/notice_show/','1','213','1');
 INSERT INTO `fly_sys_menu` VALUES('40','服务记录','Service','/crm/CstService/cst_service_show/','2','214','1');
-INSERT INTO `fly_sys_menu` VALUES('41','客户移交','#','/crm/CstService/cst_service_show/','8','215','0');
+INSERT INTO `fly_sys_menu` VALUES('41','地区管理','#','/sysmanage/Area/area_show/','1','215','1');
 INSERT INTO `fly_sys_menu` VALUES('42','销售机会','','/crm/CstChance/cst_chance_show/','2','221','1');
 INSERT INTO `fly_sys_menu` VALUES('43','跟踪记录','','/crm/CstTrace/cst_trace_show/','2','222','1');
 INSERT INTO `fly_sys_menu` VALUES('44','产品报价','','/crm/CstQuoted/cst_quoted_show/','9','223','0');
@@ -47,7 +49,7 @@ INSERT INTO `fly_sys_menu` VALUES('45','项目报备','','/crm/CstFiling/cst_fil
 INSERT INTO `fly_sys_menu` VALUES('46','销售合同','sale contract','/crm/SalContract/sal_contract_show/','2','231','1');
 INSERT INTO `fly_sys_menu` VALUES('47','交付计划','Contract','/crm/SalContract/sal_contract_show/','10','232','0');
 INSERT INTO `fly_sys_menu` VALUES('48','交付记录','Contact','/crm/SalContract/sal_contract_show/','10','233','0');
-INSERT INTO `fly_sys_menu` VALUES('49','销售订单','Sale order','/crm/SalOrder/sal_order_show/','11','241','1');
+INSERT INTO `fly_sys_menu` VALUES('49','字段扩展','Sale order','/crm/CstFieldExt/cst_field_ext_show/','1','241','1');
 INSERT INTO `fly_sys_menu` VALUES('50','订单明细','Order Sale','/crm/SalOrderDetail/sal_order_detail_show/','11','242','1');
 INSERT INTO `fly_sys_menu` VALUES('51','供应商列表','Supplier','/erp/SupSupplier/sup_supplier_show/','12','311','1');
 INSERT INTO `fly_sys_menu` VALUES('52','供应商联系人','','/erp/SupLinkman/sup_linkman_show/','12','312','1');
@@ -87,6 +89,7 @@ INSERT INTO `fly_sys_menu` VALUES('86','日志跟踪','schemeLog','/tools/EmailS
 INSERT INTO `fly_sys_menu` VALUES('87','帐户流水记录','Flow','/erp/FinFlowRecord/fin_flow_record_show/','63','46','1');
 INSERT INTO `fly_sys_menu` VALUES('88','网站管理','website','/crm/CstWebsite/cst_website_show/','2','232','1');
 INSERT INTO `fly_sys_menu` VALUES('89','字典分类','栏目名称','/crm/CstDictType/cst_dict_type_show/','7','1','1');
+
 #方法数据
 INSERT INTO `fly_sys_method` VALUES('2','21','增加2','dept_add','2','0');
 INSERT INTO `fly_sys_method` VALUES('3','21','删除','dept_del','3','1');
@@ -176,6 +179,7 @@ INSERT INTO `fly_sys_method` VALUES('102','89','删除','cst_dict_del','3','1');
 INSERT INTO `fly_sys_method` VALUES('103','29','添加 ','cst_dict_type_add','1','1');
 INSERT INTO `fly_sys_method` VALUES('104','29','修改','cst_dict_type_modify','1','1');
 INSERT INTO `fly_sys_method` VALUES('105','29','删除','cst_dict_type_del','3','1');
+
 #部门管理
 INSERT INTO `fly_sys_dept` VALUES('1','技术部','0','1','1','12345677','02888133145','主要是用来产的哟');
 INSERT INTO `fly_sys_dept` VALUES('2','商务部','0','0','1','028 8976214','028 8976214','');
@@ -191,7 +195,7 @@ INSERT IGNORE INTO `fly_sys_role` (`id`, `sort`, `visible`, `name`, `intro`)  VA
 INSERT IGNORE INTO `fly_sys_power` (`id`, `master`, `master_value`, `access`, `access_value`, `operation`) VALUES (1, 'role', '1', 'SYS_MENU', '1', NULL);
 INSERT IGNORE INTO `fly_sys_power` (`id`, `master`, `master_value`, `access`, `access_value`, `operation`) VALUES (2, 'role', '1', 'SYS_METHOD', '1', NULL);
 #系统参数
-INSERT INTO `fly_sys_config` VALUES('1','系统根网址： ','cfg_basehost','http://localhost','string','0');
+INSERT INTO `fly_sys_config` VALUES('1','系统根网址： ','cfg_basehost','http://www.07fly.com/','string','0');
 INSERT INTO `fly_sys_config` VALUES('2','主页链接名： ','cfg_indexname','首页','string','0');
 INSERT INTO `fly_sys_config` VALUES('3','系统名称:','cfg_webname','成都零起飞（07FLY-CRM）客户管理系统','string','0');
 INSERT INTO `fly_sys_config` VALUES('4','系统版信息:','cfg_powerby','成都零起飞网络工作室','bstring','0');
