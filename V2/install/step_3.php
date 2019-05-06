@@ -75,7 +75,7 @@ $(function(){
         <div>
           <label>数据库服务器</label>
           <span>
-          <input type="text" name="db_host" maxlength="20" value="<?php echo $_POST['db_host'] ? $_POST['db_host'] : 'localhost';?>">
+          <input type="text" name="db_host" maxlength="255" value="<?php echo $_POST['db_host'] ? $_POST['db_host'] : 'localhost';?>">
           </span> <em>数据库服务器地址，一般为localhost</em></div>
         <div>
           <label>数据库名</label>
