@@ -7,10 +7,12 @@
  * @author   shawn fon <shawn.fon@gmail.com>
  +------------------------------------------------------------------------------
  */
+
  	date_default_timezone_set('PRC');
 	@header("content-Type: text/html; charset=utf-8 ");
-	if (substr(PHP_VERSION, 0, 1) != '5')_error('error','Framk框架运行环境要求PHP5以上,当前版本为：'.PHP_VERSION);
+	if (substr(PHP_VERSION, 0, 1) < '5') _error('error','Framk框架运行环境要求PHP5以上,当前版本为：'.PHP_VERSION);
 	$GLOBALS= _config(require(FRAMK . '_Config.php'),require(CONFIG . 'Config.php'));//获取配置
+
 	//$GLOBALS["xmlconf"]=require(EXTEND . 'Xml.php');
 	$mtime = explode(' ',microtime());
 	$GLOBALS['StartRunTime']= $mtime[1] + $mtime[0];
@@ -137,9 +139,8 @@
 获取Exception.php下配置数组键名相对应的值，$detail为错误详情	
 */	
 	function _error($errorKey, $detail = '',$exit=false) {
-		
-		if ($GLOBALS['Debug']==true) {	//如果Debu为真则显示详细，否则直接显示“访问出错”跳回或到主页，	
-		
+
+		if ($GLOBALS['Debug']==true) {	//如果Debu为真则显示详细，否则直接显示“访问出错”跳回或到主页，		
 			$errorArray = require (FRAMK . '_Error.php');		 
 			foreach ( $errorArray  as $key => $value ) {
 				if (trim($key) == trim($errorKey)) {													
@@ -148,7 +149,6 @@
 				if($exit)exit();												
 				}
 			}
-			
 		}else{
 			echo 
 			'<div style="border:solid 1px #ccc;padding:5px;background-color:#eee;color:brown;font-size:12px;">

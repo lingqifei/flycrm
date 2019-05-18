@@ -15,9 +15,7 @@ class Database {
 	/* 
 	初始化数据库
 	*/
-	public
-
-	function __construct() {
+	public function __construct() {
 
 		//$this->db = _instance($GLOBALS['DB']['DBtype'],'',1);
 
@@ -34,9 +32,7 @@ class Database {
 	/*
 	查询结果集并转换为二维数组
 	*/
-	public
-
-	function findAll( $sql ) {
+	public function findAll( $sql ) {
 		$result = $this->db->query( $sql );
 		if ( $result ) {
 			$data = $result->fetchAll( PDO::FETCH_ASSOC );
@@ -48,9 +44,7 @@ class Database {
 	/*
 	查询结果集数组
 	*/
-	public
-
-	function findOne( $sql ) {
+	public function findOne( $sql ) {
 		$result = $this->db->query( $sql );
 		if ( $result ) {
 			$data = $result->fetch(PDO::FETCH_ASSOC);
@@ -337,7 +331,7 @@ class Database {
 	 * @param String $table 表名
 	 * @return array
 	 */
-	private
+	public
 	function getFields( $table ) {
 		$fields = array();
 		$recordset = $this->db->query( "SHOW COLUMNS FROM $table" );

@@ -32,7 +32,7 @@ class Framk {
 
  /* 
  加载框架必须文件
- */					
+ */				
 		require (FRAMK . '_Function.php');	
 		$requireFile = array ('Dispatcher', 'Action','Cache');//加载框架核心文件
 		foreach ( $requireFile as $value ) {
