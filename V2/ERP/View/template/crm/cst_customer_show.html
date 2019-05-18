@@ -169,32 +169,55 @@ $(document).ready(function () {
         chk_value.push($(this).val()); 
 		}); 
 		customer_id_txt=chk_value.join(",");
-		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify_recommend/";
-		}else if(batch_act=="recommend_off"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify_recommend_off/";
-		}else if(batch_act=="del"){
+		if(batch_act=="del"){
 			act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_del/";
-			$.ajax({
-				type: "POST",
-				url: act_url,
-				data:{"customer_id":customer_id_txt},
-				dataType:"json",
-				async: false,
-				success: function(data){
-					if(data.statusCode=='200'){
-						layer.msg('操作成功', {icon: 1}); 
-						setTimeout(function(){
-							turnPage(1);
-						 },800);
+			layer.confirm('确定删除吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				$.ajax({
+					type: "POST",
+					url: act_url,
+					data:{"customer_id":customer_id_txt},
+					dataType:"json",
+					async: false,
+					success: function(data){
+						if(data.statusCode=='200'){
+							layer.msg('操作成功', {icon: 1}); 
+							setTimeout(function(){
+								turnPage(1);
+							 },800);
+						}
 					}
-				}
+				});	
+				layer.closeAll('dialog');
 			});
 			return false;
-		}else if(batch_act=="online"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify_online/";
-		}else if(batch_act=="offline"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_modify_offline/";
+		}else if(batch_act=="implode"){
+			layer.open({
+				type: 2,
+				title: '导入数据',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['800px','400px'],
+				content: '#{$smarty.const.ACT}#/crm/CstCustomerImport/cst_customer_import_show/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;	
+		}else if(batch_act=="explode"){
+			layer.open({
+				type: 2,
+				title: '导出数据',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['800px', '400px'],
+				content: '#{$smarty.const.ACT}#/crm/CstCustomerExport/cst_customer_export_show/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;	
 		}
 	});
 	

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 17:12:38
+<?php /* Smarty version 2.6.26, created on 2019-05-02 17:12:39
          compiled from sysmanage/position_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -14,8 +14,7 @@ unset($_smarty_tpl_vars);
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
 					<h5><i class="fa fa-home"></i>岗位管理</h5>
-					<div class="ibox-tools"> <a href="<?php echo @ACT; ?>
-/sysmanage/Position/position_add/" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> 添加</a> <a href="?" class="btn btn-xs btn-danger"><i class="fa fa-refresh"></i>刷新</a> </div>
+					<div class="ibox-tools"> <a class="single_operation" data-act="add" href="javascript:void(0)"><i class="fa fa-plus"></i> 添加</a> <a href="?" class="btn btn-xs btn-danger"><i class="fa fa-refresh"></i>刷新</a> </div>
 				</div>
 				<div class="ibox-content">
 					<div class="treeClassBody"><?php echo $this->_tpl_vars['treeHtml']; ?>
@@ -27,8 +26,57 @@ unset($_smarty_tpl_vars);
 </div>
 </body>
 </html>
+<script src="<?php echo @APP; ?>
+/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+	$("body").on("click", ".single_operation", function() {
+		position_id =$(this).attr("data-id");
+		single_act =$(this).attr("data-act")
+		if(single_act=="add"){
+			layer.open({
+				type: 2,
+				title: '添加信息',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '<?php echo @ACT; ?>
+/sysmanage/Position/position_add/pid/'+position_id,
+				end: function () {
+				
+				}
+			});			
+			return false;		
+		}else if(single_act=="modify"){
+			layer.open({
+				type: 2,
+				title: '修改信息',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '<?php echo @ACT; ?>
+/sysmanage/Position/position_modify/id/'+position_id,
+				end: function () {
+				
+				}
+			});			
+			return false;		
+		}else if(single_act=="del"){
+			$.ajax({
+				type: "POST",
+				url: "<?php echo @ACT; ?>
+/index.php/sysmanage/Position/position_del/",
+				data:{"id":position_id},
+				dataType:"json",
+				success: function(data){
+					if(data.statusCode=='200'){
+						layer.msg('操作成功', {icon: 1});   
+					}
+					console.log(data.message);
+				}
+			});
+		}
+	});
 	//更改排序
 	$("body").on("blur", ".treeSort", function() {
 		id =$(this).attr("data-id");
@@ -47,7 +95,7 @@ $(document).ready(function () {
 			}
 		});
 	});
-	//更改排序
+	//更改名称
 	$("body").on("blur", ".treeName", function() {
 		id =$(this).attr("data-id");
 		value =$(this).val();
@@ -72,7 +120,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Dept/dept_modify_url/",
+/index.php/sysmanage/Position/position_modify_url/",
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){

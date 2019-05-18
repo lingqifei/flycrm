@@ -54,9 +54,9 @@
 <file name="SysLog.class.php" server="211.149.238.19//180710_zxtx/wwwroot/" local="131730650607999524" remote="131794811400000000" Dst="0" />
 <file name="User.class.php" server="211.149.238.19//180710_zxtx/wwwroot/" local="131786009656145585" remote="131794811400000000" Dst="0" />
 <file name="Area.class.php" server="47.92.36.4//" local="131797493535381522" remote="131797493400000000" Dst="0" />
-<file name="Area.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963531263079687" remote="131968433400000000" Dst="0" />
+<file name="Area.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132011661705901755" remote="132015218400000000" Dst="0" />
 <file name="Auth.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131910675852576128" remote="131915557200000000" Dst="0" />
-<file name="Dept.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963531482303083" remote="131968433400000000" Dst="0" />
+<file name="Dept.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132011661223596041" remote="132015218400000000" Dst="0" />
 <file name="Email.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963531779054254" remote="131968433400000000" Dst="0" />
 <file name="EmailLog.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963532182485535" remote="131968433400000000" Dst="0" />
 <file name="EmailMb.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963532491500918" remote="131968433400000000" Dst="0" />
@@ -64,17 +64,18 @@
 <file name="Login.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963588760375549" remote="131968433400000000" Dst="0" />
 <file name="Menu.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963532921901595" remote="131968433400000000" Dst="0" />
 <file name="Method.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963533227140809" remote="131968433400000000" Dst="0" />
-<file name="Position.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963533421325712" remote="131968433400000000" Dst="0" />
-<file name="Role.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131915626373350525" remote="131915615400000000" Dst="0" />
+<file name="Position.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132015229130887019" remote="132015218400000000" Dst="0" />
+<file name="Role.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131997865349233586" remote="132015218400000000" Dst="0" />
 <file name="Sms.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963533649624912" remote="131968433400000000" Dst="0" />
 <file name="SmsLog.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963533849038332" remote="131968433400000000" Dst="0" />
 <file name="SmsMb.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963534168333546" remote="131968433400000000" Dst="0" />
 <file name="Sys.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131964162149510984" remote="131968433400000000" Dst="0" />
-<file name="SysConfig.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963534637679691" remote="131968433400000000" Dst="0" />
+<file name="SysConfig.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132003913681248187" remote="132014898000000000" Dst="0" />
 <file name="SysData.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131965953895939626" remote="131968433400000000" Dst="0" />
 <file name="SysLog.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131963530869675634" remote="131968433400000000" Dst="0" />
 <file name="User.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131965958769363245" remote="131968433400000000" Dst="0" />
 <file name="HelpDoc.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131968534983270944" remote="131974757400000000" Dst="0" />
 <file name="Message.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131967653480211653" remote="131968433400000000" Dst="0" />
 <file name="Notice.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131966956657726466" remote="131968433400000000" Dst="0" />
+<file name="FieldExt.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132013286132878407" remote="132015218400000000" Dst="0" />
 </dwsync>

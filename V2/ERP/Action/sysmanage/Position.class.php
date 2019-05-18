@@ -43,7 +43,6 @@ class Position extends Action{
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		
 		foreach ( $tree as $key=>$t ) {
 			$kg="";
 			//$fx=($t['level']>1)?"|——":"";
@@ -82,8 +81,7 @@ class Position extends Action{
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
 
-	public
-	function position_show() {
+	public function position_show() {
 		$list =$this->position();
 		$tree =$this->getTree($list, 0 );
 		$treeHtml=$this->getTreeHtml($tree);
@@ -115,7 +113,7 @@ class Position extends Action{
 			$this->C($this->cacheDir)->update($sql);	
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
-	}		
+	}	
 	public function position_modify(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){

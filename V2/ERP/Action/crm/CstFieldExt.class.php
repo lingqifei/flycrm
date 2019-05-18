@@ -87,6 +87,7 @@ class CstFieldExt extends Action {
 			$field_type = $this->_REQUEST( "field_type" );
 			$default = $this->_REQUEST( "default" );
 			$maxlength = $this->_REQUEST( "maxlength" );
+			//执行数据库操作
 			$rtn = $this->field->add_field( $ext_table, $field_name, $field_type, $maxlength, $default, $show_name );
 			if ( $rtn[ 'statusCode' ] == '200' ) {
 				$into_data = array(
@@ -99,6 +100,7 @@ class CstFieldExt extends Action {
 					'maxlength' => $this->_REQUEST( "maxlength" ),
 					'sort' => $this->_REQUEST( "sort" ),
 					'visible' => $this->_REQUEST( "visible" ),
+					'is_must' => $this->_REQUEST( "is_must" ),
 					'create_time' => NOWTIME,
 					'create_user_id' => SYS_USER_ID,
 				);
@@ -128,6 +130,7 @@ class CstFieldExt extends Action {
 			$field_type = $this->_REQUEST( "field_type" );
 			$default = $this->_REQUEST( "default" );
 			$maxlength = $this->_REQUEST( "maxlength" );
+			//执行数据库操作
 			$rtn = $this->field->modify_field( $ext_table, $field_name, $field_type, $maxlength, $show_name );
 			if ( $rtn[ 'statusCode' ] == '200' ) {
 				$upt_data = array(
@@ -139,6 +142,7 @@ class CstFieldExt extends Action {
 					'default' => $this->_REQUEST( "default" ),
 					'maxlength' => $this->_REQUEST( "maxlength" ),
 					'sort' => $this->_REQUEST( "sort" ),
+					'is_must' => $this->_REQUEST( "is_must" ),
 					'visible' => $this->_REQUEST( "visible" )
 				);
 				$this->C( $this->cacheDir )->modify( 'cst_field_ext', $upt_data, "field_ext_id='$field_ext_id'" );
@@ -163,8 +167,8 @@ class CstFieldExt extends Action {
 		$this->C( $this->cacheDir )->update( $sql );
 		$this->L( "Common" )->ajax_json_success( "操作成功" );
 	}
-	public
-	function cst_field_ext_select() {
+	//返回jsone
+	public function cst_field_ext_select() {
 		$type = $this->_REQUEST( "type" );
 		$sql = "select id,name from cst_field_ext where type='$type' order by sort asc;";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
@@ -184,7 +188,7 @@ class CstFieldExt extends Action {
 		}
 		return $rtArr;
 	}
-
+	
 	//返回字典名称
 	public function cst_field_ext_get_name( $id ) {
 		$sql = "select id,name from cst_field_ext where id='$id'";
@@ -230,6 +234,7 @@ class CstFieldExt extends Action {
 		$this->L( "Common" )->ajax_json_success( "操作成功" );
 	}
 
+	
 	//扩展字段表单显示
 	//pararm $ext_table 		[description] 扩展表名
 	//pararm field_val_arr 		[description] 需要展示的字段html

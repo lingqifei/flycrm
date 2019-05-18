@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:11:47
+<?php /* Smarty version 2.6.26, created on 2019-05-04 19:29:41
          compiled from sysmanage/method_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -25,8 +25,7 @@ unset($_smarty_tpl_vars);
                 <div class="row">
                   <form id="pagerForm" method="post" class="form-inline">
                     <input type="hidden" name="menu_id" id="menu_id" value="">
-                    <div class="col-sm-2"> 
-								<a href="javascript:void(0)" id="add_menu_id" class="btn btn-info single_operation" data-act="add" data-id="">添加</a> </div>
+                    <div class="col-sm-2"> <a href="javascript:void(0)" id="add_menu_id" class="btn btn-info single_operation" data-act="add" data-id="">添加</a> </div>
                     <div class="col-sm-10 m-b-xs text-right">
                       <div class="input-group pd-b-5">
                         <input type="text" name="keywords" placeholder="输入方法名称关键字搜索" class="form-control">

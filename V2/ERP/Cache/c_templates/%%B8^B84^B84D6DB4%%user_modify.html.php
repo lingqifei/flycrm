@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-01-02 14:11:17
+<?php /* Smarty version 2.6.26, created on 2019-05-01 13:39:39
          compiled from sysmanage/user_modify.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -26,8 +26,7 @@ unset($_smarty_tpl_vars);
 		 <div class="form-group">
        <label class="col-sm-2 control-label">密码</label>
        <div class="col-sm-8">
-        <input name="password" class="form-control" type="text" value="<?php echo $this->_tpl_vars['one']['password']; ?>
-" placeholder="请输入密码" required/>
+        <input name="password" class="form-control" type="text" value="" placeholder="不修改密码此处不用填写" required/>
         <span class="help-block m-b-none"></span> </div>
       </div>
       <div class="form-group">

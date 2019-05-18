@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-02-16 23:08:04
+<?php /* Smarty version 2.6.26, created on 2019-05-01 13:39:25
          compiled from sysmanage/role_check_power.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -30,6 +30,8 @@ unset($_smarty_tpl_vars);
 </div>
 </body>
 </html>
+<script src="<?php echo @APP; ?>
+/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	$('.i-checks').iCheck({

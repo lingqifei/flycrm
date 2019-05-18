@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 16:41:45
+<?php /* Smarty version 2.6.26, created on 2019-05-01 14:03:56
          compiled from sysmanage/menu_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -27,6 +27,8 @@ unset($_smarty_tpl_vars);
 </div>
 </body>
 </html>
+<script src="<?php echo @APP; ?>
+/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 

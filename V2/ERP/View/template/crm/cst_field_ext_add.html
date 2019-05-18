@@ -57,6 +57,15 @@
                 </div>
               </div>
             </div>
+			  <div class="form-group">
+              <label class="col-sm-2 control-label">是否验证</label>
+              <div class="col-sm-8">
+                <div class="checkbox i-checks">
+                  <input type="checkbox" name="is_must" value="1" #{if $one.is_must eq '1'}# checked #{/if}#/>
+					<span class="help-block m-b-none">注：选择勾选表示该项为必填项</span>
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-8">
                 <button class="btn  btn-w-m btn-info save-form" type="button">保存数据</button>

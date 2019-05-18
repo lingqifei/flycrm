@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-12-31 17:46:54
+<?php /* Smarty version 2.6.26, created on 2019-04-21 23:20:17
          compiled from header.html */ ?>
 <head>
 <meta charset="utf-8">
@@ -85,9 +85,7 @@
 /View/template/js/plugins/datapicker/bootstrap-datetimepicker.js"></script>
 <script src="<?php echo @APP; ?>
 /View/template/js/plugins/datapicker/bootstrap-datetimepicker.zh-CN.js"></script>
-<!-- 自定义js -->
-<script src="<?php echo @APP; ?>
-/View/template/js/content.js?v=1.0.0"></script>
+
 <script>
 var _hmt = _hmt || [];
 (function() {

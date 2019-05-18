@@ -51,12 +51,18 @@ class Tree
     *      7 => array('id'=>'7','parentID'=>3,'name'=>'三级栏目二')
     *      )
     */
-    function tree($arr=array()){
-       $this->arr = $arr;
-       $this->ret = '';
-       return is_array($arr);
-    }
- 
+//    function tree($arr=array()){
+//       $this->arr = $arr;
+//       $this->ret = '';
+//       return is_array($arr);
+//    }
+ 	
+		function __construct($arr=array()){
+		   $this->arr = $arr;
+		   $this->ret = '';
+		   return is_array($arr);
+		}
+	
     /**
     * 得到父级数组
     * @param int

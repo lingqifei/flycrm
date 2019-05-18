@@ -44,13 +44,14 @@
                 <thead>
                   <tr>
                     <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                    <th width="120">字段显示名称</th>
-                    <th width="120">字段真实名称</th>
-                    <th width="120">字段值类型</th>
-                    <th width="150">默认值</th>
+                    <th width="120">表单提示文字</th>
+                    <th width="100">字段名称</th>
+                    <th width="120">类型</th>
+                    <th width="80">默认值</th>
                     <th width="80">最大值</th>
                     <th width="100" orderField="by_adt" class="sort-filed"><span>排序</span></th>
                     <th width="80">是否启用</th>
+                    <th width="80">必填</th>
                     <th width="80">操作</th>
                   </tr>
                 </thead>
@@ -81,16 +82,19 @@
 		<td><input type="text" name="sort" value="<%=list[i]['sort']%>" class="form-control w50 modify_sort" data-id="<%=list[i]['field_ext_id']%>" size="5"></td>
 		<td>
 		  <div class="onoffswitch">
-       		<input type="checkbox" class="onoffswitch-checkbox" data-id="<%=list[i]['field_ext_id']%>"  id="field_ext_id_<%=list[i]['field_ext_id']%>"  <%if(list[i]['visible']==1){%> checked  <%}%>  >
-	   		<label class="onoffswitch-label" for="field_ext_id_<%=list[i]['field_ext_id']%>"> 
+       		<input type="checkbox" class="onoffswitch-checkbox" data-id="<%=list[i]['field_ext_id']%>"  id="field_visible_id_<%=list[i]['field_ext_id']%>"  <%if(list[i]['visible']==1){%> checked  <%}%>  >
+	   		<label class="onoffswitch-label" for="field_visible_id_<%=list[i]['field_ext_id']%>"> 
 	   			<span class="onoffswitch-inner"></span> 
 				 <span class="onoffswitch-switch"></span> 
 			 </label>
       	</div>
 		</td>
-		<td width='10'>
+		<td> <%if(list[i]['is_must']==0){%> <span class="badge badge-danger">否</span> <%}else{%> <span class="badge badge-primary">是</span> <%}%></td>
+		<td>
 			<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['field_ext_id']%>" data-act="modify">修改</a></p>
-			<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['field_ext_id']%>" data-act="del">删除</a></p>
+			<%if(list[i]['is_system']==0){%> 
+				<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['field_ext_id']%>" data-act="del">删除</a></p> 
+			<%}%> 
 		</td>
 	</tr>
 <% } %>

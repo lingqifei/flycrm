@@ -67,8 +67,7 @@ function animationHover(element, animation) {
 //        })
 //        .disableSelection();
 //};
-
-//实现所有的全选
+//初始化一些效果
 $(function () {
 	//实现全选反选
 	$(".checkboxCtrl").on('click', function () {
@@ -127,6 +126,28 @@ $(function () {
 
 	});
 
+	//日期选择插件yyyy-mm-dd
+	$(".datepicker").datepicker({
+		language: "zh-CN",
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: true,//今日按钮
+		format: "yyyy-mm-dd",
+	});
+	//日期时间选择插件 yyyy-mm-dd H:i:s
+	$(".datetimepicker").datetimepicker({
+		language: "zh-CN",
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: true,//今日按钮
+		format: "yyyy-mm-dd hh:ii:ss",
+	});
+	//选择框效果
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
+	});
+	
 //	$(".treeClassBody li").hover(
 //		function(){
 //			$(this).css("background-color","#ccc");
@@ -200,14 +221,15 @@ $("body").on("blur", ".tfootPageBar", function() {
 });
 
 //获取分页数据
-function turnPage(pageNum)
-{
+function turnPage(pageNum){
   //获取查询表单数据
    ajaxSearchFormData = $("form").serialize();
 	pageSize=$(".07fly-table tfoot td input[name='pageSize']").val();
 	console.log(JSON.stringify(pageSize));
 	//alert(pageSize);
-	if(pageSize===undefined) pageSize='';
+	if(pageSize===undefined) {
+		pageSize='';
+	}
 	//alert(ajaxSearchFormData);
   //ajax 请求数据
   ajaxPostJsonData=ajaxSearchFormData+"&pageNum="+pageNum+"&pageSize="+pageSize+"&orderField="+orderField+"&orderDirection="+orderDirection;
@@ -254,8 +276,6 @@ function getPageBar(pageNum, pageSize, totalCount) {
 	var pageNum = parseInt(pageNum);
 	var pageSize = parseInt(pageSize);
 	var totalPage = Math.ceil(totalCount / pageSize);
-
-
 	if (pageNum > totalPage) {
 		pageNum = totalPage;
 	}
@@ -267,7 +287,6 @@ function getPageBar(pageNum, pageSize, totalCount) {
 	pageBar += "<div class=\"btn-group\"> <span class='btn btn-white'> 共 "+totalCount+"条 </span>";
 	pageBar += "<span class='btn btn-white'> 每页 <input type='text' name='pageSize' class='tfootPageBar pageSize' style='width:50px;height:20px;border:solid #ccc 1px;' value='"+pageSize+"'> 条 </span>";
 	//如果不是第一页
-	
 	pageBar += "<span class='btn btn-white'><a href='javascript:turnPage(1);'>首页</a></span>";
 	pageBar += "<span type=\"button\" class=\"btn btn-white\"><a href='javascript:turnPage(" + (pageNum - 1) + ")'><< </a> </span>";
 

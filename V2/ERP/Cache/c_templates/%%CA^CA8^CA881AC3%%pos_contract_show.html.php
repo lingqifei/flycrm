@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-01-09 09:25:18
+<?php /* Smarty version 2.6.26, created on 2019-04-23 12:26:23
          compiled from erp/pos_contract_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -14,14 +14,14 @@ unset($_smarty_tpl_vars);
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5><i class="fa fa-home"></i>采购合同列表</h5>
-          <div class="ibox-tools"><a href="?">
-            <button type="button" class="btn btn-xs btn-danger"> <i class="fa fa-refresh"></i>刷新</button>
-            </a> </div>
+          <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail" data-type="pos_contract"> <i class="fa fa-question-circle"> 操作说明</i></a> </div>
         </div>
         <div class="ibox-content table-responsive">
           <div class="row">
             <form id="pagerForm" method="post" class="form-inline">
-              <div class="col-sm-3 m-b-xs"><a class="btn btn-info single_operation" data-act="add" href="javascript:void(0)"><i class="fa fa-plus"></i>添加</a>
+              <div class="col-sm-3 m-b-xs">
+				  		<a href="?" class="btn  btn-default"> <i class="fa fa-refresh"> 刷新</i></a>
+				  		<a class="btn btn-info single_operation" data-act="add" href="javascript:void(0)"><i class="fa fa-plus"></i>添加</a>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span class="caret"></span></button>
                   <ul class="dropdown-menu">

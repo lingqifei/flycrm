@@ -57,26 +57,6 @@ class Common {
 		 );
 		 echo json_encode($menu);		
 	}		
-	/*提示*/
-	function ajax_alert($message,$type,$callbackType=""){
-		echo "<script>";
-		echo "alertMsg.$type('$message');";
-		echo "navTab.closeCurrentTab();";
-		echo "</script>";
-	}
-	
-/*	<a class="button" href="javascript:;" onclick="testConfirmMsg('demo/common/ajaxDone.html')"><span>确认（是/否）</span></a><br /><br /><br />
-	<a class="button" href="javascript:;" onclick="alertMsg.error('您提交的数据有误，请检查后重新提交！')"><span>错误提示</span></a><br /><br /><br />
-	<a class="button" href="javascript:;" onclick="alertMsg.info('您提交的数据有误，请检查后重新提交！')"><span>信息提示</span></a><br /><br /><br />
-	<a class="button" href="javascript:;" onclick="alertMsg.warn('您提交的数据有误，请检查后重新提交！')"><span>警告提示</span></a><br /><br /><br />
-	<a class="button" href="javascript:;" onclick="alertMsg.correct('您的数据提交成功！')"><span>成功提示</span></a><br /><br />	
-*/	
-	function alert($message,$type,$callbackType=""){
-		echo "<script>";
-		echo "alertMsg.$type('$message');";
-		echo "navTab.closeCurrentTab();";
-		echo "</script>";		
-	}
 	//标签替换
 	public function replace_tags($tagsArr,$string){
 		foreach($tagsArr as $key=>$value)
@@ -131,8 +111,59 @@ class Common {
 		$msginfo .='<script type="text/JavaScript">parent.document.getElementById("lastmove").value=Math.round(new Date().getTime()/1000);</script>';
 		echo $msginfo;
 	}
+	//时间计算
+	function date_range($type,$datetime){
+		if($type=='-1'){
+			switch($datetime){
+				case '3d' :
+					$date_range=date('Y-m-d',strtotime("-3 day",time()));
+					break;
+				case '7d' :
+					$date_range=date('Y-m-d',strtotime("-7 day",time()));
+					break;
+				case '15d' :
+					$date_range=date('Y-m-d',strtotime("-15 day",time()));	
+					break;
+				case '1m' :
+					$date_range=date('Y-m-d',strtotime("-1 month",time()));	
+					break;
+				case '3m' :
+					$date_range=date('Y-m-d',strtotime("-3 month",time()));	
+					break;
+				case '6m' :
+					$date_range=date('Y-m-d',strtotime("-6 month",time()));	
+					break;
+				case '12m' :
+					$date_range=date('Y-m-d',strtotime("-12 month",time()));	
+					break;
+			}			
+		}else if($type=='1'){
+			switch($datetime){
+				case '3d' :
+					$date_range=date('Y-m-d',strtotime("+3 day",time()));
+					break;
+				case '7d' :
+					$date_range=date('Y-m-d',strtotime("+7 day",time()));
+					break;
+				case '15d' :
+					$date_range=date('Y-m-d',strtotime("+15 day",time()));	
+					break;
+				case '1m' :
+					$date_range=date('Y-m-d',strtotime("+1 month",time()));	
+					break;
+				case '3m' :
+					$date_range=date('Y-m-d',strtotime("+3 month",time()));	
+					break;
+				case '6m' :
+					$date_range=date('Y-m-d',strtotime("+6 month",time()));	
+					break;
+				case '12m' :
+					$date_range=date('Y-m-d',strtotime("+12 month",time()));	
+					break;	
+			}			
+		}
+		return $date_range;
+	}
 	
-
-	
-}
+}//end class
 ?>

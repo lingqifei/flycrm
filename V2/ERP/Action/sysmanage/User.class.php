@@ -241,7 +241,17 @@ class User extends Action{
 		$one =$this->C($this->cacheDir)->findOne($sql);
 		return $one;
 	}
-
+	//传入用户帐号返回帐号编号
+	public function user_get_id($account){
+		$sql ="select id,name from fly_sys_user where account='$account'";	
+		$one =$this->C($this->cacheDir)->findOne($sql);
+		//print_r($one);
+		if(!empty($one)){
+			return $one['id'];	
+		}else{
+			return '0';	
+		}
+	}
 	
 }//
 ?>
