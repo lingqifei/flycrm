@@ -49,6 +49,7 @@ CREATE TABLE `cst_customer` (
   `next_time` datetime NOT NULL COMMENT '下次沟通时间',
   `conn_time` datetime NOT NULL COMMENT '最近联系时间',
   `conn_body` varchar(1024) NOT NULL COMMENT '最近沟通内容',
+  `test_field` varchar(250) DEFAULT NULL COMMENT '测定字段',
   PRIMARY KEY (`customer_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户信息表';
 
@@ -84,16 +85,18 @@ CREATE TABLE `cst_field_ext` (
   `field_ext_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `main_table` varchar(50) NOT NULL COMMENT '关联主表',
   `ext_table` varchar(50) NOT NULL COMMENT '扩展表名',
-  `show_name` varchar(256) NOT NULL COMMENT '表单名称',
+  `show_name` varchar(256) NOT NULL COMMENT '字段表单名称',
   `field_name` varchar(256) NOT NULL COMMENT '字段名称',
   `field_type` varchar(50) NOT NULL COMMENT '单文本=varchar,文本=text,多行文本=textarea,整数=int,小数=float,图片=img,下拉=option,单选=radio,复选=checkbox',
   `default` varchar(256) NOT NULL COMMENT '字段默认值',
   `maxlength` varchar(256) NOT NULL COMMENT '最大值',
   `desc` varchar(256) NOT NULL COMMENT '表单说明',
   `visible` smallint(1) NOT NULL DEFAULT '1' COMMENT '是否使用',
-  `create_user_id` int(16) NOT NULL DEFAULT '0',
+  `is_system` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否为系统字段，1=是（不能删除）0=否',
+  `is_must` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否改填',
   `sort` int(16) NOT NULL DEFAULT '0' COMMENT '显示排序',
   `create_time` datetime NOT NULL,
+  `create_user_id` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`field_ext_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户字段扩展表';
 
@@ -123,7 +126,7 @@ CREATE TABLE `cst_linkman` (
   `linkman_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` int(16) NOT NULL,
   `name` varchar(256) NOT NULL,
-  `gender` smallint(1) NOT NULL COMMENT '姓别',
+  `gender` smallint(1) NOT NULL COMMENT '姓别1=男，0=女',
   `postion` varchar(256) NOT NULL COMMENT '职位、',
   `tel` varchar(256) NOT NULL,
   `mobile` varchar(256) NOT NULL,
@@ -1206,6 +1209,7 @@ CREATE TABLE `stock_store` (
   `own_user_id` varchar(256) NOT NULL COMMENT '管理人员',
   `sort` smallint(2) NOT NULL,
   `visible` smallint(2) NOT NULL,
+  `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='仓库管理';
 
