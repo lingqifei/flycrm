@@ -53,6 +53,8 @@ class CstCustomerExport extends Action{
 	public function cst_customer_export_cvs(){
 		$list=$this->cst_customer();
 		$field_ext=$this->field_ext->cst_field_ext_list('cst_customer');
+		$tit_ext_cel=array();
+		$val_ext_cel=array();
 		if(!empty($field_ext)){
 			foreach($field_ext as $row){
 				$tit_ext_cel[]=$row['show_name'];

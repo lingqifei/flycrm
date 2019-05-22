@@ -112,7 +112,7 @@ class CstCustomerImport extends Action{
 				/*$sql="select car_vin_no from cst_customer where car_vin_no='".$data[ "car_vin_no" ]."'";
 				$one=$this->C( $this->cacheDir )->findOne( $sql );
 				if ( !empty($one) ) {
-					$info .="第{$nowrow}行：" . $data[ "car_vin_no" ] . "输入号已经存在\n";
+					$info .="第{$nowrow}行：" . $data[ "car_vi_no" ] . "输入号已经存在\n";
 					continue;
 				}*/
 				if ( $data[ "name" ] == "客户名称" ) {
