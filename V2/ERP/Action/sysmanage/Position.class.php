@@ -150,15 +150,14 @@ class Position extends Action{
 			
 	}
 	public function position_select_tree($tag,$sid =""){
-			$tree	 = _instance('Extend/Tree');
-			$sql	 = "select * from fly_sys_position  order by sort asc;";	
-			$list	 = $this->C($this->cacheDir)->findAll($sql);	
-			$tree->tree($list);	
-			$parentID  = "<select name=\"$tag\" class=\"form-control m-b\">";
-			$parentID .= "<option value='0' >请您选择</option>";
-			$parentID .= $tree->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
-			$parentID .="</select>";	
-			return $parentID;
+		$sql	 = "select * from fly_sys_position  order by sort asc;";	
+		$list	 = $this->C($this->cacheDir)->findAll($sql);	
+		$tree =$this->L( "Tree" ,$list);
+		$parentID  = "<select name=\"$tag\" class=\"form-control m-b\">";
+		$parentID .= "<option value='0' >请您选择</option>";
+		$parentID .= $tree->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
+		$parentID .="</select>";	
+		return $parentID;
 	}	
 	public function position_arr(){
 		$rtArr  =array();

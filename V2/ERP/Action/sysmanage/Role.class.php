@@ -302,14 +302,14 @@ class Role extends Action{
 	}	*/
 	
 	public function role_select_tree($tag,$sid =""){
-			$sql	 = "select * from fly_sys_role  order by sort asc;";	
-			$list	 = $this->C($this->cacheDir)->findAll($sql);	
-			$this->L("Tree")->tree($list);	
-			$parentID  = "<select name=\"$tag\" class=\"form-control m-b\">";
-			$parentID .= "<option value='0' >请您选择</option>";
-			$parentID .= $this->L("Tree")->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
-			$parentID .="</select>";	
-			return $parentID;
+		$sql	="select * from fly_sys_role  order by sort asc;";	
+		$list	=$this->C($this->cacheDir)->findAll($sql);	
+		$tree 	=$this->L( "Tree" ,$list);
+		$parentID  = "<select name=\"$tag\" class=\"form-control m-b\">";
+		$parentID .= "<option value='0' >请您选择</option>";
+		$parentID .= $tree->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
+		$parentID .="</select>";	
+		return $parentID;
 	}	
 	
 /*	public function role_arr(){
