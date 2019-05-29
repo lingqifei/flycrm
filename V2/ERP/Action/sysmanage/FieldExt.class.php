@@ -3,7 +3,6 @@
  * 后台系统配置管理类
  *
  */	
-
 class FieldExt extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {

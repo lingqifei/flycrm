@@ -12,28 +12,8 @@
       </div>
       <div class="col-sm-2 text-right"> <a href="javascript:void(0)" class=" btn btn-default single_operation" data-id="#{$one.customer_id}#" data-act="modify"><i class="fa fa-edit"></i>修改</a> </div>
     </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <p><strong>客户来源：</strong>#{$one.source_name}#</p>
-        <p><strong>客户等级：</strong>#{$one.level_name}#</p>
-        <p><strong>经济类型：</strong>#{$one.ecotype_name}#</p>
-        <p><strong>行业类型：</strong>#{$one.trade_name}#</p>
-        <p><strong>最近联系：</strong>#{$one.conn_time}#</p>
-        <p><strong>联系内容：</strong>#{$one.conn_body}#</p>
-        <p><strong>下次联系时间：</strong>#{$one.next_time}#</p>
-      </div>
-      <div class="col-sm-6">
-        <p><strong>创建时间：</strong>#{$one.create_time}#</p>
-        <p><strong>客户名称：</strong>#{$one.name}#</p>
-        <p><strong>客户代表：</strong>#{$one.linkman}#</p>
-        <p><strong>联系手机：</strong>#{$one.mobile}#</p>
-        <p><strong>联系电话：</strong>#{$one.tel}#</p>
-        <p><strong>联系邮箱：</strong>#{$one.email}#</p>
-        <p><strong>联系地址：</strong>#{$one.address}#</p>
-        <p><strong>客户介绍：</strong>#{$one.intro}#</p>
-      </div>
-    </div>
-    <div class="row"> #{foreach from=$field_one_list key=k item=v}#
+    <div class="row"> 
+		#{foreach from=$field_one_list key=k item=v}#
       <div class="col-sm-6">
         <p><strong>#{$v.show_name}#：</strong>#{$v.field_value}#</p>
       </div>

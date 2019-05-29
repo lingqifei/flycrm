@@ -20,6 +20,8 @@
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="send_smm">批量发短信</a></li>
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="send_email">批量发邮件</a></li>
                     <li class="divider"></li>
+                    <li><a href="javascript:void(0)" class="batch_operation" data-act="export">批量导出</a></li>
+                    <li class="divider"></li>
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="del">批量删除</a></li>
                   </ul>
                 </div>
@@ -127,10 +129,42 @@ $(document).ready(function () {
         chk_value.push($(this).val()); 
 		}); 
 		linkman_id_txt=chk_value.join(",");
-		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/crm/CstLinkman/cst_linkman_modify_recommend/";
+		if(batch_act=="export"){
+			layer.open({
+				type: 2,
+				title: '导出数据',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['800px', '400px'],
+				content: '#{$smarty.const.ACT}#/crm/CstLinkmanExport/cst_linkman_export_show/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});			
+			return false;				
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstLinkman/cst_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstLinkman/cst_linkman_del/";
+			layer.confirm('确定删除吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				$.ajax({
+					type: "POST",
+					url: act_url,
+					data:{"customer_id":customer_id_txt},
+					dataType:"json",
+					async: false,
+					success: function(data){
+						if(data.statusCode=='200'){
+							layer.msg('操作成功', {icon: 1}); 
+							setTimeout(function(){
+								turnPage(1);
+							 },800);
+						}
+					}
+				});	
+				layer.closeAll('dialog');
+			});
+			return false;
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({

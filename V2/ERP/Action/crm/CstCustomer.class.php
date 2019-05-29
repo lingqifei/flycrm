@@ -20,6 +20,7 @@ class CstCustomer extends Action{
 		$this->dict=_instance('Action/crm/CstDict');
 		$this->comm=_instance('Extend/Common');
 		$this->field_ext=_instance('Action/crm/CstFieldExt');
+		$this->sys_user=_instance('Action/sysmanage/User');
 	}	
 	
 	public function cst_customer(){
@@ -80,9 +81,7 @@ class CstCustomer extends Action{
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$dict		 = $this->dict->cst_dict_arr();
 		foreach($list as $key=>$row){
-			$list[$key]['source_name']=($row['source']>0)?$dict[$row['source']]:"";
-			$list[$key]['level_name']=($row['level']>0)?$dict[$row['level']]:"";
-			$list[$key]['trade_name']=($row['trade']>0)?$dict[$row['trade']]:"";
+			$list[$key]['owner_user_name']=$this->sys_user->user_get_name($row['owner_user_id']);
 		}
 		$assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum);		
 		return $assignArray;
@@ -120,20 +119,11 @@ class CstCustomer extends Action{
 	//保存数据
 	public function cst_customer_add_save(){
 			$into_data=array(
-				'conn_time'=>NOWTIME,
 				'name'=>$this->_REQUEST("name"),
-				'source'=>$this->_REQUEST("source"),
-				'level'=>$this->_REQUEST("level"),
-				'ecotype'=>$this->_REQUEST("ecotype"),
-				'trade'=>$this->_REQUEST("trade"),
-				'linkman'=>$this->_REQUEST("linkman"),
-				'mobile'=>$this->_REQUEST("mobile"),
-				'tel'=>$this->_REQUEST("tel"),
-				'email'=>$this->_REQUEST("email"),
-				'address'=>$this->_REQUEST("address"),
-				'intro'=>$this->_REQUEST("intro"),
+				'conn_time'=>NOWTIME,
 				'create_time'=>NOWTIME,
-				'create_user_id'=>SYS_USER_ID,
+				'owner_user_id'=>SYS_USER_ID,
+				'create_user_id'=>SYS_USER_ID
 			);
 			//******************************************************
 			//处理扩展字段
@@ -188,16 +178,6 @@ class CstCustomer extends Action{
 			$into_data=array(
 				'conn_time'=>NOWTIME,
 				'name'=>$this->_REQUEST("name"),
-				'source'=>$this->_REQUEST("source"),
-				'level'=>$this->_REQUEST("level"),
-				'ecotype'=>$this->_REQUEST("ecotype"),
-				'trade'=>$this->_REQUEST("trade"),
-				'linkman'=>$this->_REQUEST("linkman"),
-				'mobile'=>$this->_REQUEST("mobile"),
-				'tel'=>$this->_REQUEST("tel"),
-				'email'=>$this->_REQUEST("email"),
-				'address'=>$this->_REQUEST("address"),
-				'intro'=>$this->_REQUEST("intro")
 			);
 			//******************************************************
 			//处理扩展字段
@@ -224,7 +204,10 @@ class CstCustomer extends Action{
 		$field_one_list=array();
 		foreach($field_ext_list as $row){
 			$field_name =$row['field_name'];
-			$field_one_list[$row['field_name']]=array('show_name'=>$row['show_name'],'field_name'=>$row['field_name'],'field_value'=>$one[$field_name]);
+			$field_one_list[$row['field_name']]=array('show_name'=>$row['show_name'],
+													  'field_name'=>$row['field_name'],
+													  'field_value'=>$one[$field_name]
+													 );
 		}
 		$smarty = $this->setSmarty();
 		$smarty->assign(array("one"=>$one,"field_one_list"=>$field_one_list));
@@ -243,10 +226,6 @@ class CstCustomer extends Action{
 			$sql = "select * from cst_customer where customer_id='$customer_id' ";
 			$one = $this->C($this->cacheDir)->findOne($sql);	
 			$dict= $this->dict->cst_dict_arr();
-			$one['source_name']=($one['source']>0)?$dict[$one['source']]:"";
-			$one['ecotype_name']=($one['ecotype']>0)?$dict[$one['ecotype']]:"";
-			$one['level_name']=($one['level']>0)?$dict[$one['level']]:"";
-			$one['trade_name']=($one['trade']>0)?$dict[$one['trade']]:"";
 			return $one;
 		}	
 	}	

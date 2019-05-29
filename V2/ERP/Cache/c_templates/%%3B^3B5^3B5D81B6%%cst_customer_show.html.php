@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-15 19:27:03
+<?php /* Smarty version 2.6.26, created on 2019-05-28 11:48:25
          compiled from crm/cst_customer_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -91,9 +91,9 @@ unset($_smarty_tpl_vars);
               <tr>
                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                 <th orderField="by_customer" class="sort-filed"><span>客户名称</span></th>
-                <th width="200" orderField="by_connbdt" class="sort-filed"><span>上次联系/内容</span></th>
+                <th width="200" orderField="by_connbdt" class="sort-filed"><span>上次联系</span></th>
+                <th width="200"><span>联系内容</span></th>
                 <th width="150" orderField="by_nextbdt" class="sort-filed"><span>下次联系</span></th>
-                <th width="150"><span>联系方式</span></th>
                 <th width="80">操作</th>
               </tr>
             </thead>
@@ -122,17 +122,12 @@ unset($_smarty_tpl_vars);
 			<a  href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['customer_id']%>" data-act="detail"><%=list[i]['name']%></a>
 			<p><small>创建于：<%=list[i]['create_time']%></small></p>
 		</td>
+		<td><%=list[i]['conn_time']%></td>
 		<td>
 			<p class="overflow-td">
-			<%=list[i]['conn_time']%><br>
 			<%=list[i]['conn_body']%></p>
 		</td>
 		<td><%=list[i]['next_time']%></td>
-		<td><p class="overflow-td">
-			<i class="fa fa-male"></i>:<%=list[i]['linkman']%><br>
-			<i class="fa fa-mobile"></i>:<%=list[i]['mobile']%><br>
-			</p>
-		</td>
 		<td width='10'>
 			<div class="btn-group">
 				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">操作 <span class="caret"></span></button>
