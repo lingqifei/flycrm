@@ -24,7 +24,7 @@ class Database {
 		$port = $GLOBALS[ 'DB' ][ 'DBport' ];
 		$user = $GLOBALS[ 'DB' ][ 'DBuser' ];
 		$pwd = $GLOBALS[ 'DB' ][ 'DBpsw' ];
-		$this->db = new PDO( "mysql:host={$host};dbname={$name}", "{$user}", "{$pwd}" );
+		$this->db = new PDO( "mysql:host={$host};port={$port};dbname={$name}", "{$user}", "{$pwd}" );
 		$this->db->query( "SET NAMES 'UTF8'" );
 		$this->db->query( "SET TIME_ZONE = '+8:00'" );
 
@@ -315,8 +315,7 @@ class Database {
 	 * @param String $table
 	 * @param array $arrayField
 	 */
-	private
-	function checkFields( $table, $arrayFields ) {
+	private function checkFields( $table, $arrayFields ) {
 		$fields = $this->getFields( $table );
 		foreach ( $arrayFields as $key => $value ) {
 			if ( !in_array( $key, $fields ) ) {
@@ -331,8 +330,7 @@ class Database {
 	 * @param String $table 表名
 	 * @return array
 	 */
-	public
-	function getFields( $table ) {
+	public function getFields( $table ) {
 		$fields = array();
 		$recordset = $this->db->query( "SHOW COLUMNS FROM $table" );
 		$this->getPDOError();

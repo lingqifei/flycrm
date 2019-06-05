@@ -11,6 +11,7 @@
  	date_default_timezone_set('PRC');
 	@header("content-Type: text/html; charset=utf-8 ");
 	if (substr(PHP_VERSION, 0, 1) < '5') _error('error','Framk框架运行环境要求PHP5以上,当前版本为：'.PHP_VERSION);
+
 	$GLOBALS= _config(require(FRAMK . '_Config.php'),require(CONFIG . 'Config.php'));//获取配置
 
 	//$GLOBALS["xmlconf"]=require(EXTEND . 'Xml.php');
@@ -18,12 +19,11 @@
 	$GLOBALS['StartRunTime']= $mtime[1] + $mtime[0];
 	$GLOBALS['Debug'] ? error_reporting ( E_ALL ) : error_reporting ( 0 );
 	
-	if ($GLOBALS['Session'])@session_start();
+	if ($GLOBALS['Session']) session_start();
 	if (version_compare ( PHP_VERSION, '5.0.0', '>' ))  @date_default_timezone_set ('Asia/Shanghai');
 
 	define ( 'NOWTIME', date('Y-m-d H:i:s',time()) );
 	define ( 'NOWDATE', date('Y-m-d ',time()) );
-
 	//@set_magic_quotes_runtime(0);
 //	foreach($_POST  as $id=>$v){
 //		$_POST[$id]=common_htmlspecialchars($v);
