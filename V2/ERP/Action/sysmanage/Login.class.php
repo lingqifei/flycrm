@@ -27,6 +27,7 @@ class Login extends Action{
 			$smarty->assign(array('sys'=>$config));
 			$smarty->display('sysmanage/login.html');		
 		}
+		
 	}
 	
 	//登录验证

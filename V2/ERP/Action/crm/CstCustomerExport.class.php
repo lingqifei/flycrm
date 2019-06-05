@@ -95,7 +95,7 @@ class CstCustomerExport extends Action{
      * @param array $tileArray 所有列名称
      * @param array $dataArray 所有列数据
      */
-    public function export_to_cvs($filename, $tileArray=[], $dataArray=[]){
+    public function export_to_cvs($filename, $tileArray=array(), $dataArray=array()){
         ini_set('memory_limit','512M');
         ini_set('max_execution_time',0);
         ob_end_clean();
