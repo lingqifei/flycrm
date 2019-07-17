@@ -25,6 +25,10 @@ class Database {
 		$user = $GLOBALS[ 'DB' ][ 'DBuser' ];
 		$pwd = $GLOBALS[ 'DB' ][ 'DBpsw' ];
 		$this->db = new PDO( "mysql:host={$host};port={$port};dbname={$name}", "{$user}", "{$pwd}" );
+		$dbVersion = $this->db->getAttribute(constant("PDO::ATTR_SERVER_VERSION")) ;
+		if ($dbVersion > '5.0.1') {
+			$this->db->query("SET sql_mode=''");//解决高版本MySQL不会因为默认值没有写不进去了
+		}
 		$this->db->query( "SET NAMES 'UTF8'" );
 		$this->db->query( "SET TIME_ZONE = '+8:00'" );
 
