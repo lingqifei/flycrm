@@ -36,6 +36,7 @@ class Role extends Action{
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
+				$v[ 'name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -87,6 +88,7 @@ class Role extends Action{
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
 
+
 	
 	//输出树形参数,+栏目下面的方法
 	function getTreeChecked($tree,$role) {
@@ -121,6 +123,34 @@ class Role extends Action{
 			}
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
+	}
+
+	
+	//输出树形参数
+	function getTreeSelect($tree,$sid) {
+		$html = '';	
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$selected=($t['id']==$sid)?"selected":"";
+				if ( $t[ 'children' ] == '' ) {
+					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+				} else {
+					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
+				}
+			}
+		}
+		return $html;
+	}
+	
+	//输出树形参数
+	function getTreeSelectHtml($optid,$sid=0) {
+		$list =$this->role();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择职位</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
 	}
 	
 	//权限选择带回

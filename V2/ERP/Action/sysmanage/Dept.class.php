@@ -34,6 +34,7 @@ class Dept extends Action {
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
+				$v[ 'name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -81,6 +82,34 @@ class Dept extends Action {
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
 
+	
+	//输出树形参数
+	function getTreeSelect($tree,$sid) {
+		$html = '';	
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$selected=($t['id']==$sid)?"selected":"";
+				if ( $t[ 'children' ] == '' ) {
+					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+				} else {
+					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
+				}
+			}
+		}
+		return $html;
+	}
+	
+	//输出树形参数
+	function getTreeSelectHtml($optid,$sid=0) {
+		$list =$this->dept();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择部门</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
+	}
+	
 	public function dept_show() {
 		$list =$this->dept();
 		$tree =$this->getTree($list, 0 );
@@ -161,6 +190,7 @@ class Dept extends Action {
 		$sql = "select * from fly_sys_dept order by sort asc;";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
 		$tree =$this->L( "Tree" ,$list);
+		$tree->_setArr($list);
 		//$this->L( "Tree" )->tree( $list );
 		$parentID = "<select name=\"$tag\" class=\"form-control m-b\">";
 		$parentID .= "<option value='0' >请您选择</option>";

@@ -80,9 +80,9 @@ class User extends Action{
 	*/
 	public function user_add(){
 		if(empty($_POST)){
-			$dept 		= $this->dept->dept_select_tree("deptID");
-			$position	= $this->postion->position_select_tree("positionID");
-			$role		= $this->role->role_select_tree("roleID");
+			$dept 		= $this->dept->getTreeSelectHtml("deptID");
+			$position	= $this->postion->getTreeSelectHtml("positionID");
+			$role		= $this->role->getTreeSelectHtml("roleID");
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_add.html');	
@@ -115,9 +115,9 @@ class User extends Action{
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_user where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$dept 		= $this->dept->dept_select_tree("deptID",$one["deptID"]);
-			$position	= $this->postion->position_select_tree("positionID",$one["positionID"]);
-			$role		= $this->role->role_select_tree("roleID",$one["roleID"]);
+			$dept 		= $this->dept->getTreeSelectHtml("deptID",$one["deptID"]);
+			$position	= $this->postion->getTreeSelectHtml("positionID",$one["positionID"]);
+			$role		= $this->role->getTreeSelectHtml("roleID",$one["roleID"]);
 			$smarty 	= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,"dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_modify.html');	
