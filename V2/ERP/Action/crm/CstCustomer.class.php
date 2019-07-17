@@ -39,10 +39,10 @@ class CstCustomer extends Action{
 		$orderField = $this->_REQUEST("orderField");
 		$orderDirection = $this->_REQUEST("orderDirection");
 		
-		$where_str = " c.customer_id > 0";
+		$where_str = " c.owner_user_id='".SYS_USER_ID."'";//默认为归属自己的
 		
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
+		$searchKeyword	= $this->_REQUEST("searchKeyword");
+		$searchValue	= $this->_REQUEST("searchValue");
 		if( !empty($searchValue) ){
 			$where_str .=" and c.name like '%$name%'";
 		}
@@ -74,14 +74,14 @@ class CstCustomer extends Action{
 		}
 		
 		//**************************************************************************
-		$countSql   = "select c.* from cst_customer  as c where $where_str";
+		$countSql   = "select c.* from cst_customer as c where $where_str";
 		$totalCount	 = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
 		$beginRecord= ($pageNum-1)*$pageSize;//计算开始行数
 		$sql		 = "select c.* from cst_customer as c where $where_str $order_by limit $beginRecord,$pageSize";	
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$dict		 = $this->dict->cst_dict_arr();
 		foreach($list as $key=>$row){
-			$list[$key]['owner_user_name']=$this->sys_user->user_get_name($row['owner_user_id']);
+			$list[$key]['owner_user']=$this->sys_user->user_get_one($row['owner_user_id']);
 		}
 		$assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum);		
 		return $assignArray;
@@ -98,10 +98,12 @@ class CstCustomer extends Action{
 	}	
 	//客户列表显示
 	public function cst_customer_show(){
-			$smarty = $this->setSmarty();
-			$smarty->display('crm/cst_customer_show.html');	
+		$smarty = $this->setSmarty();
+		$smarty->display('crm/cst_customer_show.html');	
 	}	
 
+	
+	
 	//客户增加
 	public function cst_customer_add(){
 		if(empty($_POST)){
@@ -228,6 +230,7 @@ class CstCustomer extends Action{
 			$dict= $this->dict->cst_dict_arr();
 			return $one;
 		}	
-	}	
+	}
+	
 }//end class
 ?>

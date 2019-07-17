@@ -36,7 +36,7 @@ class CstLinkman extends Action{
 		$customer_name	= $this->_REQUEST("customer_name");
 		$address	= $this->_REQUEST("address");
 		
-		$where_str	= "l.customer_id=s.customer_id and l.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str	= "l.customer_id=s.customer_id and s.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
 
 		if( !empty($keywords) ){
 			$where_str .=" and (l.name like '%$keywords%' or l.mobile like '%$keywords%' or l.tel like '%$keywords%')";

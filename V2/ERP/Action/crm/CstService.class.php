@@ -33,8 +33,7 @@ class CstService extends Action{
 		$customer_name 	= $this->_REQUEST("customer_name");
 		$customer_id 	= $this->_REQUEST("customer_id");
 		$content	   = $this->_REQUEST("content");
-		$where_str = " s.customer_id=c.customer_id and s.create_user_id in (".SYS_USER_VIEW.")";
-
+		$where_str = " s.customer_id=c.customer_id and c.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
 		if( !empty($content) ){
 			$where_str .=" and s.content like '%$content%'";
 		}

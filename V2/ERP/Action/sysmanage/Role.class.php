@@ -281,6 +281,7 @@ class Role extends Action{
 		return $string;	
 	}
 	
+	//查询一条记录
 	public function role_get_one($id){
 		$power =array();
 		$sql  = "select access,access_value from fly_sys_power where master='role' and master_value='$id' ";
@@ -301,6 +302,7 @@ class Role extends Action{
                   	<a href='".ACT."/sysmanage/Role/role_del/id/\$id/' class='btn btn-danger btn-xs'><i class='fa fa-remove'></i> 删除</a></td></tr>", 0, '' , "");
 	}	*/
 	
+	//下拉选择
 	public function role_select_tree($tag,$sid =""){
 		$sql	="select * from fly_sys_role  order by sort asc;";	
 		$list	=$this->C($this->cacheDir)->findAll($sql);	
@@ -324,8 +326,7 @@ class Role extends Action{
 		return $rtArr;
 	}	*/	
 	//排序
-	public
-	function role_modify_sort() {
+	public function role_modify_sort() {
 		$id		=$this->_REQUEST('id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(
@@ -335,8 +336,7 @@ class Role extends Action{
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}
 	//修改名称
-	public
-	function role_modify_name() {
+	public function role_modify_name() {
 		$id		=$this->_REQUEST('id');	
 		$name	=$this->_REQUEST('name');	
 		$upt_data=array(
@@ -345,21 +345,12 @@ class Role extends Action{
 		$this->C( $this->cacheDir )->modify('fly_sys_role',$upt_data,"id='$id'",true);
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}
-	//递归获取所有的子分类的ID
-	function get_all_child($array,$id){
-		$arr = array();
-		foreach($array as $v){
-			if($v['parentID'] == $id){
-				$arr[] = $v['id'];
-				$arr = array_merge($arr,$this->get_all_child($array,$v['id']));
-			};
-		};
-		return $arr;
-	}
-	//获得所有子类id,通过数组形式返回
-	public function role_all_child($pid){
+
+	//得到传入ID的子类
+	public function role_get_child($pid=1){
 		$data =$this->role();
-		$child=$this->get_all_child($data,$pid);
+		$tree =$this->L('Tree');
+		$child=$tree->get_all_child($data,$pid);
 		return $child;
 	}
 	

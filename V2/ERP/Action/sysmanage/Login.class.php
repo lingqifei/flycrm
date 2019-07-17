@@ -50,7 +50,9 @@ class Login extends Action{
 			//得色这个用户色权限,得到一个三维数组
 			$role=_instance('Action/sysmanage/User')->user_get_power($one["id"]);
 			
-			//权限返回值为一维数组，为系统用户私有数据
+			//权限返回值为一维数组，为系统用户私有数据 Array ( [0] => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ,[1] => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ) 
+			$role_sys_menu=$role["SYS_MENU"];
+			
 			$_SESSION["CRM"]["USER"]["menu"]		= explode(",",implode(",",($role["SYS_MENU"]) ) );
 			$_SESSION["CRM"]["USER"]["menustr"]		= implode(",",($role["SYS_MENU"]) );
 			
@@ -61,7 +63,7 @@ class Login extends Action{
 			$_SESSION["CRM"]["USER"]["methodstr"]	= implode(",",($role["SYS_METHOD"]) );			
 			
 			//得到下组用户的管理权限
-			$_SESSION["CRM"]["USER"]["viewID"]		= implode(",",$this->L("sysmanage/User")->user_get_sub_user($one["id"]));
+			$_SESSION["CRM"]["USER"]["viewID"]		= implode(",",$this->L("sysmanage/User")->user_get_sub_id($one["id"]));
 			
 			//这是得到系统权限需要检查的总表
 			$_SESSION["CRM"]["NEED"]["menu"] 		= $this->L("sysmanage/Menu")->menu_auth_arr();

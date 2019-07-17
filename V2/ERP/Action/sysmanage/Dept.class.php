@@ -150,8 +150,7 @@ class Dept extends Action {
 		}
 	}
 	
-	public
-	function dept_del() {
+	public function dept_del() {
 		$id = $this->_REQUEST( "id" );
 		$sql = "delete from fly_sys_dept where id='$id'";
 		$this->C( $this->cacheDir )->update( $sql );
@@ -170,8 +169,7 @@ class Dept extends Action {
 		return $parentID;
 	}
 	//得到一个部门的得到下面子部门的编号
-	public
-	function dept_get_sub_dept( $deptID ) {
+	public function dept_get_sub_dept( $deptID ) {
 		$sql = "select id,name,parentID from fly_sys_dept where parentID='$deptID'";
 		$list = $this->C( $this->cacheDir )->findAll( $sql );
 		if ( !empty( $list ) ) {
@@ -196,8 +194,7 @@ class Dept extends Action {
 		echo json_encode($rtnArr);
 	}
 	//修改名称
-	public
-	function dept_modify_name() {
+	public function dept_modify_name() {
 		$id		=$this->_REQUEST('id');	
 		$name	=$this->_REQUEST('name');	
 		$upt_data=array(
@@ -206,6 +203,14 @@ class Dept extends Action {
 		$this->C( $this->cacheDir )->modify('fly_sys_dept',$upt_data,"id='$id'",true);
 		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
 		echo json_encode($rtnArr);
+	}
+	
+	//得到传入ID的子类
+	public function dept_get_child($pid=1){
+		$data =$this->dept();
+		$tree =$this->L('Tree');
+		$child=$tree->get_all_child($data,$pid);
+		return $child;
 	}
 } //
 ?>

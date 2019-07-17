@@ -100,6 +100,7 @@ class Position extends Action{
 		$smarty->display('sysmanage/search.html');	
 	}	
 	
+	//添加
 	public function position_add(){
 		if(empty($_POST)){
 			$pid=$this->_REQUEST('pid');
@@ -114,6 +115,7 @@ class Position extends Action{
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
 	}	
+	//修改
 	public function position_modify(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
@@ -132,6 +134,7 @@ class Position extends Action{
 			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}	
+	//删除
 	public function position_del(){
 		$id=$this->_REQUEST("id");
 		$sql="delete from fly_sys_position where id='$id'";
@@ -149,6 +152,7 @@ class Position extends Action{
                   	<a href='".ACT."/sysmanage/Position/position_del/id/\$id/' class='btn btn-danger btn-xs'><i class='fa fa-remove'></i> 删除</a></td></tr>", 0, '' , "");
 			
 	}
+	//下拉选择
 	public function position_select_tree($tag,$sid =""){
 		$sql	 = "select * from fly_sys_position  order by sort asc;";	
 		$list	 = $this->C($this->cacheDir)->findAll($sql);	
@@ -158,7 +162,8 @@ class Position extends Action{
 		$parentID .= $tree->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
 		$parentID .="</select>";	
 		return $parentID;
-	}	
+	}
+	
 	public function position_arr(){
 		$rtArr  =array();
 		$sql	="select id,name from fly_sys_position";
@@ -171,8 +176,7 @@ class Position extends Action{
 		return $rtArr;
 	}
 	//排序
-	public
-	function position_modify_sort() {
+	public function position_modify_sort() {
 		$id		=$this->_REQUEST('id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(
@@ -183,8 +187,7 @@ class Position extends Action{
 		echo json_encode($rtnArr);
 	}
 	//修改名称
-	public
-	function position_modify_name() {
+	public function position_modify_name() {
 		$id		=$this->_REQUEST('id');	
 		$name	=$this->_REQUEST('name');	
 		$upt_data=array(
@@ -194,5 +197,13 @@ class Position extends Action{
 		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
 		echo json_encode($rtnArr);
 	}	
+	//得到传入ID的子类
+	public function position_get_child($pid=2){
+		$data =$this->position();
+		$tree =$this->L('Tree',$data);
+		$child=$tree->get_child($pid);
+		return $child;
+	}
+	
 }//
 ?>

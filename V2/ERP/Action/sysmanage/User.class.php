@@ -186,9 +186,10 @@ class User extends Action{
 	//得到一个系统用户权限
 	//return Array ( [sys_menu] => Array ( [0] => 10,101,102,105,20,30,50 [1] => 1,507 ) )
 	public function user_get_power($id=1){
-		$sql	= "select roleID from fly_sys_user where id='$id'";				 
-		$one 	= $this->C($this->cacheDir)->findOne($sql);
-		$role   = explode(",",$one["roleID"]);
+		$sql  ="select roleID from fly_sys_user where id='$id'";				 
+		$one  =$this->C($this->cacheDir)->findOne($sql);
+		//预留可以有多个角色
+		$role =explode(",",$one["roleID"]);
 		if(is_array($role)){
 			foreach($role as $k=>$v){
 				$power=$this->role->role_get_one($v);//多个权限叠加进去
@@ -201,7 +202,7 @@ class User extends Action{
 	}	
 	
 	//获取同当前用户管理的用户编号，通过角色来定义
-	public function user_get_sub_user($id=null){
+	public function user_get_sub_user($id=1){
 		$sql	 = "select roleID from fly_sys_user where id='$id'";	
 		$one 	 = $this->C($this->cacheDir)->findOne($sql);
 		$role   = explode(",",$one["roleID"]);//这里表示有多个角色
@@ -221,6 +222,39 @@ class User extends Action{
 		}
 		return $rtArr;	
 	}	
+	
+	//得到本部门下属管理的员工的编号
+	//同部门及下属瓿部
+	//同色及下属角色
+	//return Array(3,4,5,5);
+	public function user_get_sub_id($id=4){
+		$roleArr=array();
+		$deptArr=array();
+		$sql	="select roleID,deptID from fly_sys_user where id='$id'";	
+		$one	=$this->C($this->cacheDir)->findOne($sql);
+		$roleArr=$this->role->role_get_child($one['roleID']);//到本部门得子部门编号
+		$deptArr=$this->dept->dept_get_child($one['deptID']);//到本角色及下属编号
+		$deptArr[]=$one['deptID'];//关联到自己的本部门
+		if(empty($roleArr)) $roleArr=array('-1');
+		if(empty($deptArr)) $deptArr=array('-1');
+		$role_txt=implode(',',$roleArr);
+		$dept_txt=implode(',',$deptArr);
+		
+		$sub_sql 	="select id from fly_sys_user where roleID in ($role_txt) and  deptID in ($dept_txt) ";
+		$sub_list	=$this->C($this->cacheDir)->findAll($sub_sql);
+		if(!empty($sub_list)){
+			foreach($sub_list as $key=>$row){
+				$rtnArr[]=$row["id"];
+			}				
+		}else{
+			$rtnArr[]='-1';
+		}
+
+		return $rtnArr;
+	}
+	
+	
+	
 	//传入ID返回名字
 	public function user_get_name($id){
 		if(empty($id)) $id=0;
@@ -252,6 +286,8 @@ class User extends Action{
 			return '0';	
 		}
 	}
+	
+	
 	
 }//
 ?>

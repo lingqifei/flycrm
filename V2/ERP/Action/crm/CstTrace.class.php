@@ -37,7 +37,7 @@ class CstTrace extends Action{
 		$customer_name	= $this->_REQUEST("customer_name");
 		$salestage		= $this->_REQUEST("salestage");
 		
-		$where_str	= "t.customer_id=c.customer_id and t.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str	= "t.customer_id=c.customer_id and c.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
 		if(!empty($customer_id) ){
 			$where_str .=" and t.customer_id='$customer_id'";
 		}
@@ -119,17 +119,21 @@ class CstTrace extends Action{
 				'create_time'=>NOWTIME,
 				'create_user_id'=>SYS_USER_ID,
 			);
+			//插入记录
 			if($this->C($this->cacheDir)->insert('cst_trace',$into_data)){
 				$upt_data=array(
 					'conn_time'=>$this->_REQUEST("conn_time"),
 					'conn_body'=>$this->_REQUEST("intro"),
 					'next_time'=>$this->_REQUEST("next_time"),
 				);
+				//更新客户信息
 				$this->C($this->cacheDir)->modify('cst_customer',$upt_data,"customer_id='$customer_id'");
 				//增加消息提醒
 				$next_time=$this->_REQUEST('next_time');
+				//插入提醒
 				if(!empty($next_time) && $next_time<>'0000-00-00'){
-					$this->msg->message_add(SYS_USER_ID,'预约联系',$this->_REQUEST("name"),'cst_customer',$customer_id,$next_time);
+					$one = $this->customer->cst_customer_get_one($customer_id);
+					$this->msg->message_add(SYS_USER_ID,'客户预约联系','联系客户'.$one['name'],'cst_customer',$customer_id,$next_time);
 				}				
 				//$this->L("Common")->ajax_json_success("操作成功");
 			}

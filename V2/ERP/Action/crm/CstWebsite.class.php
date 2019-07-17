@@ -38,7 +38,7 @@ class CstWebsite extends Action{
 		$end_date		= $this->_REQUEST("end_date");
 		$status			= $this->_REQUEST("status");
 		
-		$where_str 		= " w.customer_id=s.customer_id and w.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str 		= " w.customer_id=s.customer_id and s.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
 
 		if( !empty($keywords) ){
 			$where_str .=" and w.name like '%$keywords%'";

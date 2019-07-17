@@ -36,7 +36,8 @@ class CstChance extends Action{
 		$customer_name	= $this->_REQUEST("customer_name");
 		$salestage		= $this->_REQUEST("salestage");
 		
-		$where_str	= "s.customer_id=c.customer_id and s.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str	= "s.customer_id=c.customer_id and c.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
+		
 		if( !empty($keywords) ){
 			$where_str .=" and (s.name like '%$keywords%' or s.mobile like '%$keywords%' or s.tel like '%$keywords%')";
 		}
