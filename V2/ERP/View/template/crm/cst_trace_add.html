@@ -5,12 +5,6 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="ibox-content">
     <form class="form-horizontal" method="post" action="#">
-      <div class="form-group">
-        <label class="col-sm-2 control-label">主题</label>
-        <div class="col-sm-10">
-          <input name="name" class="form-control" type="text" placeholder="输入跟踪记录主题" required/>
-          <span class="help-block m-b-none"></span> </div>
-      </div>
       <div class="form-group text-left">
         <label class="col-sm-2 control-label">客户名称</label>
         <div class="col-sm-10">
@@ -63,11 +57,11 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">沟通日期</label>
         <div class="col-sm-10">
-          <input name="conn_time" class="form-control datepicker" type="text"  placeholder="选择服务时间"/>
+          <input name="conn_time" class="form-control datetimepicker" type="text"  placeholder="选择服务时间"/>
           <span class="help-block m-b-none"></span> </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">介绍</label>
+        <label class="col-sm-2 control-label">联系内容</label>
         <div class="col-sm-10">
           <textarea name="intro" class="form-control"></textarea>
         </div>
@@ -75,7 +69,7 @@
 		 <div class="form-group">
         <label class="col-sm-2 control-label">下次沟通日期</label>
         <div class="col-sm-10">
-          <input name="next_time" class="form-control datepicker" type="text"  placeholder="选择下次沟通日期"/>
+          <input name="next_time" class="form-control datetimepicker" type="text"  placeholder="选择下次沟通日期"/>
           <span class="help-block m-b-none"></span> </div>
       </div>
       <div class="form-group">
@@ -90,13 +84,7 @@
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
 $(document).ready(function () {
-	$(".datepicker").datetimepicker({
-		language: "zh-CN",
-		autoclose: true,//选中之后自动隐藏日期选择框
-		clearBtn: true,//清除按钮
-		todayBtn: true,//今日按钮
-		format: "yyyy-mm-dd hh:ii:ss",
-	});
+
 	
 	//下拉选择+联动效果
 	$('.chosen-select').chosen({search_contains: true});

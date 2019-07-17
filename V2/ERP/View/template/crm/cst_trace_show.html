@@ -68,11 +68,10 @@
             <thead>
               <tr>
                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                <th width="150" ><span>跟踪记录主题</span></th>
-                <th width="150" orderField="by_customer" class="sort-filed"><span>客户名称</span></th>
-				  		<th width="120" orderField="by_conntime" class="sort-filed"><span>最近联系时间</span></th>
+                <th width="200" orderField="by_customer" class="sort-filed"><span>客户名称</span></th>
+				  		<th width="150" orderField="by_conntime" class="sort-filed"><span>最近联系时间</span></th>
 				  		<th><span>沟通内容</span></th>
-                <th width="120" orderField="by_nexttime" class="sort-filed"><span>下次联系时间</span></th>
+                <th width="150" orderField="by_nexttime" class="sort-filed"><span>下次联系时间</span></th>
                 <th width="80"><span>沟通方式</span></th>
                 <th width="80"><span>当前阶段</span></th>
                 <th width="80">操作</th>
@@ -93,7 +92,6 @@
 <% for(var i=0;i<list.length;i++) { %>
 	<tr>
 		<td><input name="trace_id" class="checkboxCtrlId" value="<%=list[i]['trace_id']%>" type="checkbox"></td>
-		<td><%=list[i]['name']%><br><small>(创建：<%=list[i]['create_time']%>)</small></td>
 		<td><%=list[i]['customer_name']%><br><small>(代表：<%=list[i]['linkman']['name']%>)</small></td>
 		<td><%=list[i]['conn_time']%></td>
 		<td class="overflow-td"><%=list[i]['intro']%></td>	
