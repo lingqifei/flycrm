@@ -104,6 +104,19 @@ class Tree
         return $newarr ? $newarr : false;
     }
  
+	
+	//递归获取所有的子分类的ID
+	function get_all_child($array,$id){
+		$arr = array();
+		foreach($array as $v){
+			if($v['parentID'] == $id){
+				$arr[] = $v['id'];
+				$arr = array_merge($arr,$this->get_all_child($array,$v['id']));
+			};
+		};
+		return $arr;
+	}
+	
     /**
     * 得到当前位置数组
     * @param int
