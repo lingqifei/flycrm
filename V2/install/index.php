@@ -161,9 +161,12 @@ function step3( & $install_error, & $install_recover ) {
 	$menu_txt=implode( ",", $menu_txt );
 	$method_txt=implode( ",", $method_txt );
 	$sql="update `fly_sys_power` set access_value='$menu_txt' where master='role' and master_value='1' and access='SYS_MENU'";
-	runquery( $sql, $db_prefix, $mysqli );
+	//runquery( $sql, $db_prefix, $mysqli );
+	$mysqli->query($sql);
+	
 	$sql="update `fly_sys_power` set access_value='$method_txt' where master='role' and master_value='1' and access='SYS_METHOD'";
-	runquery( $sql, $db_prefix, $mysqli );
+	//runquery( $sql, $db_prefix, $mysqli );
+	$mysqli->query($sql);
 	
 	/**
 	 * 转码
@@ -179,7 +182,9 @@ function step3( & $install_error, & $install_recover ) {
 
 	//添加管理员账号密码
 	$sql= "INSERT INTO `fly_sys_user` (`id`,`account`,`password`,`roleID`) VALUES ('1','$username','".md5( $password )."',1);" ;
-	runquery( $sql, $db_prefix, $mysqli );
+	//runquery( $sql, $db_prefix, $mysqli );
+	$mysqli->query($sql);
+	
 	//更新系统名称
 	$mysqli->query("UPDATE `fly_sys_config` SET value='".$sitename."' WHERE varname='cfg_webname'");
 	
