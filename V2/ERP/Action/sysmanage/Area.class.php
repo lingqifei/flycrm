@@ -1,14 +1,18 @@
 <?php
 /*
- * 地区管理类
  *
- * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
- * @author      kfrs <goodkfrs@QQ.com>
- * @package     admin.Book
- * @version     1.0
- * @link       http://www.07fly.top
- */	 
+ * sysmanage.Area  地区管理登录   
+ *
+ * =========================================================
+ * 零起飞网络 - 专注于网站建设服务和行业系统开发
+ * 以质量求生存，以服务谋发展，以信誉创品牌 !
+ * ----------------------------------------------
+ * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author ：kfrs <goodkfrs@QQ.com> 574249366
+ * @version ：1.0
+ * @link ：http://www.07fly.top 
+ */	
 class Area extends Action{	
 	private $cacheDir='';//缓存目录
 	private $tree='';//数形
@@ -26,6 +30,7 @@ class Area extends Action{
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
+				$v[ 'treename' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -73,7 +78,32 @@ class Area extends Action{
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
-
+	//输出树形参数
+	function getTreeSelect($tree,$sid) {
+		$html = '';	
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$selected=($t['id']==$sid)?"selected":"";
+				if ( $t[ 'children' ] == '' ) {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+				} else {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
+				}
+			}
+		}
+		return $html;
+	}
+	
+	//输出树形参数
+	function getTreeSelectHtml($optid,$sid=0) {
+		$list =$this->area();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择部门</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
+	}
 	public function area_show() {
 		$list =$this->area();
 		$tree =$this->getTree($list, 0);
@@ -86,7 +116,7 @@ class Area extends Action{
 	public function area_add(){
 		if(empty($_POST)){
 			$pid=$this->_REQUEST('pid');
-			$parentID=$this->area_select_tree('parentID',$pid);
+			$parentID=$this->getTreeSelectHtml('parentID',$pid);
 			$smarty	= $this->setSmarty();
 			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/area_add.html');	
@@ -113,7 +143,7 @@ class Area extends Action{
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_area where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$parentID	= $this->area_select_tree('parentID',$one["parentID"]);
+			$parentID	= $this->getTreeSelectHtml('parentID',$one["parentID"]);
 			$smarty  	= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/area_modify.html');	

@@ -40,7 +40,7 @@ class SalContract extends Action{
 		$start_date		= $this->_REQUEST("start_date");
 		$end_date		= $this->_REQUEST("end_date");
 		
-		$where_str	= "s.customer_id=c.customer_id and s.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str	= "s.customer_id=c.customer_id and c.owner_user_id in (".SYS_USER_ID.",".SYS_USER_SUB_ID.")";
 		
 		if( !empty($title) ){
 			$where_str .=" and s.title like '%$title%'";

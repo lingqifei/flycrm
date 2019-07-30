@@ -1,15 +1,25 @@
 <?php
 /*
- * 验证类
- */	 
+ *
+ * sysmanage.Auth  后台权限验证  
+ *
+ * =========================================================
+ * 零起飞网络 - 专注于网站建设服务和行业系统开发
+ * 以质量求生存，以服务谋发展，以信誉创品牌 !
+ * ----------------------------------------------
+ * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
+ * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @author ：kfrs <goodkfrs@QQ.com> 574249366
+ * @version ：1.0
+ * @link ：http://www.07fly.top 
+ */	
 class Auth extends Action {
 
 	private $cacheDir = ''; //缓存目录
 
 	public function __construct() {
-		
-		$this->check_login();
-		$this->authorization();
+		$this->check_login();//检查是否登录
+		$this->authorization();//检查用户动作是否在授权范围之类
 		@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //定义
 		@define( 'SYS_USER_ID', $_SESSION[ "CRM" ][ "USER" ][ "userID" ] ); //定义
 		@define( 'SYS_USER_SUB_ID', $_SESSION[ "CRM" ][ "USER" ][ "viewID" ] ); //本部门及下属用户
@@ -27,7 +37,6 @@ class Auth extends Action {
 		}else{
 			$this->location( "请登录", '/sysmanage/Login/login');
 		}
-
 	}
 
 	//判断是有执行方法的权限

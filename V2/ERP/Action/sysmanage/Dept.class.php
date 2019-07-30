@@ -34,7 +34,7 @@ class Dept extends Action {
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
-				$v[ 'name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
+				$v[ 'treename' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -90,9 +90,9 @@ class Dept extends Action {
 			foreach ( $tree as $key=>$t ) {
 				$selected=($t['id']==$sid)?"selected":"";
 				if ( $t[ 'children' ] == '' ) {
-					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
 				} else {
-					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
 					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
 				}
 			}

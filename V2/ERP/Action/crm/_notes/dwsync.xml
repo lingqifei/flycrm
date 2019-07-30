@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="CstChance.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131920801751656944" remote="131920790400000000" Dst="0" />
-<file name="CstCustomer.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132014355560136723" remote="132033973800000000" Dst="0" />
-<file name="CstDict.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132014362669648637" remote="132033973800000000" Dst="0" />
-<file name="CstDictType.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131907089537537208" remote="131915557200000000" Dst="0" />
-<file name="CstFiling.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824245896431" remote="131915557200000000" Dst="0" />
-<file name="CstLinkman.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132014342278331719" remote="132033973800000000" Dst="0" />
-<file name="CstQuoted.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824249068886" remote="131915557200000000" Dst="0" />
-<file name="CstQuotedDetail.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824250404921" remote="131915557200000000" Dst="0" />
-<file name="CstService.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131907087933399008" remote="131915557200000000" Dst="0" />
-<file name="CstTalk.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824256542513" remote="131915557200000000" Dst="0" />
-<file name="CstTrace.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131967654499765565" remote="131968434000000000" Dst="0" />
-<file name="CstWebsite.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131980512651215088" remote="132033973800000000" Dst="0" />
-<file name="SalContract.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131968524019423313" remote="131974757400000000" Dst="0" />
-<file name="SalOrderDetail.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131891414144389847" remote="131915557200000000" Dst="0" />
-<file name="SalContractList.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914275795593032" remote="131915557200000000" Dst="0" />
-<file name="SalOrder.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131891414143820146" remote="131915557200000000" Dst="0" />
-<file name="CstCustomerImport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132027321378682303" remote="132033973800000000" Dst="0" />
-<file name="CstFieldExt.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132025538243507916" remote="132033973800000000" Dst="0" />
-<file name="CstCustomerExport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132029810537795293" remote="132033974400000000" Dst="0" />
-<file name="CstLinkmanExport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132027408884940765" remote="132033974400000000" Dst="0" />
+<file name="CstChance.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062094220497761" remote="132077944800000000" Dst="0" />
+<file name="CstCustomer.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062074810000000" remote="132077944800000000" Dst="0" />
+<file name="CstDict.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132014362669648637" remote="132077944800000000" Dst="0" />
+<file name="CstDictType.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131907089537537208" remote="132077944800000000" Dst="0" />
+<file name="CstFiling.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824245896431" remote="132077944800000000" Dst="0" />
+<file name="CstLinkman.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062092416630469" remote="132077944800000000" Dst="0" />
+<file name="CstQuoted.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824249068886" remote="132077944800000000" Dst="0" />
+<file name="CstQuotedDetail.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824250404921" remote="132077944800000000" Dst="0" />
+<file name="CstService.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062093051746253" remote="132077944800000000" Dst="0" />
+<file name="CstTalk.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131888824256542513" remote="132077944800000000" Dst="0" />
+<file name="CstTrace.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062104503347056" remote="132077944800000000" Dst="0" />
+<file name="CstWebsite.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132075825612144650" remote="132077944800000000" Dst="0" />
+<file name="SalContract.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131968524019423313" remote="132077944800000000" Dst="0" />
+<file name="SalOrderDetail.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131891414144389847" remote="132077944800000000" Dst="0" />
+<file name="SalContractList.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131914275795593032" remote="132077944800000000" Dst="0" />
+<file name="SalOrder.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="131891414143820146" remote="132077944800000000" Dst="0" />
+<file name="CstCustomerImport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132027321378682303" remote="132077944800000000" Dst="0" />
+<file name="CstFieldExt.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132025538243507916" remote="132077944800000000" Dst="0" />
+<file name="CstCustomerExport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132041893723032713" remote="132041877600000000" Dst="0" />
+<file name="CstLinkmanExport.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132027408884940765" remote="132077944800000000" Dst="0" />
+<file name="CstCustomerDept.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062054341280281" remote="132077944800000000" Dst="0" />
+<file name="CstCustomerComm.class.php" server="211.149.238.19//07fly_erp/wwwroot/" local="132062076860941569" remote="132077944800000000" Dst="0" />
 </dwsync>

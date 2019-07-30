@@ -25,7 +25,7 @@ class Role extends Action{
 	}	
 	
 	public function role(){
-		$sql	= "select * from fly_sys_role order by sort asc;";
+		$sql	= "select *,name as text,id as tags from fly_sys_role order by sort asc;";
 		$list 	= $this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
 	}
@@ -36,7 +36,7 @@ class Role extends Action{
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
-				$v[ 'name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
+				$v[ 'tree_name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -46,14 +46,12 @@ class Role extends Action{
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		
 		foreach ( $tree as $key=>$t ) {
 			$kg="";
 			//$fx=($t['level']>1)?"|——":"";
 			for($x=1;$x<$t['level'];$x++) {
 				$kg .="<i class='fly-fl'>|—</i>";
 			}
-			
 			if ( $t[ 'children' ] == '' ) {
 				$html .= "<li><div class='fly-row lines'>
 								<i class='fly-fl'>&nbsp;</i>
@@ -89,8 +87,12 @@ class Role extends Action{
 	}
 
 
-	
-	//输出树形参数,+栏目下面的方法
+	/**
+	 * [putCsv description]
+	 * @param  string   $tree  		[description] 栏目的树形格式
+	 * @param  array   $role      [description] 数组,当前角色的标签
+	 * @return [type]           [description] 输出以为checkbox的html
+	 */
 	function getTreeChecked($tree,$role) {
 		$html = '';
 		$role_menu =explode(',',$role["SYS_MENU"]);
@@ -104,7 +106,7 @@ class Role extends Action{
 			
 			//if ( $t[ 'children' ] == '' ) { //修改判断为空
 			if ( empty($t[ 'children' ]) ) {
-				$method=$this->L('sysmanage/Method')->method_arr_checkbox($t['id'],$role_method);
+				$method=$this->method->method_arr_checkbox($t['id'],$role_method);
 				$html .= "<li><div class='fly-row lines'>
 								<i class='fly-fl'>&nbsp;</i>
 								<div  class='fly-col-8'>
@@ -133,9 +135,9 @@ class Role extends Action{
 			foreach ( $tree as $key=>$t ) {
 				$selected=($t['id']==$sid)?"selected":"";
 				if ( $t[ 'children' ] == '' ) {
-					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .="<option value='".$t['id']."' $selected>".$t['tree_name']."</option>";
 				} else {
-					$html .="<option value='".$t['id']."' $selected>".$t['name']."</option>";
+					$html .="<option value='".$t['id']."' $selected>".$t['tree_name']."</option>";
 					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
 				}
 			}
@@ -153,7 +155,7 @@ class Role extends Action{
 		return $html;
 	}
 	
-	//权限选择带回
+	//权限维护功能
 	function role_check_power(){
 		$role_id=$this->_REQUEST("role_id");
 		$list =$this->menu->menu_check_list();
@@ -165,6 +167,7 @@ class Role extends Action{
 		$smarty->assign( array( "treeHtml" => $treeHtml,'role_id'=>$role_id) );
 		$smarty->display( 'sysmanage/role_check_power.html' );
 	}
+	
 	//权限保存
 	function role_check_power_save(){
 		$role_id=$this->_REQUEST("role_id");
@@ -193,6 +196,7 @@ class Role extends Action{
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}	
 
+	//权限列表显示
 	public function role_show() {
 		$list =$this->role();
 		$tree =$this->getTree($list, 0 );

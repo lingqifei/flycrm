@@ -21,10 +21,10 @@ class User extends Action{
 	private $postion;//职位
 	private $role;//权限
 	public function __construct() {
-		$this->auth=_instance('Action/sysmanage/Auth');
-		$this->dept= $this->L("sysmanage/Dept");
-		$this->postion= $this->L("sysmanage/Position");
-		$this->role= $this->L("sysmanage/Role");
+		$this->auth		= _instance('Action/sysmanage/Auth');
+		$this->dept		= $this->L("sysmanage/Dept");
+		$this->postion	= $this->L("sysmanage/Position");
+		$this->role		= $this->L("sysmanage/Role");
 	}	
 	public function user(){
 		//**获得传送来的数据作分页处理
@@ -68,16 +68,7 @@ class User extends Action{
 			$smarty->assign($assArr);
 			$smarty->display('sysmanage/user_show.html');	
 	}		
-/*	public function lookup_search(){
-			$assArr  			= $this->user();
-			$assArr["dept"] 	= $this->dept->dept_arr();
-			$assArr["position"] = $this->postion->position_arr();
-			$assArr["role"]		= $this->role->role_arr();
-			$smarty  			= $this->setSmarty();
-			$smarty->assign($assArr);
-			$smarty->display('sysmanage/lookup_search.html');	
-	}	
-	*/
+
 	public function user_add(){
 		if(empty($_POST)){
 			$dept 		= $this->dept->getTreeSelectHtml("deptID");
@@ -175,17 +166,28 @@ class User extends Action{
 		return $list;
 	}
 	
-	//根据权限编号查询出用户
-	function user_list_role($role){
-		$role_txt=empty($role)?'0':implode(',',$role);
-		$sql ="select * from fly_sys_user where roleID in($role_txt)";
+	//权限编号查询出用户当前权限下的所有用户
+	function user_list_role($roleID=0){
+		$sql ="select * from fly_sys_user where FIND_IN_SET('$roleID',roleID);";
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
 	
+	//输出权限下用户信息，checkbox
+	function user_list_role_checked($roleID=0){
+		$sql 	="select * from fly_sys_user where FIND_IN_SET('$roleID',roleID);";
+		$list	=$this->C($this->cacheDir)->findAll($sql);
+		$checkbox="";
+		foreach($list as $key=>$row){
+			$checkbox .="<input type='checkbox' name='sys_user_id[]' class='userlist_checkbox' value='".$row['id']."' title='".$row['name']."'> ".$row['name']." ";
+		}
+		return $checkbox;
+	}	
+	
+	
 	//得到一个系统用户权限
 	//return Array ( [sys_menu] => Array ( [0] => 10,101,102,105,20,30,50 [1] => 1,507 ) )
-	public function user_get_power($id=1){
+	public function user_get_power($id=null){
 		$sql  ="select roleID from fly_sys_user where id='$id'";				 
 		$one  =$this->C($this->cacheDir)->findOne($sql);
 		//预留可以有多个角色
@@ -279,15 +281,61 @@ class User extends Action{
 	public function user_get_id($account){
 		$sql ="select id,name from fly_sys_user where account='$account'";	
 		$one =$this->C($this->cacheDir)->findOne($sql);
-		//print_r($one);
 		if(!empty($one)){
 			return $one['id'];	
 		}else{
 			return '0';	
 		}
 	}
+
 	
+	/**
+	 * [putCsv description]
+	 * @param  string   $tree  		[description] 栏目的树形格式
+	 * @param  array   $role      [description] 数组,当前角色的标签
+	 * @return [type]           [description] 输出以为checkbox的html
+	 */
+	function getTreeChecked($tree) {
+		$html = '';
+		foreach ( $tree as $t ) {
+			$kg="";
+			for($x=1;$x<$t['level'];$x++) {
+				$kg .="<i class='fly-fl'>|—</i>";
+			}
+			$checked='';
+			//if ( $t[ 'children' ] == '' ) { //修改判断为空
+			if ( empty($t[ 'children' ]) ) {
+				$userlist=$this->user_list_role_checked($t['id']);
+				$userlist=empty($userlist)?"":"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$userlist";
+				$html .= "<li><div class='fly-row lines'>
+								<i class='fly-fl'>&nbsp;</i>
+								<div  class='fly-col-8'>
+									".$kg."<input type='checkbox' name='roleID[]' value='".$t['id']."'  class='children_method' ".$checked."> ".$t['text']."".$userlist."
+								</div>
+							</div>
+						  </li>";
+			} else {
+				$html .= "<li><div class='fly-row lines'>
+								<lable class='fly-col-1'>[+]</lable>
+								<div  class='fly-col-8'>".$kg."<input type='checkbox' name='roleID[]' value='".$t['id']."' class='children_menu' ".$checked."> ".$t['text']."</div>		
+							</div>
+							";
+				$html .= $this->getTreeChecked( $t[ 'children' ]);
+				$html .= "</li>";
+			}
+		}
+		return $html ? '<ul>' . $html . '</ul>': $html;
+	}
 	
+	//按角色选择用户
+	function user_role_tree_checkbox(){
+		$list =$this->role->role();
+		$tree =$this->role->getTree($list, 0 );
+		$treeHtml=$this->getTreeChecked($tree);
+		$smarty = $this->setSmarty();
+		$smarty->assign( array( "treeHtml" => $treeHtml) );
+		$smarty->display( 'sysmanage/user_role_tree_checkbox.html' );
+	}	
 	
 }//
 ?>

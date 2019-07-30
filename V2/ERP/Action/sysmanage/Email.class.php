@@ -85,7 +85,7 @@ class Email extends Action {
 		$MailPort  = $config[ "port" ]; //SMTP服务器端口号 默认25
 		$MailId 	= $config[ "account" ]; //服务器邮箱帐号
 		$MailPw 	= $config[ "password" ]; //服务器邮箱密码
-		
+
 		//判断是模板还是直接发送
 		if($mb_id){
 			$sql="select * from fly_config_email_mb where id='$mb_id'";
