@@ -36,7 +36,9 @@ class Tree
     */
     var $ret = '';
  
- 	var $html='';
+    
+	
+	var $html='';
  
     /**
     * 构造函数，初始化类
@@ -58,9 +60,13 @@ class Tree
 //    }
  	
 		function __construct($arr=array()){
-		   $this->arr = $arr;
+		   $this->arr = '';
 		   $this->ret = '';
-		   return is_array($arr);
+		  // return is_array($arr);
+		}
+	
+		function _setArr($arr=array()){
+			$this->arr = $arr;
 		}
 	
     /**
