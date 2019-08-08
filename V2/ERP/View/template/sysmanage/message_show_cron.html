@@ -33,7 +33,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="read"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Message/message_read/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Message/message_read/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

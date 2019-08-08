@@ -84,7 +84,7 @@
 <!-- 自定义js -->
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script>
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/sysmanage/SmsLog/sms_log_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/sysmanage/SmsLog/sms_log_json/';
 $(document).ready(function () {
 	turnPage(1);//页面加载时初始化分页
 
@@ -96,7 +96,7 @@ $(document).ready(function () {
 		}); 
 		id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/SmsLog/sms_log_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/SmsLog/sms_log_del/";
 		}
 		//alert(id_txt);
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 

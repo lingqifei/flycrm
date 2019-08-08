@@ -56,7 +56,7 @@ $(document).ready(function () {
 		sort =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Menu/menu_modify_sort/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Menu/menu_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -73,7 +73,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Menu/menu_modify_name/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Menu/menu_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -90,7 +90,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Menu/menu_modify_url/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Menu/menu_modify_url/",
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){

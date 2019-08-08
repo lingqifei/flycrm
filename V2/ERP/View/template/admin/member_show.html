@@ -112,7 +112,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/admin/Member/member_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/admin/Member/member_json/';
 $(document).ready(function () {
 	turnPage(1);//页面加载时初始化分页
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
 		}); 
 		member_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Member/member_del/";
+			act_url="#{$smarty.const.ACT}#/admin/Member/member_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -147,7 +147,7 @@ $(document).ready(function () {
 		member_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Member/member_del/";
+			act_url="#{$smarty.const.ACT}#/admin/Member/member_del/";
 		}
 		$.ajax({
 			type: "POST",

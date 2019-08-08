@@ -115,7 +115,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_json/';
 $(document).ready(function () {
 	 
 	turnPage(1);//页面加载时初始化分页
@@ -129,9 +129,9 @@ $(document).ready(function () {
 		}); 
 		linkman_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_modify_recommend/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -159,7 +159,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_add/',
+				content: '#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -179,7 +179,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

@@ -54,7 +54,7 @@ $(document).ready(function () {
 		}else if(single_act=="del"){
 			$.ajax({
 				type: "POST",
-				url: "#{$smarty.const.ACT}#/index.php/sysmanage/Position/position_del/",
+				url: "#{$smarty.const.ACT}#/sysmanage/Position/position_del/",
 				data:{"id":position_id},
 				dataType:"json",
 				success: function(data){
@@ -72,7 +72,7 @@ $(document).ready(function () {
 		sort =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Position/position_modify_sort/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Position/position_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -89,7 +89,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Position/position_modify_name/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Position/position_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -106,7 +106,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Position/position_modify_url/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Position/position_modify_url/",
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){

@@ -132,7 +132,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/crm/CstCustomerComm/cst_customer_comm_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/crm/CstCustomerComm/cst_customer_comm_json/';
 
 $(document).ready(function () {
 	 
@@ -152,7 +152,7 @@ $(document).ready(function () {
 		}); 
 		customer_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_del/";
 			layer.confirm('确定删除吗？', {
 			  btn: ['确定','取消'] //按钮
 			}, function(){
@@ -206,7 +206,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstCustomer/cst_customer_detail/customer_id/'+customer_id+'/',
+				content: '#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_detail/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}

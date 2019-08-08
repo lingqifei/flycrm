@@ -28,7 +28,7 @@ $(document).ready(function () {
 		sort =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/erp/FinExpensesType/fin_expenses_type_modify_sort/",
+			url: "#{$smarty.const.ACT}#/erp/FinExpensesType/fin_expenses_type_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -45,7 +45,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/erp/FinExpensesType/fin_expenses_type_modify_name/",
+			url: "#{$smarty.const.ACT}#/erp/FinExpensesType/fin_expenses_type_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){

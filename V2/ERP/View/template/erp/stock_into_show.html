@@ -123,9 +123,9 @@ $(document).ready(function () {
 		}); 
 		into_id_txt=chk_value.join(",");
 		if(batch_act=="export"){
-		  	act_url="#{$smarty.const.ACT}#/index.php/erp/StockInto/stock_into_sure/";	
+		  	act_url="#{$smarty.const.ACT}#/erp/StockInto/stock_into_sure/";	
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/StockInto/stock_into_del/";
+			act_url="#{$smarty.const.ACT}#/erp/StockInto/stock_into_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -146,9 +146,9 @@ $(document).ready(function () {
 		into_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="stock_sure"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/StockInto/stock_into_sure/";	
+			act_url="#{$smarty.const.ACT}#/erp/StockInto/stock_into_sure/";	
 		}else if(single_act=="delete"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/StockInto/stock_into_del/";
+			act_url="#{$smarty.const.ACT}#/erp/StockInto/stock_into_del/";
 		}
 		$.ajax({
 			type: "POST",

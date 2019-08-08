@@ -72,7 +72,7 @@ $(document).ready(function () {
 		}else if(single_act=="del"){
 			$.ajax({
 				type: "POST",
-				url: "#{$smarty.const.ACT}#/index.php/sysmanage/Role/role_del/",
+				url: "#{$smarty.const.ACT}#/sysmanage/Role/role_del/",
 				data:{"role_id":role_id},
 				dataType:"json",
 				success: function(data){
@@ -91,7 +91,7 @@ $(document).ready(function () {
 		sort =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Role/role_modify_sort/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Role/role_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -108,7 +108,7 @@ $(document).ready(function () {
 		value =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/sysmanage/Role/role_modify_name/",
+			url: "#{$smarty.const.ACT}#/sysmanage/Role/role_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){

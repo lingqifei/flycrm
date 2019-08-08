@@ -181,7 +181,7 @@
 <%if(list[i]['status']=='11'){%>退款中<%}%>
 		</td>
 		<td class='text-center'>
-		<p><a href="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_detail/order_id/<%=list[i]['order_id']%>/"  data-id="<%=list[i]['order_id']%>" data-act="info">订单详细</a></p>
+		<p><a href="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_detail/order_id/<%=list[i]['order_id']%>/"  data-id="<%=list[i]['order_id']%>" data-act="info">订单详细</a></p>
 		<%if(list[i]['status']=='0'){%>
 			<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['order_id']%>" data-act="pay_mode">线下支付</a></p>
 			<p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['order_id']%>" data-act="close">关闭交易</a></p>
@@ -205,7 +205,7 @@
 </script>
 
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_json/';
 $(document).ready(function () {
 	turnPage(1);//页面加载时初始化分页
 
@@ -224,15 +224,15 @@ $(document).ready(function () {
 		}); 
 		order_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_modify_recommend/";
 		}else if(batch_act=="recommend_off"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_modify_recommend_off/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_modify_recommend_off/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_del/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_del/";
 		}else if(batch_act=="modify_price"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_modify_online/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_modify_online/";
 		}else if(batch_act=="send_goods"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_send_goods/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_send_goods/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -254,18 +254,18 @@ $(document).ready(function () {
 		order_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="pay_mode"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_pay_mode/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_pay_mode/";
 		}else if(single_act=="close"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_close/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_close/";
 		}else if(single_act=="modify_price"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_modify_price/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_modify_price/";
 			layer.open({
 				type: 2,
 				title: '修改价格',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_modify_price/order_id/'+order_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_modify_price/order_id/'+order_id+'/' //iframe的url
 			});			
 			return false;	
 		}else if(single_act=="send_goods"){//发货
@@ -275,34 +275,34 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_send/order_id/'+order_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_send/order_id/'+order_id+'/' //iframe的url
 			});			
 			return false;	
 		}else if(single_act=="modify_address"){//修改发货地址
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_modify_address/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_modify_address/";
 			layer.open({
 				type: 2,
 				title: '发货',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '400px'],
-				content: '#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_modify_address/order_id/'+order_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_modify_address/order_id/'+order_id+'/' //iframe的url
 			});			
 			return false;			
 			
 		}else if(single_act=="received"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_received/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_received/";
 		}else if(single_act=="logitics"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_logitics/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_logitics/";
 		}else if(single_act=="remarks"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_remarks/";
+			act_url="#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_remarks/";
 			layer.open({
 				type: 2,
 				title: '备注信息',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['400px', '300px'],
-				content: '#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_remarks/order_id/'+order_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_remarks/order_id/'+order_id+'/' //iframe的url
 			});			
 			return false;
 		}

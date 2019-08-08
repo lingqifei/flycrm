@@ -132,7 +132,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/erp/FinReceRecord/fin_rece_record_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/erp/FinReceRecord/fin_rece_record_json/';
 $(document).ready(function () {
 	$('.chosen-select').chosen({search_contains: true});
 	$('.chosen-select').chosen().change(function(){
@@ -149,9 +149,9 @@ $(document).ready(function () {
 		}); 
 		record_id_txt=chk_value.join(",");
 		if(batch_act=="delete"){
-		   act_url="#{$smarty.const.ACT}#/index.php/erp/FinReceRecord/fin_rece_record_del/";
+		   act_url="#{$smarty.const.ACT}#/erp/FinReceRecord/fin_rece_record_del/";
 		}else if(batch_act=="export"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/FinReceRecord/fin_rece_record_del/";
+			act_url="#{$smarty.const.ACT}#/erp/FinReceRecord/fin_rece_record_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -180,14 +180,14 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/FinReceRecord/fin_rece_record_add/',
+				content: '#{$smarty.const.ACT}#/erp/FinReceRecord/fin_rece_record_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
 			});			
 			return false;				
 		}else if(single_act=="delete"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/FinReceRecord/fin_rece_record_del/";
+			act_url="#{$smarty.const.ACT}#/erp/FinReceRecord/fin_rece_record_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

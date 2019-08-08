@@ -69,7 +69,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/goods/GoodsAttr/goods_attr_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/goods/GoodsAttr/goods_attr_json/';
 //页面加载时初始化分页
 $(function() {
   turnPage(1);
@@ -83,7 +83,7 @@ $(function() {
 		}
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsAttr/goods_attr_modify_visible/",
+			url: "#{$smarty.const.ACT}#/goods/GoodsAttr/goods_attr_modify_visible/",
 			data:{"visible":visible,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -99,7 +99,7 @@ $(function() {
 		sort=$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsAttr/goods_attr_modify_sort/",
+			url: "#{$smarty.const.ACT}#/goods/GoodsAttr/goods_attr_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){

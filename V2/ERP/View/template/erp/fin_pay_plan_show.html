@@ -143,7 +143,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/erp/FinPayPlan/fin_pay_plan_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/erp/FinPayPlan/fin_pay_plan_json/';
 $(document).ready(function () {
 	$('.chosen-select').chosen({search_contains: true});
 	$('.chosen-select').chosen().change(function(){
@@ -160,7 +160,7 @@ $(document).ready(function () {
 		}); 
 		plan_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/FinPayPlan/fin_pay_plan_del/";
+			act_url="#{$smarty.const.ACT}#/erp/FinPayPlan/fin_pay_plan_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -221,7 +221,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="delete"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/FinPayPlan/fin_pay_plan_del/";
+			act_url="#{$smarty.const.ACT}#/erp/FinPayPlan/fin_pay_plan_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

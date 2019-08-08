@@ -111,7 +111,7 @@ $(document).ready(function () {
 		}); 
 		user_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/User/user_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/User/user_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -141,7 +141,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/sysmanage/User/user_add/',
+				content: '#{$smarty.const.ACT}#/sysmanage/User/user_add/',
 				end: function () {
 					turnPage(1);
 				}
@@ -154,14 +154,14 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/sysmanage/User/user_modify/user_id/'+user_id+'/',
+				content: '#{$smarty.const.ACT}#/sysmanage/User/user_modify/user_id/'+user_id+'/',
 				end: function () {
 					turnPage(1);
 				}
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/User/user_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/User/user_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

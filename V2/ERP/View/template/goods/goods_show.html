@@ -142,7 +142,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/goods/Goods/goods_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/goods/Goods/goods_json/';
 $(document).ready(function () {
 	 
 	turnPage(1);//页面加载时初始化分页
@@ -153,7 +153,7 @@ $(document).ready(function () {
 		sort_val =$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_sort/",
+			url: "#{$smarty.const.ACT}#/goods/Goods/goods_modify_sort/",
 			data:{"sort":sort_val,"goods_id":goods_id},
 			dataType:"json",
 			success: function(data){
@@ -173,16 +173,16 @@ $(document).ready(function () {
 		}); 
 		goods_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_recommend/";
 		}else if(batch_act=="recommend_off"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_recommend_off/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_recommend_off/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_del/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_del/";
 			
 		}else if(batch_act=="online"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_online/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_online/";
 		}else if(batch_act=="offline"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_offline/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_offline/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -205,15 +205,15 @@ $(document).ready(function () {
 		goods_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_recommend/";
 		}else if(single_act=="recommend_off"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_recommend_off/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_recommend_off/";
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_del/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_del/";
 		}else if(single_act=="online"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_online/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_online/";
 		}else if(single_act=="offline"){
-			act_url="#{$smarty.const.ACT}#/index.php/goods/Goods/goods_modify_offline/";
+			act_url="#{$smarty.const.ACT}#/goods/Goods/goods_modify_offline/";
 		}
 		$.ajax({
 			type: "POST",

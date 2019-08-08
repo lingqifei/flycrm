@@ -90,7 +90,7 @@ $(document).ready(function () {
 		}); 
 		notice_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Notice/notice_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Notice/notice_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -106,7 +106,7 @@ $(document).ready(function () {
 				}
 			});
 		}else if(batch_act=="read"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Notice/notice_read/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Notice/notice_read/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -134,7 +134,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/sysmanage/Notice/notice_add/',
+				content: '#{$smarty.const.ACT}#/sysmanage/Notice/notice_add/',
 				end: function () {
 					turnPage(1);
 				}
@@ -147,14 +147,14 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/sysmanage/Notice/notice_view/notice_id/'+notice_id+'/',
+				content: '#{$smarty.const.ACT}#/sysmanage/Notice/notice_view/notice_id/'+notice_id+'/',
 				end: function () {
 					turnPage(1);
 				}
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Notice/notice_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Notice/notice_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

@@ -130,9 +130,9 @@ $(document).ready(function () {
 		}); 
 		sku_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_modify_recommend/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/sup_linkman_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({

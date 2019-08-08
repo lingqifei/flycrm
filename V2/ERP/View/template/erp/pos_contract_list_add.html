@@ -80,7 +80,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/erp/PosContractList/pos_contract_list_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_json/';
 $(document).ready(function () {
 	turnPage(1);
 	//关闭窗口
@@ -93,7 +93,7 @@ $(document).ready(function () {
 			shadeClose: true,
 			fixed: false, //不固定
 			area: ['90%', '90%'],
-			content: '#{$smarty.const.ACT}#/index.php/goods/Goods/goods_list_loop_pos/' //iframe的url
+			content: '#{$smarty.const.ACT}#/goods/Goods/goods_list_loop_pos/' //iframe的url
 		});			
 		return false;	
 	});

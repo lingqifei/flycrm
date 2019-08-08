@@ -2,8 +2,8 @@
 <dwsync>
 <file name="cst_website_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131980513606134434" remote="132041881200000000" Dst="0" />
 <file name="sal_contract_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131968471143899521" remote="132041881200000000" Dst="0" />
-<file name="cst_trace_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907167840175378" remote="132041881200000000" Dst="0" />
-<file name="cst_customer_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132034889033358280" remote="132041881200000000" Dst="0" />
+<file name="cst_trace_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062106428566718" remote="132077945400000000" Dst="0" />
+<file name="cst_customer_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062038789228770" remote="132077945400000000" Dst="0" />
 <file name="cst_chance_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131920802517096650" remote="132041881200000000" Dst="0" />
 <file name="cst_chance_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131920802577936132" remote="132041881200000000" Dst="0" />
 <file name="cst_chance_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979550584428516" remote="132041881200000000" Dst="0" />
@@ -21,8 +21,8 @@
 <file name="cst_linkman_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132027340149222799" remote="132041881200000000" Dst="0" />
 <file name="cst_service_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979575423609383" remote="132041881200000000" Dst="0" />
 <file name="cst_service_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904394162179274" remote="132041881200000000" Dst="0" />
-<file name="cst_trace_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904405012971715" remote="132041881200000000" Dst="0" />
-<file name="cst_trace_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131890927196578236" remote="132041881200000000" Dst="0" />
+<file name="cst_trace_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062109848641672" remote="132077945400000000" Dst="0" />
+<file name="cst_trace_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062107025271222" remote="132077945400000000" Dst="0" />
 <file name="cst_service_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904588550378016" remote="132041881200000000" Dst="0" />
 <file name="cst_website_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131904618203204758" remote="132041881200000000" Dst="0" />
 <file name="cst_website_add_renew.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131907108818719207" remote="132041881200000000" Dst="0" />
@@ -39,4 +39,6 @@
 <file name="cst_field_ext_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132025506348630821" remote="132041881200000000" Dst="0" />
 <file name="cst_field_ext_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132025517692672032" remote="132041881200000000" Dst="0" />
 <file name="cst_linkman_export_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132027341267516251" remote="132041881200000000" Dst="0" />
+<file name="cst_customer_comm_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062081156740067" remote="132077945400000000" Dst="0" />
+<file name="cst_customer_dept_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062062153478913" remote="132077945400000000" Dst="0" />
 </dwsync>

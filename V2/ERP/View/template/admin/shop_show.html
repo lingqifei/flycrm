@@ -136,7 +136,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/admin/Shop/shop_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/admin/Shop/shop_json/';
 $(document).ready(function () {
 	turnPage(1);//页面加载时初始化分页
 
@@ -148,11 +148,11 @@ $(document).ready(function () {
 		}); 
 		shop_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_del/";
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_del/";
 		}else if (batch_act=="pass"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_pass/";	  	  
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_pass/";	  	  
 		 }else if (batch_act=="reject"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_reject/";	  	  
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_reject/";	  	  
 		 }
 			
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
@@ -176,11 +176,11 @@ $(document).ready(function () {
 		shop_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_del/";
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_del/";
 		}else if (single_act=="pass"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_pass/";	  	  
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_pass/";	  	  
 		 }else if (single_act=="reject"){
-			act_url="#{$smarty.const.ACT}#/index.php/admin/Shop/shop_reject/";	  	  
+			act_url="#{$smarty.const.ACT}#/admin/Shop/shop_reject/";	  	  
 		 }
 		$.ajax({
 			type: "POST",

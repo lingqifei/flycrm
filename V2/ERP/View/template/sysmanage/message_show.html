@@ -82,7 +82,7 @@ $(document).ready(function () {
 		}); 
 		message_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Message/message_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Message/message_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -98,7 +98,7 @@ $(document).ready(function () {
 				}
 			});
 		}else if(batch_act=="read"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Message/message_read/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Message/message_read/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -131,7 +131,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/sysmanage/Message/message_del/";
+			act_url="#{$smarty.const.ACT}#/sysmanage/Message/message_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

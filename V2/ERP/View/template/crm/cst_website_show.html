@@ -178,11 +178,11 @@ $(document).ready(function () {
 		}); 
 		website_id_txt=chk_value.join(",");
 		if(batch_act=="close"){
-		   act_url="#{$smarty.const.ACT}#/index.php/crm/CstWebsite/cst_website_close/";
+		   act_url="#{$smarty.const.ACT}#/crm/CstWebsite/cst_website_close/";
 		}else if(batch_act=="open"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstWebsite/cst_website_open/";
+			act_url="#{$smarty.const.ACT}#/crm/CstWebsite/cst_website_open/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstWebsite/cst_website_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstWebsite/cst_website_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({

@@ -3,42 +3,44 @@
 #{include file="header.html"}#
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5><i class="fa fa-home"></i>字典管理</h5>
-          <div class="ibox-tools"><a href="?" class="btn btn-xs btn-danger"><i class="fa fa-refresh"></i>刷新</a> </div>
-        </div>
-        <div class="ibox-content">
-          <form id="pagerForm" method="post"  class="form-inline">
-            <div class="col-sm-3 m-b-xs"> 
-					 <a class="btn btn-info" href="#{$smarty.const.ACT}#/crm/CstDict/cst_dict_add/">添加数据</a>
-					 <a class="btn btn-danger batch_operation" href="#" data-act="del">批量删除</a>
-              <!--<div class="btn-group">
+<div class="row">
+<div class="col-sm-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+<h5><i class="fa fa-home"></i>字典管理</h5>
+<div class="ibox-tools"><a href="?" class="btn btn-xs btn-danger"><i class="fa fa-refresh"></i>刷新</a> </div>
+</div>
+<div class="ibox-content">
+<form id="pagerForm" method="post"  class="form-inline">
+<div class="col-sm-3 m-b-xs"> <a class="btn btn-info" href="#{$smarty.const.ACT}#/crm/CstDict/cst_dict_add/">添加数据</a> <a class="btn btn-danger batch_operation" href="#" data-act="del">批量删除</a> 
+<!--<div class="btn-group">
                 <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">批量操作 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><a href="javascript:void(0)" class="batch_operation" data-act="del">批量删除</a></li>
                 </ul>
-              </div>-->
-            </div>
-            <div class="col-sm-9 m-b-xs text-right">
-              <div class="form-group text-left">
-                <select data-placeholder="选择分类..." name="typetag" class="chosen-select" style="width: 200px;" tabindex="2">
-                  <option value="">请选分类字典</option>
+              </div>--> 
+</div>
+<div class="col-sm-9 m-b-xs text-right">
+<div class="form-group text-left">
+<select data-placeholder="选择分类..." name="typetag" class="chosen-select" style="width: 200px;" tabindex="2">
+<option value="">请选分类字典</option>
+
                   
 						#{foreach from=$typelist key=k item=v}#
 							
-                  <option value="#{$v.typetag}#" hassubinfo="true">#{$v.typename}#</option>
+                  
+<option value="#{$v.typetag}#" hassubinfo="true">#{$v.typename}#</option>
+
                   
 						#{/foreach}#
 						
-                </select>
-              </div>
-              <div class="form-group">
-                <input type="text" name="name" placeholder="输入搜索名称" class="form-control">
-              </div>
-              <!--<div class="btn-group">
+                
+</select>
+</div>
+<div class="form-group">
+<input type="text" name="name" placeholder="输入搜索名称" class="form-control">
+</div>
+<!--<div class="btn-group">
                 <button data-toggle="dropdown" class="btn  dropdown-toggle"><span class="caret"></span></button>
                 <div class="dropdown-menu">
                   <div class="ibox-content">
@@ -52,38 +54,38 @@
                   </div>
                 </div>
               </div>-->
-              <div class="input-group"> <span class="">
-                <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
-                </span> </div>
-            </div>
-          </form>
-        </div>
-        <div class="ibox-content">
-          <table class="table table-hover sorttable 07fly-table" width="100%">
-            <thead>
-              <tr>
-                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                <th width="50">编号</th>
-                <th width="120">字典名称</th>
-                <th width="120">分类名称</th>
-                <th width="120">调用标识</th>
-                <th width="150" orderField="by_adt" class="sort-filed"><span>排序</span></th>
-                <th width="120">是否启用</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot class="ibox-content">
-              <tr>
-                <td colspan="8" align="center"></td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="input-group"> <span class="">
+<button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+</span> </div>
+</div>
+</form>
+</div>
+<div class="ibox-content">
+<table class="table table-hover sorttable 07fly-table" width="100%">
+<thead>
+<tr>
+<th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+<th width="50">编号</th>
+<th width="120">字典名称</th>
+<th width="120">分类名称</th>
+<th width="120">调用标识</th>
+<th width="150" orderField="by_adt" class="sort-filed"><span>排序</span></th>
+<th width="120">是否启用</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+<tfoot class="ibox-content">
+<tr>
+<td colspan="8" align="center"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <script id="tableListTpl" type="text/html">
 <% for(var i=0;i<list.length;i++) { %>
@@ -118,7 +120,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/crm/CstDict/cst_dict_json/';
 $(document).ready(function () {
 	
 $('.chosen-select').chosen({search_contains: true});
@@ -136,7 +138,7 @@ $('.chosen-select').chosen().change(function(){
 		}); 
 		dict_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstDict/cst_dict_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -159,7 +161,7 @@ $('.chosen-select').chosen().change(function(){
 		dict_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstDict/cst_dict_del/";
 		}
 		$.ajax({
 			type: "POST",
@@ -185,7 +187,7 @@ $('.chosen-select').chosen().change(function(){
 			}
 			$.ajax({
 				type: "POST",
-				url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_visible/",
+				url: "#{$smarty.const.ACT}#/crm/CstDict/cst_dict_modify_visible/",
 				data:{"visble":visble,"dict_id":dict_id},
 				dataType:"json",
 				success: function(data){
@@ -201,7 +203,7 @@ $('.chosen-select').chosen().change(function(){
 		sort=$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_sort/",
+			url: "#{$smarty.const.ACT}#/crm/CstDict/cst_dict_modify_sort/",
 			data:{"sort":sort,"dict_id":dict_id},
 			dataType:"json",
 			success: function(data){
@@ -217,7 +219,7 @@ $('.chosen-select').chosen().change(function(){
 		name=$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/crm/CstDict/cst_dict_modify_name/",
+			url: "#{$smarty.const.ACT}#/crm/CstDict/cst_dict_modify_name/",
 			data:{"name":name,"dict_id":dict_id},
 			dataType:"json",
 			success: function(data){

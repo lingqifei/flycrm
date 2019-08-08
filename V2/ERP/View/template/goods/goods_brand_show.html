@@ -78,7 +78,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/goods/GoodsBrand/goods_brand_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/goods/GoodsBrand/goods_brand_json/';
 $(document).ready(function () {
 	 turnPage(1);//页面加载时初始化分页
 	
@@ -92,7 +92,7 @@ $(document).ready(function () {
 		}
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsBrand/goods_brand_modify_recommend/",
+			url: "#{$smarty.const.ACT}#/goods/GoodsBrand/goods_brand_modify_recommend/",
 			data:{"brand_recommend":brand_recommend,"brand_id":brand_id},
 			dataType:"json",
 			success: function(data){
@@ -110,7 +110,7 @@ function brand_sort(obj,brand_id){
 	val=obj.value;
 	$.ajax({
 		type: "POST",
-		url: "#{$smarty.const.ACT}#/index.php/goods/GoodsBrand/goods_brand_modify_sort/",
+		url: "#{$smarty.const.ACT}#/goods/GoodsBrand/goods_brand_modify_sort/",
 		data:{"sort":val,"brand_id":brand_id},
 		dataType:"json",
 		success: function(data){
@@ -125,7 +125,7 @@ function brand_recommend(obj,brand_id){
 	val=obj.value;
 	$.ajax({
 		type: "POST",
-		url: "#{$smarty.const.ACT}#/index.php/goods/GoodsBrand/goods_brand_modify_sort/",
+		url: "#{$smarty.const.ACT}#/goods/GoodsBrand/goods_brand_modify_sort/",
 		data:{"sort":val,"brand_id":brand_id},
 		dataType:"json",
 		success: function(data){

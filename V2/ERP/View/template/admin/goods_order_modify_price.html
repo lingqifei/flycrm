@@ -92,7 +92,7 @@ $(document).ready(function () {
 		FormData=$("form").serialize();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_modify_price/",
+			url: "#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_modify_price/",
 			data:FormData,
 			dataType:"json",
 			success: function(data){

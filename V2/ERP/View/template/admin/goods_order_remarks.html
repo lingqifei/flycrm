@@ -27,7 +27,7 @@ $(document).ready(function () {
 		remarks=$('#remarks').val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/admin/GoodsOrder/goods_order_remarks/",
+			url: "#{$smarty.const.ACT}#/admin/GoodsOrder/goods_order_remarks/",
 			data:{"order_id":order_id,"remarks":remarks},
 			dataType:"json",
 			success: function(data){

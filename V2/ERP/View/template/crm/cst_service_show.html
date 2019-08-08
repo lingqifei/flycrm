@@ -104,7 +104,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/crm/CstService/cst_service_json/';
 $(document).ready(function () {
 	 
 	turnPage(1);//页面加载时初始化分页
@@ -147,7 +147,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_add/',
+				content: '#{$smarty.const.ACT}#/crm/CstService/cst_service_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -160,14 +160,14 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_modify/service_id/'+service_id+'/',
+				content: '#{$smarty.const.ACT}#/crm/CstService/cst_service_modify/service_id/'+service_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
 			});			
 			return false;	
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstService/cst_service_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstService/cst_service_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

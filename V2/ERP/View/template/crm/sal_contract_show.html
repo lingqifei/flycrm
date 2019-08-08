@@ -157,7 +157,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/crm/SalContract/sal_contract_json/';
 $(document).ready(function () {
 	turnPage(1);//页面加载时初始化分页
 	$('.chosen-select').chosen({search_contains: true});
@@ -174,9 +174,9 @@ $(document).ready(function () {
 		}); 
 		contract_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/crm/SalContract/sal_contract_modify_recommend/";
 		}else if(batch_act=="delete"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_del/";
+			act_url="#{$smarty.const.ACT}#/crm/SalContract/sal_contract_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -207,7 +207,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_add/',
+				content: '#{$smarty.const.ACT}#/crm/SalContract/sal_contract_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -220,7 +220,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_modify/contract_id/'+contract_id+'/',
+				content: '#{$smarty.const.ACT}#/crm/SalContract/sal_contract_modify/contract_id/'+contract_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -263,7 +263,7 @@ $(document).ready(function () {
 			});			
 			return false;	
 		}else if(single_act=="delete"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_del/";
+			act_url="#{$smarty.const.ACT}#/crm/SalContract/sal_contract_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -277,9 +277,9 @@ $(document).ready(function () {
 				}
 			});
 		}else if(single_act=="detail"){
-			window.location.href='#{$smarty.const.ACT}#/index.php/crm/SalContract/sal_contract_detail/contract_id/'+contract_id+'/';
+			window.location.href='#{$smarty.const.ACT}#/crm/SalContract/sal_contract_detail/contract_id/'+contract_id+'/';
 		}else if(single_act=="list_del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/SalContractList/sal_contract_list_del/";
+			act_url="#{$smarty.const.ACT}#/crm/SalContractList/sal_contract_list_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

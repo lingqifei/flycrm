@@ -64,7 +64,7 @@ $(function() {
 		chk_value_txt=JSON.stringify(chk_value);
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/goods/GoodsSpec/goods_spec_create_json/",
+			url: "#{$smarty.const.ACT}#/goods/GoodsSpec/goods_spec_create_json/",
 			data:{"chk_value_txt":chk_value_txt},
 			dataType:"json",
 			success: function(data){

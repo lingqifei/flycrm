@@ -113,7 +113,7 @@
 </script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_json/';
 $(document).ready(function () {
 	 
 	turnPage(1);//页面加载时初始化分页
@@ -127,11 +127,11 @@ $(document).ready(function () {
 		}); 
 		supplier_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_modify_recommend/";
+		   act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_modify_recommend/";
 		}else if(batch_act=="recommend_off"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_modify_recommend_off/";
+			act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_modify_recommend_off/";
 		}else if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -153,14 +153,14 @@ $(document).ready(function () {
 		supplier_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="linkman"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupLinkman/cst_linkman_add/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/cst_linkman_add/";
 			layer.open({
 				type: 2,
 				title: '添加联系人',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/SupLinkman/cst_linkman_add/supplier_id/'+supplier_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/erp/SupLinkman/cst_linkman_add/supplier_id/'+supplier_id+'/' //iframe的url
 			});			
 			return false;	
 		}else if(single_act=="add"){
@@ -183,7 +183,7 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_modify/supplier_id/'+supplier_id+'/',
+				content: '#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_modify/supplier_id/'+supplier_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -196,11 +196,11 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/index.php/erp/CstChance/cst_chance_add/supplier_id/'+supplier_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/erp/CstChance/cst_chance_add/supplier_id/'+supplier_id+'/' //iframe的url
 			});			
 			return false;
 		}else if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/erp/SupSupplier/sup_supplier_del/";
+			act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

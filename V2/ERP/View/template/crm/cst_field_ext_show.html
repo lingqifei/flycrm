@@ -102,7 +102,7 @@
 <!-- 自定义js --> 
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
-var ajaxUrl='#{$smarty.const.ACT}#/index.php/crm/CstFieldExt/cst_field_ext_json/';
+var ajaxUrl='#{$smarty.const.ACT}#/crm/CstFieldExt/cst_field_ext_json/';
 $(document).ready(function () {
 	//页面加载时初始化分页
 	turnPage(1);
@@ -131,7 +131,7 @@ $(document).ready(function () {
 		}); 
 		field_ext_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstFieldExt/cst_field_ext_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstFieldExt/cst_field_ext_del/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
@@ -154,7 +154,7 @@ $(document).ready(function () {
 		field_ext_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="del"){
-			act_url="#{$smarty.const.ACT}#/index.php/crm/CstFieldExt/cst_field_ext_del/";
+			act_url="#{$smarty.const.ACT}#/crm/CstFieldExt/cst_field_ext_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -208,7 +208,7 @@ $(document).ready(function () {
 			}
 			$.ajax({
 				type: "POST",
-				url: "#{$smarty.const.ACT}#/index.php/crm/CstFieldExt/cst_field_ext_modify_visible/",
+				url: "#{$smarty.const.ACT}#/crm/CstFieldExt/cst_field_ext_modify_visible/",
 				data:{"visible":visible,"field_ext_id":id},
 				dataType:"json",
 				success: function(data){
@@ -224,7 +224,7 @@ $(document).ready(function () {
 		sort=$(this).val();
 		$.ajax({
 			type: "POST",
-			url: "#{$smarty.const.ACT}#/index.php/crm/CstFieldExt/cst_field_ext_modify_sort/",
+			url: "#{$smarty.const.ACT}#/crm/CstFieldExt/cst_field_ext_modify_sort/",
 			data:{"sort":sort,"field_ext_id":id},
 			dataType:"json",
 			success: function(data){

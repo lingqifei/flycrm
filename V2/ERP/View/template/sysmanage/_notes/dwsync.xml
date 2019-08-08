@@ -53,7 +53,7 @@
 <file name="role_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979609932015149" remote="132015218400000000" Dst="0" />
 <file name="role_check_power.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131974783473592310" remote="131974770600000000" Dst="0" />
 <file name="role_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979610716680192" remote="132015218400000000" Dst="0" />
-<file name="role_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131974782593985078" remote="131974770600000000" Dst="0" />
+<file name="role_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062425281501991" remote="132077946000000000" Dst="0" />
 <file name="sms_config.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131827508182904522" remote="131915558400000000" Dst="0" />
 <file name="sms_log_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131880434878327749" remote="131915558400000000" Dst="0" />
 <file name="sms_mb_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131880325351446949" remote="131915558400000000" Dst="0" />
@@ -66,11 +66,12 @@
 <file name="sys_password_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979612870047786" remote="132015218400000000" Dst="0" />
 <file name="user_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979613020777868" remote="132015218400000000" Dst="0" />
 <file name="user_modify.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131964155500713288" remote="131968434600000000" Dst="0" />
-<file name="user_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131908840528017544" remote="131915558400000000" Dst="0" />
+<file name="user_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132062088529276529" remote="132077946000000000" Dst="0" />
 <file name="message_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131966165165796237" remote="131968434600000000" Dst="0" />
 <file name="message_show_cron.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979608775009951" remote="132015218400000000" Dst="0" />
 <file name="notice_show.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131965999824532464" remote="131968434600000000" Dst="0" />
 <file name="message_view.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131966010987694490" remote="131968434600000000" Dst="0" />
 <file name="notice_add.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131979609224204856" remote="132015218400000000" Dst="0" />
 <file name="notice_view.html" server="211.149.238.19//07fly_erp/wwwroot/" local="131965934502571178" remote="131968434600000000" Dst="0" />
+<file name="user_role_tree_checkbox.html" server="211.149.238.19//07fly_erp/wwwroot/" local="132083189543132648" remote="132091779600000000" Dst="0" />
 </dwsync>
