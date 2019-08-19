@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 #{include file="header.html"}#
-<body class="gray-bg">
+<body>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="ibox-content">
     <form class="form-horizontal" method="post" action="#">
@@ -9,12 +9,12 @@
         <label class="col-sm-2 control-label">客户名称</label>
         <div class="col-sm-8">
           <select data-placeholder="选择分类..." name="customer_id" class="chosen-select customer-chosen-select" style="width: 200px;" tabindex="2">
-            <option value="">请选客户</option>
+            <option value="">请选客户名称</option>
 					  #{foreach from=$customer key=k item=v}#
 					  <option value="#{$v.customer_id}#" hassubinfo="true">#{$v.name}#</option>
 					  #{/foreach}#
           </select>
-			<input type="hidden" name="customer_name">
+				<input type="hidden" name="customer_name">
         </div>
       </div>
 		<div class="form-group text-left">
@@ -80,27 +80,27 @@
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
 $(document).ready(function () {
-	$(".datepicker").datepicker({
-		language: "zh-CN",
-		autoclose: true,//选中之后自动隐藏日期选择框
-		clearBtn: true,//清除按钮
-		todayBtn: false,//今日按钮
-		format: "yyyy-mm-dd",
-	});
-	
+
 	$('.chosen-select').chosen({search_contains: true});
 	$(".chosen-select").val("#{$customer_id}#").trigger("chosen:updated");
-	
 	var chance_url="#{$smarty.const.ACT}#/crm/SalContract/sal_contract_select_back/";
-	//选择用户跳出联系人
+	//选择客户后跳出关联的业务合同及订单
 	$('.customer-chosen-select').on('change', function(e, params) {
 		change_val=$(this).val();
 		change_text=$(this).find('option:selected').text();
 		$(".form-horizontal input[name='customer_name']").val(change_text);
+		
+		//加载合同
 		findSalContractChosenSelect('contract-chosen-select',chance_url,change_val);
 		contract_id=$('.contract-chosen-select option:selected').val();
 		calc_contract(contract_id);
 	});
+	
+	//选择业务合同及订单
+	$('.contract-chosen-select').on('change', function(e, params) {
+		contract_id=$(this).val();
+		calc_contract(contract_id);
+	});	
 	
 	//调用关联订单数据
 	function calc_contract(contract_id){
@@ -112,7 +112,7 @@ $(document).ready(function () {
 			success: function(data){
 				$(".form-horizontal input[name='money']").val(data.money);
 				$(".form-horizontal input[name='zero_money']").val(data.zero_money);
-				$(".form-horizontal input[name='pay_money']").val(data.pay_money);
+				$(".form-horizontal input[name='pay_money']").val(data.back_money);
 				$(".form-horizontal input[name='invoice_money']").val(data.invoice_money);
 				$(".form-horizontal input[name='plan_money']").val(data.owe_money);
 				$(".form-horizontal input[name='contract_name']").val(data.title);
@@ -132,7 +132,8 @@ $(document).ready(function () {
 				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1}); 		
 				}else{
-					layer.msg(data.message, {icon: 5}); 		
+					layer.msg(data.message, {icon: 5});
+					return false;
 				}
 			},    
 			complete: function() {   

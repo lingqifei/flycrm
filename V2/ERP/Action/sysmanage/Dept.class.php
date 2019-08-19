@@ -44,7 +44,6 @@ class Dept extends Action {
 	//输出树形参数
 	function getTreeHtml($tree) {
 		$html = '';
-		
 		foreach ( $tree as $key=>$t ) {
 			$kg="";
 			for($x=1;$x<$t['level'];$x++) {

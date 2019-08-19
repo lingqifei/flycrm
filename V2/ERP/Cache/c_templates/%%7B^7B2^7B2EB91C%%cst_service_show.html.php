@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-26 15:46:33
+<?php /* Smarty version 2.6.26, created on 2019-08-16 10:47:52
          compiled from crm/cst_service_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +69,7 @@ unset($_smarty_tpl_vars);
                 <th width="150" orderField="by_customer" class="sort-filed"><span>客户名称</span></th>
 				  		<th width="120"><span>服务类型</span></th>
 				  		<th width="120"><span>服务方式</span></th>
-                <th width="120" orderField="by_service" class="sort-filed"><span>服务时间</span></th>
+                <th width="150" orderField="by_service" class="sort-filed"><span>服务时间</span></th>
                 <th width="100"><span>花费时间</span></th>
                 <th><span>服务内容</span></th>
                 <th width="100">操作</th>
@@ -112,7 +112,7 @@ unset($_smarty_tpl_vars);
 /View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
 var ajaxUrl='<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_json/';
+/crm/CstService/cst_service_json/';
 $(document).ready(function () {
 	 
 	turnPage(1);//页面加载时初始化分页
@@ -158,7 +158,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_add/',
+/crm/CstService/cst_service_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -172,7 +172,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_modify/service_id/'+service_id+'/',
+/crm/CstService/cst_service_modify/service_id/'+service_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -180,7 +180,7 @@ $(document).ready(function () {
 			return false;	
 		}else if(single_act=="del"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_del/";
+/crm/CstService/cst_service_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

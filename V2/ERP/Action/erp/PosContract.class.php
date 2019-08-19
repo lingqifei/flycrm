@@ -40,7 +40,7 @@ class PosContract extends Action{
 		$start_date		= $this->_REQUEST("start_date");
 		$end_date		= $this->_REQUEST("end_date");
 		
-		$where_str	= "s.supplier_id=c.supplier_id and s.create_user_id in (".SYS_USER_VIEW.")";
+		$where_str	= "s.supplier_id=c.supplier_id";
 		
 		if( !empty($keywords) ){
 			$where_str .=" and (s.name like '%$keywords%' or s.mobile like '%$keywords%' or s.tel like '%$keywords%')";

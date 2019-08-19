@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-02 17:12:39
+<?php /* Smarty version 2.6.26, created on 2019-08-10 08:46:41
          compiled from sysmanage/position_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -65,7 +65,7 @@ $(document).ready(function () {
 			$.ajax({
 				type: "POST",
 				url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Position/position_del/",
+/sysmanage/Position/position_del/",
 				data:{"id":position_id},
 				dataType:"json",
 				success: function(data){
@@ -84,7 +84,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Position/position_modify_sort/",
+/sysmanage/Position/position_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -102,7 +102,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Position/position_modify_name/",
+/sysmanage/Position/position_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -120,7 +120,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Position/position_modify_url/",
+/sysmanage/Position/position_modify_url/",
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){

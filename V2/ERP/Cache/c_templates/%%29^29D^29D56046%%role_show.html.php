@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-01 13:39:17
+<?php /* Smarty version 2.6.26, created on 2019-08-10 08:38:29
          compiled from sysmanage/role_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,7 @@ $(document).ready(function () {
 		}else if(single_act=="add"){
 			layer.open({
 				type: 2,
-				title: '添加权限',
+				title: '添加角色',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
@@ -70,7 +70,7 @@ $(document).ready(function () {
 		}else if(single_act=="modify"){
 			layer.open({
 				type: 2,
-				title: '修改权限',
+				title: '修改角色',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['90%', '90%'],
@@ -85,7 +85,7 @@ $(document).ready(function () {
 			$.ajax({
 				type: "POST",
 				url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Role/role_del/",
+/sysmanage/Role/role_del/",
 				data:{"role_id":role_id},
 				dataType:"json",
 				success: function(data){
@@ -105,7 +105,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Role/role_modify_sort/",
+/sysmanage/Role/role_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -123,26 +123,8 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Role/role_modify_name/",
+/sysmanage/Role/role_modify_name/",
 			data:{"name":value,"id":id},
-			dataType:"json",
-			success: function(data){
-				if(data.statusCode=='200'){
-					layer.msg('操作成功', {icon: 1});   
-				}
-				console.log(data.message);
-			}
-		});
-	});
-	//更改排序
-	$("body").on("blur", ".treeUrl", function() {
-		id =$(this).attr("data-id");
-		value =$(this).val();
-		$.ajax({
-			type: "POST",
-			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Dept/dept_modify_url/",
-			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){
 				if(data.statusCode=='200'){

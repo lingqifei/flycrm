@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-28 11:48:25
+<?php /* Smarty version 2.6.26, created on 2019-08-08 12:05:25
          compiled from crm/cst_customer_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -91,6 +91,7 @@ unset($_smarty_tpl_vars);
               <tr>
                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                 <th orderField="by_customer" class="sort-filed"><span>客户名称</span></th>
+                <th width="100"><span>归属于</span></th>
                 <th width="200" orderField="by_connbdt" class="sort-filed"><span>上次联系</span></th>
                 <th width="200"><span>联系内容</span></th>
                 <th width="150" orderField="by_nextbdt" class="sort-filed"><span>下次联系</span></th>
@@ -122,6 +123,7 @@ unset($_smarty_tpl_vars);
 			<a  href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['customer_id']%>" data-act="detail"><%=list[i]['name']%></a>
 			<p><small>创建于：<%=list[i]['create_time']%></small></p>
 		</td>
+		<td><%=list[i]['owner_user']['name']%></td>
 		<td><%=list[i]['conn_time']%></td>
 		<td>
 			<p class="overflow-td">
@@ -153,7 +155,7 @@ unset($_smarty_tpl_vars);
 /View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
 var ajaxUrl='<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_json/';
+/crm/CstCustomer/cst_customer_json/';
 
 $(document).ready(function () {
 	 
@@ -174,7 +176,7 @@ $(document).ready(function () {
 		customer_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_del/";
+/crm/CstCustomer/cst_customer_del/";
 			layer.confirm('确定删除吗？', {
 			  btn: ['确定','取消'] //按钮
 			}, function(){
@@ -239,7 +241,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_add/',
+/crm/CstCustomer/cst_customer_add/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -253,7 +255,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_detail/customer_id/'+customer_id+'/',
+/crm/CstCustomer/cst_customer_detail/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -261,7 +263,7 @@ $(document).ready(function () {
 			return false;	
 		}else if(single_act=="modify"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_modify/";
+/crm/CstCustomer/cst_customer_modify/";
 			layer.open({
 				type: 2,
 				title: '修改客户信息',
@@ -269,7 +271,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/',
+/crm/CstCustomer/cst_customer_modify/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -277,7 +279,7 @@ $(document).ready(function () {
 			return false;	
 		}else if(single_act=="linkman"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstLinkman/cst_linkman_add/";
+/crm/CstLinkman/cst_linkman_add/";
 			layer.open({
 				type: 2,
 				title: '添加联系人',
@@ -285,7 +287,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/',
+/crm/CstLinkman/cst_linkman_add/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -299,7 +301,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstService/cst_service_add/customer_id/'+customer_id+'/',
+/crm/CstService/cst_service_add/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -313,7 +315,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/',
+/crm/CstChance/cst_chance_add/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -327,7 +329,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/',
+/crm/CstTrace/cst_trace_add/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -341,7 +343,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/crm/SalContract/sal_contract_add/customer_id/'+customer_id+'/',
+/crm/SalContract/sal_contract_add/customer_id/'+customer_id+'/',
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
@@ -349,7 +351,7 @@ $(document).ready(function () {
 			return false;
 		}else if(single_act=="del"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_del/";
+/crm/CstCustomer/cst_customer_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -372,7 +374,7 @@ $(document).ready(function () {
 			window.location.href=act_url;
 		}else if(single_act=="offline"){
 			act_url="<?php echo @ACT; ?>
-/index.php/crm/CstCustomer/cst_customer_modify_offline/";
+/crm/CstCustomer/cst_customer_modify_offline/";
 		}
 	});
 	

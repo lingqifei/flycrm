@@ -5,13 +5,8 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-sm-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5><i class="fa fa-home"></i>商品分类</h5>
-        </div>
-        <div class="ibox-content">
-          <div id="treeview12" class="test"></div>
-        </div>
+      <div class="ibox-content">
+        <div id="treeview12" class="test"></div>
       </div>
     </div>
     <div class="col-sm-9">
@@ -19,9 +14,7 @@
         <div class="row">
           <form id="pagerForm" method="post" class="form-inline">
             <input type="hidden" name="category_id" id="category_id" value="">
-            <div class="col-sm-2">
-					<a href="javascript:void(0)" class="btn btn-info batch_operation" data-act="save">确定</a>
-			  	  </div>
+            <div class="col-sm-2"> <a href="javascript:void(0)" class="btn btn-info batch_operation" data-act="save">确定选择商品</a> </div>
             <div class="col-sm-10 m-b-xs text-right">
               <div class="input-group pd-b-5">
                 <input type="text" name="goods_name" placeholder="输入商品名称关键字搜索" class="form-control">
@@ -70,7 +63,11 @@
             </tr>
           </tfoot>
         </table>
-		   <table><tr><td><a href="javascript:void(0)" class="btn btn-info batch_operation" data-act="save">确定</a></td></tr></table>
+        <table>
+          <tr>
+            <td><a href="javascript:void(0)" class="btn btn-info batch_operation" data-act="save">确定选择商品</a></td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

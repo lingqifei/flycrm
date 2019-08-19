@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-26 15:46:05
+<?php /* Smarty version 2.6.26, created on 2019-08-08 12:05:19
          compiled from index.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -250,7 +250,7 @@ var playNotice = function(id,title,content){
 			fixed: false, //不固定
 			area: ['90%', '90%'],
 			content: '<?php echo @ACT; ?>
-/index.php/sysmanage/Notice/notice_view/notice_id/'+id+'/'
+/sysmanage/Notice/notice_view/notice_id/'+id+'/'
 		});	
 	};	
 	toastr.info(content, title);

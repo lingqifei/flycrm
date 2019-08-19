@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-01 13:39:25
+<?php /* Smarty version 2.6.26, created on 2019-06-28 22:00:57
          compiled from sysmanage/role_check_power.html */ ?>
 <!DOCTYPE html>
 <html>

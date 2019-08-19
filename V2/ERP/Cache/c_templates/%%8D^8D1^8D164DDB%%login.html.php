@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-26 15:41:40
+<?php /* Smarty version 2.6.26, created on 2019-08-16 10:43:35
          compiled from sysmanage/login.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -72,9 +72,19 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-	
-//绑定删除图片
+
+//回车登录
+$("body").keydown(function (event) {//当按下按键时  
+	if (event.which == 13) {//.which属性判断按下的是哪个键，回车键的键位序号为13  
+		ajaxlogin();
+	}  
+});	
+//点击登录
 $("body").on("click", ".login-btn", function() {
+	ajaxlogin();
+});
+//登录提示
+function ajaxlogin(){
 	FormData=$("form").serialize();
 	$.ajax({
 		type: "POST",
@@ -90,8 +100,8 @@ $("body").on("click", ".login-btn", function() {
 				layer.msg(data.message, {icon: 5}); 	
 			}
 		}
-	});		
-});
+	});	
+}
 </script>
 </body>
 </html>

@@ -128,14 +128,22 @@ $(function () {
 
 	//日期选择插件yyyy-mm-dd
 	$(".datepicker").datepicker({
-		language: "zh-CN",
-		autoclose: true,//选中之后自动隐藏日期选择框
+//		language: "zh-CN",
+//		autoclose: true,//选中之后自动隐藏日期选择框
+//		clearBtn: true,//清除按钮
+//		todayBtn: true,//今日按钮
+//		format: "yyyy-mm-dd",
+		startView: 2,
+		todayBtn: "linked",
+		keyboardNavigation: false,
+		forceParse: false,
 		clearBtn: true,//清除按钮
-		todayBtn: true,//今日按钮
-		format: "yyyy-mm-dd",
+		autoclose: true		
+		
 	});
+	
 	//日期时间选择插件 yyyy-mm-dd H:i:s
-	$(".datetimepicker").datetimepicker({
+	$(".datetimepicker").datetimepicker({	
 		language: "zh-CN",
 		autoclose: true,//选中之后自动隐藏日期选择框
 		clearBtn: true,//清除按钮
@@ -283,7 +291,7 @@ function getPageBar(pageNum, pageSize, totalCount) {
 		pageNum = 1;
 	}
 	var pageBar;
-	pageBar = "<div class='ibox-content'>";
+	pageBar = "<div class='page-list'>";
 	pageBar += "<div class=\"btn-group\"> <span class='btn btn-white'> 共 "+totalCount+"条 </span>";
 	pageBar += "<span class='btn btn-white'> 每页 <input type='text' name='pageSize' class='tfootPageBar pageSize' style='width:50px;height:20px;border:solid #ccc 1px;' value='"+pageSize+"'> 条 </span>";
 	//如果不是第一页

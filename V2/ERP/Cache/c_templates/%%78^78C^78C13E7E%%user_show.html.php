@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-05-01 13:39:34
+<?php /* Smarty version 2.6.26, created on 2019-08-10 08:46:53
          compiled from sysmanage/user_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -55,7 +55,7 @@ unset($_smarty_tpl_vars);
 								<th width="120">部门</th>
 								<th width="120">职务</th>
 								<th width="120">角色</th>
-								<th>操作</th>
+								<th width="80">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -120,7 +120,7 @@ $(document).ready(function () {
 		user_id_txt=chk_value.join(",");
 		if(batch_act=="del"){
 			act_url="<?php echo @ACT; ?>
-/index.php/sysmanage/User/user_del/";
+/sysmanage/User/user_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,
@@ -151,7 +151,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/sysmanage/User/user_add/',
+/sysmanage/User/user_add/',
 				end: function () {
 					turnPage(1);
 				}
@@ -165,7 +165,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['90%', '90%'],
 				content: '<?php echo @ACT; ?>
-/index.php/sysmanage/User/user_modify/user_id/'+user_id+'/',
+/sysmanage/User/user_modify/user_id/'+user_id+'/',
 				end: function () {
 					turnPage(1);
 				}
@@ -173,7 +173,7 @@ $(document).ready(function () {
 			return false;	
 		}else if(single_act=="del"){
 			act_url="<?php echo @ACT; ?>
-/index.php/sysmanage/User/user_del/";
+/sysmanage/User/user_del/";
 			$.ajax({
 				type: "POST",
 				url: act_url,

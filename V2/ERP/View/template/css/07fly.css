@@ -91,6 +91,8 @@
 .sorttable .overflow-td{ max-width: 150px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor: pointer;}
 .sorttable .overflow-td:hover{ color: #23B7E5;}
 
+.page-list{padding-top:20px;}
+
 /*表单样式*/
 .w50{width:50px;}
 .w60{width:60px;}
