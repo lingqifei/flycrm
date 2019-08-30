@@ -38,8 +38,9 @@ class Menu extends Action{
 		$tree = '';
 		foreach ( $data as $k => $v ) {
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
-				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
-				$v[ 'level' ] =  $level + 1;
+				$v[ 'children' ]= $this->getTree( $data, $v[ 'id' ], $level + 1);
+				$v[ 'level' ] 	=  $level + 1;
+				$v[ 'treename' ]= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -125,11 +126,40 @@ class Menu extends Action{
 		$smarty->assign( array( "treeHtml" => $treeHtml) );
 		$smarty->display( 'sysmanage/menu_show.html' );
 	}	
+	
+	
+	//输出树形参数
+	function getTreeSelect($tree,$sid) {
+		$html = '';	
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$selected=($t['id']==$sid)?"selected":"";
+				if ( $t[ 'children' ] == '' ) {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+				} else {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
+				}
+			}
+		}
+		return $html;
+	}
+	
+	//输出树形参数
+	function getTreeSelectHtml($optid,$sid=0) {
+		$list =$this->menu();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选上一级</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
+	}
+	
 	//添加 
 	public function menu_add(){
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
-			$parentID =$this->menu_select_tree("parentID",$id);
+			$parentID =$this->getTreeSelectHtml("parentID",$id);
 			$smarty  = $this->setSmarty();
 			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/menu_add.html');	
@@ -151,7 +181,7 @@ class Menu extends Action{
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_menu where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$parentID	= $this->menu_select_tree("parentID",$one["parentID"]);
+			$parentID	= $this->getTreeSelectHtml("parentID",$one["parentID"]);
 			$smarty  	= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));
 			$smarty->display('sysmanage/menu_modify.html');	
@@ -188,16 +218,13 @@ class Menu extends Action{
 		}   
 		return $tree;
 	}
-	public
-	function menu_select_tree( $tag, $sid = "" ) {
-		$sql = "select * from fly_sys_menu order by sort asc;";
-		$list = $this->C( $this->cacheDir )->findAll( $sql );
-		$tree =$this->L( "Tree" ,$list);
-		$parentID = "<select name=\"$tag\" class=\"form-control m-b\">";
-		$parentID .= "<option value='0' >请您选择</option>";
-		$parentID .= $tree->get_tree( 0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid, '', "" );
-		$parentID .= "</select>";
-		return $parentID;
+	public function menu_select_tree( $optid, $sid = "" ) {
+		$list =$this->menu();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选上一级</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
 	}	
 	//左边菜单栏输出
 /*	public function outToHtml($tree){

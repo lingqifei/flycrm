@@ -26,6 +26,7 @@ class FinIncomeType extends Action{
 			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
 				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
 				$v[ 'level' ] =  $level + 1;
+				$v[ 'treename' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
 				$tree[] = $v;
 			}
 		}
@@ -72,7 +73,32 @@ class FinIncomeType extends Action{
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
+	//输出树形参数
+	function getTreeSelect($tree,$sid) {
+		$html = '';	
+		if(!empty($tree)){
+			foreach ( $tree as $key=>$t ) {
+				$selected=($t['id']==$sid)?"selected":"";
+				if ( $t[ 'children' ] == '' ) {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+				} else {
+					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
+					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
+				}
+			}
+		}
+		return $html;
+	}
 	
+	//输出树形参数
+	function getTreeSelectHtml($optid,$sid=0) {
+		$list =$this->fin_income_type();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择分类</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
+	}	
 	//浏览
 	public function fin_income_type_show(){
 		$list =$this->fin_income_type();
@@ -87,7 +113,7 @@ class FinIncomeType extends Action{
 	public function fin_income_type_add(){
 		if(empty($_POST)){
 			$id	 	  = $this->_REQUEST("id");
-			$parentID =$this->fin_income_type_select_tree('parentID',$id);
+			$parentID =$this->getTreeSelectHtml('parentID',$id);
 			$smarty  = $this->setSmarty();
 			$smarty->assign(array("parentID"=>$parentID));
 			$smarty->display('erp/fin_income_type_add.html');	
@@ -110,7 +136,7 @@ class FinIncomeType extends Action{
 		if(empty($_POST)){
 			$sql 		= "select * from fin_income_type where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$parentID	= $this->fin_income_type_select_tree('parentID',$one["parentID"]);
+			$parentID	= $this->getTreeSelectHtml('parentID',$one["parentID"]);
 			$smarty  	= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('erp/fin_income_type_modify.html');	
@@ -133,16 +159,13 @@ class FinIncomeType extends Action{
 	}	
 	
 	//下拉选择
-	public function fin_income_type_select_tree($tag,$sid =""){
-		$tree	 = _instance('Extend/Tree');
-		$sql	 = "select * from fin_income_type  order by sort asc;";	
-		$list	 = $this->C($this->cacheDir)->findAll($sql);	
-		$tree->tree($list);	
-		$parentID  = "<select name=\"$tag\" class=\"form-control m-b\">";
-		$parentID .= "<option value='0' >添加一级分类</option>";
-		$parentID .= $tree->get_tree(0, "<option value='\$id' \$selected>\$spacer\$name</option>\n", $sid , '' , "");
-		$parentID .="</select>";	
-		return $parentID;
+	public function fin_income_type_select_tree($optid,$sid =""){
+		$list =$this->fin_income_type();
+		$tree =$this->getTree($list, 0);
+		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择分类</option>";	
+		$html .=$this->getTreeSelect($tree,$sid);
+		$html .="</select>";
+		return $html;
 	}
 	
 	//排序

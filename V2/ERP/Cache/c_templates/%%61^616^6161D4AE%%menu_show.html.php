@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2019-06-28 13:33:20
+<?php /* Smarty version 2.6.26, created on 2019-08-24 10:51:01
          compiled from sysmanage/menu_show.html */ ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +67,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Menu/menu_modify_sort/",
+/sysmanage/Menu/menu_modify_sort/",
 			data:{"sort":sort,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -85,7 +85,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Menu/menu_modify_name/",
+/sysmanage/Menu/menu_modify_name/",
 			data:{"name":value,"id":id},
 			dataType:"json",
 			success: function(data){
@@ -103,7 +103,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "<?php echo @ACT; ?>
-/index.php/sysmanage/Menu/menu_modify_url/",
+/sysmanage/Menu/menu_modify_url/",
 			data:{"url":value,"id":id},
 			dataType:"json",
 			success: function(data){
