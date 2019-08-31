@@ -8,11 +8,10 @@
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5><i class="fa fa-home"></i>角色管理</h5>
-          <div class="ibox-tools"> <a href="#{$smarty.const.ACT}#/sysmanage/Role/role_add/" >
-            <button type="button" class="btn btn-xs btn-primary"><i class='fa fa-plus'></i> 添加</button>
-            </a> <a href="?">
-            <button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button>
-            </a> </div>
+          <div class="ibox-tools"> 
+			  <a class="btn btn-xs btn-info single_operation" data-act="add" href="javascript:void(0)"><i class="fa fa-plus"></i> 添加</a> 
+			  <a href="?"><button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button></a> 
+				</div>
         </div>
         <div class="ibox-content">
           <div class="treeClassBody">#{$treeHtml}#</div>
