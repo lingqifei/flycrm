@@ -20,8 +20,8 @@ class Auth extends Action {
 	public function __construct() {
 		$this->check_login();//检查是否登录
 		$this->authorization();//检查用户动作是否在授权范围之类
-		@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //定义
-		@define( 'SYS_USER_ID', $_SESSION[ "CRM" ][ "USER" ][ "userID" ] ); //定义
+		@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //当前登录帐号名
+		@define( 'SYS_USER_ID', $_SESSION[ "CRM" ][ "USER" ][ "userID" ] ); //当前登录帐号ID
 		@define( 'SYS_USER_SUB_ID', $_SESSION[ "CRM" ][ "USER" ][ "viewID" ] ); //本部门及下属用户
 		@define( 'SYS_USER_VIEW', $_SESSION[ "CRM" ][ "USER" ][ "viewID" ] ); //定义查看的权限
 		@define( 'SYS_CO_ID', '1' ); //定义所属于公司编号
