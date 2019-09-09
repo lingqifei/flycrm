@@ -34,13 +34,12 @@
 
 
 ```
-(v1)版本：[http://oa.07fly.com](http://oa.07fly.com)
+(v1)版本：[http://oa.07fly.com]
 账号：admin
 密码：admin123456
 说明：版本要求，PHP<=5.3 mysql<=5.4  采用PHP+MSQL+DWZ(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
 
-(v2)版本：[http://erp.07fly.com](http://erp.07fly.com)
-账号：admin
+(v2)版本：[http://erp.07fly.com]
 密码：admin123456
 说明：版本要求，PHP>=5.5 mysql>=5.5  采用PHP+MSQL+hAdmin(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
 ```
@@ -56,7 +55,7 @@
 QQ群: 575085787
 
 V1操作手册	
-[http://www.07fly.top/crm/](http://www.07fly.top/crm/)
+[http://www.07fly.top/crm/]
 ```
 
 
