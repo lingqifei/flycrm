@@ -14,14 +14,14 @@
     </execution>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1S0mR6im19iRnhwD6R96KBKOIf9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../CusProject/20191009_供应商下单系统/code" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
@@ -53,6 +53,7 @@
       <workItem from="1571536109862" duration="41000" />
       <workItem from="1572427923903" duration="2436000" />
       <workItem from="1572783721349" duration="3119000" />
+      <workItem from="1574573635471" duration="311000" />
     </task>
     <servers />
   </component>
