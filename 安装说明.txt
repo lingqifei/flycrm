@@ -8,9 +8,9 @@
  * ----------------------------------------------
  * @copyright 	：Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
  * @license   	：For licensing, see LICENSE.html or http://www.07fly.top/crm/license
- * @author 	：kfrs <goodkfrs@QQ.com> 574249366/1871720801
- * @version   	：1.0
- * @link 	：http://www.07fly.top/
+ * @author 		：kfrs <goodkfrs@QQ.com> 574249366
+ * @version   	：1.1
+ * @link 		：http://www.07fly.top/
  * @website   	: http://www.07fly.com/
  */	
 
@@ -23,6 +23,7 @@
 4.目前分为两个版本，V1，V2
 
 (v1)演示地址：http://oa.07fly.com
+
 账号：admin
 密码：admin123456
 
@@ -34,9 +35,9 @@
 
 -------------------------------------
 大家在安装的时候遇到问题
- 1.页面顶部出现空白一行
- 解决办法：db.php 要以uft8无BOM格式编码 保存
- notepad++ 编辑器里 格式 下
+ 1.页面顶部出现空白一行解决办法：db.php 要以uft8无BOM格式编码 保存notepad++ 编辑器里 格式 下
+
+
 
 
 欢迎加群讨论：575085787
@@ -47,13 +48,11 @@ PS:
 
 07FLY-CRM是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；能快速搭建适合自己的是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；能快速搭建适合自己的 OA、CRM、HR 等管理软件。小到个人的记账记事，大到企事业单位的客户信息、项目信息、销售订单、售后报修、出库入库、固定资产、人事薪资、办公信息、收费付费...等各种信息，全都能管理！
 
-联系我们
-	公司网址：http://www.07fly.com 
-	全国热线：028-61833149  18030402705
-	Q Q: 1871720801 
-	Email: web@07fly.com             
 
-
+官方网址：http://www.07fly.com 
+在线热线：028-61833149  18030402705
+技术支持: QQ1871720801 
+邮箱地址: web@07fly.com             
 
 
 
