@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+#{include file="header.html"}#
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+			<h5><i class="fa fa-home"></i>地区管理</h5>
+          <div class="ibox-tools">
+          	  <a class="single_operation" data-act="add" href="javascript:void(0)">
+              <button type="button" class="btn btn-xs btn-primary"><i class='fa fa-plus'></i> 添加</button>
+              </a> 
+            <a href="../admin/?"><button type="button" class="btn btn-xs btn-danger"> <i class='fa fa-refresh'></i>刷新</button></a> 
+			  </div>
+        </div>
+        <div class="ibox-content">
+          <div class="treeClassBody">#{$treeHtml}#</div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$("body").on("click", ".single_operation", function() {
+		dept_id =$(this).attr("data-id");
+		single_act =$(this).attr("data-act")
+		if(single_act=="add"){
+			layer.open({
+				type: 2,
+				title: '添加信息',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/sysmanage/Area/area_add/pid/'+dept_id,
+				end: function () {
+				
+				}
+			});			
+			return false;		
+		}else if(single_act=="modify"){
+			layer.open({
+				type: 2,
+				title: '修改信息',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/sysmanage/Area/area_modify/id/'+dept_id,
+				end: function () {
+				
+				}
+			});			
+			return false;		
+		}else if(single_act=="del"){
+			$.ajax({
+				type: "POST",
+				url: "#{$smarty.const.ACT}#/sysmanage/Area/area_del/",
+				data:{"id":dept_id},
+				dataType:"json",
+				success: function(data){
+					if(data.statusCode=='200'){
+						layer.msg('操作成功', {icon: 1});   
+					}
+					console.log(data.message);
+				}
+			});
+		}
+	});
+	//更改排序
+	$("body").on("blur", ".treeSort", function() {
+		id =$(this).attr("data-id");
+		sort =$(this).val();
+		$.ajax({
+			type: "POST",
+			url: "#{$smarty.const.ACT}#/sysmanage/Area/area_modify_sort/",
+			data:{"sort":sort,"id":id},
+			dataType:"json",
+			success: function(data){
+				if(data.statusCode=='200'){
+					layer.msg('操作成功', {icon: 1});   
+				}
+				log(data.message);
+			}
+		});
+	});
+	//更改排序
+	$("body").on("blur", ".treeName", function() {
+		id =$(this).attr("data-id");
+		value =$(this).val();
+		$.ajax({
+			type: "POST",
+			url: "#{$smarty.const.ACT}#/sysmanage/Area/area_modify_name/",
+			data:{"name":value,"id":id},
+			dataType:"json",
+			success: function(data){
+				if(data.statusCode=='200'){
+					layer.msg('操作成功', {icon: 1});   
+				}
+				log(data.message);
+			}
+		});
+	});
+});
+</script>
