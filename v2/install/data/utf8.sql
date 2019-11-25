@@ -244,90 +244,6 @@ CREATE TABLE `cst_website` (
   PRIMARY KEY (`website_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站业务';
 
-DROP TABLE IF EXISTS `email_from`;
-
-CREATE TABLE `email_from` (
-  `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `server` varchar(32) CHARACTER SET utf8 NOT NULL,
-  `port` varchar(50) NOT NULL,
-  `account` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `name` varchar(256) NOT NULL,
-  `visible` tinyint(2) NOT NULL DEFAULT '1',
-  `cnt` int(11) NOT NULL DEFAULT '1',
-  `groupID` int(11) NOT NULL DEFAULT '1',
-  `intro` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=armscii8 COMMENT='发送邮件列表';
-
-DROP TABLE IF EXISTS `email_from_group`;
-
-CREATE TABLE `email_from_group` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='发送邮件分组';
-
-DROP TABLE IF EXISTS `email_mb`;
-
-CREATE TABLE `email_mb` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  `content` text,
-  `cnt` int(11) DEFAULT '1',
-  `editor` varchar(32) DEFAULT NULL,
-  `adddatetime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='邮箱模板';
-
-DROP TABLE IF EXISTS `email_receiver`;
-
-CREATE TABLE `email_receiver` (
-  `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `account` varchar(256) NOT NULL,
-  `name` varchar(256) NOT NULL,
-  `visible` tinyint(2) NOT NULL DEFAULT '1',
-  `cnt` int(11) NOT NULL DEFAULT '1',
-  `groupID` int(11) NOT NULL DEFAULT '1',
-  `intro` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=armscii8 COMMENT='邮件接收人';
-
-DROP TABLE IF EXISTS `email_receiver_group`;
-
-CREATE TABLE `email_receiver_group` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='邮件接收人员分组';
-
-DROP TABLE IF EXISTS `email_scheme`;
-
-CREATE TABLE `email_scheme` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  `fromID` int(11) DEFAULT NULL,
-  `receiverID` int(11) DEFAULT NULL,
-  `contentID` varchar(50) DEFAULT NULL,
-  `intro` varchar(1024) DEFAULT NULL,
-  `adddatetime` datetime NOT NULL,
-  `uptime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='群发方案';
-
-DROP TABLE IF EXISTS `email_scheme_log`;
-
-CREATE TABLE `email_scheme_log` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
-  `schemeID` varchar(256) NOT NULL,
-  `sendfrom` varchar(256) DEFAULT NULL,
-  `receiver` varchar(256) DEFAULT NULL,
-  `subject` varchar(256) DEFAULT NULL,
-  `status` varchar(50) DEFAULT NULL,
-  `adddatetime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='邮件方案执行日志\r\n';
-
 DROP TABLE IF EXISTS `fin_bank_account`;
 
 CREATE TABLE `fin_bank_account` (
@@ -978,13 +894,14 @@ CREATE TABLE `pos_contract` (
   `back_money` decimal(10,2) NOT NULL COMMENT '回款金额',
   `owe_money` decimal(10,2) NOT NULL COMMENT '欠款金额',
   `pay_money` decimal(10,2) NOT NULL COMMENT '支付金额',
+  `unpaid_money` decimal(10,2) NOT NULL COMMENT '未支付金额',
   `invoice_money` decimal(10,2) NOT NULL COMMENT '开票金额',
   `title` varchar(256) NOT NULL COMMENT '订单主题',
   `intro` text NOT NULL COMMENT '订单介绍',
   `status` smallint(1) NOT NULL DEFAULT '1' COMMENT '1=临时单，2=执行，3=完成，4=撤消',
   `back_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '回款状态，1=未付，2=部分，3=全部',
   `pay_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '支付状态，1=未付，2=部分，3=全部',
-  `deliver_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '交付状态',
+  `deliver_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '交付状态，-1=不需要，1=需要，2=录入明细，3=待入库，4=部分，5=全部',
   `invoice_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '开票状态 0=不需要，1=需要，2=部分，3=全部',
   `rece_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '收货状态，1=需要，2=录入明细，3=待入库，4=部分，5=全部',
   `create_user_id` int(16) NOT NULL,
@@ -1023,29 +940,29 @@ DROP TABLE IF EXISTS `sal_contract`;
 
 CREATE TABLE `sal_contract` (
   `contract_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) NOT NULL COMMENT '订单主题',
   `contract_no` varchar(50) NOT NULL COMMENT '合同编号',
-  `customer_id` int(16) NOT NULL,
-  `linkman_id` int(16) NOT NULL,
-  `chance_id` int(16) NOT NULL,
+  `customer_id` int(16) NOT NULL COMMENT '客户ID',
+  `linkman_id` int(16) NOT NULL COMMENT '联系人ID',
+  `chance_id` int(16) NOT NULL COMMENT '销售机会',
   `website_id` int(16) NOT NULL COMMENT '关联网站',
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
+  `start_date` date NOT NULL COMMENT '开始时间',
+  `end_date` date NOT NULL COMMENT '结束时间',
   `our_user_id` int(16) NOT NULL COMMENT '我方联系人',
   `money` decimal(10,2) NOT NULL COMMENT '合同金额',
   `goods_money` decimal(10,2) NOT NULL COMMENT '商品金额',
   `zero_money` decimal(10,2) NOT NULL COMMENT '去零金额',
   `back_money` decimal(10,2) NOT NULL COMMENT '回款金额',
   `owe_money` decimal(10,2) NOT NULL COMMENT '欠款金额',
-  `deliver_money` decimal(10,2) NOT NULL COMMENT '支付金额',
+  `deliver_money` decimal(10,2) NOT NULL COMMENT '交付金额',
   `invoice_money` decimal(10,2) NOT NULL COMMENT '开票金额',
-  `title` varchar(256) NOT NULL COMMENT '订单主题',
   `intro` text NOT NULL COMMENT '订单介绍',
   `status` smallint(1) NOT NULL DEFAULT '1' COMMENT '1=临时单，2=执行，3=完成，4=撤消',
   `back_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '回款状态，1=未付，2=部分，3=全部',
-  `deliver_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '交付状态，1=需要，2=录入明细，3=待入库，4=部分，5=全部',
-  `invoice_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '开票状态 0=不需要，1=需要，2=部分，3=全部',
+  `deliver_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '交付状态，-1=不需要，1=需要，2=录入明细，3=待出库，4=部分，5=全部',
+  `invoice_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '开票状态， 0=不需要，1=需要，2=部分，3=全部',
   `renew_status` smallint(1) NOT NULL DEFAULT '1' COMMENT '订单类型，1=新增加，2=续费',
-  `create_user_id` int(16) NOT NULL,
+  `create_user_id` int(16) NOT NULL COMMENT '创建者',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`contract_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='销售合同';

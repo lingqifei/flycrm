@@ -80,8 +80,8 @@ $(function(){
         <div>
           <label>数据库名</label>
           <span>
-          <input type="text" name="db_name" maxlength="40" value="<?php echo $_POST['db_name'] ? $_POST['db_name'] : 'flycrm';?>">
-          </span> <em></em></div>
+          <input type="text" name="db_name" maxlength="40" value="<?php echo $_POST['db_name'] ? $_POST['db_name'] : '07fly.com';?>">
+          </span> <em>输入您自己的数据库名,注意安装时候会覆盖已经存在表，注意数据备份</em></div>
         <div>
           <label>数据库用户名</label>
           <span>
@@ -92,11 +92,13 @@ $(function(){
           <span>
           <input type="password" name="db_pwd" maxlength="20" value="<?php echo $_POST['db_pwd'] ? $_POST['db_pwd'] : '';?>">
           </span> <em></em></div>
-        <div>
+        <!---
+		<div>
           <label>数据库表前缀</label>
           <span>
-          <input type="text" name="db_prefix" maxlength="20" value="<?php echo $_POST['db_prefix'] ? $_POST['db_prefix'] : 'flycrm_';?>">
+          <input type="text" name="db_prefix" maxlength="20" value="<?php echo $_POST['db_prefix'] ? $_POST['db_prefix'] : '';?>">
           </span> <em>同一数据库运行多个程序时，请修改前缀</em></div>
+		 -->
         <div>
           <label>数据库端口</label>
           <span>

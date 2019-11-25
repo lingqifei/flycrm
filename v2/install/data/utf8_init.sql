@@ -1,3 +1,4 @@
+#栏目数据
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (1, '系统管理', 'SystemManage', 'cogs', 0, 1, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (2, '客户管理', 'Customer', 'user', 0, 20, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (3, '统计分析', '', 'line-chart', 0, 50, 1);
@@ -7,7 +8,7 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (7, '数据字典', '', '#', 1, 13, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (8, '消息通知', '', '/sysmanage/Message/message_show/', 4, 116, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (9, '销售管理', '', 'sal', 2, 22, 0);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (10, '合同管理', '', 'contract', 2, 23, 0);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (10, '采购合同统计', '', '/erp/ChartPurchase/chart_purchase_show/', 3, 23, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (11, '公共客户', '', '/crm/CstCustomerComm/cst_customer_comm_show/', 2, 213, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (12, '供应商管理', '', 'users', 0, 31, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (13, '采购管理', '', 'ship', 0, 32, 1);
@@ -15,17 +16,17 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (15, '系统参数', 'system', '/sysmanage/SysConfig/sys_config/', 4, 111, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (16, '系统菜单', '', '/sysmanage/Menu/menu_show/', 4, 112, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (17, '密码修改', 'serial', '/sysmanage/Sys/sys_password_modify/', 4, 113, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (18, '商品规格', 'system log', '/goods/GoodsSpec/goods_spec_show/', 6, 135, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (18, '商品规格', 'system log', '/goods/GoodsSpec/goods_spec_show/', 6, 136, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (19, '数据库管理', 'database', '/sysmanage/SysData/sys_data/', 4, 115, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (20, '系统升级', '#', '/sysmanage/Sys/sys_upgrade/', 4, 115, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (21, '部门管理', '', '/sysmanage/Dept/dept_show/', 5, 115, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (22, '岗位管理', '', '/sysmanage/Position/position_show/', 5, 122, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (23, '角色管理', 'Role Management', '/sysmanage/Role/role_show/', 5, 122, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (24, '用户管理', 'Sys User Management', '/sysmanage/User/user_show/', 5, 124, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (25, '商品列表', 'product_dict', '/goods/Goods/goods_show/', 6, 131, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (26, '商品分类', '', '/goods/GoodsCategory/goods_category_show/', 6, 132, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (27, '商品品牌', 'ProductType', '/goods/GoodsBrand/goods_brand_show/', 6, 132, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (28, '商品类型', '', '/goods/GoodsAttr/goods_attr_show/', 6, 134, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (25, '商品维护', 'product_dict', '/goods/Goods/goods_show/', 6, 131, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (26, '商品分类', '', '/goods/GoodsCategory/goods_category_show/', 6, 134, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (27, '商品品牌', 'ProductType', '/goods/GoodsBrand/goods_brand_show/', 6, 133, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (28, '商品类型', '', '/goods/GoodsAttr/goods_attr_show/', 6, 135, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (29, '字典管理', '', '/crm/CstDict/cst_dict_show/', 7, 141, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (30, '仓库管理', '', '/erp/StockStore/stock_store_show/', 1, 142, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (31, '经济类型', '', '/crm/CstDict/cst_dict_show/type/ecotype/', 7, 143, 0);
@@ -44,13 +45,13 @@ INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, 
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (44, '产品报价', '', '/crm/CstQuoted/cst_quoted_show/', 9, 223, 0);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (45, '项目报备', '', '/crm/CstFiling/cst_filing_show/', 9, 224, 0);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (46, '销售合同', 'sale contract', '/crm/SalContract/sal_contract_show/', 2, 231, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (47, '交付计划', 'Contract', '/crm/SalContract/sal_contract_show/', 10, 232, 0);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (48, '交付记录', 'Contact', '/crm/SalContract/sal_contract_show/', 10, 233, 0);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (47, '多维度统计', 'Contract', '/erp/ChartDime/chart_dime_show/', 3, 232, 1);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (48, '销售合同统计', 'Contact', '/erp/ChartSale/chart_sale_show/', 3, 233, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (49, '字段扩展', 'Sale order', '/crm/CstFieldExt/cst_field_ext_show/', 1, 241, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (50, '下属客户', 'Order Sale', '/crm/CstCustomerDept/cst_customer_dept_show/', 2, 212, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (51, '供应商列表', 'Supplier', '/erp/SupSupplier/sup_supplier_show/', 12, 311, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (52, '供应商联系人', '', '/erp/SupLinkman/sup_linkman_show/', 12, 312, 1);
-INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (53, '供应商报价', '', '/erp/SupLinkman/sup_linkman_show/', 12, 313, 0);
+INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (53, '商品SKU', '', '/goods/GoodsSku/goods_sku_show/', 6, 132, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (54, '采购订单', 'POS', '/erp/PosContract/pos_contract_show/', 13, 321, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (55, '采购明细', 'POS Detail', '/erp/PosContractList/pos_contract_list_show/', 13, 322, 1);
 INSERT INTO `fly_sys_menu` (`id`, `name`, `name_en`, `url`, `parentID`, `sort`, `visible`) VALUES (56, '库存清单', '', '/erp/StockGoodsSku/stock_goods_sku_show//', 14, 331, 1);
@@ -184,16 +185,19 @@ INSERT INTO `fly_sys_method` (`id`, `menuID`, `name`, `value`, `sort`, `visible`
 INSERT INTO `fly_sys_dept` VALUES('1','技术部','0','1','1','12345677','02888133145','主要是用来产的哟');
 INSERT INTO `fly_sys_dept` VALUES('2','商务部','0','0','1','028 8976214','028 8976214','');
 INSERT INTO `fly_sys_dept` VALUES('6','行政部','0','1','1','02861833149','02861833149','');
+
 #职位数据
 INSERT INTO `fly_sys_position` VALUES('1','董事会','0','1','1','董事会，管理全公司的信息的');
 INSERT INTO `fly_sys_position` VALUES('2','总经理','1','10','1','');
 INSERT INTO `fly_sys_position` VALUES('3','财务总监','1','20','1','');
 INSERT INTO `fly_sys_position` VALUES('4','人事总监','1','21','0','');
 INSERT INTO `fly_sys_position` VALUES('5','技术总监','1','31','1','');
+
 #权限维护
 INSERT IGNORE INTO `fly_sys_role` (`id`, `sort`, `visible`, `name`, `intro`)  VALUES (1, 1, 1, '超级管理员', '权限介绍,这是最高管理权限');
 INSERT IGNORE INTO `fly_sys_power` (`id`, `master`, `master_value`, `access`, `access_value`, `operation`) VALUES (1, 'role', '1', 'SYS_MENU', '1', NULL);
 INSERT IGNORE INTO `fly_sys_power` (`id`, `master`, `master_value`, `access`, `access_value`, `operation`) VALUES (2, 'role', '1', 'SYS_METHOD', '1', NULL);
+
 #系统参数
 INSERT INTO `fly_sys_config` VALUES('1','系统根网址： ','cfg_basehost','http://www.07fly.com/','string','0');
 INSERT INTO `fly_sys_config` VALUES('2','主页链接名： ','cfg_indexname','首页','string','0');
@@ -202,6 +206,7 @@ INSERT INTO `fly_sys_config` VALUES('4','系统版信息:','cfg_powerby','成都
 INSERT INTO `fly_sys_config` VALUES('5','每张默认关键字： ','cfg_keywords','成都零起飞网络','bstring','0');
 INSERT INTO `fly_sys_config` VALUES('6','系统描述:','cfg_intro','成都零起飞（07FLY-CRM）客户管理系统','bstring','0');
 INSERT INTO `fly_sys_config` VALUES('7','系统主页链接： ','cfg_indexurl','/','string','0');
+
 #字典分类
 INSERT INTO `cst_dict_type` VALUES('1','客户等级','','level','0','1','','','');
 INSERT INTO `cst_dict_type` VALUES('2','隶属行业','','trade','0','1','','','');
@@ -211,6 +216,7 @@ INSERT INTO `cst_dict_type` VALUES('5','销售方式','','salemode','0','1','','
 INSERT INTO `cst_dict_type` VALUES('6','销售阶段','','salestage','0','1','','','');
 INSERT INTO `cst_dict_type` VALUES('7','服务类型','','services','0','1','','','');
 INSERT INTO `cst_dict_type` VALUES('8','服务方式','','servicesmodel','0','1','','','');
+
 #字典管理
 INSERT INTO `cst_dict` VALUES('1','VIP客户','level','3','1');
 INSERT INTO `cst_dict` VALUES('23','一般客户','level','4','1');
@@ -259,3 +265,14 @@ INSERT INTO `cst_dict` VALUES('65','空号','talk','4','1');
 INSERT INTO `cst_dict` VALUES('66','加微信号','talk','5','1');
 INSERT INTO `cst_dict` VALUES('67','超级客户1','level','0','1');
 INSERT INTO `cst_dict` VALUES('68','超级客户2','level','0','1');
+
+#扩展字段数据
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (2, 'cst_customer', 'cst_customer', '客户代表', 'linkman', 'varchar', '', '250', '', 1, 1, 1, 0, '2019-05-28 12:15:19', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (3, 'cst_customer', 'cst_customer', '客户来源', 'source', 'option', '网络,客户介绍,主动开发', '250', '', 1, 1, 1, 0, '2019-05-28 12:16:35', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (4, 'cst_customer', 'cst_customer', '客户等级', 'grade', 'option', '普通客户,一般客户,重点客户', '250', '', 1, 1, 1, 0, '2019-05-28 12:17:40', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (5, 'cst_customer', 'cst_customer', '客户行业', 'industry', 'option', '互联网企业,服务行业,原材料企业', '250', '', 1, 1, 1, 0, '2019-05-28 12:19:04', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (6, 'cst_customer', 'cst_customer', '联系手机', 'mobile', 'varchar', '', '250', '', 1, 1, 1, 0, '2019-05-28 12:20:17', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (7, 'cst_customer', 'cst_customer', '联系电话', 'tel', 'varchar', '', '250', '', 1, 1, 1, 0, '2019-05-28 12:20:25', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (8, 'cst_customer', 'cst_customer', '联系地址', 'address', 'varchar', '', '250', '', 1, 1, 1, 0, '2019-05-28 12:20:33', 1);
+INSERT INTO `cst_field_ext` (`field_ext_id`, `main_table`, `ext_table`, `show_name`, `field_name`, `field_type`, `default`, `maxlength`, `desc`, `visible`, `is_system`, `is_must`, `sort`, `create_time`, `create_user_id`) VALUES (9, 'cst_customer', 'cst_customer', '客户介绍', 'intro', 'textarea', '', '250', '', 1, 1, 1, 0, '2019-05-28 12:20:54', 1);
+
