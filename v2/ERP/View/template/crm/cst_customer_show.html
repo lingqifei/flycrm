@@ -13,12 +13,14 @@
         <div class="ibox-content table-responsive">
           <div class="row">
             <form id="pagerForm" method="post" class="form-inline">
-              <div class="col-sm-3 m-b-xs"> <a href="?" class="btn  btn-default"> <i class="fa fa-refresh"> 刷新</i></a> <a href="javascript:void(0)" class="btn btn-info single_operation" data-act="add"><i class="fa fa-plus"></i> 添加</a>
+              <div class="col-sm-3 m-b-xs"> <a href="?" class="btn  btn-default"> <i class="fa fa-refresh"> 刷新</i></a>
+                  <a href="javascript:void(0)" class="btn btn-info single_operation" data-act="add"><i class="fa fa-plus"></i> 添加</a>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span class="caret"></span> </button>
                   <ul class="dropdown-menu">
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="implode">批量导入</a></li>
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="explode">批量导出</a></li>
+                    <li><a href="javascript:void(0)" class="batch_operation" data-act="intocomm">投入公海</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="del">批量删除</a></li>
                   </ul>
@@ -186,6 +188,29 @@ $(document).ready(function () {
 						}
 					}
 				});	
+				layer.closeAll('dialog');
+			});
+			return false;
+		}else if(batch_act=="intocomm"){
+			act_url="#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_to_comm/";
+			layer.confirm('确定投入公海？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				$.ajax({
+					type: "POST",
+					url: act_url,
+					data:{"customer_id":customer_id_txt},
+					dataType:"json",
+					async: false,
+					success: function(data){
+						if(data.statusCode=='200'){
+							layer.msg('操作成功', {icon: 1});
+							setTimeout(function(){
+								turnPage(1);
+							 },800);
+						}
+					}
+				});
 				layer.closeAll('dialog');
 			});
 			return false;

@@ -15,7 +15,7 @@
             <form id="pagerForm" method="post" class="form-inline">
               <div class="col-sm-3 m-b-xs"> 
 				  		<a href="?" class="btn  btn-default"> <i class="fa fa-refresh"> 刷新</i></a> 
-				  		<!--<a href="javascript:void(0)" class="btn btn-info single_operation" data-act="add"><i class="fa fa-plus"></i> 添加</a>-->
+				  		<a href="javascript:void(0)" class="btn btn-info single_operation" data-act="add"><i class="fa fa-plus"></i> 添加</a>
 				  		<a href="javascript:void(0)" class="btn btn-success batch_operation" data-act="receive"><i class="fa fa-retweet"></i> 批量领取</a>
               </div>
               <div class="col-sm-9 m-b-xs text-right">
@@ -212,6 +212,19 @@ $(document).ready(function () {
 				}
 			});			
 			return false;	
+		}else if(single_act=="add"){
+			layer.open({
+				type: 2,
+				title: '添加公海客户',
+				shadeClose: true,
+				fixed: false, //不固定
+				area: ['90%', '90%'],
+				content: '#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_add/',
+				end: function () {
+					turnPage(1);//页面加载时初始化分页
+				}
+			});
+			return false;
 		}else if(single_act=="receive"){
 			act_url="#{$smarty.const.ACT}#/crm/CstCustomerComm/cst_customer_comm_receive/";
 			$.ajax({

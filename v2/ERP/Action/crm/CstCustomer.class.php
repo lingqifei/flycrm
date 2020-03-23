@@ -110,19 +110,28 @@ class CstCustomer extends Action{
 			$ecotype =$this->dict->cst_dict_list('ecotype');//经济类型
 			$source =$this->dict->cst_dict_list('source');//来源
 			$level =$this->dict->cst_dict_list('level');//等级
+            $sys_user=$this->sys_user->user_list();
 			$field_ext=$this->field_ext->cst_field_ext_html('cst_customer');//扩展字段
 			$smarty = $this->setSmarty();
-			$smarty->assign(array("source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade,"field_ext"=>$field_ext));
+			$smarty->assign(array("source"=>$source,"level"=>$level,"ecotype"=>$ecotype,"trade"=>$trade,"sys_user"=>$sys_user,"field_ext"=>$field_ext));
 			$smarty->display('crm/cst_customer_add.html');	
 		}
 	}		
 	//保存数据
 	public function cst_customer_add_save(){
+
+            $owner_user_comm=$this->_REQUEST("owner_user_comm");
+            if($owner_user_comm){
+                $owner_user_id=0;
+            }else{
+                $owner_user_id=SYS_USER_ID;
+            }
+
 			$into_data=array(
 				'name'=>$this->_REQUEST("name"),
 				'conn_time'=>NOWTIME,
 				'create_time'=>NOWTIME,
-				'owner_user_id'=>SYS_USER_ID,
+				'owner_user_id'=>$owner_user_id,
 				'create_user_id'=>SYS_USER_ID
 			);
 			//******************************************************
@@ -229,6 +238,15 @@ class CstCustomer extends Action{
 			return $one;
 		}	
 	}
-	
+
+
+    //删除
+    public function cst_customer_to_comm(){
+        $customer_id = $this->_REQUEST("customer_id");
+        $sql  = "update cst_customer set owner_user_id='0' where customer_id in ($customer_id)";
+        $this->C($this->cacheDir)->update($sql);
+        $this->L("Common")->ajax_json_success("操作成功");
+    }
+
 }//end class
 ?>
