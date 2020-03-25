@@ -83,7 +83,7 @@ class Notice extends Action{
 			$role_id = $this->_REQUEST("role_id");
 			$user_id = $this->_REQUEST("sys_user_id");
 			if($role_id){
-				$role_son_id=$this->sys_role->role_all_child($role_id);//得到权限子级
+				$role_son_id=$this->sys_role->role_get_child($role_id);//得到权限子级
 				$role_son_id[]=$role_id;//加上选择权限本身
 				$role_son_user=$this->sys_user->user_list_role($role_son_id);
 				$sub_user=array();		
@@ -95,6 +95,7 @@ class Notice extends Action{
 			}else{
 				$sub_user=$this->sys_user->user_get_sub_user(SYS_USER_ID);//得到当前用户下级员工数据
 			}
+
 			//对每个用户发送通知
 			foreach($sub_user as $sub_user_id){
 				$into_data=array(
@@ -104,6 +105,9 @@ class Notice extends Action{
 					'create_time'=>NOWTIME,
 					'create_user_id'=>SYS_USER_ID,
 				);
+
+
+
 				$rtn_id=$this->C($this->cacheDir)->insert('fly_sys_user_notice',$into_data);	
 				
 				$this->msg->message_add($sub_user_id,'公告通知',$this->_REQUEST("title"),'sys_user_notice',$rtn_id,$remind_time=null);

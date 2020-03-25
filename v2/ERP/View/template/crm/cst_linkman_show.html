@@ -91,13 +91,7 @@
 		<td><input name="linkman_id" class="checkboxCtrlId" value="<%=list[i]['linkman_id']%>" type="checkbox"></td>
 		<td><%=list[i]['customer_name']%></td>
 		<td><%=list[i]['name']%></td>
-		<td>
-			<%if(list[i]['gender']=1){%>
-			 	男
-			<%}else{%> 
-			 	女
-			<%}%> 
-		</td>
+		<td><%if(list[i]['gender']==1){%> 男<%}else{%> 女<%}%> </td>
 		<td><%=list[i]['postion']%></td>
 		<td><%=list[i]['mobile']%></td>
 		<td><%=list[i]['tel']%></td>

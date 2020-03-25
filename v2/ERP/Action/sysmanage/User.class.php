@@ -167,16 +167,17 @@ class User extends Action{
 	}
 	
 	//权限编号查询出用户当前权限下的所有用户
-	function user_list_role($roleID=0){
-		$sql ="select * from fly_sys_user where FIND_IN_SET('$roleID',roleID);";
+	function user_list_role($role_id=0){
+        $role_id_txt=implode('|',$role_id);
+		$sql ="select * from fly_sys_user where roleID REGEXP '(^|,)($role_id_txt)(,|$)'";
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
 	
 	//输出权限下用户信息，checkbox
-	function user_list_role_checked($roleID=0){
-		$sql 	="select * from fly_sys_user where FIND_IN_SET('$roleID',roleID);";
-		$list	=$this->C($this->cacheDir)->findAll($sql);
+	function user_list_role_checked($role_id=0){
+        $role_id_txt=implode('|',$role_id);
+        $sql ="select * from fly_sys_user where roleID REGEXP '(^|,)($role_id_txt)(,|$)'";
 		$checkbox="";
 		foreach($list as $key=>$row){
 			$checkbox .="<input type='checkbox' name='sys_user_id[]' class='userlist_checkbox' value='".$row['id']."' title='".$row['name']."'> ".$row['name']." ";
