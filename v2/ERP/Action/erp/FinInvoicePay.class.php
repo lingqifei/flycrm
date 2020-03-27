@@ -28,6 +28,7 @@ class FinInvoicePay extends Action{
 		$pageSize= empty($pageSize)?$GLOBALS["pageSize"]:$pageSize;
 		
 		$contract_id 	= $this->_REQUEST("contract_id");
+		$customer_id 	= $this->_REQUEST("customer_id");
 		$pay_date		= $this->_REQUEST("pay_date");
 		$create_date	= $this->_REQUEST("create_date");		
 		$customer_name	= $this->_REQUEST("customer_name");
@@ -36,6 +37,9 @@ class FinInvoicePay extends Action{
 		$where_str	 =" record_id>0 ";
 		if($contract_id){
 			$where_str .=" and contract_id='$contract_id'";
+		}
+		if($customer_id){
+			$where_str .=" and customer_id='$customer_id'";
 		}
 		if(!empty($customer_name)){
 			$where_str	.= " and customer_name like '%$customer_name%'";
