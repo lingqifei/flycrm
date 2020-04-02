@@ -27,6 +27,51 @@ class Menu extends Action{
 		$list	= $this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
+
+    /**列表请求
+     * @return  echo json
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public function menu_json() {
+        //**获得传送来的数据作分页处理
+        $pageNum = $this->_REQUEST("pageNum");//第几页
+        $pageSize= $this->_REQUEST("pageSize");//每页多少条
+        $pageNum = empty($pageNum)?1:$pageNum;
+        $pageSize= empty($pageSize)?$GLOBALS["pageSize"]:$pageSize;
+        //**************************************************************************
+
+        //**获得传送来的数据做条件来查询
+        $keywords  = $this->_REQUEST("keywords");
+        $pid   	        = $this->_REQUEST("pid");
+        $pid_son=$this->get_menu_self_son($pid);
+        $pid_txt=implode(",",$pid_son);
+
+        $where_str 	   = " id>'0' ";
+        if( !empty($keywords) ){
+            $where_str .=" and name like '%$keywords%'";
+        }
+        if( !empty($pid) ){
+            $where_str .=" and parentID in ($pid_txt)";
+        }
+        $countSql    = "select *  from fly_sys_menu where  $where_str order by sort asc;";
+        $totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+        $beginRecord= ($pageNum-1)*$pageSize;//计算开始行数
+
+        $sql		 = "SELECT *  FROM fly_sys_menu WHERE  $where_str  order by sort asc limit $beginRecord,$pageSize";
+        $list		 = $this->C($this->cacheDir)->findAll($sql);
+        $assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum);
+        echo json_encode($assignArray);
+    }
+
+    /**右边树形
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public function menu_tree_json() {
+        $list=$this->menu();
+        $tree=list2tree($list,0,0,'id','parentID','name');
+        echo json_encode($tree);
+    }
+
 	public function menu_check_list(){
 		$sql	= "select *,name as text,id as tags  from fly_sys_menu where visible='1' order by sort asc,id desc";	
 		$list	= $this->C($this->cacheDir)->findAll($sql);
@@ -46,57 +91,7 @@ class Menu extends Action{
 		}
 		return $tree;
 	}
-	//输出树形参数
-	function getTreeHtml($tree) {
-		$html = '';
-		foreach ( $tree as $t ) {
-			$kg="";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-3'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div class='fly-col-1  fly-fr fly-tr'>
-									<input type='text' name='visible[]'  data-id='".$t['id']."' value='".$t['visible']."' class='form-control w50 treeVisible' title='是否启用0=不启用，1=启用'/>
-								</div>
-								<div class='fly-col-1  fly-fr fly-tr'>
-									<input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w50 treeSort' title='排序'/>
-								</div>
-								<div class='fly-col-4  fly-fr fly-tl'><input type='text' name='url[]'  data-id='".$t['id']."' value='".$t['url']."' class='form-control w200 treeUrl'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-3'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div class='fly-col-1  fly-fr fly-tr'>
-									<input type='text' name='visible[]'  data-id='".$t['id']."' value='".$t['visible']."' class='form-control w50 treeVisible' title='是否启用0=不启用，1=启用'/>
-								</div>								
-								<div class='fly-col-1  fly-fr fly-tr'>
-									<input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w50 treeSort' title='排序'/>
-								</div>
-								<div class='fly-col-4  fly-fr fly-tl'><input type='text' name='url[]'  data-id='".$t['id']."' value='".$t['url']."' class='form-control w200 treeUrl'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
-			}
-		}
-		return $html ? '<ul>' . $html . '</ul>': $html;
-	}
+
 	
 	//得到数形参数,针对bootstrop
 	function leftTree( $data, $pId=0,$level=0) {
@@ -119,11 +114,7 @@ class Menu extends Action{
 	}
 	//栏目显示
 	public function menu_show() {
-		$list =$this->menu();
-		$tree =$this->getTree($list, 0 );
-		$treeHtml=$this->getTreeHtml($tree);
 		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml) );
 		$smarty->display( 'sysmanage/menu_show.html' );
 	}	
 	
@@ -218,6 +209,7 @@ class Menu extends Action{
 		}   
 		return $tree;
 	}
+
 	public function menu_select_tree( $optid, $sid = "" ) {
 		$list =$this->menu();
 		$tree =$this->getTree($list, 0);
@@ -225,21 +217,7 @@ class Menu extends Action{
 		$html .=$this->getTreeSelect($tree,$sid);
 		$html .="</select>";
 		return $html;
-	}	
-	//左边菜单栏输出
-/*	public function outToHtml($tree){
-		$html = '';
-		foreach($tree as $t){
-			if(empty($t['parentID'])){
-				$html .= "<li><a href=\"javascript:\" onclick=\"$.bringBack({region:'$t[id]',regionName:'$t[name]'})\">$t[name]</a></li>";
-			}else{
-				$html .='<li><a href="javascript:">'.$t['name'].'</a><ul>';
-				$html .= $this->outToHtml($t['parentID']);
-				$html  = $html.'</ul></li>';
-			}
-		} 
-		return $html;
-	}	*/
+	}
 		
 	//修改权限时调用
 	public function menu_tree_arr(){
@@ -270,16 +248,6 @@ class Menu extends Action{
 		$this->C( $this->cacheDir )->modify('fly_sys_menu',$upt_data,"id='$id'",true);
 		$this->L("Common")->ajax_json_success("操作成功");
 	}
-	//修改名称
-	public function menu_modify_name() {
-		$id		=$this->_REQUEST('id');	
-		$name	=$this->_REQUEST('name');	
-		$upt_data=array(
-					'name'=>$this->_REQUEST( "name" )
-				 );
-		$this->C( $this->cacheDir )->modify('fly_sys_menu',$upt_data,"id='$id'",true);
-		$this->L("Common")->ajax_json_success("操作成功");
-	}
 	//修改地址
 	public function menu_modify_url() {
 		$id		=$this->_REQUEST('id');	
@@ -300,5 +268,56 @@ class Menu extends Action{
 		$this->C( $this->cacheDir )->modify('fly_sys_menu',$upt_data,"id='$id'",true);
 		$this->L("Common")->ajax_json_success("操作成功");	
 	}
+
+    /**获得所有指定id所有父级
+     * @param int $menuid
+     * @param array $data
+     * @return array
+     */
+    public function get_menu_all_pid($menuid=0, $data=[])
+    {
+        $sql	= "select *  from fly_sys_menu where parentID='$menuid' order by sort asc;";
+        $info = $this->C( $this->cacheDir )->findOne( $sql );
+        if(!empty($info) && $info['parentID']){
+            $data[]=$info['parentID'];
+            return $this->get_menu_all_pid($info['parentID'],$data);
+        }
+        return $data;
+    }
+
+    /**获得所有指定id所有子级
+     * @param int $menuid
+     * @param array $data
+     * @return array
+     */
+    public function get_menu_all_son($menuid=0, $data=[])
+    {
+
+        $sql	= "select *  from fly_sys_menu where parentID='$menuid' order by sort asc;";
+        $sons = $this->C( $this->cacheDir )->findAll( $sql );
+        if (count($sons) > 0) {
+            foreach ($sons as $v) {
+                $data[] = $v['id'];
+                $data = $this->get_menu_all_son($v['id'], $data); //注意写$data 返回给上级
+            }
+        }
+        if (count($data) > 0) {
+            return $data;
+        } else {
+            return false;
+        }
+        return $data;
+    }
+    /**得到自己的和子级
+     * @param $id
+     * @return array
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public  function get_menu_self_son($id){
+        $sons=$this->get_menu_all_son($id);
+        $sons[]=$id;
+        return $sons;
+    }
+
 }//
 ?>

@@ -9,12 +9,14 @@ class Sys extends Action{
 	private $auth;
 	public function __construct() {
 		$this->auth=_instance('Action/sysmanage/Auth');
-	}	
+		$this->upgrade=_instance('Action/sysmanage/Upgrade');
+		$this->zip=_instance('Extend/Zip');
+        $this->file=_instance('Extend/File');
+	}
 	//系统常规设置
 	public function sys_config(){
 		if(empty($_POST)){
 			$config = $this->get_sys_info();
-			print_r($config);exit;
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("list"=>$config));//框架变量注入同样适用于smarty的assign方法
 			$smarty->display('sysmanage/sys_config.html');					
@@ -156,144 +158,65 @@ class Sys extends Action{
 	}
 
 
-	//系统升级导入 
-	public function sys_upgrade(){
-		$filename = $this->_REQUEST("filename");
-		$ver	  = $this->L("Data")->version();
-		$version  = $ver["version"];
-		
-/*		//在线数据
-		$server	  = $this->L("Data")->upgrade_server();
-		$updateurl="$server/aaaupdate.php?ver=$version";
-		$handle   = fopen ($updateurl,"rb");
-		$contents = "";
-		do {
-			$data = fread($handle, 8192);
-			if (strlen($data) == 0) break;
-				$contents .= $data;
-		} while(true);
-		fclose ($handle);
-		$onlist = json_decode($contents,true);*/
-
-		//本地数据
-		$dirname= $this->L("Upload")->upload_upgrade_path();
-		$File   = $this->File()->list_dir_info($dirname,$is_all=FALSE,$exts='',$sort='DESC');
-		foreach($File as $onefile){
-			$one  =$this->File()->dir_replace($onefile);
-			$info =$this->File()->list_info($one);
-			$info["size"] = $this->File()->byte_format($info["size"]);
-			$info["ctime"] = date("Y-m-d H:i:s",$info["ctime"]);
-			$list[]=$info;
-		}
-		
+    /**获取远程文件升级信息
+     * Author: lingqifei created by at 2020/4/2 0002
+     */
+    public function sys_upgrade(){
+    	//在线数据
+		$server	  = $this->upgrade->serverip();
+		$version    = $this->upgrade->version();
+		$upurl      ="$server/sysupgrade.php?ver=$version";
+        $list=$this->file->read_file($upurl);
+        $list=json_decode($list,true);
+        foreach ($list as &$row){
+            $status=$this->upgrade->check_down_verion($row['version']);
+            if(!$status){
+                $row['status']='<font color="red">文件没有下载</font>';
+                $row['operate']='<a href="javascript:void(0);" class="downfile" data-id="'.$row['version'].'">点击下载更新包文件HTTP</a>';
+            }else{
+                $row['status']='	<font color="green">文件已下载[文件完整]</font>';
+                $row['operate']='	<a href="javascript:void(0);" class="upgrade" data-id="'.$row['version'].'" data-step="1">点击升级更新包</a>';
+            }
+        }
 		$smarty =$this->setSmarty();
-		$smarty->assign(array("list"=>$list,'onlist'=>$onlist,'ver'=>$ver));//框架变量注入同样适用于smarty的assign方
-		$smarty->display('sysmanage/sys/sys_upgrade.html');			
-	
+		$smarty->assign(array("list"=>$list,'version'=>$version));
+		$smarty->display('sysmanage/sys_upgrade.html');
 	}
-	public function sys_upgrade_local(){
-		
-		$step 	    = $this->_REQUEST("step");
-		$filename   = $this->_REQUEST("filename");
-		//本地数据，源文件所在地
-		$dirname= $this->L("Upload")->upload_upgrade_path();
-		$zipfile= $this->L("File")->dir_replace($dirname."/".$filename);
-		
-		if(empty($step)){
-			$txt 	="<dd>升级文件为：$zipfile </dd>";		
-			$step	=1;
-			$sbtxt	="下一步备份当前系统";
-			
-		}elseif($step==1){
-			$rtn	=$this->sys_upgrade_backup();
-			$txt 	="<p>备份完成!</p><p>当前版本程序备份文件为：</p><p>$rtn</p>";		
-			$step	=2;	
-			$sbtxt	="下一步升级系统";							
-		}elseif($step==2){
-			$savepath 	=$this->L('File')->dir_replace(APP_ROOT);
-			$archive	=$this->L("PclZip","$zipfile");
-			if ($archive->extract(PCLZIP_OPT_PATH, "$savepath") == 0) {
-				exec("tar -zxvf $zipfile -C /");
-				//die("Error : ".$archive->errorInfo(true));
-			}			
-			$txt 	="<p>系统升级完成!</p><p>程序已经覆盖当前系统目录</p> ";		
-			$step	=3;	
-			$sbtxt	="当前系统升级完成,下一步升级数据库结构";			
-		}elseif($step=4){
-			if($this->L('Data')->upgrade()){
-				$txt 	="<p> 1,数据库升级完成!</p><p> 2,数据库升级成功</p> ";		
-				$step	=5;	
-				$sbtxt	="当前数据库升级完成,下一步清除系统缓存文件";	
-			}
-		}elseif($step=5){
-			$rmdir = CACHE."/templates_c/";
-			if($this->L('File')->remove_dir($rmdir)){
-				$txt 	="<p> 1,数据库升级完成!</p><p> 2,数据库升级成功</p> ";		
-				$step	=5;	
-				$sbtxt	="当前数据库升级完成,下一步清除系统缓存文件";	
-			}
-		}
-		
-		//备份操作
-		$smarty =$this->setSmarty();
-		$smarty->assign(array('txt'=>$txt,'step'=>$step,'sbtxt'=>$sbtxt,'filename'=>$filename));
-		$smarty->display('sysmanage/sys/sys_upgrade_local.html');				
-	}	
-	
+
 	public function sys_upgrade_online(){
-		$step 	    = $this->_REQUEST("step");
-		$version	= $this->_REQUEST("version");
-		$downpath	= $this->L("Upload")->upload_upgrade_path();
-		$downpath 	= $this->L("File")->dir_replace($downpath);
-		
-		if(empty($step)){
-			$this->sys_upgrade_online_down();//从网络地下载
-			$txt 	="<dd>升级文件下载到本地目录：$downpath </dd>";		
-			$step	=1;
-			$sbtxt	="下一步备份当前系统";
-			
-		}elseif($step==1){
-			$rtn	=$this->sys_upgrade_backup();
-			$txt 	="<p>备份完成!</p><p>当前版本程序备份文件为：</p><p>$rtn</p>";		
-			$step	=2;	
-			$sbtxt	="下一步升级系统";	
-									
+		$step = $this->_REQUEST("step");
+		$ver	  = $this->_REQUEST("ver");
+
+		if($step==1){
+			$rtn	=$this->upgrade->upgrade_backup();
+			$txt 	="<p>备份完成!</p><p>当前版本程序备份文件为：</p><p>$rtn</p>";
+            $result=array(
+			    'statusCode'=>300,
+			    'message'=>$txt,
+			    'step'=>2,
+			    'ver'=>$ver,
+            );
 		}elseif($step==2){
-			$zipfile 	= $downpath."$version";
-			$savepath 	= $this->L('File')->dir_replace(APP_ROOT);
-			$archive=$this->L("PclZip","$zipfile");
-			if ($archive->extract(PCLZIP_OPT_PATH, "$savepath") == 0) {
-				exec("tar -zxvf $zipfile -C /");
-				//die("Error : ".$archive->errorInfo(true));
-			}			
-			$txt ="<p>系统升级完成!</p><p>程序已经覆盖当前系统目录</p> ";		
-			$step=3;	
-			$sbtxt	="当前系统升级完成";			
-		}
-		
-		//备份操作
-		$smarty =$this->setSmarty();
-		$smarty->assign(array('txt'=>$txt,'step'=>$step,'version'=>$version,'sbtxt'=>$sbtxt));
-		$smarty->display('sysmanage/sys/sys_upgrade_online.html');			
-		
+            $rtn	=$this->upgrade->upgrade_exec($ver);
+			$txt ="<p>系统升级完成!</p><p>程序已经覆盖当前系统目录</p> ";
+            $result=array(
+                'statusCode'=>300,
+                'message'=>$txt,
+                'step'=>3,
+                'ver'=>$ver,
+            );
+		}elseif($step==3){
+            $txt ="<p>系统升级完成!</p> ";
+            $result=array(
+                'statusCode'=>'200',
+                'message'=>$txt,
+                'step'=>3,
+                'ver'=>$ver,
+            );
+        }
+		echo json_encode($result);
 	}
 
-	//下载升级文件
-	public function sys_upgrade_online_down($version=null){
-		$version	= $this->_REQUEST("version");
-		$downpath	= $this->L("Upload")->upload_upgrade_path();
-		$downpath 	= $this->L("File")->dir_replace($downpath);
-		$this->File()->create_dir($downpath);
-		
-		$server	    = $this->L("Data")->upgrade_server();	//获取网络信息
-		$url		= "$server/aaaupdate.php?ver=$version&act=down";
-		$pakurl		=$this->L("File")->read_file($url);//得到服务器返回包的地址
-		
-		$finfo 	= $this->L("File")->get_file_type("$pakurl");
-		$nfile	="$server/$pakurl";
-		$result = $this->L("File")->down_remote_file($nfile,$downpath,$finfo['basename'],$type=0);	
-		return true;		
-	}
 	
 	public function sys_upgrade_online_to_local(){
 		$version	= $this->_REQUEST("version");
@@ -301,32 +224,7 @@ class Sys extends Action{
 		$this->L("Common")->ajax_json_success("下载成功","1","/Sys/sys_upgrade/");
 	}
 	
-	//升级备份原程序
-	public function sys_upgrade_backup(){
-		$source_path = $this->L('File')->dir_replace(APP_ROOT);
-		$backup_path = $this->L("Data")->backup_upgrade_path();
-		$backup_path = $backup_path.date("YmdHis",time())."/";
-		$dirarr		 = array('Action','Extend','View');
-		foreach($dirarr as $dir){
-			$backup_dir  = $backup_path."{$dir}/";	
-			$rtn[]=$this->L('File')->create_dir($backup_dir);
-			$rtn[]=$this->L('File')->handle_dir($source_path."/{$dir}",$backup_dir,'copy',true);
-		}	
-		if(in_array("0", $rtn, TRUE)){
-			return false;
-		} else {
-			return $backup_path;
-		}
-/*		$backup_zfile= "upgrade_backup-".date("YmdHis",time()).".zip";
-		$backup_zfile= $this->L('File')->dir_replace($backup_path.$backup_zfile);
-		$archive=$this->L("PclZip","$backup_zfile");
-		$v_list = $archive->create($source_path);  
-		if ($v_list == 0) {  
-			die("Error : ".$archive->errorInfo(true));  
-		}{
-			return 	$backup_zfile;
-		} */ 		
-	}
+
 	
 	
 	//导入升级文件删除

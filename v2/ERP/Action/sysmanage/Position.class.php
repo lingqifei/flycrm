@@ -27,6 +27,44 @@ class Position extends Action{
 		$list 	= $this->C( $this->cacheDir )->findAll( $sql );
 		return $list;
 	}
+
+    public function position_json() {
+        //**获得传送来的数据作分页处理
+        $pageNum = $this->_REQUEST("pageNum");//第几页
+        $pageSize= $this->_REQUEST("pageSize");//每页多少条
+        $pageNum = empty($pageNum)?1:$pageNum;
+        $pageSize= empty($pageSize)?$GLOBALS["pageSize"]:$pageSize;
+        //**************************************************************************
+
+        //**获得传送来的数据做条件来查询
+        $keywords  = $this->_REQUEST("keywords");
+        $pid   	        = $this->_REQUEST("pid");
+        $pid_son=$this->get_position_self_son($pid);
+        $pid_txt=implode(",",$pid_son);
+
+        $where_str 	   = " id>'0' ";
+        if( !empty($keywords) ){
+            $where_str .=" and name like '%$keywords%'";
+        }
+        if( !empty($pid) ){
+            $where_str .=" and parentID in ($pid_txt)";
+        }
+        $countSql    = "select *  from fly_sys_position where  $where_str order by sort asc;";
+        $totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数
+        $beginRecord= ($pageNum-1)*$pageSize;//计算开始行数
+
+        $sql		 = "SELECT *  FROM fly_sys_position WHERE  $where_str  order by sort asc limit $beginRecord,$pageSize";
+        $list		 = $this->C($this->cacheDir)->findAll($sql);
+        $assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum);
+        echo json_encode($assignArray);
+    }
+
+    public function position_tree_json() {
+        $list=$this->position();
+        $tree=list2tree($list,0,0,'id','parentID','name');
+        echo json_encode($tree);
+    }
+
 	//得到数形参数
 	function getTree( $data, $pId=0,$level=0) {
 		$tree = array();
@@ -196,23 +234,21 @@ class Position extends Action{
 		$id		=$this->_REQUEST('id');	
 		$sort	=$this->_REQUEST('sort');	
 		$upt_data=array(
-					'sort'=>$this->_REQUEST( "sort" )
+					'sort'=>$sort
 				 );
 		$this->C( $this->cacheDir )->modify('fly_sys_position',$upt_data,"id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
-	}
+        $this->L("Common")->ajax_json_success("操作成功");
+    }
 	//修改名称
 	public function position_modify_name() {
 		$id		=$this->_REQUEST('id');	
-		$name	=$this->_REQUEST('name');	
+		$value	=$this->_REQUEST('value');
 		$upt_data=array(
-					'name'=>$this->_REQUEST( "name" )
+					'visible'=>$this->_REQUEST( "value" )
 				 );
 		$this->C( $this->cacheDir )->modify('fly_sys_position',$upt_data,"id='$id'",true);
-		$rtnArr=array('rtnstatus'=>'success','msg'=>'');
-		echo json_encode($rtnArr);
-	}	
+        $this->L("Common")->ajax_json_success("操作成功");
+    }
 	//得到传入ID的子类
 	public function position_get_child($pid=2){
 		$data =$this->position();
@@ -220,6 +256,54 @@ class Position extends Action{
 		$child=$tree->get_child($pid);
 		return $child;
 	}
-	
+    /**获得所有指定id所有父级
+     * @param int $positionid
+     * @param array $data
+     * @return array
+     */
+    public function get_position_all_pid($positionid=0, $data=[])
+    {
+        $sql	= "select *  from fly_sys_position where parentID='$positionid' order by sort asc;";
+        $info = $this->C( $this->cacheDir )->findOne( $sql );
+        if(!empty($info) && $info['parentID']){
+            $data[]=$info['parentID'];
+            return $this->get_position_all_pid($info['parentID'],$data);
+        }
+        return $data;
+    }
+
+    /**获得所有指定id所有子级
+     * @param int $positionid
+     * @param array $data
+     * @return array
+     */
+    public function get_position_all_son($positionid=0, $data=[])
+    {
+
+        $sql	= "select *  from fly_sys_position where parentID='$positionid' order by sort asc;";
+        $sons = $this->C( $this->cacheDir )->findAll( $sql );
+        if (count($sons) > 0) {
+            foreach ($sons as $v) {
+                $data[] = $v['id'];
+                $data = $this->get_position_all_son($v['id'], $data); //注意写$data 返回给上级
+            }
+        }
+        if (count($data) > 0) {
+            return $data;
+        } else {
+            return false;
+        }
+        return $data;
+    }
+    /**得到自己的和子级
+     * @param $id
+     * @return array
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public  function get_position_self_son($id){
+        $sons=$this->get_position_all_son($id);
+        $sons[]=$id;
+        return $sons;
+    }
 }//
 ?>

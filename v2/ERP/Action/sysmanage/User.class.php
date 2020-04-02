@@ -36,11 +36,18 @@ class User extends Action{
 		
 		//**获得传送来的数据做条件来查询
 		$keywords = $this->_REQUEST("keywords");
+		$dept_id = $this->_REQUEST("dept_id");
+		$dept_son=$this->dept->get_dept_self_son($dept_id);
+        $dept_txt=implode(",",$dept_son);
 		$where_str= "u.id != 0";
 
 		if( !empty($keywords) ){
 			$where_str .=" and (u.account like '%$keywords%' or u.name like '%$keywords%' or u.mobile like '%$keywords%' or u.qicq like '%$keywords%' or u.address like '%$keywords%' or u.intro like '%$keywords%')";
-		}	
+		}
+        if( !empty($dept_id) ){
+            $where_str .=" and u.deptID in ($dept_txt)";
+        }
+
 		//**************************************************************************
 		$countSql   = "select u.id from fly_sys_user as u 
 						left join fly_sys_dept as d on u.deptID=d.id
@@ -102,7 +109,7 @@ class User extends Action{
 	
 	
 	public function user_modify(){
-		$id	  	 = $this->_REQUEST("user_id");
+		$id	  	 = $this->_REQUEST("id");
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_user where id='$id'";
 			$one 		= $this->C($this->cacheDir)->findOne($sql);	
@@ -154,7 +161,7 @@ class User extends Action{
 	
 		
 	public function user_del(){
-		$id	  = $this->_REQUEST("user_id");
+		$id	  = $this->_REQUEST("id");
 		$sql  = "delete from fly_sys_user where id in ($id) and id!='1'";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");	
