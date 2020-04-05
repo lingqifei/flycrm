@@ -166,16 +166,18 @@ class Sys extends Action{
 		$server	  = $this->upgrade->serverip();
 		$version    = $this->upgrade->version();
 		$upurl      ="$server/sysupgrade.php?ver=$version";
-        $list=$this->file->read_file($upurl);
-        $list=json_decode($list,true);
-        foreach ($list as &$row){
-            $status=$this->upgrade->check_down_verion($row['version']);
-            if(!$status){
-                $row['status']='<font color="red">文件没有下载</font>';
-                $row['operate']='<a href="javascript:void(0);" class="downfile" data-id="'.$row['version'].'">点击下载更新包文件HTTP</a>';
-            }else{
-                $row['status']='	<font color="green">文件已下载[文件完整]</font>';
-                $row['operate']='	<a href="javascript:void(0);" class="upgrade" data-id="'.$row['version'].'" data-step="1">点击升级更新包</a>';
+        $up_list    =$this->file->read_file($upurl);
+        $list=json_decode($up_list,true);
+        if(is_array($list)){
+            foreach ($list as &$row){
+                $status=$this->upgrade->check_down_verion($row['version']);
+                if(!$status){
+                    $row['status']='<font color="red">文件没有下载</font>';
+                    $row['operate']='<a href="javascript:void(0);" class="downfile" data-id="'.$row['version'].'">点击下载更新包文件HTTP</a>';
+                }else{
+                    $row['status']='	<font color="green">文件已下载[文件完整]</font>';
+                    $row['operate']='	<a href="javascript:void(0);" class="upgrade" data-id="'.$row['version'].'" data-step="1">点击升级更新包</a>';
+                }
             }
         }
 		$smarty =$this->setSmarty();

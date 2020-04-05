@@ -259,6 +259,32 @@ if (!function_exists("list2tree")) {
         return $tree;
     }
 }
+
+if (!function_exists("list2select")) {
+
+    /**r把列表数据转为树形下拉
+     * @param $list
+     * @param int $pId
+     * @param int $level
+     * @param string $pk
+     * @param string $pidk
+     * @param string $name
+     * @return array|string
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name',$data=[])
+    {
+        foreach ($list as $k => $v) {
+            $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
+            if ($v[$pidk] == $pId) { //父亲找到儿子
+                $data[] =$v;
+                $data   = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name,$data);
+            }
+        }
+        return $data;
+    }
+}
+
 /*  +------------------------------------------------------------------------------ */
 
 ?>

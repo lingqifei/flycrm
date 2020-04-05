@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 header("Content-type:text/html;charset=utf-8");
 define("ROOT_PATH",str_replace("\\","/",dirname(__FILE__)));
 //判断是否已安装

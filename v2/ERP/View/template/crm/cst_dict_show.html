@@ -25,8 +25,7 @@
                         </div>
                         <div class="col-sm-9 m-b-xs text-right">
                             <div class="form-group text-left">
-                                <select data-placeholder="选择分类..." name="typetag" class="chosen-select"
-                                        style="width: 200px;" tabindex="2">
+                                <select data-placeholder="选择分类..." name="typetag" class="chosen-select"  style="width: 200px;" tabindex="2">
                                     <option value="">请选分类字典</option>
                                     #{foreach from=$typelist key=k item=v}#
                                     <option value="#{$v.typetag}#" hassubinfo="true">#{$v.typename}#</option>

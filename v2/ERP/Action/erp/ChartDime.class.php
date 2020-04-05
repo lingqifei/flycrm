@@ -55,7 +55,7 @@ class ChartDime extends Action{
 			$where_str .=" and create_time>'$date_range'";			
 		}
 		if(isset($arr['today'])){
-			$where_str .=" and create_time='".NOWTIME."'";			
+			$where_str .=" and to_days(create_time)=to_days(now())";
 		}
 		//创建日期
 		if( !empty($create_date_b) ){
@@ -84,7 +84,7 @@ class ChartDime extends Action{
 			$where_str .=" and create_time>'$date_range'";			
 		}
 		if(isset($arr['today'])){
-			$where_str .=" and create_time='".NOWTIME."'";			
+			$where_str .=" and to_days(create_time)=to_days(now())";
 		}
 		//创建日期
 		if( !empty($create_date_b) ){
