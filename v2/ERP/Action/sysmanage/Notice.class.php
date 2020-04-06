@@ -31,7 +31,6 @@ class Notice extends Action{
 		
 		//**获得传送来的数据做条件来查询
 		$keywords = $this->_REQUEST("keywords");
-		$status = $this->_REQUEST("status");
 		$where_str= "u.owner_user_id = ".SYS_USER_ID."";
 
 		if( !empty($keywords) ){

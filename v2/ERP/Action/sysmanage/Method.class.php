@@ -132,9 +132,13 @@ class Method extends Action{
 			}
 		}
 		return $checkbox;
-	}	
-	//转换在ID数组
-	public function method_auth_arr(){
+	}
+
+    /**返回需要验证的方法
+     * @return array
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function method_auth_list(){
 		$rtArr  = array();
 		$sql	= "select value from fly_sys_method order by sort asc,id desc ";
 		$list	= $this->C($this->cacheDir)->findAll($sql);

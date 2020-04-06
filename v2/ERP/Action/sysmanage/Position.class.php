@@ -65,114 +65,18 @@ class Position extends Action{
         echo json_encode($tree);
     }
 
-	//得到数形参数
-	function getTree( $data, $pId=0,$level=0) {
-		$tree = array();
-		foreach ( $data as $k => $v ) {
-			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
-				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
-				$v[ 'level' ] =  $level + 1;
-				$v[ 'treename' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
-				$tree[] = $v;
-			}
-		}
-		return $tree;
-	}
-	
-	//输出树形参数
-	function getTreeHtml($tree) {
-		$html = '';
-		foreach ( $tree as $key=>$t ) {
-			$kg="";
-			//$fx=($t['level']>1)?"|——":"";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
-			}
-		}
-		return $html ? '<ul>' . $html . '</ul>': $html;
-	}
-
-	//输出树形参数
-	function getTreeSelect($tree,$sid) {
-		$html = '';	
-		if(!empty($tree)){
-			foreach ( $tree as $key=>$t ) {
-				$selected=($t['id']==$sid)?"selected":"";
-				if ( $t[ 'children' ] == '' ) {
-					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
-				} else {
-					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
-					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
-				}
-			}
-		}
-		return $html;
-	}
-	
-	//输出树形参数
-	function getTreeSelectHtml($optid,$sid=0) {
-		$list =$this->position();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择职位</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
-	}
-	
 	public function position_show() {
-		$list =$this->position();
-		$tree =$this->getTree($list, 0 );
-		$treeHtml=$this->getTreeHtml($tree);
 		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml) );
 		$smarty->display( 'sysmanage/position_show.html' );
 	}
-	
-	public function lookup_tree_html(){
-		$sql	="select * from fly_sys_position order by sort asc;";	
-		$list	=$this->C($this->cacheDir)->findAll($sql);
-		$data	=$this->L("Tree")->arrToTree($list,0);
-		$look	=$this->L("Tree")->outToHtml($data);
-		$smarty  = $this->setSmarty();
-		$smarty->assign(array("lookup_tree_html"=>$look));
-		$smarty->display('sysmanage/search.html');	
-	}	
 	
 	//添加
 	public function position_add(){
 		if(empty($_POST)){
 			$pid=$this->_REQUEST('pid');
-			$parentID	=$this->position_select_tree("parentID",$pid);
+			$position_list	=$this->position_select_tree();
 			$smarty     = $this->setSmarty();
-			$smarty->assign(array("parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
+			$smarty->assign(array("position_list"=>$position_list));
 			$smarty->display('sysmanage/position_add.html');	
 		}else{
 			$sql= "insert into fly_sys_position(name,parentID,sort,visible,intro) 
@@ -186,10 +90,10 @@ class Position extends Action{
 		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_position where id='$id'";
-			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$parentID	= $this->position_select_tree("parentID",$one["parentID"]);
+			$one 		= $this->C($this->cacheDir)->findOne($sql);
+            $position_list	= $this->position_select_tree();
 			$smarty  	= $this->setSmarty();
-			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
+			$smarty->assign(array("one"=>$one,"position_list"=>$position_list));
 			$smarty->display('sysmanage/position_modify.html');	
 		}else{
 			$sql= "update fly_sys_position set name='$_POST[name]',
@@ -206,17 +110,20 @@ class Position extends Action{
 		$sql="delete from fly_sys_position where id='$id'";
 		$this->C($this->cacheDir)->update($sql);	
 		$this->L("Common")->ajax_json_success("操作成功");	
-	}	
-	
-	//下拉选择
-	public function position_select_tree($optid,$sid =""){
-		$list =$this->position();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择职位</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
 	}
+
+    /**树形下拉
+     * @return array|string
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function position_select_tree()
+    {
+        $sql = "select * from fly_sys_position order by sort asc;";
+        $list = $this->C($this->cacheDir)->findAll($sql);
+        $listselect=list2select($list,0,0,'id','parentID','name');
+        return $listselect;
+    }
+
 	
 	public function position_arr(){
 		$rtArr  =array();

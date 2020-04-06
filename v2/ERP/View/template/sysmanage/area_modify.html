@@ -4,6 +4,7 @@
 <body class="gray-bg">
 <div class="ibox-content">
     <form class="form-horizontal" method="post" action="#">
+        <input type="hidden" name="id" value="#{$one.id}#">
         <div class="form-group">
             <label class="col-sm-2 control-label">名称</label>
             <div class="col-sm-8">
@@ -12,7 +13,14 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">父级栏目</label>
-            <div class="col-sm-8"> #{$parentID}# <span class="help-block m-b-none"></span></div>
+            <div class="col-sm-8">
+                <select  name="parentID" class="chosen-select" style="width: 200px;" tabindex="2">
+                    <option value="">选择地区</option>
+                    #{foreach from=$area_list key=k item=v}#
+                    <option value="#{$v.id}#" #{if $v.id eq $one.parentID}# selected #{/if}#>#{$v.treename}#</option>
+                    #{/foreach}#
+                </select>
+                <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">排位序号</label>
@@ -41,6 +49,8 @@
         </div>
     </form>
 </div>
+<!-- 自定义js -->
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script>
     $(document).ready(function () {
         $('.i-checks').iCheck({

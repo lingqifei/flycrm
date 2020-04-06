@@ -66,65 +66,6 @@ class Role extends Action{
         $tree=list2tree($list,0,0,'id','parentID','name');
         echo json_encode($tree);
     }
-
-	//得到数形参数
-	function getTree( $data, $pId=0,$level=0) {
-		$tree = '';
-		foreach ( $data as $k => $v ) {
-			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
-				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
-				$v[ 'level' ] =  $level + 1;
-				$v[ 'tree_name' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
-				$tree[] = $v;
-			}
-		}
-		return $tree;
-	}
-	
-	//输出树形参数
-	function getTreeHtml($tree) {
-		$html = '';
-		foreach ( $tree as $key=>$t ) {
-			$kg="";
-			//$fx=($t['level']>1)?"|——":"";
-			for($x=1;$x<$t['level'];$x++) {
-				$kg .="<i class='fly-fl'>|—</i>";
-			}
-			if ( $t[ 'children' ] == '' ) {
-				$html .= "<li><div class='fly-row lines'>
-								<i class='fly-fl'>&nbsp;</i>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								
-								<div  class='fly-col-2 fly-fr fly-tr'>
-									<a class='single_operation' data-act='power' data-id='".$t['id']."'>权限维护</a> 
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div  class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-						  </li>";
-			} else {
-				$html .= "<li><div class='fly-row lines'>
-								<lable class='fly-col-1'>[+]</lable>
-								<div  class='fly-col-5'>".$kg."<input type='text' name='name[]'  data-id='".$t['id']."' value='".$t['name']."' class='form-control w150 treeName'/></div>
-								<div  class='fly-col-2  fly-fr fly-tr'>
-									<a class='single_operation' data-act='power' data-id='".$t['id']."'>权限维护</a>
-									<a class='single_operation' data-act='add' data-id='".$t['id']."'>增加下级</a> 
-									<a class='single_operation' data-act='modify' data-id='".$t['id']."'>修改</a> 
-									<a class='single_operation' data-act='del' data-id='".$t['id']."'>删除</a>
-								</div>
-								<div class='fly-col-2  fly-fr fly-tr'><input type='text' name='sort[]'  data-id='".$t['id']."' value='".$t['sort']."' class='form-control w100 treeSort'/></div>
-							</div>
-							";
-				$html .= $this->getTreeHtml( $t[ 'children' ] );
-				$html .= "</li>";
-			}
-		}
-		return $html ? '<ul>' . $html . '</ul>': $html;
-	}
-
-
 	/**
 	 * [putCsv description]
 	 * @param  string   $tree  		[description] 栏目的树形格式
@@ -166,67 +107,38 @@ class Role extends Action{
 	}
 
 	
-	//输出树形参数
-	function getTreeSelect($tree,$sid) {
-		$html = '';	
-		if(!empty($tree)){
-			foreach ( $tree as $key=>$t ) {
-				$selected=($t['id']==$sid)?"selected":"";
-				if ( $t[ 'children' ] == '' ) {
-					$html .="<option value='".$t['id']."' $selected>".$t['tree_name']."</option>";
-				} else {
-					$html .="<option value='".$t['id']."' $selected>".$t['tree_name']."</option>";
-					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
-				}
-			}
-		}
-		return $html;
-	}
-	
-	//输出树形参数
-	function getTreeSelectHtml($optid,$sid=0) {
-		$list =$this->role();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择职位</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
-	}
-	
 	//权限维护功能
 	function role_check_power(){
-		$role_id=$this->_REQUEST("role_id");
+		$id=$this->_REQUEST("id");
 		$list =$this->menu->menu_check_list();
 		$tree =$this->getTree($list, 0 );
-		$role = $this->role_get_one($role_id);
+		$role = $this->role_get_one($id);
 		$role =(!empty($role))?$role:array('SYS_MENU'=>'0','SYS_METHOD'=>'0',);
 		$treeHtml=$this->getTreeChecked($tree,$role);
 		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml,'role_id'=>$role_id) );
+		$smarty->assign( array( "treeHtml" => $treeHtml,'id'=>$id) );
 		$smarty->display( 'sysmanage/role_check_power.html' );
 	}
 	
 	//权限保存
 	function role_check_power_save(){
-		$role_id=$this->_REQUEST("role_id");
+		$id=$this->_REQUEST("id");
 		$menuID=$this->_REQUEST("menuID");
 		$methodID=$this->_REQUEST("methodID");
 		$menu_txt	= is_array($menuID)?implode(',',$menuID):0;
 		$method_txt	= is_array($methodID)?implode(',',$methodID):0;
-		
-		$this->C($this->cacheDir)->delete('fly_sys_power',"master='role' and master_value='$role_id'");//删除菜和方法
-
+		$sql="delete from fly_sys_power where master='role' and master_value='$id'";
+        $this->C($this->cacheDir)->update($sql);
 		$into_menu_data=array(
 			'master'=>'role',
-			'master_value'=>$role_id,
+			'master_value'=>$id,
 			'access'=>'SYS_MENU',
 			'access_value'=>$menu_txt,
 		);
 		$this->C($this->cacheDir)->insert('fly_sys_power',$into_menu_data);
-		
 		$into_method_data=array(
 			'master'=>'role',
-			'master_value'=>$role_id,
+			'master_value'=>$id,
 			'access'=>'SYS_METHOD',
 			'access_value'=>$method_txt,
 		);
@@ -236,22 +148,17 @@ class Role extends Action{
 
 	//权限列表显示
 	public function role_show() {
-		$list =$this->role();
-		$tree =$this->getTree($list, 0 );
-		$treeHtml=$this->getTreeHtml($tree);
 		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml) );
 		$smarty->display( 'sysmanage/role_show.html' );
 	}
 	
-	//增加角色
+	//增加
 	public function role_add(){
-		$role_id = $this->_REQUEST("role_id");
+		$id = $this->_REQUEST("id");
 		if(empty($_POST)){
-			$menu		=$this->menu_power_check();
-			$parentID	=$this->role_select_tree("parentID",$role_id);
+			$role_list	=$this->role_select_tree();
 			$smarty		=$this->setSmarty();
-			$smarty->assign(array("parentID"=>$parentID));
+			$smarty->assign(array("role_list"=>$role_list));
 			$smarty->display('sysmanage/role_add.html');	
 		}else{
 			$name	 = $this->_REQUEST("name");
@@ -267,15 +174,15 @@ class Role extends Action{
 		}
 	}
 	
-	//更新权限表
+	//修改
 	public function role_modify(){
-		$role_id	 = $this->_REQUEST("role_id");
+		$id	 = $this->_REQUEST("id");
 		if(empty($_POST)){
-			$sql 		= "select * from fly_sys_role where id='$role_id'";
-			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$parentID	=$this->role_select_tree("parentID",$one['parentID']);
+			$sql 		= "select * from fly_sys_role where id='$id'";
+			$one 		= $this->C($this->cacheDir)->findOne($sql);
+            $role_list	=$this->role_select_tree();
 			$smarty  	= $this->setSmarty();
-			$smarty->assign(array("one"=>$one,"parentID"=>$parentID));//框架变量注入同样适用于smarty的assign方法
+			$smarty->assign(array("one"=>$one,"role_list"=>$role_list));
 			$smarty->display('sysmanage/role_modify.html');	
 		}else{
 			$name	 = $this->_REQUEST("name");
@@ -289,16 +196,16 @@ class Role extends Action{
 											sort='$sort',
 											visible='$visible',
 											intro='$intro'
-				  where id='$role_id'";	
+				  where id='$id'";	
 			$this->C($this->cacheDir)->update($sql);
 			$this->L("Common")->ajax_json_success("操作成功");		
 		}
 	}	
 	
 	public function role_del(){
-		$role_id=$this->_REQUEST("role_id");
-		$sqlstr1 = "delete from fly_sys_role where id in ($role_id)";	
-		$sqlstr2 = "delete from fly_sys_power where master_value in ($role_id) and master='role'";										
+		$id=$this->_REQUEST("id");
+		$sqlstr1 = "delete from fly_sys_role where id in ($id)";	
+		$sqlstr2 = "delete from fly_sys_power where master_value in ($id) and master='role'";										
 		$this->C($this->cacheDir)->begintrans();
 		if($this->C($this->cacheDir)->update($sqlstr1)<0 || $this->C($this->cacheDir)->update($sqlstr2)<0 ){
 			$this->C($this->cacheDir)->rollback();
@@ -352,9 +259,13 @@ class Role extends Action{
 		}
 		return $string;	
 	}
-	
-	//查询一条记录
-	public function role_get_one($id){
+
+    /**获得一个角色的权限
+     * @param $id
+     * @return array
+     * Author: lingqifei created by at 2020/4/4 0004
+     */
+    public function role_get_one($id){
 		$power =array();
 		$sql  = "select access,access_value from fly_sys_power where master='role' and master_value='$id' ";
 		$list =$this->C($this->cacheDir)->findAll($sql);//查询结果为二维数组，需foreach循环
@@ -366,16 +277,17 @@ class Role extends Action{
 		return $power;	
 	}
 
-	
-	//下拉选择
-	public function role_select_tree($optid,$sid =""){
-		$list =$this->role();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择职位</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
-	}	
+    /**树形下拉
+     * @return array|string
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function role_select_tree()
+    {
+        $sql = "select * from fly_sys_role order by sort asc;";
+        $list = $this->C($this->cacheDir)->findAll($sql);
+        $listselect=list2select($list,0,0,'id','parentID','name');
+        return $listselect;
+    }
 
 	//排序
 	public function role_modify_sort() {

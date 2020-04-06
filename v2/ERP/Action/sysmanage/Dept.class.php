@@ -63,46 +63,6 @@ class Dept extends Action {
         echo json_encode($tree);
     }
 
-	//得到数形参数
-	function getTree( $data, $pId=0,$level=0) {
-		$tree = '';
-		foreach ( $data as $k => $v ) {
-			if ( $v[ 'parentID' ] == $pId ) { //父亲找到儿子
-				$v[ 'children' ] = $this->getTree( $data, $v[ 'id' ], $level + 1);
-				$v[ 'level' ] =  $level + 1;
-				$v[ 'treename' ] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level).'|--'.$v['name'];
-				$tree[] = $v;
-			}
-		}
-		return $tree;
-	}
-
-	//输出树形参数
-	function getTreeSelect($tree,$sid) {
-		$html = '';	
-		if(!empty($tree)){
-			foreach ( $tree as $key=>$t ) {
-				$selected=($t['id']==$sid)?"selected":"";
-				if ( $t[ 'children' ] == '' ) {
-					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
-				} else {
-					$html .="<option value='".$t['id']."' $selected>".$t['treename']."</option>";
-					$html .= $this->getTreeSelect( $t[ 'children' ],$sid);
-				}
-			}
-		}
-		return $html;
-	}
-	
-	//输出树形参数
-	function getTreeSelectHtml($optid,$sid=0) {
-		$list =$this->dept();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择部门</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
-	}
 	
 	public function dept_show() {
 		$smarty = $this->setSmarty();
@@ -112,9 +72,9 @@ class Dept extends Action {
 	public function dept_add() {
 		if ( empty( $_POST ) ) {
 			$pid=$this->_REQUEST('id');
-			$parentID = $this->dept_select_tree( "parentID" ,$pid);
+            $dept_list = $this->dept_select_tree();
 			$smarty = $this->setSmarty();
-			$smarty->assign( array( "parentID" => $parentID ) );
+			$smarty->assign( array( "dept_list" => $dept_list ) );
 			$smarty->display( 'sysmanage/dept_add.html' );
 		} else {
 			$data=array(
@@ -136,9 +96,9 @@ class Dept extends Action {
 		if ( empty( $_POST ) ) {
 			$sql = "select * from fly_sys_dept where id='$id'";
 			$one = $this->C( $this->cacheDir )->findOne( $sql );
-			$parentID = $this->dept_select_tree( "parentID", $one[ "parentID" ] );
+			$dept_list = $this->dept_select_tree();
 			$smarty = $this->setSmarty();
-			$smarty->assign( array( "one" => $one, "parentID" => $parentID ) ); //框架变量注入同样适用于smarty的assign方法
+			$smarty->assign( array( "one" => $one, "dept_list" => $dept_list ) ); //框架变量注入同样适用于smarty的assign方法
 			$smarty->display( 'sysmanage/dept_modify.html' );
 		} else {
             $data=array(
@@ -162,14 +122,17 @@ class Dept extends Action {
         $this->L("Common")->ajax_json_success("操作成功");
 	}
 
-	public function dept_select_tree( $optid, $sid = "" ) {
-		$list =$this->dept();
-		$tree =$this->getTree($list, 0);
-		$html = "<select name='$optid' id='$optid' class=\"form-control\"><option value='0'>请选择部门</option>";	
-		$html .=$this->getTreeSelect($tree,$sid);
-		$html .="</select>";
-		return $html;
-	}
+    /**树形下拉
+     * @return array|string
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function dept_select_tree()
+    {
+        $sql = "select * from fly_sys_dept order by sort asc;";
+        $list = $this->C($this->cacheDir)->findAll($sql);
+        $listselect=list2select($list,0,0,'id','parentID','name');
+        return $listselect;
+    }
 	//得到一个部门的得到下面子部门的编号
 	public function dept_get_sub_dept( $deptID ) {
 		$sql = "select id,name,parentID from fly_sys_dept where parentID='$deptID'";

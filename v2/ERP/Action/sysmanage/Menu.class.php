@@ -228,8 +228,8 @@ class Menu extends Action{
 	}
 
 
-	//判断认证时调用
-	public function menu_auth_arr(){
+	//输出所有需加入权限的id
+	public function menu_auth_list(){
 		$rtArr  =array();
 		$sql	="select id from fly_sys_menu  where visible='1' order by sort asc,id desc ";
 		$list	=$this->C($this->cacheDir)->findAll($sql);

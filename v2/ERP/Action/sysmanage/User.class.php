@@ -65,22 +65,20 @@ class User extends Action{
 		$assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum);	
 		return $assignArray;
 	}
+
 	public function user_show_json(){
 		$assArr = $this->user();
 		echo json_encode($assArr);
 	}
 	public function user_show(){
-			$assArr = $this->user();
 			$smarty = $this->setSmarty();
-			$smarty->assign($assArr);
 			$smarty->display('sysmanage/user_show.html');	
-	}		
-
+	}
 	public function user_add(){
 		if(empty($_POST)){
-			$dept 		= $this->dept->getTreeSelectHtml("deptID");
-			$position	= $this->postion->getTreeSelectHtml("positionID");
-			$role		= $this->role->getTreeSelectHtml("roleID");
+			$dept 		= $this->dept->dept_select_tree();
+			$position	= $this->postion->position_select_tree();
+			$role		= $this->role->role_select_tree();
 			$smarty = $this->setSmarty();
 			$smarty->assign(array("dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_add.html');	
@@ -106,16 +104,15 @@ class User extends Action{
 			$this->L("Common")->ajax_json_success("操作成功");	
 		}
 	}		
-	
-	
+
 	public function user_modify(){
 		$id	  	 = $this->_REQUEST("id");
 		if(empty($_POST)){
 			$sql 		= "select * from fly_sys_user where id='$id'";
-			$one 		= $this->C($this->cacheDir)->findOne($sql);	
-			$dept 		= $this->dept->getTreeSelectHtml("deptID",$one["deptID"]);
-			$position	= $this->postion->getTreeSelectHtml("positionID",$one["positionID"]);
-			$role		= $this->role->getTreeSelectHtml("roleID",$one["roleID"]);
+			$one 		= $this->C($this->cacheDir)->findOne($sql);
+            $dept 		= $this->dept->dept_select_tree();
+            $position= $this->postion->position_select_tree();
+            $role		= $this->role->role_select_tree();
 			$smarty 	= $this->setSmarty();
 			$smarty->assign(array("one"=>$one,"dept"=>$dept,"position"=>$position,"role"=>$role));
 			$smarty->display('sysmanage/user_modify.html');	
@@ -154,12 +151,13 @@ class User extends Action{
 					'intro'=>$this->_REQUEST("intro")
 				);
 			}
+
+
 			$this->C($this->cacheDir)->modify('fly_sys_user',$post_data,"id='$id'");
 			$this->L("Common")->ajax_json_success("操作成功");			
 		}
 	}
-	
-		
+
 	public function user_del(){
 		$id	  = $this->_REQUEST("id");
 		$sql  = "delete from fly_sys_user where id in ($id) and id!='1'";
@@ -168,7 +166,7 @@ class User extends Action{
 	}	
 	
 	public function user_list(){
-		$sql ="select * from fly_sys_user";
+		$sql ="select *  from fly_sys_user";
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
@@ -180,19 +178,7 @@ class User extends Action{
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}
-	
-	//输出权限下用户信息，checkbox
-	function user_list_role_checked($role_id=0){
-        $role_id_txt=implode('|',$role_id);
-        $sql ="select * from fly_sys_user where roleID REGEXP '(^|,)($role_id_txt)(,|$)'";
-		$checkbox="";
-		foreach($list as $key=>$row){
-			$checkbox .="<input type='checkbox' name='sys_user_id[]' class='userlist_checkbox' value='".$row['id']."' title='".$row['name']."'> ".$row['name']." ";
-		}
-		return $checkbox;
-	}	
-	
-	
+
 	//得到一个系统用户权限
 	//return Array ( [sys_menu] => Array ( [0] => 10,101,102,105,20,30,50 [1] => 1,507 ) )
 	public function user_get_power($id=null){
@@ -222,7 +208,7 @@ class User extends Action{
 				$sub_role_arr= $this->role->role_all_child($v);//得到这个角色所有下组角色
 				if(!empty($sub_role_arr)){//查询子角色下所有用户
 					$role_txt=implode(',',$sub_role_arr);
-					$sql	 = "select id,name,account from fly_sys_user where roleID in ($role_txt)";	
+					$sql	 = "select id,name,account from fly_sys_user where roleID in ($role_txt)";
 					$list 	 = $this->C($this->cacheDir)->findAll($sql);
 					foreach($list as $key=>$row){
 						$rtArr[]=$row["id"];
@@ -232,52 +218,62 @@ class User extends Action{
 		}
 		return $rtArr;	
 	}	
-	
-	//得到本部门下属管理的员工的编号
-	//同部门及下属瓿部
-	//同色及下属角色
-	//return Array(3,4,5,5);
-	public function user_get_sub_id($id=4){
-		$roleArr=array();
-		$deptArr=array();
-		$sql	="select roleID,deptID from fly_sys_user where id='$id'";	
-		$one	=$this->C($this->cacheDir)->findOne($sql);
-		$roleArr=$this->role->role_get_child($one['roleID']);//到本部门得子部门编号
-		$deptArr=$this->dept->dept_get_child($one['deptID']);//到本角色及下属编号
-		$deptArr[]=$one['deptID'];//关联到自己的本部门
-		if(empty($roleArr)) $roleArr=array('-1');
-		if(empty($deptArr)) $deptArr=array('-1');
-		$role_txt=implode(',',$roleArr);
-		$dept_txt=implode(',',$deptArr);
-		
-		$sub_sql 	="select id from fly_sys_user where roleID in ($role_txt) and  deptID in ($dept_txt) ";
-		$sub_list	=$this->C($this->cacheDir)->findAll($sub_sql);
-		if(!empty($sub_list)){
-			foreach($sub_list as $key=>$row){
-				$rtnArr[]=$row["id"];
-			}				
-		}else{
-			$rtnArr[]='-1';
-		}
 
-		return $rtnArr;
+    /**r返回指员工的他的子级部门员工编号
+     * @param mixed $id
+     * @return array|string //return Array(3,4,5,5);
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function user_get_sub_id($id=SYS_USER_ID){
+        $sql   ="select deptID from fly_sys_user where id in ($id)";
+        $one =$this->C($this->cacheDir)->findOne($sql);
+        $user_ids='';
+
+        if(!empty($one)){
+            $role_ids  =$this->dept->get_dept_all_son($one['deptID']);//子部门编号
+            $role_txt   =!empty($role_ids)?implode(",",$role_ids):"0";
+            $sql           ="select id,name from fly_sys_user where deptID in ($role_txt)";//属于子部门员工
+            $list           =$this->C($this->cacheDir)->findAll($sql);
+            foreach ($list as $row){
+                $user_ids[]=$row['id'];
+            }
+        }
+        return $user_ids;
 	}
-	
-	
-	
+
+    /**r返回指员工的他的子级部门员工编号
+     * @param mixed $id
+     * @return array|string //return Array(3,4,5,5);
+     * Author: lingqifei created by at 2020/4/3 0003
+     */
+    public function user_get_sub_list($id=SYS_USER_ID){
+        $sql   ="select deptID from fly_sys_user where id in ($id)";
+        $one =$this->C($this->cacheDir)->findOne($sql);
+        $user_ids='';
+        if(!empty($one)){
+            $role_ids  =$this->dept->get_dept_all_son($one['deptID']);//子部门编号
+            $role_txt   =!empty($role_ids)?implode(",",$role_ids):"0";
+            $sql           ="select id,name from fly_sys_user where deptID in ($role_txt)";//属于子部门员工
+            $list           =$this->C($this->cacheDir)->findAll($sql);
+            foreach ($list as $row){
+                $user_ids[]=$row;
+            }
+        }
+        return $user_ids;
+    }
+
+
 	//传入ID返回名字
-	public function user_get_name($id){
-		if(empty($id)) $id=0;
-		$sql  ="select id,name from fly_sys_user where id in ($id)";	
-		$list =$this->C($this->cacheDir)->findAll($sql);
-		$str  ="";
-		if(is_array($list)){
-			foreach($list as $row){
-				$str .= "|-".$row["name"]."&nbsp;";
-			}
-		}
-		return $str;
+	public function user_get_name($id=0){
+		$sql   ="select id,name from fly_sys_user where id in ($id)";
+		$one =$this->C($this->cacheDir)->findOne($sql);
+		if(!empty($one)){
+            return $one['name'];
+		}else{
+		    return '';
+        }
 	}
+
 	//传入ID返回名字
 	public function user_get_one($id){
 		if(empty($id)) $id=0;
@@ -285,6 +281,7 @@ class User extends Action{
 		$one =$this->C($this->cacheDir)->findOne($sql);
 		return $one;
 	}
+
 	//传入用户帐号返回帐号编号
 	public function user_get_id($account){
 		$sql ="select id,name from fly_sys_user where account='$account'";	
@@ -296,8 +293,20 @@ class User extends Action{
 		}
 	}
 
-	
-	/**
+
+    //输出权限下用户信息，checkbox
+    function user_list_role_checked($role_id=0){
+        $role_id_txt=implode('|',$role_id);
+        $sql ="select * from fly_sys_user where roleID REGEXP '(^|,)($role_id_txt)(,|$)'";
+        $list =$this->C($this->cacheDir)->findAll($sql);
+        $checkbox="";
+        foreach($list as $key=>$row){
+            $checkbox .="<input type='checkbox' name='sys_user_id[]' class='userlist_checkbox' value='".$row['id']."' title='".$row['name']."'> ".$row['name']." ";
+        }
+        return $checkbox;
+    }
+
+    /**
 	 * [putCsv description]
 	 * @param  string   $tree  		[description] 栏目的树形格式
 	 * @param  array   $role      [description] 数组,当前角色的标签
@@ -334,16 +343,6 @@ class User extends Action{
 		}
 		return $html ? '<ul>' . $html . '</ul>': $html;
 	}
-	
-	//按角色选择用户
-	function user_role_tree_checkbox(){
-		$list =$this->role->role();
-		$tree =$this->role->getTree($list, 0 );
-		$treeHtml=$this->getTreeChecked($tree);
-		$smarty = $this->setSmarty();
-		$smarty->assign( array( "treeHtml" => $treeHtml) );
-		$smarty->display( 'sysmanage/user_role_tree_checkbox.html' );
-	}	
-	
+
 }//
 ?>

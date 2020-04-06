@@ -16,7 +16,7 @@ class Index extends Action{
 			$sysinfo=array_merge($sysinfo, $this->auth->sys_default_conf());
 		}*/
 		$smarty   = $this->setSmarty();
-		$smarty->assign(array("menu"=>$menu_arr,'sys'=>$sysinfo,'sys_account'=>SYS_USER_ACCOUNT));
+		$smarty->assign(array("menu"=>$menu_arr,'sys'=>$sysinfo,'sys_account'=>SYS_USER_ACC));
 		$smarty->display('index.html');	
 	}
 	public function index(){
@@ -35,28 +35,11 @@ class Index extends Action{
 		}
 		return $assArr;		
 	}
-	
-	
+
 	public function sys_menu(){
 		$smarty  = $this->setSmarty();
 		//$smarty->assign($article);//框架变量注入同样适用于smarty的assign方法
 		$smarty->display('sys_menu.html');	
-	}	
-	
-	
-//this=>assign方法有如下方式
-
-//$this->assign('A',$A);
-//$this->assign(array('A'=>$A,'B'=>$B,'E'=>$E,'F'=>$F));
-//$this->assign(array('A'=>$A,'B'=>$B),array('E'=>$E,'F'=>$F));
-	public function cacheTest(){
-	
-		$article=_instance('Action/Article')->noCacheArticle();
-		//实例化Action下的Article类并调用其execute方法，返回数组值。
-		$this->assign($article);
-		$this->show('index');	
-		//参数留空则默认访问View下的index.php,若在View的子目下，可以使用$this->show('test/index'); 
 	}
- 
 }//
 ?>
