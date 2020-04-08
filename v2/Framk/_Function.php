@@ -285,6 +285,40 @@ if (!function_exists("list2select")) {
     }
 }
 
+if (!function_exists("array2string")) {
+
+    /**数组 ，把关键字和值转为数组
+     * @param $array
+     * @return string
+     * Author: lingqifei created by at 2020/4/4 0004
+     */
+    function array2string($array){
+
+        $string = [];
+
+        if($array && is_array($array)){
+
+            foreach ($array as $key=> $value){
+                $string[] = $key.'->'.$value;
+            }
+        }
+
+        return implode(',',$string);
+    }
+}
+if (!function_exists("date_range")) {
+
+    /**数组 ，把关键字和值转为数组
+     * @param $array
+     * @return string
+     * Author: lingqifei created by at 2020/4/4 0004
+     */
+    //时间计算
+    function date_range($range,$format='Y-m-d'){
+        $date_range=date($format,strtotime($range,time()));
+        return $date_range;
+    }
+}
 /*  +------------------------------------------------------------------------------ */
 
 ?>
