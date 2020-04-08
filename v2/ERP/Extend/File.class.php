@@ -639,6 +639,7 @@ class File
 
     public function down_remote_file($url, $save_dir = '', $filename = '', $type = 0)
     {
+        set_time_limit (24 * 60 * 60);
 
         if (trim($url) == '') {
             return array('file_name' => '', 'save_path' => '', 'error' => 1);

@@ -7,7 +7,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-home"></i>在线升级</h5>
+                    <h5><i class="fa fa-home"></i>在线升级 当前版本#{$version}#</h5>
                 </div>
                 <div class="ibox-content">
                     #{if $list neq ''}#
@@ -51,6 +51,15 @@
                 data: {"act": 'down','ver':version},
                 dataType: "json",
                 async: false,
+                beforeSend: function () {
+                    layer.msg('正在下载升级程序，请不要关闭浏览器，数据下载中...',
+                        {
+                            time: 1000,
+                            icon: 16,
+                            shade: 0.01
+                        }
+                    );
+                },
                 success: function (data) {
                     if (data.error == '0') {
                         layer.msg('操作成功', {icon: 1});

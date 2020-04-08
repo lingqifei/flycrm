@@ -18,7 +18,7 @@
 class Upgrade extends Action{
 	
 	private $cacheDir='';//缓存目录
-	private  $version ='20200101';
+	private  $version ='20200000';
 	public function __construct() {
 		 _instance('Action/sysmanage/Auth');
 		 $this->file=_instance('Extend/File');
@@ -29,7 +29,7 @@ class Upgrade extends Action{
         return $server;
     }
 	public function version(){
-	    $versionfile=APP_ROOT.'version';
+	    $versionfile=ROOT.S.'version';
 	    $txt=$this->file->read_file($versionfile);
 	    if($txt){
             return $txt;
@@ -86,8 +86,6 @@ class Upgrade extends Action{
         }
     }
 
-
-
     /** 升级备份原程序
      * @return bool|string
      * Author: lingqifei created by at 2020/4/1 0001
@@ -130,7 +128,7 @@ class Upgrade extends Action{
         $result = $this->check_file_exists($pakurl);
         if ($result) {
             $finfo = $this->file->get_file_type("$pakurl");
-            $result = $this->file->down_remote_file($pakurl, $downpath, $finfo['basename'], $type = 0);
+            $result = $this->file->down_remote_file($pakurl, $downpath, $finfo['basename'], $type = 1);
             echo json_encode($result);
         } else {
             $rtn = array('error' => 1, 'message' => '下载升级文件不存在');
