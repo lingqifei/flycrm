@@ -172,9 +172,9 @@ class User extends Action{
 	}
 	
 	//权限编号查询出用户当前权限下的所有用户
-	function user_list_role($role_id=0){
-        $role_id_txt=implode('|',$role_id);
-		$sql ="select * from fly_sys_user where roleID REGEXP '(^|,)($role_id_txt)(,|$)'";
+	function user_link_dept_list($dept_id=0){
+        $dept_id_txt=implode('|',$dept_id);
+		$sql ="select * from fly_sys_user where deptID REGEXP '(^|,)($dept_id_txt)(,|$)'";
 		$list=$this->C($this->cacheDir)->findAll($sql);
 		return $list;
 	}

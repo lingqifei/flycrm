@@ -21,14 +21,12 @@ class Auth extends Action {
         define( 'SYS_USER_ACC', $_SESSION[ "sys_user_acc" ] ); //当前登录帐号名
         define( 'SYS_USER_ID', $_SESSION[ "sys_user_id" ] ); //当前登录帐号ID
         define( 'SYS_CO_ID', '1' ); //定义所属于公司编号
-
         if(isset($_SESSION["sys_user_sons"]) && !empty($_SESSION["sys_user_sons"])){
             $sub_ids=implode(',',$_SESSION["sys_user_sons"]);
             define('SYS_USER_SUB_ID',$sub_ids);
         }else{
             define('SYS_USER_SUB_ID','0');
         }
-
 		$this->check_login();//检查是否登录
 		$this->authorization();//检查用户动作是否在授权范围之类
         //$this->initConst();

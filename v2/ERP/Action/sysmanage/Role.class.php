@@ -84,7 +84,7 @@ class Role extends Action{
 			$checked=in_array($t['id'],$role_menu)?"checked":"";
 			
 			//if ( $t[ 'children' ] == '' ) { //修改判断为空
-			if ( empty($t[ 'children' ]) ) {
+			if ( empty($t[ 'nodes' ]) ) {
 				$method=$this->method->method_arr_checkbox($t['id'],$role_method);
 				$html .= "<li><div class='fly-row lines'>
 								<i class='fly-fl'>&nbsp;</i>
@@ -99,7 +99,7 @@ class Role extends Action{
 								<div  class='fly-col-8'>".$kg."<input type='checkbox' name='menuID[]' value='".$t['id']."' class='children_menu' ".$checked."> ".$t['text']."</div>		
 							</div>
 							";
-				$html .= $this->getTreeChecked( $t[ 'children' ] ,$role);
+				$html .= $this->getTreeChecked( $t[ 'nodes' ] ,$role);
 				$html .= "</li>";
 			}
 		}
@@ -111,7 +111,7 @@ class Role extends Action{
 	function role_check_power(){
 		$id=$this->_REQUEST("id");
 		$list =$this->menu->menu_check_list();
-		$tree =$this->getTree($list, 0 );
+        $tree=list2tree($list,0,0,'id','parentID','name');
 		$role = $this->role_get_one($id);
 		$role =(!empty($role))?$role:array('SYS_MENU'=>'0','SYS_METHOD'=>'0',);
 		$treeHtml=$this->getTreeChecked($tree,$role);

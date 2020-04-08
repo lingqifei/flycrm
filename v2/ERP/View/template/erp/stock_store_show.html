@@ -68,13 +68,10 @@
       	</div>
 		</td>
 		<td width='10'>
-			<div class="btn-group">
-				<button data-toggle="dropdown" class="btn btn-info dropdown-toggle">操作 <span class="caret"></span></button>
-				<ul class="dropdown-menu">
-					<li><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['store_id']%>" data-act="modify">修改</a></li>
-					<li><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['store_id']%>" data-act="del">删除</a></li>
-				</ul>
-			</div>
+            <a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['store_id']%>" data-act="modify">修改</a>
+            <a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['store_id']%>" data-act="del">删除</a>
+
+
 		</td>
 	</tr>
 <% } %>
@@ -136,7 +133,10 @@ $(document).ready(function () {
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/erp/StockStore/stock_store_modify/store_id/'+store_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/erp/StockStore/stock_store_modify/store_id/'+store_id+'/',
+                end: function () {
+                    turnPage(1);//页面加载时初始化分页
+                }
 			});			
 			return false;	
 		}
