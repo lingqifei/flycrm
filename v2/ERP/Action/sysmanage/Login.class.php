@@ -50,7 +50,10 @@ class Login extends Action{
 			//得色这个用户色权限,得到一个三维数组
 			//权限返回值为一维数组，为系统用户私有数据 Array ( [0] => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ,[1] => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 )
 			$role=_instance('Action/sysmanage/User')->user_get_power($_SESSION["sys_user_id"]);
-			$_SESSION["sys_user_sons"]=_instance('Action/sysmanage/User')->user_get_sub_id($_SESSION["sys_user_id"]);//下属员工的编号
+			$user_sons=_instance('Action/sysmanage/User')->user_get_sub_id($_SESSION["sys_user_id"]);//下属员工的编号
+			$_SESSION["sys_user_sons"]=$user_sons;
+			$user_sons[]=$one["id"];
+			$_SESSION["sys_user_self_sons"]=$user_sons;
 			$_SESSION["sys_user_menu"]=implode(",",($role["SYS_MENU"]) );
 			$_SESSION["sys_user_method"]=implode(",",($role["SYS_METHOD"]) );
 			$_SESSION["sys_need_menu"]=$this->L("sysmanage/Menu")->menu_auth_list();
