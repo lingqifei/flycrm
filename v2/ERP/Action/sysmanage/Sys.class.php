@@ -191,6 +191,7 @@ class Sys extends Action{
 
 		if($step==1){
 			$rtn	=$this->upgrade->upgrade_backup();
+			//$rtn	='测试';
 			$txt 	="<p>备份完成!</p><p>当前版本程序备份文件为：</p><p>$rtn</p>";
             $result=array(
 			    'statusCode'=>300,

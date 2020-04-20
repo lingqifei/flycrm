@@ -186,14 +186,18 @@ class User extends Action{
 		$one  =$this->C($this->cacheDir)->findOne($sql);
 		//预留可以有多个角色
 		$role =explode(",",$one["roleID"]);
-		if(is_array($role)){
-			foreach($role as $k=>$v){
-				$power=$this->role->role_get_one($v);//多个权限叠加进去
-				foreach($power as $key=>$val){
-					$pArr[$key][]=$val;
-				}
-			}
-		}
+        $pArr=[];
+        if(is_array($role)){
+            foreach($role as $k=>$v){
+                $power=$this->role->role_get_one($v);//多个权限叠加进去
+                foreach($power as $key=>$val){
+                    $pArr[$key][]=$val;
+                }
+            }
+        }
+        if(empty($pArr)){
+            $this->L("Common")->ajax_json_error("帐号权限");
+        }
 		return $pArr;	
 	}	
 	

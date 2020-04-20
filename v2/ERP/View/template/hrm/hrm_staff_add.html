@@ -37,11 +37,27 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">部门</label>
-                            <div class="col-sm-8"> #{$dept}# <span class="help-block m-b-none"></span></div>
+                            <div class="col-sm-8">
+                                <select name="dept_id" class="chosen-select" style="width: 200px;" tabindex="2">
+                                    <option value="">选择部门</option>
+                                    #{foreach from=$dept key=k item=v}#
+                                    <option value="#{$v.id}#" #{if $v.id eq $one.deptID}# selected #{
+                                    /if}#>#{$v.treename}#</option>
+                                    #{/foreach}#
+                                </select>
+                                <span class="help-block m-b-none"></span></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">职位</label>
-                            <div class="col-sm-8"> #{$position}# <span class="help-block m-b-none"></span></div>
+                            <div class="col-sm-8">
+                                <select name="position_id" class="form-control chosen-select" style="width: 200px;" tabindex="2">
+                                    <option value="">选择职位</option>
+                                    #{foreach from=$position key=k item=v}#
+                                    <option value="#{$v.id}#" #{if $v.id eq $one.positionID}# selected #{
+                                    /if}#>#{$v.treename}#</option>
+                                    #{/foreach}#
+                                </select>
+                                <span class="help-block m-b-none"></span></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">身份证号</label>

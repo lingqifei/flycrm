@@ -71,7 +71,6 @@ class GoodsSpec extends Action {
 		$smarty->display('goods/goods_spec_show.html');
 	}
 	//获取生成数据
-	
 	public function goods_spec_create(){
 		$create_id =$this->_REQUEST("create_id");
 		$where_str = "spec_id != 0";
@@ -129,7 +128,6 @@ class GoodsSpec extends Action {
 	  return $result;
 	}
 
-	
 	//增加
 	public function goods_spec_add() {
 		if ( empty( $_POST ) ) {
