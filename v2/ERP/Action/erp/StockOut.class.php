@@ -224,7 +224,7 @@ class StockOut extends Action{
 			$out_sql= "select * from stock_out where out_id='$one_id'";
 			$out_one= $this->C($this->cacheDir)->findOne($out_sql);
 			if($out_one['status']=='-1'){
-			    
+
 				$this->C($this->cacheDir)->delete('stock_out',"out_id='$one_id'");
                 //修改销售单为待出库
                 $this->C($this->cacheDir)->modify('sal_contract',array('deliver_status'=>'2'),"contract_id='".$out_one['contract_id']."'");

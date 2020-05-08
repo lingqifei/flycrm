@@ -112,6 +112,12 @@ class Area extends Action
             $sort = $this->_REQUEST("sort");
             $visible = $this->_REQUEST("visible");
             $intro = $this->_REQUEST("intro");
+            $pid=$this->_REQUEST( "parentID" );
+            if($pid==$id){
+                $this->L("Common")->ajax_json_error("父级栏目不能选择自己");
+                return false;
+                exit;
+            }
             $data = array(
                 'name' => $name,
                 'parentID' => $parentID,

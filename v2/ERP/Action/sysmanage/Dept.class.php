@@ -101,6 +101,14 @@ class Dept extends Action {
 			$smarty->assign( array( "one" => $one, "dept_list" => $dept_list ) ); //框架变量注入同样适用于smarty的assign方法
 			$smarty->display( 'sysmanage/dept_modify.html' );
 		} else {
+
+		    $pid=$this->_REQUEST( "parentID" );
+		    if($pid==$id){
+                $this->L("Common")->ajax_json_error("父级栏目不能选择自己");
+                return false;
+                exit;
+            }
+
             $data=array(
                 'name'=>$this->_REQUEST( "name" ),
                 'tel'=>$this->_REQUEST( "tel" ),

@@ -96,6 +96,12 @@ class Position extends Action{
 			$smarty->assign(array("one"=>$one,"position_list"=>$position_list));
 			$smarty->display('sysmanage/position_modify.html');	
 		}else{
+            $pid=$this->_REQUEST( "parentID" );
+            if($pid==$id){
+                $this->L("Common")->ajax_json_error("父级栏目不能选择自己");
+                return false;
+                exit;
+            }
 			$sql= "update fly_sys_position set name='$_POST[name]',
 											 parentID='$_POST[parentID]',sort='$_POST[sort]',
 											 visible='$_POST[visible]',intro='$_POST[intro]'

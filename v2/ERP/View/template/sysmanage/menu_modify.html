@@ -75,7 +75,10 @@ $(document).ready(function () {
 			success: function(data){
 				if(data.statusCode=='200'){
 					layer.msg('操作成功', {icon: 1}); 		
-				}
+				}else{
+                  layer.msg(data.message, {icon: 5});
+                  return false;
+                }
 			},    
 			complete: function() {   
 				setTimeout(function(){
