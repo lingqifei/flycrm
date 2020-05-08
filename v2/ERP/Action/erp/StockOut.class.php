@@ -185,9 +185,6 @@ class StockOut extends Action{
 		$this->C($this->cacheDir)->begintrans();
 		
 		$out_id = $this->_REQUEST("out_id");
-		$out_data=array( 'status'=>'1', 'out_time'=>NOWTIME, 'out_user_id'=>SYS_USER_ID);
-		$this->C($this->cacheDir)->modify('stock_out',$out_data,"out_id='$out_id'");
-		
 		//更新库存清单，不存在就添加，以仓库，产品，SKU库存，的编号为标识
 		$sql ="select * from stock_out_list where out_id='$out_id'";
 		$list=$this->C($this->cacheDir)->findAll($sql);
@@ -204,17 +201,16 @@ class StockOut extends Action{
 			//更改销售订单的数据
 			$this->contract_list->sal_contract_list_stock_out_sure($contract_list_id,$row['number'],$row['money']);
 		}
+
 			
 		//更新出库清单记录的出库人员
 		$out_list_data=array('out_time'=>NOWTIME,'out_user_id'=>SYS_USER_ID,);	
 		$this->C($this->cacheDir)->modify('stock_out_list',$out_list_data,"out_id='$out_id'");
-		
 		//修改销售单出库状态
 		$this->contract->sal_contract_modify_deliver_status($contract_id);
 		
 		//事务提交
 		$this->C($this->cacheDir)->commit();
-		
 		$this->L("Common")->ajax_json_success("出库成功");
 	}
 	
@@ -228,7 +224,11 @@ class StockOut extends Action{
 			$out_sql= "select * from stock_out where out_id='$one_id'";
 			$out_one= $this->C($this->cacheDir)->findOne($out_sql);
 			if($out_one['status']=='-1'){
+			    
 				$this->C($this->cacheDir)->delete('stock_out',"out_id='$one_id'");
+                //修改销售单为待出库
+                $this->C($this->cacheDir)->modify('sal_contract',array('deliver_status'=>'2'),"contract_id='".$out_one['contract_id']."'");
+
 			}else if($out_one['status']=='1'){
 				$out_list_sql = "select * from stock_out_list where out_id='$one_id'";
 				$out_list_list= $this->C($this->cacheDir)->findAll($out_list_sql);

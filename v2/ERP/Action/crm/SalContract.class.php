@@ -449,7 +449,7 @@ class SalContract extends Action
                     '0' => array(
                         'act' => 'stock_out',
                         'color' => '#7266BA',
-                        'name' => '生成入库单'
+                        'name' => '生成出库单'
                     ),
                     '1' => array(
                         'act' => 'list_detail',
@@ -464,8 +464,8 @@ class SalContract extends Action
                 ),
             ),
             "3" => array(
-                'status_name' => '待入库',
-                'status_name_html' => '<span class="label label-danger">待入库<span>',
+                'status_name' => '待出库',
+                'status_name_html' => '<span class="label label-danger">待出库<span>',
                 'status_operation' => array(
                     '0' => array(
                         'act' => 'list_detail',
@@ -481,7 +481,7 @@ class SalContract extends Action
                     '0' => array(
                         'act' => 'stock_out',
                         'color' => '#23B7E5',
-                        'name' => '生成入库单'
+                        'name' => '生成出库单'
                     ),
                     '1' => array(
                         'act' => 'list_detail',

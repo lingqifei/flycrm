@@ -47,10 +47,6 @@
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script> 
 <script>
 $(document).ready(function () {
-	$('.i-checks').iCheck({
-		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green',
-	});
 	//数据保存
 	$("body").on("click", ".save-form", function() {
 		FormData=$("form").serialize();

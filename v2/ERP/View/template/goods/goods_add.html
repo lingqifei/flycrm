@@ -163,10 +163,6 @@
     baseUrl = "#{$smarty.const.ACT}#";
     brand_id_select_search = "#{$smarty.const.ACT}#/goods/GoodsBrand/goods_brand_json/?brand_name=";
     $(document).ready(function () {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
 
         var ue = UE.getEditor('container');
         ue.ready(function () {
@@ -283,6 +279,8 @@
             });*/
     }
 </script>
+<!-- 自定义js -->
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script src="#{$smarty.const.APP}#/View/template/js/plugins/suggest/bootstrap-suggest.js"></script>
 <script src="#{$smarty.const.APP}#/View/template/js/lib/goods.js"></script>
 </body>

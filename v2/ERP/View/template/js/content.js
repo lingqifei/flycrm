@@ -83,6 +83,12 @@ $(function () {
         window.history.go(-1);
     });
 
+    //checkbox 选中样式
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+
     //操作说明打开
     $("body").on("click", ".btn-help-detail", function () {
         type = $(this).attr('data-type');

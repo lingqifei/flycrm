@@ -146,7 +146,8 @@ class SalContractList extends Action{
 			'owe_money'=>$new_owe_money,
 		);
 		$this->C($this->cacheDir)->modify('sal_contract_list',$out_data,"list_id='$contract_list_id'");
-	}	
+	}
+	
 	//删除入库时更改订单
 	public function sal_contract_list_stock_out_del($contract_list_id,$number,$money){
 		$contract_list_sql="select * from sal_contract_list where list_id='$contract_list_id'";

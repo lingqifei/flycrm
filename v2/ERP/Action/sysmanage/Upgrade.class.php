@@ -148,7 +148,6 @@ class Upgrade extends Action{
             if($downfile){
                 $downfile=$this->file->dir_replace(ROOT.S.$downfile);
                 return $this->zip->unzip($downfile,ROOT);
-
             }
         }
 
