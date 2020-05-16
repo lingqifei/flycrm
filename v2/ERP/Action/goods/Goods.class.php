@@ -33,10 +33,8 @@ class Goods extends Action{
 		
 		//**************************************************************************
 		//**获得传送来的数据做条件来查询
-		$goods_name	   = $this->_REQUEST("goods_name");
+        $keywords	   = $this->_REQUEST("keywords");
 		$tel	   = $this->_REQUEST("tel");
-		$linkman   = $this->_REQUEST("linkman");
-		$ecotype   = $this->_REQUEST("org1_id");
 		$trade     = $this->_REQUEST("org2_id");
 		$fax   	   = $this->_REQUEST("fax");
 		$email     = $this->_REQUEST("email");
@@ -44,15 +42,9 @@ class Goods extends Action{
 		$bdt   	   = $this->_REQUEST("bdt");
 		$edt   	   = $this->_REQUEST("edt");
 		$where_str = "goods_id != 0";
-		
-		$searchKeyword	   = $this->_REQUEST("searchKeyword");
-		$searchValue	   = $this->_REQUEST("searchValue");
-		if( !empty($searchValue) ){
-			$where_str .=" and $searchKeyword like '%$searchValue%'";
-		}
-		
-		if( !empty($goods_name) ){
-			$where_str .=" and goods_name like '%$goods_name%'";
+
+		if( !empty($keywords) ){
+			$where_str .=" and (goods_name like '%$keywords%' or  sku_name like '%$keywords%')";
 		}
 		if( !empty($tel) ){
 			$where_str .=" and tel like '%$tel%'";
@@ -341,7 +333,7 @@ class Goods extends Action{
 		$pageSize= empty($pageSize)?$GLOBALS["pageSize"]:$pageSize;
 		
 		$category_id= $this->_REQUEST("category_id");		
-		$goods_name	= $this->_REQUEST("goods_name");		
+		$keywords	= $this->_REQUEST("keywords");
 		$sku_name	= $this->_REQUEST("sku_name");		
 		$code		= $this->_REQUEST("code");		
 		$where_str	= " s.sku_id>0";
@@ -356,9 +348,9 @@ class Goods extends Action{
 			}
 			$where_str	.= " and g.category_id in ($child_txt)";
 		}
-		if(!empty($goods_name)){
-			$where_str	.= " and g.goods_name like '%$goods_name%'";
-		}
+        if( !empty($keywords) ){
+            $where_str .=" and (s.goods_name like '%$keywords%' or  s.sku_name like '%$keywords%')";
+        }
 		if(!empty($sku_name)){
 			$where_str	.= " and s.sku_name like '%$sku_name%'";
 		}

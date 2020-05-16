@@ -15,7 +15,7 @@
         <div class="ibox-content table-responsive">
           <div class="row">
             <form id="pagerForm" method="post" class="form-inline">
-              <div class="col-sm-3 m-b-xs"> 
+              <div class="col-sm-3 m-b-xs">
 				  		<a class="btn btn-info single_operation" href="javascript:void(0);" data-act="add"><i class="fa fa-plus"></i>添加</a>
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span class="caret"></span></button>
@@ -96,7 +96,7 @@
 		<td><%=list[i]['fax']%></td>
 		<td><%=list[i]['email']%></td>
 		<td class="overflow-td"><%=list[i]['intro']%></td>
-		
+
 		<td width='10'>
 			<div class="btn-group">
 				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">操作 <span class="caret"></span></button>
@@ -115,16 +115,16 @@
 <script type="text/javascript">
 var ajaxUrl='#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_json/';
 $(document).ready(function () {
-	 
+
 	turnPage(1);//页面加载时初始化分页
 
-	
+
 	$("body").on("click", ".batch_operation", function() {
 		batch_act =$(this).attr("data-act")
-		var chk_value =[]; 
-    	$("tbody input[class='checkboxCtrlId']:checked").each(function(){ 
-        chk_value.push($(this).val()); 
-		}); 
+		var chk_value =[];
+    	$("tbody input[class='checkboxCtrlId']:checked").each(function(){
+        chk_value.push($(this).val());
+		});
 		supplier_id_txt=chk_value.join(",");
 		if(batch_act=="recommend"){
 		   act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_modify_recommend/";
@@ -133,7 +133,7 @@ $(document).ready(function () {
 		}else if(batch_act=="del"){
 			act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_del/";
 		}
-    //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
+    //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);
 		$.ajax({
 			type: "POST",
 			url: act_url,
@@ -141,14 +141,14 @@ $(document).ready(function () {
 			dataType:"json",
 			success: function(data){
 				if(data.statusCode=='200'){
-					layer.msg('操作成功', {icon: 1}); 
+					layer.msg('操作成功', {icon: 1});
 				}
 			},
 			complete: function () {//完成响应
 			}
 		});
 	});
-	
+
 	$("body").on("click", ".single_operation", function() {
 		supplier_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
@@ -161,8 +161,8 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '#{$smarty.const.ACT}#/erp/SupLinkman/cst_linkman_add/supplier_id/'+supplier_id+'/' //iframe的url
-			});			
-			return false;	
+			});
+			return false;
 		}else if(single_act=="add"){
 			layer.open({
 				type: 2,
@@ -174,8 +174,8 @@ $(document).ready(function () {
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
-			});			
-			return false;	
+			});
+			return false;
 		}else if(single_act=="modify"){
 			layer.open({
 				type: 2,
@@ -187,7 +187,7 @@ $(document).ready(function () {
 				end: function () {
 					turnPage(1);//页面加载时初始化分页
 				}
-			});			
+			});
 			return false;
 		}else if(single_act=="chance"){
 			layer.open({
@@ -197,7 +197,7 @@ $(document).ready(function () {
 				fixed: false, //不固定
 				area: ['800px', '500px'],
 				content: '#{$smarty.const.ACT}#/erp/CstChance/cst_chance_add/supplier_id/'+supplier_id+'/' //iframe的url
-			});			
+			});
 			return false;
 		}else if(single_act=="del"){
 			act_url="#{$smarty.const.ACT}#/erp/SupSupplier/sup_supplier_del/";
@@ -208,14 +208,14 @@ $(document).ready(function () {
 				dataType:"json",
 				success: function(data){
 					if(data.statusCode=='200'){
-						layer.msg('操作成功', {icon: 1}); 
+						layer.msg('操作成功', {icon: 1});
 						turnPage(1);//页面加载时初始化分页
 					}
 				}
 			});
 		}
 	});
-	
-	
+
+
 });
 </script>

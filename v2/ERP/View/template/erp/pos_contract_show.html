@@ -105,6 +105,7 @@
                             <th width="100" orderField="by_enddate" class="sort-filed"><span>预计到货</span></th>
                             <th width="80"><span>合同状态</span></th>
                             <th width="80"><span>收货状态</span></th>
+                            <th width="80"><span>我方代表</span></th>
                             <th width="80" class="text-center">操作</th>
                         </tr>
                         </thead>
@@ -156,6 +157,7 @@
         <td><%=list[i]['end_date']%></td>
         <td><%:=list[i]['status_arr']['status_name_html']%></td>
         <td><%:=list[i]['rece_status_arr']['status_name_html']%></td>
+        <td><%:=list[i]['our_user_arr']['name']%></td>
         <td align="center">
             <% for(var j=0;j
             <list
@@ -291,23 +293,35 @@
                 return false;
             } else if (single_act == "delete") {
                 act_url = "#{$smarty.const.ACT}#/erp/PosContract/pos_contract_del/";
+                $.ajax({
+                    type: "POST",
+                    url: act_url,
+                    data: {"contract_id": contract_id},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.statusCode == '200') {
+                            layer.msg('操作成功', {icon: 1});
+                            turnPage(1);
+                        }
+                    }
+                });
             } else if (single_act == "list_del") {
                 act_url = "#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_del/";
+                $.ajax({
+                    type: "POST",
+                    url: act_url,
+                    data: {"contract_id": contract_id},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.statusCode == '200') {
+                            layer.msg('操作成功', {icon: 1});
+                            turnPage(1);
+                        }
+                    }
+                });
             } else if (single_act == "detail") {
                 window.location.href = '#{$smarty.const.ACT}#/erp/PosContract/pos_contract_detail/contract_id/' + contract_id + '/';
             }
-            $.ajax({
-                type: "POST",
-                url: act_url,
-                data: {"contract_id": contract_id},
-                dataType: "json",
-                success: function (data) {
-                    if (data.statusCode == '200') {
-                        layer.msg('操作成功', {icon: 1});
-                        turnPage(1);
-                    }
-                }
-            });
         });
 
 

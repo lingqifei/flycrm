@@ -124,6 +124,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['customer_id']%>" data-act="detail">详细</a></li>
 					<li><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['customer_id']%>" data-act="receive">领取</a></li>
+					<li><a  class="ajax-get" data-ids="{'customer_id':'<%=list[i]['customer_id']%>'}" data-url="#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_del/">删除</a></li>
 				</ul>
 			</div>
 		</td>

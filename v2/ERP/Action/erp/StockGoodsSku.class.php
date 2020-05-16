@@ -238,8 +238,6 @@ class StockGoodsSku extends Action{
 		$sale_price=$one['sale_price'];
 		$sql="update stock_goods_sku set sale_price='".$sale_price."', total_sale_money=(stock*".$sale_price."),total_profit_money=total_sale_money-total_cost_money where sku_id='$sku_id'";
 		$one=$this->C($this->cacheDir)->update($sql);
-
-		
 	}
 
 }//

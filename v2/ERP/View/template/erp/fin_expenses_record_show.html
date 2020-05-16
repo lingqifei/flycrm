@@ -20,7 +20,6 @@
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" class="batch_operation" data-act="export">批量导出</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0)" class="batch_operation" data-act="delete">批量删除</a></li>
                   </ul>
@@ -157,7 +156,7 @@ $(document).ready(function () {
 		if(batch_act=="delete"){
 		   act_url="#{$smarty.const.ACT}#/erp/FinExpensesRecord/fin_expenses_record_del/";
 		}else if(batch_act=="export"){
-			act_url="#{$smarty.const.ACT}#/erp/FinExpensesRecord/fin_expenses_record_del/";
+			act_url="#{$smarty.const.ACT}#/erp/FinExpensesRecord/fin_expenses_record_json/";
 		}
     //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
 		$.ajax({
