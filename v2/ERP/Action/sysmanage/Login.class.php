@@ -81,7 +81,7 @@ class Login extends Action{
 		$list	= $this->C($this->cacheDir)->findAll($sql);
 		$assArr=array();
 		foreach($list as $key=>$row){
-			$assArr[$row["name"]] = $row["value"];
+			$assArr[$row["varname"]] = $row["value"];
 		}
 		return $assArr;		
 	}

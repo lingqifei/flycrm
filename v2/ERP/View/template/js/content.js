@@ -71,6 +71,10 @@ function animationHover(element, animation) {
 //初始化一些效果
 $(function () {
 
+    //禁用输入框提示
+    $("input[type='text']").attr('autocomplete','off');
+
+    //下拉框初始样式
     $('.chosen-select').chosen({search_contains: true});
 
     //实现全选反选

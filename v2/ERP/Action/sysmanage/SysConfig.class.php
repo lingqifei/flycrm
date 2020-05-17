@@ -36,7 +36,19 @@ class SysConfig extends Action{
 				$string .="<input type='text' name='".$row['varname']."' value='".$row['value']."' class=\"form-control\">";
 			}elseif($row['type']=='bstring'){
 				$string .="<textarea name='".$row['varname']."' cols='100' rows='5' class=\"form-control\">".$row['value']."</textarea>";
-			}
+			}elseif($row['type']=='text'){
+			    $string .='<script id="'.$row['varname'].'" name="'.$row['varname'].'" type="text/plain" style="width:100%;height:200px;">'.$row['value'].'</script>';
+			    $string .='
+			    <script>
+			        $(document).ready(function () {
+                        var ue = UE.getEditor("'.$row['varname'].'");
+                        ue.ready(function () {
+                            //ue.setContent(""); 
+                        });
+                     });
+                     </script>
+			    ';
+            }
 			$list[$key]["namevalue"]=$string;
 		}
 		return $list;		

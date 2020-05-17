@@ -10,38 +10,23 @@ class Sys extends Action{
 	public function __construct() {
 		$this->auth=_instance('Action/sysmanage/Auth');
 		$this->upgrade=_instance('Action/sysmanage/Upgrade');
+		$this->upgradedata=_instance('Action/sysmanage/UpgradeData');
 		$this->zip=_instance('Extend/Zip');
         $this->file=_instance('Extend/File');
 	}
-	//系统常规设置
-	public function sys_config(){
-		if(empty($_POST)){
-			$config = $this->get_sys_info();
-			$smarty = $this->setSmarty();
-			$smarty->assign(array("list"=>$config));//框架变量注入同样适用于smarty的assign方法
-			$smarty->display('sysmanage/sys_config.html');					
-		}else{
-			foreach($_POST as $key=>$v){
-				$sql="INSERT INTO fly_sys_config(name,value) VALUES('$key','$v') 
-						ON DUPLICATE KEY UPDATE value='$v'";
-				$this->C($this->cacheDir)->update($sql);
-			}
-			$this->L("Common")->ajax_json_success("操作成功");
-		}
-	}
 
 	//得到系统配置参数
-	public function get_sys_info(){
-		$sql 	= "select * from fly_sys_config;";
-		$list	= $this->C($this->cacheDir)->findAll($sql);
-		$assArr = array();
-		if(is_array($list)){
-			foreach($list as $key=>$row){
-				$assArr[$row["varname"]] = $row["value"];
-			}
-		}
-		return $assArr;		
-	}
+    public function get_sys_info(){
+        $sql 	= "select * from fly_sys_config;";
+        $list	= $this->C($this->cacheDir)->findAll($sql);
+        $assArr = array();
+        if(is_array($list)){
+            foreach($list as $key=>$row){
+                $assArr[$row["varname"]] = $row["value"];
+            }
+        }
+        return $assArr;
+    }
 
 	//系统密码设置
 	public function sys_password_modify(){
@@ -185,14 +170,17 @@ class Sys extends Action{
 		$smarty->display('sysmanage/sys_upgrade.html');
 	}
 
-	public function sys_upgrade_online(){
+    /**
+     * 执行在线线函数
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
+    public function sys_upgrade_online(){
 		$step = $this->_REQUEST("step");
 		$ver	  = $this->_REQUEST("ver");
-
 		if($step==1){
 			$rtn	=$this->upgrade->upgrade_backup();
-			//$rtn	='测试';
-			$txt 	="<p>备份完成!</p><p>当前版本程序备份文件为：</p><p>$rtn</p>";
+			$rtn	='测试';
+			$txt 	="备份完成!  当前版本程序备份文件为： $rtn";
             $result=array(
 			    'statusCode'=>300,
 			    'message'=>$txt,
@@ -200,8 +188,8 @@ class Sys extends Action{
 			    'ver'=>$ver,
             );
 		}elseif($step==2){
-            $rtn	=$this->upgrade->upgrade_exec($ver);
-			$txt ="<p>系统升级完成!</p><p>程序已经覆盖当前系统目录</p> ";
+           $rtn	=$this->upgrade->upgrade_exec($ver);
+			$txt ="系统升级完成! 程序已经覆盖当前系统目录 ";
             $result=array(
                 'statusCode'=>300,
                 'message'=>$txt,
@@ -209,39 +197,32 @@ class Sys extends Action{
                 'ver'=>$ver,
             );
 		}elseif($step==3){
-            $txt ="<p>系统升级完成!</p> ";
+           $rtn	=$this->upgradedata->update_data_sql();
+            $txt ="数据库升级完成! ";
+            $result=array(
+                'statusCode'=>'300',
+                'message'=>$txt,
+                'step'=>4,
+                'ver'=>$ver,
+            );
+        }elseif($step==4){
+            $txt ="系统升级完成! ";
             $result=array(
                 'statusCode'=>'200',
                 'message'=>$txt,
-                'step'=>3,
+                'step'=>4,
                 'ver'=>$ver,
             );
         }
 		echo json_encode($result);
 	}
-
-	
-	public function sys_upgrade_online_to_local(){
-		$version	= $this->_REQUEST("version");
-		$this->sys_upgrade_online_down();
-		$this->L("Common")->ajax_json_success("下载成功","1","/Sys/sys_upgrade/");
-	}
-	
-
-	
-	
 	//导入升级文件删除
 	public function sys_upgrade_del(){
 		$dirname  = $this->L("Upload")->upload_upgrade_path();
 		$filename = ($_GET["filename"])?$_GET["filename"]:$_POST["filename"];
 		$this->File()->unlink_file($dirname.$filename);
 		$this->L("Common")->ajax_json_success("删除成功","1","/Sys/sys_upgrade/");		
-	}	
-
-	
-   
-
-
+	}
 
 }//end class
 ?>

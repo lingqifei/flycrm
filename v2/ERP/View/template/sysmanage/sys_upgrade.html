@@ -28,6 +28,8 @@
                     <h3>当前版为最新版：#{$version}#</h3>
                     #{/if}#
                 </div>
+                <div class="upgrade-text text-left">
+                </div>
                 <div class="ibox-content">
                     <p>从零起飞研发中心服务器(www.07fly.top)上面下载可用更新文件列表....</p>
                     <p>更新包用法:更新安装包以日期时间命名,时间早的先的安装,时间晚的后安装.</p>
@@ -93,7 +95,9 @@
                 async: false,
                 success: function (data) {
                     if (data.statusCode == '300') {
-                        layer.msg(data.message, {icon: 1});
+                        //layer.msg(data.message, {icon: 1});
+                        $('.upgrade-text').append('<p class="ibox-title">版本：'+ver+' 升级执行状态：</p>');
+                        $('.upgrade-text').append('<p style="padding-left: 15px;">'+data.message+'</p>');
                         upgrade(data.step,data.ver);
                     }else{
                         layer.msg(data.message, {icon: 2});
@@ -113,10 +117,12 @@
                 async: false,
                 success: function (data) {
                     if (data.statusCode == '300') {
-                        layer.msg(data.message, {icon: 1});
+                        //layer.msg(data.message, {icon: 1});
+                        $('.upgrade-text').append('<p style="padding-left: 15px;">'+data.message+'</p>');
                         upgrade(data.step,data.ver);
                     }else if(data.statusCode == '200'){
-                        layer.msg(data.message, {icon: 5});
+                        $('.upgrade-text').append('<p style="padding-left: 15px;">'+data.message+'</p>');
+                        //layer.msg(data.message, {icon: 5});
                     }
                 }
             });

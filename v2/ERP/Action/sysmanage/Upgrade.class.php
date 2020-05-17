@@ -27,12 +27,22 @@ class Upgrade extends Action
         $this->zip = _instance('Extend/Zip');
     }
 
+    /**
+     * 升级地址
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
     public function serverip()
     {
         $server = "http://www.07fly.top/upgrade/v2";
         return $server;
     }
 
+    /**
+     * 返回当前版本号
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
     public function version()
     {
         return $this->version;
@@ -54,7 +64,7 @@ class Upgrade extends Action
         return $path;
     }
 
-    //文件备份目录
+    //文件下载目录
     public function upgrade_down_dir()
     {
         $path = "upload/upgrade_down/";
