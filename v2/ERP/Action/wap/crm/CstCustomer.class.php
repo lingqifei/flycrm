@@ -66,9 +66,9 @@ class CstCustomer extends Action{
 		$list		 = $this->C($this->cacheDir)->findAll($sql);
 		$dict		 = $this->dict->cst_dict_arr();
 		foreach($list as $key=>$row){
-			$list[$key]['source_name']=($row['source']>0)?$dict[$row['source']]:"";
-			$list[$key]['level_name']=($row['level']>0)?$dict[$row['level']]:"";
-			$list[$key]['trade_name']=($row['trade']>0)?$dict[$row['trade']]:"";
+//			$list[$key]['source_name']=($row['source']>0)?$dict[$row['source']]:"";
+//			$list[$key]['level_name']=($row['level']>0)?$dict[$row['level']]:"";
+//			$list[$key]['trade_name']=($row['trade']>0)?$dict[$row['trade']]:"";
 		}
 		$assignArray = array('list'=>$list,"pageSize"=>$pageSize,"totalCount"=>$totalCount,"pageNum"=>$pageNum,"statusCode"=>'200');		
 		return $assignArray;

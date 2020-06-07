@@ -7,10 +7,10 @@ class Auth extends Action {
 	private $cacheDir = ''; //缓存目录
 
 	public function __construct() {
-		//$this->check_login();
-		//$this->authorization();
+		$this->check_login();
+		$this->authorization();
 		//@define( 'SYS_USER_ACCOUNT', $_SESSION[ "CRM" ][ "USER" ][ "account" ] ); //定义
-		@define( 'SYS_USER_ACCOUNT', '07fly' ); //定义
+		@define( 'SYS_USER_ACCOUNT',$_SESSION["sys_user_acc"]); //定义
 		//@define( 'SYS_USER_ID', $_SESSION[ "CRM" ][ "USER" ][ "userID" ] ); //定义
 		define( 'SYS_USER_ID','1'); //定义
 		@define( 'SYS_USER_VIEW','1,4' ); //定义查看的权限

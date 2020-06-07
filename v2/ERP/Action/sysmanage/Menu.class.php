@@ -44,7 +44,8 @@ class Menu extends Action{
         $keywords  = $this->_REQUEST("keywords");
         $pid   	        = $this->_REQUEST("pid");
         $pid_son=$this->get_menu_self_son($pid);
-        $pid_txt=implode(",",$pid_son);
+        //$pid_txt=implode(",",$pid_son);
+        $pid_txt=$pid;
 
         $where_str 	   = " id>'0' ";
         if( !empty($keywords) ){
@@ -52,6 +53,8 @@ class Menu extends Action{
         }
         if( !empty($pid) ){
             $where_str .=" and parentID in ($pid_txt)";
+        }else{
+            $where_str .=" and parentID='0'";
         }
         $countSql    = "select *  from fly_sys_menu where  $where_str order by sort asc;";
         $totalCount  = $this->C($this->cacheDir)->countRecords($countSql);	//计算记录数

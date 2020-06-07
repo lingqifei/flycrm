@@ -82,8 +82,8 @@ class Common {
 		$errno = curl_errno( $ch );
 		$info  = curl_getinfo( $ch );
 		$error = curl_error($ch);
-		var_dump($response);
-		var_dump($error);
+//		var_dump($response);
+//		var_dump($error);
 		curl_close($ch);//关闭	
 		return $response;
 	}

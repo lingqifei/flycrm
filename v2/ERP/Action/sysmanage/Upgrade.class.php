@@ -56,6 +56,22 @@ class Upgrade extends Action
         }
     }
 
+    /**
+     * 返回当前授权码
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
+    public function syskey()
+    {
+        $syskey = ROOT . S . 'syskey';
+        $txt = $this->file->read_file($syskey);
+        if ($txt) {
+            return $txt;
+        } else {
+            return '';
+        }
+    }
+
     //文件备份目录
     public function upgrade_backup_dir()
     {
@@ -170,6 +186,58 @@ class Upgrade extends Action
         if ($downfile) {
             $downfile = $this->file->dir_replace(ROOT . S . $downfile);
             return $this->zip->unzip($downfile, ROOT);
+        }
+    }
+
+    /**验证授权信息
+     * @param null $version
+     * @return bool
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public function upgrade_auth_check()
+    {
+        $domain=$_SERVER['HTTP_HOST'];
+        $syskey= $this->syskey();    //授权码
+        $server = 'http://localhost:8008';    //获取网络信息
+        $url = "$server/public/index.php/index/AuthDomain/client_check.html?u=$domain&k=$syskey";
+        $result = @file_get_contents($url);
+        $result=json_decode($result,true);
+        return $result;
+    }
+
+    /**
+     * 授权注册
+     * Author: lingqifei created by at 2020/6/6 0006
+     */
+    public function upgrade_auth_reg(){
+        $syskey = $this->_REQUEST("syskey");
+        $filepath = ROOT . S . 'syskey';
+        if(empty($syskey)){
+            $rtn=array('statusCode'=>300,'message'=>'授权码不能为空');
+        }else{
+            file_put_contents($filepath,$syskey);
+            $res=$this->upgrade_auth_check();
+            if($res['code']=='1'){
+                $rtn=array('statusCode'=>200,'message'=>'授权码注册成功');
+            }else{
+                $rtn=array('statusCode'=>300,'message'=>$res['message']);
+            }
+        }
+        echo json_encode($rtn);
+    }
+
+    /**
+     *  判断是否授权
+     * @return bool     false|true
+     *
+     * Author: lingqifei created by at 2020/6/6 0006
+     */
+    public function  is_auth(){
+        $res=$this->upgrade_auth_check();
+        if($res['code']=='1'){
+            return true;
+        }else{
+            return false;
         }
     }
 

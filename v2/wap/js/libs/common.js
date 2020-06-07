@@ -1,6 +1,6 @@
 //公共js文件
 //api连接前缀
-var APP_DOMAIN = 'http://localhost:8001/index.php';
+var APP_DOMAIN = 'http://erp.07fly.com/index.php';
 //为true输出日志
 var debug = true;
 var PAY_DOMAIN = ''

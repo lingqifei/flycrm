@@ -40,10 +40,10 @@ class Sys extends Action{
 			if( $newpassword != $newpassword1 ){
 				$this->L("Common")->ajax_json_error("两次密码不一样,请细心检查是否因大小写原因造成");
 			}
-			$sql= "select id from fly_sys_user where account='".SYS_USER_ACCOUNT."' and password='$oldpassword';";
+			$sql= "select id from fly_sys_user where account='".SYS_USER_ACC."' and password='$oldpassword';";
 			$one= $this->C($this->cacheDir)->findOne($sql);
 			if(!empty($one)){ 
-				$sql = "update fly_sys_user set password='$newpassword' where account='".SYS_USER_ACCOUNT."';";
+				$sql = "update fly_sys_user set password='$newpassword' where account='".SYS_USER_ACC."';";
 				if($this->C($this->cacheDir)->update($sql)>=0){
 					$this->L("Common")->ajax_json_success("操作成功");	
 				}
@@ -94,6 +94,7 @@ class Sys extends Action{
 					
 		return $assignArray;
 	}
+
 	//调用显示
 	public function sys_log_show(){
 		$list	= $this->sys_log();
@@ -165,8 +166,11 @@ class Sys extends Action{
                 }
             }
         }
+
+        $authorize=$this->upgrade->upgrade_auth_check();
+
 		$smarty =$this->setSmarty();
-		$smarty->assign(array("list"=>$list,'version'=>$version));
+		$smarty->assign(array("list"=>$list,'version'=>$version,'authorize'=>$authorize));
 		$smarty->display('sysmanage/sys_upgrade.html');
 	}
 
@@ -216,6 +220,7 @@ class Sys extends Action{
         }
 		echo json_encode($result);
 	}
+
 	//导入升级文件删除
 	public function sys_upgrade_del(){
 		$dirname  = $this->L("Upload")->upload_upgrade_path();

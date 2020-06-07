@@ -509,6 +509,10 @@ class CstFieldExt extends Action {
 				$sql = "select id,name from fly_sys_user";
 				$data = $this->C( $this->cacheDir )->findAll( $sql );
 				break;
+            case "sys_area":
+                $sql = "select id,name from fly_sys_area";
+                $data = $this->C( $this->cacheDir )->findAll( $sql );
+                break;
 			default:
 				echo "Your favorite fruit is neither apple, banana, or orange!";
 		}
