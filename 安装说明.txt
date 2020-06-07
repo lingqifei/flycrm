@@ -16,18 +16,22 @@
 
 07FLY-CRM基于PHP+Mysql+HAdmin开发，权限运用了Auth类认证，权限可以细分到每个功能，增删改查功能一应俱全，整合了PHPExcel导出功能，数据分析图形使用了Jpgraph图表
 
-安装说明
-1.把crm.sql 导入到MYSQL数据库中，把ERP/Config/config.php中的数据库名称，账号密码改成自己的。
-2.把程序放在php版本大于5.3的环境中，如：http://127.0.0.1/  账号 admin 密码:admin123456
-3.界面是hAdmin，请使用IE8以上，或是谷歌浏览器。效果比较好
-4.目前分为两个版本，V1，V2
 
-(v1)演示地址：http://oa.07fly.com
+(v1):PHP（5.4）+ MYSQL（5.5）+ DWZ（前端框架）
 
+演示：http://oa.07fly.com
 账号：admin
 密码：admin123456
 
-(v2)演示地址：http://erp.07fly.com
+安装说明
+1.把crm.sql 导入到MYSQL数据库中，把ERP/Config/config.php中的数据库名称，账号密码改成自己的。
+2.把v1目录中程序放环境的根目录下面，如：http://127.0.0.1/  
+
+
+
+(v2)：PHP（5.4）+ MYSQL（5.5）+ HAdmin（前端模板）
+
+演示：http://erp.07fly.com
 账号：admin
 密码：admin123456
 
