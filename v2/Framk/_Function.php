@@ -356,4 +356,34 @@ if (!function_exists("export_to_cvs")) {
 }
 /*  +------------------------------------------------------------------------------ */
 
+if (!function_exists('download')) {
+
+    /**
+     * 文件下载函数
+     * Author: lingqifei created by at 2020/6/4 0004
+     */
+    function download($filepath,$filename='downfile.zip')
+    {
+        // 检查文件是否存在
+        if (!file_exists($filepath)) {
+            $this->error('文件未找到');
+        } else {
+            // 打开文件
+            $file1 = fopen($filepath, "r");
+            // 输入文件标签
+            Header("Content-type: application/octet-stream");
+            Header("Accept-Ranges: bytes");
+            Header("Accept-Length:" . filesize($filepath));
+            Header("Content-Disposition: attachment;filename=" . $filename);
+            ob_clean();     // 重点！！！
+            flush();        // 重点！！！！可以清除文件中多余的路径名以及解决乱码的问题：
+            //输出文件内容
+            //读取文件内容并直接输出到浏览器
+            echo fread($file1, filesize($filepath));
+            fclose($file1);
+            exit();
+        }
+    }
+}
+
 ?>
