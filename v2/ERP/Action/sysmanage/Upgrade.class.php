@@ -35,6 +35,29 @@ class Upgrade extends Action
     public function serverip()
     {
         $server = "http://www.07fly.top/upgrade/v2";
+        $server = "http://localhost:8007/";
+        return $server;
+    }
+
+    /**
+     * 升级地址
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
+    public function server_upgrade()
+    {
+        $server = "http://07fly.top/index/AuthVersion";
+        return $server;
+    }
+
+    /**
+     * 授权地址
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
+    public function serverip_auth()
+    {
+        $server = "http://07fly.top";
         return $server;
     }
 
@@ -159,10 +182,17 @@ class Upgrade extends Action
         $version = $this->_REQUEST("ver");
         $downpath = $this->upgrade_down_dir();
         $downpath = $this->file->dir_replace($downpath);
-
-        $server = $this->serverip();    //获取网络信息
-        $url = "$server/sysupgrade.php?ver=$version&act=down";
-        $pakurl = $this->file->read_file($url);//得到服务器返回包的地址
+        $isauth=$this->is_auth();
+        if(!$isauth){
+            $rtn = array('error' => 1, 'message' => '未授权用户不能下载升级文件在');
+            echo json_encode($rtn);
+            exit;
+        }
+        $server = $this->server_upgrade();    //获取网络信息
+        $url = "$server/get_version_info?ver=$version&sys=v2";
+        $info = $this->file->read_file($url);//得到服务器返回包的地址
+        $info = json_decode($info, true);
+        $pakurl = $info['filename'];
         $result = $this->check_file_exists($pakurl);
         if ($result) {
             $finfo = $this->file->get_file_type("$pakurl");
@@ -172,6 +202,23 @@ class Upgrade extends Action
             $rtn = array('error' => 1, 'message' => '下载升级文件不存在');
             echo json_encode($rtn);
         }
+    }
+
+    /**下载升级文件
+     * @param null $version
+     * @return bool
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public function upgrade_remark($version = null)
+    {
+        $version = $this->_REQUEST("ver");
+        $server = $this->server_upgrade();    //获取网络信息
+        $url = "$server/get_version_info?ver=$version&sys=v2";
+        $info = $this->file->read_file($url);//得到服务器返回包的地址
+        $info = json_decode($info, true);
+        $smarty = $this->setSmarty();
+        $smarty->assign(array("info" => $info, 'version' => $version));
+        $smarty->display('sysmanage/sys_upgrade_remark.html');
     }
 
     /**执行升级文件
@@ -189,6 +236,26 @@ class Upgrade extends Action
         }
     }
 
+
+    /**验证平台信息
+     * @param null $version
+     * @return bool
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    public function upgrade_signal_check()
+    {
+        $server = $this->serverip_auth();    //获取网络信息
+        $url = "$server/index/AuthDomain/client_check.html?u=07fly.top&k=07fly.top";
+        $result = $this->check_file_exists($url);
+        if ($result) {
+            $rtn = array('statusCode' => 200, 'message' => '<span class="text-success">通信正常</span>');
+        } else {
+            $rtn = array('statusCode' => 300, 'message' => '<span class="text-danger">通信异常</span>');
+        }
+        return $rtn;
+    }
+
+
     /**验证授权信息
      * @param null $version
      * @return bool
@@ -196,12 +263,12 @@ class Upgrade extends Action
      */
     public function upgrade_auth_check()
     {
-        $domain=$_SERVER['HTTP_HOST'];
-        $syskey= $this->syskey();    //授权码
-        $server = 'http://localhost:8008';    //获取网络信息
-        $url = "$server/public/index.php/index/AuthDomain/client_check.html?u=$domain&k=$syskey";
-        $result = @file_get_contents($url);
-        $result=json_decode($result,true);
+        $domain = $_SERVER['HTTP_HOST'];
+        $syskey = $this->syskey();    //授权码
+        $server = $this->serverip_auth();    //获取网络信息
+        $url = "$server/index/AuthDomain/client_check.html?u=$domain&k=$syskey";
+        $result = file_get_contents($url);
+        $result = json_decode($result, true);
         return $result;
     }
 
@@ -209,18 +276,19 @@ class Upgrade extends Action
      * 授权注册
      * Author: lingqifei created by at 2020/6/6 0006
      */
-    public function upgrade_auth_reg(){
+    public function upgrade_auth_reg()
+    {
         $syskey = $this->_REQUEST("syskey");
         $filepath = ROOT . S . 'syskey';
-        if(empty($syskey)){
-            $rtn=array('statusCode'=>300,'message'=>'授权码不能为空');
-        }else{
-            file_put_contents($filepath,$syskey);
-            $res=$this->upgrade_auth_check();
-            if($res['code']=='1'){
-                $rtn=array('statusCode'=>200,'message'=>'授权码注册成功');
-            }else{
-                $rtn=array('statusCode'=>300,'message'=>$res['message']);
+        if (empty($syskey)) {
+            $rtn = array('statusCode' => 300, 'message' => '授权码不能为空');
+        } else {
+            file_put_contents($filepath, $syskey);
+            $res = $this->upgrade_auth_check();
+            if ($res['code'] == '1') {
+                $rtn = array('statusCode' => 200, 'message' => '授权码注册成功');
+            } else {
+                $rtn = array('statusCode' => 300, 'message' => $res['message']);
             }
         }
         echo json_encode($rtn);
@@ -232,11 +300,12 @@ class Upgrade extends Action
      *
      * Author: lingqifei created by at 2020/6/6 0006
      */
-    public function  is_auth(){
-        $res=$this->upgrade_auth_check();
-        if($res['code']=='1'){
+    public function is_auth()
+    {
+        $res = $this->upgrade_auth_check();
+        if ($res['code'] == '1') {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

@@ -17,9 +17,6 @@ class Index extends Action{
     public function main(){
 		$menu_arr	= $this->auth->auth_menu_tree_arr();
 		$sysinfo	= $this->L('sysmanage/Sys')->get_sys_info();
-/*		if(empty($serial)){
-			$sysinfo=array_merge($sysinfo, $this->auth->sys_default_conf());
-		}*/
 		$smarty   = $this->setSmarty();
 		$smarty->assign(array("menu"=>$menu_arr,'sys'=>$sysinfo,'sys_account'=>SYS_USER_ACC));
 		$smarty->display('index.html');	
