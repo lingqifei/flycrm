@@ -245,7 +245,7 @@ class Upgrade extends Action
     {
         $server = $this->serverip_auth();    //获取网络信息
         $url = "$server/index/AuthDomain/client_check.html?u=07fly.top&k=07fly.top";
-        $result = $this->check_file_exists($url);
+        $result=$this->L('Common')->open_curl($url,'');
         if ($result) {
             $rtn = array('statusCode' => 200, 'message' => '<span class="text-success">通信正常</span>');
         } else {
@@ -266,7 +266,8 @@ class Upgrade extends Action
         $syskey = $this->syskey();    //授权码
         $server = $this->serverip_auth();    //获取网络信息
         $url = "$server/index/AuthDomain/client_check.html?u=$domain&k=$syskey";
-        $result = file_get_contents($url);
+        $result=$this->L('Common')->open_curl($url,'');
+        //$result = file_get_contents($url);
         $result = json_decode($result, true);
         return $result;
     }
