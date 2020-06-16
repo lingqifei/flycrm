@@ -18,7 +18,7 @@
 class Upgrade extends Action
 {
     private $cacheDir = '';//缓存目录
-    private $version = '20200516';//当前版本
+    private $version = '202000610';//当前版本
 
     public function __construct()
     {
@@ -35,7 +35,6 @@ class Upgrade extends Action
     public function serverip()
     {
         $server = "http://www.07fly.top/upgrade/v2";
-        $server = "http://localhost:8007/";
         return $server;
     }
 
