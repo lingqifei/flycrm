@@ -84,12 +84,11 @@
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i
                         class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="?">
-                        <div class="form-group">
-                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
-                                   id="top-search">
-                        </div>
-                    </form>
+                </div>
+                <div class="navbar-module">
+                    <a href="http://oa.07fly.com" target="_blank">V1版</a>
+                    <a href="http://erp.07fly.com" target="_blank">V2版</a>
+                    <a href="http://crm.07fly.top" target="_blank">S1版</a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                    <li><a href="http://www.07fly.top/"><i class="fa fa-home"></i>官网</a></li>
@@ -136,7 +135,6 @@
         }else{
             iframeUrl='#{$smarty.const.ACT}#/sysmanage/Index/index/';
         }
-
         document.onkeypress = function (e) {
             if (e.keyCode == 116) {
                 e.preventDefault(); //组织默认刷新
@@ -144,7 +142,12 @@
             }
         }
 
+        //刷新时设置当前点击页面数据
         if (typeof (iframeUrl) != "undefined") {
+            that=$("a[href='"+iframeUrl+"']");
+            //that.parent('li').addClass('active');
+            that.parents('ul.nav').addClass('in');
+            that.parents('ul.nav').parent('li').addClass('active');
             $('#J_iframe').attr('src', iframeUrl);//重新设置获取的url，实现刷新显示当前页面
         }
 

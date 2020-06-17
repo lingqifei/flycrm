@@ -7849,7 +7849,24 @@ body.skin-3 {
 }
 
 .navbar-header {
-    width: 60%;
+    /*width: 60%;*/
+}
+
+.navbar-module{
+    float:left;
+}
+.navbar-module a{
+    float:left;
+    line-height: 50px;
+    padding: 0 10px;
+    color:#676a6c;
+}
+.navbar-module a:hover{
+    background: #efefef;
+}
+.navbar-module a.on{
+    color: #23527c;
+    font-weight: bold;
 }
 
 .bs-glyphicons {
