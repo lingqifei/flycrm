@@ -10,8 +10,7 @@ class TencentSms {
 	public $sms_url = "http://dx.ipyy.net/smsJson.aspx";
 
 
-	public
-	function sms_send( $conf, $mobile, $params ,$tpl_id) {
+	public function sms_send( $conf, $mobile, $params ,$tpl_id) {
 
 		$random = rand( 1000, 9999 );
 
@@ -42,8 +41,7 @@ class TencentSms {
 	}
 
 
-	public
-	function sms_overage( $acc, $pwd ) {
+	public function sms_overage( $acc, $pwd ) {
 		$post_data = array(
 			'action' => 'overage',
 			'userid' => '',
@@ -87,7 +85,7 @@ class TencentSms {
 				$result = $ret;
 			}
 		}
-echo $ret;
+
 		curl_close( $curl );
 
 		return $result;
