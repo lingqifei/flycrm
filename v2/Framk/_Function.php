@@ -272,7 +272,7 @@ if (!function_exists("list2select")) {
      * @return array|string
      * Author: lingqifei created by at 2020/4/1 0001
      */
-    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name',$data=[])
+    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name',$data=array())
     {
         foreach ($list as $k => $v) {
             $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
