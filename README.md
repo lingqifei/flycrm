@@ -38,14 +38,13 @@
 - (v1)版本：[http://oa.07fly.com](http://oa.07fly.com)
 - 账号：admin
 - 密码：admin123456
-- 说明：版本要求，PHP<=5.3 mysql<=5.4  采用PHP+MSQL+DWZ(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
+- 说明：版本要求，PHP===5.3 mysql===5.1  采用PHP+MSQL+DWZ(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
 - 
 - (v2)版本：[http://erp.07fly.com](http://erp.07fly.com)
 - 密码：admin123456
-- 说明：版本要求，PHP>=5.5 mysql>=5.5  采用PHP+MSQL+hAdmin(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
+- 说明：版本要求，PHP====5.4 mysql===5.5  采用PHP+MSQL+hAdmin(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
 
-
-
+ **PS：PHP，MYSQL请要求配置不然会发生未知错误** 
 
 >  ** 大家测试请大家手下留情，不要把帐号密码给改掉了，其它的可以随意测试** 
 
