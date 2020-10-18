@@ -170,6 +170,10 @@ $(document).ready(function () {
 		}else if(single_act=="add"){
 			main_table=$("#main_table").val();
 			ext_table=$("#ext_table").val();
+			if(main_table=='' || ext_table==''){
+                layer.msg('亲，请点击左侧需要操作的表单，再添加字段~', {icon: 5});
+                return  false;
+            }
 			layer.open({
 				type: 2,
 				title: '添加字段',
