@@ -67,7 +67,7 @@ class Login extends Action{
 	
 	//登出
 	public function logout(){	
-		unset($_SESSION["CRM"]);
+		unset($_SESSION["sys_user_id"]);
 		$this->location("",'/sysmanage/Login/login',0);		
 	}
 	
