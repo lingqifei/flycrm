@@ -55,7 +55,7 @@
 
 -  QQ交流群: 575085787
 
--  操作手册：  [http://www.07fly.top/](http://www.07fly.top/)
+-  操作手册：  [http://www.07fly.xyz/](http://www.07fly.xyz/)
 
 
 
