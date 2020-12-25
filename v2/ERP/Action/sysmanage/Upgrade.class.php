@@ -8,10 +8,10 @@
  * 以质量求生存，以服务谋发展，以信誉创品牌 !
  * ----------------------------------------------
  * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @license    For licensing, see LICENSE.html or http://www.07fly.xyz/crm/license
  * @author ：kfrs <goodkfrs@QQ.com> 574249366
  * @version ：1.0
- * @link ：http://www.07fly.top 
+ * @link ：http://www.07fly.xyz
  */
 
 
@@ -34,7 +34,7 @@ class Upgrade extends Action
      */
     public function serverip()
     {
-        $server = "http://www.07fly.top/upgrade/v2";
+        $server = "http://www.07fly.xyz/upgrade/v2";
         return $server;
     }
 
@@ -45,7 +45,7 @@ class Upgrade extends Action
      */
     public function server_upgrade()
     {
-        $server = "http://07fly.top/index/AuthVersion";
+        $server = "http://soft.s5.07fly.com/index/AuthVersion";
         return $server;
     }
 
@@ -56,7 +56,7 @@ class Upgrade extends Action
      */
     public function serverip_auth()
     {
-        $server = "http://07fly.top";
+        $server = "http://soft.s5.07fly.com";
         return $server;
     }
 
@@ -244,7 +244,7 @@ class Upgrade extends Action
     public function upgrade_signal_check()
     {
         $server = $this->serverip_auth();    //获取网络信息
-        $url = "$server/index/AuthDomain/client_check.html?u=07fly.top&k=07fly.top";
+        $url = "$server/index/AuthDomain/client_check.html?u=07fly.xyz&k=07fly.xyz";
         $result=$this->L('Common')->open_curl($url,'');
         if ($result) {
             $rtn = array('statusCode' => 200, 'message' => '<span class="text-success">通信正常</span>');

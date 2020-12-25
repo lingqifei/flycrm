@@ -44,7 +44,7 @@ EOF;
 $html_footer = <<<EOF
 <div class="footer">
   <h5>Powered by <font class="blue">07FLY</font><font class="orange"></font></h5>
-  <h6>版权所有 2018-2019 &copy; <a href="http://www.07fly.top" target="_blank">07FLY-CRM</a></h6>
+  <h6>版权所有 2018-2019 &copy; <a href="http://www.07fly.xyz" target="_blank">07FLY-CRM</a></h6>
 </div>
 EOF;
 require( './include/function.php' );

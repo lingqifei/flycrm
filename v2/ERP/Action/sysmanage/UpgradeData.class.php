@@ -8,10 +8,10 @@
  * 以质量求生存，以服务谋发展，以信誉创品牌 !
  * ----------------------------------------------
  * @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license    For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @license    For licensing, see LICENSE.html or http://www.07fly.xyz/crm/license
  * @author ：kfrs <goodkfrs@QQ.com> 574249366
  * @version ：1.0
- * @link ：http://www.07fly.top 
+ * @link ：http://www.07fly.xyz 
  */
 
 
@@ -55,7 +55,7 @@ class UpgradeData extends Action
 
         $sqlArr[]="delete from fly_sys_config";
         $sqlArr[]="
-            REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (1, '系统域名 ', 'basehost', 'http://www.07fly.top', 'string', 0);
+            REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (1, '系统域名 ', 'basehost', 'http://www.07fly.xyz', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (2, '系统标题', 'title', '首页', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (3, '系统名称', 'name', '零起飞客户关系管理系统-07fly-CRM ', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (4, '系统版权', 'powerby', '网站版信息', 'bstring', 0);
@@ -80,7 +80,7 @@ class UpgradeData extends Action
 
         $sqlArr[]="delete from fly_sys_config";
         $sqlArr[]="
-            REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (1, '系统域名 ', 'basehost', 'http://www.07fly.top', 'string', 0);
+            REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (1, '系统域名 ', 'basehost', 'http://www.07fly.xyz', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (2, '系统标题', 'title', '首页', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (3, '系统名称', 'name', '零起飞客户关系管理系统-07fly-CRM ', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (4, '系统版权', 'powerby', '网站版信息', 'bstring', 0);
