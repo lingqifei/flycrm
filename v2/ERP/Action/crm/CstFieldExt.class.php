@@ -514,7 +514,7 @@ class CstFieldExt extends Action {
                 $data = $this->C( $this->cacheDir )->findAll( $sql );
                 break;
 			default:
-				echo "Your favorite fruit is neither apple, banana, or orange!";
+				echo "联联动数据,未找到内部模块数据";
 		}
 		return $data;
 	}
