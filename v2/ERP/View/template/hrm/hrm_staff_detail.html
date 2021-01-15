@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+#{include file="header.html"}#
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="m-b-md">
+                    <h3>#{$one.staff_no}#</h3>
+                </div>
+            </div>
+            <div class="col-sm-2 text-right">
+                <a href="javascript:void(0)" class=" btn btn-default ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaff/hrm_staff_modify/id/#{$one.id}#/" data-title="修改"><i class="fa fa-edit"></i>修改</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6"><p><strong>员工姓名：</strong>#{$one.name}#</p></div>
+            <div class="col-sm-6"><p><strong>员工性别：</strong>#{ if $one.gender eq 1 }# 男 #{else}# 女 #{/if}#</p></div>
+            <div class="col-sm-6"><p><strong>员工年龄：</strong>#{$one.age}#</p></div>
+            <div class="col-sm-6"><p><strong>婚姻情况：</strong>#{$one.marriage}#</p></div>
+            <div class="col-sm-6"><p><strong>政治面貌：</strong>#{$one.politics}#</p></div>
+            <div class="col-sm-6"><p><strong>最高学历：</strong>#{$one.degree}#</p></div>
+            <div class="col-sm-6"><p><strong>就读专业：</strong>#{$one.major}#</p></div>
+            <div class="col-sm-6"><p><strong>职业资格：</strong>#{$one.qualification}#</p></div>
+            <div class="col-sm-6"><p><strong>工作职务：</strong>#{$one.position}#</p></div>
+            <div class="col-sm-6"><p><strong>社会职务：</strong>#{$one.social}#</p></div>
+            <div class="col-sm-6"><p><strong>手机号码：</strong>#{$one.mobile}#</p></div>
+            <div class="col-sm-6"><p><strong>身份证号：</strong>#{$one.idcard}#</p></div>
+            <div class="col-sm-6"><p><strong>邮箱地址：</strong>#{$one.email}#</p></div>
+            <div class="col-sm-6"><p><strong>联系地址：</strong>#{$one.address}#</p></div>
+            <div class="col-sm-6"><p><strong>QQ号码：</strong>#{$one.qicq}#</p></div>
+            <div class="col-sm-6"><p><strong>邮政编码：</strong>#{$one.zipcode}#</p></div>
+
+        </div>
+        <div class="row m-t-sm">
+            <div class="col-sm-12">
+                <div class="panel blank-panel">
+                    <div class="panel-heading">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <li class="active" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffWork/hrm_staff_work_json/"><a href="?#tab-1" data-toggle="tab">工作经历</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffSchool/hrm_staff_school_json/"><a href="?#tab-2" data-toggle="tab">学习经历</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffAchiev/hrm_staff_achiev_json/" class=""><a href="?#tab-3" data-toggle="tab">工作业绩</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffEmploy/hrm_staff_employ_json/" ><a href="?#tab-4" data-toggle="tab">用工记录</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffCertified/hrm_staff_certified_json/"><a href="?#tab-5" data-toggle="tab">个人证书</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffExamine/hrm_staff_examine_json/"><a href="?#tab-6" data-toggle="tab">考核记录</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffReward/hrm_staff_reward_json/"><a href="?#tab-7" data-toggle="tab">奖罚记录</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffTalk/hrm_staff_talk_json/"><a href="?#tab-8" data-toggle="tab">谈话记录</a></li>
+                                <li data-url="#{$smarty.const.ACT}#/hrm/HrmStaffContract/hrm_staff_contract_json/"><a href="?#tab-9" data-toggle="tab">劳动合同</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>工作单位</span></th>
+                                        <th width="100"><span>开始时间</span></th>
+                                        <th width="100"><span>结束时间</span></th>
+                                        <th width="100"><span>职务</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffWork/hrm_staff_work_add/staff_id/#{$one.id}#/"  data-title="添加工作经历">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>就读学校</span></th>
+                                        <th width="100"><span>开始时间</span></th>
+                                        <th width="100"><span>结束时间</span></th>
+                                        <th width="100"><span>学生职务</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffSchool/hrm_staff_school_add/staff_id/#{$one.id}#/" data-id="#{$one.id}#" data-title="添加学习经历">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>单位名称</span></th>
+                                        <th width="100"><span>工作时间</span></th>
+                                        <th width="200"><span>业绩内容</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffAchiev/hrm_staff_achiev_add/staff_id/#{$one.id}#/" data-title="添加学习经历">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-4">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>入职时间</span></th>
+                                        <th width="100"><span>工作岗位</span></th>
+                                        <th width="200"><span>工作内容</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffEmploy/hrm_staff_employ_add/staff_id/#{$one.id}#/" data-title="添加用工记录">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-5">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>证书名称</span></th>
+                                        <th width="100"><span>获取单位</span></th>
+                                        <th width="200"><span>获取时间</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffCertified/hrm_staff_certified_add/staff_id/#{$one.id}#/" data-title="添加个人证书">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-6">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>考核时间</span></th>
+                                        <th width="100"><span>考核分数</span></th>
+                                        <th width="200"><span>评定结果</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffExamine/hrm_staff_examine_add/staff_id/#{$one.id}#/" data-title="添加考核记录">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-7">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>类别</span></th>
+                                        <th width="100"><span>内容</span></th>
+                                        <th width="200"><span>时间</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffReward/hrm_staff_reward_add/staff_id/#{$one.id}#/" data-title="添加奖罚记录">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-8">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>谈话人</span></th>
+                                        <th width="100"><span>内容</span></th>
+                                        <th width="200"><span>时间</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffTalk/hrm_staff_talk_add/staff_id/#{$one.id}#/" data-title="添加谈话记录">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-9">
+                                <table class="table table-hover sorttable 07fly-table" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>开始时间</span></th>
+                                        <th width="100"><span>结束时间</span></th>
+                                        <th width="100"><span>内容</span></th>
+                                        <th width="150"><span>备注</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>创建时间</span></th>
+                                        <th width="80"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table 07fly-table">
+                                    <tfoot>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class=" btn btn-xs btn-primary ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffContract/hrm_staff_contract_add/staff_id/#{$one.id}#/" data-title="添加劳动合同">添加</a></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script id="tab-1-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td><%=list[i]['begin_date']%></td>
+        <td><%=list[i]['end_date']%></td>
+        <td><%=list[i]['position']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffWork/hrm_staff_work_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffWork/hrm_staff_work_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-2-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td><%=list[i]['begin_date']%></td>
+        <td><%=list[i]['end_date']%></td>
+        <td><%=list[i]['position']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffSchool/hrm_staff_school_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffSchool/hrm_staff_school_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-3-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td><%=list[i]['work_date']%></td>
+        <td class="overflow-td"><%=list[i]['content']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffAchiev/hrm_staff_achiev_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffAchiev/hrm_staff_achiev_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-4-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['work_date']%></td>
+        <td><%=list[i]['position']%></td>
+        <td class="overflow-td"><%=list[i]['content']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffEmploy/hrm_staff_employ_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffEmploy/hrm_staff_employ_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-5-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td><%=list[i]['company']%></td>
+        <td><%=list[i]['gettime']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffCertified/hrm_staff_certified_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffCertified/hrm_staff_certified_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-6-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['exa_time']%></td>
+        <td><%=list[i]['score']%></td>
+        <td><%=list[i]['results']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffExamine/hrm_staff_examine_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffExamine/hrm_staff_examine_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-7-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['type']%></td>
+        <td class="overflow-td"><%=list[i]['content']%></td>
+        <td><%=list[i]['gettime']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffReward/hrm_staff_reward_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffReward/hrm_staff_reward_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-8-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td class="overflow-td"><%=list[i]['content']%></td>
+        <td><%=list[i]['gettime']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffTalk/hrm_staff_talk_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffTalk/hrm_staff_talk_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script id="tab-9-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['begin_date']%></td>
+        <td><%=list[i]['end_date']%></td>
+        <td class="overflow-td"><%=list[i]['content']%></td>
+        <td class="overflow-td"><%=list[i]['remark']%></td>
+        <td><%:=list[i]['create_user_text']%></td>
+        <td><%=list[i]['create_time']%></td>
+        <td>
+            <a href="javascript:void(0)"  class="ajax-open" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffContract/hrm_staff_contract_modify/"  data-id="<%=list[i]['id']%>" data-title="修改">修改</a>
+            <a href="javascript:void(0)"  class="ajax-get" data-url="#{$smarty.const.ACT}#/hrm/HrmStaffContract/hrm_staff_contract_del/"  data-id="<%=list[i]['id']%>" data-title="删除">删除</a>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+
+
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        ajaxOnload();
+        $("body").on("click", ".single_operation", function () {
+            customer_id = $(this).attr("data-id");
+            single_act = $(this).attr("data-act")
+            if (single_act == "modify") {
+                act_url = "#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_modify/";
+                layer.open({
+                    type: 2,
+                    title: '修改客户信息',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['90%', '90%'],
+                    content: '#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_modify/customer_id/' + customer_id + '/',
+                    end: function () {
+                        location.reload();
+                    }
+                });
+                return false;
+            } else if (single_act == "linkman") {
+                act_url = "#{$smarty.const.ACT}#/crm/CstLinkman/cst_linkman_add/";
+                layer.open({
+                    type: 2,
+                    title: '添加联系人',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['800px', '500px'],
+                    content: '#{$smarty.const.ACT}#/crm/CstLinkman/cst_linkman_add/customer_id/' + customer_id + '/',
+                    end: function () {
+                        ajax_customer_detail(2);
+                    }
+                });
+                return false;
+            } else if (single_act == "service") {
+                layer.open({
+                    type: 2,
+                    title: '添加服务记录',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['800px', '500px'],
+                    content: '#{$smarty.const.ACT}#/crm/CstService/cst_service_add/customer_id/' + customer_id + '/',
+                    end: function () {
+                        ajax_customer_detail(5);
+                    }
+                });
+                return false;
+            } else if (single_act == "chance") {
+                layer.open({
+                    type: 2,
+                    title: '添加销售机会',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['800px', '500px'],
+                    content: '#{$smarty.const.ACT}#/crm/CstChance/cst_chance_add/customer_id/' + customer_id + '/',
+                    end: function () {
+                        ajax_customer_detail(3);
+                    }
+                });
+                return false;
+            } else if (single_act == "contract") {
+                layer.open({
+                    type: 2,
+                    title: '添加销售合同',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['800px', '500px'],
+                    content: '#{$smarty.const.ACT}#/crm/SalContract/sal_contract_add/customer_id/' + customer_id + '/',
+                    end: function () {
+                        ajax_customer_detail(6);
+                    }
+                });
+                return false;
+            } else if (single_act == "trace") {
+                layer.open({
+                    type: 2,
+                    title: '添加沟通记录',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['800px', '500px'],
+                    content: '#{$smarty.const.ACT}#/crm/CstTrace/cst_trace_add/customer_id/' + customer_id + '/',
+                    end: function () {
+                        ajax_customer_detail(1);
+                    }
+                });
+                return false;
+            } else if (single_act == "del") {
+                act_url = "#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_del/";
+                $.ajax({
+                    type: "POST",
+                    url: act_url,
+                    data: {"customer_id": customer_id},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data.statusCode == '200') {
+                            layer.msg('操作成功', {icon: 1});
+                            setTimeout(function () {
+                                turnPage(1);
+                            }, 800);
+                        }
+                    }
+                });
+                return false;
+            } else if (single_act == "detail") {
+                act_url = "#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_detail/customer_id/" + customer_id + "/";
+                window.location.href = act_url;
+            } else if (single_act == "offline") {
+                act_url = "#{$smarty.const.ACT}#/crm/CstCustomer/cst_customer_modify_offline/";
+            }
+        });
+
+    });
+
+
+    function ajaxOnload() {
+        $('.nav-tabs li').each(function (index, val) {
+            var tabl_index = index + 1;
+            var target = $(this).attr("data-url");
+            ajax_staff_detail(target,tabl_index);
+        });
+    }
+
+    //加载信息
+    function ajax_staff_detail(ajax_url,tabl_index) {
+        if(ajax_url){
+            $.ajax({
+                type: "POST",
+                url: ajax_url,
+                data: {"staff_id": "#{$one.id}#", "pageSize": "1000"},
+                dataType: "json",
+                async:true,
+                success: function (returnJsonData) {
+                    var tpl = baidu.template;
+                    var html = tpl('tab-' + tabl_index + '-Tpl', returnJsonData);
+                    $("#tab-" + tabl_index + " tbody").html(html);
+                },
+            });
+        }
+        console.log(ajax_url);
+    }
+
+    //单击操作
+    $("body").on("click", ".ajax-open", function () {
+        var target = $(this).attr("data-url");
+        var id = $(this).attr("data-id");
+        if (typeof (id) != "undefined" && id != 0) {
+            var target = target + "?id=" + id;
+        }
+        var title = $(this).attr("data-title");
+        log(target);
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            fixed: false, //不固定
+            area: ['90%', '90%'],
+            content: target,
+            end: function () {
+                ajaxOnload();
+            }
+        });
+        return false;
+    });
+
+    //单击操作
+    $("body").on("click", ".ajax-get", function () {
+        var target = $(this).attr("data-url");
+        var id = $(this).attr("data-id");
+        if (typeof (id) != "undefined" && id != 0) {
+            var target = target + "?id=" + id;
+        }
+        $.ajax({
+            type: "POST",
+            url: target,
+            data:{"id":id},
+            dataType:"json",
+            success: function(data){
+                if(data.statusCode=='200'){
+                    layer.msg('操作成功', {icon: 1});
+                    ajaxOnload();
+                }
+            },
+            complete: function () {//完成响应
+            }
+        });
+    });
+
+</script>

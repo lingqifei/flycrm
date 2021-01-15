@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+#{include file="header.html"}#
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal" method="post" action="#">
+                        <input type="hidden" name="id" value="#{$one.id}#">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">考核时间</label>
+                            <div class="col-sm-8">
+                                <input name="exa_time" class="form-control datepicker" type="text" placeholder="请输入考核时间 " required value="#{$one.exa_time}#"/>
+                                <span class="help-block m-b-none"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">考核分数</label>
+                            <div class="col-sm-8">
+                                <input name="score" class="form-control" type="text" placeholder="请输入考核分数" required value="#{$one.score}#"/>
+                                <span class="help-block m-b-none"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">评定结果</label>
+                            <div class="col-sm-8">
+                                <input name="results" class="form-control datepicker" type="text" placeholder="请输入评定结果" required value="#{$one.results}#"/>
+                                <span class="help-block m-b-none"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注说明</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="remark">#{$one.remark}#</textarea>
+                                <span class="help-block m-b-none"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-8">
+                                <button class="btn  btn-w-m btn-info save-form" type="button">保存数据</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        //数据保存
+        $("body").on("click", ".save-form", function () {
+            FormData = $("form").serialize();
+            $.ajax({
+                type: "POST",
+                url: "#{$smarty.const.ACT}#/hrm/HrmStaffExamine/hrm_staff_examine_modify/",
+                data: FormData,
+                dataType: "json",
+                success: function (data) {
+                    if (data.statusCode == '200') {
+                        layer.msg('操作成功', {icon: 1});
+                    }
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        //关闭窗口
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.layer.close(index);
+                    }, 800);
+                },
+            });
+        });
+    });
+</script>
+</body>
+</html>
