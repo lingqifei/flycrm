@@ -3,11 +3,11 @@
  * 数据配置类
  *
  * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @license     For licensing, see LICENSE.html or http://www.07fly.xyz/crm/license
  * @author      kfrs <goodkfrs@QQ.com>
  * @package     admin.Book
  * @version     1.0
- * @link       http://www.07fly.top
+ * @link       http://www.07fly.xyz
  */	 
 class Data extends Action{	
 	private $cacheDir='';//缓存目录
@@ -18,7 +18,7 @@ class Data extends Action{
 	
 	public function authorize_server_url(){
 		//return "http://localhost:901/boss/";
-		return "http://serial.host.07fly.top";	
+		return "http://serial.host.07fly.xyz";
 	}
 	
 	public function backup_mysql_path(){

@@ -1,7 +1,7 @@
 <?php
 /**
  * @CopyRight  (C)2008-2016 LingQiFei Development team Inc.
- * @WebSite    www.07fly.com www.07fly.top
+ * @WebSite    www.07fly.com www.07fly.xyz
  * @Author     Liangjing.org <asp3721@hotmail.com>
  * @Brief      liangjingcms v1.x
 **/
@@ -229,7 +229,7 @@ if(isset($_POST['install'])){
 				$config_contents="<?php
 /**
  * @CopyRight  (C)2006-2017 07fly Development team Inc.
- * @WebSite    www.07fly.com www.07fly.top
+ * @WebSite    www.07fly.com www.07fly.xyz
  * @Author     07fly.com <web@07fly.com>
  * @Brief      07flyCRM v1.x
  * @Update     2016.06.11

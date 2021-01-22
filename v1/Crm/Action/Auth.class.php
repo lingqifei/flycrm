@@ -3,11 +3,11 @@
  * 权限分配类
  *
  * @copyright   Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
- * @license     For licensing, see LICENSE.html or http://www.07fly.top/crm/license
+ * @license     For licensing, see LICENSE.html or http://www.07fly.xyz/crm/license
  * @author      kfrs <goodkfrs@QQ.com>
  * @package     admin.Book
  * @version     1.0
- * @link       http://www.07fly.top
+ * @link       http://www.07fly.xyz
  */	 
 class Auth extends Action {
 
@@ -72,7 +72,7 @@ class Auth extends Action {
 			'i_title' => '07FLY-CRM客户关系管理系统 ',
 			'i_weibo' => '官方微博:http://weibo.com/u/2299441430 ',
 			'i_note' => '<script type="text/javascript" src="http://bbs.07fly.net"></script>',
-			'i_web' => 'http://www.07fly.top/a/crm',
+			'i_web' => 'http://www.07fly.xyz/a/crm',
 			'i_copy' => '
 <div class="divider"></div>
 <h2>有限担保和免责声明:</h2>

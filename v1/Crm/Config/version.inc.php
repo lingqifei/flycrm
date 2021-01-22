@@ -1,7 +1,7 @@
 <?php
 /**
  * @CopyRight  (C)2006-2011 07fly Development team Inc.
- * @WebSite    www.07fly.com www.07fly.top
+ * @WebSite    www.07fly.com www.07fly.xyz
  * @Author     07fly.com <web@07fly.com>
  * @Brief      07flyCRM v1.x
  * @Update     2016.06.11

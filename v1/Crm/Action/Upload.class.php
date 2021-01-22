@@ -10,7 +10,7 @@
  * @author      NIAOMUNIAO <1871720801@QQ.com>
  * @package     system
  * @version     1.0
- * @link        http://www.07fly.net http://www.07fly.top
+ * @link        http://www.07fly.net http://www.07fly.xyz
  * @version   Ajax.class.php  add by NIAOMUNIAO 2013-07-27 16:48 
  */	 
 class Upload extends Action{	
