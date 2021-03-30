@@ -58,7 +58,8 @@ function loadData(isnextpage, isreload) {
 		orderField: orderField,
 		orderDirection: orderDirection,
 		searchKeyword: searchKeyword
-	}, function (data) {
+	}, function (jsonData) {
+		var data=jsonData.data;
 		mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
 		if (data.list != '') {
 			pageTotal = data.totalCount % data.pageSize != 0 ? parseInt(data.totalCount / data.pageSize) + 1 : data.totalCount / data.pageSize;
@@ -69,7 +70,7 @@ function loadData(isnextpage, isreload) {
 		}
 	}, false, function () {
 		//mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-		mui('#refreshContainer').pullRefresh().endPulldownToRefresh(true);;
+		mui('#refreshContainer').pullRefresh().endPulldownToRefresh(true);
 	});
 
 }

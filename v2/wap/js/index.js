@@ -9,7 +9,6 @@ if (mui.os.plus) {
 	});
 } else {
 	mui.ready(function () {
-		
 		//读取上次打开的选项卡
 		navActive=getCookie('navActive');
 		navTitle =getCookie('navTitle');
@@ -34,16 +33,16 @@ if (mui.os.plus) {
 		}else{
 			document.getElementById('tabbar-with-'+navActive).classList.add('mui-active');
 		}
-		
-		//
 		chatLoadData();
-		
 	});
 }
+
 mui('.mui-bar-tab').on('tap', 'a', function (e) {
 	//更换标题
 	var title = document.getElementById("title");
+
 	console.log(this.querySelector('.mui-tab-label').innerHTML);
+
 	title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 	
 	var targetTab = this.getAttribute('href');

@@ -16,7 +16,7 @@
 class CstCustomer extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
-		_instance('Action/wap/Auth');
+		$this->auth=_instance('Action/wap/Auth');
 		$this->dict=_instance('Action/wap/crm/CstDict');
 	}	
 	
@@ -81,7 +81,7 @@ class CstCustomer extends Action{
 	}		
 	public function cst_customer_json(){
 		$assArr  = $this->cst_customer();
-		echo json_encode($assArr);
+        $this->auth->return_msg('200', '', $assArr);
 	}	
 	//客户列表显示
 	public function cst_customer_show(){
@@ -136,7 +136,8 @@ class CstCustomer extends Action{
 			}else{
 				$this->L("Common")->ajax_json_error("操作失败");
 			}
-	}	
+	}
+
 	public function cst_customer_modify(){
 		$customer_id	= $this->_REQUEST("customer_id");		
 		if(empty($_POST)){
@@ -173,7 +174,7 @@ class CstCustomer extends Action{
 	public function cst_customer_detail(){
 		$customer_id = $this->_REQUEST("customer_id");
 		$one =$this->cst_customer_get_one($customer_id);
-		$rtnArr =array('one'=>$one,'statusCode'=>'200');
+		$rtnArr =array('data'=>$one,'statusCode'=>'200');
 		echo json_encode($rtnArr);		
 	}
 	
@@ -187,12 +188,7 @@ class CstCustomer extends Action{
 	public function cst_customer_get_one($customer_id=""){
 		if($customer_id){
 			$sql = "select * from cst_customer where customer_id='$customer_id' ";
-			$one = $this->C($this->cacheDir)->findOne($sql);	
-			$dict= $this->dict->cst_dict_arr();
-			$one['source_name']=($one['source']>0)?$dict[$one['source']]:"";
-			$one['ecotype_name']=($one['ecotype']>0)?$dict[$one['ecotype']]:"";
-			$one['level_name']=($one['level']>0)?$dict[$one['level']]:"";
-			$one['trade_name']=($one['trade']>0)?$dict[$one['trade']]:"";
+			$one = $this->C($this->cacheDir)->findOne($sql);
 			return $one;
 		}	
 	}	

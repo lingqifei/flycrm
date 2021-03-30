@@ -44,3 +44,10 @@
 .font-sucess{color:#27C24C;}
 .font-warning{color:#FAD733;}
 .font-primary{color:#7266BA;}
+
+/*列表样*/
+.mui-table-view-cell p.tit{font-weight: 800;color: #444;font-size: 15px;}
+.mui-table-view-cell p.tit2{font-weight: 600;color: #888;font-size: 14px;}
+.mui-table-view-cell p .sub{font-size: 12px;color:#8f8f94;}
+.mui-media-foot{padding-top: 5px;color: #8f8f94;font-size: 14px;}
+.mui-media-foot .mui-icon{font-size: 18px;}

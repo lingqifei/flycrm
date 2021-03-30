@@ -16,7 +16,7 @@
 class CstChance extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
-		_instance('Action/wap/Auth');
+		$this->auth=_instance('Action/wap/Auth');
 		$this->dict=_instance('Action/wap/crm/CstDict');
 		$this->customer=_instance('Action/wap/crm/CstCustomer');
 		$this->linkman=_instance('Action/wap/crm/CstLinkman');
@@ -89,17 +89,12 @@ class CstChance extends Action{
 		return $assignArray;
 		
 	}
+
 	public function cst_chance_json(){
 		$assArr = $this->cst_chance();
-		echo json_encode($assArr);
+        $this->auth->return_msg('200', '', $assArr);
 	}		
-	public function cst_chance_show(){
-		$salestage=$this->dict->cst_dict_list('salestage');
-		$smarty = $this->setSmarty();
-		$smarty->assign(array('salestage'=>$salestage));
-		$smarty->display('crm/cst_chance_show.html');	
-	}	
-	
+
 	public function cst_chance_add(){
 		$customer_id= $this->_REQUEST("customer_id");
 		if(empty($_POST)){

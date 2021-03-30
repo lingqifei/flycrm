@@ -16,7 +16,7 @@
 class CstTrace extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
-		_instance('Action/wap/Auth');
+		$this->auth=_instance('Action/wap/Auth');
 		//$this->msg=_instance('Action/wap/crm/Message');
 		$this->dict=_instance('Action/wap/crm/CstDict');
 		$this->customer=_instance('Action/wap/crm/CstCustomer');
@@ -88,8 +88,7 @@ class CstTrace extends Action{
 	}
 	public function cst_trace_json(){
 		$assArr  = $this->cst_trace();
-		$assArr['statusCode'] = '200';
-		echo json_encode($assArr);
+        $this->auth->return_msg('200', '', $assArr);
 	}	
 	public function cst_trace_show(){
 		$salestage=$this->dict->cst_dict_list('salestage');
