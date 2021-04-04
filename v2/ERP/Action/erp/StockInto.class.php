@@ -196,6 +196,7 @@ class StockInto extends Action
     public function stock_into_sure()
     {
         $into_id = $this->_REQUEST("into_id");
+
         $into_data = array(
             'status' => '1',
             'into_time' => NOWTIME,
@@ -203,23 +204,30 @@ class StockInto extends Action
         );
         $this->C($this->cacheDir)->modify('stock_into', $into_data, "into_id='$into_id'");
 
+        //
         //更新库存清单，不存在就添加，以仓库，产品，SKU库存，的编号为标识
         $sql = "select * from stock_into_list where into_id='$into_id'";
         $list = $this->C($this->cacheDir)->findAll($sql);
         foreach ($list as $key => $row) {
             $contract_id = $row['contract_id'];
             $contract_list_id = $row['contract_list_id'];
-            //更改采购订单的数据
+
+            //更改采购订单明细
             $this->contract_list->pos_contract_list_stock_into_sure($contract_list_id, $row['number'], $row['money']);
-            //更改库存清单 的数据
+
+            //更改库存清单的数据，添加库存
             $this->stock_goods_sku->stock_goods_sku_into_sure($row);
         }
 
-        //更新入库清单记录的入库人员
+        //更新入库明细单=》记录的入库人员
         $into_list_data = array('into_time' => NOWTIME, 'into_user_id' => SYS_USER_ID,);
         $this->C($this->cacheDir)->modify('stock_into_list', $into_list_data, "into_id='$into_id'");
 
-        //修改采购单入库状态
+        //修改采购单=》入库状态
+        $into_sql = "select * from stock_into where into_id='$into_id'";
+        $into_one = $this->C($this->cacheDir)->findOne($into_sql);
+        $contract_id = $into_one['contract_id'];
+
         $this->contract->pos_contract_modify_rece_status($contract_id);
         $this->L("Common")->ajax_json_success("入库成功");
     }
