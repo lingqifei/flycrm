@@ -182,7 +182,7 @@ class StockOut extends Action{
 	//确认出库
 	public function stock_out_sure(){
 		
-		$this->C($this->cacheDir)->begintrans();
+		//$this->C($this->cacheDir)->begintrans();
 		
 		$out_id = $this->_REQUEST("out_id");
 		//更新库存清单，不存在就添加，以仓库，产品，SKU库存，的编号为标识
@@ -194,7 +194,6 @@ class StockOut extends Action{
 			//更改库存清单 的数据
 			$rtn_sku=$this->stock_goods_sku->stock_goods_sku_out_sure($row);
 			if($rtn_sku['statusCode']=='300'){
-				$this->C($this->cacheDir)->rollback();
 				$this->L("Common")->ajax_json_error($rtn_sku['message']);
 				exit;
 			}
@@ -206,11 +205,15 @@ class StockOut extends Action{
 		//更新出库清单记录的出库人员
 		$out_list_data=array('out_time'=>NOWTIME,'out_user_id'=>SYS_USER_ID,);	
 		$this->C($this->cacheDir)->modify('stock_out_list',$out_list_data,"out_id='$out_id'");
+
 		//修改销售单出库状态
+		$out_sql = "select * from stock_into where into_id='$out_id'";
+		$out_one = $this->C($this->cacheDir)->findOne($out_sql);
+		$contract_id = $out_one['contract_id'];
 		$this->contract->sal_contract_modify_deliver_status($contract_id);
 		
 		//事务提交
-		$this->C($this->cacheDir)->commit();
+		//$this->C($this->cacheDir)->commit();
 		$this->L("Common")->ajax_json_success("出库成功");
 	}
 	
