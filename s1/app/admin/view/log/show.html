@@ -1,0 +1,80 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><i class="fa fa-home"></i>行为日志</h5>
+                    <div class="ibox-tools"><a href="?" class="btn btn-xs btn-danger"><i
+                            class="fa fa-refresh"></i>刷新</a></div>
+                </div>
+                <div class="ibox-content table-responsive">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <div class="col-sm-3 m-b-xs">
+                                <lqf_link><a class="btn btn-danger confirm ajax-del" data-url="{:url('Log/clear')}"><i
+                                        class="fa fa-cog fa-spin"></i> 清空记录</a></lqf_link>
+                            </div>
+                            <div class="col-sm-9 m-b-xs text-right">
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('log/show_json')}">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="100">名称</th>
+                            <th width="200">描述</th>
+                            <th width="100">执行者</th>
+                            <th width="100">执行IP</th>
+                            <th width="150">执行URL</th>
+                            <th width="100">执行时间</th>
+                            <th width="80">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="8" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i
+    <data.length;i++) { %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><%=data[i]['name']%></td>
+        <td><%=data[i]['describe']%></td>
+        <td><%=data[i]['username']%></td>
+        <td><%=data[i]['ip']%></td>
+        <td><%=data[i]['url']%></td>
+        <td><%=data[i]['create_time']%></td>
+        <td>
+            <p>
+                <lqf_link><a class="ajax-del confirm" data-url="{:url('log/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            </p>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

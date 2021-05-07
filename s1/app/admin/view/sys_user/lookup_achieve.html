@@ -1,0 +1,179 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-title"><h5>部门结构</h5>
+                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                </div>
+                <div class="ibox-content">
+                    <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-content table-responsive">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <div class="col-sm-12 m-b-xs text-right">
+                                <div class="input-group pd-b-5">
+                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary ajaxSearchForm"><i
+                                  class="fa fa-search"></i> 搜索</button>
+                          </span></div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysUser/show_json')}">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="80">帐号</th>
+                            <th width="80">姓名</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="3" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-title">已选人员
+                    <div class="ibox-tools">
+                        <button class="btn btn-info btn-xs checkboxItemSave">确认选择</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="checked-users-list" style="line-height: 30px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i
+    <data.length;i++) { %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox">
+            <div class="checkboxItem" style="display: none">
+                <li data-id="<%=data[i]['id']%>" data-user-name="<%=data[i]['realname']%>"><%=data[i]['realname']%> <a
+                        class="checkboxItemDel">[X]</a></li>
+            </div>
+        </td>
+        <td><%=data[i]['username']%></td>
+        <td><%=data[i]['realname']%></td>
+    </tr>
+    <% } %>
+</script>
+<link href="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
+<script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
+<script src="__STATIC__/module/admin/js/lib/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+        var shtml = '';
+        parent.$("#achieve_user_list input[name='user_id[]']").each(function (index) {
+            id = $(this).val();
+            name = $(this).next('input').val();
+            shtml += '<li data-id="' + id + '" data-user-name="' + name + '">' + name + ' <a class="checkboxItemDel">[X]</a></li>';
+        });
+        $('.checked-users-list').append(shtml);
+    });
+
+    //获取窗口索引关闭窗口
+    var list_add_index = parent.layer.getFrameIndex(window.name);
+
+    //设置选中产品
+    $("body").on("click", ".checkboxCtrlId", function () {
+        var isck = $(this).prop('checked');
+        var val = $(this).val();
+        var html = $(this).next('div').html();
+        log(val);
+        if (isck) {
+            var cids=[];
+            $('.checked-users-list').find('li').each(function () {
+                var id = $(this).attr('data-id');
+                cids.push(id);
+            });
+            isindex = $.inArray(val, cids);
+            if(isindex<0){
+                $('.checked-users-list').append(html);
+            }
+        } else {
+            $('.checked-users-list').find('li').each(function () {
+                id = $(this).attr('data-id');
+                if (val == id) {
+                    $(this).remove();
+                }
+            })
+        }
+    });
+
+    //删除选中产品
+    $("body").on("click", ".checkboxItemDel", function () {
+        $(this).parent().remove();
+    });
+
+    //保存选中产品
+    $("body").on("click", ".checkboxItemSave", function () {
+
+        var html = '';
+        var length=$('.checked-users-list').find('li').length;
+
+        var remainder=100%length;
+        var dist_rate=(100-remainder)/length;
+        if(length>4){
+            layer.msg('分业绩最多为4个人', {icon: 5});
+            return false;
+        }
+
+        $('.checked-users-list').find('li').each(function (index) {
+
+            if(index==0) {
+                set_dist_rate=dist_rate+remainder;
+            }else{
+                set_dist_rate=dist_rate;
+            }
+
+            var user_id = $(this).attr('data-id');
+            var user_name = $(this).attr('data-user-name');
+            html += '<div class="form-group">\n' +
+                '                <label class="col-sm-1 control-label">业绩人</label>\n' +
+                '                <div class="col-xs-4">\n' +
+                '                    <input name="user_id[]" class="form-control" type="hidden" placeholder="业绩分配" required value="' + user_id + '"/>\n' +
+                '                    <input name="user_name[]" class="form-control" type="text" placeholder="选择员工" required  value="' + user_name + '" readonly/>\n' +
+                '                    <span class="help-block m-b-none"></span>\n' +
+                '                </div>\n' +
+                '                <label class="col-sm-1 control-label">比例</label>\n' +
+                '                <div class="col-xs-4">\n' +
+                '                    <input name="user_rate[]" class="form-control" type="text" placeholder="所占比例" required  value="'+set_dist_rate+'"/>\n' +
+                '                    <span class="help-block m-b-none">单位%</span>\n' +
+                '                </div>\n' +
+                '                <div class="col-xs-2">\n' +
+                '                   <p class="form-control-static"><a href="javascript:void(0);" onclick="delTr(this);" >删除</a></p> \n' +
+                '                </div>\n' +
+                '            </div>';
+
+        });
+        parent.$("#achieve_user_list").html(html);
+        setTimeout(function () {
+            parent.layer.close(list_add_index);
+        }, 800);
+    });
+
+</script>

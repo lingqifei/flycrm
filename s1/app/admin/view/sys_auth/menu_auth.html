@@ -1,0 +1,16 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysAuth/menuAuth')}">
+        <input type="hidden" name="id" value="{$id}" />
+        <div class="ibox-content">
+            <div class="auth-box">
+                {$list}
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

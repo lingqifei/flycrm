@@ -1,0 +1,95 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>系统信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link" data-toggle="collapse"  data-target="#demo">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#" aria-expanded="true">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="table_basic.html#">选项1</a></li>
+                            <li><a href="table_basic.html#">选项2</a></li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content collapse in" id="demo">
+                    <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>当前版本</td>
+                        <td>{$info['lqf_version']}</td>
+                    </tr>
+                    <!--                    <tr>-->
+                    <!--                        <td>ThinkPHP版本</td>-->
+                    <!--                        <td>{$info['think_version']}</td>-->
+                    <!--                    </tr>-->
+                    <tr>
+                        <td>操作系统</td>
+                        <td>{$info['os']}</td>
+                    </tr>
+                    <tr>
+                        <td>运行环境</td>
+                        <td>{$info['software']}</td>
+                    </tr>
+                    <tr>
+                        <td>MySql版本</td>
+                        <td>{$info['mysql_version']}</td>
+                    </tr>
+                    <tr>
+                        <td>PHP版本</td>
+                        <td>{$info['php_version']}</td>
+                    </tr>
+                    <!--                    <tr>-->
+                    <!--                        <td>上传限制</td>-->
+                    <!--                        <td>{$info['upload_max']}</td>-->
+                    <!--                    </tr>-->
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>产品信息</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <tbody>
+
+                        <tr>
+                            <td>产品名称</td>
+                            <td>{$info['product_name']}</td>
+                        </tr>
+                        <tr>
+                            <td>产品设计及研发团队</td>
+                            <td>{$info['author']}</td>
+                        </tr>
+                        <tr>
+                            <td>官方网址</td>
+                            <td><a target="_blank" href="http://{$info['website']}">{$info['website']}</a></td>
+                        </tr>
+                        <tr>
+                            <td>QQ交流群</td>
+                            <td>{$info['qun']}</td>
+                        </tr>
+                        <tr>
+                            <td>开发手册</td>
+                            <td>{$info['document']}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="__STATIC__/addon/editor/kindeditor/themes/default/default.css" />
+<script src="__STATIC__/addon/editor/kindeditor/kindeditor-all-min.js"></script>
+<script src="__STATIC__/addon/editor/kindeditor/lang/zh-CN.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+    var editor_{$addons_data.name};
+
+        editor_{$addons_data.name} = KindEditor.create('textarea[name="{$addons_data.name}"]', {
+                themeType : 'simple',
+                allowFileManager : true,
+                fileManagerJson : "{:url($addons_data.addons_model.'/MemberPicture/editor_manager',array('session_id'=>session_id()))}",
+                themesPath: KindEditor.basePath+'/themes/',
+                width: '100%',
+                height: '{$addons_config.editor_height}',
+                resizeType: {eq name="addons_config.editor_resize_type" value="1"}1 {else /} 0 {/eq},
+                pasteType : 2,
+                urlType : 'absolute',
+                allowImageUpload:false,
+                uploadJson : "{:url($addons_data.addons_model.'/File/pictureUploadEditor',array('session_id'=>session_id()))}",
+                items : [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link'
+                ],
+                extraFileUploadParams: { session_id : '{:session_id()}'}
+            });
+
+        //ajax提交之前同步
+        $('button[type="submit"],#submit,.ajax-post,#autoSave').click(function(){
+                editor_{$addons_data.name}.sync();
+        });
+    });
+</script>

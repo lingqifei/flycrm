@@ -1,0 +1,26 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysUser/userAuth')}">
+        <input type="hidden" name="id" value="{$id|default='0'}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">选择权限组</label>
+            <div class="col-sm-8">
+                <div class="row">
+                    {volist name='list' id='vo'}
+                    <div class="col-sm-3">
+                        <div class="checkbox i-checks">
+                            <input class='rules_all' type='checkbox' name="sys_auth_id[]" value="{$vo.id}" {eq name="vo.tag" value='active'} checked='checked' {/eq} >{$vo['name']}
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

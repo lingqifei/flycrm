@@ -1,0 +1,81 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysModule/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模块标题</label>
+            <div class="col-sm-8">
+                <input name="title" class="form-control" type="text" placeholder="请输入模块标题" required/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模块名</label>
+            <div class="col-sm-8">
+                <input name="name" class="form-control" type="text" placeholder="请输入模块名" required/>
+                <span class="help-block m-b-none">模块名称只能为字母</span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模块介绍</label>
+            <div class="col-sm-8">
+                <textarea name="intro" class="form-control" cols="80" rows="2"></textarea>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">作者</label>
+            <div class="col-sm-8">
+                <input name="author" class="form-control" type="text" placeholder="输入作者"/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">作者网址</label>
+            <div class="col-sm-8">
+                <input name="author_url" class="form-control" type="text" placeholder="输入作者网址"/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">版本号</label>
+            <div class="col-sm-8">
+                <input name="version" class="form-control" type="text" placeholder="输入版本号" />
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>快速生成模块目录结构</legend>
+        </fieldset>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公共文件</label>
+            <div class="col-sm-8">
+                <input name="comm_file" class="form-control" type="text" placeholder="公共文件" value="command.php"/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模块目录</label>
+            <div class="col-sm-8">
+                <textarea name="module_dir" class="form-control" cols="80" rows="8">
+controller
+logic
+service
+model
+sql
+validate
+view
+                </textarea>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <div class="col-sm-2">
+                在当前模块下生成目录<br>
+                controller(后台控制器)<br>
+                logic(逻辑层)<br>
+                service(服务层)<br>
+                model(模型层)<br>
+                sql(数据库文件)<br>
+                vaidate(验证规则)<br>
+                view(后台模板)<br>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

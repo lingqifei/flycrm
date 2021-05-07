@@ -1,0 +1,60 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="toast"></div>
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <i class="fa fa-home"></i>系统信息
+                </div>
+                <div class="ibox-content">
+                    <p>当前版本：{$ver.version} {$ver.upgrade}</p>
+                    <p>当前主机：{$ver.domain} </p>
+                    <p>通信状态：{$signal.msg}</p>
+                </div>
+                <div class="ibox-title">软件注册</div>
+                <div class="ibox-content">
+                    {if condition="$authorize['code'] eq '1' "}
+                    <p>授权名称：<span>{$authorize.data.name}</span></p>
+                    <p>到期日期：<span>{$authorize.data.stop_date}</span></p>
+                    <p>授权认证：<span>{$authorize.data.syskey}</span></p>
+                    <p>授权域名：<span>{$authorize.data.domain}</span></p>
+                    {else}
+                    <p><span class="help-block m-b-none">(注册码需要联系软件开发商获取,访问<a href="http://www.07fly.xyz"
+                                                                              target="_blank">开发商网站</a>) </span></p>
+                    <p>
+                    <div class="input-group m-b">
+                        <input name="syskey" id="syskey" class="form-control" type="text" placeholder="密钥KEY"/>
+                        <span class="input-group-btn"><button type="button" class="btn btn-primary syskey-reg"
+                                                              data-url="{:url('upgrade/reg')}">提交注册码</button></span>
+                    </div>
+                    </p>
+                    {/if}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //点击注册
+    $("body").on("click", ".syskey-reg", function () {
+        var syskey = $("#syskey").val();
+        var url = $(this).attr('data-url');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {"syskey": syskey},
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data.code == '0') {
+                    parent.layer.msg(data.msg, {icon: 5});
+                } else {
+                    layer.msg(data.msg, {icon: 1});
+                }
+            }
+        });
+    });
+
+
+</script>

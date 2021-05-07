@@ -1,0 +1,84 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysUser/edit')}">
+        <input type="hidden" name="id" value="{$info['id']|default='0'}">
+        <input type="hidden" name="username" value="{$info['username']|default=''}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">帐号</label>
+            <div class="col-sm-8">
+                <p class="form-control-static">{$info['username']|default=''}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">真实名称</label>
+            <div class="col-sm-8">
+                <input name="realname" class="form-control" type="text" placeholder="请输入真实名称"
+                       value="{$info['realname']|default=''}"/>
+                <span class="help-block m-b-none">（用户真实姓名，主要用于显示）</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">姓别</label>
+            <div class="col-sm-8">
+                <div class="radio i-checks">
+                    <input type="radio" name="gender" value="1" {eq name="$info['gender']" value='1' } checked{/eq}/> 男
+                    <input type="radio" name="gender" value="2" {eq name="$info['gender']" value='2' } checked{/eq}/> 女
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">手机</label>
+            <div class="col-sm-8">
+                <input name="mobile" class="form-control" type="text" placeholder="输入手机号"
+                       value="{$info['mobile']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">QQ</label>
+            <div class="col-sm-8">
+                <input name="qicq" class="form-control" type="text" placeholder="输入QQ号码"
+                       value="{$info['qicq']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">邮箱</label>
+            <div class="col-sm-8">
+                <input name="email" class="form-control" type="email" placeholder="输入邮箱地址"
+                       value="{$info['email']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">介绍</label>
+            <div class="col-sm-8">
+                <textarea name="intro" class="form-control" cols="80" rows="2">{$info['intro']|default=''}</textarea>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所在部门</label>
+            <div class="col-sm-8">
+                <select name="dept_id" class="form-control chosen-select">
+                    <option value="0">所在部门</option>
+                    {volist name='dept_select' id='vo'}
+                    <option value="{$vo.id}"  {noempty name="info['dept_id']"} {if condition="$info['dept_id'] eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所在职位</label>
+            <div class="col-sm-8">
+                <select name="position_id" class="form-control chosen-select">
+                    <option value="0">所在职位</option>
+                    {volist name='sys_position_list' id='vo'}
+                    <option value="{$vo.id}"  {noempty name="info['position_id']"} {if condition="$info['position_id'] eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

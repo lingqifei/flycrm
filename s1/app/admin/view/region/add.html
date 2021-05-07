@@ -1,0 +1,128 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('Region/add')}">
+        <input type="hidden" name="id" value="{$info['id']|default='0'}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上级地区</label>
+            <div class="col-sm-8">
+                <select name="pid" class="form-control chosen-select">
+                    <option value="0">顶级地区</option>
+                    {volist name='dept_select' id='vo'}
+                    <option value="{$vo.id}"  {noempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">地区名称</label>
+            <div class="col-sm-8">
+                <input name="name" class="form-control" type="text" placeholder="请输中文栏目名称" value="{$info['name']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">绑定域名</label>
+            <div class="col-sm-8">
+                <input name="domain" class="form-control" type="text" placeholder="请输绑定域名" value="{$info['domain']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">联系人</label>
+            <div class="col-sm-8">
+                <input name="linkman" class="form-control" type="text" placeholder="请输联系人" value="{$info['linkman']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">联系电话</label>
+            <div class="col-sm-8">
+                <input name="tel" class="form-control" type="text" placeholder="请输联系地址" value="{$info['tel']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">手机号码</label>
+            <div class="col-sm-8">
+                <input name="mobile" class="form-control" type="text" placeholder="请输手机号码" value="{$info['mobile']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">电子邮箱</label>
+            <div class="col-sm-8">
+                <input name="email" class="form-control" type="text" placeholder="请输电子邮箱" value="{$info['email']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">联系地址</label>
+            <div class="col-sm-8">
+                <input name="address" class="form-control" type="text" placeholder="请输联系地址" value="{$info['address']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">交通线路</label>
+            <div class="col-sm-8">
+                <input name="traffic" class="form-control" type="text" placeholder="请输交通线路" value="{$info['traffic']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">百度地图X坐标</label>
+            <div class="col-sm-8">
+                <input name="map_x" class="form-control" type="text" placeholder="请输交通线路" value="{$info['map_x']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">百度地图Y坐标</label>
+            <div class="col-sm-8">
+                <input name="map_y" class="form-control" type="text" placeholder="请输交通线路" value="{$info['map_y']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">在线工具</label>
+            <div class="col-sm-8">
+                <input name="talk" class="form-control" type="text" placeholder="请输在线工具" value="{$info['talk']|default=''}"/>
+                <span class="help-block m-b-none">商务通网络地址</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">弹窗代码</label>
+            <div class="col-sm-8">
+                <input name="popup" class="form-control" type="text" placeholder="请输弹窗代码" value="{$info['popup']|default=''}"/>
+                <span class="help-block m-b-none">商务通网络地址</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公司全称</label>
+            <div class="col-sm-8">
+                <input name="fullname" class="form-control" type="text" placeholder="请输公司全称" value="{$info['fullname']|default=''}"/>
+                <span class="help-block m-b-none">商务通网络地址</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备案号码</label>
+            <div class="col-sm-8">
+                <input name="beian" class="form-control" type="text" placeholder="请输备案号码" value="{$info['beian']|default=''}"/>
+                <span class="help-block m-b-none">商务通网络地址</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">微信公众号</label>
+            <div class="col-sm-8">
+                <input name="weixin" class="form-control" type="text" placeholder="请输微信公众号" value="{$info['weixin']|default=''}"/>
+                <span class="help-block m-b-none">输入微信公众号图片地址</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">排位序号</label>
+            <div class="col-sm-8">
+                <input name="sort" class="form-control" type="digits" placeholder="栏目排序号" value="{$info['sort']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否启用</label>
+            <div class="col-sm-8">
+                <input type="radio" name="visible" value="1"  checked>是
+                <input type="radio" name="visible" value="0">否
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>
+

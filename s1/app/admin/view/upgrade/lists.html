@@ -1,0 +1,132 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="toast"></div>
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <i class="fa fa-home"></i>升级包列表
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover dataTables-example">
+                        <tbody>
+                        {volist name='list'  id='vo'}
+                        <tr>
+                            <td>更新包文件:{$vo.version}</td>
+                            <td>状态:{$vo.status}</td>
+                            <td>{$vo.operate}</td>
+                            <td><a class="ajax-open" data-url="{:url('upgrade/info')}" data-ids="{'version':'{$vo.version}'}" data-calback="javascript:void(0);">本次更新内容</a></td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="upgrade-text text-left"></div>
+                <div class="ibox-title text-danger"><h5>升级有风险，操作需谨慎！</h5></div>
+                <div class="ibox-content">
+                    <p>从零起飞研发中心服务器(www.07fly.xyz)上面下载可用更新文件列表....</p>
+                    <p>更新包用法:更新安装包以日期时间命名,时间早的先的安装,时间晚的后安装.</p>
+                    <p class="text-danger">注意：升级有一定的风险，请事先做好系统和数据的备份。</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //点击注册
+    $("body").on("click", ".syskey-reg", function () {
+        var syskey = $("#syskey").val();
+        var url =$(this).attr('data-url');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {"syskey": syskey},
+            dataType: "json",
+            beforeSend: function () {
+
+            },
+            async: true,
+            success: function (data) {
+                if (data.code == '0') {
+                    parent.layer.msg(data.msg, {icon: 5});
+                } else {
+                    layer.msg(data.msg, {icon: 1});
+                }
+            }
+        });
+    });
+
+
+    //点击下载
+    $("body").on("click", ".down", function () {
+        var target =$(this).attr('data-url');
+        var ver =$(this).attr('data-ver');
+        $.ajax({
+            type: "POST",
+            url: target,
+            data:{'version':ver},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
+                layer.msg('正在下载升级程序，请不要关闭浏览器，数据下载中...',
+                    {
+                        time: 1000,
+                        icon: 16,
+                        shade: 0.01
+                    }
+                );
+            },
+            success: function (data) {
+                if (data.code == '1') {
+                    layer.msg('操作成功', {icon: 1});
+                    window.location.reload();
+                } else {
+                    layer.msg(data.msg, {icon: 5});
+                }
+            }
+        });
+    });
+
+    //点击升级
+    $("body").on("click", ".execute", function () {
+        var step = 1;
+        var target =$(this).attr('data-url');
+        var version =$(this).attr('data-ver');
+        var title='数据升级，正在备份程序，请不要关闭浏览器...';
+        $('.upgrade-text').append('<div class="ibox-title">升级日志：</div>');
+        upgrade(target,step,title,version);
+    });
+
+    //升级函数
+    function upgrade(url,step,title,version) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {'step': step,'version': version},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
+                layer.msg(title,
+                    {
+                        time: 1000,
+                        icon: 16,
+                        shade: 0.01
+                    }
+                );
+            },
+            success: function (data) {
+                if (data.code == '1') {
+                    layer.msg(data.msg, {icon: 1});
+                    $('.upgrade-text').append('<p style="padding-left: 15px;">' + data.msg + '</p>');
+                    if(data.step!='-1'){
+                        upgrade(data.url, data.step,data.title,data.version);
+                    }
+                }else{
+                    $('.upgrade-text').append('<p style="padding-left: 15px;">' + data.msg + '</p>');
+                    layer.msg(data.msg, {icon: 5});
+                }
+            }
+        });
+    }
+</script>

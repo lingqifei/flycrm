@@ -1,0 +1,27 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysAuth/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">名称</label>
+            <div class="col-sm-8">
+                <input name="name" class="form-control" type="text" placeholder="请输入名称" required/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">排序</label>
+            <div class="col-sm-8">
+                <input name="sort" class="form-control" type="text" placeholder="请输排序" required/>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">介绍</label>
+            <div class="col-sm-8">
+                <textarea name="intro" class="form-control" cols="80" rows="2"></textarea>
+                <span class="help-block m-b-none"></span> </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

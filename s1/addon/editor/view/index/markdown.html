@@ -1,0 +1,33 @@
+
+<!-- 引入editormd样式文件 -->
+<link rel="stylesheet" href="__STATIC__/addon/editor/editormd/css/editormd.css" >
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="__STATIC__/addon/editor/editormd/editormd.js" ></script>
+
+<div id="{$addons_data.name}">
+    <textarea id="inp-content" style="display:none;"> {$addons_data['value']}</textarea>
+</div>
+
+<script>
+    $(function() {
+        var editor = editormd("{$addons_data.name}", {
+            height:'650px',
+            syncScrolling : "single",
+            emoji:true,
+            //启动本地图片上传功能
+            imageUpload: true,
+            watch:true,
+            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp","zip","rar"],
+            path   : "__STATIC__/addon/editor/editormd/lib/",
+            onload : function() {
+                initPasteDragImg(this); //必须 引入图片复制和截图上传功能
+            },
+            imageUploadURL : '{:addons_url("editor://Upload/pictureUploadEditormd")}', //文件提交请求路径
+            saveHTMLToTextarea : true, //注意3：这个配置，方便post提交表单
+            previewTheme : "dark",
+        });
+    })
+</script>
+
+
+<script src="__STATIC__/addon/editor/editormd/plugins/editormd-image-past.js"></script>

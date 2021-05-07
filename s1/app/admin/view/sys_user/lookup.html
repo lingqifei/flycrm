@@ -1,0 +1,148 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-title"><h5>选择部门</h5>
+                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                </div>
+                <div class="ibox-content">
+                    <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">{$page_title}选择人员</div>
+                <div class="ibox-content table-responsive">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <div class="col-sm-12 m-b-xs text-right">
+                                <div class="input-group pd-b-5">
+                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                          </span></div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysUser/show_json')}">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="80">帐号</th>
+                            <th width="80">姓名</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="3" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-title">已选人员
+                    <div class="ibox-tools">
+                        <button class="btn btn-info btn-xs checkboxItemSave">确认选择</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="checked-users-list" style="line-height: 30px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) { %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox">
+            <div class="checkboxItem" style="display: none">
+                <li data-id="<%=data[i]['id']%>" data-user-name="<%=data[i]['realname']%>"><%=data[i]['realname']%> <a class="checkboxItemDel">[X]</a></li>
+            </div>
+        </td>
+        <td><%=data[i]['username']%></td>
+        <td><%=data[i]['realname']%></td>
+    </tr>
+    <% } %>
+</script>
+<link href="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
+<script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
+<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+
+        //得到父页面的清单
+        var ids_arr = [];
+        var input_ids_val=parent.$("form input[name='{$input_ids}']").val();
+        var input_text_val=parent.$("form input[name='{$input_text}']").val();
+        var ids_arr=input_ids_val.split(',');
+        var text_arr=input_text_val.split(',');
+        var shtml='';
+        $.each(ids_arr,function (index,val) {
+            if(val!=''){
+                shtml +='<li data-id="'+val+'" data-user-name="'+text_arr[index]+'">'+text_arr[index]+' <a class="checkboxItemDel">[X]</a></li>';
+            }
+        })
+       $ ('.checked-users-list').append(shtml);
+    });
+
+    //获取窗口索引关闭窗口
+    var list_add_index = parent.layer.getFrameIndex(window.name);
+
+    //设置选中产品
+    $("body").on("click", ".checkboxCtrlId", function () {
+        var isck = $(this).prop('checked');
+        var val = $(this).val();
+        var html = $(this).next('div').html();
+        log(val);
+        if (isck) {
+            $('.checked-users-list').append(html);
+        } else {
+            $('.checked-users-list').find('li').each(function () {
+                id = $(this).attr('data-id');
+                if (val == id) {
+                    $(this).remove();
+                }
+            })
+        }
+    });
+
+    //删除选中产品
+    $("body").on("click", ".checkboxItemDel", function () {
+        $(this).parent().remove();
+    });
+
+    //保存选中产品
+    $("body").on("click", ".checkboxItemSave", function () {
+
+        var html = '';
+        var user_id_arr=[];
+        var user_name_arr=[];
+        $('.checked-users-list').find('li').each(function () {
+           var  user_id = $(this).attr('data-id');
+            var users_name = $(this).attr('data-user-name');
+            user_id_arr.push(user_id);
+            user_name_arr.push(users_name);
+        });
+        parent.$("form input[name='{$input_ids}']").val(user_id_arr.join(','));
+        parent.$("form input[name='{$input_text}']").val(user_name_arr.join(','));
+        layer.msg('添加成功', {icon: 1});
+        setTimeout(function () {
+            parent.layer.close(list_add_index);
+        }, 800);
+    });
+
+</script>

@@ -1,0 +1,29 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('Region/manage')}">
+        <input type="hidden" name="id" value="{$info['id']|default='0'}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">地区名称</label>
+            <div class="col-sm-8">
+                <input name="name" class="form-control" type="text" placeholder="请输中文栏目名称" value="{$info['name']|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">协助人员</label>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input type="hidden" name="manager_user_id" value="{$info['manager_user_id']|default=''}">
+                    <input type="text" name="manager_user_name" id="manager_user_name" class="form-control" placeholder="选择指定人员" readonly value="{$info['manager_user_name']|default=''}">
+                    <span class="input-group-btn"> <button type="button"  class="btn btn-default ajax-open" data-calback="javascript:void(0);"  data-url="{:url('admin/SysUser/lookup',array('input_ids'=>'manager_user_id','input_text'=>'manager_user_name'))}">选择人员 </button> </span>
+                </div>
+                <span class="help-block m-b-none">选择地区负责人员，可以选择多个</span></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>
+

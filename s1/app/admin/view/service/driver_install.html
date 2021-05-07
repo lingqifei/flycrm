@@ -1,0 +1,30 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">安装</div>
+                <div class="ibox-content">
+                    <form action="{:url()}" method="post" class="form-horizontal">
+                        {foreach name="param" item="v" key="k" }
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{$v}</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="param[{$k}]" value="{$info['config'][$k]}"
+                                       placeholder="请输入{$v}" type="text">
+                                <span class="help-block m-b-none">{$v}</span></div>
+                        </div>
+                        {/foreach}
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="{$info['id']|default='0'}"/>
+                            <div class="col-sm-offset-2 col-sm-8">
+                                <input type="hidden" name="service_name" value="{:input('service_class')}"/>
+                                <input type="hidden" name="driver_name" value="{:input('driver_class')}"/>
+                                {include file="layout/save_btn_rtn"/}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content table-responsive">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <div class="col-sm-3 m-b-xs">
+                                <lqf_link>
+                                <a class="btn btn-info ajax-open"  data-url="{:url('SysAuth/add')}" data-title="添加权限" ><i class="fa fa-plus"></i>添加</a>
+                                </lqf_link>
+                            </div>
+                            <div class="col-sm-9 m-b-xs text-right">
+                                <div class="input-group pd-b-5">
+                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                  <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                  </span></div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysAuth/show_json')}" width="100%">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="200">名称</th>
+                            <th>描述</th>
+                            <th width="150">排序</th>
+                            <th width="150">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="3" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) { %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><%=data[i]['name']%></td>
+        <td><%=data[i]['intro']%></td>
+        <td><%=data[i]['sort']%>
+<!--            <input type="text" data-url="{:url('SysAuth/setSort')}" data-ids="{'id':'<%=data[i]['id']%>'}" class="form-control ajax-sort" value="<%=data[i]['sort']%>">-->
+        </td>
+        <td>
+            <p>
+    
+                <lqf_link> <a class="ajax-open" data-url="{:url('SysAuth/MenuAuth')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-val="">菜单受权</a></lqf_link>
+                <lqf_link><a class="ajax-open" data-url="{:url('SysAuth/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-val="">修改</a></lqf_link>
+                <lqf_link><a class="ajax-del confirm" data-url="{:url('SysAuth/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+                
+            </p>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

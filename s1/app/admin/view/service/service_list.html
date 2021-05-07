@@ -1,0 +1,47 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">服务列表</div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table  table-hover">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>类名</th>
+                                <th>描述</th>
+                                <th>版本</th>
+                                <th>作者</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            {notempty name='list'}
+                            <tbody>
+                            {volist name='list' id='vo'}
+                            <tr>
+                                <td>{$vo.service_name}</td>
+                                <td>{$vo.service_class}</td>
+                                <td>{$vo.service_describe}</td>
+                                <td>{$vo.version}</td>
+                                <td>{$vo.author}</td>
+                                <td class="col-md-1">
+                                    <a href="{:url('serviceList', array('service_name' => $vo['service_class']))}" class="btn"><i class="fa fa-sitemap"></i> 驱 动</a>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                            {else/}
+                            <tbody>
+                            <tr class="odd">
+                                <td colspan="6" class="text-center" valign="top">{:config('empty_list_describe')}</td>
+                            </tr>
+                            </tbody>
+                            {/notempty}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
