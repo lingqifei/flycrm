@@ -21,7 +21,6 @@ use think\Cookie;
 class Store extends AdminBase
 {
 
-    private $version = '20200808';//当前版本
     private $syskey_path = '';//注册码目录
     private $upgrade_path_back = '';//升级备份目录
     private $upgrade_path_down = '';//升级下载目录
