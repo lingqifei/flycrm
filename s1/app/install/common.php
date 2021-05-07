@@ -136,8 +136,6 @@ function create_tables($db_object, $prefix = '')
 
     $result = true;
 
-	$result = true;
-
 	//读取SQL文件
 	$sql = file_get_contents('../app/install/data/install.sql');
 	$sql = str_replace("\r", "\n", $sql);
@@ -186,7 +184,6 @@ function register_administrator($db_object, $prefix, $admin, $auth)
     $sql="DELETE FROM  `[PREFIX]sys_user`   WHERE  id='1'";
     $sql = str_replace(array('[PREFIX]'),array($prefix),$sql);
     $db_object->execute($sql);
-
     $sql = "INSERT INTO `[PREFIX]sys_user` (`id`, `username`, `password`, `realname`,  `dept_id`, `email`, `qicq`, `mobile`,  `create_time`, `update_time`, `sort`, `visible`, `org_id`) 
  VALUES " . "(1, '[USERNAME]', '[PASSWORD]', '零起飞','1', '[EMAIL]', '1871720801','18030402705', '[UPDATETIME]', '[CREATETIME]', 1, 1, 1)";
     $password = data_md5_key($admin['password'], $auth);
@@ -195,9 +192,26 @@ function register_administrator($db_object, $prefix, $admin, $auth)
         array('[PREFIX]', '[USERNAME]', '[PASSWORD]',  '[EMAIL]', '[UPDATETIME]', '[CREATETIME]'),
         array($prefix, $admin['username'], $password, $admin['email'], $time, $time),
         $sql);
-
     //执行sql
-    return $db_object->execute($sql);
+    $db_object->execute($sql);
+
+	//超级管理关联组织号
+	$sql = "DELETE FROM  `[PREFIX]sys_org`  WHERE id='1'";
+
+	$sql = str_replace(array('[PREFIX]'), array($prefix), $sql);
+	$db_object->execute($sql);
+
+	$sql = "INSERT INTO `[PREFIX]sys_org` (`id`, `username`, `password`, `company`,  `logo`, `linkman`, `mobile`, `create_time`, `update_time`, `sort`, `visible`, `org_id`) 
+ VALUES " . "(1, '[USERNAME]', '[PASSWORD]', '零起飞网络','logo', '李经理','18030402705', '[UPDATETIME]', '[CREATETIME]', 1, 1, 1)";
+	$password = data_md5_key($admin['password'], $auth);
+	$time = time();
+	$sql = str_replace(
+		array('[PREFIX]', '[USERNAME]', '[PASSWORD]', '[UPDATETIME]', '[CREATETIME]'),
+		array($prefix, $admin['username'], $password,  $time, $time),
+		$sql);
+	//执行sql
+	return $db_object->execute($sql);
+
 }
 
 
