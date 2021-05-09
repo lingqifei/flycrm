@@ -55,7 +55,7 @@ function  get_city(){
 get_city();
 
 // 定义应用目录
-define('APP_PATH', __DIR__ . './application/');
+define('APP_PATH', __DIR__ . './app/');
 // 定义缓存目录
 define('RUNTIME_PATH','./Runtime/');
 // 定义模板文件默认目录

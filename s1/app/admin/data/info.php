@@ -34,7 +34,8 @@ return [
     // 修订版本号【位数变化：0-999】：一般是 Bug 修复或是一些小的变动，功能上没有大的变化，修复一个严重的bug即发布一个修订版。
     'version'     => '1.0.0',
     //关联数据表是指模块所需要的数据表名称，如果有多个表用英文逗号（,）分隔。如：table1,table2
-    'tables'     => 'action_log,
+    'tables'     => '
+action_log,
 addon,
 config,
 driver,
@@ -48,6 +49,6 @@ sys_dept,
 sys_menu,
 sys_module,
 sys_org,
-sys_postion,
+sys_position,
 sys_user',
 ];

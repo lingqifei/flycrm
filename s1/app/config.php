@@ -144,7 +144,7 @@ return [
         // 标签库标签结束标记
         'taglib_end'   => '}',
         //加载扩展标签
-        'taglib_pre_load'     =>    'app\index\taglib\Fly',
+//        'taglib_pre_load'     =>    'app\index\taglib\Fly',
     ],
 
     // 视图输出字符串内容替换
