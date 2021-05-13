@@ -756,9 +756,7 @@ INFO;
 			return [RESULT_ERROR, '需要打包的版本号不存在'];
 			exit;
 		}
-
 		$version = $data['version'];
-
 		$this->initModuleDir();
 
 		//导出栏目菜单
@@ -767,11 +765,11 @@ INFO;
 		//写入版本号
 		file_put_contents($this->app_path.'admin'.DS .'data'.DS. 'version', $data['version']);
 
-		//创建打包的临时目录
+		//把需要打包目录复制到打包目录下
 		$version_dir = $this->app_pack_path . $version . DS;
 		!is_dir($version_dir) && mkdir($version_dir, 0755, true);
 
-		//2、升级包=移动需要打包的文件
+		//2、移动需要打包的文件
 		$handle_list = [
 			'addon',
 			'core',
@@ -788,27 +786,10 @@ INFO;
 			'public/static/module/admin/css/style.css',
 			'public/static/module/admin/js/lib',
 		];
-
-		//2、安装包=移动需要打包的文件
-		$handle_list_intsll=[
-			'public/static/addon/editor',
-			'public/static/addon/file',
-			'public/static/addon/region',
-			'public/static/module/admin',
-			'public/static/module/install',
-			'public/static/module/login',
-		];
-
-		//判断是升级包，安装包
-		if (!empty($data['install'])) {
-			$handle_list=array_merge($handle_list,$handle_list_intsll);
-		}
-
-		//循环升级包移动文件
 		$file = new \lqf\File();
 		foreach ($handle_list as $filepath) {
-			$source = ROOT_PATH . $filepath;//源位置
-			$topath = $version_dir . $filepath;//目的位置
+			$source = ROOT_PATH . $filepath;
+			$topath = $version_dir . $filepath;
 			echo '<hr>' . ROOT_PATH . $filepath . '=>' . $version_dir . $filepath;
 			if(!file_exists($source)){
 				echo "不存在";
