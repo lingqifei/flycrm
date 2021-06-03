@@ -11,11 +11,8 @@
                     <select data-placeholder="选择分类..." name="supplier_id" class="chosen-select supplier-chosen-select"
                             style="width: 200px;" tabindex="2">
                         <option value="">请选供应商</option>
-
                         #{foreach from=$supplier key=k item=v}#
-
                         <option value="#{$v.supplier_id}#" hassubinfo="true">#{$v.name}#</option>
-
                         #{/foreach}#
 
                     </select>
@@ -25,8 +22,7 @@
             <div class="form-group text-left">
                 <label class="col-sm-2 control-label">采购订单</label>
                 <div class="col-sm-8">
-                    <select data-placeholder="请选供应商采购订单..." name="contract_id"
-                            class="chosen-select contract-chosen-select" style="width: 200px;" tabindex="1">
+                    <select data-placeholder="请选供应商采购订单..." name="contract_id" class="chosen-select contract-chosen-select" style="width: 200px;" tabindex="1">
                         <option value="">请选供应商采购订单</option>
                     </select>
                     <input type="hidden" name="contract_name">
@@ -131,6 +127,13 @@
             $(".form-horizontal input[name='supplier_name']").val(change_text);
             findPosContractChosenSelect('contract-chosen-select', chance_url, change_val);
             contract_id = $('.contract-chosen-select option:selected').val();
+            calc_contract(contract_id);
+        });
+
+        //选择采购单跳出关联订单
+        $('.contract-chosen-select').on('change', function(e, params) {
+            change_val=$(this).val();
+            contract_id=$('.contract-chosen-select option:selected').val();
             calc_contract(contract_id);
         });
 

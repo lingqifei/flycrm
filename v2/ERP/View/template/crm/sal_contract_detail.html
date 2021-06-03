@@ -51,7 +51,7 @@
                                     <li class="active"><a href="?#tab-1" data-toggle="tab">合同明细</a></li>
                                     <li class=""><a href="?#tab-2" data-toggle="tab">回款记录</a></li>
                                     <li class=""><a href="?#tab-3" data-toggle="tab">发票记录</a></li>
-                                    <li class=""><a href="?#tab-4" data-toggle="tab">日志记录</a></li>
+                                    <li class=""><a href="?#tab-4" data-toggle="tab">合同附件</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -110,7 +110,31 @@
                                     </table>
 
                                 </div>
-                                <div class="tab-pane" id="tab-4"> 功能开发中。。444。</div>
+                                <div class="tab-pane" id="tab-4">
+                                    <table class="table table-hover sorttable 07fly-table" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th width="150"><span>名称</span></th>
+                                            <th width="100"><span>路径</span></th>
+                                            <th width="120"><span>图片</span></th>
+                                            <th width="120"><span>备注</span></th>
+                                            <th width="120"><span>操作</span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <table class="table">
+                                        <tfoot class="ibox-content">
+                                        <tr>
+                                            <td><a href="javascript:void(0)"
+                                                   class=" btn btn-xs btn-primary single_operation"
+                                                   data-id="#{$one.contract_id}#" data-act="addfile">添加附件</a></td>
+                                            <td colspan="5" align="center"></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -181,6 +205,19 @@
         </td>
     </tr>
 </script>
+<script id="tab-4-Tpl" type="text/html">
+    <% for(var i=0;i<list.length;i++) { %>
+    <tr>
+        <td><%=list[i]['name']%></td>
+        <td><%=list[i]['filepath']%></td>
+        <td>
+           <a href="<%=list[i]['filepath']%>" target="_blank"><img src="<%=list[i]['filepath']%>" width="100" height="100"></a>
+        </td>
+        <td><%:=list[i]['remark']%></td>
+        <td><a href="#" class="single_operation" data-id="<%=list[i]['id']%>" data-act="delfile">删除</a></td>
+    </tr>
+    <% } %>
+</script>
 <script src="#{$smarty.const.APP}#/View/template/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -189,6 +226,45 @@
             ajax_contract_detail(tabl_index);
         });
     });
+
+
+    $("body").on("click", ".single_operation", function () {
+        contract_id = $(this).attr("data-id");
+        single_act = $(this).attr("data-act")
+        if (single_act == "addfile") {
+            layer.open({
+                type: 2,
+                title: '添加附件',
+                shadeClose: true,
+                fixed: false, //不固定
+                area: ['90%', '90%'],
+                content: '#{$smarty.const.ACT}#/crm/SalContractFile/sal_contract_file_add/contract_id/' + contract_id + '/',
+                end: function () {
+                    ajax_contract_detail(4);
+                }
+            });
+            return false;
+        }else if(single_act == "delfile"){
+
+            act_url = "#{$smarty.const.ACT}#/crm/SalContractFile/sal_contract_file_del/";
+            $.ajax({
+                type: "POST",
+                url: act_url,
+                data: {"id": contract_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.statusCode == '200') {
+                        layer.msg('操作成功', {icon: 1});
+                    }
+                },
+                complete: function () {
+                    ajax_contract_detail(4);
+                },
+            });
+        }
+
+    });
+
 
     function ajax_contract_detail(tabl_index){
         if (tabl_index == 1) {
@@ -220,6 +296,19 @@
             });
         }else if (tabl_index == 3) {
             var ajax_url = "#{$smarty.const.ACT}#/erp/FinInvoicePay/fin_invoice_pay_json/";
+            $.ajax({
+                type: "POST",
+                url: ajax_url,
+                data: {"contract_id": "#{$one.contract_id}#", "pageSize": "1000"},
+                dataType: "json",
+                success: function (returnJsonData) {
+                    var tpl = baidu.template;
+                    var html = tpl('tab-' + tabl_index + '-Tpl', returnJsonData);
+                    $("#tab-" + tabl_index + " tbody").html(html);
+                },
+            });
+        }else if (tabl_index == 4) {
+            var ajax_url = "#{$smarty.const.ACT}#/crm/SalContractFile/sal_contract_file_json/";
             $.ajax({
                 type: "POST",
                 url: ajax_url,

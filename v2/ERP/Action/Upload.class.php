@@ -14,7 +14,9 @@ class Upload extends Action{
 		$path = "upload/images/$date/";
 		$this->fp->create_dir($path);
 		return $path;
-	}		
+	}
+
+
 	
 	//编辑框架上传图片
 	public function upload_images_editor(){
@@ -49,25 +51,7 @@ class Upload extends Action{
 		}
 	}
 	
-	//百度上传控件
-	public function upload_images_webuploader(){
-		$files  = $_FILES["file"];
-		$picname = $files['name'];
-		$picsize = $files['size'];
-		$pictype = $files['type'];
-		if ($picsize > 1024000000000) {
-			echo '图片大小不能超过1M';
-			exit;
-		}
-		$pic_type = strstr($picname, '.');
-		$pic_name = date("YmdHis").rand(100, 999).$pic_type;
-		
-		$pic_path = $this->upload_images_path();//上传路径
-		$pic_path = $pic_path.$pic_name;//上传文件路径+文件名
-		move_uploaded_file($files['tmp_name'], $pic_path);
-		$res = array('success'=>true,'file'=> '/'.$pic_path);
-		die(json_encode($res));
-	}
+
 	
 	//ifname传传框架
 	public function upload_img(){
@@ -89,9 +73,43 @@ class Upload extends Action{
 			$rtn=array('rtnstatus'=>'fail','message'=>'删除失败');	
 		}
 		echo json_encode($rtn);
-	}	
-	
-	
+	}
+
+
+	//ifname传传框架
+	public function upload_file(){
+		if(empty($_POST)){
+			$file_id= $this->_REQUEST('file_id');
+			$smarty = $this->setSmarty();
+			$smarty->assign(array("file_id"=>$file_id));
+			$smarty->display('upload_file.html');
+		}else{
+
+		}
+	}
+
+
+	//百度上传控件
+	public function upload_images_webuploader(){
+		$files  = $_FILES["file"];
+		$picname = $files['name'];
+		$picsize = $files['size'];
+		$pictype = $files['type'];
+		if ($picsize > 1024000000000) {
+			echo '图片大小不能超过1M';
+			exit;
+		}
+		$pic_type = strstr($picname, '.');
+		$pic_name = date("YmdHis").rand(100, 999).$pic_type;
+
+		$pic_path = $this->upload_images_path();//上传路径
+		$pic_path = $pic_path.$pic_name;//上传文件路径+文件名
+		move_uploaded_file($files['tmp_name'], $pic_path);
+		$res = array('success'=>true,'file'=> '/'.$pic_path);
+		die(json_encode($res));
+	}
+
+
 	public function upload_img_save(){
 		if(empty($_FILES)){
 			$smarty = $this->setSmarty();

@@ -64,11 +64,47 @@ class UpgradeData extends Action
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (7, '联系电话', 'phone', '18030402705', 'string', 0);
             REPLACE INTO `fly_sys_config` (`id`, `name`, `varname`, `value`, `type`, `groupid`) VALUES (8, '联系地址', 'address', '四川省成都市量力钢材城贸易区A4-3', 'string', 0);
         ";
+
+//2021-06-03 创建表格 增加销售合同和采购合同附件表 *********************开始
+		$sqlArr[]="
+CREATE TABLE IF NOT EXISTS `pos_contract_file` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单项ID',
+  `contract_id` int(11) NOT NULL DEFAULT '0' COMMENT '合同ID',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '文件名称',
+  `type` varchar(50) NOT NULL DEFAULT '' COMMENT '类型',
+  `remarks` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `filepath` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
+  `create_user_id` int(11) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `UK_ns_order_goods_order_id` (`contract_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=289 COMMENT='采购合同附件';
+		";
+
+		$sqlArr[]="
+CREATE TABLE IF NOT EXISTS `sal_contract_file` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单项ID',
+  `contract_id` int(11) NOT NULL DEFAULT '0' COMMENT '合同ID',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '文件名称',
+  `type` varchar(50) NOT NULL DEFAULT '' COMMENT '类型',
+  `remarks` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `filepath` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
+  `create_user_id` int(11) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `UK_ns_order_goods_order_id` (`contract_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=289 COMMENT='销售合同明附件';
+		";
+
+//2021-06-03 创建表格 增加销售合同和采购合同附件表 *********************结束
+
         if(!empty($sqlArr)){
             foreach ( $sqlArr as $sql ) {
                 $this->C( $this->cacheDir )->update( $sql );
             }
         }
+
+
 
     }
 

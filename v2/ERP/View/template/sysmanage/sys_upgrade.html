@@ -160,7 +160,9 @@
                     if (data.statusCode == '300') {
                         //layer.msg(data.message, {icon: 1});
                         $('.upgrade-text').append('<p style="padding-left: 15px;">' + data.message + '</p>');
+
                         upgrade(data.step, data.ver);
+
                     } else if (data.statusCode == '200') {
                         $('.upgrade-text').append('<p style="padding-left: 15px;">' + data.message + '</p>');
                         //layer.msg(data.message, {icon: 5});

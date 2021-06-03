@@ -179,15 +179,26 @@ class StockOut extends Action{
 			return false;
 		}
 	}
+
 	//确认出库
 	public function stock_out_sure(){
 		
 		//$this->C($this->cacheDir)->begintrans();
 		
 		$out_id = $this->_REQUEST("out_id");
+
+		//更改出库单状态
+		$out_data = array(
+			'status' => '1',
+			'out_time' => NOWTIME,
+			'out_user_id' => SYS_USER_ID,
+		);
+		$this->C($this->cacheDir)->modify('stock_out', $out_data, "out_id='$out_id'");
+
 		//更新库存清单，不存在就添加，以仓库，产品，SKU库存，的编号为标识
 		$sql ="select * from stock_out_list where out_id='$out_id'";
 		$list=$this->C($this->cacheDir)->findAll($sql);
+
 		foreach($list as $key=>$row){
 			$contract_id		=$row['contract_id'];
 			$contract_list_id	=$row['contract_list_id'];
@@ -207,7 +218,7 @@ class StockOut extends Action{
 		$this->C($this->cacheDir)->modify('stock_out_list',$out_list_data,"out_id='$out_id'");
 
 		//修改销售单出库状态
-		$out_sql = "select * from stock_into where into_id='$out_id'";
+		$out_sql = "select * from stock_out where out_id='$out_id'";
 		$out_one = $this->C($this->cacheDir)->findOne($out_sql);
 		$contract_id = $out_one['contract_id'];
 		$this->contract->sal_contract_modify_deliver_status($contract_id);
