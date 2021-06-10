@@ -29,7 +29,7 @@ class SysAuthAccess extends AdminBase
 		$sort = 'sort';
 		if (IS_ROOT) {
 			$map=[];
-			if(!empty($model)) $map['module']=['=',$model];
+			if(!empty($model)) $map['module']=['in',$model];
 			return $this->logicSysMenu->getSysMenuList($map, true, $sort);
 		}
 

@@ -318,9 +318,7 @@ class Database extends AdminBase
 
             $db = new \lqf\Database($list[$part], array(
                 'path' => realpath($path) . SYS_DS_PROS,
-                'compress' => $list[$part][2],
-				'prefix' => SYS_DB_PREFIX,
-				'prefix_tpl' => '#@__',
+                'compress' => $list[$part][2]
             ));
 
 

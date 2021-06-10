@@ -1,0 +1,157 @@
+<div class="tabs-container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">标准授权</a></li>
+        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">高级授权</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-1" class="tab-pane active">
+            <div class="panel-body">
+                <strong>一年免费更新升级</strong>
+                <p>一年免费更新升级，仅支持自营项目使用，禁止用于外包</p>
+            </div>
+        </div>
+        <div id="tab-2" class="tab-pane">
+            <div class="panel-body">
+                <strong>永久免费更新升级</strong>
+                <p>永久免费更新升级，支持自营项目、外包项目使用</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{notempty name='orderinfo'}
+<div class="ibox-title">订单信息：</div>
+<div class="ibox-content">
+    <div class="row">
+        <div class="col-sm-2">订单标题：</div>
+        <div class="col-sm-8">{$orderinfo.order_name}</div>
+    </div>
+    <div class="row m-t-md">
+        <div class="col-sm-2">订单编号：</div>
+        <div class="col-sm-8">{$orderinfo.order_code}</div>
+    </div>
+    <div class="row m-t-md">
+        <div class="col-sm-2">订单价格：</div>
+        <div class="col-sm-8 text-danger">￥：{$orderinfo.order_amount}</div>
+    </div>
+
+</div>
+{if condition="$orderinfo.ispayment eq 0"}
+<div class="ibox-title">扫一扫付款：</div>
+<div class="ibox-content app_order_payinfo"  data-url="{:url('Store/app_order_check')}">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="-qrcode">
+                <img src="{$orderinfo.pay_url_img}" width="100%">
+            </div>
+            <div class="title">
+                <div class=" btn btn-success btn-block">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <i class="qrcode-scan-icon"></i>
+                        </div>
+                        <div class="col-sm-7 text-left">
+                            <p class="m-t-xs">请使用微信扫一扫</p>
+                            <p>扫描二维码支付</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/if}
+
+{if condition="$orderinfo.ispayment eq 1"}
+<div class="ibox-title">已经购买授权：</div>
+<div class="ibox-content">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="title">
+                <div class=" btn btn-success btn-block">
+                    <div class="row">
+                        <div class="col-sm-12 text-center down-install"
+                             data-url="{:url('Store/down_upgrade',array('app_id'=>$orderinfo.app_id,'version'=>$orderinfo.app_version))}">
+                            请点击按钮执行升级操作
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/if}
+
+{/notempty}
+<script>
+    $(document).ready(function () {
+
+        var ispay="{$orderinfo.ispayment}";
+        var order_id="{$orderinfo.order_id}";
+        var order_code="{$orderinfo.order_code}";
+
+
+        if(ispay==0){
+            time1 = window.setInterval("checkOrderPay()",5000);
+        }
+
+        $("body").on("click", ".down-install", function () {
+            appDownInstall();
+        });
+
+        $("body").on("click", ".app_order_payinfo", function () {
+            checkOrderPay();
+        });
+
+
+    });
+
+
+
+    //下载安装
+    function appDownInstall() {
+        var target = $('.down-install').attr('data-url');
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: '',
+            dataType: "json",
+            success: function (result) {
+                if (result.code == '1') {
+                    layer.msg(result.msg, {icon: 1, time: 1000, shade: [0.5, '#000', true]}, function () {
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.layer.close(index);
+                    });
+                } else {
+                    layer.msg(result.msg, {icon: 5});
+                }
+            }
+        });//end ajax post
+    }
+
+    //检查订单是否支付
+    function checkOrderPay() {
+        var order_id="{$orderinfo.order_id}";
+        var order_code="{$orderinfo.order_code}";
+        var target = $('.app_order_payinfo').attr('data-url');
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: {'order_code':order_code,'order_id':order_id},
+            dataType: "json",
+            success: function (result) {
+                if(result.ispayment==1){
+                    layer.msg('支付成功', {icon: 1});
+                    location.reload();
+                }else{
+                    //layer.msg(result.ispayment_text, {icon: 5});
+                }
+            }
+        });//end ajax post
+    }
+
+</script>
+
+

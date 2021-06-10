@@ -105,4 +105,30 @@ class Store extends AdminBase
 		$this->jump($this->logicStore->getCloudAppDownInstall($this->param));
 	}
 
+	/**
+	 * 云应用升级
+	 */
+	public function upgrade()
+	{
+		$userinfo=$this->logicStore->getCloudUserInfo();
+		if(empty($userinfo)){
+			return $this->user();
+			exit;
+		}else{
+			$orderinfo=$this->logicStore->getCloudAppOrderInfo($this->param);
+//			d($orderinfo);
+			$this->assign('userinfo', $userinfo);
+			$this->assign('orderinfo', $orderinfo);
+			return $this->fetch('upgrade');
+		}
+	}
+
+	/**
+	 * 下载升级
+	 */
+	public function down_upgrade()
+	{
+		$this->jump($this->logicStore->getCloudAppDownUpgrade($this->param));
+	}
+
 }

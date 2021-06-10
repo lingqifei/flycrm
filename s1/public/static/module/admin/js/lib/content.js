@@ -113,9 +113,9 @@ $("body").on("click", ".ajax-list-table .sort-filed", function () {
 //查询数据，刷新
 $('.ajaxSearchForm').click(function () {
     $(this).children("input").prop("checked", true);
-
     var searchform=$(this).parents("form");
 
+    //是否重置搜索条件
     if ($(this).hasClass('resetForm')) {
         searchform[0].reset();
         // searchform.find('input[type=text],select,input[type=hidden]').each(function() {
@@ -128,6 +128,7 @@ $('.ajaxSearchForm').click(function () {
     turnPage(1);
 });
 
+//查询条件下拉时搜索
 $("body").on("change", ".searchForm select", function () {
     var searchform=$(this).parents("form");
     var searchform=$(this);
@@ -404,7 +405,7 @@ $("body").on("click", ".ajax-open", function () {
                     eval(fun);
                     log('执行回调函数：'+fun);
                 }else{
-                    turnPage(1);
+                    turnPage(pageNum);
                 }
             }
         });
@@ -457,7 +458,7 @@ $("body").on("click", ".ajax-open-more", function () {
                 if(fun!=null){
                     eval(fun);
                 }else{
-                    turnPage(1);
+                    turnPage(pageNum);
                 }
             }
         });
@@ -502,7 +503,7 @@ $("body").on("click", ".ajax-del", function () {
                         eval(fun);
                     }else{
                         setTimeout(function () {
-                            turnPage(1);
+                            turnPage(pageNum);
                         }, 1500);
                     }
                 } else {
@@ -542,7 +543,7 @@ $("body").on("click", ".ajax-get", function () {
                     eval(fun);
                 }else{
                     setTimeout(function () {
-                        turnPage(1);
+                        turnPage(pageNum);
                     }, 1500);
                 }
             } else {
@@ -592,7 +593,7 @@ $("body").on("click", ".ajax-get-more", function () {
                     if (fun != null) {
                         eval(fun);
                     } else {
-                        turnPage(1);
+                        turnPage(pageNum);
                     }
                 } else {
                     parent.layer.msg(data.msg, {icon: 5});

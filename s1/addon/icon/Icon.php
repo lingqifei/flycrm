@@ -32,7 +32,7 @@ class Icon extends AddonBase implements AddonInterface
         
         $this->assign('addons_config', $this->addonConfig($param));
         
-        $this->fetch('index/index');
+        $this->addonTemplate('index/index');
     }
 
     /**

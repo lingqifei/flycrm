@@ -116,6 +116,14 @@ class SysModule extends AdminBase
 	}
 
 	/**
+	 * 模块信息
+	 */
+	public function getSysModuleColumn($where = [], $field = '',$key='')
+	{
+		return $this->modelSysModule->getColumn($where, $field, $key);
+	}
+
+	/**
 	 * 模块添加
 	 */
 	public function sysModuleAdd($data = [])
@@ -237,9 +245,10 @@ class SysModule extends AdminBase
 		//1、删除左侧栏目
 		$this->delModuleMenu($info['name']);
 
-		//2.备份模块数据表 table-1.sql 文件
+		//2.备份模块数据表 文件 => app/moduleName/data/table-1.sql 目录
 		$module_dir = $this->app_path . $info['name'] . DS;
 		$res = $this->exportModuleTable(array('module_dir' => $module_dir . 'data' . DS, 'tables' => $info['tables'], 'sqlfilename' => 'backup'));
+
 		if ($res[0] == RESULT_ERROR) return $res;
 
 		//2、更改模块列表状态
@@ -752,11 +761,16 @@ INFO;
 	 */
 	public function sysModuleCreateSys($data = [])
 	{
+
+		ini_set('max_execution_time', '0');
+
 		if (empty($data['version'])) {
 			return [RESULT_ERROR, '需要打包的版本号不存在'];
 			exit;
 		}
+
 		$version = $data['version'];
+
 		$this->initModuleDir();
 
 		//导出栏目菜单
@@ -765,11 +779,11 @@ INFO;
 		//写入版本号
 		file_put_contents($this->app_path.'admin'.DS .'data'.DS. 'version', $data['version']);
 
-		//把需要打包目录复制到打包目录下
+		//创建打包的临时目录
 		$version_dir = $this->app_pack_path . $version . DS;
 		!is_dir($version_dir) && mkdir($version_dir, 0755, true);
 
-		//2、移动需要打包的文件
+		//2、升级包=移动需要打包的文件
 		$handle_list = [
 			'addon',
 			'core',
@@ -786,10 +800,34 @@ INFO;
 			'public/static/module/admin/css/style.css',
 			'public/static/module/admin/js/lib',
 		];
+
+		//2、安装包=移动需要打包的文件
+		$handle_list_intsll=[
+			'app/install',
+			'app/config.php',
+			'public/static/addon/editor',
+			'public/static/addon/file',
+			'public/static/addon/region',
+			'public/static/module/admin',
+			'public/static/module/install',
+			'public/static/module/login',
+			'public/index.php',
+			'public/admin.php',
+			'public/install.php',
+			'public/router.php',
+			'public/public.php',
+		];
+
+		//判断是升级包，安装包
+		if (!empty($data['install'])) {
+			$handle_list=array_merge($handle_list,$handle_list_intsll);
+		}
+
+		//循环升级包移动文件
 		$file = new \lqf\File();
 		foreach ($handle_list as $filepath) {
-			$source = ROOT_PATH . $filepath;
-			$topath = $version_dir . $filepath;
+			$source = ROOT_PATH . $filepath;//源位置
+			$topath = $version_dir . $filepath;//目的位置
 			echo '<hr>' . ROOT_PATH . $filepath . '=>' . $version_dir . $filepath;
 			if(!file_exists($source)){
 				echo "不存在";
@@ -804,6 +842,7 @@ INFO;
 		//3、压缩包zip文件
 		$pack_zip = $this->app_pack_path . $version . '.zip';
 		$zip = new \lqf\Zip();
+		$version_dir=rtrim($version_dir,DS);
 		$result = $zip->zip($pack_zip, $version_dir);
 		if ($result == false) {
 			return [RESULT_ERROR, '打包模块失败'];

@@ -21,237 +21,222 @@ use app\common\logic\LogicBase;
 class AdminBase extends LogicBase
 {
 
-	/**
-	 * 权限检测
-	 * url  当前访问的地址
-	 * url_list[] 当前授权地址数据
-	 */
-	public function authCheck($url = '', $url_list = [])
-	{
+    /**
+     * 权限检测
+     * url  当前访问的地址
+     * url_list[] 当前授权地址数据
+     */
+    public function authCheck($url = '', $url_list = [])
+    {
 
-		$pass_data = [RESULT_SUCCESS, '权限检查通过'];
+        $pass_data = [RESULT_SUCCESS, '权限检查通过'];
+        $allow_url = config('allow_url');
+        $allow_url_list = parse_config_attr($allow_url);
 
-		$allow_url = config('allow_url');//配置不需要验证授权的功能
-		$allow_url_list = parse_config_attr($allow_url);
+        if (IS_ROOT) {
+            return $pass_data;
+        }
+        //echo $url;
+        //print_r($allow_url_list);
+        //放行配置允许通过的地址
+        if (!empty($allow_url_list)) {
+            foreach ($allow_url_list as $v) {
+                if(!empty($v)){
+                    if (strpos(strtolower($v), strtolower($url)) !== false) {
+                        return $pass_data;
+                    }
+                }
+            }
+        }
 
-		//超级管理员直接放行
-		if (IS_ROOT) {
-			return $pass_data;
-		}
+        //判断访问地址，是否存在授权地址数组中
+        $result = in_array(strtolower($url), array_map("strtolower", $url_list)) ? true : false;
 
-		//放行配置允许通过的地址
-		if (!empty($allow_url_list)) {
-			foreach ($allow_url_list as $v) {
-				if (!empty($v)) {
-					if (strpos(strtolower($v), strtolower($url)) !== false) {
-						return $pass_data;
-					}
-				}
-			}
-		}
+        !('index/index' == $url && !$result) ?: clear_login_session();
 
-		//判断访问地址，是否存在授权地址数组中
-		$result = in_array(strtolower($url), array_map("strtolower", $url_list)) ? true : false;
+        return $result ? $pass_data : [RESULT_ERROR, '未授权操作,检查权限'];
+    }
 
-		!('index/index' == $url && !$result) ?: clear_login_session();
+    /**
+     * 获取过滤后的菜单树
+     */
+    public function getMenuTree($menu_list = [], $url_list = [])
+    {
 
-		return $result ? $pass_data : [RESULT_ERROR, '未授权操作,检查权限'];
-	}
+        foreach ($menu_list as $key => $menu_info) {
 
-	/**
-	 * 获取过滤后的菜单树
-	 */
-	public function getMenuTree($menu_list = [], $url_list = [])
-	{
+            list($status, $message) = $this->authCheck(strtolower($menu_info['url']), $url_list);
 
-		foreach ($menu_list as $key => $menu_info) {
+            [$message];
+            //提取为菜单
+            if ((!IS_ROOT && RESULT_ERROR == $status) || empty($menu_info['is_menu'])) {
 
-			list($status, $message) = $this->authCheck(strtolower($menu_info['url']), $url_list);
+                unset($menu_list[$key]);
+            }
+        }
 
-			[$message];
-			//提取为菜单
-			if ((!IS_ROOT && RESULT_ERROR == $status) || empty($menu_info['is_menu'])) {
+        return $this->getListTree($menu_list);
+    }
 
-				unset($menu_list[$key]);
-			}
-		}
+    /**
+     * 获取列表树结构
+     */
+    public function getListTree($list = [])
+    {
 
-		return $this->getListTree($menu_list);
-	}
+        if (is_object($list)) {
 
-	/**
-	 * 获取列表树结构
-	 */
-	public function getListTree($list = [])
-	{
+            $list = $list->toArray();
+        }
 
-		if (is_object($list)) {
+        return list_to_tree(array_values($list), 'id', 'pid', 'child');
+    }
 
-			$list = $list->toArray();
-		}
+    /**
+     * 通过完整URL获取检查标准URL
+     */
+    public function getCheckUrl($full_url = '')
+    {
 
-		return list_to_tree(array_values($list), 'id', 'pid', 'child');
-	}
+        $temp_url = sr($full_url, URL_ROOT);
 
-	/**
-	 * 通过完整URL获取检查标准URL
-	 */
-	public function getCheckUrl($full_url = '')
-	{
+        $url_array_tmp = explode(SYS_DS_PROS, $temp_url);
 
-		$temp_url = sr($full_url, URL_ROOT);
-		$url_array_tmp = explode(SYS_DS_PROS, $temp_url);
+        //获得真地址
+        $subscript = DATA_NORMAL;
+        !defined('BIND_MODULE') && $subscript++;
+        $return_url = $url_array_tmp[$subscript] . SYS_DS_PROS . $url_array_tmp[++$subscript];
 
-		/*
-		获取标准的地址：
-		string(16) "/cms/Arctype/add"
-		array(4) {
-				[0] => string(0) ""
-				[1] => string(3) "cms"
-				[2] => string(7) "Arctype"
-				[3] => string(3) "add"
-		}
-				$return_url = $url_array_tmp[1] . SYS_DS_PROS . $url_array_tmp[2]. SYS_DS_PROS . $url_array_tmp[3];
+        //$return_url = $url_array_tmp[1] . SYS_DS_PROS . $url_array_tmp[2]. SYS_DS_PROS . $url_array_tmp[3];
+        $index = strpos($return_url, '.');
 
-		*/
+        $index !== false && $return_url = substr($return_url, DATA_DISABLE, $index);
 
-		//获得真地址,控制器/方法
-		$subscript = DATA_NORMAL;
-		//!defined('BIND_MODULE') && $subscript++;
-		$return_url = $url_array_tmp[++$subscript] . SYS_DS_PROS . $url_array_tmp[++$subscript];
+        return $return_url;
+    }
 
-		//截取分层控制器的命名
-		//如： rcp.Archive/add  => Archive/add
-		$index = strpos($return_url, '.');
-		$index !== false && $return_url = substr($return_url, DATA_DISABLE, $index);
+    /**
+     * 过滤页面内容权限地方，不存在权限直接过滤掉
+     */
+    public function filter($content = '', $url_list = [])
+    {
 
-		return $return_url;
-	}
+        $results = [];
 
-	/**
-	 * 过滤页面内容权限地方，不存在权限直接过滤掉
-	 */
-	public function filter($content = '', $url_list = [])
-	{
+        preg_match_all('/<lqf_link>.*?[\s\S]*?<\/lqf_link>/', $content, $results);
 
-		$results = [];
+        foreach ($results[0] as $a) {
 
-		preg_match_all('/<lqf_link>.*?[\s\S]*?<\/lqf_link>/', $content, $results);
+            $match_results = [];
 
-		foreach ($results[0] as $a) {
+            preg_match_all('/data-url="(.+?)"|url="(.+?)"/', $a, $match_results);
 
-			$match_results = [];
+            $full_url = '';
 
-			preg_match_all('/data-url="(.+?)"|url="(.+?)"/', $a, $match_results);
+            if (empty($match_results[1][0]) && empty($match_results[2][0])) {
+                continue;
+            } elseif (!empty($match_results[1][0])) {
+                $full_url = $match_results[1][0];
+            } else {
+                $full_url = $match_results[2][0];
+            }
 
-			$full_url = '';
+            //正则到内容在的地址，判断是否有权限
+            if (!empty($full_url)) {
+                $url=$this->getCheckUrl($full_url);
+                $result = $this->authCheck($url, $url_list);
+                $result[0] != RESULT_SUCCESS && $content = sr($content, $a,'<i class="text-danger fa fa-power-off"></i>');
+            }
+        }
+        return $content;
+    }
 
-			if (empty($match_results[1][0]) && empty($match_results[2][0])) {
-				continue;
-			} elseif (!empty($match_results[1][0])) {
-				$full_url = $match_results[1][0];
-			} else {
-				$full_url = $match_results[2][0];
-			}
-//			echo "<hr>全地址：";
-//			d($full_url);
+    /**
+     * 获取首页数据
+     */
+    public function getIndexData()
+    {
 
-			//正则到内容在的地址，判断是否有权限
-			if (!empty($full_url)) {
-				$url = $this->getCheckUrl($full_url);
-				$result = $this->authCheck($url, $url_list);
-				$result[0] != RESULT_SUCCESS && $content = sr($content, $a, '<i class="text-danger fa fa-power-off"></i>');
-			}
-		}
-		return $content;
-	}
+        $query = new \think\db\Query();
+        $system_info_mysql = $query->query("select version() as v;");
 
-	/**
-	 * 获取首页数据
-	 */
-	public function getIndexData()
-	{
+        // 系统信息
+        $data['lqf_version'] = SYS_VERSION;
+        $data['think_version'] = THINK_VERSION;
+        $data['os'] = PHP_OS;
+        $data['software'] = $_SERVER['SERVER_SOFTWARE'];
+        $data['mysql_version'] = $system_info_mysql[0]['v'];
+        $data['upload_max'] = ini_get('upload_max_filesize');
+        $data['php_version'] = PHP_VERSION;
 
-		$query = new \think\db\Query();
-		$system_info_mysql = $query->query("select version() as v;");
+        // 产品信息
+        $data['product_name'] = '零起飞管理系统';
+        $data['author'] = '零起飞';
+        $data['website'] = 'www.07fly.xyz';
+        $data['qun'] = '<a href="//shang.qq.com/wpa/qunwpa?idkey=b587b0c97d7a7e17b805c05f5c2e4aa1a2a16958edee01c2d5208ac675e6d4aa" target="_blank">575085787</a>';
+        $data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
 
-		// 系统信息
-		$data['lqf_version'] = SYS_VERSION;
-		$data['think_version'] = THINK_VERSION;
-		$data['os'] = PHP_OS;
-		$data['software'] = $_SERVER['SERVER_SOFTWARE'];
-		$data['mysql_version'] = $system_info_mysql[0]['v'];
-		$data['upload_max'] = ini_get('upload_max_filesize');
-		$data['php_version'] = PHP_VERSION;
+        return $data;
+    }
 
-		// 产品信息
-		$data['product_name'] = '零起飞管理系统';
-		$data['author'] = '零起飞';
-		$data['website'] = 'www.07fly.xyz';
-		$data['qun'] = '<a href="//shang.qq.com/wpa/qunwpa?idkey=b587b0c97d7a7e17b805c05f5c2e4aa1a2a16958edee01c2d5208ac675e6d4aa" target="_blank">575085787</a>';
-		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
+    /**
+     * 数据状态设置
+     */
+    public function setStatus($model = null, $param = null, $index = 'id')
+    {
 
-		return $data;
-	}
+        if (empty($model) || empty($param)) {
 
-	/**
-	 * 数据状态设置
-	 */
-	public function setStatus($model = null, $param = null, $index = 'id')
-	{
+            return [RESULT_ERROR, '非法操作'];
+        }
 
-		if (empty($model) || empty($param)) {
+        $status = (int)$param[DATA_STATUS_NAME];
 
-			return [RESULT_ERROR, '非法操作'];
-		}
+        $model_str = LAYER_MODEL_NAME . $model;
 
-		$status = (int)$param[DATA_STATUS_NAME];
+        $obj = $this->$model_str;
 
-		$model_str = LAYER_MODEL_NAME . $model;
+        is_array($param['ids']) ? $ids = array_extract((array)$param['ids'], 'value') : $ids[] = (int)$param['ids'];
 
-		$obj = $this->$model_str;
+        $result = $obj->setFieldValue([$index => ['in', $ids]], DATA_STATUS_NAME, $status);
 
-		is_array($param['ids']) ? $ids = array_extract((array)$param['ids'], 'value') : $ids[] = (int)$param['ids'];
+        $result && action_log('数据状态', '数据状态调整' . '，model：' . $model . '，ids：' . arr2str($ids) . '，status：' . $status);
 
-		$result = $obj->setFieldValue([$index => ['in', $ids]], DATA_STATUS_NAME, $status);
+        return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
+    }
 
-		$result && action_log('数据状态', '数据状态调整' . '，model：' . $model . '，ids：' . arr2str($ids) . '，status：' . $status);
+    /**
+     * 数据排序设置
+     */
+    public function setSort($model = null, $param = null)
+    {
 
-		return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
-	}
+        $model_str = LAYER_MODEL_NAME . $model;
 
-	/**
-	 * 数据排序设置
-	 */
-	public function setSort($model = null, $param = null)
-	{
+        $obj = $this->$model_str;
 
-		$model_str = LAYER_MODEL_NAME . $model;
+        $result = $obj->setFieldValue(['id' => (int)$param['id']], 'sort', (int)$param['value']);
 
-		$obj = $this->$model_str;
+        $result && action_log('数据排序', '数据排序调整' . '，model：' . $model . '，id：' . $param['id'] . '，value：' . $param['value']);
 
-		$result = $obj->setFieldValue(['id' => (int)$param['id']], 'sort', (int)$param['value']);
+        return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
+    }
 
-		$result && action_log('数据排序', '数据排序调整' . '，model：' . $model . '，id：' . $param['id'] . '，value：' . $param['value']);
+    /**
+     * 数据设置
+     */
+    public function setField($model = null, $param = null)
+    {
 
-		return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
-	}
+        $model_str = LAYER_MODEL_NAME . $model;
 
-	/**
-	 * 数据设置
-	 */
-	public function setField($model = null, $param = null)
-	{
+        $obj = $this->$model_str;
 
-		$model_str = LAYER_MODEL_NAME . $model;
+        $result = $obj->setFieldValue(['id' => $param['id']], $param['name'], $param['value']);
 
-		$obj = $this->$model_str;
+        $result && action_log('数据更新', '数据更新调整' . '，model：' . $model . '，id：' . $param['id'] . '，name：' . $param['name']. '，value：' . $param['value']);
 
-		$result = $obj->setFieldValue(['id' => $param['id']], $param['name'], $param['value']);
-
-		$result && action_log('数据更新', '数据更新调整' . '，model：' . $model . '，id：' . $param['id'] . '，name：' . $param['name'] . '，value：' . $param['value']);
-
-		return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
-	}
+        return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
+    }
 
 }

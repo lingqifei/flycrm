@@ -79,13 +79,13 @@
         <td><%=data[i]['down_a']%></td>
         <td><%=data[i]['version']%></td>
         <td>
-            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-success">详细</a> </lqf_link>
+            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-primary">详细</a> </lqf_link>
             <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-info">演示</a></lqf_link>
             <% if(data[i]['isinstall']=='0'){ %>
             <lqf_link><a  class="ajax-open" data-url="{:url('Store/install')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}"  >安装</a> </lqf_link>
             <% } %>
             <% if(data[i]['isupdate']=='1'){ %>
-            <lqf_link><a  class="ajax-open" data-url="{:url('Store/upgrade')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}" >升级</a> </lqf_link>
+            <lqf_link><a  class="ajax-open text-danger" data-url="{:url('Store/upgrade')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}" >升级</a> </lqf_link>
             <% } %>
         </td>
     </tr>

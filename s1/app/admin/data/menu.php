@@ -1,9 +1,9 @@
 [
     {
         "name": "系统管理",
-        "sort": 100,
+        "sort": 1000,
         "module": "admin",
-        "url": "admin",
+        "url": "system admin",
         "visible": 1,
         "is_shortcut": 0,
         "is_menu": 1,
@@ -488,6 +488,95 @@
                                 "nodes": []
                             }
                         ]
+                    },
+                    {
+                        "name": "职位管理",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "SysPosition/show",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 1,
+                        "icon": "",
+                        "nodes": [
+                            {
+                                "name": "禁用",
+                                "sort": 5,
+                                "module": "admin",
+                                "url": "SysPosition/set_visible",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "数据浏览",
+                                "sort": 6,
+                                "module": "admin",
+                                "url": "SysPosition/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "树形数据浏览",
+                                "sort": 7,
+                                "module": "admin",
+                                "url": "SysPosition/get_list_tree",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "添加",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysPosition/add",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "修改",
+                                "sort": 2,
+                                "module": "admin",
+                                "url": "SysPosition/edit",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "删除",
+                                "sort": 3,
+                                "module": "admin",
+                                "url": "SysPosition/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "排序",
+                                "sort": 4,
+                                "module": "admin",
+                                "url": "SysPosition/set_sort",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            }
+                        ]
                     }
                 ]
             }
@@ -495,9 +584,9 @@
     },
     {
         "name": "系统扩展",
-        "sort": 110,
+        "sort": 1100,
         "module": "admin",
-        "url": "extend",
+        "url": "system extend",
         "visible": 1,
         "is_shortcut": 0,
         "is_menu": 1,
