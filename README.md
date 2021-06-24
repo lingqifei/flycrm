@@ -23,8 +23,6 @@
 ### 演示地址
 
 
-
-
 - (v1)版本：[http://oa.07fly.com](http://oa.07fly.com)
 - 账号：admin
 - 密码：admin123456
@@ -39,7 +37,6 @@
 > **PS：PHP，MYSQL请要求配置不然会发生未知错误** 
 > 大家测试请大家手下留情，不要把帐号密码给改掉了，其它的可以随意测试
 
-
 - 
 - (S1)版本：[http://erp.07fly.xyz](http://erp.07fly.xyz)
 - 账号：demo
@@ -53,7 +50,8 @@
 
 -  QQ交流群: 575085787
 
--  操作手册：  [http://www.07fly.xyz/](http://www.07fly.xyz/)
+-  V2手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://http://www.07fly.xyz/doc/v2doc/1.html)
+
 
 
 
