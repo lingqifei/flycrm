@@ -50,7 +50,7 @@
 
 -  QQ交流群: 575085787
 
--  V2手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://http://www.07fly.xyz/doc/v2doc/1.html)
+-  V2手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://www.07fly.xyz/doc/v2doc/1.html)
 
 
 
