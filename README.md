@@ -52,7 +52,7 @@
 
 -  V2手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://www.07fly.xyz/doc/v2doc/1.html)
 
-
+-  模块手册：[http://www.07fly.xyz/html/doc](http://www.07fly.xyz/html/doc)
 
 
 
