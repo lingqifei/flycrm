@@ -122,7 +122,7 @@ class Database{
 		if(!empty($prefix)){
 			if(strstr($table,$prefix)==false){
 				$table=$prefix.$table;
-				$table_tpl=$prefix_tpl.$table;
+				$table_tpl=$prefix_tpl.ltrim($table,$prefix);
 			}
 		}else{
 			$table_tpl=$prefix_tpl.$table;

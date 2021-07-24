@@ -152,34 +152,6 @@ class AdminBase extends LogicBase
     }
 
     /**
-     * 获取首页数据
-     */
-    public function getIndexData()
-    {
-
-        $query = new \think\db\Query();
-        $system_info_mysql = $query->query("select version() as v;");
-
-        // 系统信息
-        $data['lqf_version'] = SYS_VERSION;
-        $data['think_version'] = THINK_VERSION;
-        $data['os'] = PHP_OS;
-        $data['software'] = $_SERVER['SERVER_SOFTWARE'];
-        $data['mysql_version'] = $system_info_mysql[0]['v'];
-        $data['upload_max'] = ini_get('upload_max_filesize');
-        $data['php_version'] = PHP_VERSION;
-
-        // 产品信息
-        $data['product_name'] = '零起飞管理系统';
-        $data['author'] = '零起飞';
-        $data['website'] = 'www.07fly.xyz';
-        $data['qun'] = '<a href="//shang.qq.com/wpa/qunwpa?idkey=b587b0c97d7a7e17b805c05f5c2e4aa1a2a16958edee01c2d5208ac675e6d4aa" target="_blank">575085787</a>';
-        $data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
-
-        return $data;
-    }
-
-    /**
      * 数据状态设置
      */
     public function setStatus($model = null, $param = null, $index = 'id')
@@ -238,5 +210,69 @@ class AdminBase extends LogicBase
 
         return $result ? [RESULT_SUCCESS, '操作成功'] : [RESULT_ERROR, $obj->getError()];
     }
+
+
+	/**
+	 * 获取首页数据
+	 */
+	public function getIndexData()
+	{
+
+		$query = new \think\db\Query();
+		$system_info_mysql = $query->query("select version() as v;");
+
+		// 系统信息
+		$data['lqf_version'] = SYS_VERSION;
+		$data['think_version'] = THINK_VERSION;
+		$data['os'] = PHP_OS;
+		$data['software'] = $_SERVER['SERVER_SOFTWARE'];
+		$data['mysql_version'] = $system_info_mysql[0]['v'];
+		$data['upload_max'] = ini_get('upload_max_filesize');
+		$data['php_version'] = PHP_VERSION;
+
+		// 产品信息
+		$data['product_name'] = '零起飞企业管理系统';
+		$data['author'] = '零起飞';
+		$data['website'] = 'www.07fly.xyz';
+		$data['qun'] = '<a href="//shang.qq.com/wpa/qunwpa?idkey=b587b0c97d7a7e17b805c05f5c2e4aa1a2a16958edee01c2d5208ac675e6d4aa" target="_blank">575085787</a>';
+		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
+
+		return $data;
+	}
+
+	/**
+	 * 获取首页数据
+	 */
+	public function getConfigData()
+	{
+		$auth=$this->logicUpgrade->upgrade_auth_check();
+		if($auth['code']==1){
+			$data['seo_title']=config('seo_title');
+			$data['seo_description']=config('seo_description');
+			$data['seo_keywords']=config('seo_keywords');
+			$data['login_title']=config('login_title');
+			$data['login_desc']=config('login_desc');
+			$data['login_demo']=config('login_demo');
+			$data['login_copyright']=config('login_copyright');
+			$data['main_title']=config('main_title');
+			$data['top_links']='';
+		}else{
+			$data['seo_title']='07FLY-ERP是一款开放式的管理平台，能快速搭建适合自己的是一款开放式的管理平台-零起飞科技';
+			$data['seo_description']='07FLY-ERP是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；能快速搭建适合自己的是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；';
+			$data['seo_keywords']='CMS（会员中心）、办工OA、客户CRM、进销ERP、财务管理FMS、项目管理PMS';
+			$data['login_title']='零起飞企业管理系统';
+			$data['login_desc']='软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理';
+			$data['login_demo']='<font color="red">演示帐号/密码：admin/123456</font>';
+			$data['login_copyright']='<a href="http://www.07fly.xyz">技术支持:成都零起飞科技</a>';
+			$data['main_title']='零起飞网络中心';
+			$data['top_links']='<a href="http://oa.07fly.com/" target="_blank" title="07FLY-CRM开源系统V1版本">V1版本</a>
+                    <a href="http://erp.07fly.com/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a>
+                    <a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a>
+                    <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>';
+		}
+
+		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
+		return $data;
+	}
 
 }

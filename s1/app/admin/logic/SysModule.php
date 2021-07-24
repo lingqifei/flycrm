@@ -345,6 +345,7 @@ class SysModule extends AdminBase
 		//3、压缩包zip文件
 		$pack_zip = $this->app_pack_path . $module_name . '.zip';
 		$zip = new \lqf\Zip();
+		$pack_dir=rtrim($pack_dir,DS);//打包前去掉最一个斜杠，防止ubuntu下解压目录多一个斜杠
 		$result = $zip->zip($pack_zip, $pack_dir);
 		if ($result == false) {
 			return [RESULT_ERROR, '打包模块失败'];
@@ -458,7 +459,13 @@ class SysModule extends AdminBase
 		$module_menu = $module_dir . '/data/menu.php';
 		if (file_exists($module_menu)) {
 			$content = file_get_contents($module_menu);
+
+			//d($content);exit;
+
 			$result = isJson($content, true);
+
+			//d($result);exit;
+
 			if ($result) {
 				$this->logicSysMenu->sysMenuImport($result, $modulename);
 			}
@@ -842,7 +849,7 @@ INFO;
 		//3、压缩包zip文件
 		$pack_zip = $this->app_pack_path . $version . '.zip';
 		$zip = new \lqf\Zip();
-		$version_dir=rtrim($version_dir,DS);
+		$version_dir=rtrim($version_dir,DS);//打包前去掉最一个斜杠，防止ubuntu下解压目录多一个斜杠
 		$result = $zip->zip($pack_zip, $version_dir);
 		if ($result == false) {
 			return [RESULT_ERROR, '打包模块失败'];

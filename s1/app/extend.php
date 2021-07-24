@@ -344,6 +344,8 @@ function http($method, $url, $params = '', $header = [], $timeout = 30, $options
 function httpRpc($url, $params = [], $method = 'get')
 {
 
+	$url = DOMAIN . URL_ROOT . $url;
+
 	$http = new \lqf\Http();
 
 	$params['access_token'] = get_access_token();
@@ -370,9 +372,8 @@ function httpRpc($url, $params = [], $method = 'get')
 			return ['code' => DATA_ERROR, 'msg' => '请求的方法不存在', 'data' => []];
 			break;
 	}
-
+//	echo $result;exit;
 	$rtn = json_decode($result, true);//接口返回数据默认为json格式
-
 	if ($rtn['code'] == 0) {
 		return ['code' => DATA_SUCCESS, 'msg' => $rtn['msg'], 'data' => $rtn['data']];
 	} else {

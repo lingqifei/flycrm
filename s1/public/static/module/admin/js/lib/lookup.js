@@ -1,7 +1,6 @@
 //本函数主要用在下拉选择客户信息
 //联系动显示=》联系人=》销售机会=》未付款合同=》未开票合同
 
-
 $(document).ready(function () {
 
     //销售客户模块部门
@@ -321,6 +320,46 @@ function findSupplierLinkSelect(cid,target=null){
         });
     });
 
+    //回显示供应商=》未付完款的合同
+    $('.unpaidposcontract-more').each(function(){
+        var that	=$(this);
+        $.ajax({
+            type: "POST",
+            url: target,
+            data:{"supplier_id":cid,"supplier_type":'unpaidposcontract'},
+            dataType:"json",
+            async:false,
+            beforeSend : function(){
+                that.find('tbody').empty();
+            },
+            success: function(jsondata){
+                var html = '';
+                $.each(jsondata.data, function(idx, obj) {
+                    html +='<tr>';
+                    html +='<td><input name="id[]" class="checkboxCtrlId" value="'+obj.id+'" type="checkbox">';
+                    html +='<input name="bus_id[]" value="'+obj.id+'" type="hidden">';
+                    html +='<input name="bus_type[]" value="'+obj.bus_type+'" type="hidden">';
+                    html +='<input name="bus_type_name[]" value="'+obj.bus_type_name+'" type="hidden">';
+                    html +='<input name="zero_money[]" value="'+obj.zero_money+'" type="hidden">';
+                    html +='<input name="bus_name[]" value="'+obj.name+'" type="hidden">';
+                    html +='</td>';
+                    html +='<td>'+obj.bus_date+'</td>';
+                    html +='<td>'+obj.name+'</td>';
+                    html +='<td>'+obj.bus_type_name+'</td>';
+                    html +='<td><input name="money[]" value="'+obj.money+'" type="text" class="form-control" readonly></td>';
+                    html +='<td><input name="pay_money[]" value="'+obj.pay_money+'" type="text" class="form-control" readonly></td>';
+                    html +='<td><input name="invoice_money[]" value="'+obj.invoice_money+'" type="text" class="form-control" readonly></td>';
+                    html +='</tr>';
+                });
+                log(html);
+                that.find('tbody').append(html);
+            },
+            complete: function () {
+
+            }
+        });
+    });
+
     //回显示供应商=》未开票完款的合同
     $('.chosen-select.uninvoiceposcontract').each(function(){
         var that	=$(this);
@@ -369,15 +408,24 @@ function findPosContractInfo(cid,target=null,bus_type=null){
                 $(".form-horizontal input[name='contract_owe_money']").val(data.owe_money);
                 $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
 
-                var pay_money=$(".form-horizontal input[name='pay_money']").val();
-                if(pay_money<=0){
-                    $(".form-horizontal input[name='pay_money']").val(data.owe_money);
-                }
-                var pay_money = $(".form-horizontal input[name='pay_money']").val();
-                var zero_money=$(".form-horizontal input[name='zero_money']").val();
-                var owe_money = parseFloat(data.owe_money) - parseFloat(pay_money) - parseFloat(zero_money);
-                $(".form-horizontal input[name='owe_money']").val(owe_money);
-                $(".form-horizontal input[name='contract_name']").val(data.title);
+
+                var owe_money = parseFloat(data.money) - parseFloat(data.pay_money) - parseFloat(data.zero_money);
+                $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
+                $(".form-horizontal input[name='pay_money']").val(owe_money);
+                $(".form-horizontal input[name='owe_money']").val(0);
+
+                // var pay_money=$(".form-horizontal input[name='pay_money']").val();
+                //
+                // if(pay_money<=0){
+                //     $(".form-horizontal input[name='pay_money']").val(data.owe_money);
+                // }
+                //
+                // var pay_money = $(".form-horizontal input[name='pay_money']").val();
+                // var zero_money=$(".form-horizontal input[name='zero_money']").val();
+                // var owe_money = parseFloat(data.owe_money) - parseFloat(pay_money) - parseFloat(zero_money);
+                // $(".form-horizontal input[name='owe_money']").val(owe_money);
+                // $(".form-horizontal input[name='contract_name']").val(data.title);
+
             },
             complete: function () {
 
@@ -418,17 +466,13 @@ function findSalContractInfo(cid,target=null,bus_type=null){
             $(".form-horizontal input[name='contract_money']").val(data.money);
             $(".form-horizontal input[name='contract_zero_money']").val(data.zero_money);
             $(".form-horizontal input[name='contract_back_money']").val(data.back_money);
-            $(".form-horizontal input[name='contract_owe_money']").val(data.owe_money);
             $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
-            var back_money=$(".form-horizontal input[name='back_money']").val();
-            if(back_money<=0){
-                $(".form-horizontal input[name='back_money']").val(data.owe_money);
-            }
-            var back_money=$(".form-horizontal input[name='back_money']").val();
-            var zero_money=$(".form-horizontal input[name='zero_money']").val();
-            var owe_money = parseFloat(data.owe_money) - parseFloat(back_money) - parseFloat(zero_money);
-            $(".form-horizontal input[name='owe_money']").val(owe_money);
-            $(".form-horizontal input[name='contract_name']").val(data.title);
+
+            var owe_money = parseFloat(data.money) - parseFloat(data.back_money) - parseFloat(data.zero_money);
+            $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
+            $(".form-horizontal input[name='back_money']").val(owe_money);
+            $(".form-horizontal input[name='owe_money']").val(0);
+
         },
         complete: function () {
 

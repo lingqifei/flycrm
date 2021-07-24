@@ -53,7 +53,7 @@ class SysModule extends AdminBase
                 'action' => array(
                     '0' => array(
                         'url' => url('uninstall'),
-                        'class' => 'ajax-get',
+                        'class' => 'ajax-get confirm',
                         'color' => '#23b7e5',
                         'name' => '卸载'
                     ),

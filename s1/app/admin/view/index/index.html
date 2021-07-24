@@ -11,12 +11,12 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs" style="font-size:18px;">
-                                <strong class="font-bold">{$sys_org.company}</strong>
+                                <strong class="font-bold">{$sys_config.main_title}</strong>
                                 </span>
                             </span>
                         </a>
                     </div>
-                    <div class="logo-element">{$sys_org.company}</div>
+                    <div class="logo-element">{$sys_config.main_title}</div>
                 </li>
                 <li class="line dk"></li>
                 {$menu_view}
@@ -33,12 +33,10 @@
                     </a>
                 </div>
                 <div class="navbar-module">
-                    <a href="http://oa.07fly.com/" target="_blank" title="07FLY-CRM开源系统V1版本">V1版本</a>
-                    <a href="http://erp.07fly.com/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a>
-                    <a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a>
-                    <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>
+                    {$sys_config.top_links}
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
+                    <li><a href="{:url('admin/Store/apps')}"  class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>
                     <li><a href="http://www.07fly.xyz/" target="_blank"><i class="fa fa-home"></i>官网</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -52,14 +50,15 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"  title="个人资料" data-calback="window.location.reload();">
+                                <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"  title="个人资料">
                                     <div><i class="fa fa-qq fa-fw"></i> 密码修改</div>
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <div class="text-center link-block"><a class="ajax-get" href="{:url('Login/logout')}">
-                                    <strong>退出登录 </strong> <i class="fa fa-angle-right"></i> </a></div>
+                                <div class="text-center link-block"><a class="ajax-get" href="{:url('Login/logout')}" data-calback="window.location.reload();">
+                                    <strong>退出登录 </strong> <i class="fa fa-angle-right"></i> </a>
+                                </div>
                             </li>
                         </ul>
                     </li>
@@ -67,7 +66,7 @@
             </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="100%" src="{:url('Index/main')}" frameborder="0"  data-id="index_v1.html" seamless></iframe>
+            <iframe id="J_iframe" width="100%" height="95%" src="{:url('Index/main')}" frameborder="0"  data-id="index_v1.html" seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->

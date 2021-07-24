@@ -532,16 +532,21 @@ $("input[type='text']").attr('autocomplete','off');
 
 
 // /*-----页面pannel内容区高度自适应 start-----*/
-// $(window).resize(function () {
-//     setCenterHeight();
-// });
-// setCenterHeight();
-// function setCenterHeight() {
-//     var height = $(window).height();
-//     var centerHight = height - 70;
-//     $(".float-e-margins").height(centerHight).css("overflow", "auto");
-// }
+$(window).resize(function () {
+    setCenterHeight();
+});
+setCenterHeight();
+function setCenterHeight() {
+
+    var height = $(window).height();
+    var centerHight = height - 100;
+    $(".auto-height-box").height(centerHight).css("overflow", "auto");
+}
 /*-----页面pannel内容区高度自适应 end-----*/
+
+
+
+
 
 //erp.07fly.xyz
 var _hmt = _hmt || [];

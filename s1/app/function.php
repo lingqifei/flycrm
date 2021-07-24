@@ -738,3 +738,19 @@ if (!function_exists('obj2arr')) {
 		return $array;
 	}
 }
+
+/**
+ * 统计二维数组一列和
+ * @param $array
+ * @param $column
+ * @return float|int
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2021/5/31 0031 15:14
+ */
+if (!function_exists('get_2arr_sum')) {
+	function get_2arr_sum($array,$column) {
+		$total=array_sum(array_column($array,$column));
+		$total=round($total,2);
+		return $total;
+	}
+}

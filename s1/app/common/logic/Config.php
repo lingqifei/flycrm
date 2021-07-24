@@ -22,7 +22,7 @@ class Config extends LogicBase
     /**
      * 获取配置列表
      */
-    public function getConfigList($where = [], $field = true, $order = '', $paginate = DB_LIST_ROWS)
+    public function getConfigList($where = [], $field = true, $order = 'sort asc', $paginate = DB_LIST_ROWS)
     {
         
         $list=$this->modelConfig->getList($where, $field, $order, $paginate)->toArray();

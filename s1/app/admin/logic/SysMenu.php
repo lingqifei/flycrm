@@ -192,7 +192,14 @@ class SysMenu extends AdminBase
 	 */
 	public function getSysMenuList($where = [], $field = true, $order = '', $paginate = false)
 	{
+
+		//判断模块是否启用
+		$module=$this->modelSysModule->getColumn(['visible'=>1], 'name');
+		$module[]='admin';//排除管理模块
+
+		$where['module'] = ['in', $module];
 		$where['org_id'] = ['>', 0];
+
 		return $this->modelSysMenu->getList($where, $field, $order, $paginate);
 	}
 
@@ -335,7 +342,7 @@ class SysMenu extends AdminBase
 		if (!empty($mod)) {
 			$where['module'] = ['=', $mod];
 		}
-		$list = $this->getSysMenuList($where, '', '', false)->toArray();
+		$list = $this->modelSysMenu->getList($where, '', '', false)->toArray();
 		$tree = list2tree2menu($list);
 		return $tree;
 	}

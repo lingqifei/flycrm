@@ -1,10 +1,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {notempty name="page_title"}{$page_title}{/notempty}{notempty name="sys_org"}-{$sys_org.company}-{/notempty}-Powered by 07FLY pro </title>
-    <meta name="keywords" content="零起飞,CRM,免费CRM,客户管理系统,客户管理软件,客户关系管理软件,客户关系管理系统,CRM软件,CRM系统">
-    <meta name="description"
-        content="零起飞客户管理CRM系统针对企业不同阶段提供不同的客户管理CRM系统功能，以实现企业对客户管理的需要，网络中只需一台电脑安装本客户管理CRM系统，其它电脑均可通过浏览器使用。">
+    <title>
+        {notempty name="page_title"}
+        {$page_title} -
+        {/notempty}
+        {$sys_config.main_title}-Powered by 07FLY pro
+    </title>
+    <meta name="keywords" content="{$sys_config.seo_keywords}">
+    <meta name="description" content="{$sys_config.seo_description}">
     <link rel="shortcut icon" href="favicon.ico">
     <link href="__STATIC__/module/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">

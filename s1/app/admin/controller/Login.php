@@ -20,7 +20,22 @@ use app\common\controller\ControllerBase;
  */
 class Login extends ControllerBase
 {
-    
+
+
+	/**
+	 * 构造方法
+	 */
+	public function __construct()
+	{
+
+		// 执行父类构造方法
+		parent::__construct();
+
+		$config=$this->logicLogin->getConfigData();
+		$this->assign('info', $config);
+		//d($x);
+	}
+
     /**
      * 登录
      */

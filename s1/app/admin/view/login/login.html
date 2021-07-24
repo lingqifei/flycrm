@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>零起飞企业管理系统（07FLY-ERP）-软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理</title>
-    <meta name="keywords" content="免费CRM,企业管理系统,客户关系管理系统,ERP系统">
-    <meta name="description"   content="零起飞企业管理系统针对企业不同阶段提供不同的客户管理功能，以实现企业对客户管理的需要，网络中只需一台电脑安装本客户管理CRM系统，其它电脑均可通过浏览器使用。">
+    <title>{$info.seo_title}</title>
+    <meta name="keywords" content="{$info.seo_keywords}">
+    <meta name="description" content="{$info.seo_description}">
     <!-- CSS -->
     <link rel="stylesheet" href="__STATIC__/module/login/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="__STATIC__/module/login/font-awesome/css/font-awesome.min.css">
@@ -20,10 +20,10 @@
     <![endif]-->
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="__STATIC__/module/login/ico/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__STATIC__/module/login/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__STATIC__/module/login/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"  href="__STATIC__/module/login/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="__STATIC__/module/login/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__STATIC__/module/login/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__STATIC__/module/login/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__STATIC__/module/login/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="__STATIC__/module/login/ico/favicon.png">
 </head>
 
 <body>
@@ -33,9 +33,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>零起飞企业管理系统</strong></h1>
+                    <h1><strong>{$info.login_title}</strong></h1>
                     <div class="description">
-                        <p>软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理</p>
+                        <p>{$info.login_desc}</p>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <div class="form-top">
                         <div class="form-top-left">
                             <h3>登录您的帐号密码</h3>
-                            <p>演示帐号/密码：demo/123456</p>
+                            <p>{$info.login_demo}</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-key"></i>
@@ -65,42 +65,48 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12">
-                                        <input type="text" name="verify" class="form-control verify" placeholder="请输入您的验证码">
+                                        <input type="text" name="verify" class="form-control verify"
+                                               placeholder="请输入您的验证码">
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
-                                        <img src="{:captcha_src()}" alt="captcha" class="admin-login-captcha-img captcha_change" id="captcha_img"/>
+                                        <img src="{:captcha_src()}" alt="captcha"
+                                             class="admin-login-captcha-img captcha_change" id="captcha_img"/>
                                     </div>
                                 </div>
                             </div>
                             <button type="button" class="btn login-btn">登录</button>
                             <div class="form-control-static">
-                                <p class="form-control-static">没有帐号，<a href="{:url('Reg/reg')}">去注册</a> </p>
+                                <p class="form-control-static">没有帐号，<a href="{:url('Reg/reg')}">去注册</a></p>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-<!--            <div class="row">-->
-<!--                <div class="col-sm-6 col-sm-offset-3 social-login">-->
-<!--                    <h3>...or login with:</h3>-->
-<!--                    <div class="social-login-buttons">-->
-<!--                        <a class="btn btn-link-1 btn-link-1-facebook" href="#">-->
-<!--                            <i class="fa fa-facebook"></i> Facebook-->
-<!--                        </a>-->
-<!--                        <a class="btn btn-link-1 btn-link-1-twitter" href="#">-->
-<!--                            <i class="fa fa-twitter"></i> Twitter-->
-<!--                        </a>-->
-<!--                        <a class="btn btn-link-1 btn-link-1-google-plus" href="#">-->
-<!--                            <i class="fa fa-google-plus"></i> Google Plus-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-sm-6 col-sm-offset-3 social-login">-->
+            <!--                    <h3>...or login with:</h3>-->
+            <!--                    <div class="social-login-buttons">-->
+            <!--                        <a class="btn btn-link-1 btn-link-1-facebook" href="#">-->
+            <!--                            <i class="fa fa-facebook"></i> Facebook-->
+            <!--                        </a>-->
+            <!--                        <a class="btn btn-link-1 btn-link-1-twitter" href="#">-->
+            <!--                            <i class="fa fa-twitter"></i> Twitter-->
+            <!--                        </a>-->
+            <!--                        <a class="btn btn-link-1 btn-link-1-google-plus" href="#">-->
+            <!--                            <i class="fa fa-google-plus"></i> Google Plus-->
+            <!--                        </a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </div>
 
 </div>
-<div class="copyrights"><a href="http://www.07fly.xyz">技术支持:成都零起飞网络 </a></div>
+<div class="copyrights">
+    {$info.login_copyright}
+    <span style="display: none;"><a href="http://www.07fly.xyz">技术支持:成都零起飞科技</a></span>
+
+</div>
 
 <!-- Javascript -->
 <script src="__STATIC__/module/login/js/jquery-1.11.1.min.js"></script>
@@ -120,9 +126,7 @@
                 ajaxlogin();
             }
         });
-
         $.backstretch("__STATIC__/module/login/img/backgrounds/1.jpg");
-
     });
     //点击验证码
     $(".captcha_change").click(function () {

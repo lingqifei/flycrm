@@ -25,7 +25,6 @@ $(document).ready(function () {
 		turnPage(1);//页面加载时初始化分页
 	}
 
-
 	//刷新加载-添加
 	$("body").on("click", ".refresh-tree", function () {
 		onLoad();

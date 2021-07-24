@@ -67,7 +67,7 @@ class AdminBase extends ControllerBase
 		// 验证登录
 		!SYS_USER_ID && $this->redirect('admin/login/login');
 
-		// 获取授权菜单列表
+		// 获取授权菜单列表，=》根据开启的模块=》查询菜单
 		$visibleModel=$this->logicSysModule->getSysModuleColumn(['visible'=>'1'],'name');
 		$visibleModel[]='admin';//默认开启admin
 		$this->authMenuList = $this->logicSysAuthAccess->getAuthMenuList(SYS_USER_ID,$visibleModel);
@@ -75,7 +75,7 @@ class AdminBase extends ControllerBase
 		// 获得权限菜单URL列表
 		$this->authMenuUrlList = $this->logicSysAuthAccess->getAuthMenuUrlList($this->authMenuList);
 
-		//把授权菜单列表
+		//把授权菜单列表=》存入session
 		session('auth_menu_list', $this->authMenuList);
 		session('auth_menu_url_list', $this->authMenuUrlList);
 		session('sys_user_info', $user = $this->logicSysUser->getSysUserInfo(['id' => SYS_USER_ID]));
@@ -119,13 +119,16 @@ class AdminBase extends ControllerBase
 		// 获取当前登录帐号组织机组
 		$this->org = $this->logicSysOrg->getSysOrgInfo(SYS_ORG_ID);
 
+		//系统配置
+		$this->assign('sys_config', $this->logicLogin->getConfigData());
+
 		// 设置组织机组
 		$this->assign('sys_org', $this->org);
 
 		// 设置页面标题
 		$this->assign('page_title', $this->title);
 
-		// 菜单视图
+		// 菜单视图=>左侧菜单
 		$this->assign('menu_view', $this->menuView);
 
 		// 面包屑视图
@@ -163,7 +166,6 @@ class AdminBase extends ControllerBase
 	 */
 	final protected function setTitle($title = '')
 	{
-
 		$this->assign('lqf_title', $title);
 	}
 
@@ -172,7 +174,6 @@ class AdminBase extends ControllerBase
 	 */
 	final protected function getContentHeader($describe = '')
 	{
-
 		$title = empty($this->title) ? '' : $this->title;
 
 		$describe_html = empty($describe) ? '' : '<small>' . $describe . '</small>';
