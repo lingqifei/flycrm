@@ -5,10 +5,10 @@
         {notempty name="page_title"}
         {$page_title} -
         {/notempty}
-        {$sys_config.main_title}-Powered by 07FLY pro
+        {$sys_config.main_title|default=''}-Powered by 07FLY pro
     </title>
-    <meta name="keywords" content="{$sys_config.seo_keywords}">
-    <meta name="description" content="{$sys_config.seo_description}">
+    <meta name="keywords" content="{$sys_config.seo_keywords|default=''}">
+    <meta name="description" content="{$sys_config.seo_description|default=''}">
     <link rel="shortcut icon" href="favicon.ico">
     <link href="__STATIC__/module/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
