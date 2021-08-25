@@ -85,4 +85,4 @@ INSERT INTO `#@__config` VALUES ('72', 'main_title', '1', '管理中心名称', 
 -- -----------------------------
 -- Records of `增加服务列表`
 -- -----------------------------
-INSERT INTO `#@__sys_menu` VALUES ('7304', '服务管理', '1535', '50', 'admin', 'Service/serviceList', '1', '0', '1', '', '1', '1627107156', '1627107109', '1');
+REPLACE INTO `#@__sys_menu` VALUES ('7304', '服务管理', '1535', '50', 'admin', 'Service/serviceList', '1', '0', '1', '', '1', '1627107156', '1627107109', '1');

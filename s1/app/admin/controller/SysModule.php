@@ -145,4 +145,17 @@ class SysModule extends AdminBase
 		return $this->jump($this->logicSysModule->sysModuleCreateSys($this->param));
 	}
 
+	/**
+	 * 模块卸载
+	 */
+	public function synctable()
+	{
+
+//		$x=$this->logicSysModule->sysModuleSyncTable($this->param);
+//		d($x);exit;
+
+		return $this->jump($this->logicSysModule->sysModuleSyncTable($this->param));
+
+	}
+
 }

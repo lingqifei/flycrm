@@ -246,6 +246,21 @@ class Upgrade extends AdminBase
 
 		$admin_dir=PATH_APP.'admin'.DS.'data'.DS;
 
+		//1、判断是否有更新字段
+		$table_file=$admin_dir.'table.php';
+		$menu_file=$admin_dir.'menu.php';
+		if(file_exists($table_file)){
+			$res = $this->logicSysModule->sysModuleSyncTableFile($table_file);
+			if ($res[0] == RESULT_ERROR) return $res;
+		}
+
+		//2、判断是否有栏目数据表同步文件 menu.php
+		if(file_exists($menu_file)){
+			$res = $this->logicSysModule->sysModuleSyncMenuFile($menu_file);
+			if ($res[0] == RESULT_ERROR) return $res;
+		}
+
+		//执行升级SQL文件
 		$this->logicSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $admin_dir, 'sqlfile' => 'upgrade.sql'));
 
 		return [RESULT_SUCCESS, '数据库升级成功了哟'];

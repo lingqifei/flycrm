@@ -46,7 +46,7 @@ function export_excel($titles = '', $keys = '', $data = [], $file_name = '导出
 
 			$num = array_search($kk, $keys_arr);
 
-			false !== $num && $objPHPExcel->setActiveSheetIndex($s)->setCellValue(string_from_column_index($num) . ($y + $k + 1), ' ' . $vv);
+			false !== $num && $objPHPExcel->setActiveSheetIndex($s)->setCellValue(string_from_column_index($num) . ($y + $k + 1), '' . $vv);
 		}
 	}
 

@@ -57,12 +57,6 @@ class SysModule extends AdminBase
                         'color' => '#23b7e5',
                         'name' => '卸载'
                     ),
-                    '1' => array(
-                        'url' => url('backup'),
-                        'class' => 'ajax-get',
-                        'color' => '#1c84c6',
-                        'name' => '备份'
-                    ),
                 ),
             ),
         );

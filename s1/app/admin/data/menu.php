@@ -33,6 +33,95 @@
                 ]
             },
             {
+                "name": "地区管理",
+                "sort": 2,
+                "module": "admin",
+                "url": "SysArea/show",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "",
+                "nodes": [
+                    {
+                        "name": "设置负责人",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/manage",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "排序",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/set_sort",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "启用",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysArea/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
+            },
+            {
                 "name": "行为日志",
                 "sort": 4,
                 "module": "admin",

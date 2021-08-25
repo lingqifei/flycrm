@@ -332,6 +332,9 @@ class ModelBase extends Model
             return [];
         }
 
+        //防止$where为非数组类型，报错 2021-07-30
+        !is_array($where) && $where=[];
+
         $where['field'] = $field;
 
         isset($order) && $where['order'] = $order;

@@ -85,6 +85,8 @@
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysModule/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
         <td>
+
+            <p>
             <lqf_link><a  class="ajax-open" data-url="{:url('SysModule/edit',array('name'=>'visible'))}"  data-ids="{'id':'<%=data[i]['id']%>'}" >修改</a> </lqf_link>
             <% for(var j=0;j<data[i]['status_arr']['action'].length;j++) { %>
             <lqf_link>
@@ -95,6 +97,11 @@
                 </a>
             </lqf_link>
             <% } %>
+            </p>
+            <p>
+            <lqf_link><a  class="ajax-get" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >备份</a> </lqf_link>
+            <lqf_link><a  class="ajax-get" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >同步</a> </lqf_link>
+            </p>
         </td>
     </tr>
     <% } %>

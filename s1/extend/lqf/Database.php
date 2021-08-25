@@ -120,10 +120,7 @@ class Database{
 		$prefix_tpl=$this->config['prefix_tpl'];
 		$table_tpl=$prefix_tpl.$table;
 		if(!empty($prefix)){
-			if(strstr($table,$prefix)==false){
-				$table=$prefix.$table;
-				$table_tpl=$prefix_tpl.ltrim($table,$prefix);
-			}
+			$table_tpl=$prefix_tpl.ltrim($table,$prefix);
 		}else{
 			$table_tpl=$prefix_tpl.$table;
 		}

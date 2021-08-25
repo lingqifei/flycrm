@@ -22,6 +22,30 @@
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">数据权限</label>
+            <div class="col-sm-8">
+                <div class="radio radio-info">
+                    <input type="radio" name="data_role" id="dataRole1" value="1" checked="">
+                    <label for="dataRole1"> 个人 (只能操作自己和下属的数据) </label>
+                </div>
+                <div class="radio radio-info">
+                    <input type="radio" name="data_role" id="dataRole2" value="2">
+                    <label for="dataRole2"> 所属部门 (能操作自己、下属、和自己所属部门的数据) </label>
+                </div>
+                <div class="radio radio-info">
+                    <input type="radio" name="data_role" id="dataRole3" value="3">
+                    <label for="dataRole3"> 所属部门及下属部门 (所属部门及下属部门 能操作自己、下属和自己所属部门及其子部门的数据) </label>
+                </div>
+
+                <div class="radio radio-info">
+                    <input type="radio" name="data_role" id="dataRole4" value="4">
+                    <label for="dataRole4"> 全公司 (能操作全公司的数据) </label>
+                </div>
+
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label">排位序号</label>
             <div class="col-sm-8">
                 <input name="sort" class="form-control" type="digits" placeholder="栏目排序号" value="{$info['sort']|default=''}"/>
@@ -30,8 +54,14 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">是否启用</label>
             <div class="col-sm-8">
-                <input type="radio" name="visible" value="1"  checked>是
-                <input type="radio" name="visible" value="0">否
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="inlineRadio1" value="1" name="visible" checked="">
+                    <label for="inlineRadio1"> 是 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="inlineRadio0" value="0" name="visible">
+                    <label for="inlineRadio0"> 否 </label>
+                </div>
             </div>
         </div>
         <div class="form-group">

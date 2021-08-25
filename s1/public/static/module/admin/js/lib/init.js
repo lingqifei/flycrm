@@ -520,7 +520,27 @@ jQuery.fn.extend(Date.prototype,{
 });
 
 
-
+/**
+ * null => ''
+ * @param {*} data 要处理的数据
+ */
+function null2zero(data) {
+    for (let x in data) {
+        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+            data[x] = '0';
+        } else {
+            if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                data[x] = data[x].map(z => {
+                    return null2zero(z);
+                });
+            }
+            if (typeof (data[x]) === 'object') { // 是json 递归继续处理
+                data[x] = null2zero(data[x])
+            }
+        }
+    }
+    return data;
+}
 
 
 //增加必填选项

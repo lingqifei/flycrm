@@ -459,13 +459,7 @@ class SysModule extends AdminBase
 		$module_menu = $module_dir . '/data/menu.php';
 		if (file_exists($module_menu)) {
 			$content = file_get_contents($module_menu);
-
-			//d($content);exit;
-
 			$result = isJson($content, true);
-
-			//d($result);exit;
-
 			if ($result) {
 				$this->logicSysMenu->sysMenuImport($result, $modulename);
 			}
@@ -863,5 +857,113 @@ INFO;
 		//return $result ? [RESULT_SUCCESS, $pack_zip] : [RESULT_ERROR, $this->modelSysModule->getError()];
 	}
 
+
+	/**同步数据库结构
+	 * @param string $fileinfo
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/8/3 0003 9:52
+	 */
+	public function sysModuleSyncTable($data=[]){
+
+		//查询模块信息
+		$info = $this->modelSysModule->getInfo(['id' => $data['id']], true);
+		if (empty($info)) {
+			return [RESULT_ERROR, '本模块数据不存在'];
+			exit;
+		}
+		$module_name = $info['name'];
+
+		//1、判断目录是否在
+		$module_dir = $this->app_path . $module_name.DS;
+		if (!is_dir($module_dir)) {
+			return [RESULT_ERROR, '模块文件目录不存在'];
+			exit;
+		}
+
+		$app_table_file = $module_dir . 'data'.DS.'table.php';
+		$app_menu_file = $module_dir . 'data'.DS.'menu.php';
+
+		if(file_exists($app_table_file)){
+			$this->sysModuleSyncTableFile($app_table_file);
+			$this->sysModuleSyncMenuFile($app_menu_file);
+			return [RESULT_SUCCESS, 'table和menu文件同步完成'];
+			exit;
+		}else{
+			return [RESULT_ERROR, '模块数据库结构文件不存在'];
+			exit;
+		}
+
+	}
+
+	/**同步数据库结构
+	 * @param string $fileinfo
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/8/3 0003 9:52
+	 */
+	public function sysModuleSyncTableFile($fileinfo=''){
+		if(file_exists($fileinfo)){
+			$content = include($fileinfo);
+			$table = new \lqf\SyncTableDesc($content,SYS_DB_PREFIX);
+			$table->generate();
+		}
+	}
+
+	/**同步栏目数据库结构
+	 * @param string $fileinfo
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/8/3 0003 9:52
+	 */
+	public function sysModuleSyncMenuFile($fileinfo=''){
+		if(file_exists($fileinfo)){
+			$content = file_get_contents($fileinfo);
+			$content = isJson($content, true);
+			$this->sysModuleMenuImport($content);
+		}
+	}
+
+
+	/**同步更新栏目数据，增加不存的数据
+	 * @param array $data
+	 * @param int $pid
+	 * @return bool
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/8/5 0005 18:44
+	 */
+	public function sysModuleMenuImport($data = [], $pid = 0)
+	{
+		if (empty($data)) {
+			return true;
+		}
+		foreach ($data as $v) {
+			$map['url']=['=',$v['url']];
+			$map['module']=['=',$v['module']];
+			$info=$this->modelSysMenu->getInfo($map,true);
+
+			//整理是否有下级
+			$childs = '';
+			if (isset($v['nodes'])) {
+				$childs = $v['nodes'];
+				unset($v['nodes']);
+			}
+			//当栏目不存在、添加栏目
+			if(empty($info)){
+				if (!isset($v['pid'])) {
+					$v['pid'] = $pid;
+				}
+				$result = $this->modelSysMenu->setInfo($v);
+			}else{//存在跳过
+				$result = $info['id'];//设置本为上级栏目
+				$this->sysModuleMenuImport($childs, $result);
+			}
+
+			if (!$result) {
+				return false;
+			}
+			if (!empty($childs)) {
+				$this->sysModuleMenuImport($childs, $result);
+			}
+		}
+		return true;
+	}
 
 }

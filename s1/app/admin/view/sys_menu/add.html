@@ -45,16 +45,26 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">是否菜单</label>
             <div class="col-sm-8">
-                <div class="checkbox i-checks">
-                    <input type="checkbox" name="is_menu" value="1">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="ismenu1" value="1" name="is_menu" checked='checked'>
+                    <label for="ismenu1"> 是 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="ismenu0" value="0" name="is_menu">
+                    <label for="ismenu0"> 否 </label>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">是否启用</label>
             <div class="col-sm-8">
-                <div class="checkbox i-checks">
-                    <input type="checkbox" name="visible" value="1">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="visible1" value="1" name="visible" checked="">
+                    <label for="visible1"> 是 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="visible0" value="0" name="visible">
+                    <label for="visible0"> 否 </label>
                 </div>
             </div>
         </div>
