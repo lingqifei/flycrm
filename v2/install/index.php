@@ -181,7 +181,7 @@ function step3( & $install_error, & $install_recover ) {
 	//$mysqli->query("UPDATE {$db_prefix}setting SET value='".$sitename."' WHERE name='site_name'");
 
 	//添加管理员账号密码
-	$sql= "INSERT INTO `fly_sys_user` (`id`,`account`,`password`,`roleID`,`deptID`,`positionID`,`intro`) VALUES ('1','$username','".md5( $password )."','1','1','1','零起飞是一个大帅哥~你有没有心动！');" ;
+	$sql= "REPLACE INTO `fly_sys_user` (`id`,`account`,`password`,`roleID`,`deptID`,`positionID`,`intro`) VALUES ('1','$username','".md5( $password )."','1','1','1','零起飞是一个大帅哥~你有没有心动！');" ;
 	//runquery( $sql, $db_prefix, $mysqli );
 	$mysqli->query($sql);
 	
