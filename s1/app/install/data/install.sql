@@ -441,6 +441,7 @@ DROP TABLE IF EXISTS `#@__sys_position`;
 CREATE TABLE `#@__sys_position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT '' COMMENT '职位名称',
+  `data_role` int(11) DEFAULT '1' COMMENT '数据权限类型',
   `pid` int(11) DEFAULT '0' COMMENT '上线编号',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
   `data_role` int(11) DEFAULT '1' COMMENT '数据权限',
