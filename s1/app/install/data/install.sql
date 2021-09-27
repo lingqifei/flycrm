@@ -444,7 +444,6 @@ CREATE TABLE `#@__sys_position` (
   `data_role` int(11) DEFAULT '1' COMMENT '数据权限类型',
   `pid` int(11) DEFAULT '0' COMMENT '上线编号',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
-  `data_role` int(11) DEFAULT '1' COMMENT '数据权限',
   `visible` smallint(6) DEFAULT '1' COMMENT '1=显示，0=隐藏',
   `create_time` int(11) DEFAULT '0',
   `update_time` int(11) DEFAULT '0',
