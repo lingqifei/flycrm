@@ -454,9 +454,9 @@ CREATE TABLE `#@__sys_position` (
 -- -----------------------------
 -- Records of `sys_position`
 -- -----------------------------
-INSERT INTO `#@__sys_position` VALUES ('6', '总经理', '0', '100', '1', '1601259971', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('7', '组长', '6', '2', '1', '1601260007', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('8', '组员', '7', '1', '1', '1601260021', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('6', '总经理','1', '0', '100', '1', '1601259971', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('7', '组长','1', '6', '2', '1', '1601260007', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('8', '组员','1', '7', '1', '1', '1601260021', '0', '1');
 
 -- -----------------------------
 -- Table structure for `#@__sys_user`
