@@ -18,7 +18,7 @@
 class Upgrade extends Action
 {
     private $cacheDir = '';//缓存目录
-    private $version = '20210203';//当前版本
+    private $version = '20210603';//当前版本
 
     public function __construct()
     {
