@@ -231,8 +231,7 @@ class User extends Action{
     public function user_get_sub_id($id=SYS_USER_ID){
         $sql   ="select deptID from fly_sys_user where id in ($id)";
         $one =$this->C($this->cacheDir)->findOne($sql);
-        $user_ids='';
-
+        $user_ids=array();
         if(!empty($one)){
             $role_ids  =$this->dept->get_dept_all_son($one['deptID']);//子部门编号
             $role_txt   =!empty($role_ids)?implode(",",$role_ids):"0";

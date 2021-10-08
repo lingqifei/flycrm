@@ -67,7 +67,7 @@
                             <div class="col-sm-8">
                                 <select name="roleID" class="chosen-select" style="width: 200px;" tabindex="2">
                                     <option value="">选择角色</option>
-                                    #{foreach from=$dept key=k item=v}#
+                                    #{foreach from=$role key=k item=v}#
                                     <option value="#{$v.id}#" #{if $v.id eq $one.roleID}# selected #{
                                     /if}#>#{$v.treename}#</option>
                                     #{/foreach}#
