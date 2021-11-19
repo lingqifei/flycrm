@@ -44,7 +44,7 @@ function is_login()
 * 检测用户是的组织机构ID
 * @return integer 0-未登录，大于0-当前登录用户组织ORG_ID
 */
-function    is_org_id()
+function is_org_id()
 {
     $member = session('sys_user_info');
     $org = session('sys_org_info');
@@ -659,7 +659,11 @@ function get_picture_url($id = 0,$member='picture')
 
     $fileLogic = get_sington_object('fileLogic', LogicFile::class);
 
-    return $fileLogic->getPictureUrl($id,$member);
+	if(is_numeric($id)){
+		return $fileLogic->getPictureUrl($id,$member);
+	}else{
+		return $fileLogic->getPictureWebUrl($id);
+	}
 }
 
 

@@ -14,9 +14,7 @@ case value
 11:时间
 12:颜色
 -->
-<!--<link rel="stylesheet" href="__STATIC__/module/admin/ext/datetimepicker/css/datetimepicker.css" type="text/css">-->
-<!--<link rel="stylesheet" href="__STATIC__/module/admin/ext/datetimepicker/css/dropdown.css" type="text/css">-->
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content">
     <div class="ibox-content">
         <form action="{:url()}" method="post" class="form-save">
             <div class="box">
@@ -209,9 +207,10 @@ case value
         </form>
     </div>
 </div>
-<script src="__STATIC__/module/admin/ext/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script src="__STATIC__/module/admin/ext/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-
+<!-- Data picker -->
+<script src="__STATIC__/module/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="__STATIC__/module/admin/js/plugins/datapicker/bootstrap-datetimepicker.js"></script>
+<script src="__STATIC__/module/admin/js/plugins/datapicker/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 
     $('.date').datetimepicker({

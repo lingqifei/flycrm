@@ -1,0 +1,97 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysMsgType/edit')}">
+        <input type="hidden" name="id" value="{$info['id']|default='0'}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">提醒类型</label>
+            <div class="col-sm-8">
+                <input name="name" class="form-control" type="text" placeholder="提醒类型" value="{$info.name|default=''}"/>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">事件说明</label>
+            <div class="col-sm-8">
+                <textarea name="remark" class="form-control" cols="80" rows="2">{$info.remark|default=''}</textarea>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">业务标识</label>
+            <div class="col-sm-8">
+                <input name="type" class="form-control" type="text" placeholder="业务标识" value="{$info.type|default=''}" readonly/>
+                <span class="help-block m-b-none">如：跟进cst_trace</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">业务地址</label>
+            <div class="col-sm-8">
+                <input name="url" class="form-control" type="text" placeholder="业务详细地址" value="{$info.url|default=''}"/>
+                <span class="help-block m-b-none">业务信息详细链接地址，如：crm/SalContact/detail</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">提前提醒时间</label>
+            <div class="col-sm-8">
+                <input name="hours" class="form-control" type="text" placeholder="提前提醒时间，单位小时" value="{$info.hours|default=''}"/>
+                <span class="help-block m-b-none">业务到期的提前提醒时长（小时），默认为提前1小时提醒</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">手机短信</label>
+            <div class="col-sm-8">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="sms_1" value="1" name="remind_sms" {eq name="info.remind_sms" value='1'} checked='checked' {/eq}>
+                    <label for="sms_1"> 启用 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="sms_0" value="0" name="remind_sms" {eq name="info.remind_sms" value='0'} checked='checked' {/eq}>
+                    <label for="sms_0"> 禁用 </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">系统提醒</label>
+            <div class="col-sm-8">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="sys_1" value="1" name="remind_sys" {eq name="info.remind_sys" value='1'} checked='checked' {/eq}>
+                    <label for="sys_1"> 启用 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="sys_0" value="0" name="remind_sys" {eq name="info.remind_sys" value='0'} checked='checked' {/eq}>
+                    <label for="sys_0"> 禁用 </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">邮件提醒</label>
+            <div class="col-sm-8">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="email_1" value="1" name="remind_email" {eq name="info.remind_email" value='1'} checked='checked' {/eq}>
+                    <label for="email_1"> 启用 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="email_0" value="0" name="remind_email" {eq name="info.remind_email" value='0'} checked='checked' {/eq}>
+                    <label for="email_0"> 禁用 </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">微信提醒</label>
+            <div class="col-sm-8">
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="weixin_1" value="1" name="remind_weixin" {eq name="info.remind_weixin" value='1'} checked='checked' {/eq}>
+                    <label for="weixin_1"> 启用 </label>
+                </div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="weixin_0" value="0" name="remind_weixin" {eq name="info.remind_weixin" value='0'} checked='checked' {/eq}>
+                    <label for="weixin_0"> 禁用 </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

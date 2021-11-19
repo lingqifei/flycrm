@@ -48,8 +48,6 @@ class SysAuthAccess extends AdminBase
 		$userinfo = session('sys_user_info');
 		$menu_ids = array_unique(array_merge($menu_ids, explode(',', trim($userinfo['rules'], ','))));
 
-		//print_r($menu_ids);
-
 		// 户单独权限设置************end
 
 		if (empty($menu_ids))  return $menu_ids;// 若没有权限节点则返回空数组

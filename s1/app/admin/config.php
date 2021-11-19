@@ -20,8 +20,11 @@ return [
     'view_replace_str' => $static,
     
     /* 存储驱动,若无需使用云存储则为空 */
-    'storage_driver' => '',
-    
+    'storage_driver' => "",
+
+	/* 不需要权限控制方法 */
+	'allow_url_diy'=>'admin/SysMsgType/scanbus;',
+
     /* 模板布局配置 */
     'template'  =>  [
         'layout_on'     =>  true,

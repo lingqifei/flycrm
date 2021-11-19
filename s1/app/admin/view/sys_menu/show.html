@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-md-3">
             <div class="ibox">
@@ -69,9 +69,9 @@
     if(data[i]['visible']=='1') visible='checked';
     %>
     <tr>
-        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['id']%></td>
-        <td><%=data[i]['name']%></td>
+        <td><a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>"><%=data[i]['name']%></a></td>
         <td><%=data[i]['url']%></td>
         <td>
             <input type="text" name="module" value="<%=data[i]['module']%>" class="form-control w100 ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'module'))}" data-id="<%=data[i]['id']%>" size="10">
@@ -87,7 +87,6 @@
     </tr>
     <% } %>
 </script>
-<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -125,6 +124,14 @@
         //刷新加载-添加
         $("body").on("click", ".refresh-tree", function () {
             onLoad();
+            turnPage(1);
+        });
+
+        $("body").on("click", ".get-son-list", function () {
+
+            var pid= $(this).attr('data-id');
+            $('.searchForm').find("input[name='pid']").val(pid);
+            $('.add-btn').attr('data-id',pid);
             turnPage(1);
         });
 

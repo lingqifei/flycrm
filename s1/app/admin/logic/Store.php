@@ -100,10 +100,12 @@ class Store extends AdminBase
 	 * 获取应用插件的列表
 	 * Author: lingqifei created by at 2020/6/12 0012
 	 */
-	public function getCloudStoreList()
+	public function getCloudStoreList($data=[])
 	{
+
+
 		//得到云服务应用插件列表
-		$info = $this->modelStore->getCloudStoreList();
+		$info = $this->modelStore->getCloudStoreList($data);
 
 		$listdata = array();
 		if($info['code']===0){
@@ -144,7 +146,6 @@ class Store extends AdminBase
 		}
 		return $listdata;
 	}
-
 
 	/**
 	 * 获取应用插件的基本信息

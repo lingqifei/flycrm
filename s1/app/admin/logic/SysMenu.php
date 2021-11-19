@@ -96,23 +96,36 @@ class SysMenu extends AdminBase
 		//遍历菜单列表
 		foreach ($menu_list as $menu_info) {
 
-			$icon = empty($menu_info['icon']) ? 'fa-dot-circle-o' : $menu_info['icon'];
+			//$icon = empty($menu_info['icon']) ? 'fa-dot-circle-o' : $menu_info['icon'];
+			$icon = '';
 
 			$checkbox_select = in_array($menu_info['id'], $rules_array) ? "checked='checked'" : '';
 
 			if (!empty($menu_info[$child])) {
 
-				$menu_view .= "
-                                <div class='auth-head '>
-                                  <div class='ibox-head-child'>
-                                        <a> <input class='rules_all' type='checkbox' name='rules[]' value='" . $menu_info['id'] . "' $checkbox_select > <i class='fa $icon'></i>  " . $menu_info['name'] . "</a> 
-                                   </div>
-                                    <div class='ibox-content'> " . $this->menuToCheckboxView($menu_info[$child], $child) . " </div>
-                                </div>
-                                ";
+//				$menu_view .= "
+//						<div class='auth-head '>
+//						  <div class='ibox-head-child'>
+//								<a> <input class='rules_all' type='checkbox' name='rules[]' value='" . $menu_info['id'] . "' $checkbox_select ><i class='fa $icon'></i> " . $menu_info['name'] . "&nbsp;</a>
+//						   </div>
+//							<div class='ibox-content'> " . $this->menuToCheckboxView($menu_info[$child], $child) . " </div>
+//						</div>
+//						";
+
+				$menu_view .='<li class="has_child">';
+				$menu_view .="<span><i class='icon-plus-sign'></i></span><input class='rules_all' type='checkbox' name='rules[]' value='" . $menu_info['id'] . "' $checkbox_select ><i class='fa $icon'></i> " . $menu_info['name'] . "";
+				$menu_view .="<ul style='display: none;'>";
+				$menu_view .=$this->menuToCheckboxView($menu_info[$child], $child);
+				$menu_view .="</ul>";
+				$menu_view .="</li>";
+
 			} else {
 
-				$menu_view .= "<a class='auth-head'>  <input type='checkbox' name='rules[]' value='" . $menu_info['id'] . "'  $checkbox_select > &nbsp;<i class='fa $icon'></i>  " . $menu_info['name'] . "  </a>";
+				$menu_view .="<li>";
+				$menu_view .="<span><i></i></span><input type='checkbox' name='rules[]' value='" . $menu_info['id'] . "'  $checkbox_select ><i class='fa $icon'></i> " . $menu_info['name'] . "";
+				$menu_view .="</li>";
+
+				//$menu_view .= "<a class='auth-head'><input type='checkbox' name='rules[]' value='" . $menu_info['id'] . "'  $checkbox_select ><i class='fa $icon'></i> " . $menu_info['name'] . "&nbsp;&nbsp;</a>";
 			}
 		}
 
@@ -170,7 +183,7 @@ class SysMenu extends AdminBase
 		// 获取自己及父菜单列表
 		$this->getParentMenuList($menu_info['id']);
 
-		$crumbs_view = '<div class="row  border-bottom white-bg dashboard-header"><div class="col-sm-12">';
+		$crumbs_view = '<div class="row white-bg" style="padding: 10px 5px 10px 20px;font-size: 13px;"><div class="col-sm-12">';
 
 		$crumbs_view .= "<ol class='breadcrumb'>";
 

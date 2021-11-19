@@ -69,7 +69,7 @@ class Store extends AdminBase
 	 */
 	public function apps_json()
 	{
-		return $this->logicStore->getCloudStoreList();
+		return $this->logicStore->getCloudStoreList($this->param);
 	}
 
 	/**

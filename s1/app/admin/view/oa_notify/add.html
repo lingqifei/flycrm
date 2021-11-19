@@ -1,0 +1,44 @@
+<body class="gray-bg">
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('OaNotify/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告标题</label>
+            <div class="col-sm-10">
+                <input name="name" class="form-control" type="text" placeholder="请输入公告标题" required/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">接收人员</label>
+            <div class="col-sm-10">
+                <select name="rece_type" class="form-control">
+                    <option value="0">全体成员</option>
+                    <option value="1">指定成员</option>
+                </select>
+                <span class="help-block m-b-none">选择公告接收类型</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">指定人员</label>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input type="hidden" name="rece_user_id">
+                    <input type="text" name="rece_user_name" id="rece_user_name" class="form-control" placeholder="选择接收人员" readonly>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default ajax-open" data-calback="javascript:void(0);"
+                                data-url="{:url('admin/SysUser/lookup',array('input_ids'=>'rece_user_id','input_text'=>'rece_user_name'))}">选择人员 </button>
+                    </span>
+                </div>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告内容</label>
+            <div class="col-sm-10">
+                <textarea name="content" class="form-control" placeholder="公告内容"></textarea>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="admin@layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

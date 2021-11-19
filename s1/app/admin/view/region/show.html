@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-md-3">
             <div class="ibox">
@@ -6,7 +6,7 @@
                     <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
                 </div>
                 <div class="ibox-content right_centent" style="">
-                    <div id="left-tree" data-url="{:url('Region/get_list_tree')}"> </div>
+                    <div id="left-tree" data-url="{:url('Region/get_list_tree')}"></div>
                 </div>
             </div>
         </div>
@@ -16,10 +16,11 @@
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <input type="hidden" name="upid" value="">
+                            <input type="hidden" name="upid" value="100000">
                             <div class="col-sm-3 m-b-xs">
                                 <a class="btn btn-default refresh-tree"> <i class="fa fa-refresh"> </i>刷新</a>
-                                <lqf_link> <a class="btn btn-info ajax-open add-btn" data-url="{:url('Region/add')}" data-title="用户"><i class="fa fa-plus"></i>添加</a> </lqf_link>
+                                <lqf_link><a class="btn btn-info ajax-open add-btn" data-url="{:url('Region/add')}"
+                                             data-title="用户"><i class="fa fa-plus"></i>添加</a></lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group">
@@ -27,7 +28,8 @@
                                 </div>
                                 <div class="input-group">
                                                     <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i
+                                                            class="fa fa-search"></i> 搜索</button>
                                                     </span>
                                 </div>
                             </div>
@@ -50,7 +52,7 @@
                         </tbody>
                         <tfoot class="ibox-content">
                         <tr>
-                            <td colspan="11" align="center"></td>
+                            <td colspan="8" align="center"></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -75,13 +77,23 @@
         <td><%=data[i]['name']%></td>
         <td><%=data[i]['domain']%></td>
         <td><%=data[i]['manager_user_name']%></td>
-        <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('Region/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
-        <td><input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('Region/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> ></td>
-        <td><input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('Region/set_visible',array('name'=>'ishot'))}"  data-id="<%=data[i]['id']%>" <%=ishot%> ></td>
+        <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort"
+                   data-url="{:url('Region/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5">
+        </td>
+        <td><input name="visible" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('Region/set_visible',array('name'=>'visible'))}" data-id="<%=data[i]['id']%>"
+            <%=visible%> >
+        </td>
+        <td><input name="visible" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('Region/set_visible',array('name'=>'ishot'))}" data-id="<%=data[i]['id']%>"
+            <%=ishot%> >
+        </td>
         <td>
             <p>
-                <lqf_link><a class="ajax-open" data-url="{:url('Region/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('Region/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+                <lqf_link><a class="ajax-open" data-url="{:url('Region/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a>
+                </lqf_link>
+                <lqf_link><a class="ajax-del confirm" data-url="{:url('Region/del')}"
+                             data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
             </p>
         </td>
     </tr>
@@ -92,11 +104,11 @@
 
         //BindEvent();
 
-        window.onload=onLoad();
+        window.onload = onLoad();
 
         //页面加载
         function onLoad() {
-            $('.searchForm').find("input[name='upid']").val('');
+            $('.searchForm').find("input[name='upid']").val('100000');
             var target = $('#left-tree').attr('data-url');
             $.get(target).success(function (jsonData) {
                 //渲染树
@@ -110,7 +122,7 @@
                     onNodeSelected: function (event, node) {
                         //设置新增时的父节点
                         $('.searchForm').find("input[name='upid']").val(node.id);
-                        $('.add-btn').attr('data-id',node.id);
+                        $('.add-btn').attr('data-id', node.id);
                         turnPage(1);
                     }
                 });
@@ -132,14 +144,15 @@
             setCenterHeight();
         });
         setCenterHeight();
+
         function setCenterHeight() {
             var height = $(window).height();
             var centerHight = height - 240;
             $(".right_centent").height(centerHight).css("overflow", "auto");
         }
+
         /*-----页面pannel内容区高度自适应 end-----*/
     });
-
 
 
 </script>

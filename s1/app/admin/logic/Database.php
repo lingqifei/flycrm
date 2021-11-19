@@ -313,14 +313,14 @@ class Database extends AdminBase
             $start = $param['start'];
 
             $list = session('backup_list');
-
             $path = $this->getBackupDir();
 
             $db = new \lqf\Database($list[$part], array(
                 'path' => realpath($path) . SYS_DS_PROS,
-                'compress' => $list[$part][2]
+                'compress' => $list[$part][2],
+				'prefix' => SYS_DB_PREFIX,
+				'prefix_tpl' => '#@__'
             ));
-
 
             $start = $db->import($start);
 

@@ -21,7 +21,7 @@ class SysUser extends LogicBase
 	/**
 	 * 获取列表
 	 */
-	public function getUserList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
+	public function getSysUserList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
 	{
 		return $this->modelSysUser->getList($where, $field, $order, $paginate);
 	}
@@ -29,7 +29,7 @@ class SysUser extends LogicBase
 	/**
 	 * 获取单个信息
 	 */
-	public function getUserInfo($where = [], $field = true)
+	public function getSysUserInfo($where = [], $field = true)
 	{
 		return $this->modelSysUser->getInfo($where, $field);
 	}
@@ -37,18 +37,50 @@ class SysUser extends LogicBase
 	/**
 	 * 获取列信息
 	 */
-	public function getUserValue($where = [], $field = '')
+	public function getSysUserValue($where = [], $field = '')
 	{
 		return $this->modelSysUser->getValue($where, $field);
 	}
 
+	/**获得用户真实名称
+	 * @param $ids
+	 * @param bool $string
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/8/10 0010 14:25
+	 */
+	public function getRealname($ids, $string=true)
+	{
+		$where['id']=['in',$ids];
+		$users = $this->modelSysUser->getColumn($where, 'realname');
+		if($string && !empty($users)){
+			return arr2str($users);
+		}
+		return $users;
+	}
 
-	/**获取指定用户下属员工
+	/**获取当前员工所在部部门员工
 	 * @param int $id
 	 * @return array ex:[1,2,3,4]
 	 * Author: lingqifei created by at 2020/3/29 0029
 	 */
-	public function getSysUserDeptSon($id = 0)
+	public function getSysUserDept($id = SYS_USER_ID)
+	{
+		$ids = [];
+		$info = $this->modelSysUser->getInfo(['id' => $id]);
+		if ($info) {
+			$map['dept_id'] = ['in', $info['dept_id']];
+			$ids = $this->modelSysUser->getColumn($map, 'id');
+		}
+		return $ids;
+	}
+
+
+	/**获取当前员工所在部的下级部门员工
+	 * @param int $id
+	 * @return array ex:[1,2,3,4]
+	 * Author: lingqifei created by at 2020/3/29 0029
+	 */
+	public function getSysUserDeptSon($id = SYS_USER_ID)
 	{
 		$ids = [];
 		$info = $this->modelSysUser->getInfo(['id' => $id]);
@@ -61,7 +93,7 @@ class SysUser extends LogicBase
 	}
 
 
-	/**获取指定用户下属员工
+	/**获取当前员工所在部的下级部门员工+本部门员工
 	 * @param int $id
 	 * @return array  ex:[1,2,3,4]
 	 * Author: lingqifei created by at 2020/3/29 0029
@@ -107,7 +139,6 @@ class SysUser extends LogicBase
 			$where['dept_id'] = ['=', $user['dept_id']];//自己部门
 			$where['position_id'] = ['in', $posi_son];//自己及下属
 			$ids = $this->modelSysUser->getColumn($where, 'id');
-
 			//叠加权限
 			$data_role = $this->modelSysPosition->getValue(['id' => $user['position_id']], 'data_role');
 
@@ -137,7 +168,6 @@ class SysUser extends LogicBase
 
 	}
 
-
 	/**获取指定用户下属员工列表信息
 	 * @param $stype
 	 * @return array （[0]=array(''1)）
@@ -152,5 +182,21 @@ class SysUser extends LogicBase
 		return $list;
 	}
 
+
+	/**获取用户上级管理人员id
+	 * @param int $id
+	 * @param string $type
+	 * @return mixed
+	 * Author: 开发人生 goodkfrs@qq.com
+	 * Date: 2021/9/13 0013 16:12
+	 */
+	public function getSysUserSuperior($id=SYS_USER_ID,$type=''){
+		$userinfo=$this->modelSysUser->getInfo(['id'=>$id]);
+		$superior_position_id=$this->logicSysPosition->getPositionPid($userinfo['position_id']);
+		$where['position_id']=['=',$superior_position_id];
+		$where['dept_id']=['=',$userinfo['dept_id']];
+		$superior=$this->modelSysUser->getInfo($where,'id,username,realname,dept_id,position_id');
+		return $superior;
+	}
 
 }

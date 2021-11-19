@@ -57,7 +57,7 @@
                 <select name="dept_id" class="form-control chosen-select">
                     <option value="0">所在部门</option>
                     {volist name='dept_select' id='vo'}
-                    <option value="{$vo.id}"  {noempty name="info['dept_id']"} {if condition="$info['dept_id'] eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    <option value="{$vo.id}"  {notempty name="info['dept_id']"} {if condition="$info['dept_id'] eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
                 </select>
                 <span class="help-block m-b-none"></span>
@@ -69,7 +69,7 @@
                 <select name="position_id" class="form-control chosen-select">
                     <option value="0">所在职位</option>
                     {volist name='sys_position_list' id='vo'}
-                    <option value="{$vo.id}"  {noempty name="info['position_id']"} {if condition="$info['position_id'] eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    <option value="{$vo.id}"  {notempty name="info['position_id']"} {if condition="$info['position_id'] eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
                 </select>
                 <span class="help-block m-b-none"></span>

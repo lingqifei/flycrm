@@ -12,78 +12,80 @@
  */
 
 namespace app\admin\controller;
+
 use think\db;
+
 /**
  * 用户控制器
  */
 class SysOrg extends AdminBase
 {
 
-    /**
-     * 菜单列表
-     */
-    public function show()
-    {
-        return  $this->fetch('show');
-    }
+	/**
+	 * 菜单列表
+	 */
+	public function show()
+	{
+		return $this->fetch('show');
+	}
 
-    public function show_json()
-    {
-        $where = [];
-        if(!empty($this->param['keywords'])){
-           $where['username|mobile|realname']=['like','%'.$this->param['keywords'].'%'];
-        }
-       $list=$this->logicSysOrg->getSysOrgList($where)->toArray();
-        return $list;
-    }
+	public function show_json()
+	{
+		$where = [];
+		if (!empty($this->param['keywords'])) {
+			$where['username|mobile|realname'] = ['like', '%' . $this->param['keywords'] . '%'];
+		}
+		$list = $this->logicSysOrg->getSysOrgList($where)->toArray();
+		return $list;
+	}
 
 
-    /**
-     * 菜单添加
-     */
-    public function add()
-    {
-        IS_POST && $this->jump($this->logicSysOrg->sysOrgAdd($this->param));
+	/**
+	 * 菜单添加
+	 */
+	public function add()
+	{
+		IS_POST && $this->jump($this->logicSysOrg->sysOrgAdd($this->param));
 
-        return $this->fetch('add');
-    }
-    
-    /**
-     * 系统用户编辑
-     */
-    public function edit()
-    {
-        
-        IS_POST && $this->jump($this->logicSysOrg->sysOrgEdit($this->param));
+		return $this->fetch('add');
+	}
 
-        $info = $this->logicSysOrg->getSysOrgInfo(['id' => $this->param['id']]);
+	/**
+	 * 系统用户编辑
+	 */
+	public function edit()
+	{
 
-        $this->assign('info', $info);
+		IS_POST && $this->jump($this->logicSysOrg->sysOrgEdit($this->param));
 
-        return $this->fetch('edit');
-    }
+		$info = $this->logicSysOrg->getSysOrgInfo(['id' => $this->param['id']]);
 
-    /**
-     * 数据状态设置
-     */
-    public function del()
-    {
-        $where = empty($this->param['id']) ? ['id' => 0] : ['id' => $this->param['id']];
-        $this->jump($this->logicSysOrg->sysOrgDel($where));
-    }
+		$this->assign('info', $info);
 
-    /**
-     * 会员授权
-     */
-    public function create_user()
-    {
+		return $this->fetch('edit');
+	}
 
-        IS_POST && $this->jump($this->logicSysOrg->create_user($this->param));
+	/**
+	 * 数据状态设置
+	 */
+	public function del()
+	{
+		$where = empty($this->param['id']) ? ['id' => 0] : ['id' => $this->param['id']];
+		$this->jump($this->logicSysOrg->sysOrgDel($where));
+	}
 
-        $info = $this->logicSysOrg->getSysOrgInfo(['id' => $this->param['id']]);
+	/**
+	 * 会员授权
+	 */
+	public function create_user()
+	{
 
-        $this->assign('info', $info);
+		IS_POST && $this->jump($this->logicSysOrg->create_user($this->param));
 
-        return $this->fetch('create_user');
-    }
+		$info = $this->logicSysOrg->getSysOrgInfo(['id' => $this->param['id']]);
+
+		$this->assign('info', $info);
+
+		return $this->fetch('create_user');
+	}
 }

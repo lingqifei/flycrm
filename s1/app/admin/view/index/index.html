@@ -70,8 +70,9 @@
         </div>
     </div>
     <!--右侧部分结束-->
-
 </div>
+
+{include file="layout/bottom"}
 <script>
     $(".navbar-module a").click(function () {
         $(this).addClass("on");
@@ -105,7 +106,142 @@
             console.log(iframeUrl);
             localStorage.setItem('iframeUrl', itemUrl);
         });
-
     });
+
+
+    //声音播放插件
+    var playSound = function () {
+        var borswer = window.navigator.userAgent.toLowerCase();
+
+        var num = Math.floor(Math.random() * 6) + 1;
+
+        var video="__STATIC__/module/admin/img/"+num+".wav";
+
+        if (borswer.indexOf("ie") >= 0) {
+            //IE内核浏览器
+            var strEmbed = '<embed name="embedPlay" src="'+video+'" autostart="true" hidden="true" loop="false"></embed>';
+            if ($("body").find("embed").length <= 0)
+                $("body").append(strEmbed);
+            var embed = document.embedPlay;
+
+            //浏览器不支持 audion，则使用 embed 播放
+            embed.volume = 100;
+            //embed.play();这个不需要
+        } else {
+            //非IE内核浏览器
+            var strAudio = "<audio id='audioPlay' src='"+video+"' hidden='true'>";
+            if ($("#audioPlay").length <= 0) {
+                $("body").append(strAudio);
+            }
+            var audio = document.getElementById("audioPlay");
+            //浏览器支持 audio
+            audio.play();
+        }
+
+        log(video);
+
+    }
+
+    //提示通知插件
+    var playNotice = function (id, title, content, url='') {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "20000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        //点击事件
+        toastr.options.onclick = function () {
+            layer.open({
+                type: 2,
+                title: '查看通知',
+                shadeClose: true,
+                fixed: false, //不固定
+                area: ['90%', '90%'],
+                content:url
+            });
+        };
+
+        toastr.info(content, title);
+
+    }
+
+
+    //提示通知插件
+    var runSysMsg = function () {
+
+        var target="{:url('admin/SysMsg/show_json',array('deal_user_id'=>$sys_user_info.id,'deal_status'=>0))}";
+        var detail="{:url('admin/OaNotify/main_json')}";
+
+        $.ajax({
+            type: 'POST',
+            url: target,
+            data: '',
+            dataType: 'json',
+            success: function (jsonData) {
+
+                $(jsonData.data).each(function (index, item) {
+
+                    playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
+
+                });
+
+                if(jsonData.data.length>0){
+                    playSound();
+                }
+            }
+        });
+    }
+
+    //系统公告
+    var runSysNotify = function () {
+        var target="{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
+        var detail="{:url('admin/OaNotify/main_json')}";
+        $.ajax({
+            type: 'POST',
+            url: target,
+            data: {"status": "-1"},
+            dataType: 'json',
+            success: function (jsonData) {
+                $(jsonData.data).each(function (index, item) {
+                    playNotice(item.id, '系统公告', item.name, detail+'?id='+item.id);
+                });
+                if(jsonData.data.length>0){
+                    playSound();
+                }
+            }
+        });
+    }
+
+    //系统计划执行消息
+    var runScanSysMsg = function () {
+        var target="{:url('admin/SysMsgType/scanbus')}";
+        $.ajax({
+            type: 'GET',
+            url: target,
+            dataType: 'json',
+            success: function (jsonData) {
+
+            }
+        });
+    }
+
+    //主动调用
+    //setInterval("func()", 60000);
+    setInterval("runSysNotify()", 1000*60*5);
+    setInterval("runSysMsg()", 1000*60*5);
+
+    runScanSysMsg();
+    runSysNotify();
+    runSysMsg();
 </script>
-{include file="layout/bottom"}
+

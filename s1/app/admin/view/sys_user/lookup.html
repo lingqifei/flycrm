@@ -1,8 +1,7 @@
 <body class="gray-bg">
-<div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-3">
-            <div class="ibox">
+            <div class="">
                 <div class="ibox-title"><h5>选择部门</h5>
                     <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
                 </div>
@@ -12,15 +11,15 @@
             </div>
         </div>
         <div class="col-sm-5">
-            <div class="ibox float-e-margins">
+            <div class="">
                 <div class="ibox-title">{$page_title}选择人员</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="" placeholder="部门编号">
-                            <div class="col-sm-12 m-b-xs text-right">
-                                <div class="input-group pd-b-5">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                            <div class="col-sm-12 m-b-xs">
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
                                 </div>
                                 <div class="input-group">
                           <span class="input-group-btn">
@@ -49,7 +48,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="ibox">
+            <div class="">
                 <div class="ibox-title">已选人员
                     <div class="ibox-tools">
                         <button class="btn btn-info btn-xs checkboxItemSave">确认选择</button>
@@ -62,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <script id="tableListTpl" type="text/html">
     <% for(var i=0;i<data.length;i++) { %>
     <tr>

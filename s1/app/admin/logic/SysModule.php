@@ -666,7 +666,7 @@ class SysModule extends AdminBase
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016-2021 http://www.07fly.xyz
 // +----------------------------------------------------------------------
-// | 07FLY承诺基础框架永久免费开源，您可用于学习和商用，但必须保留软件版权信息。
+// | 07FLY承诺基础框架永久开源，您可用于学习和商用，但必须保留软件版权信息。
 // +----------------------------------------------------------------------
 // | Author: 开发人生 <574249366@qq.com>
 // +----------------------------------------------------------------------
@@ -800,6 +800,8 @@ INFO;
 			'public/static/module/admin/css/07fly.css',
 			'public/static/module/admin/css/style.css',
 			'public/static/module/admin/js/lib',
+			'public/static/module/admin/js/plugins',
+			'public/static/module/admin/img',
 		];
 
 		//2、安装包=移动需要打包的文件
@@ -915,6 +917,7 @@ INFO;
 	 */
 	public function sysModuleSyncMenuFile($fileinfo=''){
 		if(file_exists($fileinfo)){
+
 			$content = file_get_contents($fileinfo);
 			$content = isJson($content, true);
 			$this->sysModuleMenuImport($content);

@@ -11,7 +11,7 @@
         "nodes": [
             {
                 "name": "行政区域",
-                "sort": 5,
+                "sort": 60,
                 "module": "admin",
                 "url": "Region/show",
                 "visible": 1,
@@ -29,12 +29,67 @@
                         "is_menu": 0,
                         "icon": "",
                         "nodes": []
+                    },
+                    {
+                        "name": "排序",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Region/set_sort",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "禁用",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Region/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Region/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Region/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Region/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
                     }
                 ]
             },
             {
                 "name": "地区管理",
-                "sort": 2,
+                "sort": 61,
                 "module": "admin",
                 "url": "SysArea/show",
                 "visible": 1,
@@ -123,14 +178,48 @@
             },
             {
                 "name": "行为日志",
-                "sort": 4,
+                "sort": 70,
                 "module": "admin",
                 "url": "Log/show",
                 "visible": 1,
                 "is_shortcut": 0,
                 "is_menu": 1,
                 "icon": "fa-street-view",
-                "nodes": []
+                "nodes": [
+                    {
+                        "name": "清空全部",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "Log/clear",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Log/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "数据浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "Log/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             },
             {
                 "name": "系统设置",
@@ -179,9 +268,9 @@
             },
             {
                 "name": "数据库管理",
-                "sort": 10,
+                "sort": 110,
                 "module": "admin",
-                "url": "Database/show",
+                "url": "database manage",
                 "visible": 1,
                 "is_shortcut": 0,
                 "is_menu": 1,
@@ -220,13 +309,69 @@
                 "is_shortcut": 0,
                 "is_menu": 1,
                 "icon": "fa-user",
-                "nodes": []
+                "nodes": [
+                    {
+                        "name": "禁用",
+                        "sort": 5,
+                        "module": "admin",
+                        "url": "SysMenu/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "SysMenu/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "SysMenu/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "SysMenu/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "数据浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysMenu/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             },
             {
                 "name": "组织结构",
-                "sort": 9,
+                "sort": 100,
                 "module": "admin",
-                "url": "index/main",
+                "url": "organization",
                 "visible": 1,
                 "is_shortcut": 0,
                 "is_menu": 1,
@@ -255,7 +400,7 @@
                             },
                             {
                                 "name": "密码重置",
-                                "sort": 100,
+                                "sort": 4,
                                 "module": "admin",
                                 "url": "SysOrg/reset_pwd",
                                 "visible": 1,
@@ -266,7 +411,7 @@
                             },
                             {
                                 "name": "企业修改",
-                                "sort": 100,
+                                "sort": 2,
                                 "module": "admin",
                                 "url": "SysOrg/edit",
                                 "visible": 1,
@@ -277,9 +422,31 @@
                             },
                             {
                                 "name": "企业删除",
-                                "sort": 100,
+                                "sort": 3,
                                 "module": "admin",
                                 "url": "SysOrg/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "数据浏览",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysOrg/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "添加",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysOrg/add",
                                 "visible": 1,
                                 "is_shortcut": 0,
                                 "is_menu": 0,
@@ -356,7 +523,7 @@
                         "nodes": [
                             {
                                 "name": "菜单授权",
-                                "sort": 2,
+                                "sort": 6,
                                 "module": "admin",
                                 "url": "SysUser/userRules",
                                 "visible": 1,
@@ -378,7 +545,7 @@
                             },
                             {
                                 "name": "用户授权",
-                                "sort": 1,
+                                "sort": 5,
                                 "module": "admin",
                                 "url": "SysUser/userAuth",
                                 "visible": 1,
@@ -389,7 +556,7 @@
                             },
                             {
                                 "name": "用户修改",
-                                "sort": 10,
+                                "sort": 1,
                                 "module": "admin",
                                 "url": "SysUser/edit",
                                 "visible": 1,
@@ -400,7 +567,7 @@
                             },
                             {
                                 "name": "用户删除",
-                                "sort": 10,
+                                "sort": 2,
                                 "module": "admin",
                                 "url": "SysUser/del",
                                 "visible": 1,
@@ -411,13 +578,24 @@
                             },
                             {
                                 "name": "用户添加",
-                                "sort": 10,
+                                "sort": 3,
                                 "module": "admin",
                                 "url": "SysUser/add",
                                 "visible": 1,
                                 "is_shortcut": 0,
                                 "is_menu": 0,
                                 "icon": "fa-circle-o",
+                                "nodes": []
+                            },
+                            {
+                                "name": "用户选择",
+                                "sort": 4,
+                                "module": "admin",
+                                "url": "admin/SysUser/lookup",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
                                 "nodes": []
                             }
                         ]
@@ -579,6 +757,207 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "系统消息",
+                "sort": 21,
+                "module": "admin",
+                "url": "SysMsg/show",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "",
+                "nodes": [
+                    {
+                        "name": "删除",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "SysMsg/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "处理",
+                        "sort": 5,
+                        "module": "admin",
+                        "url": "SysMsg/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "提醒配置",
+                        "sort": 6,
+                        "module": "admin",
+                        "url": "SysMsgType/show",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": [
+                            {
+                                "name": "提醒设置",
+                                "sort": 5,
+                                "module": "admin",
+                                "url": "SysMsgType/set_visible",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "删除",
+                                "sort": 4,
+                                "module": "admin",
+                                "url": "SysMsgType/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "数据浏览",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysMsgType/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "添加",
+                                "sort": 2,
+                                "module": "admin",
+                                "url": "SysMsgType/add",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "修改",
+                                "sort": 3,
+                                "module": "admin",
+                                "url": "SysMsgType/edit",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "SysMsg/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "SysMsg/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "数据浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysMsg/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
+            },
+            {
+                "name": "系统公告",
+                "sort": 20,
+                "module": "admin",
+                "url": "OaNotify/show",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "",
+                "nodes": [
+                    {
+                        "name": "详细",
+                        "sort": 5,
+                        "module": "admin",
+                        "url": "OaNotify/detail",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "OaNotify/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "OaNotify/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "OaNotify/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "OaNotify/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             }
         ]
     },
@@ -674,7 +1053,7 @@
     },
     {
         "name": "系统首页",
-        "sort": 10,
+        "sort": 1,
         "module": "admin",
         "url": "index/main",
         "visible": 1,
@@ -703,6 +1082,118 @@
                 "is_menu": 0,
                 "icon": "",
                 "nodes": []
+            },
+            {
+                "name": "我的消息",
+                "sort": 1,
+                "module": "admin",
+                "url": "SysMsg/show_my",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "",
+                "nodes": [
+                    {
+                        "name": "数据浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysMsg/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "单个处理",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "SysMsg/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "批量处理",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "SysMsg/set_deal",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "消息删除",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "SysMsg/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
+            },
+            {
+                "name": "系统公告",
+                "sort": 1,
+                "module": "admin",
+                "url": "OaNotifyUser/show",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "",
+                "nodes": [
+                    {
+                        "name": "查看详细",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "OaNotifyUser/detail",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "OaNotifyUser/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "标记已读",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "OaNotifyUser/read",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "数据浏览",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "OaNotifyUser/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             }
         ]
     }

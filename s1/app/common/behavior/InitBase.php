@@ -171,7 +171,6 @@ class InitBase
         define('SYS_DS_CONS', '\\');
 
         $database_config = config('database');
-
         define('SYS_DB_PREFIX', $database_config['prefix']);
         define('SYS_ENCRYPT_KEY', $database_config['sys_data_key']);
     }

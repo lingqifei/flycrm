@@ -1,17 +1,19 @@
 
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content">
+
     <div class="row">
         <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content table-responsive">
+            <div class="ibox">
+
+                <div class="ibox-title">
+                    <h5>{$page_title}</h5>
+                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <div class="col-sm-3 m-b-xs">
-                                <lqf_link>
-                                <a class="btn btn-info ajax-open"  data-url="{:url('SysOrg/add')}" data-title="添加企业" ><i class="fa fa-plus"></i> 添加</a>
-                                </lqf_link>
-                            </div>
-                            <div class="col-sm-9 m-b-xs text-right">
+                            <div class="col-sm-12 text-right">
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
                                 </div>
@@ -23,6 +25,17 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6 m-b-xs">
+                            企业会员为用户自助注册的企业会员（租户平台专用）
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content table-responsive">
                     <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysOrg/show_json')}" width="100%">
                         <thead>
                         <tr>
@@ -62,17 +75,14 @@
         <td><%=data[i]['stop_date']%></td>
         <td><%=data[i]['create_time']%></td>
         <td>
-            <p>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/create_user')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="初始化系统用户"><i class="fa fa-user-plus"></i>用户</a></lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >修改</a></lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}"  data-title="重置密码">密码</a></lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('SysOrg/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
-            </p>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/create_user')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="初始化系统用户"><i class="fa fa-user-plus"></i>用户</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >修改</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}"  data-title="重置密码">密码</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysOrg/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
         </td>
     </tr>
     <% } %>
 </script>
-<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         turnPage(1);//页面加载时初始化分页

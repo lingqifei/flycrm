@@ -6,7 +6,7 @@
                 <select name="pid" class="form-control chosen-select">
                     <option value="0">选择上级菜单</option>
                     {volist name='menu_select' id='vo'}
-                    <option value="{$vo.id}"  {noempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/noempty}>{$vo.treename}</option>
+                    <option value="{$vo.id}"  {notempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
                 </select>
                 <span class="help-block m-b-none"></span>

@@ -1,0 +1,99 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{$page_title}</h5>
+                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <div class="col-sm-12 m-b-xs text-right">
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6 m-b-xs">
+                            <lqf_link>
+                                <a class="btn btn-info ajax-open" data-url="{:url('SysMsgType/add')}" data-title="添加企业"><i class="fa fa-plus"></i> 添加</a>
+                            </lqf_link>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <lqf_link>
+                            </lqf_link>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content table-responsive">
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysMsgType/show_json')}"
+                           width="100%">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="80">提醒类型</th>
+                            <th width="80">业务标识</th>
+                            <th width="150">事件说明</th>
+                            <th width="80" class="text-center">提前时间(小时)</th>
+                            <th width="150">提醒方式</th>
+                            <th width="60">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="6" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <%
+    for(var i=0;i<data.length;i++) {
+    sms='';if(data[i]['remind_sms']=='1') sms='checked';
+    sys='';if(data[i]['remind_sys']=='1') sys='checked';
+    email='';if(data[i]['remind_email']=='1') email='checked';
+    weixin='';if(data[i]['remind_weixin']=='1') weixin='checked';
+    %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><%=data[i]['name']%></td>
+        <td><%=data[i]['type']%></td>
+        <td><%=data[i]['remark']%></td>
+        <td class="text-center"><%=data[i]['hours']%></td>
+        <td class="">
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > 手机
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > 系统
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > 邮件
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > 微信
+        </td>
+        <td>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysMsgType/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMsgType/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

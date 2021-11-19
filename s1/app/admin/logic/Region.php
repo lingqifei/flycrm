@@ -45,7 +45,7 @@ class Region extends AdminBase
     public function getRegionTreeSelect($where = [], $field = "id,name,upid", $order = 'sort asc', $paginate = false){
 
         $list=$this->getRegionList($where,$field,$order,$paginate)->toArray();
-        $data=list2select($list);
+        $data=list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'upid');
         return $data;
     }
 

@@ -1,58 +1,67 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>系统公告</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover ajax-list-table" data-type="oanotify"
+                           data-url="{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id))}" width="100%">
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>提醒消息</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover ajax-list-table" data-type="sysmsg"
+                           data-url="{:url('admin/SysMsg/show_json',array('deal_user_id'=>$sys_user_info.id,'deal_status'=>0))}" width="100%">
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>系统信息</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link" data-toggle="collapse"  data-target="#demo">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#" aria-expanded="true">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="table_basic.html#">选项1</a></li>
-                            <li><a href="table_basic.html#">选项2</a></li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="ibox-content collapse in" id="demo">
                     <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <td>当前版本</td>
-                        <td>{$info['lqf_version']}</td>
-                    </tr>
-                    <!--                    <tr>-->
-                    <!--                        <td>ThinkPHP版本</td>-->
-                    <!--                        <td>{$info['think_version']}</td>-->
-                    <!--                    </tr>-->
-                    <tr>
-                        <td>操作系统</td>
-                        <td>{$info['os']}</td>
-                    </tr>
-                    <tr>
-                        <td>运行环境</td>
-                        <td>{$info['software']}</td>
-                    </tr>
-                    <tr>
-                        <td>MySql版本</td>
-                        <td>{$info['mysql_version']}</td>
-                    </tr>
-                    <tr>
-                        <td>PHP版本</td>
-                        <td>{$info['php_version']}</td>
-                    </tr>
-                    <!--                    <tr>-->
-                    <!--                        <td>上传限制</td>-->
-                    <!--                        <td>{$info['upload_max']}</td>-->
-                    <!--                    </tr>-->
-                    </tbody>
-                </table>
+                        <tbody>
+                        <tr>
+                            <td width="20%">当前版本</td>
+                            <td>{$info['lqf_version']}</td>
+                        </tr>
+                        <tr>
+                            <td>操作系统</td>
+                            <td>{$info['os']}</td>
+                        </tr>
+                        <tr>
+                            <td>运行环境</td>
+                            <td>{$info['software']}</td>
+                        </tr>
+                        <tr>
+                            <td>MySql版本</td>
+                            <td>{$info['mysql_version']}</td>
+                        </tr>
+                        <tr>
+                            <td>PHP版本</td>
+                            <td>{$info['php_version']}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -66,7 +75,7 @@
                         <tbody>
 
                         <tr>
-                            <td>产品名称</td>
+                            <td width="20%">产品名称</td>
                             <td>{$info['product_name']}</td>
                         </tr>
                         <tr>
@@ -93,3 +102,66 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        //自动输出=>客户关联 列表数
+        $('.ajax-list-table').each(function () {
+            var that = $(this);
+            ajaxListData(that);
+        });
+    });
+
+    //加载数据
+    function ajaxListData(that) {
+        var type = that.attr("data-type");
+        var target = that.attr("data-url");
+
+        //是否设置了字段
+        var ids = that.attr('data-ids');
+        //是否设置了参数字段
+        if (typeof (ids) != "undefined" && ids != 0) {
+            var ids = ($.param(eval('(' + ids + ')'), true));
+            var target = target + "?" + ids;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: {"pageSize": 20},
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                that.empty();
+            },
+            success: function (jsondata) {
+                var html = ajaxListDataTpl(jsondata.data, type);
+                that.html(html);
+            },
+            complete: function () {
+            }
+        });
+    }
+
+    //加载数据,模板
+    function ajaxListDataTpl(data, type) {
+        var html = '';
+        $.each(data, function (idx, obj) {
+            if (type == 'oanotify') {
+                html += '<tr>';
+                html += '<td width="70"><a class="ajax-open" data-calback="javascript:void(0)" data-ids="{\'id\':\''+obj.id+'\'}" data-url="{:url(\'OaNotify/main_json\')}" >' + obj.name + '</td></a>';
+                html += '<td width="30" class="text-right">' + obj.create_time + '</td>';
+                html += '</tr>';
+            } else if (type == 'sysmsg') {
+                html += '<tr>';
+                html += '<td width="10">【' + obj.bus_type_name + '】</td>';
+                html += '<td width="70"><a class="ajax-open" data-calback="javascript:void(0)" data-url="' + obj.bus_url + '" >' + obj.bus_name + '</td></a>';
+                html += '<td width="20" class="text-right">' + obj.deal_time + '</td>';
+                html += '</tr>';
+            }
+        });
+
+        return html;
+    }
+
+</script>
