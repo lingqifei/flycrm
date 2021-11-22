@@ -80,7 +80,15 @@ $(function () {
     $("body").on("click", ".collapse-link", function () {
         $(this).find('i').toggleClass("fa-chevron-up");
         $(this).find('i').toggleClass("fa-chevron-down");
-    })
+    });
+
+    //设置有搜索列表页中，点击加回车提交搜索
+    $("body").keydown(function (e) {
+        var e = event || window.event;
+        if (e.keyCode == 13) {
+            $("form.searchForm .btn-primary.ajaxSearchForm").click();
+        }
+    });
 
 });
 
@@ -566,7 +574,7 @@ $("body").on("click", ".ajax-get-more", function () {
     if (!confirm('确认要执行该操作吗?')) {
         return false;
     }
-    var checkedArr = $('.ajax-list-table input[type="checkbox"]:checked');
+    var checkedArr = $('.ajax-list-table input[class="checkboxCtrlId"]:checked');
 
     checkedArr.each(function () {
         cIds += $(this).val() + ",";
@@ -696,6 +704,105 @@ $("body").on("click", ".ajax-post", function () {
     }
     return false;
 });
+
+
+// 提交~针对本页
+$("body").on("click", ".ajax-post-trace", function () {
+    var target, query, form;
+    var target_form = $(this).attr('target-form');
+    var that = this;
+    var nead_confirm = false;
+    var fun = $(this).attr('data-calback');//判断是否有回调函数
+
+    if (($(this).attr('type') == 'submit') || (target = $(this).attr('href')) || (target = $(this).attr('url'))) {
+        form = $('.' + target_form);
+        if ($(this).attr('hide-data') === 'true') {//无数据时也可以使用的功能
+            form = $('.hide-data');
+            query = form.serialize();
+        } else if (form.get(0) == undefined) {
+
+            return false;
+
+        } else if (form.get(0).nodeName == 'FORM') {
+
+            if ($(this).hasClass('confirm')) {
+                if (!confirm('确认要执行该操作吗?')) {
+                    return false;
+                }
+            }
+
+            if ($(this).attr('url') !== undefined) {
+                target = $(this).attr('url');
+            } else {
+                target = form.get(0).action;
+            }
+            query = form.serialize();
+
+        } else if (form.get(0).nodeName == 'INPUT' || form.get(0).nodeName == 'SELECT' || form.get(0).nodeName == 'TEXTAREA') {
+
+            form.each(function (k, v) {
+                if (v.type == 'checkbox' && v.checked == true) {
+                    nead_confirm = true;
+                }
+            })
+
+            if (nead_confirm && $(this).hasClass('confirm')) {
+                if (!confirm('确认要执行该操作吗?')) {
+                    return false;
+                }
+            }
+
+            query = form.serialize();
+        } else {
+
+            if ($(this).hasClass('confirm')) {
+                if (!confirm('确认要执行该操作吗?')) {
+                    return false;
+                }
+            }
+            query = form.find('input,select,textarea').serialize();
+        }
+
+        var is_repeat_button = $(that).hasClass('no-repeat-button');
+
+        if (is_repeat_button) {
+            $(that).prop('disabled', true);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: query,
+            dataType: "json",
+            success: function (result) {
+                if (result.code == '1') {
+
+                    form[0].reset();
+
+                    layer.msg(result.msg, {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.layer.close(index);
+
+                        if (fun != null) {
+                            eval(fun);
+                        }
+                    });
+                } else {
+                    //toastr.error(result.msg);
+                    layer.msg(result.msg, {icon: 5});
+                }
+            },
+            complete: function () { //执行完之后执行
+                if (is_repeat_button) {
+                    $(that).prop('disabled', false);
+                }
+            },
+        });//end ajax post
+
+    }
+    return false;
+});
+
 
 //更改字段
 $("body").on("change", ".ajax-input", function () {

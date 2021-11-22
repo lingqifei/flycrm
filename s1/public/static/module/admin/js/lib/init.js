@@ -136,6 +136,27 @@ $(document).ready(function () {
     $(".datetimepicker-now").datetimepicker("setDate", new Date())
 
 
+    //只选择月份
+    $('.datepicker-month').datepicker({
+        format: 'yyyy-mm',
+        language: "zh-CN",
+        autoclose: true,
+        startView: 1,
+        minViewMode: 1,
+        maxViewMode: 1
+    });
+
+    //只选择月份
+    $(".datetimepicker-year").datetimepicker({
+        language:'ch',
+        format: 'yyyy',
+        autoclose: true,
+        todayBtn: true,
+        startView: 'decade',
+        minView:'decade',
+        maxView:'decade',
+    });
+
     // //日期时间选择插件 yyyy-mm-dd H:i:s
     $('.clockpicker').clockpicker();
 
@@ -147,6 +168,29 @@ $(document).ready(function () {
 
     //bootstrap 下拉选择
     $('.chosen-select').chosen({search_contains: true});
+
+
+    //树形菜单 checkbox选择
+    $('.menu-tree-checkbox li.has_child > span').on('click', function (e) {
+        var d = $(this).siblings('ul').is(":visible");
+        $(this).siblings('ul').slideToggle('fast');//.siblings('dt').css('background-position','right -40px');
+        if (d) {
+            console.log($(this).find(">i"));
+            //$(this).find(">i").addClass('icon-minus-sign').removeClass('icon-plus-sign');
+            $(this).find(">i").addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        } else {
+            $(this).find('>i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+            //$(this).find(">i").addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        }
+        e.stopPropagation();
+    });
+    $('.menu-tree-checkbox li input[type="checkbox"]').on('click', function (e) {
+        var ischecked=$(this).prop('checked');
+        $(this).nextAll("ul").find("li input[type='checkbox']").prop("checked",ischecked);
+        $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked",true);//保证所有低级勾选上
+
+    });
+
 
 
 });
@@ -567,12 +611,55 @@ function setCenterHeight() {
 
 
 
+//文字转为图片
+function textToImg(str) {
+    var name, fsize;
+    if (str.length < 2) {
+        name = str;
+        fsize = 60
+    } else {
+        if (str.length == 2) {
+            name = str.substring(0, str.length);
+            fsize = 45
+        } else {
+            if (str.length == 3) {
+                name = str.substring(0, str.length);
+                fsize = 30
+            } else {
+                if (str.length == 4) {
+                    name = str.substring(0, str.length);
+                    fsize = 25
+                } else {
+                    if (str.length > 4) {
+                        name = str.substring(0, 2);
+                        fsize = 45
+                    }
+                }
+            }
+        }
+    }
+    var fontSize = 60;
+    var fontWeight = "bold";
+    var canvas = document.getElementById("head_canvas_default");
+    var img1 = document.getElementById("head_canvas_default");
+    canvas.width = 120;
+    canvas.height = 120;
+    var context = canvas.getContext("2d");
+    context.fillStyle = getBG();
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#FFF";
+    context.font = fontWeight + " " + fsize + "px sans-serif";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(name, fontSize, fontSize);
+    return canvas.toDataURL("image/png")
+}
 
-//erp.07fly.xyz
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?580632b24aea12910a1609b81ffaf23d";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
+function getBG() {
+    var bgArray = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
+        "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f",
+        "#e67e22", "#e74c3c", "#eca0f1", "#95a5a6", "#f39c12", "#d35400",
+        "#c0392b", "#bdc3c7", "#7f8c8d"];
+    var color = bgArray[Math.floor(Math.random() * bgArray.length)];
+    return color
+};

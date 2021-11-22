@@ -120,7 +120,10 @@ class Database{
 		$prefix_tpl=$this->config['prefix_tpl'];
 		$table_tpl=$prefix_tpl.$table;
 		if(!empty($prefix)){
-			$table_tpl=$prefix_tpl.ltrim($table,$prefix);
+			if(strstr($table,$prefix)==false){
+				$table=$prefix.$table;
+				$table_tpl=$prefix_tpl.ltrim($table,$prefix);
+			}
 		}else{
 			$table_tpl=$prefix_tpl.$table;
 		}
@@ -208,10 +211,12 @@ class Database{
 
             if(preg_match('/.*;$/', trim($sql))){
 
-				//2012-04-25 数据表模块添加前缀=>*************************************************************************
+				//2021-04-25 数据表模块添加前缀=>*************************************************************************
+
 				$prefix=$this->config['prefix'];
 				$prefix_tpl=$this->config['prefix_tpl'];
 				$prefix_sql = str_replace(" `{$prefix_tpl}", " `{$prefix}", $sql);//临时改变SQL，修改前缀文件
+
 				//增加数据库前缀后，定位***********************************************************************************
 
                 if(false !== Db::execute($prefix_sql)){//执行修改过后的前缀SQL文件，不作为计算位置

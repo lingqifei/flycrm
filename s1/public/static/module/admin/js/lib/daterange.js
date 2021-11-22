@@ -29,14 +29,18 @@ $(document).ready(function () {
 		daterangeinit($(this));
 	});
 
+	$('.daterangepicker-b1').each(function(){
+		daterangeinit($(this));
+	});
+
 	function daterangeinit(object){
 		object.daterangepicker({
 				//"showDropdowns": true,
 				"linkedCalendars":false,
 				"autoUpdateInput":false,
 				ranges: {
-					// '今天': [moment(), moment()],
-					// '明天': [moment().subtract(-1, 'days'), moment().subtract(-1, 'days')],
+					//'今天': [moment(), moment()],
+					//'明天': [moment().subtract(-1, 'days'), moment().subtract(-1, 'days')],
 					'本月': [moment().startOf('month'), moment().endOf('month')],
 					'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
 					'今年': [moment().startOf('year'), moment().endOf('year')],

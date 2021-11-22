@@ -136,7 +136,6 @@ class Http {
 
         $res        = curl_exec($ch);
         $curlInfo   = curl_getinfo($ch);
-
         if (curl_errno($ch) || $curlInfo['http_code'] != 200) {
             curl_error($ch);
             @unlink($savePath);
