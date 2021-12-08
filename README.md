@@ -31,7 +31,7 @@
 - 密码：admin123456
 
 - 
-- 演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
+- (S1)演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
 - 账号：demo
 - 密码：123456
 
