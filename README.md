@@ -24,16 +24,16 @@
 - (v1)版本：[http://oa.07fly.com](http://oa.07fly.com)
 - 账号：admin
 - 密码：admin123456
-- 说明：版本要求，PHP===5.3 mysql===5.1  采用PHP+MSQL+DWZ(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
+
 - 
 - (v2)版本：[http://erp.07fly.com](http://erp.07fly.com)
 - 账号：admin
 - 密码：admin123456
-- 说明：版本要求，PHP====5.4 mysql===5.5  采用PHP+MSQL+hAdmin(模板)开发，请使用IE8以上，或是谷歌浏览器。效果比较好
 
-
-> **PS：PHP，MYSQL请要求配置不然会发生未知错误** 
-> 大家测试请大家手下留情，不要把帐号密码给改掉了，其它的可以随意测试
+- 
+- 演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
+- 账号：demo
+- 密码：123456
 
 
 ### 在线帮助
@@ -44,13 +44,6 @@
 -  操作手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://www.07fly.xyz/doc/v2doc/1.html)
 
 -  应用手册：[http://www.07fly.xyz/html/doc](http://www.07fly.xyz/html/doc)
-
-### 07FLY-ERP(S1)管理平台
-- 
-- 演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
-- 账号：demo
-- 密码：123456
-> 07FLY-ERP是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；能快速搭建适合自己的是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；具有完善应用插件扩展功能，在线安装卸载升级应用插件，第三方应用模块支持(CMS（会员中心）、办工OA、客户CRM、进销ERP、财务管理FMS、项目管理PMS等应用系统
 
 
 ### 软件合作:
