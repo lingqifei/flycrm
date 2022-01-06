@@ -30,29 +30,30 @@ function action_log($name = '', $describe = '')
  */
 function clear_login_session()
 {
-    
     session('sys_user_info',      null);
     session('sys_user_auth',      null);
     session('sys_user_auth_sign', null);
 }
 
 //得到把列表数据=》数形参数
-function list2tree($list, $pId = 0, $level = 0, $pk='id', $pidk = 'pid',$name='name')
-{
-    $tree = [];
-    foreach ($list as $k => $v) {
-        if ($v[$pidk] == $pId) { //父亲找到儿子
-            $v['nodes']       =  list2tree($list, $v[$pk], $level + 1, $pk, $pidk,$name);
-            $v['level']          = $level + 1;
-            $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
-            $v['tags']           = $v['id'];
-            $v['text']           = $v[$name];
-            $tree[] = $v;
-        }
-    }
-    return $tree;
-}
+if (!function_exists("list2tree")) {
 
+    function list2tree($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name')
+    {
+        $tree = [];
+        foreach ($list as $k => $v) {
+            if ($v[$pidk] == $pId) { //父亲找到儿子
+                $v['nodes'] = list2tree($list, $v[$pk], $level + 1, $pk, $pidk, $name);
+                $v['level'] = $level + 1;
+                $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
+                $v['tags'] = $v['id'];
+                $v['text'] = $v[$name];
+                $tree[] = $v;
+            }
+        }
+        return $tree;
+    }
+}
 
 if (!function_exists("list2tree2menu")) {
 
@@ -216,4 +217,6 @@ if (!function_exists('isJson')) {
         return false;
     }
 }
+
+
 

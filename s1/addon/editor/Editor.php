@@ -85,7 +85,7 @@ class Editor extends AddonBase implements AddonInterface
     public function addonInfo()
     {
         
-        return ['name' => 'Editor', 'title' => '文本编辑器', 'describe' => '富文本编辑器', 'author' => 'lingqifei', 'version' => '1.0'];
+        return ['name' => 'Editor', 'title' => '文本编辑器', 'describe' => '富文本编辑器', 'author' => 'lingqifei', 'version' => '2.0'];
     }
     
     /**

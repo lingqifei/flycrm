@@ -73,6 +73,14 @@ class Upgrade extends AdminBase
         $this->jump($this->logicUpgrade->getUpgradePack($this->param['version']));
     }
 
+	/**删除
+	 * 升级包信息
+	 */
+	public function del()
+	{
+		$this->jump($this->logicUpgrade->setUpgradeDel($this->param));
+	}
+
     /**
      * 升级执行
      */
@@ -116,7 +124,7 @@ class Upgrade extends AdminBase
                     }
                     break;
                 case '4':
-                    $res= $this->logicUpgrade->getUpgradeDel($this->param);
+                    $res= $this->logicUpgrade->setUpgradeDel($this->param);
                     if($res[0]==RESULT_SUCCESS){
                         $rtn['code']='1';
                         $rtn['step']='-1';

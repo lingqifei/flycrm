@@ -27,6 +27,11 @@ class SysModule extends AdminBase
         return  $this->fetch('show');
     }
 
+    /**数据浏览
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/1/5 0005 18:00
+     */
     public function show_json()
     {
         $where = [];
@@ -73,19 +78,11 @@ class SysModule extends AdminBase
     }
 
     /**
-     * 模块备份下载
+     * 模块备份
      */
     public function backup()
     {
         $this->jump($this->logicSysModule->sysModuleBackup($this->param));
-    }
-
-    /**
-     * 模块下载
-     */
-    public function download()
-    {
-        $this->jump($this->logicSysModule->sysModuleDown($this->param));
     }
 
     /**
@@ -146,16 +143,11 @@ class SysModule extends AdminBase
 	}
 
 	/**
-	 * 模块卸载
+	 * 模块同步
 	 */
 	public function synctable()
 	{
-
-//		$x=$this->logicSysModule->sysModuleSyncTable($this->param);
-//		d($x);exit;
-
 		return $this->jump($this->logicSysModule->sysModuleSyncTable($this->param));
-
 	}
 
 }

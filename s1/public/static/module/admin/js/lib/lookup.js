@@ -401,30 +401,18 @@ function findPosContractInfo(cid,target=null,bus_type=null){
             dataType:"json",
             async:false,
             success: function(data){
-                log(data);
+                //log(data);
                 $(".form-horizontal input[name='contract_money']").val(data.money);
                 $(".form-horizontal input[name='contract_zero_money']").val(data.zero_money);
                 $(".form-horizontal input[name='contract_pay_money']").val(data.pay_money);
                 $(".form-horizontal input[name='contract_owe_money']").val(data.owe_money);
                 $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
 
-
-                var owe_money = parseFloat(data.money) - parseFloat(data.pay_money) - parseFloat(data.zero_money);
+                //合同金额-支付金额-去零金额
+                var owe_money = BigNumber(data.money).minus(data.pay_money).minus(data.zero_money).toNumber();
                 $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
                 $(".form-horizontal input[name='pay_money']").val(owe_money);
                 $(".form-horizontal input[name='owe_money']").val(0);
-
-                // var pay_money=$(".form-horizontal input[name='pay_money']").val();
-                //
-                // if(pay_money<=0){
-                //     $(".form-horizontal input[name='pay_money']").val(data.owe_money);
-                // }
-                //
-                // var pay_money = $(".form-horizontal input[name='pay_money']").val();
-                // var zero_money=$(".form-horizontal input[name='zero_money']").val();
-                // var owe_money = parseFloat(data.owe_money) - parseFloat(pay_money) - parseFloat(zero_money);
-                // $(".form-horizontal input[name='owe_money']").val(owe_money);
-                // $(".form-horizontal input[name='contract_name']").val(data.title);
 
             },
             complete: function () {
@@ -436,15 +424,12 @@ function findPosContractInfo(cid,target=null,bus_type=null){
 //付款添加=》采购合同金额=》计算器
 $("body").on("keyup", ".paycalculate", function () {
     //查询本行的数据
-    var contract_money = $(".form-horizontal input[name='contract_money']").val();
-    var contract_pay_money = $(".form-horizontal input[name='contract_pay_money']").val();
     var contract_owe_money = $(".form-horizontal input[name='contract_owe_money']").val();
-    var contract_zero_money = $(".form-horizontal input[name='contract_zero_money']").val();
-    var contract_invoice_money = $(".form-horizontal input[name='contract_invoice_money']").val();
     var pay_money = $(".form-horizontal input[name='pay_money']").val();
     var zero_money = $(".form-horizontal input[name='zero_money']").val();
 
-    var owe_money = parseFloat(contract_owe_money) - parseFloat(pay_money) - parseFloat(zero_money);
+    //计算剩余金额
+    var owe_money = BigNumber(contract_owe_money).minus(pay_money).minus(zero_money).toNumber();
     if (owe_money < 0) {
         layer.msg('本次付款的金额和去零金额不能超过 ' + contract_owe_money, {icon: 5});
     }
@@ -468,7 +453,8 @@ function findSalContractInfo(cid,target=null,bus_type=null){
             $(".form-horizontal input[name='contract_back_money']").val(data.back_money);
             $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
 
-            var owe_money = parseFloat(data.money) - parseFloat(data.back_money) - parseFloat(data.zero_money);
+            //销售金额-回款金额-去零金额
+            var owe_money = BigNumber(data.money).minus(data.back_money).minus(data.zero_money).toNumber();
             $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
             $(".form-horizontal input[name='back_money']").val(owe_money);
             $(".form-horizontal input[name='owe_money']").val(0);
@@ -483,15 +469,11 @@ function findSalContractInfo(cid,target=null,bus_type=null){
 //回款添加=》销售合同金额=》计算器
 $("body").on("keyup", ".rececalculate", function () {
     //查询本行的数据
-    var contract_money = $(".form-horizontal input[name='contract_money']").val();
-    var contract_back_money = $(".form-horizontal input[name='contract_back_money']").val();
     var contract_owe_money = $(".form-horizontal input[name='contract_owe_money']").val();
-    var contract_zero_money = $(".form-horizontal input[name='contract_zero_money']").val();
-    var contract_invoice_money = $(".form-horizontal input[name='contract_invoice_money']").val();
     var back_money = $(".form-horizontal input[name='back_money']").val();
     var zero_money = $(".form-horizontal input[name='zero_money']").val();
 
-    var owe_money = parseFloat(contract_owe_money) - parseFloat(back_money) - parseFloat(zero_money);
+    var owe_money = BigNumber(contract_owe_money).minus(back_money).minus(zero_money).toNumber();
     if (owe_money < 0) {
         layer.msg('本次付款的金额和去零金额不能超过 ' + contract_owe_money, {icon: 5});
     }

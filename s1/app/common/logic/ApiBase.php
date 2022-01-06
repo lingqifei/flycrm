@@ -33,17 +33,27 @@ class ApiBase extends LogicBase
 
 			$result = $code_data;
 
-		} else {
+		} else if(is_array($code_data) && !array_key_exists(API_CODE_NAME, $code_data)){//支持现有模块的返回代码
 
+			if(!empty($code_data[0]) && $code_data[0]==RESULT_SUCCESS){
+				$result[API_CODE_NAME]=1;
+				$result[API_MSG_NAME]=$code_data[1];
+				$result['data'] = empty($code_data[3])?'':$code_data[3];
+			}elseif (!empty($code_data[0]) && $code_data[0]==RESULT_ERROR){
+				$result = CodeApiBase::$funCodeError;
+                $result[API_MSG_NAME]=$code_data[1];
+				$result['data'] = $code_data;
+			}else{
+				$result = CodeApiBase::$success;
+				$result['data'] = $code_data;
+			}
+		} else{
 			$result = CodeApiBase::$success;
-
 			$result['data'] = $code_data;
 		}
 
 		$return_result = $this->checkDataSign($result);
-
 		$return_result['exe_time'] = debug('api_begin', 'api_end');
-
 		return $return_type == 'json' ? json($return_result) : $return_result;
 	}
 
@@ -83,8 +93,11 @@ class ApiBase extends LogicBase
 	/**
 	 * API提交解析user_token
 	 */
-	public function checkUserTockeParam($param = [])
+	public function checkUserTokenParam($param = [])
 	{
+
+		//用户检查，通信息码
+		$this->checkAccessToken($param);
 
 		if (empty($param['user_token'])) {
 			$this->apiError(CodeApiBase::$userTokenNull);
@@ -94,4 +107,6 @@ class ApiBase extends LogicBase
 		}
 		return $decoded_user_token;
 	}
+
+
 }

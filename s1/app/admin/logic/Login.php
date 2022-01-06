@@ -12,7 +12,7 @@
  */
 
 namespace app\admin\logic;
-
+use app\admin\error\Login as LoginError;
 /**
  * 登录逻辑
  */
@@ -62,6 +62,62 @@ class Login extends AdminBase
             return [RESULT_ERROR, $error];
         }
     }
+
+
+	/**
+	 * 登录处理
+	 */
+	public function loginHandleToApi($data=[])
+	{
+
+
+		if(empty($data['username']) || empty($data['password'])){
+			return [RESULT_ERROR, '用户名称和密码不能空~'];
+			exit;
+		}
+
+		$user = $this->logicSysUser->getSysUserInfo(['username' => $data['username']]);
+
+		if (!empty($user['password']) && data_md5_key($data['password']) == $user['password']) {
+			$org=$this->logicSysOrg->getSysOrgInfo(['id' => $user['org_id']]);
+
+			$auth = ['sys_user_id' => $user['id'], 'sys_org_id' => $user['org_id'], TIME_UT_NAME => TIME_NOW];
+
+			session('sys_user_info', $user);
+			session('sys_user_auth', $auth);
+			session('sys_user_auth_sign', data_auth_sign($auth));
+
+			//定义企业组织ID
+			define('SYS_ORG_ID',  $user['org_id']);
+
+			//企业超级管理员ID
+			define('SYS_ORG_USER_ID',($user['username']==$org['username'])?$user['id']:DATA_DISABLE );
+
+
+			$user_token=encoded_user_token($user);
+			$user_token['userinfo']=[
+				'id'=>$user['id'],
+				'username'=>$user['username'],
+				'realname'=>$user['realname'],
+				'gender'=>$user['gender'],
+				'dept_id'=>$user['position_id'],
+				'position_id'=>$user['position_id'],
+				'email'=>$user['email']
+			];
+
+
+
+
+			return [RESULT_SUCCESS, '登录成功', url('index/index'),$user_token];
+
+		} else {
+
+			$error = empty($user['id']) ? '用户账号不存在' : '密码输入错误';
+
+			return [RESULT_ERROR, $error];
+		}
+	}
+
     
     /**
      * 注销当前用户

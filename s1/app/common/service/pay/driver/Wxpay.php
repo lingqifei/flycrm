@@ -65,17 +65,27 @@ class Wxpay extends Pay implements Driver
                 break;
         }
     }
-    
+
+    /**
+     * 设置配置信息
+     */
+    public function setConfig($data = [])
+    {
+        $this->config = $data;
+    }
+
     /**
      * 获取配置信息
      */
-    public function config()
+    public function config($data = [])
     {
-        
-        $wxpay_config['curl_timeout']   = 30;
-        $wxpay_config['notify_url'] = Pay::NOTIFY_URL;
-        $db_config = $this->driverConfig('Wxpay');
-        
+        $wxpay_config['curl_timeout'] = 30;
+        //$wxpay_config['notify_url'] = Pay::NOTIFY_URL;
+        if (!empty($this->config)) {
+            $db_config = $this->config;
+        } else {
+            $db_config = $this->driverConfig('Wxpay');
+        }
         return array_merge($wxpay_config, $db_config);
     }
     
@@ -114,7 +124,7 @@ class Wxpay extends Pay implements Driver
         //获取统一支付接口结果
         $unifiedOrderResult = $unifiedOrder->getResult();
 
-
+        return $unifiedOrderResult;
 
         //商户根据实际情况设置相应的处理流程
         if ($unifiedOrderResult["return_code"] == "FAIL") {
@@ -188,10 +198,26 @@ class Wxpay extends Pay implements Driver
         return $result_data;
     }
 
+    /**微信jsapi支付
+     * @param array $order
+     * @return array|bool|mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2021/12/17 0017 10:59
+     */
     public function getJsApi($order = [])
     {
         require_once "wxpay/Wxpay.php";
         $wx = new \Wxpay($this->config());
+        $order = [
+            "body" => $order['body'],
+            //"out_trade_no" => date("YmdHis") . mt_rand(1000, 9999) . time(),
+            "out_trade_no" => $order['order_sn'],
+            "total_fee" => $order['order_amount'],
+            "spbill_create_ip" => $wx->get_client_ip(),
+            "openid" => $order['openid'],
+            "trade_type" => "JSAPI",
+            "scene_info" => "{\"jsapi_info\": {\"type\":\"Wap\",\"wap_url\": \"https://pay.qq.com\",\"wap_name\": \"在线充值\"}} "
+        ];
         return $wx->getPrepay($order);
     }
     
@@ -293,7 +319,32 @@ class Wxpay extends Pay implements Driver
 
         return $order_sn;
     }
-    
+
+    /**
+     * 获取openid
+     */
+    public function getOpenid($data=[])
+    {
+        require_once('wxpay/WxPayPubHelper.php');
+        $jsapi = new wxpay\JsApi_pub();
+        $jsapi->setConfig($this->config());
+        $jsapi->setCode($data['code']);
+        $openid = $jsapi->getOpenid();
+        return $openid;
+    }
+
+    /**
+     * 获取code url
+     */
+    public function getCodeUrl($url)
+    {
+        require_once('wxpay/WxPayPubHelper.php');
+        $jsapi = new wxpay\JsApi_pub();
+        $jsapi->setConfig($this->config());
+        $url=$jsapi->createOauthUrlForCode($url);
+        return $url;
+    }
+
     /**
      * 支付通知处理
      */

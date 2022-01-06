@@ -52,7 +52,7 @@ function is_org_id()
     if (empty($member)) {
         return DATA_DISABLE;
     } else {
-        $rtn=($member['username']==$org['username'])?$member['id']:DATA_DISABLE ;
+        $rtn = ($member['username'] == $org['username']) ? $member['id'] : DATA_DISABLE;
         return $rtn;
     }
 }
@@ -201,10 +201,10 @@ function addons_url($url, $param = array())
     $controller = $parse_url['host'];
     $action = $parse_url['path'];
 
-    if(empty($param['addons_model'])){
-        $model='admin';
-    }else{
-        $model=$param['addons_model'];
+    if (empty($param['addons_model'])) {
+        $model = 'admin';
+    } else {
+        $model = $param['addons_model'];
     }
 
     /* 基础参数 */
@@ -217,7 +217,7 @@ function addons_url($url, $param = array())
     $params = array_merge($params_array, $param); //添加额外参数
 
     //默认指向admin模块
-    return url($model.'/addon/execute', $params);
+    return url($model . '/addon/execute', $params);
 }
 
 /**
@@ -330,27 +330,27 @@ function list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root 
 
 if (!function_exists("list2select")) {
 
-	/**r把列表数据转为树形下拉
-	 * @param $list
-	 * @param int $pId
-	 * @param int $level
-	 * @param string $pk
-	 * @param string $pidk
-	 * @param string $name
-	 * @return array|string
-	 * Author: lingqifei created by at 2020/4/1 0001
-	 */
-	function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name', $data = [])
-	{
-		foreach ($list as $k => $v) {
-			$v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
-			if ($v[$pidk] == $pId) { //父亲找到儿子
-				$data[] = $v;
-				$data = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name, $data);
-			}
-		}
-		return $data;
-	}
+    /**r把列表数据转为树形下拉
+     * @param $list
+     * @param int $pId
+     * @param int $level
+     * @param string $pk
+     * @param string $pidk
+     * @param string $name
+     * @return array|string
+     * Author: lingqifei created by at 2020/4/1 0001
+     */
+    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name', $data = [])
+    {
+        foreach ($list as $k => $v) {
+            $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
+            if ($v[$pidk] == $pId) { //父亲找到儿子
+                $data[] = $v;
+                $data = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name, $data);
+            }
+        }
+        return $data;
+    }
 }
 
 /**
@@ -529,25 +529,25 @@ function arr22str($arr)
 
 
 if (!function_exists('get_arr_column')) {
-	/**
-	 * 获取数组中的某一列
-	 *
-	 * @param array $arr 数组
-	 * @param string $key_name 列名
-	 * @return array  返回那一列的数组
-	 */
-	function get_arr_column($arr, $key_name)
-	{
-		if (function_exists('array_column')) {
-			return array_column($arr, $key_name);
-		}
+    /**
+     * 获取数组中的某一列
+     *
+     * @param array $arr 数组
+     * @param string $key_name 列名
+     * @return array  返回那一列的数组
+     */
+    function get_arr_column($arr, $key_name)
+    {
+        if (function_exists('array_column')) {
+            return array_column($arr, $key_name);
+        }
 
-		$arr2 = array();
-		foreach ($arr as $key => $val) {
-			$arr2[] = $val[$key_name];
-		}
-		return $arr2;
-	}
+        $arr2 = array();
+        foreach ($arr as $key => $val) {
+            $arr2[] = $val[$key_name];
+        }
+        return $arr2;
+    }
 }
 
 
@@ -654,23 +654,27 @@ function get_file_root_path()
 /**
  * 获取图片url=》根据picture id
  */
-function get_picture_url($id = 0,$member='picture')
+function get_picture_url($id = 0, $member = 'picture')
 {
 
     $fileLogic = get_sington_object('fileLogic', LogicFile::class);
 
-	if(is_numeric($id)){
-		return $fileLogic->getPictureUrl($id,$member);
-	}else{
-		return $fileLogic->getPictureWebUrl($id);
-	}
+    if (is_numeric($id)) {
+        return $fileLogic->getPictureUrl($id, $member);
+    } else {
+        if (strpos($id, '/') === false) {//图片路径
+            return $fileLogic->getPictureUrl($id, $member);
+        } else {//文件编号 1,2,..n
+            return $fileLogic->getPictureWebUrl($id);
+        }
+    }
 }
 
 
 /**
  * 获取图片url=>根据地址
  */
-function get_picture_url2($path='')
+function get_picture_url2($path = '')
 {
 
     $fileLogic = get_sington_object('fileLogic', LogicFile::class);
@@ -686,18 +690,33 @@ function get_file_url($id = 0)
 
     $fileLogic = get_sington_object('fileLogic', LogicFile::class);
 
-    return $fileLogic->getFileUrl($id);
+    if (is_numeric($id)) {
+
+        return $fileLogic->getFileUrl($id);
+
+    } else {
+        //文件路径
+        if (strpos($id, '/') === false) {
+
+            return $fileLogic->getFileUrl($id);
+
+        } else {//文件编号 1,2,..n
+
+            return $fileLogic->getFileWebUrl($id);
+
+        }
+    }
 }
 
 /**
  * 获取文件url=>根据 file url
  */
-function get_file_url2($path='')
+function get_file_url2($path = '')
 {
 
-	$fileLogic = get_sington_object('fileLogic', LogicFile::class);
+    $fileLogic = get_sington_object('fileLogic', LogicFile::class);
 
-	return $fileLogic->getFileWebUrl($path);
+    return $fileLogic->getFileWebUrl($path);
 }
 
 
@@ -932,4 +951,83 @@ function update_cache_version($obj = null)
     is_string($obj) ? $lqf_auto_cache[$obj]['version']++ : $lqf_auto_cache[$obj->getTable()]['version']++;
 
     cache('lqf_auto_cache', $lqf_auto_cache);
+}
+
+//api签名函数
+
+use \Firebase\JWT\JWT;
+
+// 解密user_token
+function decoded_user_token($token = '')
+{
+    vendor('Firebase/php-jwt/src/JWT');
+    try {
+
+        $decoded = JWT::decode($token, API_KEY . JWT_KEY, array('HS256'));
+
+        return (array)$decoded;
+
+    } catch (Exception $ex) {
+
+        return $ex->getMessage();
+    }
+}
+
+// 获取解密信息中的data
+function get_member_by_token($token = '')
+{
+
+    $result = decoded_user_token($token);
+
+    return $result['data'];
+}
+
+// 数据验签时数据字段过滤
+function sign_field_filter($data = [])
+{
+
+    $data_sign_filter_field_array = config('data_sign_filter_field');
+
+    foreach ($data_sign_filter_field_array as $v) {
+
+        if (array_key_exists($v, $data)) {
+
+            unset($data[$v]);
+        }
+    }
+
+    return $data;
+}
+
+// 过滤后的数据生成数据签名
+function create_sign_filter($data = [], $key = '')
+{
+
+    $filter_data = sign_field_filter($data);
+
+    return empty($key) ? data_md5_key($filter_data, API_KEY) : data_md5_key($filter_data, $key);
+}
+
+//签名注册
+function encoded_user_token($param)
+{
+    $key = API_KEY . JWT_KEY;
+    $jwt_data = [
+        'id' => $param['id'],
+        'org_id' => $param['org_id'],
+        'username' => $param['username'],
+        'create_time' => $param['create_time']
+    ];
+    $token = [
+        "iss" => "lingqifei JWT",         // 签发者
+        "iat" => TIME_NOW,              // 签发时间
+        "exp" => TIME_NOW + TIME_NOW,   // 过期时间
+        "aud" => 'lingqifei',             // 接收方
+        "sub" => 'lingqifei',             // 面向的用户
+        "data" => $jwt_data
+    ];
+    vendor('Firebase/php-jwt/src/JWT');
+    $jwt = JWT::encode($token, $key);
+    $jwt_data['user_token'] = $jwt;
+    return $jwt_data;
 }

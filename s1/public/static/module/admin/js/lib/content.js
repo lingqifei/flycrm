@@ -394,13 +394,34 @@ $("body").on("click", ".ajax-open", function () {
             var target = target + "?id=" + id;
         }
         log('打开地址：' + target);
+
+
+        //重定义打开宽度和高度
+        var width = $(this).attr('width');
+        var height = $(this).attr('height');
+        if (typeof (width) != "undefined" && width != 0) {
+            width = width;
+        }else{
+            width ="90%";
+        }
+        if (typeof (height) != "undefined" && height != 0) {
+            height = height;
+        }else{
+            height ="90%";
+        }
+        var wwithd=$(window).width();
+        if(wwithd<=750){
+            width ="90%";
+            height ="90%";
+        }
+
         layer.open({
             type: 2,
             title: false,
             shadeClose: false,
             //btn: ['关闭'],
             fixed: true, //不固定
-            area: ['90%', '90%'],
+            area: [width, height],
             content: target,
             success: function (layero, index) {
                 layer.iframeAuto(index);
@@ -555,12 +576,11 @@ $("body").on("click", ".ajax-get", function () {
                 parent.layer.msg(data.msg, {icon: 5});
             }
             //如果传了地址表示跳转
-            // if (data.url) {
-            //     setTimeout(function () {
-            //         location.href = data.url;
-            //     }, 1500);
-            // }
-            // lqfalert(data);
+            if (data.url) {
+                setTimeout(function () {
+                    location.href = data.url;
+                }, 1500);
+            }
         }, "json");
     }
     return false;
@@ -690,7 +710,6 @@ $("body").on("click", ".ajax-post", function () {
                         parent.layer.close(index);
                     });
                 } else {
-                    //toastr.error(result.msg);
                     layer.msg(result.msg, {icon: 5});
                 }
             },
@@ -788,7 +807,6 @@ $("body").on("click", ".ajax-post-trace", function () {
                         }
                     });
                 } else {
-                    //toastr.error(result.msg);
                     layer.msg(result.msg, {icon: 5});
                 }
             },
@@ -804,7 +822,7 @@ $("body").on("click", ".ajax-post-trace", function () {
 });
 
 
-//更改字段
+//更改列表字段,
 $("body").on("change", ".ajax-input", function () {
     var target;
     var val = $(this).val();
@@ -822,7 +840,7 @@ $("body").on("change", ".ajax-input", function () {
 });
 
 
-//启用关闭
+//列表启用关闭
 $("body").on("click", ".ajax-checkbox", function () {
     var target;
     var val = 0;
@@ -844,7 +862,7 @@ $("body").on("click", ".ajax-checkbox", function () {
     }
 });
 
-//排序
+//列表排序处理
 $("body").on("change", ".ajax-sort", function () {
     var target;
     var val = $(this).val();
@@ -872,7 +890,7 @@ $("body").on("change", ".ajax-sort", function () {
     return false;
 });
 
-//排序
+//排列表字段序，可以传多个参数
 $("body").on("change", ".ajax-field", function () {
     var target;
     var val = $(this).val();
@@ -903,7 +921,6 @@ $("body").on("change", ".ajax-field", function () {
 var lqfalert = function (data) {
 
     if (data.code) {
-        // toast.success(data.msg);
         layer.msg(data.msg, {icon: 1});
     } else {
         if (typeof data.msg == "string") {
@@ -914,7 +931,6 @@ var lqfalert = function (data) {
             for (var item in data.msg) {
                 err_msg += "Θ " + data.msg[item] + "<br/>";
             }
-            //toast.error(err_msg);
             layer.msg(data.msg, {icon: 5});
         }
     }

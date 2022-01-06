@@ -29,15 +29,20 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2" href="#" title="展示收起侧栏"><i class="fa fa-outdent"></i>
+                    <a class="navbar-minimalize minimalize-styl-2" href="#" title="展示收起侧栏">
+                        <i class="fa fa-outdent"></i>
                     </a>
                 </div>
                 <div class="navbar-module">
                     {$sys_config.top_links}
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li><a href="{:url('admin/Store/apps')}"  class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>
-                    <li><a href="http://www.07fly.xyz/" target="_blank"><i class="fa fa-home"></i>官网</a></li>
+                    <li>
+                        <a href="{:url('admin/Store/apps')}" class="J_menuItem" target="_blank">
+                        <i class="fa fa-fire"></i>应用</a></li>
+                    <li>
+                        <a href="http://www.07fly.xyz/" target="_blank"><i class="fa fa-home"></i>官网</a>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-chevron-down">{$sys_user_info['realname']}</i> </a>
@@ -50,14 +55,17 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"  title="个人资料">
+                                <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"
+                                   title="个人资料">
                                     <div><i class="fa fa-qq fa-fw"></i> 密码修改</div>
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <div class="text-center link-block"><a class="ajax-get" href="{:url('Login/logout')}" data-calback="window.location.reload();" >
-                                    <strong>退出登录 </strong> <i class="fa fa-angle-right"></i> </a>
+                                <div class="text-center link-block">
+                                    <a class="ajax-get" href="{:url('Login/logout')}"  data-calback="window.location.reload();">
+                                    <strong>退出登录 </strong> <i class="fa fa-angle-right"></i>
+                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -66,7 +74,8 @@
             </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="95%" src="{:url('Index/main')}" frameborder="0"  data-id="index_v1.html" seamless></iframe>
+            <iframe id="J_iframe" width="100%" height="95%" src="{:url('Index/main')}" frameborder="0"
+                    data-id="index_v1.html" seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->
@@ -93,7 +102,7 @@
         }
         //刷新时设置当前点击页面数据
         if (typeof (iframeUrl) != "undefined") {
-            that=$("a[href='"+iframeUrl+"']");
+            that = $("a[href='" + iframeUrl + "']");
             //that.parent('li').addClass('active');
             that.parents('ul.nav').addClass('in');
             that.parents('ul.nav').parent('li').addClass('active');
@@ -115,11 +124,11 @@
 
         var num = Math.floor(Math.random() * 6) + 1;
 
-        var video="__STATIC__/module/admin/img/"+num+".wav";
+        var video = "__STATIC__/module/admin/img/" + num + ".wav";
 
         if (borswer.indexOf("ie") >= 0) {
             //IE内核浏览器
-            var strEmbed = '<embed name="embedPlay" src="'+video+'" autostart="true" hidden="true" loop="false"></embed>';
+            var strEmbed = '<embed name="embedPlay" src="' + video + '" autostart="true" hidden="true" loop="false"></embed>';
             if ($("body").find("embed").length <= 0)
                 $("body").append(strEmbed);
             var embed = document.embedPlay;
@@ -129,7 +138,7 @@
             //embed.play();这个不需要
         } else {
             //非IE内核浏览器
-            var strAudio = "<audio id='audioPlay' src='"+video+"' hidden='true'>";
+            var strAudio = "<audio id='audioPlay' src='" + video + "' hidden='true'>";
             if ($("#audioPlay").length <= 0) {
                 $("body").append(strAudio);
             }
@@ -143,7 +152,7 @@
     }
 
     //提示通知插件
-    var playNotice = function (id, title, content, url='') {
+    var playNotice = function (id, title, content, url = '') {
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -167,7 +176,7 @@
                 shadeClose: true,
                 fixed: false, //不固定
                 area: ['90%', '90%'],
-                content:url
+                content: url
             });
         };
 
@@ -179,8 +188,8 @@
     //提示通知插件
     var runSysMsg = function () {
 
-        var target="{:url('admin/SysMsg/show_json',array('deal_user_id'=>$sys_user_info.id,'deal_status'=>0))}";
-        var detail="{:url('admin/OaNotify/main_json')}";
+        var target = "{:url('admin/SysMsg/show_json',array('deal_user_id'=>$sys_user_info.id,'deal_status'=>0,'remind_sys'=>1))}";//显示系统通知
+        var detail = "{:url('admin/OaNotify/main_json')}";
 
         $.ajax({
             type: 'POST',
@@ -190,12 +199,10 @@
             success: function (jsonData) {
 
                 $(jsonData.data).each(function (index, item) {
-
                     playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
-
                 });
 
-                if(jsonData.data.length>0){
+                if (jsonData.data.length > 0) {
                     playSound();
                 }
             }
@@ -204,8 +211,8 @@
 
     //系统公告
     var runSysNotify = function () {
-        var target="{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
-        var detail="{:url('admin/OaNotify/main_json')}";
+        var target = "{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
+        var detail = "{:url('admin/OaNotify/main_json')}";
         $.ajax({
             type: 'POST',
             url: target,
@@ -213,9 +220,9 @@
             dataType: 'json',
             success: function (jsonData) {
                 $(jsonData.data).each(function (index, item) {
-                    playNotice(item.id, '系统公告', item.name, detail+'?id='+item.id);
+                    playNotice(item.id, '系统公告', item.name, detail + '?id=' + item.id);
                 });
-                if(jsonData.data.length>0){
+                if (jsonData.data.length > 0) {
                     playSound();
                 }
             }
@@ -224,7 +231,7 @@
 
     //系统计划执行消息
     var runScanSysMsg = function () {
-        var target="{:url('admin/SysMsgType/scanbus')}";
+        var target = "{:url('admin/SysMsgType/scanbus')}";
         $.ajax({
             type: 'GET',
             url: target,
@@ -237,8 +244,8 @@
 
     //主动调用
     //setInterval("func()", 60000);
-    setInterval("runSysNotify()", 1000*60*5);
-    setInterval("runSysMsg()", 1000*60*5);
+    setInterval("runSysNotify()", 1000 * 60 * 5);
+    setInterval("runSysMsg()", 1000 * 60 * 10);
 
     runScanSysMsg();
     runSysNotify();

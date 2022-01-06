@@ -71,7 +71,6 @@ class AdminBase extends ControllerBase
 		$visibleModel=$this->logicSysModule->getSysModuleColumn(['visible'=>'1'],'name');
 		$visibleModel[]='admin';//默认开启admin
 		$this->authMenuList = $this->logicSysAuthAccess->getAuthMenuList(SYS_USER_ID,$visibleModel);
-
 		// 获得权限菜单URL列表
 		$this->authMenuUrlList = $this->logicSysAuthAccess->getAuthMenuUrlList($this->authMenuList);
 

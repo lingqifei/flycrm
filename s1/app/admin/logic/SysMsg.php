@@ -146,6 +146,12 @@ class SysMsg extends AdminBase
 			}
 		}
 
+		if (isset($data['remind_sys'])) {
+			if (!empty($data['remind_sys']) || is_numeric($data['remind_sys'])) {
+				$where['remind_sys'] = ['=', '' . $data['remind_sys'] . ''];
+			}
+		}
+
 		return $where;
 	}
 

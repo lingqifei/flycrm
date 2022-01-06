@@ -1003,7 +1003,129 @@
                 "is_shortcut": 0,
                 "is_menu": 1,
                 "icon": "fa-user-secret",
-                "nodes": []
+                "nodes": [
+                    {
+                        "name": "同步",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/synctable",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "卸载",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/uninstall",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "安装",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/install",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "上传导入",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/upload",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "备份",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/backup",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "启用",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/set_visible",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "删除",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "排序",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/set_sort",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "修改",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/edit",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "添加",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/add",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "数据浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysModule/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             },
             {
                 "name": "钩子列表",
@@ -1036,7 +1158,74 @@
                 "is_shortcut": 0,
                 "is_menu": 1,
                 "icon": "",
-                "nodes": []
+                "nodes": [
+                    {
+                        "name": "升级执行",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "Upgrade/execute",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "升级包删除",
+                        "sort": 6,
+                        "module": "admin",
+                        "url": "Upgrade/del",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "升级包下载",
+                        "sort": 5,
+                        "module": "admin",
+                        "url": "Upgrade/down",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "升级包详细",
+                        "sort": 4,
+                        "module": "admin",
+                        "url": "Upgrade/info",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "升级包列表",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "Upgrade/lists",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "软件注册",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Upgrade/reg",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    }
+                ]
             },
             {
                 "name": "服务管理",

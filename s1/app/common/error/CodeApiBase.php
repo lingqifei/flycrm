@@ -16,7 +16,7 @@ namespace app\common\error;
 class CodeApiBase
 {
     
-    public static $success              = [API_CODE_NAME => 0,         API_MSG_NAME => '操作成功'];
+    public static $success              = [API_CODE_NAME => 1,         API_MSG_NAME => '操作成功'];
     
     public static $accessTokenError     = [API_CODE_NAME => 1000001,   API_MSG_NAME => '访问Toekn错误'];
     
@@ -28,6 +28,8 @@ class CodeApiBase
     
     public static $userTokenError       = [API_CODE_NAME => 1000005,   API_MSG_NAME => '用户Toekn解析错误'];
 
-    public static $accessTokenNull        = [API_CODE_NAME => 1000005,   API_MSG_NAME => '访问Toekn不能为空'];
+    public static $accessTokenNull        = [API_CODE_NAME => 1000006,   API_MSG_NAME => '访问Toekn不能为空'];
+
+    public static $funCodeError        = [API_CODE_NAME => 1001000,   API_MSG_NAME => '模块中函数错误'];
 
 }

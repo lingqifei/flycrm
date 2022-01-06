@@ -54,8 +54,9 @@ class SysUser extends LogicBase
 		$users = $this->modelSysUser->getColumn($where, 'realname');
 		if($string && !empty($users)){
 			return arr2str($users);
+		}else{
+			return '';
 		}
-		return $users;
 	}
 
 	/**获取当前员工所在部部门员工

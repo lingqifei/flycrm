@@ -1,51 +1,46 @@
-<div class="wrapper wrapper-content">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox">
-{empty name='info'}
-<div class="ibox-content bg-success">
-    <p>温馨提示</p>
-    <p>此处登录账号为 <a href="http://www.07fly.xyz/portalmember/" target="_blank"> 07FLY</a> 网账号</p>
-</div>
-
-<div class="ibox-content">
-    <form class="form-horizontal" method="post" action="{:url('Store/user')}">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">帐号</label>
-            <div class="col-sm-8">
-                <input name="username" class="form-control" type="text" placeholder="请输入用户名" required/>
-                <span class="help-block m-b-none"></span> </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">密码</label>
-            <div class="col-sm-8">
-                <input name="password" class="form-control" type="text" placeholder="请输入密码" required/>
-                <span class="help-block m-b-none"></span> </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-8">
-                {include file="layout/save_btn"}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            {empty name='info'}
+            <div class="ibox-content bg-success">
+                <p>温馨提示</p>
+                <p>此处登录账号为 <a href="http://www.07fly.xyz/portalmember/" target="_blank">零起飞官方网站</a> 账号</p>
             </div>
-        </div>
-    </form>
-</div>
-{/empty}
-
-{notempty name='info'}
-<div class="ibox-content">
-    <div class="row">
-        <div class="col-12">
-            温馨提示
-            你好！{$info.username|default=''}
-            当前你已经登录，将同步保存你的购买记录
-        </div>
-    </div>
-</div>
-<div class="ibox-content">
-    <button class="btn btn-info ajax-get" data-url="{:url('Store/userloginout')}">退出登录</button>
-</div>
-{/notempty}
+            <div class="ibox-content">
+                <form class="form-horizontal" method="post" action="{:url('Store/user')}">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">帐号</label>
+                        <div class="col-sm-8">
+                            <input name="username" class="form-control" type="text" placeholder="请输入用户名" required/>
+                            <span class="help-block m-b-none"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input name="password" class="form-control" type="text" placeholder="请输入密码" required/>
+                            <span class="help-block m-b-none"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            {include file="layout/save_btn"}
+                        </div>
+                    </div>
+                </form>
             </div>
+            {/empty}
+
+            {notempty name='info'}
+            <div class="ibox-content">
+
+                <p>温馨提示</p>
+                <p>您好！{$info.username|default=''}</p>
+                <p>当前您已经登录成功，将同步保存您的购买记录</p>
+
+            </div>
+            <div class="ibox-content text-center">
+                <button type="submit" class="btn btn-info ajax-get" data-url="{:url('Store/userloginout')}">退出登录</button>
+            </div>
+            {/notempty}
         </div>
     </div>
 </div>
