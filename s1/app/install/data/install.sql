@@ -103,6 +103,7 @@ INSERT INTO `#@__config` VALUES ('69', 'login_desc', '1', '登录界面描述', 
 INSERT INTO `#@__config` VALUES ('70', 'login_demo', '1', '登录演示帐号', '1', '', '', '1627094351', '1627097504', '1', '<font color=\'red\'>演示帐号/密码：admin/123456</font>', '12');
 INSERT INTO `#@__config` VALUES ('71', 'login_copyright', '1', '登录界面版权', '1', '', '登录界面输入框下面技术支持', '1627095435', '1627097504', '1', '<a href=‘http://www.07fly.xyz’>技术支持:成都零起飞科技</a>', '13');
 INSERT INTO `#@__config` VALUES ('72', 'main_title', '1', '管理中心名称', '1', '', '后台管理中心左上角名称信息', '1627106086', '1627106532', '1', '零起飞网络中心', '1');
+INSERT INTO `#@__config` VALUES ('73', 'main_weburl', '1', '官网地址', '1', '', '系统主页右上角官网链接地址', '1627106086', '1627106532', '1', 'http://www.07fly.xyz', '1');
 
 
 -- -----------------------------
@@ -167,6 +168,22 @@ CREATE TABLE `#@__picture` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='图片表';
+
+-- -----------------------------
+-- Table structure for `#@__file`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__file`;
+CREATE TABLE `#@__file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件ID',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '原始文件名',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '保存名称',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '远程地址',
+  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='[系统]文件表';
 
 -- -----------------------------
 -- Table structure for `#@__region`
@@ -441,9 +458,9 @@ DROP TABLE IF EXISTS `#@__sys_position`;
 CREATE TABLE `#@__sys_position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT '' COMMENT '职位名称',
-  `data_role` int(11) DEFAULT '1' COMMENT '数据权限类型',
   `pid` int(11) DEFAULT '0' COMMENT '上线编号',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `data_role` int(11) DEFAULT '1' COMMENT '数据权限类型',
   `visible` smallint(6) DEFAULT '1' COMMENT '1=显示，0=隐藏',
   `create_time` int(11) DEFAULT '0',
   `update_time` int(11) DEFAULT '0',
@@ -454,9 +471,9 @@ CREATE TABLE `#@__sys_position` (
 -- -----------------------------
 -- Records of `sys_position`
 -- -----------------------------
-INSERT INTO `#@__sys_position` VALUES ('6', '总经理','3', '0', '100', '1', '1601259971', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('7', '组长','3', '6', '100', '1', '1601260007', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('8', '组员','3', '7', '100', '1', '1601260021', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('6', '总经理', '0', '100', '1','1', '1601259971', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('7', '组长', '6', '2', '1','1', '1601260007', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('8', '组员', '7', '1', '1','1', '1601260021', '0', '1');
 
 -- -----------------------------
 -- Table structure for `#@__sys_user`
@@ -545,3 +562,90 @@ CREATE TABLE `#@__sys_area_user` (
 INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
 INSERT INTO `#@__sys_area_user` VALUES ('84', '1', '0', '1608727787', '1');
 INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
+
+
+-- -----------------------------
+-- Table structure for `#@__sys_msg`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__sys_msg`;
+CREATE TABLE `#@__sys_msg` (
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+  `bus_type` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型',
+  `bus_type_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型名称',
+  `bus_id` int(16) DEFAULT '0' COMMENT '业务id',
+  `bus_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务名称',
+  `deal_time` datetime DEFAULT NULL COMMENT '业务处理时间',
+  `deal_remark` varchar(1024) NOT NULL DEFAULT '' COMMENT '备注说明',
+  `deal_status` int(16) NOT NULL DEFAULT '0' COMMENT '0=待处理，1=已经处理',
+  `deal_user_id` int(16) NOT NULL DEFAULT '0' COMMENT '提醒处理人员',
+  `uniquekey` varchar(256) NOT NULL DEFAULT '' COMMENT '业务提醒标识',
+  `remind_status` int(16) DEFAULT '1' COMMENT '0=未提醒，1=提醒中，2=不提醒了',
+  `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+  `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+  `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+  `remind_sms` int(2) NOT NULL DEFAULT '0' COMMENT '短信提醒 0=不开启，1=开启',
+  `remind_sys` int(2) DEFAULT '0' COMMENT '系统提醒 0=不开启，1=开启',
+  `remind_email` int(2) DEFAULT '0' COMMENT '邮箱提醒 0=不开启，1=开启',
+  `remind_weixin` int(2) DEFAULT '0' COMMENT '微信提醒 0=不开启，1=开启',
+  `bus_url` varchar(256) NOT NULL DEFAULT '' COMMENT '业务详细地址',
+  `remind_time` datetime DEFAULT NULL COMMENT '提醒处理时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息';
+
+-- -----------------------------
+-- Table structure for `#@__sys_msg_type`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__sys_msg_type`;
+CREATE TABLE `#@__sys_msg_type` (
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+  `name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型名称',
+  `type` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型标识',
+  `maintable` varchar(256) NOT NULL DEFAULT '' COMMENT '业务主要表',
+  `url` varchar(256) NOT NULL DEFAULT '' COMMENT '业务详细地址',
+  `remark` varchar(256) NOT NULL DEFAULT '' COMMENT '事件说明',
+  `hours` int(11) NOT NULL DEFAULT '0' COMMENT '提前多小时提醒',
+  `remind_sms` int(2) NOT NULL DEFAULT '0' COMMENT '短信提醒 0=不开启，1=开启',
+  `remind_sys` int(2) DEFAULT '0' COMMENT '系统提醒 0=不开启，1=开启',
+  `remind_email` int(2) DEFAULT '0' COMMENT '邮箱提醒 0=不开启，1=开启',
+  `remind_weixin` int(2) DEFAULT '0' COMMENT '微信提醒 0=不开启，1=开启',
+  `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+  `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+  `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息配置';
+
+
+-- -----------------------------
+-- Table structure for `#@__oa_notify`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__oa_notify`;
+CREATE TABLE `#@__oa_notify` (
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+  `name` varchar(256) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` varchar(2560) NOT NULL DEFAULT '' COMMENT '内容',
+  `rece_type` int(2) NOT NULL DEFAULT '0' COMMENT '接收类型0=全体人员，1=指定人员',
+  `rece_user_id` varchar(2560) NOT NULL DEFAULT '' COMMENT '接收对象',
+  `rece_user_name` varchar(2560) NOT NULL DEFAULT '' COMMENT '接收对象名称',
+  `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+  `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+  `create_user_id` int(16) NOT NULL DEFAULT '0' COMMENT '创建人员',
+  `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='系统通知';
+
+-- -----------------------------
+-- Table structure for `#@__oa_notify_user`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__oa_notify_user`;
+CREATE TABLE `#@__oa_notify_user` (
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+  `notify_id` int(11) NOT NULL DEFAULT '0' COMMENT '公告id',
+  `owner_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '接收人员id',
+  `read_state` int(2) NOT NULL DEFAULT '0' COMMENT '是否读过',
+  `read_time` datetime DEFAULT NULL COMMENT '查看时间',
+  `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+  `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+  `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '发布人员',
+  `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='系统通知用户表';
