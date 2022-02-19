@@ -68,8 +68,8 @@
                     <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">技术支持</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                      <li><a href="http://www.07FLY.xyz" target="_blank">官网：07FLY.XYZ</a></li>
-                      <li><a href="tel:18030402705">手机：18030402705</a></li>
+                        <li><a href="http://www.07FLY.xyz" target="_blank">官网：07FLY.XYZ</a></li>
+                        <li><a href="tel:18030402705">手机：18030402705</a></li>
                         <li><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1871720801&amp;site=qq&amp;menu=yes"
                                target="_blank">Q Q：1871720801</a></li>
                     </ul>
@@ -90,10 +90,17 @@
                     <a href="http://erp.07fly.com/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a>
                     <a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a>
                     <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>
+                    <a href="http://wos.demo.07fly.xyz/" target="_blank" title="零起飞工单系统">工单系统</a>
+                    <a href="http://oa.demo.07fly.xyz/" target="_blank" title="零起飞OA系统">OA系统</a>
+                    <a href="http://pms.demo.07fly.xyz/" target="_blank" title="零起飞项目管理">项目管理</a>
+                    <a href="http://crm.demo.07fly.xyz/" target="_blank" title="零起飞客户管理系统S1版">S1CRM</a>
+                    <a href="http://cms.demo.07fly.xyz/" target="_blank" title="零起飞内容管理系统">CMS系统</a>
+                    <a href="http://erp.07fly.xyz/" target="_blank" title="人力资源管理系统">Hrm系统</a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                   <li><a href="http://www.07fly.xyz/"><i class="fa fa-home"></i>官网</a></li>
-                   <li><a href="http://www.07fly.xyz/html/business" target="_blank"><i class="fa fa-shopping-cart"></i>授权</a></li>
+                    <li><a href="http://www.07fly.xyz/"><i class="fa fa-home"></i>官网</a></li>
+                    <li><a href="http://www.07fly.xyz/html/business" target="_blank"><i class="fa fa-shopping-cart"></i>授权</a>
+                    </li>
                     <li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i
                             class="fa fa-chevron-down"></i>#{$sys_account}#</a>
                         <ul class="dropdown-menu dropdown-alerts">
@@ -101,14 +108,17 @@
                                 <div>修改密码</div>
                             </a></li>
                             <li class="divider"></li>
-                          <li><a class="dropdown-toggle count-info" href="#{$smarty.const.ACT}#/sysmanage/Login/logout/"> <i class="fa fa-sign-out"></i>登出</a></li>
+                            <li><a class="dropdown-toggle count-info"
+                                   href="#{$smarty.const.ACT}#/sysmanage/Login/logout/"> <i class="fa fa-sign-out"></i>登出</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe name="J_iframe" id="J_iframe" width="100%" height="100%" src="" frameborder="0" data-id="#{$smarty.const.ACT}#/sysmanage/Index/index/" seamless></iframe>
+            <iframe name="J_iframe" id="J_iframe" width="100%" height="100%" src="" frameborder="0"
+                    data-id="#{$smarty.const.ACT}#/sysmanage/Index/index/" seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->
@@ -131,10 +141,10 @@
 <script>
     $(document).ready(function () {
         var iframeUrl = localStorage.getItem('iframeUrl');
-        if (typeof (iframeUrl) != "undefined" && iframeUrl !=null) {
+        if (typeof (iframeUrl) != "undefined" && iframeUrl != null) {
 
-        }else{
-            iframeUrl='#{$smarty.const.ACT}#/sysmanage/Index/index/';
+        } else {
+            iframeUrl = '#{$smarty.const.ACT}#/sysmanage/Index/index/';
         }
         document.onkeypress = function (e) {
             if (e.keyCode == 116) {
@@ -145,7 +155,7 @@
 
         //刷新时设置当前点击页面数据
         if (typeof (iframeUrl) != "undefined") {
-            that=$("a[href='"+iframeUrl+"']");
+            that = $("a[href='" + iframeUrl + "']");
             //that.parent('li').addClass('active');
             that.parents('ul.nav').addClass('in');
             that.parents('ul.nav').parent('li').addClass('active');
@@ -154,9 +164,9 @@
 
         //保存点击
         $(".J_menuItem").on('click', function () {
-            var  itemUrl = $(this).attr('href');
+            var itemUrl = $(this).attr('href');
             console.log(iframeUrl);
-            localStorage.setItem('iframeUrl',itemUrl);
+            localStorage.setItem('iframeUrl', itemUrl);
         });
 
     });
