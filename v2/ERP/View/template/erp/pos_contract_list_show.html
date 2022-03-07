@@ -19,7 +19,7 @@
                 <div class="btn-group">
                   <button data-toggle="dropdown" class="btn btn-deault dropdown-toggle">批量操作 <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" class="batch_operation" data-act="online">批量导出</a></li>
+                    <li><a href="javascript:void(0)" class="batch_operation" data-act="export">批量导出</a></li>
                   </ul>
                 </div>
               </div>
@@ -118,9 +118,8 @@
 <script type="text/javascript">
 var ajaxUrl='#{$smarty.const.ACT}#/erp/PosContractList/pos_contract_list_show_json_data/';
 $(document).ready(function () {
-	 
-	turnPage(1);//页面加载时初始化分页
 
+	turnPage(1);//页面加载时初始化分页
 
 	$("body").on("click", ".batch_operation", function() {
 		batch_act =$(this).attr("data-act")
@@ -129,29 +128,12 @@ $(document).ready(function () {
         chk_value.push($(this).val()); 
 		}); 
 		sku_id_txt=chk_value.join(",");
-		if(batch_act=="recommend"){
-		   act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_modify_recommend/";
+		if(batch_act=="export"){
+		   act_url="#{$smarty.const.ACT}#/erp/PosContractList/export/";
+		   window.location.href=act_url;
 		}else if(batch_act=="del"){
 			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_del/";
 		}
-    //alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
-		$.ajax({
-			type: "POST",
-			url: act_url,
-			data:{"sku_id":sku_id_txt},
-			dataType:"json",
-			success: function(data){
-				if(data.statusCode=='200'){
-					layer.msg('操作成功', {icon: 1}); 
-				}
-			},
-			complete: function () {//完成响应
-			}
-		});
 	});
-	
-
-	
-	
 });
 </script>
