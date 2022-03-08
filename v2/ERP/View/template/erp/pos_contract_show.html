@@ -24,8 +24,7 @@
                                             class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)" class="batch_operation"
-                                               data-act="online">批量发短信</a></li>
-                                        <li><a href="javascript:void(0)" class="batch_operation" data-act="offline">批量发邮件</a>
+                                               data-act="export">批量导出</a></li>
                                         </li>
                                         <li class="divider"></li>
                                         <!--<li><a href="javascript:void(0)" class="batch_operation" data-act="delete">批量删除</a></li>-->
@@ -207,8 +206,9 @@
                 chk_value.push($(this).val());
             });
             contract_id_txt = chk_value.join(",");
-            if (batch_act == "recommend") {
-                act_url = "#{$smarty.const.ACT}#/erp/PosContract/pos_contract_modify_recommend/";
+            if (batch_act == "export") {
+                act_url="#{$smarty.const.ACT}#/erp/PosContract/export/";
+                window.location.href=act_url;
             } else if (batch_act == "delete") {
                 act_url = "#{$smarty.const.ACT}#/erp/PosContract/pos_contract_del/";
             }

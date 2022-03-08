@@ -543,6 +543,22 @@ class PosContract extends Action
         return true;
     }
 
+    /**导出数据
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/3/7 0007 20:51
+     */
+    public function export()
+    {
+        $sql = "select pc.title,pc.contract_no,ss.name as supplier_name,pc.money,pc.zero_money,pc.pay_money,pc.owe_money,pc.start_date,pc.end_date,pc.create_time
+ 
+                from pos_contract as pc,sup_supplier as ss
+                where ss.supplier_id=pc.supplier_id
+                ;";
+        $list = $this->C($this->cacheDir)->findAll($sql);
+        $title_cel = array('名称', '编号', '供应商', '合同金额', '采购金额', '去零金额', '支付金额', '尚欠金额', '采购日期', '预计到货日期', '创建时间');
+        export_to_cvs('采购订单_' . time() . '.csv', $title_cel, $list);
+    }
+
 }
 
 ?>

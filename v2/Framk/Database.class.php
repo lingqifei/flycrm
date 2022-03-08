@@ -61,9 +61,7 @@ class Database {
 	/*
 	数据记录条数
 	*/
-	public
-
-	function countRecords( $sql ) {
+	public function countRecords( $sql ) {
 		$result = $this->db->query( $sql );
 		if ( $result ) {
 			return $result->rowCount();
@@ -75,9 +73,7 @@ class Database {
 	/*
 	更新数据
 	*/
-	public
-
-	function updt( $sql ) {
+	public function updt( $sql ) {
 		$result = $this->db->exec( $sql );
 		if ( $result ) { //如果数据操作返回为真	
 			$sql = trim( $sql );
@@ -100,8 +96,7 @@ class Database {
 	 * @param Boolean $debug
 	 * @return Int
 	 */
-	public
-	function update( $table, $arrayDataValue, $where = '', $debug = false ) {
+	public function update( $table, $arrayDataValue, $where = '', $debug = false ) {
 		$this->checkFields( $table, $arrayDataValue );
 		if ( $where ) {
 			$strSql = '';
@@ -127,8 +122,7 @@ class Database {
 	 * @param Boolean $debug
 	 * @return Int
 	 */
-	public
-	function insert( $table, $arrayDataValue, $debug = false ) {
+	public function insert( $table, $arrayDataValue, $debug = false ) {
 		$this->checkFields( $table, $arrayDataValue );
 		$strSql = "INSERT INTO `$table` (`" . implode( '`,`', array_keys( $arrayDataValue ) ) . "`) VALUES ('" . implode( "','", $arrayDataValue ) . "')";
 		if ( $debug === true )$this->debug( $strSql );
@@ -148,8 +142,7 @@ class Database {
 	 * @param Boolean $debug
 	 * @return Int
 	 */
-	public
-	function replace( $table, $arrayDataValue, $debug = false ) {
+	public function replace( $table, $arrayDataValue, $debug = false ) {
 		$this->checkFields( $table, $arrayDataValue );
 		$strSql = "REPLACE INTO `$table`(`" . implode( '`,`', array_keys( $arrayDataValue ) ) . "`) VALUES ('" . implode( "','", $arrayDataValue ) . "')";
 		if ( $debug === true )$this->debug( $strSql );
@@ -166,8 +159,7 @@ class Database {
 	 * @param Boolean $debug
 	 * @return Int
 	 */
-	public
-	function delete( $table, $where = '', $debug = false ) {
+	public function delete( $table, $where = '', $debug = false ) {
 		if ( $where == '' ) {
 			$this->outputError( "'WHERE' is Null" );
 		} else {
@@ -186,8 +178,7 @@ class Database {
 	 * @param Boolean $debug
 	 * @return Int
 	 */
-	public
-	function execSql( $strSql, $debug = false ) {
+	public function execSql( $strSql, $debug = false ) {
 		if ( $debug === true )$this->debug( $strSql );
 		$result = $this->db->exec( $strSql );
 		$this->getPDOError();
@@ -201,8 +192,7 @@ class Database {
 	 * @param string $field_name 字段名
 	 * @param string $where 条件
 	 */
-	public
-	function getMaxValue( $table, $field_name, $where = '', $debug = false ) {
+	public function getMaxValue( $table, $field_name, $where = '', $debug = false ) {
 		$strSql = "SELECT MAX(" . $field_name . ") AS MAX_VALUE FROM $table";
 		if ( $where != '' )$strSql .= " WHERE $where";
 		if ( $debug === true )$this->debug( $strSql );
@@ -223,8 +213,7 @@ class Database {
 	 * @param bool $debug
 	 * @return int
 	 */
-	public
-	function getCount( $table, $field_name, $where = '', $debug = false ) {
+	public function getCount( $table, $field_name, $where = '', $debug = false ) {
 		$strSql = "SELECT COUNT($field_name) AS NUM FROM $table";
 		if ( $where != '' )$strSql .= " WHERE $where";
 		if ( $debug === true )$this->debug( $strSql );
@@ -240,53 +229,46 @@ class Database {
 	 * @param Boolean $debug
 	 * @return String
 	 */
-	public
-	function getTableEngine( $dbName, $tableName ) {
+	public function getTableEngine( $dbName, $tableName ) {
 		$strSql = "SHOW TABLE STATUS FROM $dbName WHERE Name='" . $tableName . "'";
 		$arrayTableInfo = $this->query( $strSql );
 		$this->getPDOError();
 		return $arrayTableInfo[ 0 ][ 'Engine' ];
 	}
 	//预处理执行
-	public
-	function prepareSql( $sql = '' ) {
+	public function prepareSql( $sql = '' ) {
 		return $this->db->prepare( $sql );
 	}
 	//执行预处理
-	public
-	function execute( $presql ) {
+	public function execute( $presql ) {
 		return $this->db->execute( $presql );
 	}
 
 	/**
 	 * pdo属性设置
 	 */
-	public
-	function setAttribute( $p, $d ) {
+	public function setAttribute( $p, $d ) {
 		$this->db->setAttribute( $p, $d );
 	}
 
 	/**
 	 * beginTransaction 事务开始
 	 */
-	public
-	function begintrans() {
+	public function begintrans() {
 		$this->db->beginTransaction();
 	}
 
 	/**
 	 * commit 事务提交
 	 */
-	public
-	function commit() {
+	public function commit() {
 		$this->db->commit();
 	}
 
 	/**
 	 * rollback 事务回滚
 	 */
-	public
-	function rollback() {
+	public function rollback() {
 		$this->db->rollback();
 	}
 
@@ -297,8 +279,7 @@ class Database {
 	 * @param array $arraySql
 	 * @return Boolean
 	 */
-	public
-	function execTransaction( $arraySql ) {
+	public function execTransaction( $arraySql ) {
 		$retval = 1;
 		$this->beginTransaction();
 		foreach ( $arraySql as $strSql ) {
@@ -349,8 +330,7 @@ class Database {
 	/**
 	 * getPDOError 捕获PDO错误信息
 	 */
-	private
-	function getPDOError() {
+	private function getPDOError() {
 		if ( $this->db->errorCode() != '00000' ) {
 			$arrayError = $this->db->errorInfo();
 			$this->outputError( $arrayError[ 2 ] );
@@ -362,8 +342,7 @@ class Database {
 	 * 
 	 * @param mixed $debuginfo
 	 */
-	private
-	function debug( $debuginfo ) {
+	private function debug( $debuginfo ) {
 		var_dump( $debuginfo );
 		exit();
 	}
@@ -373,16 +352,14 @@ class Database {
 	 * 
 	 * @param String $strErrMsg
 	 */
-	private
-	function outputError( $strErrMsg ) {
+	private function outputError( $strErrMsg ) {
 		throw new Exception( 'MySQL Error: ' . $strErrMsg );
 	}
 
 	/**
 	 * destruct 关闭数据库连接
 	 */
-	public
-	function destruct() {
+	public function destruct() {
 		$this->db = null;
 	}
 
@@ -391,18 +368,14 @@ class Database {
 	 * @access function 
 	 * @return boolen
 	 */
-	public
-
-	function version() {
+	public function version() {
 		$result = $this->db->query( 'select version()' );
 		$version = $result->fetch();
 		return $version;
 	}
 
 	//关闭连接
-	public
-
-	function __destruct() {
+	public function __destruct() {
 		$this->db = null;
 	}
 
