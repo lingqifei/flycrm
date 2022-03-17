@@ -304,6 +304,50 @@ function getDayStartEndTime($date=''){
 
 
 /**
+ * 获取两个日期之间所有月份
+ * @param string $start_time 2018-01-01
+ * @param string $end_time 2019-01-01
+ * @return array
+ */
+
+function getDatesBetweenToMonths($start_time, $end_time)
+
+{
+    $time1 = strtotime($start_time);
+    $time2 = strtotime($end_time);
+
+    $monthArray = [];
+    $monthArray[] = date('Y-m', $time1); // 当前月;
+    while (($time1 = strtotime('+1 month', $time1)) <= $time2) {
+        $monthArray[] = date('Y-m', $time1);
+    }
+    return $monthArray;
+
+}
+
+/**
+ * 获取两个日期之间所有周
+ * @param string $start_time 2018-01-01
+ * @param string $end_time 2019-01-01
+ * @return array
+ */
+
+function getDatesBetweenToWeeks($start_time, $end_time)
+
+{
+    $time1 = strtotime($start_time);
+    $time2 = strtotime($end_time);
+
+    $monthArray = [];
+    $monthArray[] = date('o-W', $time1); // 当前月;
+    while (($time1 = strtotime('+1 week', $time1)) <= $time2) {
+        $monthArray[] = date('o-W', $time1);
+    }
+    return $monthArray;
+}
+
+
+/**
  * 字符串截取，支持中文和其他编码
  *
  * @param string $str 需要转换的字符串

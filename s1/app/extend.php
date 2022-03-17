@@ -222,49 +222,51 @@ function create_barcode($text = '', $file_name = '', $path = '', $codebar = 'BCG
 function create_qrcode($data = '', $path = '', $ecc = 'H', $size = 10)
 {
 
-	$save_path = empty($path) ? PATH_UPLOAD . 'extend' . DS . 'qrcode' . DS : $path;
+    $save_path = empty($path) ? PATH_UPLOAD . 'extend' . DS . 'qrcode' . DS : $path;
 
-	include_once EXTEND_PATH . 'qrcode' . DS . 'qrlib.php';
+    include_once EXTEND_PATH . 'lqf' . DS . '/phpqrcode.php';
 
-	if (!file_exists($save_path)) {
-		mkdir($save_path);
-	}
+    $qrcode = new \lqf\QRcode();//生成二维码
 
-	$filename = $save_path . '.png';
+    if (!file_exists($save_path)) {
+        mkdir($save_path);
+    }
 
-	$errorCorrectionLevel = 'L';
+    $filename = $save_path . '.png';
 
-	if (isset($ecc) && in_array($ecc, array('L', 'M', 'Q', 'H'))) {
-		$errorCorrectionLevel = $ecc;
-	}
+    $errorCorrectionLevel = 'L';
 
-	$matrixPointSize = 4;
+    if (isset($ecc) && in_array($ecc, array('L', 'M', 'Q', 'H'))) {
+        $errorCorrectionLevel = $ecc;
+    }
 
-	if (isset($size)) {
-		$matrixPointSize = min(max((int)$size, 1), 10);
-	}
+    $matrixPointSize = 4;
 
-	if (isset($data)) {
+    if (isset($size)) {
+        $matrixPointSize = min(max((int)$size, 1), 10);
+    }
 
-		if (trim($data) == '') {
-			exception("qrcode data cannot be empty");
-		}
+    if (isset($data)) {
 
-		$filename = $save_path . md5($data . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
+        if (trim($data) == '') {
+            exception("qrcode data cannot be empty");
+        }
 
-		QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+        $filename = $save_path . md5($data . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
 
-	} else {
+        $qrcode->png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 
-		QRcode::png('PHP QR Code :)', $filename, $errorCorrectionLevel, $matrixPointSize, 2);
-	}
+    } else {
 
-	$name = basename($filename);
+        $qrcode->png('PHP QR Code :)', $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+    }
 
-	$return_data['name'] = $name;
-	$return_data['path'] = $save_path . $name;
+    $name = basename($filename);
 
-	return $return_data;
+    $return_data['name'] = $name;
+    $return_data['path'] = $save_path . $name;
+
+    return $return_data;
 
 }
 

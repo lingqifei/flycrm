@@ -112,12 +112,11 @@ class Store extends AdminBase
 			if(!empty($info['data'])){
 				$listdata = $info['data'];
 				foreach ($listdata['data'] as &$row) {
-
 					$row['sale_price_text']=($row['sale_price']>0)?'<span>￥':0;//判断最新版
 					if($row['sale_price']>0){
 						$row['sale_price_text']="<span class='text-danger'>￥".$row['sale_price'].'</span>';
 					}else{
-						$row['sale_price_text']="免费";
+						$row['sale_price_text']="<span class='text-success'>免费</span>";
 					}
 					switch ($row['classify_id']){
 						case '1'://模块

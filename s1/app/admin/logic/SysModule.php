@@ -106,7 +106,9 @@ class SysModule extends AdminBase
 
         unset($data['comm_file']);
         unset($data['module_dir']);
-        $data['identifier'] = $data['name'] . '.' . $data['author'];
+
+        $data['identifier'] = 'module.lingqifei.'.$data['name'];
+        $data['status'] =1;//安装
 
         $result = $this->modelSysModule->setInfo($data);
         $url = url('show');
@@ -388,6 +390,7 @@ class SysModule extends AdminBase
     {
 
         ini_set('max_execution_time', '0');
+
         if (empty($data['version'])) {
             return [RESULT_ERROR, '需要打包的版本号不存在'];
             exit;
@@ -408,7 +411,6 @@ class SysModule extends AdminBase
         //2、升级包=移动需要打包的文件
         $handle_list = [
             'addon',
-            'core',
             'extend',
             'vendor',
             'app/admin',
@@ -427,6 +429,7 @@ class SysModule extends AdminBase
 
         //2、安装包=移动需要打包的文件
         $handle_list_intsll = [
+            'core',
             'app/install',
             'app/config.php',
             'public/static/addon/editor',
@@ -463,6 +466,7 @@ class SysModule extends AdminBase
             }
 
         }
+
         //3、压缩包zip文件
         $pack_zip = $this->app_pack_path . $version . '.zip';
         $zip = new \lqf\Zip();
@@ -472,6 +476,7 @@ class SysModule extends AdminBase
             return [RESULT_ERROR, '打包模块失败'];
             exit;
         }
+
         echo '<hr>打包生成文件：' . $pack_zip;
         $upgrade_zip = PATH_PUBLIC . 'upgrade' . DS . 's1' . DS . $version . '.zip';
         echo '<hr>复制包文件到：' . $upgrade_zip;
@@ -510,7 +515,7 @@ class SysModule extends AdminBase
         if (file_exists($app_table_file)) {
             $this->sysModuleSyncTableFile($app_table_file);
             $this->sysModuleSyncMenuFile($app_menu_file);
-            return [RESULT_SUCCESS, 'table和menu文件同步完成'];
+            return [RESULT_SUCCESS, 'table和menu文件同步完成',''];
             exit;
         } else {
             return [RESULT_ERROR, '模块数据库结构文件不存在'];
@@ -541,7 +546,6 @@ class SysModule extends AdminBase
     public function sysModuleSyncMenuFile($fileinfo = '')
     {
         if (file_exists($fileinfo)) {
-
             $content = file_get_contents($fileinfo);
             $content = isJson($content, true);
             $this->sysModuleMenuImport($content);
@@ -558,6 +562,7 @@ class SysModule extends AdminBase
      */
     public function sysModuleMenuImport($data = [], $pid = 0)
     {
+
         if (empty($data)) {
             return true;
         }

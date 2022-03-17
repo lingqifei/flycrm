@@ -45,9 +45,9 @@
                                 <th width="100">应用名称</th>
                                 <th width="400">应用简介</th>
                                 <th width="80">作者</th>
-                                <th width="60">价格</th>
-                                <th width="60">下载</th>
-                                <th width="60">版本</th>
+                                <th width="80">价格</th>
+                                <th width="80">下载</th>
+                                <th width="80">版本</th>
                                 <th width="100">操作</th>
                             </tr>
                             </thead>
@@ -72,14 +72,18 @@
     %>
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
-        <td><%=data[i]['title']%></td>
+        <td>
+            <a href="http://www.07fly.net/store/<%=data[i]['name']%>.html" target="_blank" class="">
+                <%=data[i]['title']%>
+            </a>
+        </td>
         <td><%=data[i]['description']%></td>
         <td><%=data[i]['author']%></td>
         <td><%:=data[i]['sale_price_text']%></td>
         <td><%=data[i]['down_a']%></td>
         <td><%=data[i]['version']%></td>
         <td>
-            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-primary">详细</a> </lqf_link>
+            <lqf_link><a href="http://www.07fly.net/store/<%=data[i]['name']%>.html" target="_blank" class="text-primary">详细</a> </lqf_link>
             <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-info">演示</a></lqf_link>
             <% if(data[i]['isinstall']=='0'){ %>
             <lqf_link><a  class="ajax-open" data-url="{:url('Store/install')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}"  >安装</a> </lqf_link>

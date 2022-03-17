@@ -11,7 +11,6 @@
  * Date: 2019-10-3
  */
 
-
 namespace app\common\behavior;
 
 use think\Loader;

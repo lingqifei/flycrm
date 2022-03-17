@@ -847,6 +847,27 @@ function dd($arr = [])
     die;
 }
 
+/**
+ * 日志输出保存函数
+ */
+function dlog($var, $fpath = LOG_PATH . 'dlog.txt', $echo = true, $label = null, $flags = ENT_SUBSTITUTE)
+{
+    $label = (null === $label) ? '' : rtrim($label) . ':';
+    ob_start();
+    var_dump($var);
+    $output = ob_get_clean();
+    $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
+    if (IS_CLI) {
+        $output = PHP_EOL . $label . $output . PHP_EOL;
+    } else {
+        if (!extension_loaded('xdebug')) {
+            $output = htmlspecialchars($output, $flags);
+        }
+        $output = $label . $output;
+    }
+    $output = "\r\n" . $output . "\r\n";
+    file_put_contents($fpath, date('Y-m-d H:i:s') . ' ' . 'pid:' . $output, FILE_APPEND | LOCK_EX);
+}
 
 // +---------------------------------------------------------------------+
 // | 其他函数
@@ -954,7 +975,6 @@ function update_cache_version($obj = null)
 }
 
 //api签名函数
-
 use \Firebase\JWT\JWT;
 
 // 解密user_token

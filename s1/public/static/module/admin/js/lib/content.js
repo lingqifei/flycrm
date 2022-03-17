@@ -827,6 +827,15 @@ $("body").on("change", ".ajax-input", function () {
     var target;
     var val = $(this).val();
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
+
+        //是否设置了字段
+        var ids = $(this).attr('data-ids');
+        //是否设置了参数字段
+        if (typeof (ids) != "undefined" && ids != 0) {
+            var ids = ($.param(eval('(' + ids + ')'), true));
+            var target = target + "?" + ids;
+        }
+
         $.post(target, {id: $(this).attr('data-id'), value: val}, function (data) {
             if (data.code) {
                 parent.layer.msg(data.msg, {icon: 1});
