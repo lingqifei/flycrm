@@ -116,7 +116,6 @@ class Store extends AdminBase
 			exit;
 		}else{
 			$orderinfo=$this->logicStore->getCloudAppOrderInfo($this->param);
-//			d($orderinfo);
 			$this->assign('userinfo', $userinfo);
 			$this->assign('orderinfo', $orderinfo);
 			return $this->fetch('upgrade');

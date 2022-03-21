@@ -368,6 +368,17 @@
                 ]
             },
             {
+                "name": "数据库管理",
+                "sort": 10,
+                "module": "admin",
+                "url": "Database/show",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 1,
+                "icon": "fa-database",
+                "nodes": []
+            },
+            {
                 "name": "组织结构",
                 "sort": 100,
                 "module": "admin",

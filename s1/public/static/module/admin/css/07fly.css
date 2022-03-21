@@ -9,24 +9,39 @@
 
 .fly-form-select select:before {font-family: "hui-font";content: "\e63d"; font-size: 12px;}
 
-/*表格排序样式*/
+
+
+
+/*表格剧中样式*/
+.table-center th, .table-center td {text-align: center;vertical-align: middle !important;}
+
+/*表格列表样式*/
+.table td,.table th{font-size:13px;}/*设置所有表格表头为13px*/
+.ajax-list-table {table-layout:fixed;word-break:break-all;}
+.ajax-list-table th,.ajax-list-table td{
+    font-size:13px;
+    word-break:break-all;
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+}
+.ellipsis{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
+/*表格列表td超出长度隐藏*/
+.ajax-list-table .MHover{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+
+
+/*表格，表头字段，排序样式*/
 .sort-filed {/*background: url(../img/arrow.png) no-repeat right;*/cursor: pointer;}
 .sort-filed span:after {font: normal normal normal 14px/1 FontAwesome;content: "\f0dc";margin-left: 10px;}
 .sort-filed.asc span:after {font: normal normal normal 14px/1 FontAwesome; content: "\f0de"; margin-left: 10px;/*background: url(../img/arrow-up.png) no-repeat right;*/}
 .sort-filed.desc span:after {font: normal normal normal 14px/1 FontAwesome;content: "\f0dd";margin-left: 10px; /*background: url(../img/arrow-down.png) no-repeat right;*/}
 .chosen-container{min-width: 150px;}
 
-
-/*表格剧中样式*/
-.table-center th, .table-center td {text-align: center;vertical-align: middle !important;}
-.sorttable .overflow-td {max-width: 150px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;cursor: pointer;}
-.sorttable .overflow-td:hover {color: #23B7E5;}
-
-/*数据列表样式*/
-.table td,.table th{font-size:13px;}
-.ajax-list-table {table-layout:fixed;word-break:break-all;}
-.ajax-list-table th,.ajax-list-table td{font-size:13px;word-break:break-all;}
-.ellipsis{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
 /*分页面*/
 .page-list {padding-top: 20px;}
@@ -68,6 +83,7 @@
 .ibox-tab a:hover{color: #0e9aef}
 .ibox-tab a.on{color: #0e9aef}
 
+/*新增加ibox-content tabs*/
 .ibox-content .nav-tabs{margin-bottom: 20px;}
 .ibox-content .nav-tabs h3{font-weight: 600;font-size:14px;  padding: 5px 30px 0px 5px;}
 
@@ -75,14 +91,14 @@
 .auth-box {border-bottom: #0e9aef 2px solid;line-height: 30px;}
 .auth-box .ibox-head{border-bottom: #0e9aef 2px solid;}
 .auth-box .ibox-head-child{border-bottom: #0e9aef 2px solid;}
-
 .navbar-right{text-align: right;}
+
 /*下划线*/
 .line-b-t{border-bottom: 1px solid #F0F3F4;margin: 5px 0px;}
 .line-bb{border-bottom: 3px solid #F0F3F4;margin: 5px 0px;}
 .list-group-item .time{float: right;}
 
-/*树形菜单 checkbox 选择样式*/
+/*树形菜单 下拉选择  checkbox 选择样式*/
 .menu-tree-checkbox li{list-style: none;}
 .menu-tree-checkbox li span {display: inline-block;/*padding: 3px 3px;*/text-decoration: none;width: 20px;vertical-align: middle;padding-bottom: 5px;}
 .menu-tree-checkbox li.has_child > span {cursor: pointer}
@@ -96,6 +112,7 @@
     transform: rotate(90deg);
 }
 
+/* 销售看板 */
 .salrank table tr .phicon{font-size: 16px;font-weight: 600;}
 .salrank table tr:nth-child(1) .phicon{background: url("../img/ph1.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
 .salrank table tr:nth-child(2) .phicon{background: url("../img/ph2.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}

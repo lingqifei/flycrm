@@ -184,20 +184,49 @@ class SysUser extends LogicBase
 	}
 
 
-	/**获取用户上级管理人员id
-	 * @param int $id
-	 * @param string $type
-	 * @return mixed
-	 * Author: 开发人生 goodkfrs@qq.com
-	 * Date: 2021/9/13 0013 16:12
-	 */
-	public function getSysUserSuperior($id=SYS_USER_ID,$type=''){
-		$userinfo=$this->modelSysUser->getInfo(['id'=>$id]);
-		$superior_position_id=$this->logicSysPosition->getPositionPid($userinfo['position_id']);
-		$where['position_id']=['=',$superior_position_id];
-		$where['dept_id']=['=',$userinfo['dept_id']];
-		$superior=$this->modelSysUser->getInfo($where,'id,username,realname,dept_id,position_id');
-		return $superior;
-	}
+    /**获取用户上级管理人员id
+     * @param int $id
+     * @param string $type
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2021/9/13 0013 16:12
+     */
+    public function getSysUserSuperior($id=SYS_USER_ID,$type=''){
+
+        //1、获取当前部门 && 当前职位上级
+        $userinfo=$this->modelSysUser->getInfo(['id'=>$id],'position_id,dept_id');
+        $superior_position_id=$this->logicSysPosition->getPositionPid($userinfo['position_id']);
+        $where['position_id']=['=',$superior_position_id];
+        $where['dept_id']=['=',$userinfo['dept_id']];
+        $superior=$this->modelSysUser->getInfo($where,'id,username,realname,dept_id,position_id');
+
+        //2、当前部门无比自己职位高的，直接找上级部门人员
+        if(empty($superior)){
+            $superior=$this->getParentDeptSysUser($userinfo['dept_id']);
+        }
+        return $superior;
+
+    }
+
+    /**上级部人员信息
+     * @param $deptid
+     * @return array
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/2/22 0022 14:30
+     */
+    public function getParentDeptSysUser($deptid){
+        $dept=$this->logicSysDept->getDeptAllPid($deptid);
+        $superior=[];
+        if(!empty($dept)){
+            foreach ($dept as $did){
+                $where['dept_id']=['=',$did];
+                $superior=$this->modelSysUser->getInfo($where,'id,username,realname,dept_id,position_id');
+                if($superior){
+                    break;
+                }
+            }
+        }
+        return $superior;
+    }
 
 }

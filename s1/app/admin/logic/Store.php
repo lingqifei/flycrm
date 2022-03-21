@@ -59,6 +59,7 @@ class Store extends AdminBase
 	 */
 	public function cloudUserLogin($data=[])
 	{
+
 		$info = $this->modelStore->getCloudUserLogin($data);
 		if($info['code']==0 && !empty($info)){
 			$user=$info['data'];
@@ -278,14 +279,11 @@ class Store extends AdminBase
 					if ($res[0] == RESULT_ERROR) return $res;
 				}
 
-
-
-				//3、更新模块包,
+				//3、更新模块包数据,
 				$updata=['status'=>1,'visible'=>1];
 				$result=$this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
 
-
-				//4、判断是模模板文件
+				//4、判断是模模板目录文件
 				if(is_dir($app_theme_dir)){
 					$theme_dir=PATH_PUBLIC.'theme'.DS;
 					$result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
@@ -306,9 +304,6 @@ class Store extends AdminBase
 					$res = $this->logicSysModule->sysModuleSyncMenuFile($app_menu_file);
 					if ($res[0] == RESULT_ERROR) return $res;
 				}
-
-
-
 
 				return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
 				exit;

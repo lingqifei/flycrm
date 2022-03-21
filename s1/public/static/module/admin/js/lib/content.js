@@ -77,6 +77,7 @@ $(function () {
         }
     });
 
+    //panel面板显示隐藏
     $("body").on("click", ".collapse-link", function () {
         $(this).find('i').toggleClass("fa-chevron-up");
         $(this).find('i').toggleClass("fa-chevron-down");
@@ -723,7 +724,6 @@ $("body").on("click", ".ajax-post", function () {
     }
     return false;
 });
-
 
 // 提交~针对本页
 $("body").on("click", ".ajax-post-trace", function () {

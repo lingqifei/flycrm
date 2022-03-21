@@ -242,13 +242,30 @@
         });
     }
 
+    //公海回收机制
+    var runScanRecover = function () {
+        var target= "{:url('erp/Comm/recover')}";
+        $.ajax({
+            type: 'GET',
+            url: target,
+            dataType: 'json',
+            success: function (jsonData) {
+
+            }
+        });
+    }
+
     //主动调用
     //setInterval("func()", 60000);
     setInterval("runSysNotify()", 1000 * 60 * 5);
     setInterval("runSysMsg()", 1000 * 60 * 10);
+    setInterval("runScanRecover()", 1000 * 60 * 10);
+    setInterval("runScanSysMsg()", 1000 * 60 * 5);
 
     runScanSysMsg();
     runSysNotify();
     runSysMsg();
+    runScanRecover();
+
 </script>
 

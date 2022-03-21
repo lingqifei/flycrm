@@ -97,8 +97,6 @@ class Upgrade extends AdminBase
 		}
 	}
 
-
-
 	/**
 	 * 返回当前版本号
 	 * @return string

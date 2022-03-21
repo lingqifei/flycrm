@@ -106,6 +106,7 @@ class AdminBase extends LogicBase
 
 	/**
 	 * 通过完整URL获取检查标准URL
+     * 注：这里地址必须为  /模块/控制器/方法
 	 */
 	public function getCheckUrl($full_url = '')
 	{
@@ -114,8 +115,19 @@ class AdminBase extends LogicBase
 
 		$url_array_tmp = explode(SYS_DS_PROS, $temp_url);
 
+		//解析出的地址为
+        /*
+            $url_array_tmp=array(4) {
+            [0] => string(0) ""
+            [1] => string(5) "admin"
+            [2] => string(9) "SysModule"
+            [3] => string(11) "upload.html"
+            }
+        */
+
 		//获得真地址
-		$subscript = DATA_NORMAL;
+		$subscript = 1;
+		if(empty($url_array_tmp[0])) $subscript=1;
 		!defined('BIND_MODULE') && $subscript++;
 		$return_url = $url_array_tmp[$subscript] . SYS_DS_PROS . $url_array_tmp[++$subscript];
 
@@ -144,7 +156,6 @@ class AdminBase extends LogicBase
 			preg_match_all('/data-url="(.+?)"|url="(.+?)"/', $a, $match_results);
 
 			$full_url = '';
-
 			if (empty($match_results[1][0]) && empty($match_results[2][0])) {
 				continue;
 			} elseif (!empty($match_results[1][0])) {

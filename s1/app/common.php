@@ -850,8 +850,9 @@ function dd($arr = [])
 /**
  * 日志输出保存函数
  */
-function dlog($var, $fpath = LOG_PATH . 'dlog.txt', $echo = true, $label = null, $flags = ENT_SUBSTITUTE)
+function dlog($var, $file = 'dlog.txt', $label = null, $flags = ENT_SUBSTITUTE)
 {
+    $fpath=RUNTIME_PATH.$file;
     $label = (null === $label) ? '' : rtrim($label) . ':';
     ob_start();
     var_dump($var);

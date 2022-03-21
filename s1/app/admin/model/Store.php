@@ -32,6 +32,10 @@ class Store extends AdminBase
         $this->initServerUrl();
     }
 
+    /**服务器站点
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/2/16 0016 16:51
+     */
     function  initServerUrl(){
 		if($_SERVER['HTTP_HOST']=='127.0.0.1:8002'){//生产
 
@@ -53,7 +57,6 @@ class Store extends AdminBase
 				break;
 			}
 		}
-
 		//echo $this->server_url;exit;
     }
 

@@ -90,4 +90,53 @@ function initTableCell() {
         }
     });
     $(".ajax-list-table").find("tfoot tr td").attr('colspan', colspan);//设置分页行的列数合并
+
+
+    bindClass();
+
+}
+
+/*表格长文字的过滤*/
+function filterTd(v) {
+    var rstr = '无';
+    if (isEmpty(v)) {
+        return '无';
+    } else {
+        rstr = '<div class="MHover">' + v + '</div>' +
+            '<div class="MALL">' + v + '</div>';
+    }
+    return rstr;
+}
+
+function bindClass() {
+    $(".MALL").hide();
+    $(".MHover").mouseover(function (e) {
+        $(this).next(".MALL").css({"position": "absolute", "top": e.pageY - 150, "left": e.pageX}).show();
+    });
+    $(".MHover").mousemove(function (e) {
+        $(this).next(".MALL").css({
+            "color": "#FFFFFF",
+            "z-index": "1000",
+            // "width": "45rem",
+            "padding": "1rem",
+            "line-height": ": 1.2rem",
+            "position": "absolute",
+            "opacity": "1",
+            "background-color": "#23b7e5",
+            "top": e.pageY - 50,
+            "left": e.pageX
+        });
+    });
+    $(".MHover").mouseout(function () {
+        $(this).next(".MALL").hide();
+    });
+}
+
+//判断字符是否为空的方法
+function isEmpty(obj) {
+    if (typeof obj == "undefined" || obj == null || obj == "") {
+        return true;
+    } else {
+        return false;
+    }
 }
