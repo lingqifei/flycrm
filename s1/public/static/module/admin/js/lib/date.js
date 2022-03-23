@@ -15,7 +15,82 @@ var lastYear = lastMonthDate.getYear();
 var lastMonth = lastMonthDate.getMonth();
 
 
+// 初始化时间插件格式
 $(document).ready(function () {
+
+	// //日期选择插件yyyy-mm-dd
+	$(".datepicker").datepicker({
+		language: "zh-CN",
+		minView: 'year',
+		todayHighlight: true,
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: "linked",//今日按钮
+		minView: 'day',
+		maxView: 2,
+		format: "yyyy-mm-dd"
+	});
+
+	// //日期时间选择插件 yyyy-mm-dd H:i:s
+	$(".datetimepicker").datetimepicker({
+		language: "zh-CN",
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: true,//今日按钮
+		format: "yyyy-mm-dd hh:ii:ss",
+	});
+
+	// //日期时间选择插件 yyyy-mm-dd H:i:s
+	$(".datetimepicker-clock").datetimepicker({
+		language: "zh-CN",
+		startView: 'day',
+		//minView : 'day',
+		//maxView:2,
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: true,//今日按钮
+		format: "hh:ii",
+	});
+
+	// //日期时间选择插件 yyyy-mm-dd H:i:s
+	$(".datetimepicker-now").datetimepicker({
+		language: "zh-CN",
+		autoclose: true,//选中之后自动隐藏日期选择框
+		clearBtn: true,//清除按钮
+		todayBtn: true,//今日按钮
+		format: "yyyy-mm-dd hh:ii:ss",
+		initialDate: new Date(),
+	});
+
+	//设置当前时间
+	$(".datetimepicker-now").datetimepicker("setDate", new Date())
+
+
+	//只选择月份
+	$('.datepicker-month').datepicker({
+		format: 'yyyy-mm',
+		language: "zh-CN",
+		autoclose: true,
+		startView: 1,
+		minViewMode: 1,
+		maxViewMode: 1
+	});
+
+	//只选择月份
+	$(".datetimepicker-year").datetimepicker({
+		language: 'ch',
+		format: 'yyyy',
+		autoclose: true,
+		todayBtn: true,
+		startView: 'decade',
+		minView: 'decade',
+		maxView: 'decade',
+	});
+
+	// //日期时间选择插件 yyyy-mm-dd H:i:s
+	$('.clockpicker').clockpicker();
+
+
 	//根据开始时间 计算出结束时间
 	$("body").on("click", ".date-add-interval", function () {
 		var gid=$(this).attr('data-gid');

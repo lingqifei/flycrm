@@ -11,7 +11,6 @@
  * Date: 2019-10-3
  */
 
-
 namespace app\admin\model;
 
 /**
@@ -26,7 +25,7 @@ class SysModule extends AdminBase
      * @return array|mixed
      * Author: lingqifei created by at 2020/6/3 0003
      */
-    public  function status($key = '')
+    public function status($key = '')
     {
         $data = array(
             "0" => array(
@@ -60,7 +59,7 @@ class SysModule extends AdminBase
                 ),
             ),
         );
-        return (array_key_exists($key,$data))?$data[$key]:$data;
+        return (array_key_exists($key, $data)) ? $data[$key] : $data;
     }
 
 
@@ -70,7 +69,7 @@ class SysModule extends AdminBase
      * @return string
      * Author: lingqifei created by at 2020/6/4 0004
      */
-    public function createModuleDir($path,$module_name)
+    public function createModuleDir($path, $module_name)
     {
         //模块目录
         $module_dir = $path . $module_name;
@@ -89,11 +88,11 @@ class SysModule extends AdminBase
             $this->mkModuleDirFile(['name' => $module_name, 'dirname' => $dir_name, 'path' => $path]);
         }
         //模板目录
-        $view_dir = $module_dir .DS .'view';
+        $view_dir = $module_dir . DS . 'view';
         !is_dir($view_dir) && mkdir($view_dir, 0755, true);
 
         //数据目录
-        $data_dir = $module_dir .DS .'data';
+        $data_dir = $module_dir . DS . 'data';
         !is_dir($data_dir) && mkdir($data_dir, 0755, true);
 
         return true;
@@ -124,7 +123,7 @@ class SysModule extends AdminBase
 * @copyright Copyright (C) 2017-2022 07FLY Network Technology Co,LTD.
 * @license For licensing, see LICENSE.html or http://www.07fly.xyz/html/business
 * @author ：kfrs <goodkfrs@QQ.com> 574249366
-* @version ：1.0
+* @version ：1.1.0
 * @link ：http://www.07fly.xyz
 */
 INFO;
@@ -214,16 +213,12 @@ INFO;
      */
     public function exportModuleMenu($modulename, $module_dir)
     {
-
         $module_dir = $module_dir . 'data' . DS;
-
         !is_dir($module_dir) && mkdir($module_dir, 0755, true);
-
         $menus = $this->logicSysMenu->sysMenuExport($modulename);
-
         $content = json_encode($menus, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-
-        file_put_contents($module_dir . 'menu.php', $content);
+        //file_put_contents($module_dir . 'menu.php', $content);
+        file_put_contents($module_dir . 'menu.json', $content);//新的json文件
 
     }
 
@@ -234,7 +229,12 @@ INFO;
      */
     public function importModuleMenu($modulename, $module_dir)
     {
-        $module_menu = $module_dir .DS. 'data'.DS.'menu.php';
+        $module_menu = $module_dir . DS . 'data' . DS . 'menu.php';
+        $module_menu_json = $module_dir . DS . 'data' . DS . 'menu.json';
+        //存在json文件使用json文件，兼容以前后缀为php文件
+        if (file_exists($module_menu_json)) {
+            $module_menu = $module_menu_json;
+        }
         if (file_exists($module_menu)) {
             $content = file_get_contents($module_menu);
             $result = isJson($content, true);
@@ -324,9 +324,8 @@ INFO;
         }
     }
 
-
     /**
-     * 导出模块表的数据到文件
+     * 导出模块表的数据敷衍到文件
      * $param[] 为模块信息,name tables
      * Author: kfrs <goodkfrs@QQ.com> created by at 2020/9/14 0014
      */
@@ -362,7 +361,6 @@ INFO;
 
         file_put_contents($module_table_path . $param['sqlfilename'] . '-' . DATA_NORMAL . '.sql', '');//重新备份文件
 
-
         session('backup_file', $file);
         session('backup_tables', $tables);
         $database = new \lqf\Database($file, $config);
@@ -376,7 +374,6 @@ INFO;
         $input = ['id' => 0, 'start' => 0];
         $this->exportModuleTableStep2($input);
     }
-
 
     /**
      * 数据备份，步骤2

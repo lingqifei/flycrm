@@ -91,10 +91,18 @@ function initTableCell() {
     });
     $(".ajax-list-table").find("tfoot tr td").attr('colspan', colspan);//设置分页行的列数合并
 
-
     bindClass();
-
 }
+
+//点击隐藏区域显示提示
+$("body").on("click", ".MHover", function () {
+    var msg = $(this).html();
+    layer.tips(msg, $(this), {
+        tips: [1, '#3595CC'],
+        time: 4000
+    });
+    $(this).prev().hide();
+})
 
 /*表格长文字的过滤*/
 function filterTd(v) {
@@ -108,21 +116,39 @@ function filterTd(v) {
     return rstr;
 }
 
+//绑定鼠标事件
 function bindClass() {
+    log('bindclsss');
     $(".MALL").hide();
     $(".MHover").mouseover(function (e) {
-        $(this).next(".MALL").css({"position": "absolute", "top": e.pageY - 150, "left": e.pageX}).show();
-    });
-    $(".MHover").mousemove(function (e) {
+        var clientWidth=document.body.clientWidth
+        var divWidth=clientWidth-e.pageX-45;
+
         $(this).next(".MALL").css({
-            "color": "#FFFFFF",
+            "color": "#ffffff",
             "z-index": "1000",
-            // "width": "45rem",
+            "width": divWidth+"px",
             "padding": "1rem",
-            "line-height": ": 1.2rem",
+            "line-height": ": 1.5rem",
             "position": "absolute",
             "opacity": "1",
-            "background-color": "#23b7e5",
+            "background-color": "#3595CC",
+            "top": e.pageY - 50,
+            "left": e.pageX
+        }).show();
+    });
+    $(".MHover").mousemove(function (e) {
+        var clientWidth=document.body.clientWidth
+        var divWidth=clientWidth-e.pageX-45;
+        $(this).next(".MALL").css({
+            "color": "#ffffff",
+            "z-index": "1000",
+            "width": divWidth+"px",
+            "padding": "1rem",
+            "line-height": ": 200",
+            "position": "absolute",
+            "opacity": "1",
+            "background-color": "#3595CC",
             "top": e.pageY - 50,
             "left": e.pageX
         });

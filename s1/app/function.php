@@ -766,6 +766,7 @@ if (!function_exists('curl_post')) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         $response = curl_exec($ch);
+
         $errno = curl_errno($ch);
         $info = curl_getinfo($ch);
         $error = curl_error($ch);
@@ -950,4 +951,80 @@ if (!function_exists('tableExists')) {
             return false;//表不存在
         }
     }
+}
+
+
+function compress_html($uncompress_html_source)
+{
+    $chunks = preg_split('/(<pre.*?\/pre>)/ms', $uncompress_html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $uncompress_html_source = '';//[higrid.net]修改压缩html : 清除换行符,清除制表符,去掉注释标记 
+    foreach ($chunks as $c) {
+        if (strpos($c, '<pre') !== 0) {
+//[higrid.net] remove new lines & tabs 
+            $c = preg_replace('/[\\n\\r\\t]+/', ' ', $c);
+// [higrid.net] remove extra whitespace 
+            $c = preg_replace('/\\s{2,}/', ' ', $c);
+// [higrid.net] remove inter-tag whitespace 
+            $c = preg_replace('/>\\s</', '><', $c);
+// [higrid.net] remove CSS & JS comments 
+            $c = preg_replace('/\\/\\*.*?\\*\\//i', '', $c);
+        }
+        $uncompress_html_source .= $c;
+    }
+    return $uncompress_html_source;
+}
+
+
+/**
+ *  合并压缩css
+ */
+
+function parse_css($urls)
+
+{
+    $url = md5(implode(',', $urls));
+    $path = FCPATH . 'static/parse/';
+    $css_url = $path . $url . '.css';
+    if (!file_exists($css_url)) {
+        if (!file_exists($path))
+            mkdir($path, 0777);
+        $css_content = '';
+        foreach ($urls as $url) {
+            $css_content .= file_get_contents($url);
+        }
+        $css_content = str_replace("\r\n", '', $css_content); //清除换行符
+        $css_content = str_replace("\n", '', $css_content); //清除换行符
+        $css_content = str_replace("\t", '', $css_content); //清除制表符
+        @file_put_contents($css_url, $css_content);
+    }
+    $css_url = str_replace(FCPATH, '', $css_url);
+    return $css_url;
+
+}
+
+/**
+ *  合并压缩js
+ */
+
+function parse_script($urls)
+
+{
+    $url = md5(implode(',', $urls));
+    $path = FCPATH . '/static/parse/';
+    $js_url = $path . $url . '.js';
+    if (!file_exists($js_url)) {
+        if (!file_exists($path))
+            mkdir($path, 0777);
+        load_qy_lib('JavaScriptPacker');
+        $js_content = '';
+        foreach ($urls as $url) {
+            $append_content = @file_get_contents($url) . "\r\n";
+            $packer = new JavaScriptPacker($append_content);
+            $append_content = $packer->_basicCompression($append_content);
+            $js_content .= $append_content;
+        }
+        @file_put_contents($js_url, $js_content);
+    }
+    $js_url = str_replace(FCPATH, '', $js_url);
+    return $js_url;
 }

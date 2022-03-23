@@ -72,8 +72,8 @@ class SysMenu extends AdminBase
 
         //获取菜单Select结构数据
         $menu_select=$this->logicSysMenu->getSysDeptTreeSelect();
-
         $this->assign('menu_select', $menu_select);
+
         if (!empty($this->param['id'])) {
             $this->assign('pid', $this->param['id']);
         }else{
@@ -82,7 +82,8 @@ class SysMenu extends AdminBase
 
         return $this->fetch('add');
     }
-    
+
+
     /**
      * 菜单编辑
      */
@@ -104,8 +105,46 @@ class SysMenu extends AdminBase
      */
     public function del()
     {
-        $where = empty($this->param['id']) ? ['id' => 0] : ['id' => $this->param['id']];
-        $this->jump($this->logicSysMenu->sysMenuDel($where));
+        $this->jump($this->logicSysMenu->sysMenuDel($this->param));
+    }
+
+
+    /**
+     * 菜单添加
+     */
+    public function move()
+    {
+        IS_POST && $this->jump($this->logicSysMenu->sysMenuMove($this->param));
+
+        //获取菜单Select结构数据
+        $menu_select=$this->logicSysMenu->getSysDeptTreeSelect();
+        $this->assign('menu_select', $menu_select);
+
+        if (!empty($this->param['id'])) {
+            $this->assign('id', $this->param['id']);
+        }else{
+            $this->assign('id', '0');
+        }
+        return $this->fetch('move');
+    }
+
+    /**
+     * 菜单复制
+     */
+    public function copy()
+    {
+        IS_POST && $this->jump($this->logicSysMenu->sysMenuCopy($this->param));
+
+        //获取菜单Select结构数据
+        $menu_select=$this->logicSysMenu->getSysDeptTreeSelect();
+        $this->assign('menu_select', $menu_select);
+
+        if (!empty($this->param['id'])) {
+            $this->assign('id', $this->param['id']);
+        }else{
+            $this->assign('id', '0');
+        }
+        return $this->fetch('copy');
     }
 
     /**

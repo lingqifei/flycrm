@@ -1,0 +1,22 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('SysMenu/move')}">
+        <input type="hidden" name="id" value="{$id|default='0'}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">移动到菜单</label>
+            <div class="col-sm-8">
+                <select name="pid" class="form-control chosen-select">
+                    <option value="0">选择移动到菜单</option>
+                    {volist name='menu_select' id='vo'}
+                    <option value="{$vo.id}"  {notempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none">选择需要移动到菜单下级</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

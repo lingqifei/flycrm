@@ -246,7 +246,13 @@ class Store extends AdminBase
 			//2、增加到本地模块
 			$app_info_file=$app_path.'/data/info.php';
 			$app_table_file=$app_path.'/data/table.php';
-			$app_menu_file=$app_path.'/data/menu.php';
+
+            //***加载json栏目文件， 兼容开始版本后缀为php文件***
+			$app_menu_file=$app_path.'/data/menu.json';
+			if(!file_exists($app_menu_file)){
+                $app_menu_file=$app_path.'/data/menu.php';
+            }
+			//********************************************
 			$app_sql_install_file=$app_path.'/data/install.sql';
 			$app_theme_dir=$app_path.'/data/theme';
 
@@ -317,7 +323,6 @@ class Store extends AdminBase
 	}
 
 
-
 	/**
 	 * 获取应用插件的升级版本信息
 	 * 1、授权购买=》返回插件app_key
@@ -361,9 +366,15 @@ class Store extends AdminBase
 			//2、增加到本地模块
 			$app_info_file=$app_path.'/data/info.php';
 			$app_table_file=$app_path.'/data/table.php';
-			$app_menu_file=$app_path.'/data/menu.php';
 			$app_sql_upgrade=$app_path.'/data/upgrade.sql';
 			$app_theme_dir=$app_path.'/data/theme';
+
+            //***加载json栏目文件， 兼容开始版本后缀为php文件***
+            $app_menu_file=$app_path.'/data/menu.json';
+            if(!file_exists($app_menu_file)){
+                $app_menu_file=$app_path.'/data/menu.php';
+            }
+            //********************************************
 
 			if (file_exists($app_info_file)) {
 

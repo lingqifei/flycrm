@@ -1,33 +1,4 @@
-//为true输出日志
-var debug = true;
 
-/**
- * 打印日志
- */
-function log(data) {
-    if (debug) {
-        if (typeof (data) == "object") {
-            console.log(JSON.stringify(data)); //console.log(JSON.stringify(data, null, 4));
-        } else {
-            console.log(data);
-        }
-    }
-}
-
-//animation.css
-function animationHover(element, animation) {
-    element = $(element);
-    element.hover(
-        function () {
-            element.addClass('animated ' + animation);
-        },
-        function () {
-            //动画完成之前移除class
-            window.setTimeout(function () {
-                element.removeClass('animated ' + animation);
-            }, 2000);
-        });
-}
 
 //初始化一些效果
 $(function () {
@@ -263,6 +234,9 @@ function turnPage(pageNum, ajaxListTable = '') {
                 initTableCell();
             }
 
+            //3、绑定设置超出部分隐藏
+            bindClass();
+
         },
         error: function () {
             layer.msg('数据加载失败', {
@@ -402,18 +376,18 @@ $("body").on("click", ".ajax-open", function () {
         var height = $(this).attr('height');
         if (typeof (width) != "undefined" && width != 0) {
             width = width;
-        }else{
-            width ="90%";
+        } else {
+            width = "90%";
         }
         if (typeof (height) != "undefined" && height != 0) {
             height = height;
-        }else{
-            height ="90%";
+        } else {
+            height = "90%";
         }
-        var wwithd=$(window).width();
-        if(wwithd<=750){
-            width ="90%";
-            height ="90%";
+        var wwithd = $(window).width();
+        if (wwithd <= 750) {
+            width = "90%";
+            height = "90%";
         }
 
         layer.open({
@@ -451,7 +425,7 @@ $("body").on("click", ".ajax-open-more", function () {
 
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
 
-        $('.ajax-list-table tbody input[type="checkbox"]:checked').each(function () {
+        $('.ajax-list-table tbody input[class="checkboxCtrlId"]:checked').each(function () {
             checkedVal.push($(this).val());
         });
         cIds = checkedVal.join(',');
@@ -469,13 +443,32 @@ $("body").on("click", ".ajax-open-more", function () {
 
         log('打开地址：' + target);
 
+        //重定义打开宽度和高度
+        var width = $(this).attr('width');
+        var height = $(this).attr('height');
+        if (typeof (width) != "undefined" && width != 0) {
+            width = width;
+        } else {
+            width = "90%";
+        }
+        if (typeof (height) != "undefined" && height != 0) {
+            height = height;
+        } else {
+            height = "90%";
+        }
+        var wwithd = $(window).width();
+        if (wwithd <= 750) {
+            width = "90%";
+            height = "90%";
+        }
+
         layer.open({
             type: 2,
             title: false,
             shadeClose: false,
             //btn: ['关闭'],
             fixed: true, //不固定
-            area: ['90%', '90%'],
+            area: [width, height],
             content: target,
             success: function (layero, index) {
                 layer.iframeAuto(index);

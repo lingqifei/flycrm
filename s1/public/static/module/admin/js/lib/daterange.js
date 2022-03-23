@@ -1,5 +1,5 @@
 var config = {
-	version: '1.0.0',
+	version: '1.0.2',
 	cssAr: [
 		'module/admin/plugin/daterangepicker/static/css/iconfont.css',
 		'module/admin/plugin/daterangepicker/static/css/daterangepicker.css'
@@ -35,19 +35,20 @@ $(document).ready(function () {
 
 	function daterangeinit(object){
 		object.daterangepicker({
-				//"showDropdowns": true,
+				"showDropdowns": true,
 				"linkedCalendars":false,
 				"autoUpdateInput":false,
 				ranges: {
-					//'今天': [moment(), moment()],
-					//'明天': [moment().subtract(-1, 'days'), moment().subtract(-1, 'days')],
+					// '今天': [moment(), moment()],
+					// '明天': [moment().subtract(-1, 'days'), moment().subtract(-1, 'days')],
+					'未来七天': [moment(),moment().subtract(-6, 'days')],
 					'本月': [moment().startOf('month'), moment().endOf('month')],
 					'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+					'下月': [moment().subtract(-1, 'month').startOf('month'), moment().subtract(-1, 'month').endOf('month')],
 					'今年': [moment().startOf('year'), moment().endOf('year')],
 					'去年': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
-					'未来七天': [moment(),moment().subtract(-6, 'days')],
-					'未来30天': [moment(),moment().subtract(-29, 'days')],
-					'未来90天': [moment(),moment().subtract(-89, 'days'), ],
+					// '未来30天': [moment(),moment().subtract(-29, 'days')],
+					// '未来90天': [moment(),moment().subtract(-89, 'days'), ],
 				},
 				"locale": {
 					cancelLabel: "清除",

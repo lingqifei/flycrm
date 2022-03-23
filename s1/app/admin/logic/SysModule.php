@@ -189,7 +189,8 @@ class SysModule extends AdminBase
         //2.2执行install.sql文件
         $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'install.sql'));
         if ($res[0] == RESULT_ERROR) return $res;
-        //更新状态
+
+        //3、更新状态
         $result = $this->modelSysModule->setFieldValue(['id' => $data['id']], 'status', '1');
         return $result ? [RESULT_SUCCESS, '模块安装成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
     }
@@ -303,7 +304,6 @@ class SysModule extends AdminBase
      */
     public function sysModuleUpload($data = [])
     {
-
         $object_info = request()->file('filename');
         $save_name = data_md5_key(time());//保存文件名称
         $object = $object_info->move($this->app_upload_path, $save_name);//保留原文件名 savename=‘’设置为空
@@ -368,7 +368,6 @@ class SysModule extends AdminBase
 
         }
     }
-
 
     /**
      * 删除模块的栏目数据
@@ -486,6 +485,9 @@ class SysModule extends AdminBase
     }
 
 
+
+
+
     /**同步数据结构
      * @param string $fileinfo
      * Author: 开发人生 goodkfrs@qq.com
@@ -509,44 +511,42 @@ class SysModule extends AdminBase
             exit;
         }
 
+        //2、同部数据表字段
         $app_table_file = $module_dir . 'data' . DS . 'table.php';
-        $app_menu_file = $module_dir . 'data' . DS . 'menu.php';
+        $this->sysModuleSyncTableFile($app_table_file);
 
-        if (file_exists($app_table_file)) {
-            $this->sysModuleSyncTableFile($app_table_file);
-            $this->sysModuleSyncMenuFile($app_menu_file);
-            return [RESULT_SUCCESS, 'table和menu文件同步完成',''];
-            exit;
-        } else {
-            return [RESULT_ERROR, '模块数据库结构文件不存在'];
-            exit;
+        //3、同步栏目
+        $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
+        if (!file_exists($app_menu_file)) {
+            $app_menu_file = $module_dir . 'data' . DS . 'menu.php';
         }
-
+        $this->sysModuleSyncMenuFile($app_menu_file);
+        return [RESULT_SUCCESS, '文件同步完成',''];
     }
 
     /**同步表数据库结构
-     * @param string $fileinfo
+     * @param string $filename
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2021/8/3 0003 9:52
      */
-    public function sysModuleSyncTableFile($fileinfo = '')
+    public function sysModuleSyncTableFile($filename = '')
     {
-        if (file_exists($fileinfo)) {
-            $content = include($fileinfo);
+        if (file_exists($filename)) {
+            $content = include($filename);//加载table结构数组
             $table = new \lqf\SyncTableDesc($content, SYS_DB_PREFIX);
             $table->generate();
         }
     }
 
     /**同步栏目数据库结构
-     * @param string $fileinfo
+     * @param string $filename
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2021/8/3 0003 9:52
      */
-    public function sysModuleSyncMenuFile($fileinfo = '')
+    public function sysModuleSyncMenuFile($filename = '')
     {
-        if (file_exists($fileinfo)) {
-            $content = file_get_contents($fileinfo);
+        if (file_exists($filename)) {
+            $content = file_get_contents($filename);
             $content = isJson($content, true);
             $this->sysModuleMenuImport($content);
         }
@@ -562,7 +562,6 @@ class SysModule extends AdminBase
      */
     public function sysModuleMenuImport($data = [], $pid = 0)
     {
-
         if (empty($data)) {
             return true;
         }

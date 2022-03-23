@@ -23,7 +23,7 @@ return [
     'storage_driver' => "",
 
 	/* 不需要权限控制方法 */
-	'allow_url_diy'=>'admin/SysMsgType/scanbus;',
+	'allow_url_diy'=>'admin/SysMsgType/scanbus;admin/SysUser/lookup;',
 
     /* 模板布局配置 */
     'template'  =>  [
@@ -31,4 +31,5 @@ return [
         'layout_name'   =>  'layout',
         'tpl_cache'     =>  false,
     ],
+
 ];

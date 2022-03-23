@@ -5,7 +5,7 @@
                 <div class="ibox-title"><h5>分类目录</h5>
                     <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
                 </div>
-                <div class="ibox-content right_centent" style="">
+                <div class="ibox-content no-padding right_centent" style="">
                     <div id="left-tree" data-url="{:url('SysMenu/get_list_tree')}"> </div>
                 </div>
             </div>
@@ -17,18 +17,34 @@
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="">
-                            <div class="col-sm-3 m-b-xs">
-                                <a class="btn btn-default refresh-tree"> <i class="fa fa-refresh"> </i>刷新</a>
-                                <lqf_link> <a class="btn btn-info ajax-open add-btn" data-url="{:url('SysMenu/add')}" data-title="用户"><i class="fa fa-plus"></i>添加</a> </lqf_link>
+                            <div class="col-sm-6 m-b-xs">
+                                <a class="btn btn-warning refresh-tree"> <i class="fa  fa-reply-all"> </i> 返回</a>
+                                <lqf_link>
+                                    <a class="btn btn-info ajax-open add-btn" data-url="{:url('SysMenu/add')}" data-title="用户">
+                                        <i class="fa fa-plus"></i> 添加
+                                    </a>
+                                </lqf_link>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span
+                                            class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{:url('SysMenu/move')}" class="ajax-open-more">批量移动</a></li>
+                                        <li><a href="{:url('SysMenu/copy')}" class="ajax-open-more">批量复制</a></li>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="{:url('SysMenu/del')}" class="ajax-get-more text-danger" >批量删除</a></li>
+                                    </ul>
+                                </div>
+
                             </div>
-                            <div class="col-sm-9 m-b-xs text-right">
+                            <div class="col-sm-6 m-b-xs text-right">
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
                                 </div>
                                 <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
-                                                    </span>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                    </span>
                                 </div>
                             </div>
                         </form>
@@ -37,13 +53,14 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="100">编号</th>
-                            <th width="200">菜单名称</th>
-                            <th width="200">菜单地址</th>
+                            <th width="60">编号</th>
+                            <th width="80">菜单名称</th>
+                            <th width="150">菜单地址</th>
                             <th width="100">所属模块</th>
-                            <th width="60">排序</th>
-                            <th width="60">启用</th>
-                            <th width="80">操作</th>
+                            <th width="80">排序</th>
+                            <th width="60" class="text-center">菜单</th>
+                            <th width="60" class="text-center">启用</th>
+                            <th width="80" class="text-center">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,22 +82,28 @@
 
 <script id="tableListTpl" type="text/html">
     <% for(var i=0;i<data.length;i++) {
-    visible='';
-    if(data[i]['visible']=='1') visible='checked';
+    visible='';if(data[i]['visible']=='1') visible='checked';
+    is_menu='';if(data[i]['is_menu']=='1') is_menu='checked';
     %>
     <tr>
         <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['id']%></td>
         <td><a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>"><%=data[i]['name']%></a></td>
-        <td><%=data[i]['url']%></td>
+        <td>
+            <input type="text" name="url" value="<%=data[i]['url']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'url'))}" data-id="<%=data[i]['id']%>" size="10">
+        </td>
+        </td>
         <td>
             <input type="text" name="module" value="<%=data[i]['module']%>" class="form-control w100 ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'module'))}" data-id="<%=data[i]['id']%>" size="10">
         </td>
         <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysMenu/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
-        <td>
+        <td class="text-center">
+            <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysMenu/set_visible',array('name'=>'is_menu'))}"  data-id="<%=data[i]['id']%>" <%=is_menu%> >
+        </td>
+        <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysMenu/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
-        <td>
+        <td class="text-center">
             <lqf_link><a class="ajax-open" data-url="{:url('SysMenu/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
             <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMenu/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
         </td>

@@ -56,6 +56,7 @@
 .w150 {width: 150px;display: inline-block;}
 .w200 {width: 200px;}
 
+.pd-5{padding: 5px;}
 .pd-b-5 {padding-bottom: 5px;}
 .mr-t-5 {margin-top: 5px;}
 .mr-b-5 {margin-bottom: 5px;}
@@ -86,6 +87,8 @@
 /*新增加ibox-content tabs*/
 .ibox-content .nav-tabs{margin-bottom: 20px;}
 .ibox-content .nav-tabs h3{font-weight: 600;font-size:14px;  padding: 5px 30px 0px 5px;}
+
+.ibox-content.nopadding{padding: 0;}
 
 /*//授权样式*/
 .auth-box {border-bottom: #0e9aef 2px solid;line-height: 30px;}

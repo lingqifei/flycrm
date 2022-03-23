@@ -1,4 +1,34 @@
 //自定义js
+//为true输出日志
+var debug = true;
+
+/**
+ * 打印日志
+ */
+function log(data) {
+    if (debug) {
+        if (typeof (data) == "object") {
+            console.log(JSON.stringify(data)); //console.log(JSON.stringify(data, null, 4));
+        } else {
+            console.log(data);
+        }
+    }
+}
+
+//animation.css
+function animationHover(element, animation) {
+    element = $(element);
+    element.hover(
+        function () {
+            element.addClass('animated ' + animation);
+        },
+        function () {
+            //动画完成之前移除class
+            window.setTimeout(function () {
+                element.removeClass('animated ' + animation);
+            }, 2000);
+        });
+}
 
 //公共配置
 $(document).ready(function () {
@@ -6,6 +36,7 @@ $(document).ready(function () {
     //J_iframe
 
     //$(document).pjax('a.J_menuItem', '.J_mainContent');
+
     //点击左侧菜单栏目
     $(".J_menuItem").on('click', function () {
         var url = $(this).attr('href');
@@ -13,6 +44,7 @@ $(document).ready(function () {
         return false;
     });
 
+    //小提示
     $("[data-toggle='tooltip']").tooltip();
 
     // MetsiMenu
@@ -85,78 +117,6 @@ $(document).ready(function () {
         $('#content-main').css('overflow-y', 'auto');
     }
 
-    // //日期选择插件yyyy-mm-dd
-    $(".datepicker").datepicker({
-        language: "zh-CN",
-        minView: 'year',
-        todayHighlight: true,
-        autoclose: true,//选中之后自动隐藏日期选择框
-        clearBtn: true,//清除按钮
-        todayBtn: "linked",//今日按钮
-        minView: 'day',
-        maxView: 2,
-        format: "yyyy-mm-dd"
-    });
-
-    // //日期时间选择插件 yyyy-mm-dd H:i:s
-    $(".datetimepicker").datetimepicker({
-        language: "zh-CN",
-        autoclose: true,//选中之后自动隐藏日期选择框
-        clearBtn: true,//清除按钮
-        todayBtn: true,//今日按钮
-        format: "yyyy-mm-dd hh:ii:ss",
-    });
-
-    // //日期时间选择插件 yyyy-mm-dd H:i:s
-    $(".datetimepicker-clock").datetimepicker({
-        language: "zh-CN",
-        startView: 'day',
-        //minView : 'day',
-        //maxView:2,
-        autoclose: true,//选中之后自动隐藏日期选择框
-        clearBtn: true,//清除按钮
-        todayBtn: true,//今日按钮
-        format: "hh:ii",
-    });
-
-    // //日期时间选择插件 yyyy-mm-dd H:i:s
-    $(".datetimepicker-now").datetimepicker({
-        language: "zh-CN",
-        autoclose: true,//选中之后自动隐藏日期选择框
-        clearBtn: true,//清除按钮
-        todayBtn: true,//今日按钮
-        format: "yyyy-mm-dd hh:ii:ss",
-        initialDate: new Date(),
-    });
-
-    //设置当前时间
-    $(".datetimepicker-now").datetimepicker("setDate", new Date())
-
-
-    //只选择月份
-    $('.datepicker-month').datepicker({
-        format: 'yyyy-mm',
-        language: "zh-CN",
-        autoclose: true,
-        startView: 1,
-        minViewMode: 1,
-        maxViewMode: 1
-    });
-
-    //只选择月份
-    $(".datetimepicker-year").datetimepicker({
-        language: 'ch',
-        format: 'yyyy',
-        autoclose: true,
-        todayBtn: true,
-        startView: 'decade',
-        minView: 'decade',
-        maxView: 'decade',
-    });
-
-    // //日期时间选择插件 yyyy-mm-dd H:i:s
-    $('.clockpicker').clockpicker();
-
     //选择框效果
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -167,7 +127,10 @@ $(document).ready(function () {
     $('.chosen-select').chosen({search_contains: true});
 
 
-    //树形菜单 checkbox选择
+    //默认关闭浏览自带提示
+    $("input[type='text']").attr('autocomplete', 'off');
+
+    //授权选择 菜单 checkbox选择
     $('.menu-tree-checkbox li.has_child > span').on('click', function (e) {
         var d = $(this).siblings('ul').is(":visible");
         $(this).siblings('ul').slideToggle('fast');//.siblings('dt').css('background-position','right -40px');
@@ -181,6 +144,7 @@ $(document).ready(function () {
         }
         e.stopPropagation();
     });
+
     $('.menu-tree-checkbox li input[type="checkbox"]').on('click', function (e) {
         var ischecked = $(this).prop('checked');
         $(this).nextAll("ul").find("li input[type='checkbox']").prop("checked", ischecked);
@@ -191,6 +155,8 @@ $(document).ready(function () {
 
 });
 
+
+//判断窗口是否小于769
 $(window).bind("load resize", function () {
     if ($(this).width() < 769) {
         $('body').addClass('mini-navbar');
@@ -583,11 +549,7 @@ function null2zero(data) {
 }
 
 
-//增加必填选项
-//$('input[required]').before('<span style="color:red">*</span>');
-//$('input[required]').parents("div.form-group").addClass('has-error');
-//$('input[required]').tooltip({title:'必填写',  placement:'right'});
-$("input[type='text']").attr('autocomplete', 'off');
+
 
 
 // /*-----页面pannel内容区高度自适应 start-----*/
@@ -597,14 +559,13 @@ $(window).resize(function () {
 setCenterHeight();
 
 function setCenterHeight() {
-
     var height = $(window).height();
-    var centerHight = height - 100;
+    var centerHight = height - 40;
     $(".auto-height-box").height(centerHight).css("overflow", "auto");
+    $(".auto-height-box").css("background", "#fff");
 }
 
 /*-----页面pannel内容区高度自适应 end-----*/
-
 
 //文字转为图片
 function textToImg(str) {
@@ -650,6 +611,7 @@ function textToImg(str) {
     return canvas.toDataURL("image/png")
 }
 
+//随机颜色
 function getBG() {
     var bgArray = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
         "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f",

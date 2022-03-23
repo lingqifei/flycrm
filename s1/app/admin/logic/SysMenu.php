@@ -219,7 +219,6 @@ class SysMenu extends AdminBase
 	//得到tree的数据
 	public function getSysMenuListTree($where = [], $field = "id,name,pid", $order = 'sort asc', $paginate = false)
 	{
-
 		$list = $this->getSysMenuList($where, $field, $order, $paginate)->toArray();
 		$tree = list2tree($list);
 		return $tree;
@@ -261,12 +260,9 @@ class SysMenu extends AdminBase
 		}
 
 		$result = $this->modelSysMenu->setInfo($data);
-
 		$result && action_log('新增', '新增菜单，name：' . $data['name']);
-
 		$url = url('show', ['pid' => $data['pid'] ? $data['pid'] : 0]);
-
-		return $result ? [RESULT_SUCCESS, '菜单添加成功', $result] : [RESULT_ERROR, $this->modelSysMenu->getError()];
+		return $result ? [RESULT_SUCCESS, '菜单添加成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
 	}
 
 	/**
@@ -274,35 +270,97 @@ class SysMenu extends AdminBase
 	 */
 	public function sysMenuEdit($data = [])
 	{
-
 		$validate_result = $this->validateSysMenu->scene('edit')->check($data);
-
 		if (!$validate_result) {
 			return [RESULT_ERROR, $this->validateSysMenu->getError()];
 		}
-
 		$url = url('show');
-
-
 		$result = $this->modelSysMenu->setInfo($data);
-
 		$result && action_log('编辑', '编辑菜单，name：' . $data['name']);
-
 		return $result ? [RESULT_SUCCESS, '菜单编辑成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
 	}
 
 	/**
 	 * 菜单删除
 	 */
-	public function sysMenuDel($where = [])
+	public function sysMenuDel($data = [])
 	{
-
-		$result = $this->modelSysMenu->deleteInfo($where, true);
-
-		$result && action_log('删除', '删除菜单，where：' . http_build_query($where));
-
-		return $result ? [RESULT_SUCCESS, '菜单删除成功'] : [RESULT_ERROR, $this->modelSysMenu->getError()];
+	    $result=true;
+        $url = url('show');
+        if(!empty($data['id'])){
+	        $ids=str2arr($data['id']);
+	        foreach ($ids as $id){
+	            $son=$this->modelSysMenu->getValue(['pid'=>$id],'id');
+	            //无下级删除
+	            if(empty($son)){
+                    $result = $this->modelSysMenu->deleteInfo(['id'=>$id], true);
+                }else{
+                    return [RESULT_ERROR, '勾选择菜单存在子菜单，请删除子菜单',$url];
+                }
+            }
+        }
+		$result && action_log('删除', '删除菜单，where：' . http_build_query($data));
+	    return $result ? [RESULT_SUCCESS, '菜单删除成功',$url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
 	}
+
+
+    /**
+     * 菜单移动
+     */
+    public function sysMenuMove($data = [])
+    {
+
+        if(empty($data['id']) || empty($data['pid'])) {
+            return [RESULT_ERROR, '参数不全'];
+            exit;
+        }else{
+            $ids=str2arr($data['id']);
+            if(in_array($data['pid'],$ids)){
+                return [RESULT_ERROR, '不能移动到勾选栏目下面'];
+            }
+        }
+
+        $where['id']=['in',$ids];
+        $updata['pid']=$data['pid'];
+        $result = $this->modelSysMenu->updateInfo($where,$updata);
+
+        $result && action_log('编辑', '移动菜单，name：' . $data['id']);
+        $url = url('show');
+        return $result ? [RESULT_SUCCESS, '菜单编辑成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
+    }
+
+
+    /**菜单复制
+     * @param array $data
+     * @return array
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/3/12 0012 10:53
+     */
+    public function sysMenuCopy($data = [])
+    {
+
+        if(empty($data['id']) || empty($data['pid'])) {
+            return [RESULT_ERROR, '参数不全'];
+            exit;
+        }else{
+            $ids=str2arr($data['id']);
+            if(in_array($data['pid'],$ids)){
+                return [RESULT_ERROR, '不能复制到自己勾选栏目下面'];
+            }
+        }
+        $where['id']=['in',$ids];
+        $copylist=$this->modelSysMenu->getList($where, '', 'sort asc', false)->toArray();
+        foreach ($copylist as $key=>&$row){
+            $row['pid']=$data['pid'];
+            unset($row['id']);
+            unset($row['create_time']);
+            unset($row['update_time']);
+        }
+        $result=$this->modelSysMenu->setList($copylist);
+        $result && action_log('编辑', '复制菜单，name：' . $data['id']);
+        $url = url('show');
+        return $result ? [RESULT_SUCCESS, '操作成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
+    }
 
 	/**
 	 * 批量导入菜单
