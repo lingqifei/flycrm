@@ -7,7 +7,8 @@ class Login extends Action {
 			$one	=array('account'=>$_COOKIE['member_acct'],'password'=>$_COOKIE['member_pwd']);
 			$smarty->assign(array('one'=>$one));
 		}else{
-			//$smarty->assign(array('need'=>'need'));
+			$one	=array('account'=>'123456','password'=>'123456');
+			$smarty->assign(array('one'=>$one));
 		}
 		//print_r($_COOKIE);
 		$smarty->display('home/login.html');
@@ -23,12 +24,13 @@ class Login extends Action {
 	}
 
 	public function login_auth(){
+	
 		$account 	 = $this->_REQUEST("account");
 		$password 	 = $this->_REQUEST("password");
 		$sql 		 = "select * from fly_member where (account='$account' or mobile='$account') and password='$password'";	
 		$one 		 = $this->C($this->cacheDir)->findOne($sql);
 		$dt			 = session_id(); 
-		
+
 		if(!empty($one)){
 			$account =$one['account'];
 		 	$_SESSION["member_acct"]	= $one['account'] ;

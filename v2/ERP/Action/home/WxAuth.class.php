@@ -5,7 +5,7 @@
 class WxAuth extends Action{	
 	private $cacheDir='';//缓存目录
 	public function __construct() {
-		$this->check_login();
+		//$this->check_login();
 	}	
 	//检查是否有登录
 	public function check_login() {

@@ -6,9 +6,9 @@ class Index extends Action {
 	
 	public function __construct() {
 		$this->auth=_instance('Action/home/WxAuth');
-		header('Location: /index.php/home/index.php');
+		//header('Location: /index.php/home/index.php');
 	}
-/*	public function main(){
+	public function main(){
 		$member=$this->L('home/WxMember')->member_get_info();
 		$notice=$this->L('home/WxNotice')->notice();
 		$banner=$this->L('home/WxNoticeBanner')->notice_banner();
@@ -17,29 +17,29 @@ class Index extends Action {
 		$smarty->assign(array('member'=>$member,'integral'=>$integral,'notice'=>$notice['list'],'banner'=>$banner['list']));
 		$smarty->display('home/index.html');
 	}
-	
+
 	//用户签到
 	public function member_integral_day(){
 		$member		=$this->L('home/WxMember')->member_get_info();
-		$member_id	=$member['id'];
+		$member_id	=$member['member_id'];
 		$sql="select * from fly_integral_day where member_id='$member_id' and `adt`>=CURRENT_DATE;";
 		$one= $this->C($this->cacheDir)->findOne($sql);
 		if(empty($one)){
-			$rtn=$this->member_integral_day_add($member_id);
+			//$rtn=$this->member_integral_day_add($member_id);
 		}else{
 			$rtn='0';
 		}
-		return $rtn;
+		//return $rtn;
 	}
-	
+
 	//每天执行之后就生成一条记录
 	public function member_integral_day_add($member_id){
 		$dt	   		= date("Y-m-d H:i:s",time());
-		
+
 		$sql="select * from fly_member where id='$member_id'";
 		$one= $this->C($this->cacheDir)->findOne($sql);
 		$member_integral=$one['integral'];
-		
+
 		//查询交换比例
 		$day_sql="select * from fly_conf_day limit 0,1";
 		$day_cfg=$this->C($this->cacheDir)->findOne($day_sql);
@@ -62,9 +62,9 @@ class Index extends Action {
 		}
 		//事件提交
 		$this->C($this->cacheDir)->commit();
-		
+
 		return round($day_integral,2);
-	}*/
+	}
 	
 } //
 ?>
