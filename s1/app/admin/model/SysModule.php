@@ -72,28 +72,85 @@ class SysModule extends AdminBase
     public function createModuleDir($path, $module_name)
     {
         //模块目录
-        $module_dir = $path . $module_name;
-        if (is_dir($module_dir)) {
-            return [RESULT_ERROR, '模块目录名称已经存在'];
-            exit;
-        }
+        $module_dir = $path . $module_name . DS;
+//        if (is_dir($module_dir)) {
+//            return [RESULT_ERROR, '模块目录名称已经存在'];
+//            exit;
+//        }
         //创建模块目录
         !is_dir($module_dir) && mkdir($module_dir, 0755, true);
 
-        //模块子目录
-        $dir_list = ['controller', 'logic', 'model', 'service', 'validate'];
-        foreach ($dir_list as $dir_name) {
-            $action_dir = $module_dir . DS . $dir_name;
-            !is_dir($action_dir) && mkdir($action_dir, 0755, true);
-            $this->mkModuleDirFile(['name' => $module_name, 'dirname' => $dir_name, 'path' => $path]);
-        }
-        //模板目录
-        $view_dir = $module_dir . DS . 'view';
-        !is_dir($view_dir) && mkdir($view_dir, 0755, true);
 
-        //数据目录
-        $data_dir = $module_dir . DS . 'data';
-        !is_dir($data_dir) && mkdir($data_dir, 0755, true);
+        //模块子目录
+        $dir_list = ['controller', 'logic', 'model', 'service', 'validate', 'data', 'view'];
+        foreach ($dir_list as $dir_name) {
+            $action_dir = $module_dir . $dir_name;
+            !is_dir($action_dir) && mkdir($action_dir, 0755, true);
+        }
+
+        //2、移动模板文件
+        $tpl_list = [
+            'controller/Base.tpl',
+            'logic/Base.tpl',
+            'model/Base.tpl',
+            'service/Base.tpl',
+            'validate/Base.tpl',
+            'controller/Index.tpl',
+            'logic/Index.tpl',
+            'model/Index.tpl',
+            'validate/Index.tpl',
+            'view',
+            'common.php',
+            'config.php',
+        ];
+
+        $modulename = strtolower($module_name);//转为小写
+        $modulenameUc = ucwords(strtolower($module_name));//转为小写,首字母大写
+
+        $reaplce = [
+            'spacename' => $modulename,
+            'modulename' => $modulename,
+            'ModuleBase' => $modulenameUc . 'Base',
+            'datetime' => date('Y-m-d H:i:s', time()),
+        ];
+
+        //循环升级包移动文件
+        $file = new \lqf\File();
+        foreach ($tpl_list as $filepath) {
+            $source = PATH_APP . 'admin' . DS . 'data' . DS . 'mdtpl' . DS . $filepath;//源位置
+            $target = $module_dir . $filepath;
+            $target = str_replace('Base.tpl', $modulenameUc . 'Base.php', $target);//转为基础文件
+            $target = str_replace('.tpl', '.php', $target);//转为php
+            dlog('<hr>' . $source . '=>' . $target);
+            if (file_exists($source)) {
+                if (!is_dir($source)) {
+                    //替换配置参数
+                    $content = file_get_contents($source);
+                    foreach ($reaplce as $name => $value) {
+                        $content = str_replace("[{$name}]", $value, $content);
+                    }
+                    file_put_contents($target, $content);
+                    //$file->handle_file($source, $topath, 'copy', true);
+                } else {
+                    $file->handle_dir($source, $target, 'copy', true);
+                }
+            }
+
+        }
+//        //模块子目录
+//        $dir_list = ['controller', 'logic', 'model', 'service', 'validate'];
+//        foreach ($dir_list as $dir_name) {
+//            $action_dir = $module_dir . DS . $dir_name;
+//            !is_dir($action_dir) && mkdir($action_dir, 0755, true);
+//            //$this->mkModuleDirFile(['name' => $module_name, 'dirname' => $dir_name, 'path' => $path]);
+//        }
+//        //模板目录
+//        $view_dir = $module_dir . DS . 'view';
+//        !is_dir($view_dir) && mkdir($view_dir, 0755, true);
+//
+//        //数据目录
+//        $data_dir = $module_dir . DS . 'data';
+//        !is_dir($data_dir) && mkdir($data_dir, 0755, true);
 
         return true;
     }

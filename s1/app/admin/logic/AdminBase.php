@@ -148,7 +148,6 @@ class AdminBase extends LogicBase
 		$results = [];
 
 		preg_match_all('/<lqf_link>.*?[\s\S]*?<\/lqf_link>/', $content, $results);
-
 		foreach ($results[0] as $a) {
 
 			$match_results = [];

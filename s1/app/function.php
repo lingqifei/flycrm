@@ -252,7 +252,6 @@ function getYearStartEndTime($year = '')
     if (empty($year)) {
         $year = date("Y");
     }
-
     //获取年起始时间戳和结束时间戳
     $beginThisyear = mktime(0, 0, 0, 1, 1, $year);
     $endThisyear = mktime(23, 59, 59, 12, 31, $year);
@@ -843,6 +842,7 @@ if (!function_exists('dd2char')) {
         return $okdd;
     }
 }
+
 /**
  *  PHP stdClass Object转array
  *
@@ -867,7 +867,7 @@ if (!function_exists('obj2arr')) {
 }
 
 /**
- * 统计二维数组一列和
+ * 统计二维数组一列后，再求和
  * @param $array
  * @param $column
  * @return float|int
@@ -884,7 +884,7 @@ if (!function_exists('get_2arr_sum')) {
 }
 
 /**
- * 删除数组中指定元素
+ * 删除数组中指定元素值
  * @param $array
  * @param $value
  * @return float|int
@@ -954,19 +954,25 @@ if (!function_exists('tableExists')) {
 }
 
 
+/**清除html文件的空格注释信息
+ * @param $uncompress_html_source
+ * @return string
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2022/3/23 0023 9:33
+ */
 function compress_html($uncompress_html_source)
 {
     $chunks = preg_split('/(<pre.*?\/pre>)/ms', $uncompress_html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $uncompress_html_source = '';//[higrid.net]修改压缩html : 清除换行符,清除制表符,去掉注释标记 
+    $uncompress_html_source = '';//修改压缩html : 清除换行符,清除制表符,去掉注释标记
     foreach ($chunks as $c) {
         if (strpos($c, '<pre') !== 0) {
-//[higrid.net] remove new lines & tabs 
+            //remove new lines & tabs
             $c = preg_replace('/[\\n\\r\\t]+/', ' ', $c);
-// [higrid.net] remove extra whitespace 
+            // remove extra whitespace
             $c = preg_replace('/\\s{2,}/', ' ', $c);
-// [higrid.net] remove inter-tag whitespace 
+            // remove inter-tag whitespace
             $c = preg_replace('/>\\s</', '><', $c);
-// [higrid.net] remove CSS & JS comments 
+            // remove CSS & JS comments
             $c = preg_replace('/\\/\\*.*?\\*\\//i', '', $c);
         }
         $uncompress_html_source .= $c;
@@ -975,12 +981,14 @@ function compress_html($uncompress_html_source)
 }
 
 
-/**
- *  合并压缩css
+/**合并压缩css
+ * 多个CSS文件压缩为一个CSS文件
+ * @param $urls
+ * @return mixed|string
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2022/3/23 0023 9:34
  */
-
 function parse_css($urls)
-
 {
     $url = md5(implode(',', $urls));
     $path = FCPATH . 'static/parse/';
@@ -1002,12 +1010,15 @@ function parse_css($urls)
 
 }
 
-/**
- *  合并压缩js
+
+/**合并压缩js，
+ * 需要引用第三方库，gkralik/php-uglifyjs
+ * @param $urls
+ * @return mixed|string
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2022/3/23 0023 9:39
  */
-
 function parse_script($urls)
-
 {
     $url = md5(implode(',', $urls));
     $path = FCPATH . '/static/parse/';

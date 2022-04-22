@@ -75,7 +75,7 @@ class SysModule extends AdminBase
     public function getSysModuleList($where = [], $field = true, $order = 'sort asc', $paginate = DB_LIST_ROWS)
     {
         $list = $this->modelSysModule->getList($where, $field, $order, $paginate)->toArray();
-        if (DB_LIST_ROWS === false) $list['data'] = $list;
+        if ($paginate === false) $list['data'] = $list;
         foreach ($list['data'] as &$row) {
             $row['status_arr'] = $this->modelSysModule->status($row['status']);
         }
@@ -102,14 +102,15 @@ class SysModule extends AdminBase
         }
 
         //创建目录结构
-        $this->modelSysModule->createModuleDir($this->app_path, $data['name']);
+       return $this->modelSysModule->createModuleDir($this->app_path, $data['name']);
 
+        //删除多余字段
         unset($data['comm_file']);
         unset($data['module_dir']);
 
+        //模块的标识
         $data['identifier'] = 'module.lingqifei.'.$data['name'];
         $data['status'] =1;//安装
-
         $result = $this->modelSysModule->setInfo($data);
         $url = url('show');
         $result && action_log('新增', '新增模块：name' . $data['name']);
@@ -251,15 +252,12 @@ class SysModule extends AdminBase
     {
         //查询模块信息
         $info = $this->modelSysModule->getInfo(['id' => $data['id']], true);
-
         if (empty($info)) {
             return [RESULT_ERROR, '本模块数据不存在'];
             exit;
         }
-
         $module_name = $info['name'];
 
-        $this->initModuleDir();
 
         //1、把app目录复制到打包目录下
         $module_dir = $this->app_path . $module_name;
@@ -378,115 +376,6 @@ class SysModule extends AdminBase
     {
         $this->logicSysMenu->sysMenuDel(['module' => $modulename]);
     }
-
-
-    /**
-     * 模块打包=>创建框架升级文件
-     * @param array $data
-     * Author: lingqifei created by at 2020/6/4 0004
-     */
-    public function sysModuleCreateSys($data = [])
-    {
-
-        ini_set('max_execution_time', '0');
-
-        if (empty($data['version'])) {
-            return [RESULT_ERROR, '需要打包的版本号不存在'];
-            exit;
-        }
-        $version = $data['version'];
-        $this->initModuleDir();
-
-        //导出栏目菜单
-        $this->modelSysModule->exportModuleMenu('admin', $this->app_path . 'admin' . DS);
-
-        //写入版本号
-        file_put_contents($this->app_path . 'admin' . DS . 'data' . DS . 'version', $data['version']);
-
-        //创建打包的临时目录
-        $version_dir = $this->app_pack_path . $version . DS;
-        !is_dir($version_dir) && mkdir($version_dir, 0755, true);
-
-        //2、升级包=移动需要打包的文件
-        $handle_list = [
-            'addon',
-            'extend',
-            'vendor',
-            'app/admin',
-            'app/common',
-            'app/command.php',
-            'app/common.php',
-            'app/extend.php',
-            'app/function.php',
-            'app/tags.php',
-            'public/static/module/admin/css/07fly.css',
-            'public/static/module/admin/css/style.css',
-            'public/static/module/admin/js/lib',
-            'public/static/module/admin/js/plugins',
-            'public/static/module/admin/img',
-        ];
-
-        //2、安装包=移动需要打包的文件
-        $handle_list_intsll = [
-            'core',
-            'app/install',
-            'app/config.php',
-            'public/static/addon/editor',
-            'public/static/addon/file',
-            'public/static/addon/region',
-            'public/static/module/admin',
-            'public/static/module/install',
-            'public/static/module/login',
-            'public/index.php',
-            'public/admin.php',
-            'public/install.php',
-            'public/router.php',
-            'public/public.php',
-        ];
-
-        //判断是升级包，安装包
-        if (!empty($data['install'])) {
-            $handle_list = array_merge($handle_list, $handle_list_intsll);
-        }
-
-        //循环升级包移动文件
-        $file = new \lqf\File();
-        foreach ($handle_list as $filepath) {
-            $source = ROOT_PATH . $filepath;//源位置
-            $topath = $version_dir . $filepath;//目的位置
-            echo '<hr>' . ROOT_PATH . $filepath . '=>' . $version_dir . $filepath;
-            if (!file_exists($source)) {
-                echo "不存在";
-            }
-            if (!is_dir($source)) {
-                $file->handle_file($source, $topath, 'copy', true);
-            } else {
-                $file->handle_dir($source, $topath, 'copy', true);
-            }
-
-        }
-
-        //3、压缩包zip文件
-        $pack_zip = $this->app_pack_path . $version . '.zip';
-        $zip = new \lqf\Zip();
-        $version_dir = rtrim($version_dir, DS);//打包前去掉最一个斜杠，防止ubuntu下解压目录多一个斜杠
-        $result = $zip->zip($pack_zip, $version_dir);
-        if ($result == false) {
-            return [RESULT_ERROR, '打包模块失败'];
-            exit;
-        }
-
-        echo '<hr>打包生成文件：' . $pack_zip;
-        $upgrade_zip = PATH_PUBLIC . 'upgrade' . DS . 's1' . DS . $version . '.zip';
-        echo '<hr>复制包文件到：' . $upgrade_zip;
-        $file->handle_file($pack_zip, $upgrade_zip, 'copy', true);
-        exit;
-        //return $result ? [RESULT_SUCCESS, $pack_zip] : [RESULT_ERROR, $this->modelSysModule->getError()];
-    }
-
-
-
-
 
     /**同步数据结构
      * @param string $fileinfo

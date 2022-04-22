@@ -28,14 +28,12 @@
                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">批量操作 <span
                                             class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{:url('SysMenu/move')}" class="ajax-open-more">批量移动</a></li>
-                                        <li><a href="{:url('SysMenu/copy')}" class="ajax-open-more">批量复制</a></li>
-                                        </li>
+                                        <lqf_link><li><a data-url="{:url('SysMenu/move')}" class="ajax-open-more">批量移动</a></li></lqf_link>
+                                        <lqf_link><li><a data-url="{:url('SysMenu/copy')}" class="ajax-open-more">批量复制</a></li></lqf_link>
                                         <li class="divider"></li>
-                                        <li><a href="{:url('SysMenu/del')}" class="ajax-get-more text-danger" >批量删除</a></li>
+                                        <lqf_link><li><a data-url="{:url('SysMenu/del')}" class="ajax-get-more text-danger" >批量删除</a></li></lqf_link>
                                     </ul>
                                 </div>
-
                             </div>
                             <div class="col-sm-6 m-b-xs text-right">
                                 <div class="input-group">
@@ -88,7 +86,9 @@
     <tr>
         <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['id']%></td>
-        <td><a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>"><%=data[i]['name']%></a></td>
+        <td>
+            <input type="text" name="name"  value="<%=data[i]['name']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'name'))}" data-id="<%=data[i]['id']%>" size="10">
+        </td>
         <td>
             <input type="text" name="url" value="<%=data[i]['url']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'url'))}" data-id="<%=data[i]['id']%>" size="10">
         </td>
@@ -104,6 +104,7 @@
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysMenu/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
         <td class="text-center">
+            <a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>">下级栏目</a>
             <lqf_link><a class="ajax-open" data-url="{:url('SysMenu/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
             <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMenu/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
         </td>

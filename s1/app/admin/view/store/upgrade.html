@@ -72,8 +72,8 @@
             <div class="title">
                 <div class=" btn btn-success btn-block">
                     <div class="row">
-                        <div class="col-sm-12 text-center down-install"
-                             data-url="{:url('Store/down_upgrade',array('app_id'=>$orderinfo.app_id,'version'=>$orderinfo.app_version))}">
+                        <div class="col-sm-12 text-center down-install" data-id="{$orderinfo.app_id|default='0'}" data-val="{$orderinfo.app_version|default=''}"
+                             data-url="{:url('Store/down_upgrade')}">
                             请点击按钮执行升级操作
                         </div>
                     </div>
@@ -113,10 +113,13 @@
     //下载安装
     function appDownInstall() {
         var target = $('.down-install').attr('data-url');
+        var app_id = $('.down-install').attr('data-id');
+        var version = $('.down-install').attr('data-val');
+
         $.ajax({
             type: "POST",
             url: target,
-            data: '',
+            data: {'app_id':app_id,'version':version},
             dataType: "json",
             success: function (result) {
                 if (result.code == '1') {

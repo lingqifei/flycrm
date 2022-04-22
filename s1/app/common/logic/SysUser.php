@@ -215,7 +215,7 @@ class SysUser extends LogicBase
      * Date: 2022/2/22 0022 14:30
      */
     public function getParentDeptSysUser($deptid){
-        $dept=$this->logicSysDept->getDeptAllPid($deptid);
+        $dept=$this->logicSysDept->getDeptAllPid($deptid);//上级部门id
         $superior=[];
         if(!empty($dept)){
             foreach ($dept as $did){
@@ -226,7 +226,11 @@ class SysUser extends LogicBase
                 }
             }
         }
+        //如上级部门未找到，直接超管
+        if(empty($superior)){
+            $superior=$this->modelSysUser->getInfo(['id'=>1],'id,username,realname,dept_id,position_id');
+        }
+
         return $superior;
     }
-
 }

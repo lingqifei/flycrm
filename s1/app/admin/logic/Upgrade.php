@@ -81,6 +81,16 @@ class Upgrade extends AdminBase
 		}
 	}
 
+    /**
+     * 返回当前版本号
+     * @return string
+     * Author: lingqifei created by at 2020/5/16 0016
+     */
+    public function getVersion()
+    {
+        return  $this->version;
+    }
+
 	/**
 	 * 返回当前授权码
 	 * @return string

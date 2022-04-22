@@ -1,4 +1,5 @@
 <?php
+
 namespace lqf;
 
 use think\Db;
@@ -83,7 +84,7 @@ class File
     }
 
 
-/**
+    /**
      * 确定服务器的最大上传限制（字节数）
      * @return int 服务器允许的最大上传字节数
      */
@@ -642,7 +643,7 @@ class File
 
     public function down_remote_file($url, $save_dir = '', $filename = '', $type = 0)
     {
-        set_time_limit (24 * 60 * 60);
+        set_time_limit(24 * 60 * 60);
 
         if (trim($url) == '') {
             return array('file_name' => '', 'save_path' => '', 'error' => 1);

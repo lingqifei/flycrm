@@ -270,14 +270,14 @@ class SysMsg extends AdminBase
 	 */
 	public function appExists($appname)
 	{
-		$app = APP_PATH . $appname;
-		if (file_exists($app)) {
+		$condition['name']=$appname;
+		$condition['visible']=1;
+		$module=$this->modelSysModule->getValue($condition,'name');
+		if (file_exists($module)) {
 			return true;
 		} else {
 			return false;
 		}
-
 	}
-
 
 }

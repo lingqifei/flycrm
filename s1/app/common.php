@@ -852,7 +852,7 @@ function dd($arr = [])
  */
 function dlog($var, $file = 'dlog.txt', $label = null, $flags = ENT_SUBSTITUTE)
 {
-    $fpath=RUNTIME_PATH.$file;
+    $fpath = RUNTIME_PATH . $file;
     $label = (null === $label) ? '' : rtrim($label) . ':';
     ob_start();
     var_dump($var);
@@ -977,7 +977,6 @@ function update_cache_version($obj = null)
 
 //api签名函数
 use \Firebase\JWT\JWT;
-
 // 解密user_token
 function decoded_user_token($token = '')
 {
@@ -994,7 +993,7 @@ function decoded_user_token($token = '')
     }
 }
 
-// 获取解密信息中的data
+//获取解密信息中的data
 function get_member_by_token($token = '')
 {
 

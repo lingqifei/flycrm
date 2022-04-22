@@ -1,39 +1,21 @@
 /*自己定义的CSS*/
 * html .clearfix {height: 1%;}
 .clearfix {zoom: 1;}
-
 /* select */
 .fly-form-select select {border: none;padding: 3px 22px 6px 6px;background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAXCAYAAACMLIalAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAFHSURBVEiJ7dY/SgNREMfx7wQrlSBLCo+RNMFY5Qapts4FFK0ClrmGNoEEcoGcQT2A5AQKVmqRRlTGwp8SdNk/8a27hQMPdmffzPvs48GuuTt1i0bVgKT4R+WNhpmNzSz+bSMzi81sHAJlwD3wBBy6+8OGoAi4BPbcfT8ErAc8AgvA3J0iQy+2UI9e0frEnmo8ABwYbYAaqXYQAvSFUvML4A3oFwD1VXMeCvQdtQNcAbdAlAMUAXeq2S4FpYXaOhvzHKi55rZDgn6gtNhQZ+QkBXSqOcPQoESUFp0AL0A34VkXeAUmZYDSUE1gCdwArbV8S7kl0PxTlAAd7dZ0LTdVrlMWKBUlxJHOTqzhwHGZoEyUYDPgWWNWNsjdPz4raWFmu8C1bg/cfZVaECC2sia4+8rMzj6vywYB2TtVRdTzJ69qQFLUEvUOCvU4pv7sx1oAAAAASUVORK5CYII=") no-repeat right center #fff;background-size: auto 40%;
     -webkit-appearance: none;-moz-appearance: none;appearance: none; border-radius: 1px;width: 100%;border: solid 1px #cfdadd;
 }
-
 .fly-form-select select:before {font-family: "hui-font";content: "\e63d"; font-size: 12px;}
-
-
-
-
 /*表格剧中样式*/
 .table-center th, .table-center td {text-align: center;vertical-align: middle !important;}
-
 /*表格列表样式*/
 .table td,.table th{font-size:13px;}/*设置所有表格表头为13px*/
 .ajax-list-table {table-layout:fixed;word-break:break-all;}
-.ajax-list-table th,.ajax-list-table td{
-    font-size:13px;
-    word-break:break-all;
-    /*white-space: nowrap;*/
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
-}
+.ajax-list-table th,.ajax-list-table td{font-size:13px;word-break:break-all;}
 .ellipsis{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
 /*表格列表td超出长度隐藏*/
-.ajax-list-table .MHover{
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    overflow:hidden;
-}
-
+.ajax-list-table .MHover{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 
 /*表格，表头字段，排序样式*/
 .sort-filed {/*background: url(../img/arrow.png) no-repeat right;*/cursor: pointer;}
@@ -41,11 +23,8 @@
 .sort-filed.asc span:after {font: normal normal normal 14px/1 FontAwesome; content: "\f0de"; margin-left: 10px;/*background: url(../img/arrow-up.png) no-repeat right;*/}
 .sort-filed.desc span:after {font: normal normal normal 14px/1 FontAwesome;content: "\f0dd";margin-left: 10px; /*background: url(../img/arrow-down.png) no-repeat right;*/}
 .chosen-container{min-width: 150px;}
-
-
 /*分页面*/
 .page-list {padding-top: 20px;}
-
 /*表单样式*/
 .w50 { width: 50px;}
 .w60 {width: 60px;}
@@ -55,7 +34,6 @@
 .w120 { width: 120px;}
 .w150 {width: 150px;display: inline-block;}
 .w200 {width: 200px;}
-
 .pd-5{padding: 5px;}
 .pd-b-5 {padding-bottom: 5px;}
 .mr-t-5 {margin-top: 5px;}
@@ -65,14 +43,10 @@
 .orderlist { list-style: none;}
 .orderlist p {text-align: center;    height: 25px;}
 .fly-logo-name {font-size: 80px;}
-
-
-
 /*重写下拉样式*/
 .form-group select{border:none; padding:3px 22px 6px 6px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAXCAYAAACMLIalAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAFHSURBVEiJ7dY/SgNREMfx7wQrlSBLCo+RNMFY5Qapts4FFK0ClrmGNoEEcoGcQT2A5AQKVmqRRlTGwp8SdNk/8a27hQMPdmffzPvs48GuuTt1i0bVgKT4R+WNhpmNzSz+bSMzi81sHAJlwD3wBBy6+8OGoAi4BPbcfT8ErAc8AgvA3J0iQy+2UI9e0frEnmo8ABwYbYAaqXYQAvSFUvML4A3oFwD1VXMeCvQdtQNcAbdAlAMUAXeq2S4FpYXaOhvzHKi55rZDgn6gtNhQZ+QkBXSqOcPQoESUFp0AL0A34VkXeAUmZYDSUE1gCdwArbV8S7kl0PxTlAAd7dZ0LTdVrlMWKBUlxJHOTqzhwHGZoEyUYDPgWWNWNsjdPz4raWFmu8C1bg/cfZVaECC2sia4+8rMzj6vywYB2TtVRdTzJ69qQFLUEvUOCvU4pv7sx1oAAAAASUVORK5CYII=") no-repeat right center #fff; background-size:auto 40%; -webkit-appearance:none; -moz-appearance:none; appearance:none; border-radius:1px;width: 100%; border:solid 1px #cfdadd;}
 .form-group select:before{font-family:"hui-font"; content:"\e63d"; font-size:12px;}
 .form-control.daterange-btn{min-width: 180px;}/*双日历*/
-
 /*重写ibox增加阴影*/
 .ibox{box-shadow: 0 0 4px rgba(0,0,0,0.1); border-radius: 5px;/*max-width: 1600px;*/margin: auto;margin-bottom: 10px;}
 .ibox-head{background: #efefef;line-height: 30px;padding: 10px 0px;}
@@ -83,24 +57,22 @@
 .ibox-tab a{color: #666;}
 .ibox-tab a:hover{color: #0e9aef}
 .ibox-tab a.on{color: #0e9aef}
-
+/*下拉操作菜单*/
+.dropdown-menu lqf_link > li  a {display: block;clear: both;font-weight: 400;color: #333;white-space: nowrap;border-radius: 3px;line-height: 25px;margin: 4px;text-align: left;padding: 3px 20px;}
+.dropdown-menu lqf_link > li a:hover {color:#262626;text-decoration:none;background-color:#f5f5f5}
 /*新增加ibox-content tabs*/
 .ibox-content .nav-tabs{margin-bottom: 20px;}
 .ibox-content .nav-tabs h3{font-weight: 600;font-size:14px;  padding: 5px 30px 0px 5px;}
-
 .ibox-content.nopadding{padding: 0;}
-
 /*//授权样式*/
 .auth-box {border-bottom: #0e9aef 2px solid;line-height: 30px;}
 .auth-box .ibox-head{border-bottom: #0e9aef 2px solid;}
 .auth-box .ibox-head-child{border-bottom: #0e9aef 2px solid;}
 .navbar-right{text-align: right;}
-
 /*下划线*/
 .line-b-t{border-bottom: 1px solid #F0F3F4;margin: 5px 0px;}
 .line-bb{border-bottom: 3px solid #F0F3F4;margin: 5px 0px;}
 .list-group-item .time{float: right;}
-
 /*树形菜单 下拉选择  checkbox 选择样式*/
 .menu-tree-checkbox li{list-style: none;}
 .menu-tree-checkbox li span {display: inline-block;/*padding: 3px 3px;*/text-decoration: none;width: 20px;vertical-align: middle;padding-bottom: 5px;}
@@ -114,7 +86,6 @@
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
 }
-
 /* 销售看板 */
 .salrank table tr .phicon{font-size: 16px;font-weight: 600;}
 .salrank table tr:nth-child(1) .phicon{background: url("../img/ph1.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
