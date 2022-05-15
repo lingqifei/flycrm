@@ -145,7 +145,9 @@ class CstCustomer extends Action{
 			}
 			$into_data=array_merge($into_data,$ext_data);
 			//******************************************************	
-		
+
+
+
 			$customer_id=$this->C($this->cacheDir)->insert('cst_customer',$into_data);
 			if($customer_id>0){
 				$upt_data=array(

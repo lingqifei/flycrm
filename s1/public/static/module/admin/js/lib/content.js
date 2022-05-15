@@ -1,5 +1,3 @@
-
-
 //初始化一些效果
 $(function () {
 
@@ -215,14 +213,20 @@ function turnPage(pageNum, ajaxListTable = '') {
             }
             //移除原来的文档
             ajaxListTable.find("tbody").empty();
+
             totalCount = returnJsonData.total;
+
             pageSize = returnJsonData.per_page;
+
             pageNum = returnJsonData.current_page;
+
             //returnJsonData=null2str(returnJsonData);
+
             //模板引擎使用
             var tpl = baidu.template;
             var html = tpl('tableListTpl', returnJsonData);
             ajaxListTable.find("tbody").html(html);
+
         },
         complete: function () {
 
@@ -236,6 +240,11 @@ function turnPage(pageNum, ajaxListTable = '') {
 
             //3、绑定设置超出部分隐藏
             bindClass();
+
+            //3、判断是否有表格需要合并
+            if (ajaxListTable.hasClass('merge-table-rowspan')) {
+                mergeTableRowspan();
+            }
 
         },
         error: function () {

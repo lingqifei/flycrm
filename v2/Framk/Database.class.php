@@ -123,7 +123,7 @@ class Database {
 	 * @return Int
 	 */
 	public function insert( $table, $arrayDataValue, $debug = false ) {
-		$this->checkFields( $table, $arrayDataValue );
+        $arrayDataValue=$this->checkFields( $table, $arrayDataValue );
 		$strSql = "INSERT INTO `$table` (`" . implode( '`,`', array_keys( $arrayDataValue ) ) . "`) VALUES ('" . implode( "','", $arrayDataValue ) . "')";
 		if ( $debug === true )$this->debug( $strSql );
 		$result = $this->db->exec( $strSql );
@@ -302,11 +302,17 @@ class Database {
 	 */
 	private function checkFields( $table, $arrayFields ) {
 		$fields = $this->getFields( $table );
+		$rtnArr = array();
 		foreach ( $arrayFields as $key => $value ) {
-			if ( !in_array( $key, $fields ) ) {
-				$this->outputError( "Unknown column `$key` in field list." );
-			}
+//			if ( !in_array( $key, $fields ) ) {
+//				$this->outputError( "Unknown column `$key` in field list." );
+//			}
+            //修改过滤不存在字段
+            if ( in_array( $key, $fields ) ) {
+                $rtnArr[$key]=$value;
+            }
 		}
+		return $rtnArr;
 	}
 
 	/**

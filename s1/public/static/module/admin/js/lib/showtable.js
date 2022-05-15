@@ -81,7 +81,6 @@ function initTableCell() {
             $(strtd + cell + ")").show();
             $(strth + cell + ")").show();
             colspan = colspan + 1;
-            //log(cell);
         } else {
             var strth = ".ajax-list-table thead tr th:nth-child("
             var strtd = ".ajax-list-table tbody tr td:nth-child("
@@ -123,7 +122,6 @@ function bindClass() {
     $(".MHover").mouseover(function (e) {
         var clientWidth=document.body.clientWidth
         var divWidth=clientWidth-e.pageX-45;
-
         $(this).next(".MALL").css({
             "color": "#ffffff",
             "z-index": "1000",
