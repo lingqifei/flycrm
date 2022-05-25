@@ -35,12 +35,9 @@ class OaNotifyUser extends AdminBase
         $join = [
             [SYS_DB_PREFIX . 'oa_notify n', 'n.id = a.notify_id','LEFT'],
         ];
-
         $this->modelOaNotifyUser->join = $join;
-        $list = $this->modelOaNotifyUser->getList($where, $field, $order, $paginate)->toArray();
-
-        if($paginate===false) $list['data']=$list;
-        foreach ($list['data'] as &$row){
+        $list = $this->modelOaNotifyUser->getList($where, $field, $order, $paginate);
+        foreach ($list as &$row){
             $row['read_state_text']=($row['read_state']=='1')?'<span class="label">已读</span>':'<span class="label-danger label">未读</span>';
             $row['create_user_name']=$this->modelSysUser->getValue(['id'=>$row['create_user_id']],'realname');
         }

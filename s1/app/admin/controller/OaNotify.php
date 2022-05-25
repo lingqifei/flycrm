@@ -91,7 +91,6 @@ class OaNotify extends AdminBase
     }
 
 
-
 	/**
 	 * 我的系统公告列表-》json数据
 	 * @return
@@ -101,7 +100,6 @@ class OaNotify extends AdminBase
 		if(empty($this->param['id'])){
 			$list = $this->logicOaNotify->getOaNotifyListMy($this->param);
 			return $list;
-
 		}else{
 			$this->logicOaNotify->oaNotifyUserRead($this->param);
 			$info = $this->logicOaNotify->getOaNotifyInfo(['id' => $this->param['id']]);
@@ -109,6 +107,4 @@ class OaNotify extends AdminBase
 			return $this->fetch('detail');
 		}
 	}
-
-
 }

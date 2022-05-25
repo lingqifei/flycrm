@@ -137,23 +137,20 @@ class OaNotify extends AdminBase
 	{
 		$where=[];
 		if($data['owner_user_id']){
-			$where['u.owner_user_id'] =SYS_USER_ID;
+			$where['u.owner_user_id'] =$data['owner_user_id'];
 		}
-
 		if (isset($data['read_state'])) {
 			if(!empty($data['read_state']) || is_numeric($data['read_state'])){
 				$where['read_state'] = ['=', '' . $data['read_state'] . ''];
 			}
 		}
-
 		$this->modelOaNotify->alias('a');
 		$join = [
 			[SYS_DB_PREFIX . 'oa_notify_user u', 'a.id = u.notify_id','RIGHT'],
 		];
 		$this->modelOaNotify->join = $join;
-		$list = $this->modelOaNotify->getList($where, 'a.name,a.create_user_id,a.id,a.create_time', 'u.create_time desc', $paginate = DB_LIST_ROWS)->toArray();
-		if($paginate===false) $list['data']=$list;
-		foreach ($list['data'] as &$row){
+		$list = $this->modelOaNotify->getList($where, 'a.name,a.create_user_id,a.id,a.create_time', 'u.create_time desc', false);
+		foreach ($list as &$row){
 			$row['create_user_name']=$this->modelSysUser->getValue(['id'=>$row['create_user_id']],'realname');
 		}
 		return $list;
@@ -167,9 +164,9 @@ class OaNotify extends AdminBase
 	public function oaNotifyUserRead($data = [])
 	{
 		if(!empty($data['id'])){
-			$where['notify_id']=['in',$data['id']];
-			$where['owner_user_id']=['=',SYS_USER_ID];
-			Db::name('oa_notify_user')->where($where)->update(['read_state'=>'1']);
+//			$where['notify_id']=['in',$data['id']];
+//			$where['owner_user_id']=['=',SYS_USER_ID];
+			Db::name('oa_notify_user')->where($data['id'])->update(['read_state'=>'1']);
 		}
 
 	}

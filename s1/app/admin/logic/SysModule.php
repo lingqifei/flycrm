@@ -374,7 +374,7 @@ class SysModule extends AdminBase
      */
     public function delModuleMenu($modulename)
     {
-        $this->logicSysMenu->sysMenuDel(['module' => $modulename]);
+        $this->modelSysMenu->deleteInfo(['module' => $modulename],true);
     }
 
     /**同步数据结构

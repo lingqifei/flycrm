@@ -1,12 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {notempty name="page_title"}
-        {$page_title} -
-        {/notempty}
-        {$sys_config.main_title|default=''}-Powered by 07FLY pro
-    </title>
+    <title>{$page_title|default=''}{$sys_config.main_title|default=''}-Powered by 07FLY pro</title>
     <meta name="keywords" content="{$sys_config.seo_keywords|default=''}">
     <meta name="description" content="{$sys_config.seo_description|default=''}">
     <link rel="shortcut icon" href="__STATIC__/img/favicon.png">
@@ -121,8 +116,7 @@
 {include file="layout/bottom"}
 <script>
 
-
-    //顶部模块显示
+    //顶部菜单栏目
     $(".navbar-module a").click(function () {
         $(this).addClass("on");
         $(this).siblings().removeClass('on');
@@ -174,7 +168,6 @@
             if ($("body").find("embed").length <= 0)
                 $("body").append(strEmbed);
             var embed = document.embedPlay;
-
             //浏览器不支持 audion，则使用 embed 播放
             embed.volume = 100;
             //embed.play();这个不需要
@@ -220,36 +213,29 @@
             });
         };
         toastr.info(content, title);
-
     }
-
-
     //提示通知插件
     var runSysMsg = function () {
-        var target = "{:url('admin/SysMsg/show_json',array('deal_user_id'=>$sys_user_info.id,'deal_status'=>0,'remind_sys'=>1))}";//显示系统通知
-        var detail = "{:url('admin/OaNotify/main_json')}";
+        var target = "{:url('admin/rpc.CronJob/sys_msg_plug',array('deal_user_id'=>$sys_user_info.id))}";//显示系统通知
         $.ajax({
             type: 'POST',
             url: target,
             data: '',
             dataType: 'json',
             success: function (jsonData) {
-
                 $(jsonData.data).each(function (index, item) {
                     playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
                 });
-
                 if (jsonData.data.length > 0) {
                     playSound();
                 }
             }
         });
     }
-
     //系统公告
     var runSysNotify = function () {
-        var target = "{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
-        var detail = "{:url('admin/OaNotify/main_json')}";
+        var target = "{:url('admin/rpc.CronJob/oa_notify_plug',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
+        var detail = "{:url('admin/rpc.CronJob/oa_notify_plug')}";
         $.ajax({
             type: 'POST',
             url: target,
@@ -265,7 +251,6 @@
             }
         });
     }
-
     //系统计划执行消息
     var runScanSysMsg = function () {
         var target = "{:url('admin/SysMsgType/scanbus')}";
@@ -278,7 +263,6 @@
             }
         });
     }
-
     //公海回收机制
     var runScanRecover = function () {
         var target= "{:url('erp/Comm/recover')}";
@@ -296,11 +280,6 @@
     //setInterval("func()", 60000);
     setInterval("runSysNotify()", 1000 * 60 * 5);
     setInterval("runSysMsg()", 1000 * 60 * 10);
-    setInterval("runScanRecover()", 1000 * 60 * 10);
-    setInterval("runScanSysMsg()", 1000 * 60 * 5);
-
-    runScanSysMsg();
     runSysNotify();
     runSysMsg();
-    runScanRecover();
 </script>

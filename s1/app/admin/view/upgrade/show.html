@@ -48,7 +48,8 @@
             async: true,
             success: function (data) {
                 if (data.code == '0') {
-                    parent.layer.msg(data.msg, {icon: 5});
+                    layer.msg(data.msg, {icon: 5});
+                    window.location.reload();
                 } else {
                     layer.msg(data.msg, {icon: 1});
                 }
