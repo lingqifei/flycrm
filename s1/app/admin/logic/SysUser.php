@@ -31,11 +31,12 @@ class SysUser extends AdminBase
     public function getSysUserList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
     {
         $list = $this->modelSysUser->getList($where, $field, $order, $paginate)->toArray();
+
         if ($paginate === false) $list['data'] = $list;
         foreach ($list['data'] as &$row) {
             $row['dept_name'] = $this->modelSysDept->getValue(['id' => $row['dept_id']], 'name');
             $row['position_name'] = $this->modelSysPosition->getValue(['id' => $row['position_id']], 'name');
-            $row['sys_auth_name'] = arr2str(array_column($this->logicSysAuthAccess->getUserAuthListName($row['id']), 'name'), ',');
+            $row['sys_auth_name'] =$this->logicSysAuthAccess->getUserAuthListName($row['id']);
         }
         return $list;
     }

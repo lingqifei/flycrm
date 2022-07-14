@@ -547,13 +547,11 @@ $("body").on("click", ".ajax-del", function () {
 //ajax get请求
 $("body").on("click", ".ajax-get", function () {
 
-
     if ($(this).hasClass('confirm')) {
         if (!confirm('确认要执行该操作吗?')) {
             return false;
         }
     }
-
     var target;
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
 
@@ -579,11 +577,11 @@ $("body").on("click", ".ajax-get", function () {
                 parent.layer.msg(data.msg, {icon: 5});
             }
             //如果传了地址表示跳转
-            if (data.url) {
-                setTimeout(function () {
-                    location.href = data.url;
-                }, 1500);
-            }
+            // if (data.url) {
+            //     setTimeout(function () {
+            //         location.href = data.url;
+            //     }, 1500);
+            // }
         }, "json");
     }
     return false;
@@ -803,7 +801,6 @@ $("body").on("click", ".ajax-post-trace", function () {
                     layer.msg(result.msg, {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
                         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                         parent.layer.close(index);
-
                         if (fun != null) {
                             eval(fun);
                         }

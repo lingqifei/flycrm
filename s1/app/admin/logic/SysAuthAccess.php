@@ -27,6 +27,7 @@ class SysAuthAccess extends AdminBase
 	{
 
 		$sort = 'sort';
+
 		if (IS_ROOT) {
 			$map=[];
 			if(!empty($model)) $map['module']=['in',$model];
@@ -83,30 +84,38 @@ class SysAuthAccess extends AdminBase
 
 		is_array($sys_user_id) ? $where['a.sys_user_id'] = ['in', $sys_user_id] : $where['a.sys_user_id'] = $sys_user_id;
 
-		$where['a.' . DATA_ORG_NAME] = ['>', 0];//是得到所有权限列表
+        //移租户条件权限
+        if(DATA_ORG_STATUS) $where['a.' . DATA_ORG_NAME] = ['>', 0];
 
 		$field = 'a.sys_user_id, a.sys_auth_id, g.name, g.intro, g.rules';
-
 		$join = [
 			[SYS_DB_PREFIX . 'sys_auth g', 'a.sys_auth_id = g.id'],
 		];
-
-
 		$this->modelSysAuthAccess->join = $join;
 
 		return $this->modelSysAuthAccess->getList($where, $field, '', false);
 	}
 
-	/**
-	 * 获取会员所属权限组名称
-	 */
-	public function getUserAuthListName($sys_user_id = 0)
+
+    /**获取会员所属权限组名称
+     * @param int $sys_user_id
+     * @return string  角色1，角色2...,
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/6/25 0025 9:21
+     */
+    public function getUserAuthListName($sys_user_id = 0)
 	{
-
-		$auth_list = $this->getUserAuthInfo($sys_user_id)->toArray();
-
-		return $auth_list;
-
+        $where['sys_user_id'] = $sys_user_id;
+        $auth_list= $this->modelSysAuthAccess->getColumn($where, 'sys_auth_id');
+        $auth_name='';
+        if($auth_list){
+            $where2['id']=['in',$auth_list];
+            $auth_name=$this->modelSysAuth->getColumn($where2, 'name');
+            if($auth_name){
+                $auth_name=arr2str($auth_name);
+            }
+        }
+        return $auth_name;
 	}
 
 
