@@ -41,7 +41,8 @@ class SysMsg extends AdminBase
 	public function show_json()
 	{
 		$where = $this->logicSysMsg->getWhere($this->param);
-		$list = $this->logicSysMsg->getSysMsgList($where);
+        $orderby = $this->logicSysMsg->getOrderby($this->param);
+		$list = $this->logicSysMsg->getSysMsgList($where,true,$orderby);
 		return $list;
 	}
 

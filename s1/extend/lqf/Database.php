@@ -133,7 +133,10 @@ class Database{
         if(0 == $start){
 
         	$checktable=Db::query("SHOW TABLES LIKE '{$table}'");
-        	if(empty($checktable)) return false;
+        	if(empty($checktable)) {
+        	    dlog('不存在的表：'.$table);
+                return false;
+            }
 
             $result = Db::query("SHOW CREATE TABLE `{$table}`");
             $result = array_map('array_change_key_case', $result);
@@ -172,6 +175,7 @@ class Database{
                 $row = array_map('addslashes', $row);
                 $sql = "INSERT INTO `{$table_tpl}` VALUES ('" . str_replace(array("\r","\n"),array('\r','\n'),implode("', '", $row)) . "');\n";
                 if(false === $this->write($sql)){
+                    dlog('写入SQL出错：'.$sql);
                     return false;
                 }
             }

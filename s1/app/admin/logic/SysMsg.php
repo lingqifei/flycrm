@@ -24,12 +24,14 @@ class SysMsg extends AdminBase
 	/**
 	 * 获取消息列表
 	 */
-	public function getSysMsgList($where = [], $field = '', $order = 'id desc', $paginate = DB_LIST_ROWS)
+	public function getSysMsgList($where = [], $field = '', $orderby = 'id desc', $paginate = DB_LIST_ROWS)
 	{
-		$list = $this->modelSysMsg->getList($where, $field, 'create_time desc', $paginate);
+
+
+		$list = $this->modelSysMsg->getList($where, $field, $orderby, $paginate);
 		foreach ($list as $key => &$row) {
 			$row['bus_url'] = $this->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
-			$row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
+			$row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'],'realname');
 		}
 		is_object($list) && $list = $list->toArray();
 		return $list;
@@ -111,7 +113,7 @@ class SysMsg extends AdminBase
 		if (!empty($data['id'])) {
 			$where['id'] = ['in', $data['id']];
 			$result = $this->modelSysMsg->updateInfo($where, ['deal_status'=>1]);
-			return $result ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelSysMsg->getError()];
+			return $result ? [RESULT_SUCCESS, '设置成功'] : [RESULT_ERROR, $this->modelSysMsg->getError()];
 		} else {
 			return [RESULT_ERROR, '参数不能为空'];
 		}
@@ -134,23 +136,38 @@ class SysMsg extends AdminBase
 		//关键字查
 		!empty($data['keywords']) && $where['bus_name'] = ['like', '%' . $data['keywords'] . '%'];
 
+		//处理状态
 		if (isset($data['deal_status'])) {
 			if (!empty($data['deal_status']) || is_numeric($data['deal_status'])) {
 				$where['deal_status'] = ['=', '' . $data['deal_status'] . ''];
 			}
 		}
 
+        //处理时间范围 参数格式： 2022-01-01 00:00:00-2022-02-01 00:00:00
+        if(!empty($data['deal_time'])){
+            $range_date=str2arr($data['deal_time'],"-");
+            $where['deal_time'] = ['between', $range_date];
+        }
+
+		//处理人
 		if (isset($data['deal_user_id'])) {
 			if (!empty($data['deal_user_id']) || is_numeric($data['deal_user_id'])) {
 				$where['deal_user_id'] = ['=', '' . $data['deal_user_id'] . ''];
 			}
 		}
 
+		//提醒系统
 		if (isset($data['remind_sys'])) {
 			if (!empty($data['remind_sys']) || is_numeric($data['remind_sys'])) {
 				$where['remind_sys'] = ['=', '' . $data['remind_sys'] . ''];
 			}
 		}
+        //消息类型
+        if (isset($data['bus_type'])) {
+            if (!empty($data['bus_type']) || is_numeric($data['bus_type'])) {
+                $where['bus_type'] = ['=', '' . $data['bus_type'] . ''];
+            }
+        }
 
 		return $where;
 	}
@@ -169,12 +186,14 @@ class SysMsg extends AdminBase
 			$orderField = "";
 			$orderDirection = "";
 		}
-		if ($orderField == 'by_name') {
-			$order_by = "a.name $orderDirection";
-		} else if ($orderField == 'by_url') {
-			$order_by = "a.url $orderDirection";
+		if ($orderField == 'create_time') {
+			$order_by = "create_time $orderDirection";
+		} else if ($orderField == 'update_time') {
+			$order_by = "update_time $orderDirection";
+		} else if ($orderField == 'deal_time') {
+			$order_by = "deal_time $orderDirection";
 		} else {
-			$order_by = "a.create_time asc";
+			$order_by = "create_time desc";
 		}
 		return $order_by;
 	}

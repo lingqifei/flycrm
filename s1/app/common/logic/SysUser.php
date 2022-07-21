@@ -140,6 +140,7 @@ class SysUser extends LogicBase
 			$where['dept_id'] = ['=', $user['dept_id']];//自己部门
 			$where['position_id'] = ['in', $posi_son];//自己及下属
 			$ids = $this->modelSysUser->getColumn($where, 'id');
+
 			//叠加权限
 			$data_role = $this->modelSysPosition->getValue(['id' => $user['position_id']], 'data_role');
 
