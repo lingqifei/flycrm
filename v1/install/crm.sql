@@ -12,10 +12,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- 导出 07fly_crm 的数据库结构
-CREATE DATABASE IF NOT EXISTS `07fly_crm` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `07fly_crm`;
-
 -- 导出  表 07fly_crm.cst_chance 结构
 DROP TABLE IF EXISTS `cst_chance`;
 CREATE TABLE IF NOT EXISTS `cst_chance` (
