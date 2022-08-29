@@ -76,6 +76,15 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">是否排名</label>
+            <div class="col-sm-8">
+                <div class="radio i-checks">
+                    <input type="radio" name="is_rank" value="1" {eq name="$info['is_rank']" value='1' } checked{/eq}/> 是
+                    <input type="radio" name="is_rank" value="0" {eq name="$info['is_rank']" value='0' } checked{/eq}/> 否
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-8">
                 {include file="layout/save_btn"}
             </div>

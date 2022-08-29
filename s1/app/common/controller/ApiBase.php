@@ -30,6 +30,8 @@ class ApiBase extends ControllerBase
 
 		//$this->logicApiBase->checkUserTokenParam($this->param);//下放到具体模块只使用
 
+        //$this->initRequestInfo();
+
 		// 接口控制器钩子
 		Hook::listen('hook_controller_api_base', $this->request);
 
@@ -48,8 +50,5 @@ class ApiBase extends ControllerBase
 
 		return $result;
 	}
-
-
-
-
+	
 }

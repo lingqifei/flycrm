@@ -441,12 +441,12 @@
 
 .daterangepicker .prev {
     position: relative;
-    left: 33px
+    left: 13px
 }
 
 .daterangepicker .next {
     position: relative;
-    right: 33px
+    right: 13px
 }
 
 .prev_year, .prev_month {
@@ -469,11 +469,11 @@
 }
 
 .prev_year {
-    left: 15px;
-    top: 36px
+    left: 0px;
+    top: 38px
 }
 
 .prev_month {
-    left: 191px;
-    top: 36px
+    left: 199px;
+    top: 38px
 }

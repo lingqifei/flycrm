@@ -414,11 +414,13 @@ class ModelBase extends Model
 
         foreach ($table_arr as $v) {
 
-            if ($lqf_auto_cache_data[$v]['version'] != $lqf_auto_cache_data[$v]['data_version']) {
+            if(!empty($lqf_auto_cache_data[$v]['version'])){
+                if ($lqf_auto_cache_data[$v]['version'] != $lqf_auto_cache_data[$v]['data_version']) {
 
-                $is_update = true;
+                    $is_update = true;
 
-                $lqf_auto_cache_data[$v]['data_version'] = $lqf_auto_cache_data[$v]['version'];
+                    $lqf_auto_cache_data[$v]['data_version'] = $lqf_auto_cache_data[$v]['version'];
+                }
             }
         }
 

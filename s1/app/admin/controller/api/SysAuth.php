@@ -30,7 +30,12 @@ class SysAuth extends AdminApiBase
 	protected $authMenuUrlList = [];
 
 
-	public function sys_auth_access(){
+    /**获得授权菜单列表
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/7/25 0025 11:15
+     */
+    public function sys_auth_access(){
 
 		$user=decoded_user_token($this->param['user_token']);
 

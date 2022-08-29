@@ -28,7 +28,9 @@ class CodeApiBase
     
     public static $userTokenError       = [API_CODE_NAME => 1000005,   API_MSG_NAME => '用户Toekn解析错误'];
 
-    public static $accessTokenNull        = [API_CODE_NAME => 1000006,   API_MSG_NAME => '访问Toekn不能为空'];
+    public static $accessTokenNull       = [API_CODE_NAME => 1000006,   API_MSG_NAME => '访问Toekn不能为空'];
+
+    public static $noPermission        = [API_CODE_NAME => 1000007,   API_MSG_NAME => '访问URL无权限'];
 
     public static $funCodeError        = [API_CODE_NAME => 1001000,   API_MSG_NAME => '模块中函数错误'];
 

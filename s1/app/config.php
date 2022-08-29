@@ -19,7 +19,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -144,7 +144,7 @@ return [
         // 标签库标签结束标记
         'taglib_end'   => '}',
         //加载扩展标签
-//        'taglib_pre_load'     =>    'app\index\taglib\Fly',
+        //'taglib_pre_load'     =>    'app\index\taglib\Fly',
     ],
 
     // 视图输出字符串内容替换
@@ -201,7 +201,7 @@ return [
         // 缓存前缀
         'prefix' => '',
         // 缓存有效期 0表示永久缓存
-        'expire' => 0,
+        'expire' => 7,
     ],
 
     // +----------------------------------------------------------------------

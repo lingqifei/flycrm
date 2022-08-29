@@ -22,7 +22,12 @@ use app\admin\controller\api\AdminApiBase;
  */
 class SysMsg extends AdminApiBase
 {
-	public function show_json(){
+    /**消息列表
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/7/23 0023 9:49
+     */
+    public function show_json(){
 		$where = $this->logicSysMsg->getWhere($this->param['matchObj']);
         $orderby = $this->logicSysMsg->getOrderby($this->param['sortObj']);
 		$list = $this->logicSysMsg->getSysMsgList($where,true,$orderby);

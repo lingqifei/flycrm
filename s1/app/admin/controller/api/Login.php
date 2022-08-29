@@ -56,4 +56,15 @@ class Login extends ApiBase
         return $this->apiReturn($result);
     }
 
+    /**消息列表
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/7/23 0023 9:49
+     */
+    public function get_config_data()
+    {
+        $config = $this->logicLogin->getConfigData();
+        return $this->apiReturn($config);
+    }
+
 }

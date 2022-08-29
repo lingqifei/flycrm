@@ -91,3 +91,5 @@
 .salrank table tr:nth-child(1) .phicon{background: url("../img/ph1.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
 .salrank table tr:nth-child(2) .phicon{background: url("../img/ph2.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
 .salrank table tr:nth-child(3) .phicon{background: url("../img/ph3.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
+
+.suggest-search-box .dropdown-toggle{height: 30px;}

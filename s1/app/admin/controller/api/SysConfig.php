@@ -1,6 +1,7 @@
 <?php
 /*
-* install  系统安装
+*
+* admin.api.SysConfig  系统配置
 *
 * =========================================================
 * 零起飞网络 - 专注于网站建设服务和行业系统开发
@@ -12,5 +13,24 @@
 * @version ：1.0
 * @link ：http://www.07fly.xyz
 */
-// 安装模块配置文件
-define('INSTALL_APP_PATH', realpath('./') . '/');
+
+namespace app\admin\controller\api;
+
+use app\admin\controller\api\AdminApiBase;
+
+/**
+ * 系统配置
+ */
+class SysConfig extends AdminApiBase
+{
+    /**消息列表
+     * @return mixed
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/7/23 0023 9:49
+     */
+    public function get_conf_data()
+    {
+        $config = $this->logicLogin->getConfigData();
+        return $this->apiReturn($config);
+    }
+}

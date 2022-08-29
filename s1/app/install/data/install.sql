@@ -4,24 +4,24 @@
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__action_log`;
 CREATE TABLE `#@__action_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
   `sys_user_id` int(10) unsigned DEFAULT '0' COMMENT '执行会员id',
   `username` char(30) DEFAULT '' COMMENT '用户名',
   `ip` char(30) NOT NULL DEFAULT '' COMMENT '执行行为者ip',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '行为名称',
   `describe` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '执行的URL',
+  `url` varchar(1024) NOT NULL DEFAULT '' COMMENT '执行的URL',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
   `org_id` int(11) NOT NULL DEFAULT '1' COMMENT '组织',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=404 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='[系统]日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]日志表';
+
 
 -- -----------------------------
 -- Table structure for `#@__addon`
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__addon`;
-
 CREATE TABLE `#@__addon` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(40) NOT NULL DEFAULT '' COMMENT '插件名或标识',
@@ -35,15 +35,15 @@ CREATE TABLE `#@__addon` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `org_id` int(11) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='[系统]插件表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='[系统]插件表';
 
 -- -----------------------------
 -- Records of `addon`
 -- -----------------------------
-INSERT INTO `#@__addon` VALUES ('5', 'Editor', '文本编辑器', '富文本编辑器', '', 'lingqifei', '1.0.1', '1', '0', '0', '1');
-INSERT INTO `#@__addon` VALUES ('4', 'Icon', '图标选择', '图标选择插件', '', 'lingqifei', '1.0.1', '1', '0', '0', '1');
-INSERT INTO `#@__addon` VALUES ('3', 'File', '文件上传', '文件上传插件', '', 'lingqifei', '1.0.1', '1', '0', '0', '1');
-INSERT INTO `#@__addon` VALUES ('6', 'Region', '区域选择', '区域选择插件', '', 'lingqifei', '1.0.1', '1', '0', '0', '1');
+INSERT INTO `#@__addon` VALUES ('3', 'File', '文件上传', '文件上传插件', '', 'leo', '1.0', '1', '0', '0', '1');
+INSERT INTO `#@__addon` VALUES ('4', 'Icon', '图标选择', '图标选择插件', '', 'leo', '1.0', '1', '0', '0', '1');
+INSERT INTO `#@__addon` VALUES ('5', 'Editor', '文本编辑器', '富文本编辑器', '', 'leo', '1.0', '1', '0', '0', '1');
+INSERT INTO `#@__addon` VALUES ('8', 'Region', '区域选择', '区域选择插件', '', 'leo', '1.0', '1', '0', '0', '1');
 
 -- -----------------------------
 -- Table structure for `#@__config`
@@ -66,7 +66,7 @@ CREATE TABLE `#@__config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COMMENT='[系统]配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='配置表';
 
 -- -----------------------------
 -- Records of `config`
@@ -87,7 +87,7 @@ INSERT INTO `#@__config` VALUES ('49', 'static_domain', '1', '静态资源域名
 INSERT INTO `#@__config` VALUES ('52', 'team_developer', '3', '研发团队人员', '4', '', '', '1504236453', '1582430537', '1', '0:零起飞\r\n1:开发人生', '0');
 INSERT INTO `#@__config` VALUES ('53', 'api_status_option', '3', 'API接口状态', '4', '', '', '1504242433', '1582430537', '1', '0:待研发\r\n1:研发中\r\n2:测试中\r\n3:已完成', '0');
 INSERT INTO `#@__config` VALUES ('54', 'api_data_type_option', '0', 'API数据类型', '4', '', '', '1504328208', '1582430704', '1', '0:字符\r\n1:文本\r\n2:数组\r\n3:文件', '0');
-INSERT INTO `#@__config` VALUES ('55', 'web_theme', '1', '前端主题', '1', '', '', '1504762360', '1627097504', '1', 'default', '80');
+INSERT INTO `#@__config` VALUES ('55', 'web_theme', '1', '前端主题', '1', '', '', '1504762360', '1635488561', '1', 'default', '90');
 INSERT INTO `#@__config` VALUES ('56', 'api_domain', '1', 'API部署域名', '4', '', '', '1504779094', '1582430537', '1', 'https://demo.07fly.org', '0');
 INSERT INTO `#@__config` VALUES ('57', 'api_key', '0', 'API加密KEY', '4', '', '泄露后API将存在安全隐患', '1505302112', '1582430779', '1', 'l2V|gfZp{8`;jzR~6Y1_', '0');
 INSERT INTO `#@__config` VALUES ('58', 'loading_icon', '4', '页面Loading图标设置', '1', '1:图标1\r\n2:图标2\r\n3:图标3\r\n4:图标4\r\n5:图标5\r\n6:图标6\r\n7:图标7', '页面Loading图标支持7种图标切换', '1505377202', '1627097504', '1', '7', '80');
@@ -103,8 +103,7 @@ INSERT INTO `#@__config` VALUES ('69', 'login_desc', '1', '登录界面描述', 
 INSERT INTO `#@__config` VALUES ('70', 'login_demo', '1', '登录演示帐号', '1', '', '', '1627094351', '1627097504', '1', '<font color=\'red\'>演示帐号/密码：admin/123456</font>', '12');
 INSERT INTO `#@__config` VALUES ('71', 'login_copyright', '1', '登录界面版权', '1', '', '登录界面输入框下面技术支持', '1627095435', '1627097504', '1', '<a href=‘http://www.07fly.xyz’>技术支持:成都零起飞科技</a>', '13');
 INSERT INTO `#@__config` VALUES ('72', 'main_title', '1', '管理中心名称', '1', '', '后台管理中心左上角名称信息', '1627106086', '1627106532', '1', '零起飞网络中心', '1');
-INSERT INTO `#@__config` VALUES ('73', 'main_weburl', '1', '官网地址', '1', '', '系统主页右上角官网链接地址', '1627106086', '1627106532', '1', 'http://www.07fly.xyz', '1');
-
+INSERT INTO `#@__config` VALUES ('73', 'main_weburl', '1', '官网地址', '1', '', '', '1635488412', '1635488563', '1', 'http://www.07fly.xyz', '70');
 
 -- -----------------------------
 -- Table structure for `#@__driver`
@@ -119,14 +118,7 @@ CREATE TABLE `#@__driver` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安装时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='[系统]插件表';
-
--- -----------------------------
--- Records of `driver`
--- -----------------------------
-INSERT INTO `#@__driver` VALUES ('1', 'Pay', 'Alipay', 'a:6:{s:14:\"alipay_account\";s:5:\"34345\";s:14:\"alipay_partner\";s:0:\"\";s:10:\"alipay_key\";s:0:\"\";s:12:\"alipay_appid\";s:0:\"\";s:20:\"alipay_rsaPrivateKey\";s:0:\"\";s:25:\"alipay_alipayrsaPublicKey\";s:0:\"\";}', '1', '1577678491', '1577678512');
-INSERT INTO `#@__driver` VALUES ('2', 'Pay', 'Wxpay', 'a:4:{s:5:\"appid\";s:3:\"app\";s:9:\"appsecret\";s:0:\"\";s:9:\"partnerid\";s:0:\"\";s:10:\"partnerkey\";s:0:\"\";}', '1', '1585016761', '0');
-INSERT INTO `#@__driver` VALUES ('4', 'Sms', 'Tencent', 'a:2:{s:6:\"app_id\";s:10:\"1400398383\";s:7:\"app_key\";s:32:\"2710810b835c5915a394f378801f8440\";}', '1', '1594522417', '1594524494');
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
 -- -----------------------------
 -- Table structure for `#@__hook`
@@ -150,8 +142,7 @@ CREATE TABLE `#@__hook` (
 INSERT INTO `#@__hook` VALUES ('36', 'File', '文件上传钩子', 'File', '1', '0', '0', '1');
 INSERT INTO `#@__hook` VALUES ('37', 'Icon', '图标选择钩子', 'Icon', '1', '0', '0', '1');
 INSERT INTO `#@__hook` VALUES ('38', 'ArticleEditor', '富文本编辑器', 'Editor', '1', '0', '0', '1');
-INSERT INTO `#@__hook` VALUES ('39', 'RegionSelect', '区域选择', 'Region', '1', '0', '0', '1');
-INSERT INTO `#@__hook` VALUES ('41', 'MarkdownEditor', 'Markdown编辑器', 'Editor', '1', '0', '0', '1');
+INSERT INTO `#@__hook` VALUES ('41', 'RegionSelect', '区域选择', 'Region', '1', '0', '0', '1');
 
 -- -----------------------------
 -- Table structure for `#@__picture`
@@ -167,7 +158,7 @@ CREATE TABLE `#@__picture` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='图片表';
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='图片表';
 
 -- -----------------------------
 -- Table structure for `#@__file`
@@ -183,7 +174,7 @@ CREATE TABLE `#@__file` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='[系统]文件表';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='[系统]文件表';
 
 -- -----------------------------
 -- Table structure for `#@__region`
@@ -205,9 +196,9 @@ CREATE TABLE `#@__region` (
   `ishot` enum('0','1') DEFAULT '0' COMMENT '是否热点',
   `create_time` int(11) DEFAULT '0',
   `update_time` int(11) DEFAULT '0',
-  `org_id` int(11) DEFAULT '1'
+  `org_id` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[系统]省市区行政表';
-
 
 -- -----------------------------
 -- Table structure for `#@__sequence`
@@ -217,13 +208,13 @@ CREATE TABLE `#@__sequence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '前缀',
   `current_date` varchar(255) NOT NULL DEFAULT '' COMMENT '当前日期',
-  `current_value` int(11) DEFAULT '0' COMMENT '当前值',
+  `current_value` int(11) DEFAULT NULL COMMENT '当前值',
   `increment` int(11) DEFAULT '1' COMMENT '增加值',
-  `create_time` int(11) DEFAULT '0',
-  `update_time` int(11) DEFAULT '0',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   `org_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='[系统]唯一序号生成表';
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='唯一序号生成表';
 
 -- -----------------------------
 -- Table structure for `#@__sys_auth`
@@ -247,8 +238,11 @@ CREATE TABLE `#@__sys_auth` (
 -- -----------------------------
 -- Records of `sys_auth`
 -- -----------------------------
-INSERT INTO `#@__sys_auth` VALUES ('1', '', '企业超级管理', '本权限为企业帐号注册初次的权限列表', '1', '1433,1437,1441,1440,1438,1439,1454,1460,1458,1459,1455,1436,1445,1444,1443,1442,1435,1448,1449,1447,1446,1434,1453,1452,1450,1451,1475,1472,1483,1478,1476,1477,1479,1480,1508,1484,1491,1492,1493,1494,1495,1496,1498,1485,1501,1502,1503,1504,1505,1506,1507,1486,1509,1510,1511,1512,1513,1514,1515,1473,1474,1482,1481,1497,1499,1500,1470,1471,1487,1516,1517,1518,1519,1520,1521,1488,1489,1490,1,333,334,324,536,525,691,690,692,693,694,695,526,698,697,699,700,701,702,532,533,704,703,705,706,707,708,534,710,709,711,712,713,714,535,716,715,717,718,719,720,537,538,722,721,723,724,725,726,539,728,727,729,730,731,732,1048,540,734,733,735,736,737,738,541,740,739,741,742,743,744,1045,542,746,745,747,748,749,750,751,753,752,754,755,756,757,543,759,758,760,761,762,763,523,524,765,764,766,767,770,771,1075,1076,527,772,773,528,531,775,774,776,777,778,779,1077,1078,530,781,780,782,783,784,785,1079,529,787,786,788,789,790,544,545,793,792,794,795,796,797,798,801,800,799,1080,1081,1082,1083,546,803,802,804,805,806,810,809,808,465,547,812,811,813,814,815,816,817,820,819,818,1084,1085,1086,1087,548,1088,476,828,821,829,822,823,824,825,826,827,477,831,830,832,833,834,835,1089,466,522,836,837,478,838,839,840,1046,479,842,841,843,844,845,846,1047,475,847,848,1049,474,850,849,851,852,853,854,1090,414,1050,416,856,855,857,858,859,860,1051,517,862,861,863,864,865,868,867,866,1052,512,870,869,871,872,873,877,876,875,874,1053,549,555,558,879,878,880,881,882,1054,557,884,883,885,886,887,1055,556,559,889,888,890,891,892,1056,560,1060,1061,1059,1058,1057,1062,552,553,1066,1067,1065,1064,1063,1068,554,899,898,900,901,902,1069,561,563,904,903,905,906,896,907,562,909,908,910,911,912,1070,550,914,913,915,916,917,1071,551,922,420,2,430,51,53,54,31,925,924,926,928,929,1072,25,34,35,36,37,38,932,933,26,305,17,18,19,425,943,937,938,385,298,945,1073,480,481,4,947,950,951,1074,421,952,953,954,23,303,304,20,21,960,966,484,969,970,971,153,689,972,973,974,975,976', '1', '0', '1609227440', '1569638911', '1');
+INSERT INTO `#@__sys_auth` VALUES ('1', '', '企业超级管理', '本权限为企业帐号注册初次的权限列表', '1', '1532,7381,7382,7383,7384,7385,4785,4789,4788,4787,4786,1533,1534,7351,7649,6664,6665,6666,6670,6671,6672,6669,6668,6667,6673,6677,6679,6678,6676,6674,6675,6726,6741,6745,6744,6747,6746,6742,6743,6734,6735,6736,6739,6740,6738,6737,6727,6731,6733,6732,6730,6729,6728,7636,7637,7638,7642,7641,7640,7639,7643,7647,7646,7645,7644,6680,6712,6717,6718,6713,6714,6715,6716,6704,6709,6710,6707,6708,6706,6705,6711,6697,6701,6702,6703,6699,6700,6698,6689,6695,6690,6694,6693,6692,6691,6696,6681,6686,6688,6687,6685,6683,6684,6682,6719,6724,6723,6725,6722,6721,6720,6490,7308,6503,6508,6510,6506,6507,6505,6504,6509,6511,6499,6501,6500,7341,6502,6491,6496,6497,6495,6492,6493,6494,6498,7342,7616,7618,7617,7619,7620,6431,6434,6436,6435,6437,6438,6439,6440,6442,7623,6444,7337,7338,7339,7340,6441,6443,6432,6433,6470,6474,6476,6475,6473,6472,6471,6477,6478,6479,6483,6484,6482,6481,6480,6454,6462,6464,6463,6461,6459,6458,6460,6455,6457,6456,6465,6468,6467,6466,6469,6445,6451,6453,6452,6450,6449,6446,6448,6447,6485,6486,6487,6488,6489,6646,6647,6648,6650,6649,6651,6653,6652,7343,6655,6654,6656,6657,6660,6661,6658,6659,6662,6663,6512,6515,6521,6525,6522,6524,6523,6516,6517,6519,6520,6528,6518,6531,6527,6526,6530,6529,6513,6514,6532,6534,6538,6533,6537,6539,6540,6541,6536,6535,6542,6547,6546,6549,6543,6544,6545,6548,6550,6568,6570,6569,6604,6607,6606,6605,6608,6609,6614,6616,6613,6612,6611,6610,6615,6600,6601,6602,6603,6592,6597,6599,6596,6595,6594,6593,6598,6558,6559,6560,6566,6565,6564,6562,6563,6561,6567,6571,6578,6579,6576,6577,6575,6572,6573,6574,6580,6581,6589,6590,6587,6588,6585,6586,6583,6584,6582,6591,6551,6556,6557,6554,6555,6553,6552,6617,6639,6643,6644,6642,6641,6640,6645,6632,6636,6637,6634,6635,6633,6638,6625,6628,6626,6629,6630,6631,6627,6618,6622,6624,6620,6623,6621,6619,7283,7284,7285,7286,7287,7288,7289,7297,7298,7299,7301,7300,7302,7303,7290,7291,7292,7293,7294,7295,7296,1542,1574,1571,1572,1573,1567,7352,7353,7354,7355,7356,7621,4780,4782,4781,4783,4784,7380,7309,7365,7366,7367,7368,7369,7370,7371,7372,7373,7374,7375,1584,1585,7364,7363,7361,7362,7360,1576,1583,1582,1581,1580,1579,1578,1577,1575,7357,7358,7359,1543,1562,7376,7377,1564,1563,1565,1566,1557,1561,1560,1559,1558,1550,1553,1555,1552,1551,7332,1554,1556,1544,1549,1548,1547,1546,1545,1764,1767,1768,1769,1770,1771,1765,1766,1568,1569,1570,1535,1540,1541,1539,7577,7572,7573,7574,7575,7576,1536,7589,7588,7587,7586,7585,7584,7582,7583,7581,7580,7579,1538,1537,7304', '1', '0', '1645761138', '1569638911', '1');
 INSERT INTO `#@__sys_auth` VALUES ('2', '', '基本信息配置管理员', '管理基本信息配置', '1', '1,324,20,27,47,48,49,50,28,39,40,41,42,29,43,44,45,46,30,51,52,53,54,31,55,56,57,58,32,59,60,61,62,33,63,64,65,66,67,80,81,82,83,68,84,85,86,87,69,88,89,90,91,70,92,93,94,95,71,96,97,98,99,72,100,101,102,103,73,104,105,106,107,74,108,109,110,111,75,112,113,114,115,76,116,117,118,119,77,120,121,122,123,78,124,125,126,127,79,128,129,130,131', '1', '1', '1576464669', '1570796576', '101');
+INSERT INTO `#@__sys_auth` VALUES ('22', '', '高级管理员', '这个角色可以管理系统所有栏目及功能按钮', '1', '1433,1437,1441,1440,1438,1439,1454,1460,1458,1459,1455,1436,1445,1444,1443,1442,1435,1448,1449,1447,1446,1434,1453,1452,1450,1451,1475,1472,1483,1479,1480,1478,1476,1477,1473,1474,1482,1481,1470,1471,1,333,334,324,465,476,477,466,478,479,475,474,414,416,2,430,51,53,54,31,25,34,35,36,37,38,26,305,17,18,19,425,385,298,480,481,20,21,484,153', '35', '1', '1606289571', '1575169788', '101');
+INSERT INTO `#@__sys_auth` VALUES ('27', '', '管理员组', '', '1', '1,333,334,324,2,25,34,35,36,37,38,26,302,305,425,17,18,19', '69', '0', '1581135400', '1581135380', '110');
+
 -- -----------------------------
 -- Table structure for `#@__sys_auth_access`
 -- -----------------------------
@@ -260,29 +254,6 @@ CREATE TABLE `#@__sys_auth_access` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
   `org_id` int(10) unsigned NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[系统]用户组授权表';
-
--- -----------------------------
--- Records of `sys_auth_access`
--- -----------------------------
-INSERT INTO `#@__sys_auth_access` VALUES ('65', '2', '1581077567', '1581077567', '1');
-INSERT INTO `#@__sys_auth_access` VALUES ('68', '1', '0', '1581077577', '109');
-INSERT INTO `#@__sys_auth_access` VALUES ('69', '1', '0', '1581131238', '110');
-INSERT INTO `#@__sys_auth_access` VALUES ('70', '1', '0', '1581131308', '111');
-INSERT INTO `#@__sys_auth_access` VALUES ('71', '1', '0', '1581131388', '112');
-INSERT INTO `#@__sys_auth_access` VALUES ('72', '1', '0', '1581131430', '113');
-INSERT INTO `#@__sys_auth_access` VALUES ('73', '1', '0', '1581131480', '114');
-INSERT INTO `#@__sys_auth_access` VALUES ('74', '1', '0', '1581131530', '115');
-INSERT INTO `#@__sys_auth_access` VALUES ('75', '1', '0', '1581131563', '116');
-INSERT INTO `#@__sys_auth_access` VALUES ('76', '1', '0', '1581131602', '117');
-INSERT INTO `#@__sys_auth_access` VALUES ('77', '1', '0', '1581131686', '118');
-INSERT INTO `#@__sys_auth_access` VALUES ('78', '1', '0', '1581131705', '119');
-INSERT INTO `#@__sys_auth_access` VALUES ('79', '1', '0', '1581131755', '120');
-INSERT INTO `#@__sys_auth_access` VALUES ('80', '27', '1581135438', '1581135438', '1');
-INSERT INTO `#@__sys_auth_access` VALUES ('81', '1', '0', '1583806365', '121');
-INSERT INTO `#@__sys_auth_access` VALUES ('82', '1', '0', '1583806401', '122');
-INSERT INTO `#@__sys_auth_access` VALUES ('83', '1', '1606272650', '1606272650', '1');
-INSERT INTO `#@__sys_auth_access` VALUES ('83', '22', '1606272650', '1606272650', '1');
-
 -- -----------------------------
 -- Table structure for `#@__sys_dept`
 -- -----------------------------
@@ -297,17 +268,17 @@ CREATE TABLE `#@__sys_dept` (
   `update_time` int(11) DEFAULT '0',
   `org_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='[系统]部门表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='[系统]部门表';
 
 -- -----------------------------
 -- Records of `sys_dept`
 -- -----------------------------
-
-INSERT INTO `#@__sys_dept` VALUES ('1', '商务部', '0', '6', '1', '0', '1584764548', '1');
-INSERT INTO `#@__sys_dept` VALUES ('2', '技术部', '0', '5', '1', '0', '1584695438', '1');
-INSERT INTO `#@__sys_dept` VALUES ('3', '人事事', '0', '3', '1', '0', '1586417709', '1');
-INSERT INTO `#@__sys_dept` VALUES ('4', '财务部', '0', '4', '1', '0', '1586417712', '1');
-INSERT INTO `#@__sys_dept` VALUES ('5', '销售部01', '1', '2', '1', '0', '1584771236', '1');
+INSERT INTO `#@__sys_dept` VALUES ('1', '商务部', '5', '6', '1', '0', '1627638023', '1');
+INSERT INTO `#@__sys_dept` VALUES ('2', '技术部', '5', '5', '1', '0', '1627638004', '1');
+INSERT INTO `#@__sys_dept` VALUES ('3', '人事事', '5', '3', '1', '0', '1627637983', '1');
+INSERT INTO `#@__sys_dept` VALUES ('4', '财务部', '5', '4', '1', '0', '1627637992', '1');
+INSERT INTO `#@__sys_dept` VALUES ('5', '公司总部', '0', '2', '1', '0', '1627637968', '1');
+INSERT INTO `#@__sys_dept` VALUES ('6', '销售二部', '1', '2', '1', '1625122660', '0', '1');
 
 -- -----------------------------
 -- Table structure for `#@__sys_menu`
@@ -329,74 +300,140 @@ CREATE TABLE `#@__sys_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
   `org_id` int(11) NOT NULL DEFAULT '1' COMMENT '组织',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1772 DEFAULT CHARSET=utf8 COMMENT='[系统]菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=7745 DEFAULT CHARSET=utf8 COMMENT='[系统]菜单表';
 
 -- -----------------------------
 -- Records of `sys_menu`
 -- -----------------------------
-INSERT INTO `#@__sys_menu` VALUES ('1585', '浏览', '1584', '1', 'admin', 'Region/show_json', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1584', '行政区域', '1542', '5', 'admin', 'Region/show', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1583', '设置负责人', '1576', '1', 'admin', 'SysArea/manage', '1', '0', '0', '', '1', '1620482818', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1582', '排序', '1576', '1', 'admin', 'SysArea/set_sort', '1', '0', '0', '', '1', '1620482819', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1581', '启用', '1576', '1', 'admin', 'SysArea/set_visible', '1', '0', '0', '', '1', '1620482819', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1580', '修改', '1576', '1', 'admin', 'SysArea/edit', '1', '0', '0', '', '1', '1620482820', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1579', '删除', '1576', '1', 'admin', 'SysArea/del', '1', '0', '0', '', '1', '1620482821', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1578', '添加', '1576', '1', 'admin', 'SysArea/add', '1', '0', '0', '', '1', '1620482822', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1577', '浏览', '1576', '1', 'admin', 'SysArea/show_json', '1', '0', '0', '', '1', '1620482822', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1576', '地区管理', '1542', '2', 'admin', 'SysArea/show', '1', '0', '1', '', '1', '1620482810', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1575', '行为日志', '1542', '4', 'admin', 'Log/show', '1', '0', '1', 'fa-street-view', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1574', '系统设置', '1542', '1', 'admin', 'config/setting', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1573', '添加', '1571', '81', 'admin', 'Config/configAdd', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1572', '编辑', '1571', '1', 'admin', 'Config/configEdit', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1571', '配置列表', '1542', '2', 'admin', 'config/configlist', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1570', '数据恢复', '1568', '2', 'admin', 'Database/dataRestore', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1569', '数据备份', '1568', '1', 'admin', 'Database/databackup', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1568', '数据库管理', '1542', '10', 'admin', 'Database/show', '1', '0', '1', 'fa-database', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1567', '系统菜单', '1542', '3', 'admin', 'SysMenu/show', '1', '0', '1', 'fa-user', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1566', '初始员工', '1562', '5', 'admin', 'SysOrg/create_user', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1565', '密码重置', '1562', '100', 'admin', 'SysOrg/reset_pwd', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1564', '企业修改', '1562', '100', 'admin', 'SysOrg/edit', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1563', '企业删除', '1562', '100', 'admin', 'SysOrg/del', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1562', '企业会员', '1543', '1', 'admin', 'SysOrg/show', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1561', '删除', '1557', '1', 'admin', 'SysDept/del', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1560', '修改', '1557', '1', 'admin', 'SysDept/edit', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1559', '添加', '1557', '1', 'admin', 'SysDept/add', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1558', '浏览', '1557', '1', 'admin', 'SysDept/show_json', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1557', '部门管理', '1543', '2', 'admin', 'SysDept/show', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1556', '菜单授权', '1550', '2', 'admin', 'SysUser/userRules', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1555', '用户浏览', '1550', '2', 'admin', 'SysUser/show_json', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1554', '用户授权', '1550', '1', 'admin', 'SysUser/userAuth', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1553', '用户修改', '1550', '10', 'admin', 'SysUser/edit', '1', '0', '0', 'fa-circle-o', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1552', '用户删除', '1550', '10', 'admin', 'SysUser/del', '1', '0', '0', 'fa-circle-o', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1551', '用户添加', '1550', '10', 'admin', 'SysUser/add', '1', '0', '0', 'fa-circle-o', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1550', '系统用户', '1543', '3', 'admin', 'SysUser/show', '1', '0', '1', 'fa-circle-o', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1549', '菜单授权', '1544', '2', 'admin', 'SysAuth/MenuAuth', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1548', '权限删除', '1544', '2', 'admin', 'SysAuth/del', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1547', '权限修改', '1544', '2', 'admin', 'SysAuth/edit', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1546', '权限添加', '1544', '2', 'admin', 'SysAuth/add', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1545', '权限浏览', '1544', '2', 'admin', 'SysAuth/show_json', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1544', '权限列表', '1543', '3', 'admin', 'SysAuth/show', '1', '0', '1', 'fa-circle-o', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1543', '组织结构', '1542', '9', 'admin', 'index/main', '1', '0', '1', 'fa-sitemap', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1542', '系统管理', '0', '1000', 'admin', 'system admin', '1', '0', '1', 'fa-wrench', '1', '1620444336', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1541', '会员中心', '1540', '1', 'admin', 'Store/user', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1540', '应用市场', '1535', '1', 'admin', 'Store/apps', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1536', '本地模块', '1535', '20', 'admin', 'SysModule/show', '1', '0', '1', 'fa-user-secret', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1537', '钩子列表', '1535', '100', 'admin', 'addon/hook_list', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1538', '插件列表', '1535', '91', 'admin', 'addon/addon_list', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1539', '框架升级', '1535', '5', 'admin', 'Upgrade/show', '1', '0', '1', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1534', '密码修改', '1532', '13', 'admin', 'SysUser/editPwd', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1535', '系统扩展', '0', '1100', 'admin', 'system extend', '1', '0', '1', 'fa-fire', '1', '1620444341', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1532', '系统首页', '0', '1', 'admin', 'index/main', '1', '0', '1', '', '1', '1619754197', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1533', '资料修改', '1532', '12', 'admin', 'SysUser/editInfo', '1', '0', '0', '', '1', '0', '1619269238', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1771', '禁用', '1764', '5', 'admin', 'SysPosition/set_visible', '1', '0', '0', '', '1', '1620481735', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1764', '职位管理', '1543', '4', 'admin', 'SysPosition/show', '1', '0', '1', '', '1', '1620480535', '1620480531', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1765', '数据浏览', '1764', '6', 'admin', 'SysPosition/show_json', '1', '0', '0', '', '1', '1620481740', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1766', '树形数据浏览', '1764', '7', 'admin', 'SysPosition/get_list_tree', '1', '0', '0', '', '1', '1620481744', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1767', '添加', '1764', '1', 'admin', 'SysPosition/add', '1', '0', '0', '', '1', '0', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1768', '修改', '1764', '2', 'admin', 'SysPosition/edit', '1', '0', '0', '', '1', '1620481729', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1769', '删除', '1764', '3', 'admin', 'SysPosition/del', '1', '0', '0', '', '1', '1620481731', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('1770', '排序', '1764', '4', 'admin', 'SysPosition/set_sort', '1', '0', '0', '', '1', '1620481733', '1620480613', '1');
-INSERT INTO `#@__sys_menu` VALUES ('7304', '服务管理', '1535', '50', 'admin', 'Service/serviceList', '1', '0', '1', '', '1', '1627107156', '1627107109', '1');
+INSERT INTO `#@__sys_menu` VALUES (1532, '系统首页', 0, 1, 'admin', 'index/main', 1, 0, 1, '', 1, 1635480985, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1533, '资料修改', 1532, 12, 'admin', 'SysUser/editInfo', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1534, '密码修改', 1532, 13, 'admin', 'SysUser/editPwd', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1535, '系统扩展', 0, 1100, 'admin', 'system extend', 1, 0, 1, 'fa-fire', 1, 1620444341, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1536, '本地模块', 1535, 20, 'admin', 'SysModule/show', 1, 0, 1, 'fa-user-secret', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1537, '钩子列表', 1535, 40, 'admin', 'addon/hook_list', 1, 0, 1, '', 1, 1627107141, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1538, '插件列表', 1535, 30, 'admin', 'addon/addon_list', 1, 0, 1, '', 1, 1627107139, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1539, '框架升级', 1535, 4, 'admin', 'Upgrade/show', 1, 0, 1, '', 1, 1627107162, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1540, '应用市场', 1535, 1, 'admin', 'Store/apps', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1541, '会员中心', 1540, 1, 'admin', 'Store/user', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1542, '系统管理', 0, 1000, 'admin', 'system admin', 1, 0, 1, 'fa-wrench', 1, 1620444336, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1543, '组织结构', 1542, 100, 'admin', 'organization', 1, 0, 1, 'fa-sitemap', 1, 1635474789, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1544, '权限列表', 1543, 3, 'admin', 'SysAuth/show', 1, 0, 1, 'fa-circle-o', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1545, '权限浏览', 1544, 2, 'admin', 'SysAuth/show_json', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1546, '权限添加', 1544, 2, 'admin', 'SysAuth/add', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1547, '权限修改', 1544, 2, 'admin', 'SysAuth/edit', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1548, '权限删除', 1544, 2, 'admin', 'SysAuth/del', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1549, '菜单授权', 1544, 2, 'admin', 'SysAuth/MenuAuth', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1550, '系统用户', 1543, 3, 'admin', 'SysUser/show', 1, 0, 1, 'fa-circle-o', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1551, '用户添加', 1550, 3, 'admin', 'SysUser/add', 1, 0, 0, 'fa-circle-o', 1, 1631589111, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1552, '用户删除', 1550, 2, 'admin', 'SysUser/del', 1, 0, 0, 'fa-circle-o', 1, 1631589109, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1553, '用户修改', 1550, 1, 'admin', 'SysUser/edit', 1, 0, 0, 'fa-circle-o', 1, 1631589108, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1554, '用户授权', 1550, 5, 'admin', 'SysUser/userAuth', 1, 0, 0, '', 1, 1631589116, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1555, '用户浏览', 1550, 2, 'admin', 'SysUser/show_json', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1556, '菜单授权', 1550, 6, 'admin', 'SysUser/userRules', 1, 0, 0, '', 1, 1631589122, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1557, '部门管理', 1543, 2, 'admin', 'SysDept/show', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1558, '浏览', 1557, 1, 'admin', 'SysDept/show_json', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1559, '添加', 1557, 1, 'admin', 'SysDept/add', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1560, '修改', 1557, 1, 'admin', 'SysDept/edit', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1561, '删除', 1557, 1, 'admin', 'SysDept/del', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1562, '企业会员', 1543, 1, 'admin', 'SysOrg/show', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1563, '企业删除', 1562, 3, 'admin', 'SysOrg/del', 1, 0, 0, '', 1, 1635319015, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1564, '企业修改', 1562, 2, 'admin', 'SysOrg/edit', 1, 0, 0, '', 1, 1635319013, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1565, '密码重置', 1562, 4, 'admin', 'SysOrg/reset_pwd', 1, 0, 0, '', 1, 1635319018, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1566, '初始员工', 1562, 5, 'admin', 'SysOrg/create_user', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1567, '系统菜单', 1542, 3, 'admin', 'SysMenu/show', 1, 0, 1, 'fa-user', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1568, '数据库管理', 1542, 110, 'admin', 'database manage', 1, 0, 1, 'fa-database', 1, 1635474791, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1569, '数据备份', 1568, 1, 'admin', 'Database/databackup', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1570, '数据恢复', 1568, 2, 'admin', 'Database/dataRestore', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1571, '配置列表', 1542, 2, 'admin', 'config/configlist', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1572, '编辑', 1571, 1, 'admin', 'Config/configEdit', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1573, '添加', 1571, 81, 'admin', 'Config/configAdd', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1574, '系统设置', 1542, 1, 'admin', 'config/setting', 1, 0, 1, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1575, '行为日志', 1542, 70, 'admin', 'Log/show', 1, 0, 1, 'fa-street-view', 1, 1635474740, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1576, '地区管理', 1542, 61, 'admin', 'SysArea/show', 1, 0, 1, '', 1, 1635474717, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1577, '浏览', 1576, 1, 'admin', 'SysArea/show_json', 1, 0, 0, '', 1, 1628152507, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1578, '添加', 1576, 1, 'admin', 'SysArea/add', 1, 0, 0, '', 1, 1628152505, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1579, '删除', 1576, 1, 'admin', 'SysArea/del', 1, 0, 0, '', 1, 1628152506, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1580, '修改', 1576, 1, 'admin', 'SysArea/edit', 1, 0, 0, '', 1, 1628152504, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1581, '启用', 1576, 1, 'admin', 'SysArea/set_visible', 1, 0, 0, '', 1, 1628152503, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1582, '排序', 1576, 1, 'admin', 'SysArea/set_sort', 1, 0, 0, '', 1, 1628152503, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1583, '设置负责人', 1576, 1, 'admin', 'SysArea/manage', 1, 0, 0, '', 1, 1628152502, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1584, '行政区域', 1542, 60, 'admin', 'Region/show', 1, 0, 1, '', 1, 1635474709, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1585, '浏览', 1584, 1, 'admin', 'Region/show_json', 1, 0, 0, '', 1, 0, 1619269238, 1);
+INSERT INTO `#@__sys_menu` VALUES (1764, '职位管理', 1543, 4, 'admin', 'SysPosition/show', 1, 0, 1, '', 1, 1620480535, 1620480531, 1);
+INSERT INTO `#@__sys_menu` VALUES (1765, '数据浏览', 1764, 6, 'admin', 'SysPosition/show_json', 1, 0, 0, '', 1, 1620481740, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1766, '树形数据浏览', 1764, 7, 'admin', 'SysPosition/get_list_tree', 1, 0, 0, '', 1, 1620481744, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1767, '添加', 1764, 1, 'admin', 'SysPosition/add', 1, 0, 0, '', 1, 0, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1768, '修改', 1764, 2, 'admin', 'SysPosition/edit', 1, 0, 0, '', 1, 1620481729, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1769, '删除', 1764, 3, 'admin', 'SysPosition/del', 1, 0, 0, '', 1, 1620481731, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1770, '排序', 1764, 4, 'admin', 'SysPosition/set_sort', 1, 0, 0, '', 1, 1620481733, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (1771, '禁用', 1764, 5, 'admin', 'SysPosition/set_visible', 1, 0, 0, '', 1, 1620481735, 1620480613, 1);
+INSERT INTO `#@__sys_menu` VALUES (4780, '系统公告', 1542, 20, 'admin', 'OaNotify/show', 1, 0, 1, '', 1, 1635475072, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4781, '添加', 4780, 2, 'admin', 'OaNotify/add', 1, 0, 0, '', 1, 1635476695, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4782, '浏览', 4780, 1, 'admin', 'OaNotify/show_json', 1, 0, 0, '', 1, 1635476695, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4783, '修改', 4780, 3, 'admin', 'OaNotify/edit', 1, 0, 0, '', 1, 1635476694, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4784, '删除', 4780, 4, 'admin', 'OaNotify/del', 1, 0, 0, '', 1, 1635476693, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4785, '系统公告', 1532, 1, 'admin', 'OaNotifyUser/show', 1, 0, 1, '', 1, 1635493785, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4786, '数据浏览', 4785, 2, 'admin', 'OaNotifyUser/show_json', 1, 0, 0, '', 1, 1635493672, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4787, '标记已读', 4785, 2, 'admin', 'OaNotifyUser/read', 1, 0, 0, '', 1, 1635493673, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4788, '删除', 4785, 2, 'admin', 'OaNotifyUser/del', 1, 0, 0, '', 1, 1635493675, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (4789, '查看详细', 4785, 2, 'admin', 'OaNotifyUser/detail', 1, 0, 0, '', 1, 1635493675, 1621217144, 1);
+INSERT INTO `#@__sys_menu` VALUES (7304, '服务管理', 1535, 50, 'admin', 'Service/serviceList', 1, 0, 1, '', 1, 1627107156, 1627107109, 1);
+INSERT INTO `#@__sys_menu` VALUES (7309, '系统消息', 1542, 21, 'admin', 'SysMsg/show', 1, 0, 1, '', 1, 1635474727, 1631268069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7332, '用户选择', 1550, 4, 'admin', 'SysUser/lookup', 1, 0, 0, '', 1, 1647071151, 1631589088, 1);
+INSERT INTO `#@__sys_menu` VALUES (7352, '数据浏览', 1567, 1, 'admin', 'SysMenu/show_json', 1, 0, 0, '', 1, 0, 1635317210, 1);
+INSERT INTO `#@__sys_menu` VALUES (7353, '添加', 1567, 2, 'admin', 'SysMenu/add', 1, 0, 0, '', 1, 0, 1635317210, 1);
+INSERT INTO `#@__sys_menu` VALUES (7354, '修改', 1567, 3, 'admin', 'SysMenu/edit', 1, 0, 0, '', 1, 0, 1635317210, 1);
+INSERT INTO `#@__sys_menu` VALUES (7355, '删除', 1567, 4, 'admin', 'SysMenu/del', 1, 0, 0, '', 1, 0, 1635317210, 1);
+INSERT INTO `#@__sys_menu` VALUES (7356, '禁用', 1567, 5, 'admin', 'SysMenu/set_visible', 1, 0, 0, '', 1, 0, 1635317210, 1);
+INSERT INTO `#@__sys_menu` VALUES (7357, '数据浏览', 1575, 1, 'admin', 'Log/show_json', 1, 0, 0, '', 1, 0, 1635317335, 1);
+INSERT INTO `#@__sys_menu` VALUES (7358, '删除', 1575, 2, 'admin', 'Log/del', 1, 0, 0, '', 1, 0, 1635317335, 1);
+INSERT INTO `#@__sys_menu` VALUES (7359, '清空全部', 1575, 3, 'admin', 'Log/clear', 1, 0, 0, '', 1, 0, 1635317335, 1);
+INSERT INTO `#@__sys_menu` VALUES (7360, '添加', 1584, 2, 'admin', 'Region/add', 1, 0, 0, '', 1, 0, 1635317435, 1);
+INSERT INTO `#@__sys_menu` VALUES (7361, '修改', 1584, 2, 'admin', 'Region/edit', 1, 0, 0, '', 1, 0, 1635317435, 1);
+INSERT INTO `#@__sys_menu` VALUES (7362, '删除', 1584, 2, 'admin', 'Region/del', 1, 0, 0, '', 1, 0, 1635317435, 1);
+INSERT INTO `#@__sys_menu` VALUES (7363, '禁用', 1584, 2, 'admin', 'Region/set_visible', 1, 0, 0, '', 1, 0, 1635317435, 1);
+INSERT INTO `#@__sys_menu` VALUES (7364, '排序', 1584, 2, 'admin', 'Region/set_sort', 1, 0, 0, '', 1, 0, 1635317435, 1);
+INSERT INTO `#@__sys_menu` VALUES (7365, '数据浏览', 7309, 1, 'admin', 'SysMsg/show_json', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7366, '添加', 7309, 2, 'admin', 'SysMsg/add', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7367, '修改', 7309, 3, 'admin', 'SysMsg/edit', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7368, '删除', 7309, 4, 'admin', 'SysMsg/del', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7369, '处理', 7309, 5, 'admin', 'SysMsg/set_visible', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7370, '提醒配置', 7309, 6, 'admin', 'SysMsgType/show', 1, 0, 0, '', 1, 0, 1635317532, 1);
+INSERT INTO `#@__sys_menu` VALUES (7371, '数据浏览', 7370, 1, 'admin', 'SysMsgType/show_json', 1, 0, 0, '', 1, 0, 1635317694, 1);
+INSERT INTO `#@__sys_menu` VALUES (7372, '添加', 7370, 2, 'admin', 'SysMsgType/add', 1, 0, 0, '', 1, 0, 1635317694, 1);
+INSERT INTO `#@__sys_menu` VALUES (7373, '修改', 7370, 3, 'admin', 'SysMsgType/edit', 1, 0, 0, '', 1, 0, 1635317694, 1);
+INSERT INTO `#@__sys_menu` VALUES (7374, '删除', 7370, 4, 'admin', 'SysMsgType/del', 1, 0, 0, '', 1, 0, 1635317694, 1);
+INSERT INTO `#@__sys_menu` VALUES (7375, '提醒设置', 7370, 5, 'admin', 'SysMsgType/set_visible', 1, 0, 0, '', 1, 0, 1635317694, 1);
+INSERT INTO `#@__sys_menu` VALUES (7376, '数据浏览', 1562, 1, 'admin', 'SysOrg/show_json', 1, 0, 0, '', 1, 0, 1635318939, 1);
+INSERT INTO `#@__sys_menu` VALUES (7377, '添加', 1562, 1, 'admin', 'SysOrg/add', 1, 0, 0, '', 1, 0, 1635318939, 1);
+INSERT INTO `#@__sys_menu` VALUES (7380, '详细', 4780, 5, 'admin', 'OaNotify/detail', 1, 0, 0, '', 1, 0, 1635476674, 1);
+INSERT INTO `#@__sys_menu` VALUES (7381, '我的消息', 1532, 1, 'admin', 'SysMsg/show_my', 1, 0, 1, '', 1, 1635493808, 1635480949, 1);
+INSERT INTO `#@__sys_menu` VALUES (7382, '数据浏览', 7381, 1, 'admin', 'SysMsg/show_json', 1, 0, 0, '', 1, 1635493881, 1635493869, 1);
+INSERT INTO `#@__sys_menu` VALUES (7383, '单个处理', 7381, 2, 'admin', 'SysMsg/set_visible', 1, 0, 0, '', 1, 0, 1635496137, 1);
+INSERT INTO `#@__sys_menu` VALUES (7384, '批量处理', 7381, 3, 'admin', 'SysMsg/set_deal', 1, 0, 0, '', 1, 0, 1635496177, 1);
+INSERT INTO `#@__sys_menu` VALUES (7385, '消息删除', 7381, 4, 'admin', 'SysMsg/del', 1, 0, 0, '', 1, 0, 1635496346, 1);
+INSERT INTO `#@__sys_menu` VALUES (7572, '软件注册', 1539, 2, 'admin', 'Upgrade/reg', 1, 0, 0, '', 1, 1636959500, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7573, '升级包列表', 1539, 3, 'admin', 'Upgrade/lists', 1, 0, 0, '', 1, 1636959502, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7574, '升级包详细', 1539, 4, 'admin', 'Upgrade/info', 1, 0, 0, '', 1, 1636959504, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7575, '升级包下载', 1539, 5, 'admin', 'Upgrade/down', 1, 0, 0, '', 1, 1636959505, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7576, '升级包删除', 1539, 6, 'admin', 'Upgrade/del', 1, 0, 0, '', 1, 1636959505, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7577, '升级执行', 1539, 1, 'admin', 'Upgrade/execute', 1, 0, 0, '', 1, 1636959319, 1636959304, 1);
+INSERT INTO `#@__sys_menu` VALUES (7579, '数据浏览', 1536, 1, 'admin', 'SysModule/show_json', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7580, '添加', 1536, 1, 'admin', 'SysModule/add', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7581, '修改', 1536, 1, 'admin', 'SysModule/edit', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7582, '删除', 1536, 1, 'admin', 'SysModule/del', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7583, '排序', 1536, 1, 'admin', 'SysModule/set_sort', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7584, '启用', 1536, 1, 'admin', 'SysModule/set_visible', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7585, '备份', 1536, 1, 'admin', 'SysModule/backup', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7586, '上传导入', 1536, 1, 'admin', 'SysModule/upload', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7587, '安装', 1536, 1, 'admin', 'SysModule/install', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7588, '卸载', 1536, 1, 'admin', 'SysModule/uninstall', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7589, '同步', 1536, 1, 'admin', 'SysModule/synctable', 1, 0, 0, '', 1, 0, 1641377069, 1);
+INSERT INTO `#@__sys_menu` VALUES (7656, '移动', 1567, 7, 'admin', 'SysMenu/move', 1, 0, 0, '', 1, 1647055530, 1647055488, 1);
+INSERT INTO `#@__sys_menu` VALUES (7657, '复制', 1567, 6, 'admin', 'SysMenu/copy', 1, 0, 0, '', 1, 0, 1647055488, 1);
+INSERT INTO `#@__sys_menu` VALUES (7658, '安装设置', 7304, 1, 'admin', 'Service/driverInstall', 1, 0, 0, '', 1, 0, 1647056181, 1);
+
+
 -- -----------------------------
 -- Table structure for `#@__sys_module`
 -- -----------------------------
@@ -427,7 +464,7 @@ CREATE TABLE `#@__sys_module` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `identifier` (`identifier`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='[系统]模块';
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='[系统] 模块';
 
 -- -----------------------------
 -- Table structure for `#@__sys_org`
@@ -452,61 +489,65 @@ CREATE TABLE `#@__sys_org` (
 ) ENGINE=MyISAM AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 COMMENT='[系统]企业组织';
 
 -- -----------------------------
+-- Records of `sys_org`
+-- -----------------------------
+INSERT INTO `#@__sys_org` VALUES ('1', 'admin', 'c929dd40244b90f89ea78348bfdfcfb9', '07FLY-ERP开发', '2020-03-10', '2020-04-10', '0', '1', '李大哥', 'admin', '', '1583806365', '1619682526', '1');
+INSERT INTO `#@__sys_org` VALUES ('122', '07fly', '4e6ee1b742f998507391910a6ae3f3b0', '成都零起飞网络', '2020-03-10', '2020-04-10', '0', '1', '李大大', '07fly', '', '1583806401', '1586098750', '1');
+
+-- -----------------------------
 -- Table structure for `#@__sys_position`
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__sys_position`;
 CREATE TABLE `#@__sys_position` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
   `name` varchar(64) DEFAULT '' COMMENT '职位名称',
   `pid` int(11) DEFAULT '0' COMMENT '上线编号',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
-  `data_role` int(11) DEFAULT '1' COMMENT '数据权限类型',
+  `data_role` int(16) NOT NULL DEFAULT '1' COMMENT '职位数据权限',
   `visible` smallint(6) DEFAULT '1' COMMENT '1=显示，0=隐藏',
   `create_time` int(11) DEFAULT '0',
   `update_time` int(11) DEFAULT '0',
   `org_id` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='[系统]职位表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]职位表';
 
 -- -----------------------------
 -- Records of `sys_position`
 -- -----------------------------
-INSERT INTO `#@__sys_position` VALUES ('6', '总经理', '0', '100', '1','1', '1601259971', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('7', '组长', '6', '2', '1','1', '1601260007', '0', '1');
-INSERT INTO `#@__sys_position` VALUES ('8', '组员', '7', '1', '1','1', '1601260021', '0', '1');
+INSERT INTO `#@__sys_position` VALUES ('6', '总经理', '0', '100', '4', '1', '1601259971', '1627957633', '1');
+INSERT INTO `#@__sys_position` VALUES ('7', '组长', '6', '2', '3', '1', '1601260007', '1627638498', '1');
+INSERT INTO `#@__sys_position` VALUES ('8', '组员', '7', '1', '2', '1', '1601260021', '1627637111', '1');
 
 -- -----------------------------
 -- Table structure for `#@__sys_user`
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__sys_user`;
 CREATE TABLE `#@__sys_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
   `username` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
   `realname` varchar(64) NOT NULL DEFAULT '' COMMENT '真实姓名',
   `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '性别',
   `dept_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '所在部门',
-  `position_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '所在职位',
+  `position_id` int(2) NOT NULL DEFAULT '1' COMMENT '职位id号',
   `email` varchar(64) NOT NULL DEFAULT '' COMMENT '邮箱',
   `qicq` varchar(64) NOT NULL DEFAULT '',
   `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '手机',
   `intro` varchar(256) NOT NULL DEFAULT '' COMMENT '介绍',
-  `rules` text COMMENT '权限节点',
+  `rules` mediumtext COMMENT '权限节点',
   `create_time` int(11) NOT NULL DEFAULT '0',
   `update_time` int(11) NOT NULL DEFAULT '0',
   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
   `visible` int(11) NOT NULL DEFAULT '1' COMMENT '1=显示、0=隐藏',
   `org_id` int(11) NOT NULL DEFAULT '1' COMMENT '组织结构',
+  `is_rank` int(11) NOT NULL DEFAULT '1' COMMENT '是否参与排名',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COMMENT='[系统]用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]用户表';
 
 -- -----------------------------
 -- Records of `sys_user`
 -- -----------------------------
-INSERT INTO `#@__sys_user` VALUES ('1', 'admin', 'c929dd40244b90f89ea78348bfdfcfb9', '零起飞', '1', '1', '6', 'test@test.com', '', '', '', '1,333,334,324,2,25,34,35,36,37,38,26,302,305,425,17,18,19,20,27,47,48,49,50,28,39,40,41,42,29,43,44,45,46,30,430,51,52,53,54,31,55,56,57,58,32,59,60,61,62,33,63,64,65,66,67,80,81,82,83,68,84,85,86,87,69,88,89,90,91,70,92,93,94,95,71,96,97,98,99,72,100,101,102,103,73,104,105,106,107,74,108,109,110,111,75,112,113,114,115,76,116,117,118,119,77,120,121,122,123,78,124,125,126,127,79,128,129,130,131,21,132,154,155,156,157,310,311,312,315,316,317,313,318,319,320,314,321,322,323,426,134,158,159,427,133,160,161,162,163,165,166,164,261,330,327,328,329,403,399,400,135,167,168,262,169,170,171,263,172,173,174,136,175,264,137,176,265,331,332,401,341,343,344,141,142,177,178,179,180,181,428,461,266,182,183,184,267,185,186,187,268,188,189,190,143,293,301,429,145,191,269,195,196,197,198,270,192,193,194,144,199,325,271,200,201,202,272,203,204,205,146,206,273,147,207,274,335,347,402,342,345,346,138,140,284,300,434,406,364,365,366,367,368,369,370,371,372,373,431,432,433,139,275,411,435,436,437,438,439,440,441,442,443,444,445,446,447,448,407,459,299,455,456,208,209,276,210,211,212,277,213,214,215,278,216,217,218,279,219,220,221,280,222,223,224,281,225,226,227,282,228,229,230,283,231,232,233,408,457,458,460,234,419,235,285,236,237,238,286,239,240,241,287,242,243,245,288,246,247,248,289,249,250,251,290,252,253,254,291,255,256,257,292,258,259,260,326,409,410,423,424,306,307,348,349,350,412,405,351,352,353,354,355,356,357,358,359,360,449,450,451,452,453,454,308,309,404,361,362,363,148,149,294,377,336,337,378,150,295,379,338,374,380,151,296,381,339,375,382,152,297,383,340,376,384,413,415,416,414,417,418,462,470,471,463,472,473,464,474,475,465,476,477,466,478,479,467,480,481,468,482,483,469,484,153,298,385', '0', '1620475317', '0', '1', '1');
-INSERT INTO `#@__sys_user` VALUES ('83', '07fly', '4e6ee1b742f998507391910a6ae3f3b0', '零小二', '0', '5', '7', '', '', '07fly', '', '1433,1437,1441,1440,1438,1439,1454,1460,1458,1459,1455,1436,1445,1444,1443,1442,1435,1448,1449,1447,1446,1434,1453,1452,1450,1451', '1584695987', '1609227142', '0', '1', '122');
-INSERT INTO `#@__sys_user` VALUES ('84', 'test', '4e6ee1b742f998507391910a6ae3f3b0', '李大哥', '1', '5', '8', '', '', '', '', '', '1602494198', '1603938418', '0', '1', '1');
-
+INSERT INTO `#@__sys_user` VALUES ('1', 'admin', '4e6ee1b742f998507391910a6ae3f3b0', '零起飞', '1', '5', '6', 'test@test.com', '', '', '', '', '0', '1648005720', '0', '1', '1', '1');
 -- -----------------------------
 -- Table structure for `#@__sys_area`
 -- -----------------------------
@@ -542,7 +583,7 @@ CREATE TABLE `#@__sys_area` (
 -- -----------------------------
 -- Records of `sys_area`
 -- -----------------------------
-INSERT INTO `#@__sys_area` VALUES ('1', '成都', 'http://www.07fly.com', '0', '1', '1', '1,84,1', '开发人生,开发人生', '1597672045', '1608727787', '1', '028-61833149', '李先生', '四川省成都市量力钢材城4-3-3', '', '', '028-61833149', '地铁4号线', 'goodmuzi@qq.com', '104.072642', '30.674467', '', '', '成都零起飞科技有限公司');
+INSERT INTO `#@__sys_area` VALUES ('1', '成都', 'http://www.07fly.com', '0', '1', '1', '1,84,1', '开发人生,匆道,开发人生', '1597672045', '1608727787', '1', '028-61833149', '李先生', '四川省成都市量力钢材城4-3-3', '', '', '028-61833149', '地铁4号线', 'goodmuzi@qq.com', '104.072642', '30.674467', '', '', '成都零起飞科技有限公司');
 
 -- -----------------------------
 -- Table structure for `#@__sys_area_user`
@@ -562,7 +603,6 @@ CREATE TABLE `#@__sys_area_user` (
 INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
 INSERT INTO `#@__sys_area_user` VALUES ('84', '1', '0', '1608727787', '1');
 INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
-
 
 -- -----------------------------
 -- Table structure for `#@__sys_msg`
@@ -590,7 +630,7 @@ CREATE TABLE `#@__sys_msg` (
   `bus_url` varchar(256) NOT NULL DEFAULT '' COMMENT '业务详细地址',
   `remind_time` datetime DEFAULT NULL COMMENT '提醒处理时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息';
+) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息';
 
 -- -----------------------------
 -- Table structure for `#@__sys_msg_type`
@@ -614,6 +654,15 @@ CREATE TABLE `#@__sys_msg_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息配置';
 
+-- -----------------------------
+-- Records of `sys_msg_type`fff
+-- -----------------------------
+INSERT INTO `#@__sys_msg_type` VALUES ('1', '线索跟进', 'cst_clue', '', '10', '有新的线索需要跟进时提醒操作人员', '24', '1', '1', '0', '0', '1635313485', '1635412895', '1');
+INSERT INTO `#@__sys_msg_type` VALUES ('2', '客户跟进', 'cst_customer', '', '10', '有新的客户需要跟进时提醒操作人员', '24', '1', '1', '0', '0', '1635313894', '1635412903', '1');
+INSERT INTO `#@__sys_msg_type` VALUES ('3', '商机跟进', 'cst_chance', '', '10', '有新的销售机会（商机）需要跟进时提醒操作人员', '24', '1', '1', '0', '0', '1635313894', '1635412901', '1');
+INSERT INTO `#@__sys_msg_type` VALUES ('4', '销售合同', 'sal_contract', '', '10', '有新的销售合同需要跟进时提醒操作人员', '24', '1', '1', '0', '0', '1635313894', '1635412900', '1');
+INSERT INTO `#@__sys_msg_type` VALUES ('5', '销售订单', 'sal_order', '', '10', '有新的销售订单需要跟进时提醒操作人员', '24', '1', '1', '0', '0', '1635313894', '1635412899', '1');
+INSERT INTO `#@__sys_msg_type` VALUES ('6', '销售合同到期', 'sal_contract_expire', '', '10', '有销售合同即将到期需要跟进时提醒操作人员', '721', '1', '1', '0', '0', '1635313894', '1635412897', '1');
 
 -- -----------------------------
 -- Table structure for `#@__oa_notify`
@@ -628,10 +677,11 @@ CREATE TABLE `#@__oa_notify` (
   `rece_user_name` varchar(2560) NOT NULL DEFAULT '' COMMENT '接收对象名称',
   `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
   `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
-  `create_user_id` int(16) NOT NULL DEFAULT '0' COMMENT '创建人员',
+  `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '创建人员id',
   `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='系统通知';
+
 
 -- -----------------------------
 -- Table structure for `#@__oa_notify_user`

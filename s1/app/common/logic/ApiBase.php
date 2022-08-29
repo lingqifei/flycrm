@@ -26,7 +26,6 @@ class ApiBase extends LogicBase
 	 */
 	public function apiReturn($code_data = [], $return_data = [], $return_type = 'json')
 	{
-
 		if (is_array($code_data) && array_key_exists(API_CODE_NAME, $code_data)) {
 
 			!empty($return_data) && $code_data['data'] = $return_data;
@@ -34,7 +33,6 @@ class ApiBase extends LogicBase
 			$result = $code_data;
 
 		} else if(is_array($code_data) && !array_key_exists(API_CODE_NAME, $code_data)){//支持现有模块的返回代码
-
 			if(!empty($code_data[0]) && $code_data[0]==RESULT_SUCCESS){
 				$result[API_CODE_NAME]=1;
 				$result[API_MSG_NAME]=$code_data[1];
@@ -43,6 +41,10 @@ class ApiBase extends LogicBase
 				$result = CodeApiBase::$funCodeError;
                 $result[API_MSG_NAME]=$code_data[1];
 				$result['data'] = $code_data;
+
+                dlog('这里判断');
+                dlog($result);
+
 			}else{
 				$result = CodeApiBase::$success;
 				$result['data'] = $code_data;

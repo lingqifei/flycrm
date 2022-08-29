@@ -458,7 +458,6 @@ function findSalContractInfo(cid,target=null,bus_type=null){
             $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
             $(".form-horizontal input[name='back_money']").val(owe_money);
             $(".form-horizontal input[name='owe_money']").val(0);
-
         },
         complete: function () {
 

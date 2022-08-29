@@ -43,7 +43,27 @@ return [
 				//'ind_age' => ['type' => "normal", 'columns' => ['test002']],
 			],
 		],
-
+        'sys_user' => [
+            //表名
+            'table_name' => 'sys_user',
+            //表注释
+            'comment' => '[系统]系统用户',
+            'engine' => 'InnoDB',
+            'charset' => 'utf8mb4',
+            'collate' => 'utf8mb4_general_ci',
+            //字段信息
+            'columns' => [
+                'id' => ['type' => 'int', 'length' => 16, 'unsigned' => false, 'autoincrement' => true, 'comment' => '主id',],
+                'is_rank' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 1, 'comment' => '是否参与排名',],
+            ],
+            //主键 多个主键['user_id','name']
+            'primary' => ['id'],
+            //索引
+            'index' => [
+                //'ind_name' => ['type' => "normal", 'columns' => ['test']],
+                //'ind_age' => ['type' => "normal", 'columns' => ['test002']],
+            ],
+        ],
 		//表名 系统消息
 		'sys_msg' => [
 			'table_name' => 'sys_msg',
@@ -143,7 +163,7 @@ return [
 			'index' => [],
 		],
 
-		//表名 公告映射用户
+		//表名公告映射用户
 		'oa_notify_user' => [
 			'table_name' => 'oa_notify_user',
 			'comment' => '[系统]系统公告用户',

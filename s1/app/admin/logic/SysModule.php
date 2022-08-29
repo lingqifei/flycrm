@@ -409,6 +409,14 @@ class SysModule extends AdminBase
         if (!file_exists($app_menu_file)) {
             $app_menu_file = $module_dir . 'data' . DS . 'menu.php';
         }
+
+        //4、判断是否有升级SQL脚本，执行升级脚本
+//        $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade';
+//        if(file_exists($app_sql_upgrade)){
+//            $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir.'data', 'sqlfile' => 'upgrade.sql'));
+//            if ($res[0] == RESULT_ERROR) return $res;
+//        }
+
         $this->sysModuleSyncMenuFile($app_menu_file);
         return [RESULT_SUCCESS, '文件同步完成',''];
     }
