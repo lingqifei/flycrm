@@ -305,4 +305,5 @@ class AdminBase extends LogicBase
 		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
 		return $data;
 	}
+
 }

@@ -7,10 +7,7 @@
 
 <div class="upload-img-box{$addons_data['name']}">
     {notempty name="$info[$addons_data['name']]"}
-    <div class="upload-pre-file">
-        <span class="upload_icon_all"></span>
-        <a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url}">{$info[$addons_data['name']]|default=''|get_file_url}</a>
-    </div>
+    <div class="upload-pre-file"><span class="upload_icon_all"></span><a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url}">{$info[$addons_data['name']]|default=''|get_file_url}</a></div>
     {/notempty}
 </div>
 

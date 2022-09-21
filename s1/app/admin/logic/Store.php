@@ -104,7 +104,6 @@ class Store extends AdminBase
 	public function getCloudStoreList($data=[])
 	{
 
-
 		//得到云服务应用插件列表
 		$info = $this->modelStore->getCloudStoreList($data);
 
@@ -254,8 +253,10 @@ class Store extends AdminBase
             }
 			//********************************************
 			$app_sql_install_file=$app_path.'/data/install.sql';
+
 			$app_theme_dir=$app_path.'/data/theme';
 
+            //3、模块配置信息
 			if (file_exists($app_info_file)) {
 
 				$moduel_info=include($app_info_file);
@@ -289,9 +290,9 @@ class Store extends AdminBase
 				$updata=['status'=>1,'visible'=>1];
 				$result=$this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
 
-				//4、判断是模模板目录文件
+				//4、判断是否存在模板目录文件
 				if(is_dir($app_theme_dir)){
-					$theme_dir=PATH_PUBLIC.'theme'.DS;
+					$theme_dir=PATH_PUBLIC.'theme'.DS;//模板目录位置
 					$result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
 					if ($result == false) {
 						return [RESULT_ERROR, '复制模板文件失败'];
@@ -305,7 +306,7 @@ class Store extends AdminBase
 					if ($res[0] == RESULT_ERROR) return $res;
 				}
 
-				//6、判断是否有栏目数据表同步文件 menu.php
+				//6、判断是否有模块栏目数据表同步文件 menu.json
 				if(file_exists($app_menu_file)){
 					$res = $this->logicSysModule->sysModuleSyncMenuFile($app_menu_file);
 					if ($res[0] == RESULT_ERROR) return $res;

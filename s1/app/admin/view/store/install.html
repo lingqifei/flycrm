@@ -6,14 +6,16 @@
     <div class="tab-content">
         <div id="tab-1" class="tab-pane active">
             <div class="panel-body">
-                <strong>一年免费更新升级</strong>
+                <p>一年免费更新升级</strong>
                 <p>一年免费更新升级，仅支持自营项目使用，禁止用于外包</p>
+                <p>部分代码加密处理，无法二开使用</p>
             </div>
         </div>
         <div id="tab-2" class="tab-pane">
             <div class="panel-body">
-                <strong>永久免费更新升级</strong>
+                <p>永久免费更新升级</p>
                 <p>永久免费更新升级，支持自营项目、外包项目使用</p>
+                <p>代码开源可二开使用，所有代码无加密（购买高级版本：联系专员18030402705（同wx）处理。）</p>
             </div>
         </div>
     </div>
@@ -36,6 +38,7 @@
     </div>
 
 </div>
+<!--表示未购买-->
 {if condition="$orderinfo.ispayment eq 0"}
 <div class="ibox-title">扫一扫付款：</div>
 <div class="ibox-content app_order_payinfo"  data-url="{:url('Store/app_order_check')}">
@@ -63,6 +66,7 @@
 </div>
 {/if}
 
+<!--已经购买同时在授权时间内-->
 {if condition="$orderinfo.ispayment eq 1"}
 <div class="ibox-title">已经购买授权：</div>
 <div class="ibox-content">
@@ -92,7 +96,7 @@
         var order_id="{$orderinfo.order_id}";
         var order_code="{$orderinfo.order_code}";
 
-
+        //是否支付
         if(ispay==0){
             time1 = window.setInterval("checkOrderPay()",5000);
         }
@@ -105,7 +109,6 @@
             checkOrderPay();
         });
 
-
     });
 
 
@@ -113,11 +116,22 @@
     //下载安装
     function appDownInstall() {
         var target = $('.down-install').attr('data-url');
+        var layerLoadIndex,layerMsgIndex;
         $.ajax({
             type: "POST",
             url: target,
             data: '',
             dataType: "json",
+            beforeSend: function () {
+                layerMsgIndex=layer.msg('请不要关闭浏览器,正在下载升级程序升级，...',
+                    {
+                        time: 0,
+                        icon: '1',
+                        shade: 0.01
+                    }
+                );
+                layerLoadIndex = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
             success: function (result) {
                 if (result.code == '1') {
                     layer.msg(result.msg, {icon: 1, time: 1000, shade: [0.5, '#000', true]}, function () {
@@ -127,6 +141,9 @@
                 } else {
                     layer.msg(result.msg, {icon: 5});
                 }
+            }, complete: function () {
+                layer.close(layerMsgIndex);
+                layer.close(layerLoadIndex);
             }
         });//end ajax post
     }

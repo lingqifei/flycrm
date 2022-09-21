@@ -1013,6 +1013,28 @@
                         "is_menu": 0,
                         "icon": "",
                         "nodes": []
+                    },
+                    {
+                        "name": "应用安装",
+                        "sort": 2,
+                        "module": "admin",
+                        "url": "Store/install",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "应用升级",
+                        "sort": 3,
+                        "module": "admin",
+                        "url": "Store/upgrade",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
                     }
                 ]
             },

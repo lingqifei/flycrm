@@ -548,6 +548,12 @@ $("body").on("click", ".ajax-get", function () {
             return false;
         }
     }
+
+    if ($(this).hasClass('ajaxload')) {
+        //页面层-自定义
+        var ajaxload=layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+    }
+
     var target;
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
 
@@ -572,6 +578,8 @@ $("body").on("click", ".ajax-get", function () {
             } else {
                 parent.layer.msg(data.msg, {icon: 5});
             }
+
+            layer.close(ajaxload)
             //如果传了地址表示跳转
             // if (data.url) {
             //     setTimeout(function () {

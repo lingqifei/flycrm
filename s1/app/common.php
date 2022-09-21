@@ -983,7 +983,11 @@ function update_cache_version($obj = null)
 
     $lqf_auto_cache = cache('lqf_auto_cache');
 
-    is_string($obj) ? $lqf_auto_cache[$obj]['version']++ : $lqf_auto_cache[$obj->getTable()]['version']++;
+    if(is_string($obj)){
+        $lqf_auto_cache[$obj]['version']++;
+    }else{
+        !empty($lqf_auto_cache[$obj->getTable()]['version']) && $lqf_auto_cache[$obj->getTable()]['version']++;
+    }
 
     cache('lqf_auto_cache', $lqf_auto_cache);
 }

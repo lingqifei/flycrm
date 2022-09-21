@@ -148,7 +148,7 @@ class Upgrade extends AdminBase
 					} else {
 						$row['status'] = '
 <font color="green">文件已下载,文件大小('.format_bytes($fileinfo['size']).')</font>
-&nbsp;&nbsp;<a  class="ajax-get text-danger" data-url="' . url('upgrade/del',array('version'=>$row['version'])) . '">删除</a>
+&nbsp;&nbsp;<a  class="ajax-get ajaxload text-danger" data-url="' . url('upgrade/del',array('version'=>$row['version'])) . '">删除</a>
 ';
 						$row['operate'] = '
 						<a href="javascript:void(0);" class="execute" data-ver="' . $row['version'] . '" data-url="' . url('upgrade/execute') . '">点击升级更新包</a>';
