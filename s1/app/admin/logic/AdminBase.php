@@ -268,6 +268,7 @@ class AdminBase extends LogicBase
 	public function getConfigData()
 	{
 		$auth = $this->logicUpgrade->upgrade_auth_check();
+//        $auth['code'] = 1;
 		if ($auth['code'] == 1) {
 			$data['seo_title'] = config('seo_title');
 			$data['seo_description'] = config('seo_description');

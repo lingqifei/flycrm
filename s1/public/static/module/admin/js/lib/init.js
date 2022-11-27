@@ -64,20 +64,17 @@ $(document).ready(function () {
         });
     });
 
-
     // 菜单切换
     $('.navbar-minimalize').click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
 
-
     // 侧边栏高度
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
     }
-
     fix_height();
 
     $(window).bind("load resize click scroll", function () {
@@ -126,7 +123,6 @@ $(document).ready(function () {
     //bootstrap 下拉选择
     $('.chosen-select').chosen({search_contains: true});
 
-
     //默认关闭浏览自带提示
     $("input[type='text']").attr('autocomplete', 'off');
 
@@ -151,6 +147,10 @@ $(document).ready(function () {
         $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked", true);//保证所有低级勾选上
 
     });
+
+    //表格点击行之后选中+添加颜色
+
+
 
 
 });

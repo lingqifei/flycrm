@@ -127,6 +127,21 @@ class ModelBase extends Model
     }
 
     /**
+     * 设置某个字段值自增自减  2022-09-13
+     */
+    final protected function setCalc($where = [], $data_list = '')
+    {
+        $this->updateCache($this);
+        foreach ($data_list as $keyFeild=>$row){
+            if($row[0]=='inc'){
+                Db::name($this->name)->where($where)->setInc($keyFeild, $row[1]);
+            }elseif ($row[0]=='dec'){
+                Db::name($this->name)->where($where)->setDec($keyFeild, $row[1]);
+            }
+        }
+    }
+
+    /**
      * 删除数据
      */
     final protected function deleteInfo($where = [], $is_true = false)
@@ -358,7 +373,8 @@ class ModelBase extends Model
 
         $lqf_auto_cache_keys = cache('lqf_auto_cache_keys');
 
-        if (!in_array($ck, $lqf_auto_cache_keys)) {
+        //修改兼容非数组报错
+        if (is_array($lqf_auto_cache_keys) && !in_array($ck, $lqf_auto_cache_keys)) {
 
             $lqf_auto_cache_keys[] = $ck;
 

@@ -1,7 +1,7 @@
 <?php
 /*
 *
-* 零起飞企业管理系统（07FLY-ESM）
+* 零起飞企业管理系统（07FLY-ERP）
 *
 * =========================================================
 * 零起飞网络 - 专注于网站建设服务和行业系统开发
@@ -45,13 +45,6 @@ class RpcBase extends ApiBase
 
         $authData=$this->param;
         $authData['access_token']=get_access_token();
-
         $this->logicApiBase->checkAccessToken($authData);
-
     }
-
-
-
-
-
 }

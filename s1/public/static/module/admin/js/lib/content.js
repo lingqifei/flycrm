@@ -1,10 +1,26 @@
 //初始化一些效果
 $(function () {
 
-    //实现全选反选
+    //实现全选反选+全先后背景变色
     $(".checkboxCtrl").on('click', function () {
         $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
+
+        if($(this).prop('checked')){
+           $(".ajax-list-table tbody tr").addClass('active')
+        }else{
+            $(".ajax-list-table tbody tr").removeClass('active')
+        }
     });
+
+    //点击列表前面checkbox背景变色
+    $("body").on("click", ".checkboxCtrlId", function () {
+        if($(this).prop('checked')){
+            $(this).parents('tr').addClass('active')
+        }else{
+            $(this).parents('tr').removeClass('active')
+        }
+    });
+
 
     //全局返回
     $(".btn-history").on('click', function () {
@@ -518,6 +534,7 @@ $("body").on("click", ".ajax-del", function () {
     }
     log('删除执行地址：' + target);
     layer.confirm('您确定要删除吗?', {btn: ['确定', '取消'], icon: 3,title: "提示"}, function (index) {
+        parent.layer.close(index);
         if (target) {
             log('确定执行删除操作：');
             $.get(target).success(function (data) {

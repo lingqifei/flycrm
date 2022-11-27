@@ -3456,7 +3456,7 @@ video {
 .fancybox img {
     margin-bottom: 5px;
     /* Only for demo */
-    width: 24%;
+    max-width:100%;
 }
 
 

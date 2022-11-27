@@ -144,7 +144,7 @@ class SysMenu extends AdminBase
 		$menu_info = $this->getSysMenuInfo($map);
 
 		// 获取自己及父菜单列表
-		$this->getParentMenuList($menu_info['id']);
+        !empty($menu_info['id']) && $this->getParentMenuList($menu_info['id']);
 
 		// 选中面包屑中的菜单
 		foreach (self::$crumbs as $menu_info) {
@@ -181,7 +181,7 @@ class SysMenu extends AdminBase
 		$menu_info = $this->getSysMenuInfo($map);
 
 		// 获取自己及父菜单列表
-		$this->getParentMenuList($menu_info['id']);
+		!empty($menu_info['id']) && $this->getParentMenuList($menu_info['id']);
 
 		$crumbs_view = '<div class="row white-bg" style="padding: 10px 5px 10px 20px;font-size: 13px;"><div class="col-sm-12">';
 

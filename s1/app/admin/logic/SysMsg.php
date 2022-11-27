@@ -298,5 +298,4 @@ class SysMsg extends AdminBase
             return false;
         }
     }
-
 }

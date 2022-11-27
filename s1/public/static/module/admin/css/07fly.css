@@ -17,6 +17,8 @@
 /*表格列表td超出长度隐藏*/
 .ajax-list-table .MHover{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 
+.ajax-list-table .active{background-color: #F5F5F5;}
+
 /*表格，表头字段，排序样式*/
 .sort-filed {/*background: url(../img/arrow.png) no-repeat right;*/cursor: pointer;}
 .sort-filed span:after {font: normal normal normal 14px/1 FontAwesome;content: "\f0dc";margin-left: 10px;}
@@ -92,4 +94,16 @@
 .salrank table tr:nth-child(2) .phicon{background: url("../img/ph2.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
 .salrank table tr:nth-child(3) .phicon{background: url("../img/ph3.png") no-repeat center; background-size:contain;width: 50px;height: 50px;color: #ffffff;}
 
+/* 下拉查询插件样式 */
 .suggest-search-box .dropdown-toggle{height: 30px;}
+
+/* 详细页面 */
+.detail-tit{padding: 5px 0;display:block;}
+@media (max-width: 768px) {
+    .detail-tit{display:inline-block;padding-left: 10px;}
+    .detail-tit:after{content: ":"}
+}
+/*详细页面--tab样式*/
+.detail-tabs .nav-tabs{margin-bottom: 0px;background: #F9F9F9;}
+.detail-tabs .nav-tabs h3{font-weight: 600;font-size:14px;  padding: 5px 30px 0px 5px;}
+.detail-tabs .tab-content{border-left: solid 1px #e7eaec;border-right: solid 1px #e7eaec;border-bottom: solid 1px #e7eaec;}

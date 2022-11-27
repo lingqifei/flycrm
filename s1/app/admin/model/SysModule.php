@@ -62,7 +62,6 @@ class SysModule extends AdminBase
         return (array_key_exists($key, $data)) ? $data[$key] : $data;
     }
 
-
     /**
      * 创建模块目录
      * @param $module
@@ -79,7 +78,6 @@ class SysModule extends AdminBase
 //        }
         //创建模块目录
         !is_dir($module_dir) && mkdir($module_dir, 0755, true);
-
 
         //模块子目录
         $dir_list = ['controller', 'logic', 'model', 'service', 'validate', 'data', 'view'];
@@ -472,5 +470,23 @@ INFO;
         }
     }
 
+    /**
+     * 应用表中模块是否存在和启用
+     * @param $table
+     * @return bool
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2021/6/18 0018 17:00
+     */
+    public function appModuleIsEnable($appname)
+    {
+        $condition['name'] = $appname;
+        $condition['visible'] = 1;
+        $module = $this->modelSysModule->getValue($condition, 'name');
+        if (file_exists($module)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

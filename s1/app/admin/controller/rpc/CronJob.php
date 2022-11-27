@@ -24,7 +24,8 @@ use app\common\controller\ControllerBase;
 class CronJob extends ControllerBase
 {
 
-    /**系统消息发送=>插件提醒
+    /**
+     * 系统消息发送=>插件提醒
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */
@@ -38,7 +39,8 @@ class CronJob extends ControllerBase
         return $list;
     }
 
-    /**系统公告=>插件提醒
+    /**
+     * 系统公告=>插件提醒
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */
@@ -57,7 +59,8 @@ class CronJob extends ControllerBase
         return $list;
     }
 
-    /**扫描业务数据，根据条件创建添加到系统消息
+    /**
+     * 扫描业务数据，根据条件创建添加到系统消息
      * 调用执行：http://localhost/admin/rpc.CronJob/sys_msg_scanbus
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/25 0025 14:48
@@ -67,7 +70,8 @@ class CronJob extends ControllerBase
         $this->logicSysMsgType->sysMsgTypeScan();
     }
 
-    /**公告通知=》微信模板消息
+    /**
+     * 公告通知=》微信模板消息
      * 调用执行：http://localhost/admin/rpc.CronJob/sys_msg_scanbus
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
