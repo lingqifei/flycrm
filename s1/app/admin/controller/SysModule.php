@@ -86,15 +86,6 @@ class SysModule extends AdminBase
     }
 
     /**
-     * 模块上传
-     */
-    public function upload()
-    {
-        IS_POST &&   $this->jump($this->logicSysModule->sysModuleUpload($this->param));
-        return $this->fetch('upload');
-    }
-
-    /**
      * 模块安装
      */
     public function install()
@@ -135,19 +126,40 @@ class SysModule extends AdminBase
     }
 
 	/**
-	 * 模块卸载
-	 */
-	public function createsys()
-	{
-		return $this->jump($this->logicSysModule->sysModuleCreateSys($this->param));
-	}
-
-	/**
 	 * 模块同步
 	 */
 	public function synctable()
 	{
 		return $this->jump($this->logicSysModule->sysModuleSyncTable($this->param));
 	}
+
+    /**
+     * 模块上传
+     */
+    public function upload()
+    {
+        if (!empty($this->param['ajaxmodel'])) {
+            switch ($this->param['ajaxmodel']) {
+                case 'get':
+                    return $this->logicUpload->getUploadFile($this->param);
+                    break;
+                case 'del':
+                    return $this->jump($this->logicUpload->delUploadFile($this->param));
+                    break;
+                case 'upload':
+                    return $this->jump($this->logicUpload->uploadFile($this->param));
+                    break;
+                case 'install':
+                    return $this->jump($this->logicSysModule->sysModuleUpload($this->param));
+                    break;
+            }
+        }
+        $uploadfilepath = 'sysmodule_' . SYS_USER_ID;//上传文件目录
+        $uploadtarget = url('SysModule/upload', array('ajaxmodel' => 'upload', 'uploadfilepath' => $uploadfilepath));
+        $this->assign('uploadfilepath', $uploadfilepath);
+        $this->assign('ajaxtarget', url());
+        $this->assign('uploadtarget', $uploadtarget);
+        return $this->fetch('upload');//上传接口模板
+    }
 
 }

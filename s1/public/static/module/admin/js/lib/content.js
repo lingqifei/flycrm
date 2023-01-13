@@ -414,7 +414,6 @@ $("body").on("click", ".ajax-open", function () {
             width = "90%";
             height = "90%";
         }
-
         layer.open({
             type: 2,
             title: false,
@@ -681,7 +680,6 @@ $("body").on("click", ".ajax-post", function () {
                     return false;
                 }
             }
-
             if ($(this).attr('url') !== undefined) {
                 target = $(this).attr('url');
             } else {
@@ -696,16 +694,13 @@ $("body").on("click", ".ajax-post", function () {
                     nead_confirm = true;
                 }
             })
-
             if (nead_confirm && $(this).hasClass('confirm')) {
                 if (!confirm('确认要执行该操作吗?')) {
                     return false;
                 }
             }
-
             query = form.serialize();
         } else {
-
             if ($(this).hasClass('confirm')) {
                 if (!confirm('确认要执行该操作吗?')) {
                     return false;
@@ -741,7 +736,6 @@ $("body").on("click", ".ajax-post", function () {
                 }
             },
         });//end ajax post
-
     }
     return false;
 });

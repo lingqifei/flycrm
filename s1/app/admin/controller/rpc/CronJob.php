@@ -36,6 +36,7 @@ class CronJob extends ControllerBase
         $where['deal_user_id'] = $this->param['deal_user_id'];//当前登录人
         $where = $this->logicSysMsg->getWhere($where);
         $list['data'] = $this->logicSysMsg->getSysMsgList($where, '', 'id asc', false);
+//        $list['nums'] = count($list['data']);
         return $list;
     }
 
@@ -56,6 +57,7 @@ class CronJob extends ControllerBase
         $where['read_state'] = 0;//未读
         $where['owner_user_id'] = $this->param['owner_user_id'];//当前登录人
         $list['data'] = $this->logicOaNotifyUser->getOaNotifyUserList($where, 'a.*,n.name,n.create_user_id', '', false);
+//        $list['nums'] = count($list['data']);
         return $list;
     }
 

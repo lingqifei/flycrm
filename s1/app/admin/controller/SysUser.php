@@ -37,21 +37,35 @@ class SysUser extends AdminBase
         //input ids name
         if (!empty($this->param['input_ids'])) {
             $this->assign('input_ids', $this->param['input_ids']);
-        }else{
+        } else {
             $this->assign('input_ids', 'input_ids');
         }
         //input texts name
         if (!empty($this->param['input_text'])) {
             $this->assign('input_text', $this->param['input_text']);
-        }else{
+        } else {
             $this->assign('input_text', 'input_text');
+        }
+
+        //回示区域
+        if (!empty($this->param['lookupgroup'])) {
+            $this->assign('lookupgroup', $this->param['lookupgroup']);
+        } else {
+            $this->assign('lookupgroup', 'lookupgroup');
         }
 
         //input ids name
         if (!empty($this->param['achieve'])) {
             $this->assign('achieve', $this->param['achieve']);
-
             return $this->fetch('lookup_achieve');
+        }
+
+        //选择方式
+        if (!empty($this->param['pagetype'])) {
+            switch ($this->param['pagetype']) {
+                case 'one';
+                    return $this->fetch('lookup_one');
+            }
         }
 
         return $this->fetch('lookup');
@@ -60,7 +74,7 @@ class SysUser extends AdminBase
 
     public function show_json()
     {
-        $where =$this->logicSysUser->getWhere($this->param);
+        $where = $this->logicSysUser->getWhere($this->param);
         $list = $this->logicSysUser->getSysUserList($where);
         return $list;
     }
@@ -203,13 +217,14 @@ class SysUser extends AdminBase
      * 公共数据
      * Author: lingqifei created by at 2020/6/16 0016
      */
-    public function  common_data(){
+    public function common_data()
+    {
         //获取菜单Select结构数据
-        $dept_select=$this->logicSysDept->getSysDeptTreeSelect();
+        $dept_select = $this->logicSysDept->getSysDeptTreeSelect();
         $this->assign('dept_select', $dept_select);
 
         //获取菜单Select结构数据
-        $position_listt=$this->logicSysPosition->getSysPositionTreeSelect();
+        $position_listt = $this->logicSysPosition->getSysPositionTreeSelect();
         $this->assign('sys_position_list', $position_listt);
 
     }

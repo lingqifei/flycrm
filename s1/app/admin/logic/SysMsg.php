@@ -207,7 +207,6 @@ class SysMsg extends AdminBase
     public function getSysMsgBusUrl($bus_type, $bus_id)
     {
         $url = '';
-
         //判断模块
         if ($this->appExists('erp')) {
             $model_name = 'erp';
@@ -263,7 +262,8 @@ class SysMsg extends AdminBase
         return $url;
     }
 
-    /**检查表是否存在
+    /**
+     * 检查表是否存在
      * @param $table
      * @return bool
      * Author: 开发人生 goodkfrs@qq.com
@@ -281,7 +281,8 @@ class SysMsg extends AdminBase
     }
 
 
-    /**应用表是否存在
+    /**
+     * 应用表是否存在
      * @param $table
      * @return bool
      * Author: 开发人生 goodkfrs@qq.com

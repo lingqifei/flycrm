@@ -27,7 +27,6 @@ class SysMsgType extends AdminBase
     public function getSysMsgTypeList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
     {
         $list = $this->modelSysMsgType->getList($where, true, 'create_time desc', $paginate);
-        is_object($list) && $list = $list->toArray();
         return $list;
     }
 
@@ -98,7 +97,6 @@ class SysMsgType extends AdminBase
         if (!empty($data['status'])) {
             $where['status'] = ['=', '' . $data['status'] . ''];
         }
-
         return $where;
     }
 
@@ -147,7 +145,7 @@ class SysMsgType extends AdminBase
                             $intoData = [
                                 'bus_type' => $row['type'],
                                 'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开妈提醒时间
+                                'remind_time' => format_time(),//开始提醒时间
                                 'remind_sms' => $row['remind_sms'],
                                 'remind_sys' => $row['remind_sys'],
                                 'remind_email' => $row['remind_email'],
@@ -155,7 +153,7 @@ class SysMsgType extends AdminBase
                                 'bus_id' => $one['id'],
                                 'bus_name' => $row['name'] . ':' . $one['name'] . ',跟进时间于' . $one['next_time'],
                                 'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['next_time'],
+                                'deal_time' => $one['next_time'],//业务处理最后时间
                             ];
                             $this->sysMsgTypeScanAdd($intoData);
                         }

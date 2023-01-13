@@ -24,6 +24,9 @@ class SysMsg extends AdminBase
 	 */
 	public function show()
 	{
+
+        $type_list=$this->logicSysMsgType->getSysMsgTypeList('','','',false);
+        $this->assign('type_list', $type_list);
 		return $this->fetch('show');
 	}
 
@@ -32,6 +35,7 @@ class SysMsg extends AdminBase
 	 */
 	public function show_my()
 	{
+        $this->comm_data();
 		return $this->fetch('show_my');
 	}
 
@@ -94,6 +98,18 @@ class SysMsg extends AdminBase
 	public function set_deal()
 	{
 		$this->jump($this->logicSysMsg->sysMsgSetDeal($this->param));
+	}
+
+    /**
+     * 公共数据
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2022/12/13 16:06
+     */
+    public function comm_data()
+	{
+        $type_list=$this->logicSysMsgType->getSysMsgTypeList('','','',false);
+        $this->assign('type_list', $type_list);
 	}
 
 }

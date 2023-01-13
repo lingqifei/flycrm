@@ -102,16 +102,21 @@ class SysModule extends AdminBase
         }
 
         //创建目录结构
-       return $this->modelSysModule->createModuleDir($this->app_path, $data['name']);
+        $res = $this->modelSysModule->createModuleDir($this->app_path, $data['name']);
+        if (!$res) {
+            return [RESULT_ERROR, '创建目录失败'];
+        }
 
         //删除多余字段
         unset($data['comm_file']);
         unset($data['module_dir']);
 
         //模块的标识
-        $data['identifier'] = 'module.lingqifei.'.$data['name'];
-        $data['status'] =1;//安装
+        $data['identifier'] = 'module.lingqifei.' . $data['name'];
+        $data['status'] = 1;//安装
         $result = $this->modelSysModule->setInfo($data);
+
+
         $url = url('show');
         $result && action_log('新增', '新增模块：name' . $data['name']);
         return $result ? [RESULT_SUCCESS, '模块添加成功', $url] : [RESULT_ERROR, $this->modelSysModule->getError()];
@@ -296,27 +301,27 @@ class SysModule extends AdminBase
     }
 
     /**
-     * 模块上传
+     * 模块上传=》安装
      * @param array $data
      * Author: lingqifei created by at 2020/6/4 0004
      */
     public function sysModuleUpload($data = [])
     {
-        $object_info = request()->file('filename');
         $save_name = data_md5_key(time());//保存文件名称
-        $object = $object_info->move($this->app_upload_path, $save_name);//保留原文件名 savename=‘’设置为空
-        $save_file_path = $object->getpathName();//保存文件全路径
+        $save_file_path = $data['filename'];//zip包路径
+        //zip文件,目录中解压，文件名以时间为准
+        $module_tmp_dir = $this->app_upload_path . $save_name . DS;//以斜杠结束
 
-        //直接在上传目录中解压，文件名以时间为准
-        $module_tmp_dir = $this->app_upload_path . DS . $save_name . DS;//以斜杠结束
+        dlog('app解压安装=》===========================开始=====');
+
         if (file_exists($save_file_path)) {
+            //1、解压目录
             $zip = new \lqf\Zip();
             $res = $zip->unzip($save_file_path, $module_tmp_dir);
             if ($res != true) {
                 return [RESULT_ERROR, '模块包解压失败'];
             }
-
-            //获取里面的文件包名
+            //2、获取里面的文件包名
             $fp = new \lqf\Dir();
             $dirlist = $fp->listFile($module_tmp_dir);//查看目录列表文件，必须是以斜杠结束
             $app_path = !empty($dirlist) ? $dirlist[0]['pathname'] : '';
@@ -324,60 +329,31 @@ class SysModule extends AdminBase
             if (empty($app_path)) {
                 return [RESULT_ERROR, '应用插件压缩包缺少目录文件'];
             }
+            dlog('zip包文件路径：' . $save_file_path);
+            dlog('zip解压后目录：' . $module_tmp_dir);
+            dlog('app目录：' . $app_path);
 
-            //2、增加到本地模块
-            $app_info_file = $app_path . '/data/info.php';
-            $app_sql_install_file = $app_path . '/data/install.sql';
-            if (file_exists($app_info_file)) {
-                $moduel_info = include($app_info_file);
-                $validate_result = $this->validateSysModule->scene('add')->check($moduel_info);
-                if (!$validate_result) {
-                    return [RESULT_ERROR, $this->validateSysModule->getError()];
-                }
-                $sys_mid = $this->modelSysModule->setInfo($moduel_info);
+            //3、app目录执行安装
+            return $this->sysModuleInstallExec($app_name, $app_path);
 
-                //2.0移动包到应用目录
-                $module_dir = PATH_APP . $app_name . DS;
-                $file = new \lqf\File();
-                $result = $file->handle_dir($app_path, $module_dir, 'copy', true);
-                if ($result == false) {
-                    return [RESULT_ERROR, '复制模块文件目录失败'];
-                    exit;
-                }
-
-                // 2.1导入菜单栏目
-                $res = $this->modelSysModule->importModuleMenu($app_name, $module_dir);
-                if ($res[0] == RESULT_ERROR) return $res;
-
-                //2、判断是否有安装SQL脚本，执行安装脚本
-                if (file_exists($app_sql_install_file)) {
-                    $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'install.sql'));
-                    if ($res[0] == RESULT_ERROR) return $res;
-                }
-
-                //3、更新模块包,
-                $updata = ['status' => 1, 'visible' => 1];
-                $result = $this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
-                return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
-            } else {
-                return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];
-                exit;
-            }
-
+        } else {
+            return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];
+            exit;
         }
     }
 
     /**
-     * 删除模块的栏目数据
+     * 删除模块=》菜单栏目数据
      * @param $modulename
      * Author: lingqifei created by at 2020/6/4 0004
      */
     public function delModuleMenu($modulename)
     {
-        $this->modelSysMenu->deleteInfo(['module' => $modulename],true);
+        $this->modelSysMenu->deleteInfo(['module' => $modulename], true);
     }
 
-    /**同步数据结构
+    /**
+     * 同步=》 表和菜单
      * @param string $fileinfo
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2021/8/3 0003 9:52
@@ -402,7 +378,7 @@ class SysModule extends AdminBase
 
         //2、同部数据表字段
         $app_table_file = $module_dir . 'data' . DS . 'table.php';
-        $this->sysModuleSyncTableFile($app_table_file);
+        $this->modelSysModule->sysModuleSyncTableFile($app_table_file);
 
         //3、同步栏目
         $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
@@ -411,87 +387,126 @@ class SysModule extends AdminBase
         }
 
         //4、判断是否有升级SQL脚本，执行升级脚本
-//        $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade';
-//        if(file_exists($app_sql_upgrade)){
-//            $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir.'data', 'sqlfile' => 'upgrade.sql'));
-//            if ($res[0] == RESULT_ERROR) return $res;
-//        }
-
-        $this->sysModuleSyncMenuFile($app_menu_file);
-        return [RESULT_SUCCESS, '文件同步完成',''];
-    }
-
-    /**同步表数据库结构
-     * @param string $filename
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/8/3 0003 9:52
-     */
-    public function sysModuleSyncTableFile($filename = '')
-    {
-        if (file_exists($filename)) {
-            $content = include($filename);//加载table结构数组
-            $table = new \lqf\SyncTableDesc($content, SYS_DB_PREFIX);
-            $table->generate();
+        $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade';
+        if (file_exists($app_sql_upgrade)) {
+            $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data', 'sqlfile' => 'upgrade.sql'));
+            if ($res[0] == RESULT_ERROR) return $res;
         }
-    }
 
-    /**同步栏目数据库结构
-     * @param string $filename
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/8/3 0003 9:52
-     */
-    public function sysModuleSyncMenuFile($filename = '')
-    {
-        if (file_exists($filename)) {
-            $content = file_get_contents($filename);
-            $content = isJson($content, true);
-            $this->sysModuleMenuImport($content);
-        }
+        $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
+        return [RESULT_SUCCESS, '文件同步完成', ''];
     }
 
 
-    /**同步更新栏目数据，增加不存的栏目数据
-     * @param array $data
-     * @param int $pid
-     * @return bool
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/8/5 0005 18:44
+    /**
+     * app安装执行=》目录
+     * @param $app_path
+     * @param $app_name
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2022/12/29 9:40
      */
-    public function sysModuleMenuImport($data = [], $pid = 0)
+    public function sysModuleInstallExec($app_name, $app_path)
     {
-        if (empty($data)) {
-            return true;
-        }
-        foreach ($data as $v) {
-            $map['url'] = ['=', $v['url']];
-            $map['module'] = ['=', $v['module']];
-            $info = $this->modelSysMenu->getInfo($map, true);
+        //模块配置文件
+        $app_info_file = $app_path . '/data/info.php';
+        $app_is_install = true;//是否安装
+        dlog('app安装执行=》开始=====');
+        if (file_exists($app_info_file)) {
+            $moduel_info = include($app_info_file); //解压包中模块信息
+            //第1步：判断模块是否存在,
+            //1、不存在=》添加，
+            //2、存在=》更新
+            if (!empty($moduel_info['identifier'])) {
+                $map['name'] = $app_name;
+                $map['identifier'] = $moduel_info['identifier'];
+                $info = $this->modelSysModule->getInfo($map);
+                if (empty($info)) {
+                    $validate_result = $this->validateSysModule->scene('add')->check($moduel_info);
+                    if (!$validate_result) {
+                        return [RESULT_ERROR, $this->validateSysModule->getError()];
+                    }
+                    $sys_mid = $this->modelSysModule->setInfo($moduel_info);
 
-            //整理是否有下级
-            $childs = '';
-            if (isset($v['nodes'])) {
-                $childs = $v['nodes'];
-                unset($v['nodes']);
-            }
-            //当栏目不存在、添加栏目
-            if (empty($info)) {
-                if (!isset($v['pid'])) {
-                    $v['pid'] = $pid;
+                    dlog('install模块数据：' . $sys_mid);
+                } else {
+                    $sys_mid = $info['id'];
+                    $this->modelSysModule->updateInfo(['id' => $sys_mid], $moduel_info);
+                    $app_is_install = false;//表示更新
+
+                    dlog('upgrade模块数据：' . $sys_mid);
                 }
-                $result = $this->modelSysMenu->setInfo($v);
-            } else {//存在跳过
-                $result = $info['id'];//设置本为上级栏目
-                $this->sysModuleMenuImport($childs, $result);
             }
 
-            if (!$result) {
-                return false;
+            //第2步：移动包到应用目录
+            $module_dir = PATH_APP . $app_name . DS;
+            $file = new \lqf\File();
+            $result = $file->handle_dir($app_path, $module_dir, 'copy', true);
+            if ($result == false) {
+                return [RESULT_ERROR, '复制模块文件目录失败'];
+                exit;
             }
-            if (!empty($childs)) {
-                $this->sysModuleMenuImport($childs, $result);
+            dlog('复制解压包=》app目录下：' . $sys_mid);
+
+            //3、判断是否有栏目数据表同步文件 menu.json
+            $app_menu_file = $app_path . '/data/menu.json';
+            if (file_exists($app_menu_file)) {
+                $res = $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
+                if ($res[0] == RESULT_ERROR) return $res;
+                dlog('3、同步文件 menu.json');
             }
+
+            //4、判断是否有安装SQL脚本，执行安装脚本
+            // SQL文件存在 && 是执行安装操作
+            $app_sql_install_file = $app_path . '/data/install.sql';
+            if (file_exists($app_sql_install_file) && $app_is_install == true) {
+                $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'install.sql'));
+                if ($res[0] == RESULT_ERROR) return $res;
+                dlog('4、同步文件 install.sql');
+            }
+
+            //4.1、是否升级表字段
+            $app_table_file = $app_path . '/data/table.php';
+            if (file_exists($app_table_file)) {
+                $res = $this->modelSysModule->sysModuleSyncTableFile($app_table_file);
+                if ($res[0] == RESULT_ERROR) return $res;
+
+                dlog('4.1、同步文件 table.php');
+            }
+
+            //4.2、判断是否有升级SQL脚本，执行升级脚本
+            $app_sql_upgrade = $app_path . '/data/upgrade.sql';
+            if (file_exists($app_sql_upgrade)) {
+                $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data', 'sqlfile' => 'upgrade.sql'));
+                if ($res[0] == RESULT_ERROR) return $res;
+
+                dlog('4.3、同步文件 upgrade.sql');
+            }
+
+            //5、判断是模模板文件
+            $app_theme_dir = $app_path . '/data/theme';//模模板目录
+            if (is_dir($app_theme_dir)) {
+                $theme_dir = PATH_PUBLIC . 'theme' . DS;
+                $result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
+                if ($result == false) {
+                    return [RESULT_ERROR, '复制模板文件失败'];
+                    exit;
+                }
+                dlog('5、同步模板');
+            }
+
+            //10、开启模块,
+            $updata = ['status' => 1, 'visible' => 1];
+            $result = $this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
+
+            dlog('app安装执行=》结束=====');
+
+            return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
+
+        } else {
+            return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];
+            exit;
         }
-        return true;
     }
 
 }

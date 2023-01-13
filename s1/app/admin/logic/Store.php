@@ -223,6 +223,7 @@ class Store extends AdminBase
 		$filename = $result['filename'];//远程下载文件名
 		$dirpath = $result['dirpath'];//远程下载目录
 
+        //zip解压目录
 		$tmppath=$dirpath.rtrim($filename,'.zip').DS;
 
 		if (file_exists($filepath)) {
@@ -242,87 +243,16 @@ class Store extends AdminBase
 				return [RESULT_ERROR, '应用插件压缩包缺少目录文件'];
 			}
 
-			//2、增加到本地模块
-			$app_info_file=$app_path.'/data/info.php';
-			$app_table_file=$app_path.'/data/table.php';
+            dlog('zip包文件路径：' . $filepath);
+            dlog('zip解压后目录：' . $tmppath);
+            dlog('app目录：' . $app_path);
 
-            //***加载json栏目文件， 兼容开始版本后缀为php文件***
-			$app_menu_file=$app_path.'/data/menu.json';
-			if(!file_exists($app_menu_file)){
-                $app_menu_file=$app_path.'/data/menu.php';
-            }
-			//********************************************
-			$app_sql_install_file=$app_path.'/data/install.sql';
-
-			$app_theme_dir=$app_path.'/data/theme';
-
-            //3、模块配置信息
-			if (file_exists($app_info_file)) {
-
-				$moduel_info=include($app_info_file);
-
-				$validate_result = $this->validateSysModule->scene('add')->check($moduel_info);
-				if (!$validate_result) {
-					return [RESULT_ERROR, $this->validateSysModule->getError()];
-				}
-				$sys_mid = $this->modelSysModule->setInfo($moduel_info);
-
-				//2.0移动包到应用目录
-				$module_dir=PATH_APP.$app_name.DS;
-				$file = new \lqf\File();
-				$result = $file->handle_dir($app_path, $module_dir, 'copy', true);
-				if ($result == false) {
-					return [RESULT_ERROR, '复制模块文件目录失败'];
-					exit;
-				}
-
-				// 2.1导入菜单栏目
-				$res = $this->modelSysModule->importModuleMenu($app_name,$module_dir);
-				if ($res[0] == RESULT_ERROR) return $res;
-
-				//2、判断是否有安装SQL脚本，执行安装脚本
-				if(file_exists($app_sql_install_file)){
-					$res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir.'data', 'sqlfile' => 'install.sql'));
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				//3、更新模块包数据,
-				$updata=['status'=>1,'visible'=>1];
-				$result=$this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
-
-				//4、判断是否存在模板目录文件
-				if(is_dir($app_theme_dir)){
-					$theme_dir=PATH_PUBLIC.'theme'.DS;//模板目录位置
-					$result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
-					if ($result == false) {
-						return [RESULT_ERROR, '复制模板文件失败'];
-						exit;
-					}
-				}
-
-				//5、判断是否有数据表同步文件 table.php
-				if(file_exists($app_table_file)){
-					$res = $this->logicSysModule->sysModuleSyncTableFile($app_table_file);
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				//6、判断是否有模块栏目数据表同步文件 menu.json
-				if(file_exists($app_menu_file)){
-					$res = $this->logicSysModule->sysModuleSyncMenuFile($app_menu_file);
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
-				exit;
-			}else{
-				return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];
-				exit;
-			}
+            //3、app目录执行安装
+            return $this->logicSysModule->sysModuleInstallExec($app_name, $app_path);
 
 		}
 
 	}
-
 
 	/**
 	 * 获取应用插件的升级版本信息
@@ -345,10 +275,9 @@ class Store extends AdminBase
 		$filename = $result['filename'];//远程下载文件名
 		$dirpath = $result['dirpath'];//远程下载目录
 
-		$tmppath=$dirpath.rtrim($filename,'.zip').DS;
+		$tmppath=$dirpath.rtrim($filename,'.zip').DS;//解压包目录
 
 		if (file_exists($filepath)) {
-
 			//1、解压应用插件包
 			$zip=new \lqf\Zip();
 			$res=$zip->unzip($filepath, $tmppath);
@@ -363,73 +292,12 @@ class Store extends AdminBase
 			if (empty($app_path)) {
 				return [RESULT_ERROR, '应用插件压缩包缺少目录文件'];
 			}
+            dlog('zip包文件路径：' . $filepath);
+            dlog('zip解压后目录：' . $tmppath);
+            dlog('app目录：' . $app_path);
 
-			//2、增加到本地模块
-			$app_info_file=$app_path.'/data/info.php';
-			$app_table_file=$app_path.'/data/table.php';
-			$app_sql_upgrade=$app_path.'/data/upgrade.sql';
-			$app_theme_dir=$app_path.'/data/theme';
-
-            //***加载json栏目文件， 兼容开始版本后缀为php文件***
-            $app_menu_file=$app_path.'/data/menu.json';
-            if(!file_exists($app_menu_file)){
-                $app_menu_file=$app_path.'/data/menu.php';
-            }
-            //********************************************
-
-			if (file_exists($app_info_file)) {
-
-				//2.0移动包到应用目录
-				$module_dir=PATH_APP.$app_name.DS;
-				$file = new \lqf\File();
-				$result = $file->handle_dir($app_path, $module_dir, 'copy', true);
-				if ($result == false) {
-					return [RESULT_ERROR, '复制模块文件目录失败'];
-					exit;
-				}
-
-				//2、判断是否有升级SQL脚本，执行升级脚本
-				if(file_exists($app_sql_upgrade)){
-					$res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir.'data', 'sqlfile' => 'upgrade.sql'));
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				//3、更新模块包,根据配置文件获得本地模块信息
-				$app_info=include($app_info_file);
-				$where['identifier']=['=',$app_info['identifier']];
-				$where['name']=['=',$app_info['name']];
-				$updata=['version'=>$app_info['version']];
-				$result=$this->modelSysModule->updateInfo($where, $updata);
-
-				//4、判断是模模板文件
-				if(is_dir($app_theme_dir)){
-					$theme_dir=PATH_PUBLIC.'theme'.DS;
-					$result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
-					if ($result == false) {
-						return [RESULT_ERROR, '复制模板文件失败'];
-						exit;
-					}
-				}
-
-				//5、判断是否有数据表同步文件 table.php
-				if(file_exists($app_table_file)){
-					$res = $this->logicSysModule->sysModuleSyncTableFile($app_table_file);
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				//6、判断是否有栏目数据表同步文件 menu.php
-				if(file_exists($app_menu_file)){
-					$res = $this->logicSysModule->sysModuleSyncMenuFile($app_menu_file);
-					if ($res[0] == RESULT_ERROR) return $res;
-				}
-
-				return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
-				exit;
-			}else{
-				return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];
-				exit;
-			}
-
+            //3、app目录执行安装
+            return $this->logicSysModule->sysModuleInstallExec($app_name, $app_path);
 		}
 
 	}

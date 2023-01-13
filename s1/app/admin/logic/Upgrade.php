@@ -159,7 +159,8 @@ class Upgrade extends AdminBase
 		return $listdata;
 	}
 
-	/**获取远程版本详细信息
+	/**
+     * 获取远程版本详细信息
 	 * @param null $version
 	 * @return bool
 	 * Author: lingqifei created by at 2020/4/1 0001
@@ -171,7 +172,8 @@ class Upgrade extends AdminBase
 	}
 
 
-	/**下载升级文件
+	/**
+     * 下载升级文件
 	 * @param null $version
 	 * @return bool
 	 * Author: lingqifei created by at 2020/4/1 0001
@@ -262,7 +264,7 @@ class Upgrade extends AdminBase
 		$table_file=$admin_dir.'table.php';
 		$menu_file=$admin_dir.'menu.php';
 		if(file_exists($table_file)){
-			$res = $this->logicSysModule->sysModuleSyncTableFile($table_file);
+			$res = $this->modelSysModule->sysModuleSyncTableFile($table_file);
 			if ($res[0] == RESULT_ERROR) return $res;
 		}
 
@@ -271,7 +273,7 @@ class Upgrade extends AdminBase
 
 		//3、判断是否有栏目数据表同步文件 menu.php
 		if(file_exists($menu_file)){
-			$res = $this->logicSysModule->sysModuleSyncMenuFile($menu_file);
+			$res = $this->modelSysModule->sysModuleSyncMenuFile($menu_file);
 			if ($res[0] == RESULT_ERROR) return $res;
 		}
 		//执行升级SQL文件
@@ -303,7 +305,8 @@ class Upgrade extends AdminBase
 	}
 
 
-	/**验证平台信息
+	/**
+     * 验证平台信息
 	 * @param null $version
 	 * @return bool
 	 * Author: lingqifei created by at 2020/4/1 0001

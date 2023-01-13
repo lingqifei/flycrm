@@ -72,8 +72,32 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li><a href="{:url('admin/Store/apps')}" class="J_menuItem" target="_blank"><i
                             class="fa fa-fire"></i>应用</a></li>
-                    <li><a href="{$sys_config.main_weburl|default='http://www.07fly.xyz/'}" target="_blank"><i
-                            class="fa fa-home"></i>官网</a></li>
+                    <li>
+                        <a href="{$sys_config.main_weburl|default='http://www.07fly.xyz/'}" target="_blank"><i
+                            class="fa fa-home"></i>官网</a>
+                    </li>
+                    <li class="dropdown msg-icon">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell "></i> <span class="label label-danger msg-icon-nums">0</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="{:url('admin/SysMsg/show_my')}" class="J_menuItem" >
+                                    <div>
+                                        <i class="fa fa-qq fa-fw"></i> 您有<span class="msg-icon-my">0</span>条未读消息
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{:url('admin/OaNotifyUser/show')}" class="J_menuItem">
+                                <div>
+                                    <i class="fa fa-volume-up fa-fw"></i> <span class="msg-icon-noti">0</span>条未读公告
+                                </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"><i
                                 class="fa fa-chevron-down">{$sys_user_info['realname']}</i> </a>
@@ -146,7 +170,7 @@
             $('#J_iframe').attr('src', iframeUrl);//重新设置获取的url，实现刷新显示当前页面
         }
 
-        //保存点击
+        //保存点击=>记录当前链接地址
         $(".J_menuItem").on('click', function () {
             var itemUrl = $(this).attr('href');
             console.log(iframeUrl);
@@ -225,7 +249,12 @@
                     playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
                 });
                 if (jsonData.data.length > 0) {
+
+                    $(".msg-icon-my").text(jsonData.data.length);
+
                     playSound();
+
+                    getMsgNums();
                 }
             }
         });
@@ -244,34 +273,21 @@
                     playNotice(item.id, '系统公告', item.name, detail + '?id=' + item.id);
                 });
                 if (jsonData.data.length > 0) {
+                    $(".msg-icon-noti").text(jsonData.data.length);
                     playSound();
+
+                    getMsgNums();
                 }
             }
         });
     }
-    //系统计划执行消息
-    var runScanSysMsg = function () {
-        var target = "{:url('admin/SysMsgType/scanbus')}";
-        $.ajax({
-            type: 'GET',
-            url: target,
-            dataType: 'json',
-            success: function (jsonData) {
 
-            }
-        });
-    }
-    //公海回收机制
-    var runScanRecover = function () {
-        var target = "{:url('erp/Comm/recover')}";
-        $.ajax({
-            type: 'GET',
-            url: target,
-            dataType: 'json',
-            success: function (jsonData) {
+    function getMsgNums(){
+        var my=$(".msg-icon-my").text();
+        var noti=$(".msg-icon-noti").text();
+        var nums=Number(my)+Number(noti);
 
-            }
-        });
+        $(".msg-icon-nums").text(nums);
     }
 
     //主动调用
