@@ -128,6 +128,8 @@ class ModelBase extends Model
 
     /**
      * 设置某个字段值自增自减  2022-09-13
+     * $data_list['sku_stock'] = ['inc', $stock];
+     * $data_list['sku_sales'] = ['inc', $sales];
      */
     final protected function setCalc($where = [], $data_list = '')
     {

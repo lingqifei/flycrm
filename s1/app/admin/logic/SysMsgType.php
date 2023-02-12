@@ -124,7 +124,8 @@ class SysMsgType extends AdminBase
         return $order_by;
     }
 
-    /**把对应的业务提醒扫描出来
+    /**
+     * 把对应的业务提醒扫描出来
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2021/10/28 0028 15:33
      */
@@ -224,7 +225,31 @@ class SysMsgType extends AdminBase
                                 'remind_weixin' => $row['remind_weixin'],
                                 'bus_id' => $one['id'],
                                 'bus_name' => $row['name'] . ':' . $one['name'] . '于' . $one['end_date'] . '到期!',
-                                'deal_user_id' => $one['create_user_id'],
+                                'deal_user_id' => $one['owner_user_id'],
+                                'deal_time' => $one['end_date'],
+                            ];
+                            $this->sysMsgTypeScanAdd($intoData);
+                        }
+                    }
+                    break;
+                //销售订单到期
+                case 'sal_order_expire':
+                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
+                    $where['end_date'] = ['between', [format_time(), $endtime]];
+                    if (tableExists('sal_order')) {
+                        $buslist = Db::name('sal_order')->field('id,name,contract_no,end_date,create_user_id')->where($where)->select();
+                        foreach ($buslist as $one) {
+                            $intoData = [
+                                'bus_type' => $row['type'],
+                                'bus_type_name' => $row['name'],
+                                'remind_time' => format_time(),//开妈提醒时间
+                                'remind_sms' => $row['remind_sms'],
+                                'remind_sys' => $row['remind_sys'],
+                                'remind_email' => $row['remind_email'],
+                                'remind_weixin' => $row['remind_weixin'],
+                                'bus_id' => $one['id'],
+                                'bus_name' => $row['name'] . ':' . $one['name'] . '于' . $one['end_date'] . '到期!',
+                                'deal_user_id' => $one['owner_user_id'],
                                 'deal_time' => $one['end_date'],
                             ];
                             $this->sysMsgTypeScanAdd($intoData);
@@ -263,7 +288,8 @@ class SysMsgType extends AdminBase
 
     }
 
-    /**消息的写入
+    /**
+     * 消息的写入系统表
      * @param array $data
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2021/10/28 0028 17:09

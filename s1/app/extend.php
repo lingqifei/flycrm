@@ -149,7 +149,7 @@ function send_email($address, $title, $message)
 	$mail->isHTML(true);
 	$mail->Subject = $title;
 	$mail->Body = $message;
-	$mail->AltBody = 'OneBase';
+	$mail->AltBody = '07flyCRM';
 
 	if (!$mail->send()) {
 		return $mail->ErrorInfo;

@@ -111,6 +111,8 @@ class InitBase
         define('DATA_DELETE', -1);
         define('DATA_SUCCESS', 1);
         define('DATA_ERROR', 0);
+        define('DATA_AUDIT_PASS', 2);
+        define('DATA_AUDIT_REJECT', 3);
     }
 
     /**

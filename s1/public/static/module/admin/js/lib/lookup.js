@@ -1,71 +1,180 @@
-//本函数主要用在下拉选择客户信息
-//联系动显示=》联系人=》销售机会=》未付款合同=》未开票合同
+//查找带回组件
+/* 使用方法
+标签中设置class属性：
+（*）lookup-input-select：绑定事件属性
+（*）lookup-group：绑定的区域范围
+（*）lookup-fields：查找后选择带回的字段，对应”lookup-group“区域中的input值
+（*）lookup-url：查找数据的地址
+（-）data-calback：查找选择确定之后，回调执行的函数
+（-）data-calback-url：查找选择确定之后，回调执行的函数，调用的地址
+
+* 模板中调用实例
+<div class="purchase_box">
+    <input type="hidden" name="purchase_id">
+    <input type="text" name="purchase_no" class="form-control" placeholder="选择关联采购申请单" readonly>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default lookup-input-select"
+                lookup-group='purchase_box'
+                lookup-fields='{"purchase_id":"id","purchase_no":"purchase_no"}'
+                lookup-url="{:url('OfsuPurchase/lookup')}"
+                data-calback="javascript:lookupAjaxListTable('purchase_box','purchase_id');"
+                data-calback-url="{:url('OfsuPurchase/lookup',array('datatype'=>'info'))}"
+        >选择
+        </button>
+    </span>
+</div>
+*/
+var lookupGroupName = ''
+var lookupGroupIndex = ''
+var lookupGroupFun = ''
+$("body").on("click", ".lookup-input-select", function () {
+    lookupGroupName = $(this).attr('lookup-group');
+    lookupGroupFun = $(this).attr('data-calback');
+    log('查找回带区域：' + lookupGroupName);
+    log('查找回带函数：' + lookupGroupFun);
+    //判断设置的区域组是否存在
+    if (typeof (lookupGroupName) == "undefined" || lookupGroupName == '') {
+        layer.msg('参数有有错');
+        return false;
+    } else {
+        localStorage.setItem('lookupGroupKey', lookupGroupName)
+    }
+    //判断地址是否存
+    if ((target = $(this).attr('lookup-url'))) {
+        //是否带参数字段
+        //参数传，支持多个参数传送 格式：lookup-fields="{'tid':'2',''name':'张三'}"
+        var ids = $(this).attr('lookup-ids');
+        if (typeof (ids) != "undefined" && ids != 0) {
+            var ids = ($.param(eval('(' + ids + ')'), true));
+            var target = target + "?" + ids;
+        }
+
+        //是否设置了单个值
+        var id = $(this).attr("data-id");
+        if (typeof (id) != "undefined" && id != 0) {
+            var target = target + "?id=" + id;
+        }
+        log('打开地址：' + target);
+        layer.open({
+            type: 2,
+            title: false,
+            shadeClose: false,
+            //btn: ['关闭'],
+            fixed: true, //不固定
+            area: ['90%', '90%'],
+            content: target,
+            success: function (layero, index) {
+                layer.iframeAuto(index);
+                localStorage.setItem('lookupGroupIndex', index);
+            },
+            end: function () {
+                log('关闭弹窗口执行=》start~~~~：');
+                if (lookupGroupFun != null) {
+                    eval(lookupGroupFun);
+                    log('执行回调函数=>end~~~');
+                }
+            }
+        });
+    }
+    return false;
+});
+
+//选择确定回示
+$("body").on("click", ".lookup-bring-select", function () {
+    var lookupGroupName = localStorage.getItem('lookupGroupKey');
+    var lookupGroupObj = parent.$("." + lookupGroupName + "");
+    var lookupInputObj = lookupGroupObj.find(".lookup-input-select");
+    var lookupFields = lookupInputObj.attr('lookup-fields');
+
+    log("lookupGroup区域：" + lookupGroupName);
+
+    ////选择回显示字段
+    var selectData = $(this).attr('lookup-bring-fields');
+    var selectData = JSON.parse(selectData);
+
+    //返回字段
+    log("返回字段");
+    log(lookupFields);
+    var names = JSON.parse(lookupFields);
+    $.each(names, function (key, item) {
+        log(key + '==>' + item + '=' + selectData[item]);
+        lookupGroupObj.find("input[name='" + key + "']").val(selectData[item]);
+    });
+    //关闭当前窗口
+    var index = localStorage.getItem('lookupGroupIndex');
+    //var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    parent.layer.close(index);
+})
+
+
+
 
 $(document).ready(function () {
+
 
     //销售客户模块部门
 
     //自动输出=>客户关联 列表数
-    $('.chosen-select.customer').each(function(){
-        var value  =$(this).attr("data-val");
-        var target =$(this).attr("data-url");
-        findCustomerLinkSelect(value,target);
+    $('.chosen-select.customer').each(function () {
+        var value = $(this).attr("data-val");
+        var target = $(this).attr("data-url");
+        findCustomerLinkSelect(value, target);
         $(this).val(value).trigger("chosen:updated");
     });
 
     //自动输出=>销售合同(未付款完)=》关联详细数据=>需要收款
-    $('.chosen-select.unpaidsalcontract').each(function(){
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
-        findSalContractInfo(value,target,bus_type);
+    $('.chosen-select.unpaidsalcontract').each(function () {
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
+        findSalContractInfo(value, target, bus_type);
         $(this).val(value).trigger("chosen:updated");
     });
 
     //自动输出=>销售合同(未开完票)=》关联详细数据=>需要收款
-    $('.chosen-select.uninvoicesalcontract').each(function(){
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
-        findSalContractInfo(value,target,bus_type);
+    $('.chosen-select.uninvoicesalcontract').each(function () {
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
+        findSalContractInfo(value, target, bus_type);
         $(this).val(value).trigger("chosen:updated");
     });
 
     //选择用户=》客户关联（所有关联，联系人，销售合同，发票，） =>r列表数
     $('.chosen-select.customer').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
         log(value);
-        findCustomerLinkSelect(value,target)
+        findCustomerLinkSelect(value, target)
     });
 
     //选择=>销售合同(所有合同)=》关联详细数据=>所有订单
     $('.chosen-select.salcontract').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
         var bus_type = $(this).find("option:selected").attr("data-type");
         log(value);
-        findSalContractInfo(value,target,bus_type);
+        findSalContractInfo(value, target, bus_type);
     });
 
     //选择=>销售合同(未付款完)=》关联详细数据=>未付款
     $('.chosen-select.unpaidsalcontract').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
         var bus_type = $(this).find("option:selected").attr("data-type");
         log(bus_type);
-        findSalContractInfo(value,target,bus_type);
+        findSalContractInfo(value, target, bus_type);
         //设置业务类型
         $(this).parents('form').find("input[name='bus_type']").val(bus_type);
     });
 
     //选择=>销售合同(未开完票)=》关联详细数据=>需要开票
     $('.chosen-select.uninvoicesalcontract').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
         log(bus_type);
-        findSalContractInfo(value,target,bus_type);
+        findSalContractInfo(value, target, bus_type);
         //设置业务类型
         $(this).parents('form').find("input[name='bus_type']").val(bus_type);
     });
@@ -73,62 +182,62 @@ $(document).ready(function () {
     //供应商部分******************************************************************
 
     //自动输出=》供应商关联=》数据处理
-    $('.chosen-select.supplier').each(function(){
-        var value  =$(this).attr("data-val");
-        var target =$(this).attr("data-url");
+    $('.chosen-select.supplier').each(function () {
+        var value = $(this).attr("data-val");
+        var target = $(this).attr("data-url");
         log(value);
-        findSupplierLinkSelect(value,target);
+        findSupplierLinkSelect(value, target);
         $(this).val(value).trigger("chosen:updated");
 
     });
 
     //自动输出=>采购合同(未付款完)=》关联详细数据=》收票
-    $('.chosen-select.unpaidposcontract').each(function(){
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
+    $('.chosen-select.unpaidposcontract').each(function () {
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
         log(value);
-        findPosContractInfo(value,target,bus_type)
+        findPosContractInfo(value, target, bus_type)
     });
 
 
     //自动输出=>采购合同(未开完票)=》关联详细数据=>需要收款
-    $('.chosen-select.uninvoiceposcontract').each(function(){
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
-        findPosContractInfo(value,target,bus_type);
+    $('.chosen-select.uninvoiceposcontract').each(function () {
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
+        findPosContractInfo(value, target, bus_type);
         $(this).val(value).trigger("chosen:updated");
     });
 
 
     //选择供应商=》加载关联=》列表数据
     $('.chosen-select.supplier').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
         log(value);
-        findSupplierLinkSelect(value,target);
+        findSupplierLinkSelect(value, target);
         $(this).val(value).trigger("chosen:updated");
     });
 
     //选择=>采购合同(未付款完)=》关联详细数据=>未付款
     $('.chosen-select.unpaidposcontract').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
         log(value);
-        findPosContractInfo(value,target,bus_type);
+        findPosContractInfo(value, target, bus_type);
         //设置业务类型
         $(this).parents('form').find("input[name='bus_type']").val(bus_type);
     });
 
     //选择=>采购合同(未开票)=》关联详细数据=》收票
     $('.chosen-select.uninvoiceposcontract').on('change', function (e, params) {
-        var value  =$(this).val();
-        var target =$(this).attr("data-url");
-        var bus_type =$(this).find("option:selected").attr("data-type");
+        var value = $(this).val();
+        var target = $(this).attr("data-url");
+        var bus_type = $(this).find("option:selected").attr("data-type");
         log(value);
-        findPosContractInfo(value,target,bus_type);
+        findPosContractInfo(value, target, bus_type);
         //设置业务类型
         $(this).parents('form').find("input[name='bus_type']").val(bus_type);
     });
@@ -136,24 +245,24 @@ $(document).ready(function () {
 });
 
 //选择客户=》回显示关联数据
-function findCustomerLinkSelect(cid,target=null){
+function findCustomerLinkSelect(cid, target = null) {
     //回显=》联系人
-    $('.chosen-select.linkman').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.linkman').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"customer_id":cid,"customer_type":'linkman'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"customer_id": cid, "customer_type": 'linkman'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" >'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" >' + obj.name + '</option>';
                 });
                 that.append(html);
                 //that.trigger('chosen:updated');
@@ -167,22 +276,22 @@ function findCustomerLinkSelect(cid,target=null){
     });
 
     //回显=》销售机会
-    $('.chosen-select.chance').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.chance').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"customer_id":cid,"customer_type":'chance'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"customer_id": cid, "customer_type": 'chance'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" >'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" >' + obj.name + '</option>';
                 });
                 //log(html);
                 that.append(html);
@@ -197,22 +306,22 @@ function findCustomerLinkSelect(cid,target=null){
     });
 
     //回显=》未收款=》销售合同
-    $('.chosen-select.unpaidsalcontract').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.unpaidsalcontract').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"customer_id":cid,"customer_type":'unpaidsalcontract'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"customer_id": cid, "customer_type": 'unpaidsalcontract'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'"  data-type="'+obj.bus_type+'">'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '"  data-type="' + obj.bus_type + '">' + obj.name + '</option>';
                 });
                 //log(html);
                 that.append(html);
@@ -227,22 +336,22 @@ function findCustomerLinkSelect(cid,target=null){
     });
 
     //回显=》未开票=》销售合同
-    $('.chosen-select.uninvoicesalcontract').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.uninvoicesalcontract').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"customer_id":cid,"customer_type":'uninvoicesalcontract'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"customer_id": cid, "customer_type": 'uninvoicesalcontract'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" data-type="'+obj.bus_type+'">'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" data-type="' + obj.bus_type + '">' + obj.name + '</option>';
                 });
                 //log(html);
                 that.append(html);
@@ -260,24 +369,24 @@ function findCustomerLinkSelect(cid,target=null){
 
 
 //供应商选择=》回显示关联信息
-function findSupplierLinkSelect(cid,target=null){
+function findSupplierLinkSelect(cid, target = null) {
     //回显供应商=》联系人明细
-    $('.chosen-select.linkman').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.linkman').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"supplier_id":cid,"supplier_type":'linkman'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"supplier_id": cid, "supplier_type": 'linkman'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" >'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" >' + obj.name + '</option>';
                 });
                 that.append(html);
                 //that.trigger('chosen:updated');
@@ -291,22 +400,22 @@ function findSupplierLinkSelect(cid,target=null){
     });
 
     //回显示供应商=》未付完款的合同
-    $('.chosen-select.unpaidposcontract').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.unpaidposcontract').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"supplier_id":cid,"supplier_type":'unpaidposcontract'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"supplier_id": cid, "supplier_type": 'unpaidposcontract'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" data-type="'+obj.bus_type+'">'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" data-type="' + obj.bus_type + '">' + obj.name + '</option>';
                 });
                 //log(html);
                 that.append(html);
@@ -321,35 +430,35 @@ function findSupplierLinkSelect(cid,target=null){
     });
 
     //回显示供应商=》未付完款的合同
-    $('.unpaidposcontract-more').each(function(){
-        var that	=$(this);
+    $('.unpaidposcontract-more').each(function () {
+        var that = $(this);
         $.ajax({
             type: "POST",
             url: target,
-            data:{"supplier_id":cid,"supplier_type":'unpaidposcontract'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"supplier_id": cid, "supplier_type": 'unpaidposcontract'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.find('tbody').empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<tr>';
-                    html +='<td><input name="id[]" class="checkboxCtrlId" value="'+obj.id+'" type="checkbox">';
-                    html +='<input name="bus_id[]" value="'+obj.id+'" type="hidden">';
-                    html +='<input name="bus_type[]" value="'+obj.bus_type+'" type="hidden">';
-                    html +='<input name="bus_type_name[]" value="'+obj.bus_type_name+'" type="hidden">';
-                    html +='<input name="zero_money[]" value="'+obj.zero_money+'" type="hidden">';
-                    html +='<input name="bus_name[]" value="'+obj.name+'" type="hidden">';
-                    html +='</td>';
-                    html +='<td>'+obj.bus_date+'</td>';
-                    html +='<td>'+obj.name+'</td>';
-                    html +='<td>'+obj.bus_type_name+'</td>';
-                    html +='<td><input name="money[]" value="'+obj.money+'" type="text" class="form-control" readonly></td>';
-                    html +='<td><input name="pay_money[]" value="'+obj.pay_money+'" type="text" class="form-control" readonly></td>';
-                    html +='<td><input name="invoice_money[]" value="'+obj.invoice_money+'" type="text" class="form-control" readonly></td>';
-                    html +='</tr>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<tr>';
+                    html += '<td><input name="id[]" class="checkboxCtrlId" value="' + obj.id + '" type="checkbox">';
+                    html += '<input name="bus_id[]" value="' + obj.id + '" type="hidden">';
+                    html += '<input name="bus_type[]" value="' + obj.bus_type + '" type="hidden">';
+                    html += '<input name="bus_type_name[]" value="' + obj.bus_type_name + '" type="hidden">';
+                    html += '<input name="zero_money[]" value="' + obj.zero_money + '" type="hidden">';
+                    html += '<input name="bus_name[]" value="' + obj.name + '" type="hidden">';
+                    html += '</td>';
+                    html += '<td>' + obj.bus_date + '</td>';
+                    html += '<td>' + obj.name + '</td>';
+                    html += '<td>' + obj.bus_type_name + '</td>';
+                    html += '<td><input name="money[]" value="' + obj.money + '" type="text" class="form-control" readonly></td>';
+                    html += '<td><input name="pay_money[]" value="' + obj.pay_money + '" type="text" class="form-control" readonly></td>';
+                    html += '<td><input name="invoice_money[]" value="' + obj.invoice_money + '" type="text" class="form-control" readonly></td>';
+                    html += '</tr>';
                 });
                 log(html);
                 that.find('tbody').append(html);
@@ -361,22 +470,22 @@ function findSupplierLinkSelect(cid,target=null){
     });
 
     //回显示供应商=》未开票完款的合同
-    $('.chosen-select.uninvoiceposcontract').each(function(){
-        var that	=$(this);
-        var val=that.attr('data-val');
+    $('.chosen-select.uninvoiceposcontract').each(function () {
+        var that = $(this);
+        var val = that.attr('data-val');
         $.ajax({
             type: "POST",
             url: target,
-            data:{"supplier_id":cid,"supplier_type":'uninvoiceposcontract'},
-            dataType:"json",
-            async:false,
-            beforeSend : function(){
+            data: {"supplier_id": cid, "supplier_type": 'uninvoiceposcontract'},
+            dataType: "json",
+            async: false,
+            beforeSend: function () {
                 that.empty();
             },
-            success: function(jsondata){
+            success: function (jsondata) {
                 var html = '';
-                $.each(jsondata.data, function(idx, obj) {
-                    html +='<option value="'+obj.id+'" data-type="'+obj.bus_type+'">'+obj.name+'</option>';
+                $.each(jsondata.data, function (idx, obj) {
+                    html += '<option value="' + obj.id + '" data-type="' + obj.bus_type + '">' + obj.name + '</option>';
                 });
                 //log(html);
                 that.append(html);
@@ -393,32 +502,32 @@ function findSupplierLinkSelect(cid,target=null){
 }
 
 //采购合同》关联信息
-function findPosContractInfo(cid,target=null,bus_type=null){
-        $.ajax({
-            type: "POST",
-            url: target,
-            data:{"id":cid,"bus_type":bus_type},
-            dataType:"json",
-            async:false,
-            success: function(data){
-                //log(data);
-                $(".form-horizontal input[name='contract_money']").val(data.money);
-                $(".form-horizontal input[name='contract_zero_money']").val(data.zero_money);
-                $(".form-horizontal input[name='contract_pay_money']").val(data.pay_money);
-                $(".form-horizontal input[name='contract_owe_money']").val(data.owe_money);
-                $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
+function findPosContractInfo(cid, target = null, bus_type = null) {
+    $.ajax({
+        type: "POST",
+        url: target,
+        data: {"id": cid, "bus_type": bus_type},
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            //log(data);
+            $(".form-horizontal input[name='contract_money']").val(data.money);
+            $(".form-horizontal input[name='contract_zero_money']").val(data.zero_money);
+            $(".form-horizontal input[name='contract_pay_money']").val(data.pay_money);
+            $(".form-horizontal input[name='contract_owe_money']").val(data.owe_money);
+            $(".form-horizontal input[name='contract_invoice_money']").val(data.invoice_money);
 
-                //合同金额-支付金额-去零金额
-                var owe_money = BigNumber(data.money).minus(data.pay_money).minus(data.zero_money).toNumber();
-                $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
-                $(".form-horizontal input[name='pay_money']").val(owe_money);
-                $(".form-horizontal input[name='owe_money']").val(0);
+            //合同金额-支付金额-去零金额
+            var owe_money = BigNumber(data.money).minus(data.pay_money).minus(data.zero_money).toNumber();
+            $(".form-horizontal input[name='contract_owe_money']").val(owe_money);
+            $(".form-horizontal input[name='pay_money']").val(owe_money);
+            $(".form-horizontal input[name='owe_money']").val(0);
 
-            },
-            complete: function () {
+        },
+        complete: function () {
 
-            }
-        });
+        }
+    });
 }
 
 //付款添加=》采购合同金额=》计算器
@@ -439,14 +548,14 @@ $("body").on("keyup", ".paycalculate", function () {
 
 
 //销售合同》关联信息
-function findSalContractInfo(cid,target=null,bus_type=null){
+function findSalContractInfo(cid, target = null, bus_type = null) {
     $.ajax({
         type: "POST",
         url: target,
-        data:{"id":cid,"bus_type":bus_type},
-        dataType:"json",
-        async:false,
-        success: function(data){
+        data: {"id": cid, "bus_type": bus_type},
+        dataType: "json",
+        async: false,
+        success: function (data) {
             log(data);
             $(".form-horizontal input[name='contract_money']").val(data.money);
             $(".form-horizontal input[name='contract_zero_money']").val(data.zero_money);

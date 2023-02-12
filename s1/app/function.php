@@ -314,7 +314,8 @@ function make_time()
 }
 
 
-/**获得指定年的，月的开始结束时间
+/**
+ * 获得指定年的，月的开始结束时间
  * @param string $date
  * @return mixed
  * Author: 开发人生 goodkfrs@qq.com
@@ -337,7 +338,8 @@ function getMonthStartEndTime($date = '')
     return $rangeTime;
 }
 
-/**批定年月，年的起止时间
+/**
+ * 批定年月，年的起止时间
  * @param string $year
  * @return mixed
  * Author: 开发人生 goodkfrs@qq.com
@@ -357,7 +359,8 @@ function getYearStartEndTime($year = '')
 }
 
 
-/**指定年月，所在季度开始，结束时间
+/**
+ * 指定年月，所在季度开始，结束时间
  * @param string $date
  * @return mixed
  * Author: 开发人生 goodkfrs@qq.com
@@ -376,7 +379,8 @@ function getQuarterStartEndTime($date = '')
     return $rangeTime;
 }
 
-/**指定日期的当天的开始时间和结束时间
+/**
+ * 指定日期的当天的开始时间和结束时间
  * @param string $data
  * @return mixed
  * Author: 开发人生 goodkfrs@qq.com
@@ -427,7 +431,6 @@ function getDatesBetweenToMonths($start_time, $end_time)
  * @param string $end_time 2019-01-01
  * @return array
  */
-
 function getDatesBetweenToWeeks($start_time, $end_time)
 
 {
@@ -440,6 +443,30 @@ function getDatesBetweenToWeeks($start_time, $end_time)
         $monthArray[] = date('o-W', $time1);
     }
     return $monthArray;
+}
+
+/**
+ * 时间段转为两个数组
+ * @param $rangedate    格式为：2023/01/01 - 2023/08/08
+ * @param $pirx         两个时间段分隔符号
+ * @param $type         str:返回字符吕，int：返回时间戳
+ * @return void
+ * @author: 开发人生 goodkfrs@qq.com
+ * @Time: 2023/1/11 9:32
+ */
+function rangedate2arr($rangedate,$pirx='-',$type='str'){
+    $date_arr = str2arr($rangedate, $pirx);
+
+    if(empty($date_arr[1])){
+        $date_arr[1]=date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[0])));
+    }else{
+        $date_arr[1]=date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[1])));
+    }
+    if($type=='int'){
+        $date_arr[0]=strtotime($date_arr[0]);
+        $date_arr[1]=strtotime($date_arr[1]);
+    }
+    return $date_arr;
 }
 
 
@@ -1005,7 +1032,8 @@ if (!function_exists('delArrValue')) {
 }
 
 
-/**二维数组去重（保留各个键值的同时去除重复的项）
+/**
+ * 二维数组去重（保留各个键值的同时去除重复的项）
  * @param $arr
  * @param $key
  * @return mixed
@@ -1028,7 +1056,33 @@ function array2unique_bykey($arr, $key)
 }
 
 
-/**判断系统中数据库表是否存在
+
+/**
+ * 二维数组按照指定的键来进行排序
+ *
+ * @param $array  二维数组
+ * @param $keys  根据用来排序的键名
+ * @param $sort asc升序 desc 倒序
+ * @return array
+ * @author: 开发人生 goodkfrs@qq.com
+ * @Time: 2023/1/3 15:28
+ */
+
+function array2Sort($array,$keys,$sort='asc') {
+    $newArr = $valArr = array();
+    foreach ($array as $key=>$value) {
+        $valArr[$key] = $value[$keys];
+    }
+    ($sort == 'asc') ?  asort($valArr) : arsort($valArr);
+    reset($valArr);
+    foreach($valArr as $key=>$value) {
+        $newArr[$key] = $array[$key];
+    }
+    return $newArr;
+}
+
+/**
+ * 判断系统中数据库表是否存在
  * @param $table
  * @return bool
  * @throws \think\db\exception\BindParamException
@@ -1134,4 +1188,20 @@ function parse_script($urls)
     }
     $js_url = str_replace(FCPATH, '', $js_url);
     return $js_url;
+}
+
+/**
+ * 判断是否为微信打开
+ * @return bool
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2021/12/24 0024 14:09
+ */
+if (!function_exists('is_weixin')) {
+    function is_weixin()
+    {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -14,6 +14,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\ControllerBase;
+use app\weixin\logic\Portal as WeixinPortal;
 use think\Session;
 
 /**

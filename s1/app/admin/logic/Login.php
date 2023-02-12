@@ -50,7 +50,8 @@ class Login extends AdminBase
         }
     }
 
-    /**登录后绑定openid
+    /**
+     * 登录后绑定openid
      * @param array $data
      * @return int
      * Author: 开发人生 goodkfrs@qq.com
@@ -74,7 +75,8 @@ class Login extends AdminBase
         return $res;
     }
 
-    /**openid检查是否存在
+    /**
+     * openid检查是否存在
      * @param array $data
      * @return int
      * Author: 开发人生 goodkfrs@qq.com

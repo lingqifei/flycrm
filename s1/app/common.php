@@ -799,6 +799,10 @@ function format_time($time = null, $format = 'Y-m-d H:i:s')
         $time = TIME_NOW;
     }
 
+//    if(!intval($time)){
+//        $time=strtotime($time);
+//    }
+
     return date($format, intval($time));
 }
 

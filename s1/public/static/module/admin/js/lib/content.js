@@ -1,6 +1,5 @@
 //初始化一些效果
 $(function () {
-
     //实现全选反选+全先后背景变色
     $(".checkboxCtrl").on('click', function () {
         $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
@@ -115,7 +114,6 @@ $('.ajaxSearchForm').click(function () {
         // searchform.find('input[type=text],select,input[type=hidden]').each(function() {
         //     $(this).val('');
         //  });
-
     }
 
     ajaxSearchFormData = searchform.serialize();
