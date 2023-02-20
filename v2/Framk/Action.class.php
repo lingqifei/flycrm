@@ -34,8 +34,8 @@ class Action {
 //	}
 	
 	public function _REQUEST($filed){
-		//return isset($_POST[$filed]) ? filter_input(INPUT_POST,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : isset($_GET[$filed]) ? filter_input(INPUT_GET,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : '';
-		return @isset($_GET[$filed])?@$_GET[$filed]:@$_POST[$filed];
+		return isset($_POST[$filed]) ? filter_input(INPUT_POST,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : (isset($_GET[$filed]) ? filter_input(INPUT_GET,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : '');
+		//return @isset($_GET[$filed])?@$_GET[$filed]:@$_POST[$filed];
 		//return $_REQUEST[$filed];
 	}
 
