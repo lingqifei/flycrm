@@ -1,0 +1,34 @@
+
+<body class="gray-bg">
+<div class="ibox-content auto-height-box">
+    <div class="pull-right">
+        <button class="btn btn-white btn-xs ajax-open" data-url="{:url('Myfile/edit',array('id'=>$info.id))}" type="button">编辑</button>
+    </div>
+    <div class="text-center article-title">
+        <h2>{$info.name|default=''}</h2>
+        <p class="small">发布于：{$info.create_time|default=''} &nbsp;&nbsp;&nbsp;&nbsp;  发布人：{$info.create_user_name|default=''}  </p>
+    </div>
+    <div class="line-bb"></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>备注说明：</h4>
+            <p class="">{$info.remark|default=''}</p>
+        </div>
+    </div>
+    <div class="row">
+        {notempty name='$info.attachment'}
+        <div class="line-bb"></div>
+        <div class="col-lg-12">
+            <h4>文件附件：</h4>
+        </div>
+        <div class="col-lg-12">
+            {assign name="attachment" value="$info.attachment|default=''|str2arr" /}
+            {volist name='attachment' id='vo'}
+            <p><a href="{$vo|get_file_url}">{$vo|get_file_url}</a></p>
+            {/volist}
+        </div>
+        {/notempty}
+    </div>
+    <div class="line-bb"></div>
+
+</div>

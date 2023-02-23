@@ -1,0 +1,103 @@
+<body class="gray-bg">
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('CstTrace/edit')}">
+        <input type="hidden" name="id" value="{$info.id|default='0'}">
+        <input type="hidden" name="customer_id" value="{$info.customer_id|default='0'}">
+        <!--<div class="form-group">
+            <label class="col-sm-2 control-label">客户名称</label>
+            <div class="col-sm-4">
+                <select name="customer_id" class="chosen-select  customer" data-url="{:url('Comm/customer_link')}" data-val="{$info['customer_id']|default='0'}">
+                    <option value="">选择客户</option>
+                    {volist name='$customer_list' id='vo'}
+                    <option value="{$vo['id']}" {noempty name="info['customer_id']" } {if condition="$info['customer_id'] eq $vo['id'] " } selected="selected" {/if} {/noempty} >{$vo['name']}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">当前阶段</label>
+            <div class="col-sm-4">
+                <select name="salestage" class="chosen-select chosen-select-typetag">
+                    <option value="">当前阶段</option>
+                    {volist name='$dict.salestage' id='vo'}
+                    <option value="{$vo['name']}" {noempty name="info['salestage']" } {if condition="$info['salestage'] eq $vo['name'] " } selected="selected" {/if} {/noempty} >{$vo['name']}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">跟进方式</label>
+            <div class="col-sm-4">
+                <select name="salemode" class="chosen-select chosen-select-typetag">
+                    <option value="">跟进方式</option>
+                    {volist name='$dict.salemode' id='vo'}
+                    <option value="{$vo['name']}" {noempty name="info['salemode']" } {if condition="$info['salemode'] eq $vo['name'] " } selected="selected" {/if} {/noempty} >{$vo['name']}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">沟通时间</label>
+            <div class="col-sm-4">
+                <input name="link_time" class="form-control datetimepicker-now" type="text" placeholder="选择沟通时间"
+                       value="{$info.link_time|default=''}"/>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">沟通内容</label>
+            <div class="col-sm-10">
+                <textarea name="link_body" class="form-control">{$info.link_body|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">附件文件</label>
+            <div class="col-sm-10">
+                {assign name="attachment" value="$info.attachment|default=''" /}
+                {:hook('File', ['name' => 'attachment', 'value' => $attachment, 'type' => 'files'])}
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">回复记录</label>
+            <div class="col-sm-10">
+                <input name="reply_body" class="form-control" type="text" placeholder="回复记录" value="{$info.reply_body|default=''}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">处理情况</label>
+            <div class="col-sm-4">
+                <select name="status" class="chosen-select" data-placeholder="选择处理情况">
+                    <option value="">选择处理情况</option>
+                    {volist name='$status_list' id='vo'}
+                    <option value="{$vo['name']}" {eq name="info.status" value="$vo.name"} selected {/eq}>{$vo['name']}</option>
+                    {/volist}
+                </select>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">提醒时间</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">选择下次沟通时间 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="1" data-type="d" data-fmt="yyyy-MM-dd hh:mm:ss">明天</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="2" data-type="d" data-fmt="yyyy-MM-dd hh:mm:ss">后天</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="3" data-type="d" data-fmt="yyyy-MM-dd hh:mm:ss">三天后</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="7" data-type="d" data-fmt="yyyy-MM-dd hh:mm:ss">一周后</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="14" data-type="d" data-fmt="yyyy-MM-dd hh:mm:ss">二周后</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="1" data-type="m" data-fmt="yyyy-MM-dd hh:mm:ss">一个月后</a></li>
+                            <li><a class="date-add-interval" data-gid="link_time" data-sid="next_time" data-val="3" data-type="m" data-fmt="yyyy-MM-dd hh:mm:ss">三个月后</a></li>
+                        </ul>
+                    </div>
+                    <input name="next_time" class="form-control datetimepicker" type="text" placeholder="选择下次沟通日期" value="{$info.next_time|default=''}"/>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="admin@layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

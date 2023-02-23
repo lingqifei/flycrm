@@ -1,0 +1,53 @@
+<script>
+// 本方法可以设置用户选择的顺序
+
+   $(document).ready(function () {
+        $(".chosen-select").chosen({
+            maxHeight: 200,
+            search_contains: true,
+            no_results_text: '无结果匹配'
+        }).change(function () {
+            // 默认排序
+            // $(".chosen-select-ids").val($(this).val());
+            reOrder();
+        });
+    });
+
+    function reOrder(){
+        var projectIds_ = $(".chosen-select-ids").val();   // input id = projectIds 的取值
+        var projectNames_ = $(".chosen-select-names").val(); // input id = projectNames 的取值
+        var resultIds = "";
+
+        // 如果已经全部删除，则清空 $(".chosen-select-ids") 的值
+        if(!projectNames_){
+            $(".chosen-select-ids").val("");
+            return;
+        }
+        if(projectIds_){
+            var arrProjectids = projectIds_.split(",");
+            // 新增选中
+            for(var z=0;z<projectNames_.length;z++){
+                if(arrProjectids.indexOf(projectNames_[z]) < 0){
+                    arrProjectids.push(projectNames_[z]);
+                }
+            }
+            // 删除
+            for(var y = arrProjectids.length-1;y >= 0;y--){
+                if(projectNames_.indexOf(arrProjectids[y]) < 0){
+                    arrProjectids.splice(y,1);
+                }
+            }
+            // 回显id
+            $(".chosen-select-ids").val("");
+            for(var x=0;x<arrProjectids.length;x++){
+                resultIds += arrProjectids[x];
+                resultIds += ",";
+            }
+            resultIds = resultIds.substring(0,resultIds.length-1);
+        }else{
+            resultIds = $(".chosen-select-names").val();
+        }
+        $(".chosen-select-ids").val(resultIds);
+    }
+
+</script>

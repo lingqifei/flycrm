@@ -1,0 +1,81 @@
+<script>
+// 列表加载
+$(document).ready(function () {
+    $("body").on("click", ".nav-tabs li", function (){
+        var i = $(this).index();//下标第一种写法
+        obj=$('.tab-content .tab-pane').eq(i).find('table.ajax-list-table');
+        ajaxCustomerInfoData(obj);
+
+    });
+    $(".tab-content").find(".tab-pane table.ajax-list-table").each(function(key,row){
+        ajaxCustomerInfoData($(this));
+    })
+})
+
+//订单详细数据加载
+function  ajaxCustomerInfoData(object){
+    target=object.attr("data-url");
+    log(target);
+    $.ajaxSettings.async = true;
+    $.get(target).success(function (jsonData) {
+        html=ajaxCustomerInfoDataTpl(jsonData.data,jsonData.type);
+        object.find("tbody").html(html);
+        object.find('tfoot label').html(jsonData.total_money);
+    },"json");
+
+}
+
+
+//订单详细数据加载=>模板输出
+function  ajaxCustomerInfoDataTpl(data,type){
+
+    var html="";
+    $.each(data,function(key,row) {
+        switch (type) {
+            case 'trace':
+                html += '<tr>';
+                html += '<td>' + row.link_time + '</td>';
+                html += '<td>' + row.salemode + '</td>';
+                html += '<td>' + row.link_body + '</td>';
+                html += '<td>' + row.next_time + '</td>';
+                html += '<td>' + row.salestage + '</td>';
+                html += '<td>';
+                html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'CstTrace/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.trace\'))">修改</a></lqf_link>';
+                html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'CstTrace/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.trace\'))">删除</a></lqf_link>';
+                html += '</td>';
+                html += '</tr>';
+                break;
+            case 'contract':
+                html += '<tr>';
+                html += '<td><a class="ajax-open" data-url="{:url(\'CstContract/detail\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.sales\'))">' + row.contract_no + '</a></td>';
+                html += '<td>' + row.name + '</td>';
+                html += '<td>' + row.money + '</td>';
+                html += '<td>' + row.begin_date + '</td>';
+                html += '<td>' + row.end_date + '</td>';
+                html += '<td>' + row.remark + '</td>';
+                html += '<td>';
+                html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'CstContract/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.contract\'))">修改</a></lqf_link>';
+                html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'CstContract/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.contract\'))">删除</a></lqf_link>';
+                html += '</td>';
+                html += '</tr>';
+                break;
+            case 'sales':
+                html += '<tr>';
+                html += '<td><a class="ajax-open" data-url="{:url(\'CstSales/detail\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.sales\'))">' + row.name + '</a></td>';
+                html += '<td>' + row.sale_date + '</td>';
+                html += '<td>' + row.money + '</td>';
+                html += '<td>' + row.create_time + '</td>';
+                html += '<td>';
+                html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'CstSales/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.sales\'))">修改</a></lqf_link>';
+                html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'CstSales/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxCustomerInfoData($(\'.ajax-list-table.sales\'))">删除</a></lqf_link>';
+                html += '</td>';
+                html += '</tr>';
+                break;
+            default:
+                html = "";
+        }
+    });
+    return html
+}
+
+</script>

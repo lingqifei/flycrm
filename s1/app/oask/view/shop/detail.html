@@ -1,0 +1,130 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-home"></i>详细信息</h5>
+            <div class="ibox-tools">
+                <button type="button" class="btn btn-xs btn-primary btn-back-reply"><i class="fa fa-reply"></i> 返回
+                </button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3>{$info.name}</h3>
+                    <p>联系人：{$info.linkman}   </p>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-white ajax-open"  data-url="{:url('Shop/edit',array('id'=>$info.id))}" data-calback="void(0);"><i class="fa fa-edit"></i> 编辑</a>
+                </div>
+            </div>
+
+            <div class="line-bb"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>手机号码：</strong>{$info.mobile}</p>
+                        <p><strong>联系地址：</strong>{$info.address}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>创建时间：</strong>{$info.create_time}</p>
+                        <p><strong>备注说明：</strong>{$info.remark}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="line-bb"></div>
+            <div class="row m-t-sm">
+                <div class="col-sm-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="?#tab-1" data-toggle="tab">联系人</a></li>
+                            <li class=""><a href="?#tab-2" data-toggle="tab">采购合同</a></li>
+                            <li class=""><a href="?#tab-3" data-toggle="tab">付款记录</a></li>
+                            <li class=""><a href="?#tab-4" data-toggle="tab">收票记录</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <table class="table table-hover sorttable ajax-list-table linkman" data-url="{:url('Shop/detail',array('id'=>$info.id,'type'=>'linkman'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="120"><span>姓名</span></th>
+                                        <th width="80"><span>性别</span></th>
+                                        <th width="120"><span>职位</span></th>
+                                        <th width="120"><span>手机</span></th>
+                                        <th width="120"><span>座机</span></th>
+                                        <th width="120"><span>QQ</span></th>
+                                        <th width="120"><span>地址</span></th>
+                                        <th width="120"><span>备注</span></th>
+                                        <th width="100"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <table class="table table-hover sorttable ajax-list-table poscontract" data-url="{:url('Shop/detail',array('id'=>$info.id,'type'=>'poscontract'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="150"><span>合同主题</span></th>
+                                        <th width="100"><span>合同金额</span></th>
+                                        <th width="80"><span>回款金额</span></th>
+                                        <th width="80"><span>去零金额</span></th>
+                                        <th width="80"><span>开票金额</span></th>
+                                        <th width="100"><span>开始时间</span></th>
+                                        <th width="100"><span>结束时间</span></th>
+                                        <th width="80"><span>合同状态</span></th>
+                                        <th width="80"><span>创建日期</span></th>
+                                        <th width="100"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <table class="table table-hover sorttable ajax-list-table payrecord" data-url="{:url('Shop/detail',array('id'=>$info.id,'type'=>'payrecord'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="80"><span>回款时间</span></th>
+                                        <th width="60"><span>期次</span></th>
+                                        <th width="80"><span>金额</span></th>
+                                        <th width="80"><span>去零</span></th>
+                                        <th width="100"><span>创建人</span></th>
+                                        <th width="100"><span>录入时间</span></th>
+                                        <th width="50"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                                <table class="table table-hover sorttable ajax-list-table invoice" data-url="{:url('Shop/detail',array('id'=>$info.id,'type'=>'invoice'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>开票时间</span></th>
+                                        <th width="100"><span>发票编号</span></th>
+                                        <th width="100"><span>金额</span></th>
+                                        <th width="60"><span>期次</span></th>
+                                        <th width="80"><span>发票经手人</span></th>
+                                        <th width="100"><span>录入时间</span></th>
+                                        <th width="100"><span>备注</span></th>
+                                        <th width="50"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--加载数据模板-->
+{include file="shop/fun_detail"/}

@@ -1,0 +1,93 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$page_title}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <div class="col-sm-12 m-b-xs">
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="输入关键字(公司名称、电话、地址)搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-10">
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <a href="javascript:void(0);" class="btn btn-default btn-outline btn-field-set" data-id="{$page_title|default=''}"> <i class="fa fa-columns"></i> 列</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content table-responsive">
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('CstCustomer/search')}" width="100%">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="120"><span>客户名称</span></th>
+                            <th width="60"><span>状态</span></th>
+                            <th width="60"><span>联系人</span></th>
+                            <th width="60"><span>手机号码</span></th>
+                            <th width="60"><span>QQ</span></th>
+                            <th width="80"><span>微信</span></th>
+                            <th width="150"><span>备注</span></th>
+                            <th width="80" orderField="by_link" class="sort-filed"><span>最近联系</span></th>
+                            <th width="150"><span>沟通内容</span></th>
+                            <th width="80" orderField="by_next" class="sort-filed"><span>下次跟进</span></th>
+                            <th width="50" orderField="by_nodays" class="sort-filed"><span>未跟进</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="11" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) {
+        visible='';
+        if(data[i]['visible']=='1') visible='checked';
+    %>
+    <tr>
+        <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td>
+            <p><%=data[i]['name']%></p>
+            <p><small>创建于：<%=data[i]['create_time']%></small></p>
+        </td>
+        <td><%=data[i]['customerstatus']%></td>
+        <td><%=data[i]['linkman']%></td>
+        <td><%=data[i]['mobile']%></td>
+        <td><%=data[i]['qicq']%></td>
+        <td><%=data[i]['weixin']%></td>
+        <td><%=data[i]['remark']%></td>
+        <td><%=data[i]['link_time']%></td>
+        <td><%=data[i]['link_body']%></td>
+        <td><%=data[i]['next_time']%></td>
+        <td><span class="badge badge-info"><%=data[i]['nodays']%> 天</span></td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

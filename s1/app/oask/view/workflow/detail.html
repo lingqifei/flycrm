@@ -1,0 +1,57 @@
+<body class="gray-bg">
+<div class="ibox-title">基本信息</div>
+<div class="ibox-content">
+    <div class="row">
+        <div class="col-sm-12"><label>紧急状态：</label>{$info.level_name|default=''}</div>
+        <div class="col-sm-12"><label>工作名称：</label>{$info.name|default=''}</div>
+        <div class="col-sm-12"><label>工作内容：</label>{$info.body|default=''}</div>
+    </div>
+    <div class="row">
+        {notempty name='$info.attachment'}
+        <div class="line-bb"></div>
+        <div class="col-lg-12">
+            <h4>文件附件：</h4>
+        </div>
+        <div class="col-lg-12">
+            {assign name="attachment" value="$info.attachment|default=''|str2arr" /}
+            {volist name='attachment' id='vo'}
+            <p><a href="{$vo|get_file_url}">{$vo|get_file_url}</a></p>
+            {/volist}
+        </div>
+        {/notempty}
+    </div>
+</div>
+
+
+<div class="ibox-title">审批记录</div>
+<div class="ibox-content">
+    <table class="table table-hover sorttable ajax-list-table" width="100%">
+        <thead>
+        <tr>
+            <th width="120">创建时间</th>
+            <th width="120">审批节点</th>
+            <th width="100">审批人</th>
+            <th width="100">处理状态</th>
+            <th width="120">审批结果</th>
+            <th width="120">审批时间</th>
+            <th width="200">备注说明</th>
+        </tr>
+        </thead>
+        <tbody>
+<!-- 审批历史记录-->
+        {notempty name='workflow.data'}
+        {volist name='workflow.data' id='vo'}
+        <tr>
+            <td width="120">{$vo.create_time}</td>
+            <td width="120">{$vo.sort}</td>
+            <td width="100">{$vo.deal_user_name}</td>
+            <td width="120">{$vo.status_arr.html}</td>
+            <td width="120">{$vo.deal_status_arr.html}</td>
+            <td width="120">{$vo.deal_time}</td>
+            <td width="200">{$vo.deal_remark}</td>
+        </tr>
+        {/volist}
+        {/notempty}
+        </tbody>
+    </table>
+</div>

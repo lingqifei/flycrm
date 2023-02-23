@@ -1,0 +1,156 @@
+<script>
+    // 列表加载
+    $(document).ready(function () {
+        $("body").on("click", ".nav-tabs li", function () {
+            var i = $(this).index();//下标第一种写法
+            obj = $('.tab-content .tab-pane').eq(i).find('table.ajax-list-table');
+            ajaxContractInfoData(obj);
+        });
+        $(".tab-content").find(".tab-pane table.ajax-list-table").each(function (key, row) {
+            ajaxContractInfoData($(this));
+        })
+    })
+
+    //订单详细数据加载
+    function ajaxContractInfoData(object) {
+        target = object.attr("data-url");
+        log(target);
+        $.ajaxSettings.async = true;
+        $.get(target).success(function (jsonData) {
+            html = ajaxContractInfoDataTpl(jsonData.data, jsonData.type);
+            object.find("tbody").html(html);
+            object.find('tfoot .total_money').html(jsonData.total_money);
+        }, "json");
+
+    }
+
+    //订单详细数据加载
+    function ajaxContractInfoDataTpl(data, type) {
+
+        var html = "";
+        $.each(data, function (key, row) {
+            switch (type) {
+                case 'sell_list':
+                    html += '<tr>';
+                    html += '<td>' + row.goods_name + '</td>';
+                    html += '<td>' + row.sku_name + '</td>';
+                    html += '<td>' + row.price + '</td>';
+                    html += '<td>' + row.num + '</td>';
+                    html += '<td>' + row.rebate + '</td>';
+                    html += '<td>' + row.goods_money + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '</tr>';
+                    break;
+                case 'purchase_list':
+                    html += '<tr>';
+                    html += '<td>' + row.goods_name + '</td>';
+                    html += '<td>' + row.sku_name + '</td>';
+                    html += '<td>' + row.price + '</td>';
+                    html += '<td>' + row.num + '</td>';
+                    html += '<td>' + row.rebate + '</td>';
+                    html += '<td>' + row.goods_money + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '</tr>';
+                    break;
+                case 'rece':
+                    html += '<tr>';
+                    html += '<td>' + row.back_date + '</td>';
+                    html += '<td>' + row.stages + '</td>';
+                    html += '<td>' + row.money + '</td>';
+                    html += '<td>' + row.create_user_name + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>' + row.status_arr.html + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>';
+                    if (row.status == 0) {
+                        html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectReceMoney/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.rece\'))">修改</a></lqf_link>';
+                        html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectReceMoney/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.rece\'))">删除</a></lqf_link>';
+                    }
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                case 'pay':
+                    html += '<tr>';
+                    html += '<td>' + row.pay_date + '</td>';
+                    html += '<td>' + row.stages + '</td>';
+                    html += '<td>' + row.money + '</td>';
+                    html += '<td>' + row.create_user_name + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>' + row.status_arr.html + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>';
+                    if (row.status == 0) {
+                        html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectPayMoney/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.pay\'))">修改</a></lqf_link>';
+                        html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectPayMoney/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.pay\'))">删除</a></lqf_link>';
+                    }
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                case 'income':
+                    html += '<tr>';
+                    html += '<td>' + row.handle_date + '</td>';
+                    html += '<td>' + row.type_name + '</td>';
+                    html += '<td>' + row.money + '</td>';
+                    html += '<td>' + row.handle_user_name + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>' + row.status_arr.html + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>';
+                    if (row.status == 0) {
+                        html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectIncomeRecord/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxContractInfoData($(\'.ajax-list-table.income\'))">修改</a></lqf_link>';
+                        html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectIncomeRecord/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.income\'))">删除</a></lqf_link>';
+                    }
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                case 'expenses':
+                    html += '<tr>';
+                    html += '<td>' + row.handle_date + '</td>';
+                    html += '<td>' + row.type_name + '</td>';
+                    html += '<td>' + row.money + '</td>';
+                    html += '<td>' + row.handle_user_name + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>' + row.status_arr.html + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>';
+                    if (row.status == 0) {
+                        html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectExpensesRecord/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxContractInfoData($(\'.ajax-list-table.expenses\'))">修改</a></lqf_link>';
+                        html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectExpensesRecord/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.expenses\'))">删除</a></lqf_link>';
+                    }
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                case 'commission':
+                    html += '<tr>';
+                    html += '<td>' + row.sys_user_name + '</td>';
+                    html += '<td>' + row.money + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>';
+                    if (row.status == 0) {
+                        html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectCommission/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxContractInfoData($(\'.ajax-list-table.commission\'))">修改</a></lqf_link>';
+                        html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectCommission/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.commission\'))">删除</a></lqf_link>';
+                    }
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                case 'files':
+                    html += '<tr>';
+                    html += '<td><a class="ajax-goto" data-url="' + row.path_url + '" target="_blank">' + row.name + '</td>';
+                    html += '<td>' + row.remark + '</td>';
+                    html += '<td>' + row.create_user_name + '</td>';
+                    html += '<td>' + row.create_time + '</td>';
+                    html += '<td>';
+                    html += '    <lqf_link><a class="ajax-goto text-success" data-url="{:url(\'ProjectFiles/down\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="下载" data-calback="ajaxContractInfoData($(\'.ajax-list-table.files\'))">下载</a></lqf_link>';
+                    html += '    <lqf_link><a class="ajax-open" data-url="{:url(\'ProjectFiles/edit\')}"  data-ids="{\'id\':\'' + row.id + '\'}" data-title="修改" data-calback="ajaxContractInfoData($(\'.ajax-list-table.files\'))">修改</a></lqf_link>';
+                    html += '    <lqf_link><a class="ajax-del" data-url="{:url(\'ProjectFiles/del\')}"  data-ids="{\'id\':\'' + row.id + '\'}"  data-calback="ajaxContractInfoData($(\'.ajax-list-table.files\'))">删除</a></lqf_link>';
+                    html += '</td>';
+                    html += '</tr>';
+                    break;
+                default:
+                    html = "";
+            }
+        });
+        return html
+    }
+</script>

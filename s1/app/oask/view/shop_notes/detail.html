@@ -1,0 +1,30 @@
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight article">
+<div class="ibox-content">
+    <div class="pull-right">
+        <button class="btn btn-white btn-xs ajax-open" data-url="{:url('ShopNotes/edit',array('id'=>$info.id))}" type="button">编辑</button>
+    </div>
+    <div class="text-center article-title">
+        <h1>
+            {$info.name|default=''}
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {$info.body|default=''}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>附件：</h3>
+        </div>
+        <div class="col-lg-12">
+            {assign name="attachment" value="$info.attachment|default=''|str2arr" /}
+            {volist name='attachment' id='vo'}
+                <p><a href="{$vo|get_file_url}">{$vo|get_file_url}</a></p>
+            {/volist}
+        </div>
+    </div>
+</div>
+</div>

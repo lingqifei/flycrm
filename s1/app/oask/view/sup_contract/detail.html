@@ -1,0 +1,67 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-home"></i>合同详细</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>{$info.name}</h2>
+                    <p>编号：{$info.contract_no}   创建于：{$info.create_time}</p>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <lqf_link><a class="btn btn-white ajax-open"  data-url="{:url('SupContract/edit',array('id'=>$info.id))}" data-calback="void(0);"><i class="fa fa-edit"></i> 编辑</a></lqf_link>
+                </div>
+            </div>
+            <div class="line-bb"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>签订日期：</strong>{$info.begin_date}</p>
+                        <p><strong>到期日期：</strong>{$info.end_date}</p>
+                        <p><strong>合同金额：</strong>{$info.money}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>创建人员：</strong>{$info.create_user_name}</p>
+                        <p><strong>创建时间：</strong>{$info.create_time}</p>
+                        <p><strong>合同备注：</strong>{$info.remark}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="line-bb"></div>
+            <div class="row">
+                {notempty name='$info.litpic'}
+                <div class="col-lg-12">
+                    <h4>扫描文件：</h4>
+                </div>
+                <div class="col-lg-12">
+                    {assign name="litpic" value="$info.litpic|default=''|str2arr" /}
+                    {volist name='litpic' id='vo'}
+                    <a class="fancybox" href="{$vo|get_picture_url}" target="_blank"><img src="{$vo|get_picture_url}"></a>
+                    {/volist}
+                </div>
+                {/notempty}
+            </div>
+            <div class="row">
+                {notempty name='$info.attachment'}
+                <div class="line-bb"></div>
+                <div class="col-lg-12">
+                    <h4>文件附件：</h4>
+                </div>
+                <div class="col-lg-12">
+                    {assign name="attachment" value="$info.attachment|default=''|str2arr" /}
+                    {volist name='attachment' id='vo'}
+                    <p><a href="{$vo|get_file_url}">{$vo|get_file_url}</a></p>
+                    {/volist}
+                </div>
+                {/notempty}
+            </div>
+        </div>
+    </div>
+</div>
+<!--加载数据模板-->

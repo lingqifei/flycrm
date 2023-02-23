@@ -1,0 +1,43 @@
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight article">
+<div class="ibox-content">
+    <div class="pull-right">
+        <button class="btn btn-white btn-xs ajax-open" data-url="{:url('ShopAlbum/edit',array('id'=>$info.id))}" type="button">编辑</button>
+    </div>
+    <div class="text-center article-title">
+        <h3>{$info.name|default=''}</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>备注说明：</h3>
+            <p>{$info.remark|default=''}</p>
+        </div>
+    </div>
+    <div class="row">
+        {notempty name='$info.litpic'}
+        <div class="col-lg-12">
+            <h3>图片列表：</h3>
+        </div>
+        <div class="col-lg-12">
+        {assign name="litpic" value="$info.litpic|default=''|str2arr" /}
+        {volist name='litpic' id='vo'}
+            <a class="fancybox" href="{$vo|get_picture_url}"><img src="{$vo|get_picture_url}"></a>
+        {/volist}
+        </div>
+        {/notempty}
+    </div>
+</div>
+</div>
+<!-- Fancy box -->
+<script src="__STATIC__/module/admin/js/plugins/fancybox/jquery.fancybox.js"></script>
+<link href="__STATIC__/module/admin/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function () {
+        $('.fancybox').fancybox({
+            openEffect: 'none',
+            closeEffect: 'none'
+        });
+    });
+</script>

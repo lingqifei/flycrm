@@ -1,0 +1,33 @@
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight article">
+<div class="ibox-content">
+    <div class="pull-right">
+        <button class="btn btn-white btn-xs ajax-open" data-url="{:url('ShopLicence/edit',array('id'=>$info.id))}" type="button">编辑</button>
+    </div>
+    <div class="text-center article-title">
+        <h3>{$info.name|default=''}</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>到期日期：</h3>
+            <p>{$info.expire_date|default=''}</p>
+        </div>
+        <div class="col-lg-12">
+            <h3>备注说明：</h3>
+            <p>{$info.remark|default=''}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>附件：</h3>
+        </div>
+        <div class="col-lg-12">
+            {assign name="litpic" value="$info.litpic|default=''|str2arr" /}
+            {volist name='litpic' id='vo'}
+                <p><a href="{$vo|get_picture_url}" target="_blank"><img src="{$vo|get_picture_url}"></a></p>
+            {/volist}
+        </div>
+    </div>
+</div>
+</div>

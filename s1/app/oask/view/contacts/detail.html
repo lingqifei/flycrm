@@ -1,0 +1,41 @@
+<body class="gray-bg">
+
+<div class="ibox auto-height-box">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>
+                    <b>{$info.name}</b>
+                </h2>
+
+            </div>
+            <div class="col-sm-4 text-right">
+                <lqf_link>
+                    <a class="btn btn-white ajax-open" data-url="{:url('Contacts/edit',array('id'=>$info.id))}"
+                       data-calback="void(0);">
+                        <i class="fa fa-edit"></i> 编辑
+                    </a>
+                </lqf_link>
+            </div>
+        </div>
+        <div class="line-bb"></div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" ">
+                    <p><strong>联系电话：</strong>{$info.mobile}</p>
+                    <p><strong>联系邮箱：</strong>{$info.email}</p>
+                    <p><strong>联系地址：</strong>{$info.address}</p>
+                    <p><strong>备注说明：</strong>{$info.remark}</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class=" ">
+                    <p><strong>创建时间：</strong>{$info.create_time}</p>
+                    <p><strong>创建人员：</strong>{$info.create_user_name}</p>
+                </div>
+            </div>
+        </div>
+        <div class="line-bb"></div>
+    </div>
+</div>
+

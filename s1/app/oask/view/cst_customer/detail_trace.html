@@ -1,0 +1,106 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-home"></i>供应商详细</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3>{$info.name}</h3>
+                    <p>联系人：{$info.linkman}   </p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <a class="btn btn-white ajax-open"  data-url="{:url('SupSupplier/edit',array('id'=>$info.id))}" data-calback="void(0);"><i class="fa fa-edit"></i> 编辑</a>
+                </div>
+            </div>
+
+            <div class="line-bb"></div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p><strong>代表品种：</strong>{$info.delegate}</p>
+                    <p><strong>品牌渠道：</strong>{$info.channel}</p>
+                    <p><strong>是否协议：</strong>{$info.agreement}</p>
+                </div>
+                <div class="col-sm-3">
+                    <div class=" ">
+                        <p><strong>客户来源：</strong>{$info.source}</p>
+                        <p><strong>客户等级：</strong>{$info.level}</p>
+                        <p><strong>所在行业：</strong>{$info.industry}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class=" ">
+                        <p><strong>客户代表：</strong>{$info.linkman}</p>
+                        <p><strong>手机号码：</strong>{$info.mobile}</p>
+                        <p><strong>客户备注：</strong>{$info.remark}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class=" ">
+                        <p><strong>联系地址：</strong>{$info.address}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-10">
+                    <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('CstTrace/add',array('customer_id'=>$info.id))}"><i class="fa fa-plus"></i> 添加</a></lqf_link>
+                </div>
+                <div class="col-sm-2 text-right">
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content table-responsive">
+            <table class="table table-hover sorttable ajax-list-table" data-url="{:url('CstTrace/show_json',array('customer_id'=>$info.id))}" width="100%">
+                <thead>
+                <tr>
+                    <th width="200"><span>沟通记录</span></th>
+                    <th width="80"><span>回复内容</span></th>
+                    <th width="60"><span>处理情况</span></th>
+                    <th width="80"><span>提醒日期</span></th>
+                    <th width="80"><span>录入时间</span></th>
+                    <th width="80"><span>录入人员</span></th>
+                    <th width="80" class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot class="ibox-content">
+                <tr>
+                    <td colspan="7" align="center"></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) {
+    visible='';
+    if(data[i]['visible']=='1') visible='checked';
+    %>
+    <tr>
+        <td><%:=data[i]['link_body']%></td>
+        <td><%=data[i]['reply_body']%></td>
+        <td><%=data[i]['status']%></td>
+        <td><%=data[i]['next_time']%></td>
+        <td><%=data[i]['create_time']%></td>
+        <td><%=data[i]['create_user_name']%></td>
+        <td class="text-center">
+            <lqf_link><a class="ajax-open" data-url="{:url('CstTrace/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">修改</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('CstTrace/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

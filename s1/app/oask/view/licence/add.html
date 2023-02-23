@@ -1,0 +1,35 @@
+<body class="gray-bg">
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('Licence/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">证照名称</label>
+            <div class="col-sm-10">
+                <input name="name" class="form-control" type="text" placeholder="证照名称"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">到期日期</label>
+            <div class="col-sm-10">
+                <input name="expire_date" class="form-control datepicker" type="text" placeholder="选择证照到期日期"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注说明</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="remark"></textarea>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">证照图片</label>
+            <div class="col-sm-10">
+                {assign name="litpic" value="$info.litpic|default=''" /}
+                {:hook('File', ['name' => 'litpic', 'value' => $litpic, 'type' => 'img'])}
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="admin@layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

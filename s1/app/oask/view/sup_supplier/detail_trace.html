@@ -1,0 +1,101 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-home"></i>供应商详细</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>{$info.name}</h3>
+                </div>
+                <div class="col-sm-4"><p><strong>邮寄地址:</strong>{$info.address_mail}</p></div>
+                <div class="col-sm-2 text-right">
+                    <a class="btn btn-white ajax-open"  data-url="{:url('SupSupplier/edit',array('id'=>$info.id))}" data-calback="void(0);"><i class="fa fa-edit"></i> 编辑</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3"><p><strong>联系人及电话:</strong>{$info.linkman} {$info.mobile}</p></div>
+                <div class="col-sm-3"><p><strong>QQ/微信:</strong>{$info.qicq} {$info.weixin}</p></div>
+                <div class="col-sm-2"><p><strong>品牌渠道：</strong>{$info.channel}</p></div>
+                <div class="col-sm-2"><p><strong>是否协议：</strong>{$info.agreement}</p></div>
+                <div class="col-sm-2"><p><strong>客户等级：</strong>{$info.level}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6"><p><strong>备注说明：</strong>{$info.remark}</p></div>
+                <div class="col-sm-6"><p><strong>其它联系人：</strong>{$info.linkman_other}</p></div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><p><strong>代表品种：</strong>{$info.delegate}</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-10">
+                    <form id="pagerForm" method="post" class="form-inline searchForm">
+                        <div class="col-sm-12 m-b-xs">
+                            <div class="input-group">
+                                <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('SupTrace/add',array('supplier_id'=>$info.id))}"><i class="fa fa-plus"></i> 添加</a></lqf_link>
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content table-responsive">
+            <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SupTrace/show_json',array('supplier_id'=>$info.id))}" width="100%">
+                <thead>
+                <tr>
+                    <th width="200"><span>沟通记录</span></th>
+                    <th width="80"><span>回复内容</span></th>
+                    <th width="60"><span>处理情况</span></th>
+                    <th width="80"><span>提醒日期</span></th>
+                    <th width="80"><span>录入时间</span></th>
+                    <th width="80"><span>录入人员</span></th>
+                    <th width="80" class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot class="ibox-content">
+                <tr>
+                    <td colspan="7" align="center"></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) {
+    visible='';
+    if(data[i]['visible']=='1') visible='checked';
+    %>
+    <tr>
+        <td class="text-left"><%:=data[i]['link_body']%></td>
+        <td><%=data[i]['reply_body']%></td>
+        <td><%=data[i]['status']%></td>
+        <td><%=data[i]['next_time']%></td>
+        <td><%=data[i]['create_time']%></td>
+        <td><%=data[i]['create_user_name']%></td>
+        <td class="text-center">
+            <lqf_link><a class="ajax-open" data-url="{:url('SupTrace/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">修改</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SupTrace/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

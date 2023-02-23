@@ -1,0 +1,121 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$page_title}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <input type="hidden" name="listtype" value="{$listtype}">
+                            <div class="col-sm-12 m-b-xs text-right">
+                                <div class="input-group text-left">
+                                    <select name="supplier_id" class="chosen-select">
+                                        <option value="">选择供应商</option>
+                                        {volist name='$supplier_list' id='vo'}
+                                        <option value="{$vo['id']}">{$vo['name']}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="input-group text-left">
+                                    <select  name="status" class="chosen-select chosen-select-typetag" style="width: 200px;">
+                                        <option value="">处理情况</option>
+                                        {volist name='status_list' id='vo'}
+                                        <option value="{$vo['name']}">{$vo['name']}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="input-group text-left">
+                                    <select  name="create_user_id" class="chosen-select chosen-select-typetag" style="width: 200px;">
+                                        <option value="">录入人员</option>
+                                        {volist name='$sys_user_list' id='vo'}
+                                        <option value="{$vo['id']}">{$vo['username']}{$vo['realname']}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-btn"> <button type="button" class="btn btn-warning ajaxSearchForm resetForm"><i class="fa fa-recycle"></i> 重置</button></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('SupTrace/add')}"><i class="fa fa-plus"></i> 添加</a></lqf_link>
+                            <lqf_link><a  class="btn btn-default btn-outline ajax-goto" target-form="form-inline" data-url="{:url('SupTrace/download')}"><i class="fa fa-download"></i>导出</a></lqf_link>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <a href="javascript:void(0);" class="btn btn-default btn-outline btn-field-set" data-id="{$page_title|default=''}"> <i class="fa fa-columns"></i> 列</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content table-responsive">
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SupTrace/show_json')}" width="100%">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="120"><span>供应商名称</span></th>
+                            <th width="200"><span>沟通记录</span></th>
+                            <th width="100"><span>回复内容</span></th>
+                            <th width="60"><span>处理情况</span></th>
+                            <th width="100"><span>提醒日期</span></th>
+                            <th width="100"><span>录入时间</span></th>
+                            <th width="80"><span>录入人员</span></th>
+                            <th width="60" class="text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="7" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) {
+        visible='';
+        if(data[i]['visible']=='1') visible='checked';
+    %>
+    <tr>
+        <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td class="text-left">
+            <p><a class="ajax-goto" data-url="{:url('SupSupplier/detail_trace')}"  data-ids="{'id':'<%=data[i]['supplier_id']%>'}"><%=data[i]['supplier_name']%></a></p>
+            <p><%=data[i]['linkman']%> <%=data[i]['mobile']%></p>
+
+        </td>
+        <td class="text-left"><%:=data[i]['link_body']%></td>
+        <td><%=data[i]['reply_body']%></td>
+        <td><%=data[i]['status']%></td>
+        <td><%=data[i]['next_time']%></td>
+        <td><%=data[i]['create_time']%></td>
+        <td><%=data[i]['create_user_name']%></td>
+        <td class="text-center">
+            <lqf_link><a class="ajax-open" data-url="{:url('SupTrace/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">修改</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SupTrace/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

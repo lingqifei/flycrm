@@ -1,0 +1,132 @@
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-home"></i>供应商详细</h5>
+            <div class="ibox-tools">
+                <button type="button" class="btn btn-xs btn-primary btn-back-reply"><i class="fa fa-reply"></i> 返回
+                </button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3>{$info.name}</h3>
+                    <p>归属：{$info.owner_user_id}  首要联系人：{$info.linkman}   </p>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-white ajax-open"  data-url="{:url('SupSupplier/edit',array('id'=>$info.id))}" data-calback="void(0);"><i class="fa fa-edit"></i> 编辑</a>
+                </div>
+            </div>
+
+            <div class="line-bb"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>经济类型：</strong>{$info.ecotype}</p>
+                        <p><strong>客户等级：</strong>{$info.level}</p>
+                        <p><strong>所在行业：</strong>{$info.industry}</p>
+                        <p><strong>联系地址：</strong>{$info.address}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class=" ">
+                        <p><strong>创建时间：</strong>{$info.create_time}</p>
+                        <p><strong>首要联系人：</strong>{$info.linkman}</p>
+                        <p><strong>手机号码：</strong>{$info.mobile}</p>
+                        <p><strong>电话号码：</strong>{$info.tel}</p>
+                        <p><strong>传真号码：</strong>{$info.fax}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="line-bb"></div>
+            <div class="row m-t-sm">
+                <div class="col-sm-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="?#tab-1" data-toggle="tab">跟进记录</a></li>
+                            <li class=""><a href="?#tab-2" data-toggle="tab">采购合同</a></li>
+                            <li class=""><a href="?#tab-3" data-toggle="tab">采购记录</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="row text-right">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-xs btn-info ajax-open " type="button"
+                                                data-url="{:url('SupTrace/add')}"
+                                                data-ids="{'customer_id':'{$info.id}'}"
+                                                data-title="添加跟进记录"
+                                                data-calback="ajaxDetailData($('.ajax-list-table.trace'))"><i
+                                                class="fa fa-plus"></i> 添加跟进记录
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <table class="table table-hover sorttable ajax-list-table trace" data-url="{:url('SupSupplier/detail',array('id'=>$info.id,'type'=>'trace'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>联系时间</span></th>
+                                        <th width="60"><span>跟进方式</span></th>
+                                        <th width="150"><span>沟通内容</span></th>
+                                        <th width="100"><span>下次跟进</span></th>
+                                        <th width="80"><span>当前阶段</span></th>
+                                        <th width="60"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="row text-right">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-xs btn-info ajax-open " type="button"
+                                                data-url="{:url('SupContract/add')}"
+                                                data-ids="{'customer_id':'{$info.id}'}"
+                                                data-title="添加合同"
+                                                data-calback="ajaxDetailData($('.ajax-list-table.contract'))"><i
+                                                class="fa fa-plus"></i> 添加合同
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <table class="table table-hover sorttable ajax-list-table contract" data-url="{:url('SupSupplier/detail',array('id'=>$info.id,'type'=>'contract'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="150"><span>合同编号</span></th>
+                                        <th width="100"><span>合同名称</span></th>
+                                        <th width="80"><span>合同金额</span></th>
+                                        <th width="80"><span>签订日期</span></th>
+                                        <th width="80"><span>到期日期</span></th>
+                                        <th width="80"><span>备注</span></th>
+                                        <th width="100"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <table class="table table-hover sorttable ajax-list-table sales" data-url="{:url('SupSupplier/detail',array('id'=>$info.id,'type'=>'sales'))}">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"><span>采购名称</span></th>
+                                        <th width="80"><span>采购日期</span></th>
+                                        <th width="80"><span>采购金额</span></th>
+                                        <th width="60"><span>创建时间</span></th>
+                                        <th width="60"><span>操作</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--加载数据模板-->
+{include file="sup_supplier/fun_sup_supplier_detail"/}
