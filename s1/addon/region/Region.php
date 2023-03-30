@@ -63,7 +63,7 @@ class Region extends AddonBase implements AddonInterface
     public function addonInfo()
     {
         
-        return ['name' => 'Region', 'title' => '区域选择', 'describe' => '区域三级联动选择插件', 'author' => 'Bigotry', 'version' => '1.0'];
+        return ['name' => 'Region', 'title' => '区域选择', 'describe' => '区域三级联动选择插件', 'author' => 'lingqifei', 'version' => '1.0'];
     }
     
     /**

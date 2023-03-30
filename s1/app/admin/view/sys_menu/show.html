@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="ibox">
                 <div class="ibox-title"><h5>分类目录</h5>
                     <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">{$page_title}列表</div>
                 <div class="ibox-content table-responsive">
@@ -53,6 +53,7 @@
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                             <th width="60">编号</th>
                             <th width="80">菜单名称</th>
+                            <th width="80">菜单图标</th>
                             <th width="150">菜单地址</th>
                             <th width="100">所属模块</th>
                             <th width="80">排序</th>
@@ -88,6 +89,9 @@
         <td><%=data[i]['id']%></td>
         <td>
             <input type="text" name="name"  value="<%=data[i]['name']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'name'))}" data-id="<%=data[i]['id']%>" size="10">
+        </td>
+        <td>
+            <input type="text" name="icon"  value="<%=data[i]['icon']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'icon'))}" data-id="<%=data[i]['id']%>" size="10">
         </td>
         <td>
             <input type="text" name="url" value="<%=data[i]['url']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'url'))}" data-id="<%=data[i]['id']%>" size="10">

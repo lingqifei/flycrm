@@ -59,7 +59,7 @@ class Icon extends AddonBase implements AddonInterface
     public function addonInfo()
     {
         
-        return ['name' => 'Icon', 'title' => '图标选择', 'describe' => '图标选择插件', 'author' => 'Bigotry', 'version' => '1.0'];
+        return ['name' => 'Icon', 'title' => '图标选择', 'describe' => '图标选择插件', 'author' => 'lingqifei', 'version' => '1.0'];
     }
 
     /**

@@ -987,9 +987,9 @@ function update_cache_version($obj = null)
 
     $lqf_auto_cache = cache('lqf_auto_cache');
 
-    if(is_string($obj)){
+    if (is_string($obj)) {
         $lqf_auto_cache[$obj]['version']++;
-    }else{
+    } else {
         !empty($lqf_auto_cache[$obj->getTable()]['version']) && $lqf_auto_cache[$obj->getTable()]['version']++;
     }
 
@@ -998,18 +998,15 @@ function update_cache_version($obj = null)
 
 //api签名函数
 use \Firebase\JWT\JWT;
+
 // 解密user_token
 function decoded_user_token($token = '')
 {
     vendor('Firebase/php-jwt/src/JWT');
     try {
-
         $decoded = JWT::decode($token, API_KEY . JWT_KEY, array('HS256'));
-
         return (array)$decoded;
-
     } catch (Exception $ex) {
-
         return $ex->getMessage();
     }
 }
@@ -1017,35 +1014,26 @@ function decoded_user_token($token = '')
 //获取解密信息中的data
 function get_member_by_token($token = '')
 {
-
     $result = decoded_user_token($token);
-
     return $result['data'];
 }
 
 // 数据验签时数据字段过滤
 function sign_field_filter($data = [])
 {
-
     $data_sign_filter_field_array = config('data_sign_filter_field');
-
     foreach ($data_sign_filter_field_array as $v) {
-
         if (array_key_exists($v, $data)) {
-
             unset($data[$v]);
         }
     }
-
     return $data;
 }
 
 // 过滤后的数据生成数据签名
 function create_sign_filter($data = [], $key = '')
 {
-
     $filter_data = sign_field_filter($data);
-
     return empty($key) ? data_md5_key($filter_data, API_KEY) : data_md5_key($filter_data, $key);
 }
 
@@ -1062,7 +1050,7 @@ function encoded_user_token($param)
     $token = [
         "iss" => "lingqifei JWT",         // 签发者
         "iat" => TIME_NOW,              // 签发时间
-        "exp" => TIME_NOW + TIME_NOW,   // 过期时间
+        "exp" => TIME_NOW + 30*24*3600,   // 过期时间
         "aud" => 'lingqifei',             // 接收方
         "sub" => 'lingqifei',             // 面向的用户
         "data" => $jwt_data

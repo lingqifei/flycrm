@@ -334,7 +334,6 @@ function getPageBar(object, pageNum, pageSize, totalCount) {
         object.find("tfoot td").html(pageBar);
     }
 
-
 }
 
 //ajax打开,跳转到指定页面
@@ -370,7 +369,7 @@ $("body").on("click", ".ajax-goto", function () {
     return false;
 });
 
-//ajax打开
+//ajax打开,普通打开
 $("body").on("click", ".ajax-open", function () {
 
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
@@ -391,6 +390,7 @@ $("body").on("click", ".ajax-open", function () {
         if (typeof (id) != "undefined" && id != 0) {
             var target = target + "?id=" + id;
         }
+
         log('打开地址：' + target);
 
 
@@ -407,6 +407,8 @@ $("body").on("click", ".ajax-open", function () {
         } else {
             height = "90%";
         }
+
+        //判断是否是手机页
         var wwithd = $(window).width();
         if (wwithd <= 750) {
             width = "90%";
@@ -437,7 +439,7 @@ $("body").on("click", ".ajax-open", function () {
 });
 
 //ajax打开
-//可以选择多个checkbox值r同时传送参数
+//可以选择多个checkbox值，同时传送参数 id=3,4,5
 $("body").on("click", ".ajax-open-more", function () {
 
     var title = $(this).attr('data-title');//打开标题
@@ -447,17 +449,19 @@ $("body").on("click", ".ajax-open-more", function () {
 
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
 
+        //多个选择的目标id
         $('.ajax-list-table tbody input[class="checkboxCtrlId"]:checked').each(function () {
             checkedVal.push($(this).val());
         });
-        cIds = checkedVal.join(',');
+        var cIds = checkedVal.join(',');
         if (cIds.length > 0) {
             var target = target + "?id=" + cIds;
         } else {
             layer.msg('请选择批量操作数据', {icon: 5});
             return false;
         }
-        //是否设置了参数字段
+
+        //是否设置了参数字段data-ids="{'name':'张三','sex':'女'}"
         if (typeof (ids) != "undefined" && ids != 0) {
             var ids = ($.param(eval('(' + ids + ')'), true));
             var target = target + "?" + ids;
@@ -478,12 +482,15 @@ $("body").on("click", ".ajax-open-more", function () {
         } else {
             height = "90%";
         }
+
+        //判断是否是手机页
         var wwithd = $(window).width();
         if (wwithd <= 750) {
             width = "90%";
             height = "90%";
         }
 
+        //打开窗口
         layer.open({
             type: 2,
             title: false,
@@ -504,7 +511,6 @@ $("body").on("click", ".ajax-open-more", function () {
                 }
             }
         });
-
     }
     return false;
 });
@@ -519,7 +525,7 @@ $("body").on("click", ".ajax-del", function () {
         target=$(this).attr('href');
     }
     if(target==''){
-        parent.layer.msg('未找到执行地址~', {icon: 5});
+        layer.msg('未找到执行地址~', {icon: 5});
         return false;
     }
     //是否设置了参数字段，执行回调函数
@@ -531,38 +537,55 @@ $("body").on("click", ".ajax-del", function () {
     }
     log('删除执行地址：' + target);
     layer.confirm('您确定要删除吗?', {btn: ['确定', '取消'], icon: 3,title: "提示"}, function (index) {
-        parent.layer.close(index);
+
+        layer.close(index);//点击 =》确认框=》关闭
+
         if (target) {
             log('确定执行删除操作：');
-            $.get(target).success(function (data) {
-                if (data.code) {
-                    parent.layer.msg(data.msg, {icon: 1});
-                    if (fun != null) {
-                        log(fun);
-                        eval(fun);
+            $.ajax({
+                type: "POST",
+                url: target,
+                data: '',
+                dataType: "json",
+                beforeSend:function () {
+                    layer.msg('数据处理中...', {icon: 16,time: 100000,shade : [0.5 , '#000' , true]});
+                },
+                success: function (result) {
+                    if (result.code == '1') {
+                        //操作成功提示
+                        layer.msg(result.msg, {icon: 1});
+                        if (fun != null) {
+                            log(fun);
+                            eval(fun);
+                        } else {
+                            setTimeout(function () {
+                                turnPage(pageNum);
+                            }, 1);
+                        }
                     } else {
-                        setTimeout(function () {
-                            turnPage(pageNum);
-                        }, 1500);
+                        layer.msg(result.msg, {icon: 5});
                     }
-                } else {
-                    parent.layer.msg(data.msg, {icon: 5});
-                }
-            }, "json");
+                },
+                complete: function () { //执行完之后执行
+
+                },
+            });//end ajax post
         }
     });
     return false;
 });
 
-//ajax get请求
+//ajax get请求=》单个请求
 $("body").on("click", ".ajax-get", function () {
 
+    //提示操作
     if ($(this).hasClass('confirm')) {
         if (!confirm('确认要执行该操作吗?')) {
             return false;
         }
     }
 
+    //是否有加载提示
     if ($(this).hasClass('ajaxload')) {
         //页面层-自定义
         var ajaxload=layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
@@ -573,12 +596,14 @@ $("body").on("click", ".ajax-get", function () {
 
         var ids = $(this).attr('data-ids');//判断是否有参数传
         var fun = $(this).attr('data-calback');//判断是否有回调函数
+
         //是否设置了参数字段
         if (typeof (ids) != "undefined" && ids != 0) {
             var ids = ($.param(eval('(' + ids + ')'), true));
             var target = target + "?" + ids;
         }
 
+        //执行get请求
         $.get(target).success(function (data) {
             if (data.code) {
                 parent.layer.msg(data.msg, {icon: 1});
@@ -592,20 +617,13 @@ $("body").on("click", ".ajax-get", function () {
             } else {
                 parent.layer.msg(data.msg, {icon: 5});
             }
-
             layer.close(ajaxload)
-            //如果传了地址表示跳转
-            // if (data.url) {
-            //     setTimeout(function () {
-            //         location.href = data.url;
-            //     }, 1500);
-            // }
         }, "json");
     }
     return false;
 });
 
-//ajax get -more 请求 t选择多个时使用
+//ajax get -more 请求=》选择多个时使用
 $("body").on("click", ".ajax-get-more", function () {
 
     var target;
@@ -614,7 +632,6 @@ $("body").on("click", ".ajax-get-more", function () {
         return false;
     }
     var checkedArr = $('.ajax-list-table input[class="checkboxCtrlId"]:checked');
-
     checkedArr.each(function () {
         cIds += $(this).val() + ",";
     });
@@ -651,7 +668,7 @@ $("body").on("click", ".ajax-get-more", function () {
     return false;
 });
 
-// PJAX模式重写表单POST提交处理
+// 重写表单POST提交处理
 $("body").on("click", ".ajax-post", function () {
     var target, query, form;
     var target_form = $(this).attr('target-form');
@@ -707,17 +724,21 @@ $("body").on("click", ".ajax-post", function () {
             query = form.find('input,select,textarea').serialize();
         }
 
+        //防止重复提交
         var is_repeat_button = $(that).hasClass('no-repeat-button');
-
         if (is_repeat_button) {
             $(that).prop('disabled', true);
         }
 
+        //ajax提交
         $.ajax({
             type: "POST",
             url: target,
             data: query,
             dataType: "json",
+            beforeSend:function (){
+                //layer.msg('正在处理,请稍等...', {icon: 16,time: 100000,shade : [0.5 , '#333' , true]});
+            },
             success: function (result) {
                 if (result.code == '1') {
                     layer.msg(result.msg, {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
@@ -842,6 +863,7 @@ $("body").on("change", ".ajax-input", function () {
 
         //是否设置了字段
         var ids = $(this).attr('data-ids');
+
         //是否设置了参数字段
         if (typeof (ids) != "undefined" && ids != 0) {
             var ids = ($.param(eval('(' + ids + ')'), true));
@@ -859,7 +881,6 @@ $("body").on("change", ".ajax-input", function () {
     }
     return false;
 });
-
 
 //列表启用关闭
 $("body").on("click", ".ajax-checkbox", function () {
@@ -940,7 +961,6 @@ $("body").on("change", ".ajax-field", function () {
  * 提示或提示并跳转
  */
 var lqfalert = function (data) {
-
     if (data.code) {
         layer.msg(data.msg, {icon: 1});
     } else {
@@ -955,13 +975,11 @@ var lqfalert = function (data) {
             layer.msg(data.msg, {icon: 5});
         }
     }
-
     if (data.url) {
         setTimeout(function () {
             location.href = data.url;
         }, 1500);
     }
-
     if (data.code && !data.url) {
         setTimeout(function () {
             location.reload();

@@ -59,7 +59,7 @@
 
     <!--右侧部分开始-->
     <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
+        <div class="row border-bottom black-bg">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2" href="#" title="展示收起侧栏">
@@ -70,11 +70,13 @@
                     {$sys_config.top_links}
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li><a href="{:url('admin/Store/apps')}" class="J_menuItem" target="_blank"><i
-                            class="fa fa-fire"></i>应用</a></li>
+                    <li>
+                        <a href="{:url('admin/Store/apps')}" class="J_menuItem" target="_blank"><i
+                                class="fa fa-fire"></i>应用</a>
+                    </li>
                     <li>
                         <a href="{$sys_config.main_weburl|default='http://www.07fly.xyz/'}" target="_blank"><i
-                            class="fa fa-home"></i>官网</a>
+                                class="fa fa-home"></i>官网</a>
                     </li>
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -82,7 +84,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
-                                <a href="{:url('admin/SysMsg/show_my')}" class="J_menuItem" >
+                                <a href="{:url('admin/SysMsg/show_my')}" class="J_menuItem">
                                     <div>
                                         <i class="fa fa-qq fa-fw"></i> 您有<span class="msg-icon-my">0</span>条未读消息
                                     </div>
@@ -91,16 +93,17 @@
                             <li class="divider"></li>
                             <li>
                                 <a href="{:url('admin/OaNotifyUser/show')}" class="J_menuItem">
-                                <div>
-                                    <i class="fa fa-volume-up fa-fw"></i> <span class="msg-icon-noti">0</span>条未读公告
-                                </div>
+                                    <div>
+                                        <i class="fa fa-volume-up fa-fw"></i> <span class="msg-icon-noti">0</span>条未读公告
+                                    </div>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"><i
-                                class="fa fa-chevron-down">{$sys_user_info['realname']}</i> </a>
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            {$sys_user_info['realname']} <i class="fa fa-chevron-down"></i>
+                        </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
                                 <a data-url="{:url('SysUser/editInfo',array('id'=>$sys_user_info['id']))}"
@@ -282,10 +285,10 @@
         });
     }
 
-    function getMsgNums(){
-        var my=$(".msg-icon-my").text();
-        var noti=$(".msg-icon-noti").text();
-        var nums=Number(my)+Number(noti);
+    function getMsgNums() {
+        var my = $(".msg-icon-my").text();
+        var noti = $(".msg-icon-noti").text();
+        var nums = Number(my) + Number(noti);
 
         $(".msg-icon-nums").text(nums);
     }

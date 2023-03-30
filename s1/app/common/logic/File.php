@@ -194,18 +194,17 @@ class File extends LogicBase
 			default :
 				$info = $this->modelPicture->getInfo(['id' => $id], 'path,url');
 		}
-
+        //设置了静态地址
 		if (!empty($info['url'])) {
 			return config('static_domain') . SYS_DS_PROS . $info['url'];
 		}
 
-		$root_url = get_file_root_path();
-
+        //得到根地址
+        $root_url = get_file_root_path();
 		if (!empty($info['path'])) {
 			return $root_url . 'upload/picture/' . $info['path'];
 
 		}
-
 		return $root_url . 'static/module/admin/img/onimg.png';
 	}
 

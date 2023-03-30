@@ -75,6 +75,7 @@ a:focus {
 
 .nav > li > a i {
     margin-right: 6px;
+    width: 12px;
 }
 
 .navbar {
@@ -287,11 +288,11 @@ body.body-small .navbar-top-links li:last-child {
 
 .nav-second-level li a {
     padding: 7px 15px 7px 10px;
-    padding-left: 52px;
+    padding-left: 45px;
 }
 
 .nav-third-level li a {
-    padding-left: 62px;
+    padding-left: 65px;
 }
 
 .nav-second-level li:last-child {
@@ -389,7 +390,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 
 .navbar-fixed-top,
 .navbar-static-top {
-    background: #fff;
+    background: #1c2b36;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -7824,7 +7825,6 @@ body.skin-3 {
 
 
 /*GO HOME*/
-
 .gohome {
     position: fixed;
     top: 20px;
@@ -7857,6 +7857,8 @@ body.skin-3 {
 .navbar-header {
     /*width: 60%;*/
 }
+
+/*顶部模块样式*/
 .navbar-module{
    float:left;
 }
@@ -7864,10 +7866,10 @@ body.skin-3 {
     float:left;
     line-height: 50px;
     padding: 0 10px;
-    color:#676a6c;
+    color:#dddddd;
 }
 .navbar-module a:hover{
-    background: #efefef;
+    background: #333333;
 }
 .navbar-module a.on{
     color: #23527c;

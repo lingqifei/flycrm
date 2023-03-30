@@ -13,6 +13,7 @@
 namespace addon\editor\controller;
 
 use app\common\controller\AddonBase;
+
 use addon\editor\logic\Upload as LogicUpload;
 
 /**
