@@ -25,13 +25,22 @@ class SysUser extends AdminBase
     // 菜单Select结构
     public static $menuSelect = [];
 
+
+    /**
+     * 获取列表
+     */
+    public function getAllList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
+    {
+        $list = $this->modelSysUser->getList($where, $field, $order, $paginate);
+        return $list;
+    }
+
     /**
      * 获取列表
      */
     public function getSysUserList($where = [], $field = true, $order = 'id desc', $paginate = DB_LIST_ROWS)
     {
         $list = $this->modelSysUser->getList($where, $field, $order, $paginate)->toArray();
-
         if ($paginate === false) $list['data'] = $list;
         foreach ($list['data'] as &$row) {
             $row['dept_name'] = $this->modelSysDept->getValue(['id' => $row['dept_id']], 'name');
@@ -56,7 +65,6 @@ class SysUser extends AdminBase
     {
 
         $validate_result = $this->validateSysUser->scene('add')->check($data);
-
         if (!$validate_result) {
             return [RESULT_ERROR, $this->validateSysUser->getError()];
         }
@@ -80,17 +88,13 @@ class SysUser extends AdminBase
     {
 
         $validate_result = $this->validateSysUser->scene('edit')->check($data);
-
         if (!$validate_result) {
             return [RESULT_ERROR, $this->validateSysUser->getError()];
         }
 
         $url = url('show');
-
         $result = $this->modelSysUser->setInfo($data);
-
         $result && action_log('编辑', '编辑用户，name：' . $data['username']);
-
         return $result ? [RESULT_SUCCESS, '编辑用户成功', $url] : [RESULT_ERROR, $this->modelSysUser->getError()];
     }
 
@@ -108,9 +112,7 @@ class SysUser extends AdminBase
         }
 
         $result = $this->modelSysUser->deleteInfo($where, true);
-
         $result && action_log('删除', '删除用户，where：' . http_build_query($where));
-
         return $result ? [RESULT_SUCCESS, '用户删除成功'] : [RESULT_ERROR, $this->modelSysUser->getError()];
     }
 
@@ -259,7 +261,6 @@ class SysUser extends AdminBase
             $ids[] = $data['pid'];
             $where['dept_id'] = ['in', $ids];
         }
-
         return $where;
     }
 

@@ -249,6 +249,15 @@ function throw_response_exception($data = [], $type = 'json')
 }
 
 /**
+ * 抛出响应异常
+ */
+function throw_response_error($msg = '', $code = '0')
+{
+    $data = ['code' => $code, 'msg' => $msg];
+    throw_response_exception($data);
+}
+
+/**
  * 获取访问token
  */
 function get_access_token()

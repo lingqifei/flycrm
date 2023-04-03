@@ -34,6 +34,13 @@ class SysUser extends AdminBase
      */
     public function lookup()
     {
+
+        if (IS_AJAX) {
+            $where = $this->logicSysUser->getWhere($this->param);
+            $list = $this->logicSysUser->getAllList($where);
+            return $list;
+        }
+
         //input ids name
         if (!empty($this->param['input_ids'])) {
             $this->assign('input_ids', $this->param['input_ids']);
@@ -72,13 +79,13 @@ class SysUser extends AdminBase
     }
 
 
+    //数据浏览
     public function show_json()
     {
         $where = $this->logicSysUser->getWhere($this->param);
         $list = $this->logicSysUser->getSysUserList($where);
         return $list;
     }
-
 
     /**
      * 菜单添加

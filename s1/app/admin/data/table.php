@@ -163,8 +163,7 @@ return [
 			//索引
 			'index' => [],
 		],
-
-		//表名公告映射用户
+		//公告映射用户
 		'oa_notify_user' => [
 			'table_name' => 'oa_notify_user',
 			'comment' => '[系统]系统公告用户',
@@ -188,6 +187,31 @@ return [
 			'index' => [],
 		],
 
+        //表名公告映射用户
+        'file' => [
+            'table_name' => 'file',
+            'comment' => '[系统]文件表',
+            'engine' => 'InnoDB',
+            'charset' => 'utf8mb4',
+            'collate' => 'utf8mb4_general_ci',
+            //字段信息
+            'columns' => [
+                'id' => ['type' => 'int', 'length' => 16, 'unsigned' => false, 'autoincrement' => true, 'comment' => '主id',],
+                'name' => ['type' => 'varchar', 'length' => 128, 'required' => true, 'default' => '', 'comment' => '文件名',],
+                'realname' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '原始文件名',],
+                'path' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '保存路径名称',],
+                'url' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '远程地址',],
+                'sha1' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '文件sha1编码',],
+                'status' => ['type' => 'int', 'length' => 11, 'required' => false, 'default' => 0, 'comment' => '文件状态',],
+                'create_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '创建日期',],
+                'update_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '更新日期',],
+                'org_id' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 1, 'comment' => '企业编号',],
+            ],
+            //主键 多个主键['user_id','name']
+            'primary' => ['id'],
+            //索引
+            'index' => [],
+        ],
 	]// end table
 
 ];

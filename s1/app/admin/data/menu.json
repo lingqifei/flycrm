@@ -1307,6 +1307,17 @@
         "icon": "fa-volume-up",
         "nodes": [
             {
+                "name": "用户选择",
+                "sort": 5,
+                "module": "admin",
+                "url": "SysUser/lookup",
+                "visible": 1,
+                "is_shortcut": 0,
+                "is_menu": 0,
+                "icon": "",
+                "nodes": []
+            },
+            {
                 "name": "密码修改",
                 "sort": 13,
                 "module": "admin",

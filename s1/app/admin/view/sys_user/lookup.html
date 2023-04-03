@@ -10,25 +10,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <div class="">
                 <div class="ibox-title">{$page_title}选择人员</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="" placeholder="部门编号">
-                            <div class="col-sm-12 m-b-xs">
+                            <div class="col-sm-12">
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
                                 </div>
                                 <div class="input-group">
-                          <span class="input-group-btn">
-                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
-                          </span></div>
+                                  <span class="input-group-btn">
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  </span>
+                                </div>
                             </div>
                         </form>
                     </div>
-                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysUser/show_json')}">
+                    <table class="table table-hover sorttable ajax-list-table" data-url="{:url('SysUser/lookup')}">
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
@@ -39,15 +40,15 @@
                         <tbody>
                         </tbody>
                         <tfoot class="ibox-content">
-                        <tr>
-                            <td colspan="3" align="center"></td>
-                        </tr>
+                            <tr>
+                                <td colspan="3" align="center"></td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="">
                 <div class="ibox-title">已选人员
                     <div class="ibox-tools">
@@ -65,9 +66,11 @@
 <script id="tableListTpl" type="text/html">
     <% for(var i=0;i<data.length;i++) { %>
     <tr>
-        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox">
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" data-name="<%=data[i]['realname']%>" type="checkbox">
             <div class="checkboxItem" style="display: none">
-                <li data-id="<%=data[i]['id']%>" data-user-name="<%=data[i]['realname']%>"><%=data[i]['realname']%> <a class="checkboxItemDel">[X]</a></li>
+                <li data-id="<%=data[i]['id']%>" data-user-name="<%=data[i]['realname']%>">
+                    <%=data[i]['realname']%> <a class="checkboxItemDel">[X]</a>
+                </li>
             </div>
         </td>
         <td><%=data[i]['username']%></td>
@@ -81,9 +84,10 @@
 <script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
 
-        //得到父页面的清单
+        //turnPage(1);//页面加载时初始化分页
+
+        //得到父页面的清单，已经存在的值
         var ids_arr = [];
         var input_ids_val=parent.$("form input[name='{$input_ids}']").val();
         var input_text_val=parent.$("form input[name='{$input_text}']").val();
@@ -92,7 +96,7 @@
         var shtml='';
         $.each(ids_arr,function (index,val) {
             if(val!=''){
-                shtml +='<li data-id="'+val+'" data-user-name="'+text_arr[index]+'">'+text_arr[index]+' <a class="checkboxItemDel">[X]</a></li>';
+                shtml +='<li data-id="'+val+'" data-name="'+text_arr[index]+'">'+text_arr[index]+' <a class="checkboxItemDel">[X]</a></li>';
             }
         })
        $ ('.checked-users-list').append(shtml);
@@ -105,17 +109,31 @@
     $("body").on("click", ".checkboxCtrlId", function () {
         var isck = $(this).prop('checked');
         var val = $(this).val();
-        var html = $(this).next('div').html();
-        log(val);
+        var name = $(this).attr('data-name');
         if (isck) {
+            var html='<li data-id="'+val+'" data-name="'+name+'">'+name+' <a class="checkboxItemDel">[X]</a></li>';
             $('.checked-users-list').append(html);
         } else {
-            $('.checked-users-list').find('li').each(function () {
-                id = $(this).attr('data-id');
-                if (val == id) {
-                    $(this).remove();
-                }
-            })
+            delCheckItem(val);
+        }
+    });
+
+    //设置全选择
+    $("body").on("click", ".checkboxCtrl", function () {
+        var isck = $(this).prop('checked');
+        //表示全选择中
+        if(isck){
+            $('body .checkboxCtrlId').each(function (){
+                var val = $(this).val();
+                var name = $(this).attr('data-name');
+                var html='<li data-id="'+val+'" data-name="'+name+'">'+name+' <a class="checkboxItemDel">[X]</a></li>';
+                $('.checked-users-list').append(html);
+            });
+        }else{
+            $('body .checkboxCtrlId').each(function (){
+                var val = $(this).val();
+                delCheckItem(val);
+            });
         }
     });
 
@@ -126,22 +144,31 @@
 
     //保存选中产品
     $("body").on("click", ".checkboxItemSave", function () {
-
         var html = '';
         var user_id_arr=[];
         var user_name_arr=[];
         $('.checked-users-list').find('li').each(function () {
            var  user_id = $(this).attr('data-id');
-            var users_name = $(this).attr('data-user-name');
+            var users_name = $(this).attr('data-name');
             user_id_arr.push(user_id);
             user_name_arr.push(users_name);
         });
         parent.$("form input[name='{$input_ids}']").val(user_id_arr.join(','));
         parent.$("form input[name='{$input_text}']").val(user_name_arr.join(','));
-        layer.msg('添加成功', {icon: 1});
+        layer.msg('添加成功', {icon: 1, shade: [0.5, '#000', true]});
         setTimeout(function () {
             parent.layer.close(list_add_index);
-        }, 800);
+        }, 500);
     });
+
+    //删除项目
+    function delCheckItem(val){
+        $('.checked-users-list').find('li').each(function () {
+            var id = $(this).attr('data-id');
+            if (val == id) {
+                $(this).remove();
+            }
+        })
+    }
 
 </script>

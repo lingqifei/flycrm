@@ -72,17 +72,7 @@
             dataType: "json",
             async: true,
             beforeSend: function () {
-                // layerMsgIndex=layer.msg('正在下载升级程序，请不要关闭浏览器，数据下载中...',
-                //     {
-                //         time: 30000,
-                //         icon: 16,
-                //         shade: 0.01
-                //     }
-                // );
-                // layerLoadIndex = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
-
-                layer.msg('正在下载升级程序，请不要关闭浏览器，数据下载中...', {icon: 16,time: 100000,shade : [0.5 , '#000' , true]});
-
+                layer.msg('下载升级程序，请不要关闭浏览器，请稍后...', {icon: 16,time: 100000,shade : [0.5 , '#000' , true]});
             },
             success: function (data) {
                 if (data.code == '1') {
@@ -93,8 +83,6 @@
                     layer.msg(data.msg, {icon: 5});
                 }
             }, complete: function () {
-                layer.close(layerMsgIndex);
-                layer.close(layerLoadIndex);
             }
         });
     });
@@ -120,9 +108,9 @@
             beforeSend: function () {
                 layer.msg(title,
                     {
-                        time: 1000,
+                        time: 100000,
                         icon: 16,
-                        shade: 0.01
+                        shade : [0.5 , '#000' , true]
                     }
                 );
             },
@@ -130,7 +118,7 @@
                 if (data.code == '1') {
                     layer.msg(data.msg, {
                         icon: 1,
-                        time: 888 //2秒关闭（如果不配置，默认是3秒）
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
                     }, function () {
                         $('.upgrade-text').append('<p style="padding-left: 15px;">' + data.msg + '</p>');
                         if (data.step != '-1') {
