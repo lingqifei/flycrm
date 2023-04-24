@@ -1189,16 +1189,19 @@ button.dim:active:before {
     text-shadow: none;
 }
 
-.label-primary,
-.badge-primary {
+.label-primary, .badge-primary {
     background-color: #23b7e5;
     color: #FFFFFF;
 }
 
-.label-success,
-.badge-success {
+.label-success, .badge-success {
     background-color: #1c84c6;
     color: #FFFFFF;
+}
+.label-success1, .badge-success1 {
+    color: #FFFFFF;
+    background-color: #23ad44;
+
 }
 
 .label-warning,

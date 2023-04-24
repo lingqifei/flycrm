@@ -1,11 +1,9 @@
 <?php
 
 namespace lqf;
-
 use think\Db;
 
 //同步数据库表结构
-
 class SyncTableDesc
 {
 
@@ -173,7 +171,8 @@ class SyncTableDesc
 
 	}
 
-	/**生成创建表的SQL
+	/**
+     * 生成创建表的SQL
 	 * @param $tableArr
 	 * @return int
 	 * Author: 开发人生 goodkfrs@qq.com
@@ -222,7 +221,8 @@ class SyncTableDesc
 		return Db::execute($sql);
 	}
 
-	/**表字段字段转为字符串
+	/**
+     * 表字段字段转为字符串
 	 * @param $field
 	 * @param $fieldInfo
 	 * @param $tableArr
@@ -266,7 +266,8 @@ class SyncTableDesc
 		return implode(" ", $infoArr);
 	}
 
-	/**编码转换
+	/**
+     * 编码转换
 	 * @param $tableArr
 	 * @return string
 	 * Author: 开发人生 goodkfrs@qq.com

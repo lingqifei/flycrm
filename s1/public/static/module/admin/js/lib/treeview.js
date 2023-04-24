@@ -18,11 +18,11 @@ $(document).ready(function () {
 					$('.searchForm').find("input[name='pid']").val(node.id);
 					$('.searchForm').find("input[name='id']").val(node.id);
 					$('.add-btn').attr('data-id',node.id);
-					turnPage(1);
+					//turnPage(1);
 				}
 			});
 		}, "json");
-		turnPage(1);//页面加载时初始化分页
+		//turnPage(1);//页面加载时初始化分页
 	}
 
 	//刷新加载-添加

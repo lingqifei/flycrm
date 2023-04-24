@@ -5,7 +5,7 @@
 （*）lookup-group：绑定的区域范围
 （*）lookup-fields：查找后选择带回的字段，对应”lookup-group“区域中的input值
 （*）lookup-url：查找数据的地址
-（-）data-calback：查找选择确定之后，回调执行的函数
+（-）data-calback：查找选择确定之后，回调执行的函数，此函数一般在模板中用户单独设置
 （-）data-calback-url：查找选择确定之后，回调执行的函数，调用的地址
 
 * 模板中调用实例
@@ -79,7 +79,7 @@ $("body").on("click", ".lookup-input-select", function () {
     return false;
 });
 
-//选择确定回示
+//选择确定=>回示列表
 $("body").on("click", ".lookup-bring-select", function () {
     var lookupGroupName = localStorage.getItem('lookupGroupKey');
     var lookupGroupObj = parent.$("." + lookupGroupName + "");
@@ -107,6 +107,12 @@ $("body").on("click", ".lookup-bring-select", function () {
 })
 
 
+//独立点击清空=清空lookup-group中所有值
+$("body").on("click", ".lookup-group-box .clearable", function () {
+    log('lookgroup-input 点击清空返回值');
+    var object=$(this).parents(".lookup-group-box");
+    object.find("input").val('');
+});
 
 
 $(document).ready(function () {

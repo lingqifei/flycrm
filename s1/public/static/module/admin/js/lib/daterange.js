@@ -106,7 +106,7 @@ $(document).ready(function () {
                 "autoUpdateInput": false,
                 ranges: {
                     '今天': [moment(), moment()],
-                    '明天': [moment().subtract(-1, 'days'), moment().subtract(-1, 'days')],
+                    '明天': [moment().subtract(-1, 'days'), moment().subtract(-2, 'days')],
                     '未来七天': [moment(), moment().subtract(-6, 'days')],
 					'未来30天': [moment(),moment().subtract(-29, 'days')],
 					'未来90天': [moment(),moment().subtract(-89, 'days'), ],

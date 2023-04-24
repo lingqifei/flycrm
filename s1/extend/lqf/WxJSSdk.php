@@ -88,7 +88,7 @@ class WxJSSdk
 }
 
 //调用试
-//$jssdk = new \JSSDK("wxd916bc412556f89d", "1e138ba7e03cdf22690d6e516155d4cc", $url);
+//$jssdk = new \JSSDK("appid", "appsecar", $url);
 //$signPackage = $jssdk->GetSignPackage();
 //$tmp = json_encode(array('appId' => $signPackage["appId"], 'timestamp' => $signPackage["timestamp"], 'nonceStr' => $signPackage["nonceStr"], 'signature' => $signPackage["signature"], 'url' => $signPackage["url"]));
 //$callback = $_GET['callback'];
