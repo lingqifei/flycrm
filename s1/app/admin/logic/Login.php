@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\logic;
 
@@ -146,12 +144,14 @@ class Login extends AdminBase
         $org = $this->logicSysOrg->getSysOrgInfo(['id' => $user['org_id']]);
 
         is_object($user) && $user->toArray();
+
         session('sys_org_info', $org);
         session('sys_user_info', $user);
         session('sys_user_auth', $auth);
         session('sys_user_auth_sign', data_auth_sign($auth));
 
         define('SYS_ORG_ID', $user['org_id']);//定义企业组织ID
+
         define('SYS_ORG_USER_ID', ($user['username'] == $org['username']) ? $user['id'] : DATA_DISABLE);//企业超级管理员ID
     }
 

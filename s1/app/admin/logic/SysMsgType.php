@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\logic;
 
@@ -45,7 +43,6 @@ class SysMsgType extends AdminBase
     {
         return $this->modelSysMsgType->deleteInfo($where, true) ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelSysMsgType->getError()];
     }
-
 
     /**更新修改
      * @param array $data
@@ -131,177 +128,58 @@ class SysMsgType extends AdminBase
      */
     public function sysMsgTypeScan()
     {
-        $list = $this->modelSysMsgType->getList([], 'name,type,hours,remind_sms,remind_sys,remind_email,remind_weixin', '', false);
+        $list = $this->modelSysMsgType->getList([], 'name,type,hours,remind_sms,remind_sys,remind_email,remind_weixin,remind_nums,remind_interval', '', false);
         foreach ($list as $key => $row) {
-            $intoData = array();
-            $where = array();
+
+            d($row['type']);
+
             switch ($row['type']) {
                 //线索跟进
                 case 'cst_clue':
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['next_time'] = ['between', [format_time(), $endtime]];
-                    if (tableExists('cst_clue')) {
-                        $buslist = Db::name('cst_clue')->field('id,name,next_time,owner_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开始提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . ',跟进时间于' . $one['next_time'],
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['next_time'],//业务处理最后时间
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanCstClue($row);
+
                     break;
                 //客户跟进
                 case 'cst_customer':
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['next_time'] = ['between', [format_time(), $endtime]];
-                    if (tableExists('cst_customer')) {
-                        $buslist = Db::name('cst_customer')->field('id,name,next_time,owner_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开妈提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . ',跟进时间于' . $one['next_time'],
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['next_time'],
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanCstCustomer($row);
+
                     break;
                 //商机跟进
                 case 'cst_chance':
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['next_time'] = ['between', [format_time(), $endtime]];
-                    if (tableExists('cst_chance')) {
-                        $buslist = Db::name('cst_chance')->field('id,name,next_time,owner_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开妈提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . ',跟进时间于' . $one['next_time'],
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['next_time'],
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanCstChance($row);
+
                     break;
                 //销售合同到期
                 case 'sal_contract_expire':
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['end_date'] = ['between', [format_time(), $endtime]];
-                    if (tableExists('sal_contract')) {
-                        $buslist = Db::name('sal_contract')->field('id,name,contract_no,end_date,create_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开妈提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . '于' . $one['end_date'] . '到期!',
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['end_date'],
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanSalContractExpire($row);
+
                     break;
                 //销售订单到期
                 case 'sal_order_expire':
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['end_date'] = ['between', [format_time(), $endtime]];
-                    if (tableExists('sal_order')) {
-                        $buslist = Db::name('sal_order')->field('id,name,contract_no,end_date,create_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开妈提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . '于' . $one['end_date'] . '到期!',
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['end_date'],
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanSalOrderExpire($row);
+
                     break;
                 //日程开始提醒
                 case 'oa_schedule':
-                    $tablename='oa_schedule';
-                    $endtime = date_calc(format_time(), '+ ' . $row['hours'] . '', 'hours', 'Y-m-d H:i:s');
-                    $where['start_time'] = ['between', [format_time(), $endtime]];
-                    if (tableExists($tablename)) {
-                        $buslist = Db::name($tablename)->field('id,name,start_time,owner_user_id')->where($where)->select();
-                        foreach ($buslist as $one) {
-                            $intoData = [
-                                'bus_type' => $row['type'],
-                                'bus_type_name' => $row['name'],
-                                'remind_time' => format_time(),//开始提醒时间
-                                'remind_sms' => $row['remind_sms'],
-                                'remind_sys' => $row['remind_sys'],
-                                'remind_email' => $row['remind_email'],
-                                'remind_weixin' => $row['remind_weixin'],
-                                'bus_id' => $one['id'],
-                                'bus_name' => $row['name'] . ':' . $one['name'] . ',开始时间：' . $one['start_time'],
-                                'deal_user_id' => $one['owner_user_id'],
-                                'deal_time' => $one['start_time'],//业务实际的时间
-                            ];
-                            $this->sysMsgTypeScanAdd($intoData);
-                        }
-                    }
+
+                    $this->modelSysMsgType->scanOaSchedule($row);
+
+                    break;
+
+                 //工单提醒
+                case 'oa_service':
+
+                    $this->modelSysMsgType->scanOaService($row);
+
                     break;
                 default :
                     break;
             }
         }
-
     }
-
-    /**
-     * 消息的写入系统表
-     * @param array $data
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/10/28 0028 17:09
-     */
-    public function sysMsgTypeScanAdd($data = [])
-    {
-        $uniquekey = md5($data['bus_type'] . $data['bus_id'] . $data['deal_user_id'] . $data['deal_time']);
-        $info = $this->modelSysMsg->getValue(['uniquekey' => $uniquekey], 'uniquekey');
-        $data['uniquekey'] = $uniquekey;
-        if (empty($info)) {
-            Db::name('sys_msg')->insert($data);
-        }
-    }
-
 }

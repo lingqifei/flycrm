@@ -1,18 +1,13 @@
 <?php
-/*
-*
-* crm.rpc.RpcBase  crm内部接口 = 客户管理
-*
-* =========================================================
-* 零起飞网络 - 专注于网站建设服务和行业系统开发
-* 以质量求生存，以服务谋发展，以信誉创品牌 !
-* ----------------------------------------------
-* @copyright	Copyright (C) 2017-2018 07FLY Network Technology Co,LTD (www.07FLY.com) All rights reserved.
-* @license    For licensing, see LICENSE.html or http://www.07fly.net/html/business
-* @author ：kfrs <goodkfrs@QQ.com> 574249366
-* @version ：1.0
-* @link ：http://www.07fly.xyz
-*/
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\controller\rpc;
 
@@ -25,7 +20,8 @@ class CronJob extends ControllerBase
 {
 
     /**
-     * 系统消息发送=>插件提醒
+     * 后台页面插件提醒=》系统消息发送
+     * index.html调用执行
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */
@@ -41,7 +37,8 @@ class CronJob extends ControllerBase
     }
 
     /**
-     * 系统公告=>插件提醒
+     * 后台页面插件提醒=》系统公告
+     * index.html调用执行
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */
@@ -62,7 +59,7 @@ class CronJob extends ControllerBase
     }
 
     /**
-     * 扫描业务数据，根据条件创建添加到系统消息
+     * 定时任务=》扫描业务数提醒=》推送到系统消息中去
      * 调用执行：http://localhost/admin/rpc.CronJob/sys_msg_scanbus
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/25 0025 14:48
@@ -73,8 +70,19 @@ class CronJob extends ControllerBase
     }
 
     /**
-     * 公告通知=》微信模板消息
-     * 调用执行：http://localhost/admin/rpc.CronJob/sys_msg_scanbus
+     * 定时任务=》系统消息发送
+     * 调用执行：http://localhost/admin/rpc.CronJob/sys_msg_send
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/5/25 0025 14:48
+     */
+    public function sys_msg_send()
+    {
+        $this->logicSysMsg->sysMsgSend();
+    }
+
+    /**
+     * 定时任务=》公告通知=》微信模板消息
+     * 调用执行：http://localhost/admin/rpc.CronJob/notify_weixin
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */

@@ -6,7 +6,7 @@
                 <div class="ibox-title"><h5>部门结构</h5>
                     <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
                 </div>
-                <div class="ibox-content">
+                <div class="">
                     <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"> </div>
                 </div>
             </div>
@@ -18,14 +18,40 @@
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="" placeholder="部门编号">
-                            <div class="col-sm-3 m-b-xs">
+                            <div class="col-sm-8 m-b-xs">
                                 <lqf_link>
-                                    <a class="btn btn-info ajax-open" data-url="{:url('SysUser/add')}" data-title="用户"><i
-                                            class="fa fa-plus"></i>添加</a>
+                                    <a class="btn btn-info ajax-open" data-url="{:url('SysUser/add')}" data-title="用户">
+                                        <i class="fa fa-plus"></i>添加
+                                    </a>
+                                </lqf_link>
+                                <lqf_link>
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userAuth')}" data-title="用户设置权限">
+                                        <i class="fa fa-asterisk"></i> 设置权限
+                                    </a>
+                                </lqf_link>
+                                <lqf_link>
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userDept')}" data-title="用户设置权限">
+                                        <i class="fa fa-asterisk"></i> 设置部门
+                                    </a>
+                                </lqf_link>
+                                <lqf_link>
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userPosition')}" data-title="用户设置权限">
+                                        <i class="fa fa-asterisk"></i> 设置职位
+                                    </a>
+                                </lqf_link>
+                                <lqf_link>
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/reset_pwd')}" data-title="用户重置密码">
+                                        <i class="fa fa-key"></i> 重置密码
+                                    </a>
+                                </lqf_link>
+                                <lqf_link>
+                                    <a class="btn btn-danger btn-outline ajax-get-more confirm" data-url="{:url('SysUser/del')}" data-title="用户重置密码">
+                                        <i class="fa fa-key"></i> 批量删除
+                                    </a>
                                 </lqf_link>
                             </div>
-                            <div class="col-sm-9 m-b-xs text-right">
-                                <div class="input-group pd-b-5">
+                            <div class="col-sm-4 m-b-xs text-right">
+                                <div class="input-group ">
                                     <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
                                 </div>
                                 <div class="input-group">
@@ -48,7 +74,7 @@
                             <th width="80">部门</th>
                             <th width="80">职位</th>
                             <th width="150">权限组</th>
-                            <th width="150">操作</th>
+                            <th width="100" class="text-center">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -78,19 +104,13 @@
         <td><%=data[i]['dept_name']%></td>
         <td><%=data[i]['position_name']%></td>
         <td><%=data[i]['sys_auth_name']%></td>
-        <td>
-            <p>
+        <td class="text-center">
                 <lqf_link><a class="ajax-open" data-url="{:url('SysUser/userRules')}"
                              data-ids="{'id':'<%=data[i]['id']%>'}" data-title="菜单授权">菜单授权</a></lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysUser/userAuth')}"
-                             data-ids="{'id':'<%=data[i]['id']%>'}" data-title="设置权限组">权限组</a></lqf_link>
                 <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a>
                 </lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysUser/reset_pwd')}"
-                             data-ids="{'id':'<%=data[i]['id']%>'}" data-title="重置密码">重置密码</a></lqf_link>
                 <lqf_link><a class="ajax-del confirm" data-url="{:url('SysUser/del')}"
                              data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
-            </p>
         </td>
     </tr>
     <% } %>
@@ -98,8 +118,7 @@
 <link href="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet">
 <script src="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
 <script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
-<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
-<script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         turnPage(1);//页面加载时初始化分页

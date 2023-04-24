@@ -1172,28 +1172,6 @@
                 ]
             },
             {
-                "name": "钩子列表",
-                "sort": 40,
-                "module": "admin",
-                "url": "addon/hook_list",
-                "visible": 1,
-                "is_shortcut": 0,
-                "is_menu": 1,
-                "icon": "",
-                "nodes": []
-            },
-            {
-                "name": "插件列表",
-                "sort": 30,
-                "module": "admin",
-                "url": "addon/addon_list",
-                "visible": 1,
-                "is_shortcut": 0,
-                "is_menu": 1,
-                "icon": "",
-                "nodes": []
-            },
-            {
                 "name": "框架升级",
                 "sort": 4,
                 "module": "admin",

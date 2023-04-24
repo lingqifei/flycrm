@@ -19,8 +19,9 @@
                     <p>授权认证：<span>{$authorize.data.syskey}</span></p>
                     <p>授权域名：<span>{$authorize.data.domain}</span></p>
                     {else}
-                    <p><span class="help-block m-b-none">(注册码需要联系软件开发商获取,访问<a href="http://www.07fly.xyz"
-                                                                              target="_blank">开发商网站</a>) </span></p>
+                    <p><span class="help-block m-b-none">(注册码需要联系软件开发商获取,访问<a
+                            href="http://www.07fly.xyz"
+                            target="_blank">开发商网站</a>) </span></p>
                     <p>
                     <div class="input-group m-b">
                         <input name="syskey" id="syskey" class="form-control" type="text" placeholder="密钥KEY"/>
@@ -47,22 +48,15 @@
             dataType: "json",
             async: true,
             beforeSend: function () {
-                var html=$(".panel-box").html();
-                parent.layer.open({
-                    type: 1,
-                    skin: 'layui-layer-demo', //样式类名
-                    closeBtn: false, //不显示关闭按钮
-                    shift: 2,
-                    shadeClose: true, //开启遮罩关闭
-                    content: html
-                });
+                layer.msg('数据处理中，请稍后...', {icon: 16, time: 100000, shade: [0.5, '#000', true]});
             },
             success: function (data) {
-                if (data.code == '0') {
-                    layer.msg(data.msg, {icon: 5});
-                    window.location.reload();
+                if (data.code == '1') {
+                    layer.msg(data.msg, {icon: 1, time: 1000, shade: [0.5, '#000', true]}, function () {
+                        window.location.reload();
+                    });
                 } else {
-                    layer.msg(data.msg, {icon: 1});
+                    layer.msg(data.msg, {icon: 5});
                 }
             }
         });

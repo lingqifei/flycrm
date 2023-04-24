@@ -15,10 +15,8 @@
           rel="stylesheet">
     <link href="__STATIC__/module/admin/css/animate.css" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/style.css?v=4.1.0" rel="stylesheet">
-
     <!-- 自定义CSS -->
     <link href="__STATIC__/module/admin/css/07fly.css?v=1.1.0" rel="stylesheet">
-
     <!-- 全局js -->
     <script src="__STATIC__/module/admin/js/jquery.min.js?v=2.1.4"></script>
     <script src="__STATIC__/module/admin/js/jquery.cookie.js"></script>
@@ -39,8 +37,17 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="{:url('index/main')}">
+<!--                    <div class="dropdown profile-element">-->
+<!--                        <a data-toggle="dropdown" class="dropdown-toggle" href="{:url('index/main')}">-->
+<!--                            <span class="clear">-->
+<!--                                <span class="block m-t-xs" style="font-size:18px;">-->
+<!--                                <strong class="font-bold">{$sys_config.main_title}</strong>-->
+<!--                                </span>-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+                    <div class="profile-element">
+                        <a class="dropdown-toggle J_menuItem" href="{:url('index/main')}">
                             <span class="clear">
                                 <span class="block m-t-xs" style="font-size:18px;">
                                 <strong class="font-bold">{$sys_config.main_title}</strong>
@@ -67,17 +74,10 @@
                     </a>
                 </div>
                 <div class="navbar-module">
-                    {$sys_config.top_links}
+                    {$sys_config.top_links|default=''}
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="{:url('admin/Store/apps')}" class="J_menuItem" target="_blank"><i
-                                class="fa fa-fire"></i>应用</a>
-                    </li>
-                    <li>
-                        <a href="{$sys_config.main_weburl|default='http://www.07fly.xyz/'}" target="_blank"><i
-                                class="fa fa-home"></i>官网</a>
-                    </li>
+                    {$sys_config.top_links_right|default=''}
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell "></i> <span class="label label-danger msg-icon-nums">0</span>
@@ -140,163 +140,188 @@
     </div>
     <!--右侧部分结束-->
 </div>
-{include file="layout/bottom"}
-<script>
-    //顶部菜单栏目
-    $(".navbar-module a").click(function () {
-        $(this).addClass("on");
-        $(this).siblings().removeClass('on');
-    });
+<audio id='audioPlay' src='' hidden='true' muted="true">
 
-    $(document).ready(function () {
-
-        var iframeUrl = localStorage.getItem('iframeUrl');
-        if (typeof (iframeUrl) != "undefined" && iframeUrl != null) {
-
-        } else {
-            iframeUrl = "{:url('Index/main')}";
-        }
-        //阻止F5刷新
-        document.onkeypress = function (e) {
-            if (e.keyCode == 116) {
-                e.preventDefault(); //组织默认刷新
-                iframe.src = iframeUrl;
-            }
-        }
-
-        //刷新时设置当前点击页面数据
-        if (typeof (iframeUrl) != "undefined") {
-            that = $("a[href='" + iframeUrl + "']");
-            //that.parent('li').addClass('active');
-            that.parents('ul.nav').addClass('in');
-            that.parents('ul.nav').parent('li').addClass('active');
-            $('#J_iframe').attr('src', iframeUrl);//重新设置获取的url，实现刷新显示当前页面
-        }
-
-        //保存点击=>记录当前链接地址
-        $(".J_menuItem").on('click', function () {
-            var itemUrl = $(this).attr('href');
-            console.log(iframeUrl);
-            localStorage.setItem('iframeUrl', itemUrl);
+    {include file="layout/bottom"}
+    <script>
+        //顶部菜单栏目
+        $(".navbar-module a").click(function () {
+            $(this).addClass("on");
+            $(this).siblings().removeClass('on');
         });
 
-    });
+        $(document).ready(function () {
 
-    //声音播放插件
-    var playSound = function () {
-        var borswer = window.navigator.userAgent.toLowerCase();
-        var num = Math.floor(Math.random() * 6) + 1;
-        var video = "__STATIC__/module/admin/img/" + num + ".wav";
-        if (borswer.indexOf("ie") >= 0) {
-            //IE内核浏览器
-            var strEmbed = '<embed name="embedPlay" src="' + video + '" autostart="true" hidden="true" loop="false"></embed>';
-            if ($("body").find("embed").length <= 0)
-                $("body").append(strEmbed);
-            var embed = document.embedPlay;
-            //浏览器不支持 audion，则使用 embed 播放
-            embed.volume = 100;
-            //embed.play();这个不需要
-        } else {
-            //非IE内核浏览器
-            var strAudio = "<audio id='audioPlay' src='" + video + "' hidden='true'>";
-            if ($("#audioPlay").length <= 0) {
-                $("body").append(strAudio);
+            //默认设置当前加载地址
+            var iframeUrl = localStorage.getItem('iframeUrl');
+            if (typeof (iframeUrl) != "undefined" && iframeUrl != null) {
+            } else {
+                iframeUrl = "{:url('Index/main')}";
             }
-            var audio = document.getElementById("audioPlay");
-            //浏览器支持 audio
-            audio.play();
-        }
-        log(video);
-    }
 
-    //提示通知插件
-    var playNotice = function (id, title, content, url = '') {
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-right",
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "20000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-        //点击事件
-        toastr.options.onclick = function () {
-            layer.open({
-                type: 2,
-                title: '查看通知',
-                shadeClose: true,
-                fixed: false, //不固定
-                area: ['90%', '90%'],
-                content: url
+            //阻止F5刷新
+            document.onkeypress = function (e) {
+                if (e.keyCode == 116) {
+                    e.preventDefault(); //组织默认刷新
+                    iframe.src = iframeUrl;
+                }
+            }
+
+            //刷新时设置当前点击页面数据
+            if (typeof (iframeUrl) != "undefined") {
+                that = $("a[href='" + iframeUrl + "']");
+                //that.parent('li').addClass('active');
+                that.parents('ul.nav').addClass('in');
+                that.parents('ul.nav').parent('li').addClass('active');
+                $('#J_iframe').attr('src', iframeUrl);//重新设置获取的url，实现刷新显示当前页面
+            }
+
+            //保存点击=>记录当前链接地址
+            $(".J_menuItem").on('click', function () {
+                var itemUrl = $(this).attr('href');
+                console.log(iframeUrl);
+                localStorage.setItem('iframeUrl', itemUrl);
             });
-        };
-        toastr.info(content, title);
-    }
-    //提示通知插件
-    var runSysMsg = function () {
-        var target = "{:url('admin/rpc.CronJob/sys_msg_plug',array('deal_user_id'=>$sys_user_info.id))}";//显示系统通知
-        $.ajax({
-            type: 'POST',
-            url: target,
-            data: '',
-            dataType: 'json',
-            success: function (jsonData) {
-                $(jsonData.data).each(function (index, item) {
-                    playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
-                });
-                if (jsonData.data.length > 0) {
 
-                    $(".msg-icon-my").text(jsonData.data.length);
+            //点击任何事件开启语音提醒
+            document.body.addEventListener('mousedown', function () {
+                var audio = document.getElementById("audioPlay");
+                audio.muted = false;
 
-                    playSound();
+                //audio.play();
+                log('取消静音效果')
 
-                    getMsgNums();
-                }
-            }
+            }, false);
+
         });
-    }
-    //系统公告
-    var runSysNotify = function () {
-        var target = "{:url('admin/rpc.CronJob/oa_notify_plug',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
-        var detail = "{:url('admin/rpc.CronJob/oa_notify_plug')}";
-        $.ajax({
-            type: 'POST',
-            url: target,
-            data: {"status": "-1"},
-            dataType: 'json',
-            success: function (jsonData) {
-                $(jsonData.data).each(function (index, item) {
-                    playNotice(item.id, '系统公告', item.name, detail + '?id=' + item.id);
-                });
-                if (jsonData.data.length > 0) {
-                    $(".msg-icon-noti").text(jsonData.data.length);
-                    playSound();
 
-                    getMsgNums();
-                }
+        //声音播放插件
+        var playSound = function () {
+            var borswer = window.navigator.userAgent.toLowerCase();
+            var num = Math.floor(Math.random() * 4) + 1;
+            var src = "__STATIC__/module/admin/img/" + num + ".wav";
+            var audio = document.getElementById("audioPlay");
+            $("audio").attr('src', src);
+
+            log('播放当前地址');
+            log(src);
+            audio.play();
+
+            // if (borswer.indexOf("ie") >= 0) {
+            //     //IE内核浏览器
+            //     var strEmbed = '<embed name="embedPlay" src="' + video + '" autostart="true" hidden="true" loop="false" muted></embed>';
+            //     if ($("body").find("embed").length <= 0)
+            //         $("body").append(strEmbed);
+            //     var embed = document.embedPlay;
+            //     //浏览器不支持 audion，则使用 embed 播放
+            //     embed.volume = 100;
+            //     //embed.play();这个不需要
+            // } else {
+            //     //非IE内核浏览器
+            //     var strAudio = "<audio id='audioPlay' src='" + video + "' hidden='true' muted>";
+            //     if ($("#audioPlay").length <= 0) {
+            //         $("body").append(strAudio);
+            //     }
+            //     var audio = document.getElementById("audioPlay");
+            //     //浏览器支持 audio
+            //     audio.play();
+            // }
+        }
+
+        //提示通知插件
+        var playNotice = function (id, title, content, url = '') {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "20000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
             }
-        });
-    }
+            //点击事件
+            toastr.options.onclick = function () {
+                layer.open({
+                    type: 2,
+                    title: '查看通知',
+                    shadeClose: true,
+                    fixed: false, //不固定
+                    area: ['90%', '90%'],
+                    content: url
+                });
+            };
+            toastr.info(content, title);
+        }
+        //提示通知插件
+        var runSysMsg = function () {
+            var target = "{:url('admin/rpc.CronJob/sys_msg_plug',array('deal_user_id'=>$sys_user_info.id))}";//显示系统通知
+            $.ajax({
+                type: 'POST',
+                url: target,
+                data: '',
+                dataType: 'json',
+                success: function (jsonData) {
+                    $(jsonData.data).each(function (index, item) {
+                        playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
+                    });
+                    if (jsonData.data.length > 0) {
 
-    function getMsgNums() {
-        var my = $(".msg-icon-my").text();
-        var noti = $(".msg-icon-noti").text();
-        var nums = Number(my) + Number(noti);
+                        $(".msg-icon-my").text(jsonData.data.length);
 
-        $(".msg-icon-nums").text(nums);
-    }
+                        //插件提醒声音
+                        playSound();
 
-    //主动调用
-    //setInterval("func()", 60000);
-    setInterval("runSysNotify()", 1000 * 60 * 5);
-    setInterval("runSysMsg()", 1000 * 60 * 10);
-    runSysNotify();
-    runSysMsg();
-</script>
+                        //插件显示消息条数
+                        getMsgNums();
+                    }
+                }
+            });
+        }
+        //系统公告
+        var runSysNotify = function () {
+            var target = "{:url('admin/rpc.CronJob/oa_notify_plug',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
+            var detail = "{:url('admin/rpc.CronJob/oa_notify_plug')}";
+            $.ajax({
+                type: 'POST',
+                url: target,
+                data: {"status": "-1"},
+                dataType: 'json',
+                success: function (jsonData) {
+                    $(jsonData.data).each(function (index, item) {
+                        playNotice(item.id, '系统公告', item.name, detail + '?id=' + item.id);
+                    });
+                    if (jsonData.data.length > 0) {
+
+                        $(".msg-icon-noti").text(jsonData.data.length);
+
+                        //插件提醒声音
+                        playSound();
+                        //插件显示消息条数
+                        getMsgNums();
+
+                    }
+                }
+            });
+        }
+
+        // 插件显示消息条数
+        function getMsgNums() {
+            var my = $(".msg-icon-my").text();
+            var noti = $(".msg-icon-noti").text();
+            var nums = Number(my) + Number(noti);
+            $(".msg-icon-nums").text(nums);
+        }
+
+        //主动调用
+        //setInterval("func()", 60000);
+        setInterval("runSysNotify()", 1000 * 60 * 5);
+        setInterval("runSysMsg()", 1000 * 60 * 10);
+        runSysNotify();
+        runSysMsg();
+    </script>

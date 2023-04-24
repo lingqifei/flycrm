@@ -8,7 +8,7 @@
 * 以质量求生存，以服务谋发展，以信誉创品牌 !
 * ----------------------------------------------
 * @copyright Copyright (C) 2017-2025 07FLY Network Technology Co,LTD.
-* @license For licensing, see LICENSE.html or http://www.07fly.xyz/html/business
+* @license For licensing, see LICENSE.html
 * @author ：kfrs <goodkfrs@QQ.com> 574249366
 * @version ：1.1.0
 * @link ：http://www.07fly.xyz

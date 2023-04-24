@@ -42,11 +42,11 @@
                             <tr>
                                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                                 <th width="100">应用名称</th>
-                                <th width="400">应用简介</th>
+                                <th width="500">应用简介</th>
                                 <th width="80">作者</th>
-                                <th width="80">价格</th>
-                                <th width="80">下载</th>
-                                <th width="80">版本</th>
+                                <th width="80">服务价格</th>
+                                <th width="80" title="到期时间是指购买应用模块在线升级服务的到期时间">到期时间</th>
+                                <th width="80">最新版本</th>
                                 <th width="100">操作</th>
                             </tr>
                             </thead>
@@ -79,11 +79,11 @@
         <td><%=data[i]['description']%></td>
         <td><%=data[i]['author']%></td>
         <td><%:=data[i]['sale_price_text']%></td>
-        <td><%=data[i]['down_a']%></td>
+        <td><%:=data[i]['app_expire']%></td>
         <td><%=data[i]['version']%></td>
         <td>
             <lqf_link><a href="http://www.07fly.net/store/<%=data[i]['name']%>.html" target="_blank" class="text-primary">详细</a> </lqf_link>
-            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank" class="text-info">演示</a></lqf_link>
+            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank">演示</a></lqf_link>
             <% if(data[i]['isinstall']=='0'){ %>
             <lqf_link><a  class="ajax-open" data-url="{:url('Store/install')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}"  >安装</a> </lqf_link>
             <% } %>

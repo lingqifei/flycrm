@@ -31,7 +31,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    {notempty name='sys_config.is_grant'}
+    {neq name='sys_config.is_grant' value="1"}
+        <div class="row">
         <div class="col-sm-6">
             <div class="ibox">
                 <div class="ibox-title">
@@ -100,6 +102,9 @@
             </div>
         </div>
     </div>
+    {/neq}
+    {/notempty}
+
 
 </div>
 

@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
@@ -152,12 +150,13 @@ class SysUser extends AdminBase
     public function reset_pwd()
     {
 
-        IS_POST && $this->jump($this->logicSysUser->ResetPassword($this->param));
+        IS_POST && $this->jump($this->logicSysUser->resetPassword($this->param));
 
-        $info = $this->logicSysUser->getSysUserInfo(['id' => $this->param['id']]);
-
-        $this->assign('info', $info);
-
+        $where['id'] = ['in', $this->param['id']];
+        $sys_user_name = $this->logicSysUser->getSysUserColumn($where, 'realname');
+        $sys_user_name && $sys_user_name = arr2str($sys_user_name);
+        $this->assign('sys_user_name', $sys_user_name);
+        $this->assign('id', $this->param['id']);
         return $this->fetch('reset_pwd');
     }
 
@@ -167,11 +166,11 @@ class SysUser extends AdminBase
     public function del()
     {
         $where = empty($this->param['id']) ? ['id' => 0] : ['id' => $this->param['id']];
-        $this->jump($this->logicSysUser->sysUserDel($where, $this->param));
+        $this->jump($this->logicSysUser->sysUserDel($this->param));
     }
 
     /**
-     * 会员授权
+     * 会员授权=>权限角色
      */
     public function userAuth()
     {
@@ -181,15 +180,17 @@ class SysUser extends AdminBase
         // 所有的权限组
         $auth_list = $this->logicSysAuth->getAuthList($where = [], $field = true, $order = 'sort asc', $paginate = false);
 
-        // 会员当前权限组
+        // 当前帐号已经有了的权限组
         $sys_user_auth_list = $this->logicSysAuthAccess->getUserAuthInfo($this->param['id']);
-
 
         // 选择权限组
         $list = $this->logicSysAuth->selectAuthList($auth_list, $sys_user_auth_list);
-
         $this->assign('list', $list);
 
+        $where['id'] = ['in', $this->param['id']];
+        $sys_user_name = $this->logicSysUser->getSysUserColumn($where, 'realname');
+        $sys_user_name && $sys_user_name = arr2str($sys_user_name);
+        $this->assign('sys_user_name', $sys_user_name);
         $this->assign('id', $this->param['id']);
 
         return $this->fetch('sys_user_auth');
@@ -218,6 +219,47 @@ class SysUser extends AdminBase
 
         return $this->fetch('user_rules');
 
+    }
+
+
+    /**
+     * 系统用户->设置职位
+     */
+    public function userPosition()
+    {
+
+        IS_POST && $this->jump($this->logicSysUser->setPosition($this->param));
+
+        $where['id'] = ['in', $this->param['id']];
+        $sys_user_name = $this->logicSysUser->getSysUserColumn($where, 'realname');
+        $sys_user_name && $sys_user_name = arr2str($sys_user_name);
+
+        $this->assign('sys_user_name', $sys_user_name);
+        $this->assign('id', $this->param['id']);
+
+        $this->common_data();
+
+        return $this->fetch('user_position');
+    }
+
+    /**
+     * 系统用户->设置部门
+     */
+    public function userDept()
+    {
+
+        IS_POST && $this->jump($this->logicSysUser->setDept($this->param));
+
+        $where['id'] = ['in', $this->param['id']];
+        $sys_user_name = $this->logicSysUser->getSysUserColumn($where, 'realname');
+        $sys_user_name && $sys_user_name = arr2str($sys_user_name);
+
+        $this->assign('sys_user_name', $sys_user_name);
+        $this->assign('id', $this->param['id']);
+
+        $this->common_data();
+
+        return $this->fetch('user_dept');
     }
 
     /**

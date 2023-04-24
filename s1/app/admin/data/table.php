@@ -1,12 +1,12 @@
 <?php
 // +----------------------------------------------------------------------
-// | 07FLY系统 [基于ThinkPHP5.0开发]
+// | 07FLYCRM [基于ThinkPHP5.0开发]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016-2021 http://www.07fly.xyz
 // +----------------------------------------------------------------------
-// | 07FLY承诺基础框架永久免费开源，您可用于学习和商用，但必须保留软件版权信息。
+// | Professional because of focus  Persevering because of happiness
 // +----------------------------------------------------------------------
-// | Author: 开发人生 <574249366@qq.com>
+// | Author: 开发人生 <goodkfrs@qq.com>
 // +----------------------------------------------------------------------
 /**
  * 表结构基本信息
@@ -81,20 +81,25 @@ return [
 				'bus_type_name' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '业务类型名称',],
 				'uniquekey' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '业务提醒标识',],
 
-				'remind_time' => ['type' => 'datetime', 'required' => false, 'comment' => '提醒处理时间',],
 
 				'deal_time' => ['type' => 'datetime', 'required' => false, 'comment' => '业务处理时间',],
 				'deal_remark' => ['type' => 'varchar', 'length' => 1024, 'required' => true, 'default' => '', 'comment' => '备注说明',],
 				'deal_status' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '0=待处理，1=已经处理',],
 				'deal_user_id' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '提醒处理人员',],
 
-				'remind_status' => ['type' => 'int', 'length' => 16, 'required' => 2, 'default' => 1, 'comment' => '0=未提醒，1=提醒中，2=不提醒了',],
+				'remind_status' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 1, 'comment' => '0=未提醒，1=提醒中，2=不提醒了',],
 				'remind_sms' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 0, 'comment' => '短信提醒 0=不开启，1=开启',],
-				'remind_sys' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '系统提醒 0=不开启，1=开启',],
-				'remind_email' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '邮箱提醒 0=不开启，1=开启',],
-				'remind_weixin' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '微信提醒 0=不开启，1=开启',],
+				'remind_sys' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 0, 'comment' => '系统提醒 0=不开启，1=开启',],
+				'remind_email' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 0, 'comment' => '邮箱提醒 0=不开启，1=开启',],
+				'remind_weixin' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 0, 'comment' => '微信提醒 0=不开启，1=开启',],
+				'remind_nums' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 1, 'comment' => '提醒的总次数，默认为1',],
+				'remind_interval' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 0, 'comment' => '提醒间隔时间，默认为分钟',],
+                'remind_time' => ['type' => 'datetime', 'required' => false, 'comment' => '提醒处理开始时间',],
 
-				'create_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '创建日期',],
+                'send_nums' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 0, 'comment' => '提醒发送的次数',],
+                'send_time' => ['type' => 'datetime', 'required' => false, 'comment' => '提醒发送的时间',],
+
+                'create_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '创建日期',],
 				'update_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '更新日期',],
 				'org_id' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 1, 'comment' => '企业编号',],
 			],
@@ -121,10 +126,13 @@ return [
 				'remark' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '事件说明',],
 
 				'hours' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 0, 'comment' => '提前多小时提醒',],
+				'ahead_minute' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 0, 'comment' => '提前多分钟提醒',],
 				'remind_sms' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 0, 'comment' => '短信提醒 0=不开启，1=开启',],
 				'remind_sys' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '系统提醒 0=不开启，1=开启',],
 				'remind_email' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '邮箱提醒 0=不开启，1=开启',],
 				'remind_weixin' => ['type' => 'int', 'length' => 2, 'required' => 2, 'default' => 0, 'comment' => '微信提醒 0=不开启，1=开启',],
+                'remind_nums' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 1, 'comment' => '提醒的总次数，默认为1',],
+                'remind_interval' => ['type' => 'int', 'length' => 11, 'required' => true, 'default' => 0, 'comment' => '提醒间隔时间，默认为分钟',],
 
 				'create_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '创建日期',],
 				'update_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '更新日期',],

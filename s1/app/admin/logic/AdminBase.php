@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\logic;
 
@@ -280,6 +278,7 @@ class AdminBase extends LogicBase
 			$data['main_title'] = config('main_title');
 			$data['main_weburl'] = config('main_weburl');
 			$data['top_links'] = '';
+            $data['top_links_right']='';
 			$data['is_grant'] = 0;
 		} else {
 			$data['seo_title'] = '07FLY-ERP是一款开放式的管理平台，能快速搭建适合自己的是一款开放式的管理平台-零起飞科技';
@@ -292,19 +291,16 @@ class AdminBase extends LogicBase
 			$data['main_title'] = '零起飞网络中心';
 			$data['main_weburl'] = 'http://www.07fly.xyz/';
 			$data['top_links'] = '
-					<a href="http://oa.07fly.com/" target="_blank" title="07FLY-CRM开源系统V1版本">V1版本</a>
-                    <a href="http://erp.07fly.com/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a>
+					<a href="http://v1.07fly.xyz/" target="_blank" title="07FLY-CRM开源系统V1版本">V1版本</a>
+                    <a href="http://v2.07fly.xyz/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a>
                     <a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a>
                     <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>
-                    <a href="http://crm.demo.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统(S1-CRM)">S1-CRM</a>
-                    <a href="http://erp.demo.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版S1-ERP">S1-ERP</a>
-                    <a href="http://cms.demo.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版S1-CMS">S1-CMS</a>
                   ';
+            $data['top_links_right']  = '<li><a href="'.url('admin/Store/apps').'" class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>';
+            $data['top_links_right'] .= '<li><a href="http://http.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">官网</a></li>';
             $data['is_grant'] = 1;
 		}
-
 		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';
 		return $data;
 	}
-
 }

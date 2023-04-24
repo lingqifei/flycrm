@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\logic;
 
@@ -26,32 +24,14 @@ class SysMsg extends AdminBase
      */
     public function getSysMsgList($where = [], $field = '', $orderby = 'id desc', $paginate = DB_LIST_ROWS)
     {
-
-
         $list = $this->modelSysMsg->getList($where, $field, $orderby, $paginate);
         foreach ($list as $key => &$row) {
-            $row['bus_url'] = $this->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
+            $row['bus_url'] = $this->modelSysMsg->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
             $row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
         }
         is_object($list) && $list = $list->toArray();
         return $list;
     }
-
-    /**
-     * 消息添加
-     */
-    public function sysMsgAddApi($bus_type = '', $bus_id = '', $bus_name = '', $deal_user_id = '', $deal_time = '')
-    {
-        $data['bus_type'] = $bus_type;
-        $data['bus_id'] = $bus_id;
-        $data['bus_name'] = $bus_name;
-        $data['deal_user_id'] = $deal_user_id;
-        $data['deal_time'] = $deal_time;
-        $url = url('sysMsgList');
-        $this->modelSysMsg->is_update_cache_version = false;
-        return $this->modelSysMsg->setInfo($data) ? [RESULT_SUCCESS, '消息添加成功', $url] : [RESULT_ERROR, $this->modelSysMsg->getError()];
-    }
-
 
     /**更新修改
      * @param array $data
@@ -193,110 +173,46 @@ class SysMsg extends AdminBase
         } else if ($orderField == 'deal_time') {
             $order_by = "deal_time $orderDirection";
         } else {
-            $order_by = "create_time desc";
+            $order_by = "id desc";
         }
         return $order_by;
     }
 
     /**
-     * 回显 =>业务订单详细
-     * @param array $data
-     * @return array
-     * Author: kfrs <goodkfrs@QQ.com> created by at 2020/10/9 0009
+     * 消息=>发送
      */
-    public function getSysMsgBusUrl($bus_type, $bus_id)
+    public function sysMsgSend()
     {
-        $url = '';
-        //判断模块
-        if ($this->appExists('erp')) {
-            $model_name = 'erp';
-        } else {
-            $model_name = 'crm';
-        }
+        $where['deal_status'] = ['=',0];//未处理
+        $where['remind_status'] = ['=',1];//提醒中
+        $where['remind_time'] = ['<=',format_time()];//提醒时间要小于等于当前时间
+        $where['remind_nums'] = ['>',0];//提醒次数要大于0
+        $list = $this->modelSysMsg->getList($where, '', 'remind_nums desc', false);
 
-        if (!empty($bus_type)) {
-            switch ($bus_type) {
-                case "cst_customer":
-                    if ($this->tableExists('cst_customer')) {
-                        //$info = Db::name('cst_customer')->where(['id' => $bus_id])->find();
-                        $url = url($model_name . '/CstCustomer/detail', array('id' => $bus_id));
-                    }
-                    break;
-                case "cst_chance":
-                    if ($this->tableExists('cst_chance')) {
-                        $info = Db::name('cst_chance')->field('customer_id,id')->where(['id' => $bus_id])->find();
-                        $url = url($model_name . '/CstTrace/add', array('customer_id' => $info['customer_id'], 'chance_id' => $info['id']));
-                    }
-                    break;
-                case "cst_clue":
-                    if ($this->tableExists('cst_clue')) {
-                        //$info = Db::name('cst_clue')->where(['id' => $bus_id])->find();
-                        $url = url($model_name . '/CstClue/detail', array('id' => $bus_id));
-                    }
-                    break;
+        $updatalist=[];
 
-                case "sal_contract":
-                    if ($this->tableExists('sal_contract')) {
-                        //$info = Db::name('sal_contract')->where(['id' => $bus_id])->find();
-                        $url = url($model_name . '/SalContract/detail', array('id' => $bus_id));
-                    }
-                    break;
-                case "sal_contract_expire":
-                    if ($this->tableExists('sal_contract')) {
-                        //$info = Db::name('sal_contract')->where(['id' => $bus_id])->find();
-                        $url = url($model_name . '/SalContract/detail', array('id' => $bus_id));
-                    }
-                    break;
-                case "sal_order":
-                    //$info = Db::name('sal_order')->where(['id' => $bus_id])->find();
-                    $url = url($model_name . '/SalOrder/detail', array('id' => $bus_id));
-                    break;
-                //日程详细
-                case "oa_schedule":
-                    $url = url('oa/OaSchedule/detail', array('id' => $bus_id));
-                    break;
-                default:
-                    break;
+        foreach ($list as $key => &$row) {
+            $row['bus_url'] = $this->modelSysMsg->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
+            $row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
+
+            //微信通知
+            if(!empty($row['remind_weixin'])){
+                $this->modelSysMsgSend->weixin_teplate_send($row);
             }
+
+            //下次提醒时间
+            $next_time= date_calc(format_time(), '+ ' . $row['remind_interval'] . '', 'hours', 'Y-m-d H:i:s');
+            $updatalist[]=[
+                'id'=>$row['id'],
+                'remind_time'=>$next_time,//下次提醒的时间
+                'remind_nums'=>$row['remind_nums']-1,//剩余提醒次数
+                'send_nums'=>$row['send_nums']+1,//发送次数
+                'send_time'=>format_time(),//发送次数
+            ];
         }
-        return $url;
+        d($updatalist);
+        $res=$this->modelSysMsg->setList($updatalist,true);
+        d($res);
     }
 
-    /**
-     * 检查表是否存在
-     * @param $table
-     * @return bool
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/6/18 0018 17:00
-     */
-    public function tableExists($table)
-    {
-        $table = SYS_DB_PREFIX . $table;
-        $isTable = db()->query('SHOW TABLES LIKE ' . "'" . $table . "'");
-        if ($isTable) {
-            return true;//表存在
-        } else {
-            return false;//表不存在
-        }
-    }
-
-
-    /**
-     * 应用表是否存在
-     * @param $table
-     * @return bool
-     * Author: 开发人生 goodkfrs@qq.com
-     * Date: 2021/6/18 0018 17:00
-     */
-    public function appExists($appname)
-    {
-        $condition['name'] = $appname;
-        $condition['visible'] = 1;
-        $module = $this->modelSysModule->getValue($condition, 'name');
-        if (file_exists($module)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

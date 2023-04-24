@@ -63,9 +63,9 @@ class Store extends AdminBase
 		$info = $this->modelStore->getCloudUserLogin($data);
 		if($info['code']==0 && !empty($info)){
 			$user=$info['data'];
-			Cookie::set('stroe_user',$user,360000,'/');
-			Cookie::set('username',$user['username'],360000,'/');
-			Cookie::set('user_token',$user['user_token'],360000,'/');
+			Cookie::set('stroe_user',$user,7776000,'/');
+			Cookie::set('username',$user['username'],7776000,'/');
+			Cookie::set('user_token',$user['user_token'],7776000,'/');
 			return [RESULT_SUCCESS, '登录成功'];
 		}else{
 			return [RESULT_ERROR, '登录失败'];

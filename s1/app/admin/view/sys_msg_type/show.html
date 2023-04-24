@@ -48,6 +48,8 @@
                             <th width="80">业务标识</th>
                             <th width="150">事件说明</th>
                             <th width="80" class="text-center">提前时间(小时)</th>
+                            <th width="80" class="text-center">通知总次数</th>
+                            <th width="80" class="text-center">间隔(小时)</th>
                             <th width="150">提醒方式</th>
                             <th width="60">操作</th>
                         </tr>
@@ -56,7 +58,7 @@
                         </tbody>
                         <tfoot class="ibox-content">
                         <tr>
-                            <td colspan="6" align="center"></td>
+                            <td colspan="9" align="center"></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -79,6 +81,8 @@
         <td><%=data[i]['type']%></td>
         <td><%=data[i]['remark']%></td>
         <td class="text-center"><%=data[i]['hours']%></td>
+        <td class="text-center"><%=data[i]['remind_nums']%></td>
+        <td class="text-center"><%=data[i]['remind_interval']%></td>
         <td class="">
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > 手机
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > 系统

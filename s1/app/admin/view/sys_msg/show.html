@@ -10,7 +10,16 @@
                 <div class="ibox-content">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <div class="col-sm-12 m-b-xs text-right">
+
+                            <div class="col-sm-12 m-b-xs">
+                                <div class="input-group text-left">
+                                    <select  name="bus_type" class="chosen-select" style="width: 200px;">
+                                        <option value="">选择消息类型</option>
+                                        {volist name='type_list' id='vo'}
+                                        <option value="{$vo['type']}">{$vo['name']}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
                                 </div>
@@ -46,11 +55,14 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">提醒类型</th>
-                            <th width="200">提醒信息</th>
-                            <th width="80">提醒业务处理时间</th>
-                            <th width="120">提醒方式</th>
-                            <th width="80" class="text-center">设为处理</th>
+                            <th width="80"><span>提醒类型</span></th>
+                            <th width="150"><span>提醒信息</span></th>
+                            <th width="80"><span>消息提醒时间</span></th>
+                            <th width="120" class="text-center"><span>提醒方式</span></th>
+                            <th width="80" class="text-center"><span>剩余次数</span></th>
+                            <th width="80" class="text-center"><span>推送次数</span></th>
+                            <th width="80" class="text-center"><span>推送时间</span></th>
+                            <th width="80" class="text-center"><span>设为处理</span></th>
                             <th width="60" class="text-center">操作</th>
                         </tr>
                         </thead>
@@ -84,13 +96,16 @@
                 <%=data[i]['bus_name']%>
             </a>
         </td>
-        <td><%=data[i]['deal_time']%></td>
-        <td class="">
+        <td><%=data[i]['remind_time']%></td>
+        <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > 手机
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > 系统
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > 邮件
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > 微信
         </td>
+        <td class="text-center"><%=data[i]['remind_nums']%></td>
+        <td class="text-center"><%=data[i]['send_nums']%></td>
+        <td class="text-center"><%=data[i]['send_time']%></td>
         <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'deal_status'))}"  data-id="<%=data[i]['id']%>" <%=deal_status%> >
         </td>
