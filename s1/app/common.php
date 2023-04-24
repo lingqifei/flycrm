@@ -1011,7 +1011,7 @@ use \Firebase\JWT\JWT;
 // 解密user_token
 function decoded_user_token($token = '')
 {
-    vendor('Firebase/php-jwt/src/JWT');
+    vendor('firebase/php-jwt/src/JWT');
     try {
         $decoded = JWT::decode($token, API_KEY . JWT_KEY, array('HS256'));
         return (array)$decoded;
@@ -1064,7 +1064,7 @@ function encoded_user_token($param)
         "sub" => 'lingqifei',             // 面向的用户
         "data" => $jwt_data
     ];
-    vendor('Firebase/php-jwt/src/JWT');
+    vendor('firebase/php-jwt/src/JWT');
     $jwt = JWT::encode($token, $key);
     $jwt_data['user_token'] = $jwt;
     return $jwt_data;

@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\common\logic;
 
@@ -59,7 +57,8 @@ class SysUser extends LogicBase
 		}
 	}
 
-	/**获取当前员工所在部部门员工
+	/**
+     * 获取当前员工所在部部门员工
 	 * @param int $id
 	 * @return array ex:[1,2,3,4]
 	 * Author: lingqifei created by at 2020/3/29 0029
@@ -76,7 +75,8 @@ class SysUser extends LogicBase
 	}
 
 
-	/**获取当前员工所在部的下级部门员工
+	/**
+     * 获取当前员工所在部的下级部门员工
 	 * @param int $id
 	 * @return array ex:[1,2,3,4]
 	 * Author: lingqifei created by at 2020/3/29 0029
@@ -94,7 +94,8 @@ class SysUser extends LogicBase
 	}
 
 
-	/**获取当前员工所在部的下级部门员工+本部门员工
+	/**
+     * 获取当前员工所在部的下级部门员工+本部门员工
 	 * @param int $id
 	 * @return array  ex:[1,2,3,4]
 	 * Author: lingqifei created by at 2020/3/29 0029
@@ -113,7 +114,8 @@ class SysUser extends LogicBase
 	}
 
 
-	/**获取指定用户=》数据管理权限范围
+	/**
+     * 获取指定用户=》数据管理权限范围
 	 * 1=个人 (只能操作自己和下属的数据)
 	 * 2=所属部门 (能操作自己、下属、和自己所属部门的数据)
 	 * 3=所属部门及下属部门 (所属部门及下属部门 能操作自己、下属和自己所属部门及其子部门的数据)
@@ -145,11 +147,11 @@ class SysUser extends LogicBase
 			$data_role = $this->modelSysPosition->getValue(['id' => $user['position_id']], 'data_role');
 
 			$role_ids = [];
-			if ($data_role == 2) {//所属部门其它同事
+			if ($data_role == 2) {//所在部门同部门其它同事
 
 				$role_ids = $this->modelSysUser->getColumn(['dept_id' => $user['dept_id']], 'id');
 
-			} elseif ($data_role == 3) {//所属部门及下属部门
+			} elseif ($data_role == 3) {//所在部门及所在部门的下级部门
 
 				$dept_son = $this->logicSysDept->getDeptAllSon($user['dept_id']);
 				$dept_son[] = $user['dept_id'];
@@ -164,13 +166,14 @@ class SysUser extends LogicBase
 		}
 
 		if ($type == 'selfson') $ids[] = $id;
-		if ($type == 'son')  $ids = delArrValue($ids,$id);
-		$ids = array_unique($ids);
+		if ($type == 'son')  $ids = delArrValue($ids,$id);//删除本身id
+		$ids = array_unique($ids);//去除重复的
 		return $ids;
 
 	}
 
-	/**获取指定用户下属员工列表信息
+	/**
+     * 获取指定用户下属员工列表信息
 	 * @param $stype
 	 * @return array （[0]=array(''1)）
 	 * Author: lingqifei created by at 2020/3/29 0029
@@ -185,7 +188,8 @@ class SysUser extends LogicBase
 	}
 
 
-    /**获取用户上级管理人员id
+    /**
+     * 获取用户上级管理人员id
      * @param int $id
      * @param string $type
      * @return mixed
@@ -209,7 +213,8 @@ class SysUser extends LogicBase
 
     }
 
-    /**上级部人员信息
+    /**
+     * 上级部人员信息
      * @param $deptid
      * @return array
      * Author: 开发人生 goodkfrs@qq.com

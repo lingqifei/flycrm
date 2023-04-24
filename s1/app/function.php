@@ -1,15 +1,13 @@
 <?php
-/**
- * 零起飞-(07FLY-CRM)
- * ==============================================
- * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
- * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
- * ==============================================
- * Author: kfrs <goodkfrs@QQ.com> 574249366
- * Date: 2019-10-3
- */
+// +----------------------------------------------------------------------
+// | 07FLYCRM [基于ThinkPHP5.0开发]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2016-2021 http://www.07fly.xyz
+// +----------------------------------------------------------------------
+// | Professional because of focus  Persevering because of happiness
+// +----------------------------------------------------------------------
+// | Author: 开发人生 <goodkfrs@qq.com>
+// +----------------------------------------------------------------------
 
 // 扩展函数文件，系统研发过程中需要的函数建议放在此处，与框架相关函数分离
 
@@ -216,103 +214,104 @@ function time_friend3($sTime, $type = 'normal', $alt = 'false')
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/8/9 0009 10:07
  */
-function make_time()
-{
-    //获取今日开始时间戳和结束时间戳
-    $beginToday = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-    $endToday = mktime(0, 0, 0, date('m'), date('d') + 1, date('Y')) - 1;
-    $times['today']['begin'] = $beginToday;
-    $times['today']['end'] = $endToday;
+if (!function_exists('make_time')) {
+    function make_time()
+    {
+        //获取今日开始时间戳和结束时间戳
+        $beginToday = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $endToday = mktime(0, 0, 0, date('m'), date('d') + 1, date('Y')) - 1;
+        $times['today']['begin'] = $beginToday;
+        $times['today']['end'] = $endToday;
 
-    //获取昨日起始时间戳和结束时间戳
-    $beginYesterday = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'));
-    $endYesterday = mktime(0, 0, 0, date('m'), date('d'), date('Y')) - 1;
-    $times['yesterday']['begin'] = $beginYesterday;
-    $times['yesterday']['end'] = $endYesterday;
+        //获取昨日起始时间戳和结束时间戳
+        $beginYesterday = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'));
+        $endYesterday = mktime(0, 0, 0, date('m'), date('d'), date('Y')) - 1;
+        $times['yesterday']['begin'] = $beginYesterday;
+        $times['yesterday']['end'] = $endYesterday;
 
-    //获取昨日起始时间戳和结束时间戳
-    $beginYesterday = mktime(0, 0, 0, date('m'), date('d') - 2, date('Y'));
-    $endYesterday = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y')) - 2;
-    $times['beforeyesterday']['begin'] = $beginYesterday;
-    $times['beforeyesterday']['end'] = $endYesterday;
+        //获取昨日起始时间戳和结束时间戳
+        $beginYesterday = mktime(0, 0, 0, date('m'), date('d') - 2, date('Y'));
+        $endYesterday = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y')) - 2;
+        $times['beforeyesterday']['begin'] = $beginYesterday;
+        $times['beforeyesterday']['end'] = $endYesterday;
 
-    //获取本周起始时间戳和结束时间戳
-    $beginWeek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 7, date('Y'));
-    $endWeek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 7, date('Y'));
-    $times['thisweek']['begin'] = $beginWeek;
-    $times['thisweek']['end'] = $endWeek;
+        //获取本周起始时间戳和结束时间戳
+        $beginWeek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 7, date('Y'));
+        $endWeek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 7, date('Y'));
+        $times['thisweek']['begin'] = $beginWeek;
+        $times['thisweek']['end'] = $endWeek;
 
-    //获取上周起始时间戳和结束时间戳
-    $beginLastweek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 14, date('Y'));
-    $endLastweek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 14, date('Y'));
-    $times['lastweek']['begin'] = $beginLastweek;
-    $times['lastweek']['end'] = $endLastweek;
+        //获取上周起始时间戳和结束时间戳
+        $beginLastweek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 14, date('Y'));
+        $endLastweek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 14, date('Y'));
+        $times['lastweek']['begin'] = $beginLastweek;
+        $times['lastweek']['end'] = $endLastweek;
 
 
-    //获取上周起始时间戳和结束时间戳
-    $beginLastweek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 21, date('Y'));
-    $endLastweek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 21, date('Y'));
-    $times['beforelastweek']['begin'] = $beginLastweek;
-    $times['beforelastweek']['end'] = $endLastweek;
+        //获取上周起始时间戳和结束时间戳
+        $beginLastweek = mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 21, date('Y'));
+        $endLastweek = mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 21, date('Y'));
+        $times['beforelastweek']['begin'] = $beginLastweek;
+        $times['beforelastweek']['end'] = $endLastweek;
 
-    //获取本月起始时间戳和结束时间戳
-    $beginThismonth = mktime(0, 0, 0, date('m'), 1, date('Y'));
-    $endThismonth = mktime(23, 59, 59, date('m'), date('t'), date('Y'));
-    $times['thismonth']['begin'] = $beginThismonth;
-    $times['thismonth']['end'] = $endThismonth;
+        //获取本月起始时间戳和结束时间戳
+        $beginThismonth = mktime(0, 0, 0, date('m'), 1, date('Y'));
+        $endThismonth = mktime(23, 59, 59, date('m'), date('t'), date('Y'));
+        $times['thismonth']['begin'] = $beginThismonth;
+        $times['thismonth']['end'] = $endThismonth;
 
-    //获取上月的起始时间戳和结束时间戳
-    $beginLastmonth = mktime(0, 0, 0, date('m') - 1, 1, date('Y'));
-    $endLastmonth = mktime(23, 59, 59, date('m'), 0, date('Y'));
+        //获取上月的起始时间戳和结束时间戳
+        $beginLastmonth = mktime(0, 0, 0, date('m') - 1, 1, date('Y'));
+        $endLastmonth = mktime(23, 59, 59, date('m'), 0, date('Y'));
 
-    $times['lastmonth']['begin'] = $beginLastmonth;
-    $times['lastmonth']['end'] = $endLastmonth;
+        $times['lastmonth']['begin'] = $beginLastmonth;
+        $times['lastmonth']['end'] = $endLastmonth;
 
-    //获取上2月的起始时间戳和结束时间戳
-    $beginLastmonth = mktime(0, 0, 0, date('m') - 2, 1, date('Y'));
-    $endLastmonth = mktime(23, 59, 59, date('m') - 1, 0, date('Y'));
-    $times['beforelastmonth']['begin'] = $beginLastmonth;
-    $times['beforelastmonth']['end'] = $endLastmonth;
+        //获取上2月的起始时间戳和结束时间戳
+        $beginLastmonth = mktime(0, 0, 0, date('m') - 2, 1, date('Y'));
+        $endLastmonth = mktime(23, 59, 59, date('m') - 1, 0, date('Y'));
+        $times['beforelastmonth']['begin'] = $beginLastmonth;
+        $times['beforelastmonth']['end'] = $endLastmonth;
 
-    //获取今年的起始时间和结束时间
-    $beginThisyear = mktime(0, 0, 0, 1, 1, date('Y'));
-    $endThisyear = mktime(23, 59, 59, 12, 31, date('Y'));
-    $times['thisyear']['begin'] = $beginThisyear;
-    $times['thisyear']['end'] = $endThisyear;
+        //获取今年的起始时间和结束时间
+        $beginThisyear = mktime(0, 0, 0, 1, 1, date('Y'));
+        $endThisyear = mktime(23, 59, 59, 12, 31, date('Y'));
+        $times['thisyear']['begin'] = $beginThisyear;
+        $times['thisyear']['end'] = $endThisyear;
 
-    //获取上年的起始时间和结束时间
-    $beginLastyear = mktime(0, 0, 0, 1, 1, date('Y') - 1);
-    $endLastyear = mktime(23, 59, 59, 12, 31, date('Y') - 1);
-    $times['lastyear']['begin'] = $beginLastyear;
-    $times['lastyear']['end'] = $endLastyear;
+        //获取上年的起始时间和结束时间
+        $beginLastyear = mktime(0, 0, 0, 1, 1, date('Y') - 1);
+        $endLastyear = mktime(23, 59, 59, 12, 31, date('Y') - 1);
+        $times['lastyear']['begin'] = $beginLastyear;
+        $times['lastyear']['end'] = $endLastyear;
 
-    //获取上2年的起始时间和结束时间
-    $beginLastyear = mktime(0, 0, 0, 1, 1, date('Y') - 2);
-    $endLastyear = mktime(23, 59, 59, 12, 31, date('Y') - 2);
-    $times['beforelastyear']['begin'] = $beginLastyear;
-    $times['beforelastyear']['end'] = $endLastyear;
+        //获取上2年的起始时间和结束时间
+        $beginLastyear = mktime(0, 0, 0, 1, 1, date('Y') - 2);
+        $endLastyear = mktime(23, 59, 59, 12, 31, date('Y') - 2);
+        $times['beforelastyear']['begin'] = $beginLastyear;
+        $times['beforelastyear']['end'] = $endLastyear;
 
-    //获取本季度开始时间和结束时间
-    $season = ceil((date('n')) / 3);//当月是第几季度
-    $beginThisSeason = mktime(0, 0, 0, $season * 3 - 3 + 1, 1, date('Y'));
-    $endThisSeason = mktime(23, 59, 59, $season * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
-    $times['thisseason']['begin'] = $beginThisSeason;
-    $times['thisseason']['end'] = $endThisSeason;
+        //获取本季度开始时间和结束时间
+        $season = ceil((date('n')) / 3);//当月是第几季度
+        $beginThisSeason = mktime(0, 0, 0, $season * 3 - 3 + 1, 1, date('Y'));
+        $endThisSeason = mktime(23, 59, 59, $season * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
+        $times['thisseason']['begin'] = $beginThisSeason;
+        $times['thisseason']['end'] = $endThisSeason;
 
-    //获取上季度的起始时间和结束时间
-    $beginLastSeason = mktime(0, 0, 0, ($season - 1) * 3 - 3 + 1, 1, date('Y'));
-    $endLastSeason = mktime(23, 59, 59, ($season - 1) * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
-    $times['lastseason']['begin'] = $beginLastSeason;
-    $times['lastseason']['end'] = $endLastSeason;
+        //获取上季度的起始时间和结束时间
+        $beginLastSeason = mktime(0, 0, 0, ($season - 1) * 3 - 3 + 1, 1, date('Y'));
+        $endLastSeason = mktime(23, 59, 59, ($season - 1) * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
+        $times['lastseason']['begin'] = $beginLastSeason;
+        $times['lastseason']['end'] = $endLastSeason;
 
-    //获取上季度的起始时间和结束时间
-    $beginLastSeason = mktime(0, 0, 0, ($season - 2) * 3 - 3 + 1, 1, date('Y'));
-    $endLastSeason = mktime(23, 59, 59, ($season - 2) * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
-    $times['beforelastseason']['begin'] = $beginLastSeason;
-    $times['beforelastseason']['end'] = $endLastSeason;
-    return $times;
+        //获取上季度的起始时间和结束时间
+        $beginLastSeason = mktime(0, 0, 0, ($season - 2) * 3 - 3 + 1, 1, date('Y'));
+        $endLastSeason = mktime(23, 59, 59, ($season - 2) * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y"))), date('Y'));
+        $times['beforelastseason']['begin'] = $beginLastSeason;
+        $times['beforelastseason']['end'] = $endLastSeason;
+        return $times;
+    }
 }
-
 
 /**
  * 获得指定年的，月的开始结束时间
@@ -321,23 +320,24 @@ function make_time()
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/8/9 0009 10:11
  */
-function getMonthStartEndTime($date = '')
-{
-    if (empty($date)) {
-        $times = time();
-    } else {
-        $times = strtotime($date);
+if (!function_exists('getMonthStartEndTime')) {
+    function getMonthStartEndTime($date = '')
+    {
+        if (empty($date)) {
+            $times = time();
+        } else {
+            $times = strtotime($date);
+        }
+
+        //获取本月起始时间戳和结束时间戳
+        $beginThismonth = mktime(0, 0, 0, date('m', $times), 1, date('Y', $times));
+        $endThismonth = mktime(23, 59, 59, date('m', $times), date('t', $times), date('Y', $times));
+
+        $rangeTime['begin'] = date("Y-m-d H:i:s", $beginThismonth);
+        $rangeTime['end'] = date("Y-m-d H:i:s", $endThismonth);
+        return $rangeTime;
     }
-
-    //获取本月起始时间戳和结束时间戳
-    $beginThismonth = mktime(0, 0, 0, date('m', $times), 1, date('Y', $times));
-    $endThismonth = mktime(23, 59, 59, date('m', $times), date('t', $times), date('Y', $times));
-
-    $rangeTime['begin'] = date("Y-m-d H:i:s", $beginThismonth);
-    $rangeTime['end'] = date("Y-m-d H:i:s", $endThismonth);
-    return $rangeTime;
 }
-
 /**
  * 批定年月，年的起止时间
  * @param string $year
@@ -345,19 +345,20 @@ function getMonthStartEndTime($date = '')
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/8/9 0009 10:13
  */
-function getYearStartEndTime($year = '')
-{
-    if (empty($year)) {
-        $year = date("Y");
+if (!function_exists('getYearStartEndTime')) {
+    function getYearStartEndTime($year = '')
+    {
+        if (empty($year)) {
+            $year = date("Y");
+        }
+        //获取年起始时间戳和结束时间戳
+        $beginThisyear = mktime(0, 0, 0, 1, 1, $year);
+        $endThisyear = mktime(23, 59, 59, 12, 31, $year);
+        $rangeTime['begin'] = date("Y-m-d H:i:s", $beginThisyear);
+        $rangeTime['end'] = date("Y-m-d H:i:s", $endThisyear);
+        return $rangeTime;
     }
-    //获取年起始时间戳和结束时间戳
-    $beginThisyear = mktime(0, 0, 0, 1, 1, $year);
-    $endThisyear = mktime(23, 59, 59, 12, 31, $year);
-    $rangeTime['begin'] = date("Y-m-d H:i:s", $beginThisyear);
-    $rangeTime['end'] = date("Y-m-d H:i:s", $endThisyear);
-    return $rangeTime;
 }
-
 
 /**
  * 指定年月，所在季度开始，结束时间
@@ -366,17 +367,19 @@ function getYearStartEndTime($year = '')
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/8/9 0009 10:14
  */
-function getQuarterStartEndTime($date = '')
-{
-    if (empty($date)) {
-        $times = time();
-    } else {
-        $times = strtotime($date);
+if (!function_exists('getQuarterStartEndTime')) {
+    function getQuarterStartEndTime($date = '')
+    {
+        if (empty($date)) {
+            $times = time();
+        } else {
+            $times = strtotime($date);
+        }
+        $season = ceil((date('n', $times)) / 3);//当月是第几季度
+        $rangeTime['begin'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $season * 3 - 3 + 1, 1, date('Y', $times)));
+        $rangeTime['end'] = date('Y-m-d H:i:s', mktime(23, 59, 59, $season * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y", $times))), date('Y', $times)));
+        return $rangeTime;
     }
-    $season = ceil((date('n', $times)) / 3);//当月是第几季度
-    $rangeTime['begin'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $season * 3 - 3 + 1, 1, date('Y', $times)));
-    $rangeTime['end'] = date('Y-m-d H:i:s', mktime(23, 59, 59, $season * 3, date('t', mktime(0, 0, 0, $season * 3, 1, date("Y", $times))), date('Y', $times)));
-    return $rangeTime;
 }
 
 /**
@@ -386,22 +389,23 @@ function getQuarterStartEndTime($date = '')
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/10/29 0029 11:19
  */
-function getDayStartEndTime($date = '')
-{
-    if (empty($date)) {
-        $times = strtotime(date("Y-m-d", time()));
-    } else {
-        $times = strtotime($date);
+if (!function_exists('getDayStartEndTime')) {
+    function getDayStartEndTime($date = '')
+    {
+        if (empty($date)) {
+            $times = strtotime(date("Y-m-d", time()));
+        } else {
+            $times = strtotime($date);
+        }
+
+        $start_time = strtotime(date("Y-m-d", $times));
+        $end_time = $start_time + 60 * 60 * 24;
+
+        $rangeTime['begin'] = date('Y-m-d H:i:s', $start_time);
+        $rangeTime['end'] = date('Y-m-d H:i:s', $end_time);
+        return $rangeTime;
     }
-
-    $start_time = strtotime(date("Y-m-d", $times));
-    $end_time = $start_time + 60 * 60 * 24;
-
-    $rangeTime['begin'] = date('Y-m-d H:i:s', $start_time);
-    $rangeTime['end'] = date('Y-m-d H:i:s', $end_time);
-    return $rangeTime;
 }
-
 
 /**
  * 获取两个日期之间所有月份
@@ -409,66 +413,74 @@ function getDayStartEndTime($date = '')
  * @param string $end_time 2019-01-01
  * @return array
  */
+if (!function_exists('getDatesBetweenToMonths')) {
+    function getDatesBetweenToMonths($start_time, $end_time)
 
-function getDatesBetweenToMonths($start_time, $end_time)
+    {
+        $time1 = strtotime($start_time);
+        $time2 = strtotime($end_time);
 
-{
-    $time1 = strtotime($start_time);
-    $time2 = strtotime($end_time);
+        $monthArray = [];
+        $monthArray[] = date('Y-m', $time1); // 当前月;
+        while (($time1 = strtotime('+1 month', $time1)) <= $time2) {
+            $monthArray[] = date('Y-m', $time1);
+        }
+        return $monthArray;
 
-    $monthArray = [];
-    $monthArray[] = date('Y-m', $time1); // 当前月;
-    while (($time1 = strtotime('+1 month', $time1)) <= $time2) {
-        $monthArray[] = date('Y-m', $time1);
     }
-    return $monthArray;
-
 }
-
 /**
  * 获取两个日期之间所有周
  * @param string $start_time 2018-01-01
  * @param string $end_time 2019-01-01
  * @return array
  */
-function getDatesBetweenToWeeks($start_time, $end_time)
+if (!function_exists('getDatesBetweenToWeeks')) {
+    function getDatesBetweenToWeeks($start_time, $end_time)
 
-{
-    $time1 = strtotime($start_time);
-    $time2 = strtotime($end_time);
+    {
+        $time1 = strtotime($start_time);
+        $time2 = strtotime($end_time);
 
-    $monthArray = [];
-    $monthArray[] = date('o-W', $time1); // 当前月;
-    while (($time1 = strtotime('+1 week', $time1)) <= $time2) {
-        $monthArray[] = date('o-W', $time1);
+        $monthArray = [];
+        $monthArray[] = date('o-W', $time1); // 当前月;
+        while (($time1 = strtotime('+1 week', $time1)) <= $time2) {
+            $monthArray[] = date('o-W', $time1);
+        }
+        return $monthArray;
     }
-    return $monthArray;
 }
-
 /**
  * 时间段转为两个数组
  * @param $rangedate    格式为：2023/01/01 - 2023/08/08
  * @param $pirx         两个时间段分隔符号
- * @param $type         str:返回字符吕，int：返回时间戳
+ * @param $type         str:返回字符串，int：返回时间戳
  * @return void
  * @author: 开发人生 goodkfrs@qq.com
  * @Time: 2023/1/11 9:32
  */
-function rangedate2arr($rangedate,$pirx='-',$type='str'){
-    $date_arr = str2arr($rangedate, $pirx);
+if (!function_exists('rangedate2arr')) {
+    function rangedate2arr($rangedate, $pirx = '-', $type = 'str')
+    {
 
-    if(empty($date_arr[1])){
-        $date_arr[1]=date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[0])));
-    }else{
-        $date_arr[1]=date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[1])));
+        $date_arr = str2arr($rangedate, $pirx);
+
+        //判断是单个时间还是时间组
+        if (empty($date_arr[1])) {
+            $date_arr[1] = date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[0])));
+        } else {
+            $date_arr[1] = date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[1])));
+        }
+
+        //返回的格式，是时间戳，还是文本
+        if ($type == 'int') {
+            $date_arr[0] = strtotime($date_arr[0]);
+            $date_arr[1] = strtotime($date_arr[1]);
+        }
+
+        return $date_arr;
     }
-    if($type=='int'){
-        $date_arr[0]=strtotime($date_arr[0]);
-        $date_arr[1]=strtotime($date_arr[1]);
-    }
-    return $date_arr;
 }
-
 
 /**
  * 字符串截取，支持中文和其他编码
@@ -871,14 +883,19 @@ if (!function_exists('httpcode')) {
     }
 }
 
-/**curl。post获取数据
+/**
+ * curl。post获取数据
  * @param $url
  * @param $arr_data
  * Author: kfrs <goodkfrs@QQ.com> created by at 2020/12/25 0025
  */
 if (!function_exists('curl_post')) {
-    function curl_post($url, $post_data)
+    function curl_post($url, $post_data,$contentType='post')
     {
+        //$post_data = http_build_query($post_data);
+
+        // 请求参数类型
+        $post_data = $contentType == 'json' ? urldecode(json_encode($post_data)) : http_build_query($post_data);
         //$post_data = http_build_query($post_data);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, true);
@@ -967,6 +984,26 @@ if (!function_exists('dd2char')) {
 }
 
 /**
+ * 统计二数字串个数，支持按分隔符号统计
+ * @param $array
+ * @param $column
+ * @return float|int
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2021/5/31 0031 15:14
+ */
+if (!function_exists('get_str_sum')) {
+    function get_str_sum($str, $glue='')
+    {
+        if($glue){
+            $cnt=count(explode($glue, $str));
+        }else{
+            $cnt=mb_strlen($str);
+        }
+        return $cnt;
+    }
+}
+
+/**
  *  PHP stdClass Object转array
  *
  * @access    public
@@ -1015,7 +1052,6 @@ if (!function_exists('get_2arr_sum')) {
  * Date: 2021/5/31 0031 15:14
  */
 if (!function_exists('delArrValue')) {
-
     //foreach遍历后unset删除,这种方法也是最容易想到的方法
     function delArrValue($arr, $value)
     {
@@ -1040,21 +1076,22 @@ if (!function_exists('delArrValue')) {
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/8/2 0002 17:41
  */
-function array2unique_bykey($arr, $key)
-{
-    $tmp_arr = array();
-    foreach ($arr as $k => $v) {
-        if (in_array($v[$key], $tmp_arr))   //搜索$v[$key]是否在$tmp_arr数组中存在，若存在返回true
-        {
-            unset($arr[$k]); //销毁一个变量  如果$tmp_arr中已存在相同的值就删除该值
-        } else {
-            $tmp_arr[$k] = $v[$key];  //将不同的值放在该数组中保存
+if (!function_exists('array2unique_bykey')) {
+    function array2unique_bykey($arr, $key)
+    {
+        $tmp_arr = array();
+        foreach ($arr as $k => $v) {
+            if (in_array($v[$key], $tmp_arr))   //搜索$v[$key]是否在$tmp_arr数组中存在，若存在返回true
+            {
+                unset($arr[$k]); //销毁一个变量  如果$tmp_arr中已存在相同的值就删除该值
+            } else {
+                $tmp_arr[$k] = $v[$key];  //将不同的值放在该数组中保存
+            }
         }
-    }
 //ksort($arr); //ksort函数对数组进行排序(保留原键值key)  sort为不保留key值
-    return $arr;
+        return $arr;
+    }
 }
-
 
 
 /**
@@ -1067,18 +1104,20 @@ function array2unique_bykey($arr, $key)
  * @author: 开发人生 goodkfrs@qq.com
  * @Time: 2023/1/3 15:28
  */
-
-function array2Sort($array,$keys,$sort='asc') {
-    $newArr = $valArr = array();
-    foreach ($array as $key=>$value) {
-        $valArr[$key] = $value[$keys];
+if (!function_exists('array2Sort')) {
+    function array2Sort($array, $keys, $sort = 'asc')
+    {
+        $newArr = $valArr = array();
+        foreach ($array as $key => $value) {
+            $valArr[$key] = $value[$keys];
+        }
+        ($sort == 'asc') ? asort($valArr) : arsort($valArr);
+        reset($valArr);
+        foreach ($valArr as $key => $value) {
+            $newArr[$key] = $array[$key];
+        }
+        return $newArr;
     }
-    ($sort == 'asc') ?  asort($valArr) : arsort($valArr);
-    reset($valArr);
-    foreach($valArr as $key=>$value) {
-        $newArr[$key] = $array[$key];
-    }
-    return $newArr;
 }
 
 /**
@@ -1103,8 +1142,28 @@ if (!function_exists('tableExists')) {
     }
 }
 
+/**
+ * 判断系统中模块是否存在
+ * @param $table
+ * @return bool
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2023/03/28 0028 18:23
+ */
+if (!function_exists('appExists')) {
+    function appExists($appname)
+    {
+        $table = SYS_DB_PREFIX . 'sys_module';
+        $isTable = db()->query("select id from {$table} where name='".$appname."' and visible='1'");
+        if ($isTable) {
+            return true;//模块存在
+        } else {
+            return false;//模块不存在
+        }
+    }
+}
 
-/**清除html文件的空格注释信息
+/**
+ * 清除html文件的空格注释信息
  * @param $uncompress_html_source
  * @return string
  * Author: 开发人生 goodkfrs@qq.com
