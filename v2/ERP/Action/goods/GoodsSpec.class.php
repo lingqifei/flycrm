@@ -172,7 +172,7 @@ class GoodsSpec extends Action {
 					'sort'=>$this->_REQUEST( "sort" )
 				 );
 			$this->C( $this->cacheDir )->modify('fly_goods_spec',$upt_data,"spec_id='$spec_id'",true);
-			$this->attrValue->goods_spec_value_add($spec_value_data);
+			$this->specValue->goods_spec_value_add($spec_value_data);
 			
 			$this->location( "操作成功", "/goods/GoodsSpec/goods_spec_show/" );
 		}

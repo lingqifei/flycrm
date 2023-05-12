@@ -105,10 +105,10 @@ class SupLinkman extends Action{
 			$ext_data=array();
 			foreach($fields as $row){
 				$field=$row['field_name'];
-				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+                $into_data[$field]=$this->_REQUEST($field);
+				//$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
 			}
-			$into_data=array_merge($into_data,$ext_data);
-			//******************************************************	
+			//******************************************************
 			if($this->C($this->cacheDir)->insert('sup_linkman',$into_data)){
 				$this->L("Common")->ajax_json_success("操作成功");
 			}	
@@ -151,9 +151,10 @@ class SupLinkman extends Action{
 			$ext_data=array();
 			foreach($fields as $row){
 				$field=$row['field_name'];
-				$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
+                $into_data[$field]=$this->_REQUEST($field);
+				//$ext_data=array_merge($ext_data,array("$field"=>$this->_REQUEST($field)));
 			}
-			$into_data=array_merge($into_data,$ext_data);
+			//$into_data=array_merge($into_data,$ext_data);
 			//******************************************************	
 			$this->C($this->cacheDir)->modify('sup_linkman',$into_data,"linkman_id='$linkman_id'");
 			$this->L("Common")->ajax_json_success("操作成功");

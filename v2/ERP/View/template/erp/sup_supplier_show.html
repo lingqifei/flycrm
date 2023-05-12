@@ -153,14 +153,14 @@ $(document).ready(function () {
 		supplier_id =$(this).attr("data-id");
 		single_act =$(this).attr("data-act")
 		if(single_act=="linkman"){
-			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/cst_linkman_add/";
+			act_url="#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_add/";
 			layer.open({
 				type: 2,
 				title: '添加联系人',
 				shadeClose: true,
 				fixed: false, //不固定
 				area: ['800px', '500px'],
-				content: '#{$smarty.const.ACT}#/erp/SupLinkman/cst_linkman_add/supplier_id/'+supplier_id+'/' //iframe的url
+				content: '#{$smarty.const.ACT}#/erp/SupLinkman/sup_linkman_add/supplier_id/'+supplier_id+'/' //iframe的url
 			});
 			return false;
 		}else if(single_act=="add"){

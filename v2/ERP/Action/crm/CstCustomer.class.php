@@ -131,7 +131,7 @@ class CstCustomer extends Action{
 				'name'=>$this->_REQUEST("name"),
 				'conn_time'=>NOWTIME,
 				'create_time'=>NOWTIME,
-				'owner_user_id'=>$owner_user_id,
+				'owner_user_id'=>SYS_USER_ID,
 				'create_user_id'=>SYS_USER_ID
 			);
 			//******************************************************
