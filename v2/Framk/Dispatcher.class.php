@@ -9,8 +9,8 @@ class Dispatcher
     */
     public function __construct()
     {
-        $scriptName = $_SERVER ['SCRIPT_NAME'];
-        $requestURI = $_SERVER ['REQUEST_URI'];
+        $scriptName = $_SERVER['SCRIPT_NAME'];
+        $requestURI = $_SERVER['REQUEST_URI'];
         /*		if($GLOBALS['ReWrite']){
                     foreach($GLOBALS['Router'] as $row){
                         $rule=$row['rule'];
@@ -21,9 +21,11 @@ class Dispatcher
                         }
                     }
                 }*/
+
         //过滤入口文件
         $find_file_arr = array('/index.php', '/crm.php');
-        $appName = str_replace($find_file_arr, '', $scriptName);
+        $appName = str_replace('/index.php', '', $scriptName);
+
         //定义项目相http地址
         define('APP_HTTP', (str_replace(APP_NAME, '', $appName)));
         //定义项目名
@@ -33,12 +35,14 @@ class Dispatcher
         //define ( 'ACT', ( $GLOBALS['ReWrite'] ? $appName : $scriptName) );
         define('ACT', $scriptName);
 
+        //获得加载文件的路径
         if ($requestURI == $appName . '/') {
             $urlStr = '';
         } else {
-            $urlStr = str_replace(ACT, '', $requestURI);//取得当前index.php之后的字符串
+            $urlStr = str_replace('/index.php', '', $requestURI);//取得当前index.php之后的字符串
             //$urlStr=str_replace (ACT, '', str_replace ($find_file_arr, '', $requestURI ));//取得当前index.php之后的字符串
         }
+
         $this->getAction($this->filterParams($urlStr));//
     }
 

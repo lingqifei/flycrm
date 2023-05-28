@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * crm.Contract  客户销售合同管理   
@@ -388,7 +387,38 @@ class PosContract extends Action
                 ),
             )
         );
-        return ($key) ? $data[$key] : $data;
+
+        if(!isset($key)){
+            return  $data;
+        }else{
+            if(!empty($data[$key])){
+                return $data[$key];
+            }else{
+                $dontkonw = array(
+                    'status_name' => '未知',
+                    'status_name_html' => '<span class="label">撤销<span>',
+                    'status_operation' => array(
+                        '0' => array(
+                            'act' => 'detail',
+                            'color' => '#7266BA',
+                            'name' => '详细'
+                        ),
+                        '1' => array(
+                            'act' => 'modify',
+                            'color' => '#23B7E5',
+                            'name' => '修改合同'
+                        ),
+                        '2' => array(
+                            'act' => 'delete',
+                            'color' => '#F05050',
+                            'name' => '删除'
+                        ),
+                    )
+                );
+                return $dontkonw;
+            }
+        }
+
     }
 
 
@@ -468,7 +498,27 @@ class PosContract extends Action
                 'status_operation' => array(),
             )
         );
-        return ($key) ? $data[$key] : $data;
+
+        if(!isset($key)){
+            return  $data;
+        }else{
+            if(!empty($data[$key])){
+                return $data[$key];
+            }else{
+                $dontkonw = array(
+                    'status_name' => '需要',
+                    'status_name_html' => '<span class="label label-warning">需要<span>',
+                    'status_operation' => array(
+                        '0' => array(
+                            'act' => 'list_add',
+                            'color' => '#23B7E5',
+                            'name' => '录入明细'
+                        )
+                    ),
+                );
+                return $dontkonw;
+            }
+        }
     }
 
     //收票状态

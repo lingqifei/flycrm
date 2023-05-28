@@ -126,8 +126,7 @@
 </body>
 </html>
 <script id="tableListTpl" type="text/html">
-    <% for(var i=0;i
-    <list.length;i++) { %>
+    <% for(var i=0;i<list.length;i++) { %>
     <tr>
         <td><input name="contract_id" class="checkboxCtrlId" value="<%=list[i]['contract_id']%>" type="checkbox"></td>
         <td>
@@ -158,18 +157,14 @@
         <td><%:=list[i]['rece_status_arr']['status_name_html']%></td>
         <td><%:=list[i]['our_user_arr']['name']%></td>
         <td align="center">
-            <% for(var j=0;j
-            <list
-            [i]['status_arr']['status_operation'].length;j++) { %>
+            <% for(var j=0;j<list[i]['status_arr']['status_operation'].length;j++) { %>
             <p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['contract_id']%>"
                   data-act="<%=list[i]['status_arr']['status_operation'][j]['act']%>"><font
                     color="<%=list[i]['status_arr']['status_operation'][j]['color']%>"><%=list[i]['status_arr']['status_operation'][j]['name']%></font></a>
             </p>
             <% } %>
             <!--收货操作-->
-            <% for(var j=0;j
-            <list
-            [i]['rece_status_arr']['status_operation'].length;j++) { %>
+            <% for(var j=0;j<list[i]['rece_status_arr']['status_operation'].length;j++) { %>
             <p><a href="javascript:void(0)" class="single_operation" data-id="<%=list[i]['contract_id']%>"
                   data-act="<%=list[i]['rece_status_arr']['status_operation'][j]['act']%>"><font
                     color="<%=list[i]['rece_status_arr']['status_operation'][j]['color']%>"><%=list[i]['rece_status_arr']['status_operation'][j]['name']%></font></a>
