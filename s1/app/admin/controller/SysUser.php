@@ -35,7 +35,7 @@ class SysUser extends AdminBase
 
         if (IS_AJAX) {
             $where = $this->logicSysUser->getWhere($this->param);
-            $list = $this->logicSysUser->getAllList($where);
+            $list = $this->logicSysUser->getAllList($where,'id,username,realname');
             return $list;
         }
 

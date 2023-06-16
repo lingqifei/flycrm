@@ -18,7 +18,7 @@ $(document).ready(function () {
 					$('.searchForm').find("input[name='pid']").val(node.id);
 					$('.searchForm').find("input[name='id']").val(node.id);
 					$('.add-btn').attr('data-id',node.id);
-					//turnPage(1);
+					turnPage(1);
 				}
 			});
 		}, "json");

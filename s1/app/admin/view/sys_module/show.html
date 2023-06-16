@@ -47,7 +47,6 @@
                                 <th width="80">模块标题</th>
                                 <th width="80">模块名称</th>
                                 <th width="200">模块描述</th>
-                                <th width="80">服务商</th>
                                 <th width="60">版本号</th>
                                 <th width="60">排序</th>
                                 <th width="50">启用</th>
@@ -58,7 +57,7 @@
                             </tbody>
                             <tfoot class="ibox-content">
                             <tr>
-                                <td colspan="9" align="center"></td>
+                                <td colspan="8" align="center"></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -78,7 +77,6 @@
         <td><%=data[i]['title']%></td>
         <td><%=data[i]['name']%></td>
         <td><%=data[i]['intro']%></td>
-        <td><%=data[i]['author']%></td>
         <td><%=data[i]['version']%></td>
         <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysModule/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
         <td>

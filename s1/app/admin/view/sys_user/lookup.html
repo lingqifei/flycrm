@@ -81,11 +81,10 @@
 <link href="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet">
 <script src="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
 <script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
-<script src="__STATIC__/module/admin/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
-        //turnPage(1);//页面加载时初始化分页
+        turnPage(1);//页面加载时初始化分页
 
         //得到父页面的清单，已经存在的值
         var ids_arr = [];
@@ -104,7 +103,6 @@
 
     //获取窗口索引关闭窗口
     var list_add_index = parent.layer.getFrameIndex(window.name);
-
     //设置选中产品
     $("body").on("click", ".checkboxCtrlId", function () {
         var isck = $(this).prop('checked');

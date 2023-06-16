@@ -130,52 +130,38 @@ class SysMsgType extends AdminBase
     {
         $list = $this->modelSysMsgType->getList([], 'name,type,hours,remind_sms,remind_sys,remind_email,remind_weixin,remind_nums,remind_interval', '', false);
         foreach ($list as $key => $row) {
-
-            d($row['type']);
-
             switch ($row['type']) {
                 //线索跟进
                 case 'cst_clue':
-
                     $this->modelSysMsgType->scanCstClue($row);
-
                     break;
                 //客户跟进
                 case 'cst_customer':
-
                     $this->modelSysMsgType->scanCstCustomer($row);
-
                     break;
                 //商机跟进
                 case 'cst_chance':
-
                     $this->modelSysMsgType->scanCstChance($row);
-
                     break;
                 //销售合同到期
                 case 'sal_contract_expire':
-
                     $this->modelSysMsgType->scanSalContractExpire($row);
-
                     break;
                 //销售订单到期
                 case 'sal_order_expire':
-
                     $this->modelSysMsgType->scanSalOrderExpire($row);
-
                     break;
                 //日程开始提醒
                 case 'oa_schedule':
-
                     $this->modelSysMsgType->scanOaSchedule($row);
-
                     break;
-
                  //工单提醒
                 case 'oa_service':
-
                     $this->modelSysMsgType->scanOaService($row);
-
+                    break;
+                //工单提醒
+                case 'workflow_business_history':
+                    $this->modelSysMsgType->scanWorkflowBusinessHistory($row);
                     break;
                 default :
                     break;

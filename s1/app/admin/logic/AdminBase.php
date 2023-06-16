@@ -287,7 +287,7 @@ class AdminBase extends LogicBase
 			$data['login_title'] = '零起飞企业管理系统';
 			$data['login_desc'] = '软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理';
 			$data['login_demo'] = '<font color="red">演示帐号/密码：admin/123456</font>';
-			$data['login_copyright'] = '<a href="http://www.07fly.xyz">技术支持:成都零起飞科技</a>';
+			$data['login_copyright'] = '<a href="http://www.07fly.xyz">技术支持:零起飞网络</a>';
 			$data['main_title'] = '零起飞网络中心';
 			$data['main_weburl'] = 'http://www.07fly.xyz/';
 			$data['top_links'] = '
@@ -297,7 +297,7 @@ class AdminBase extends LogicBase
                     <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>
                   ';
             $data['top_links_right']  = '<li><a href="'.url('admin/Store/apps').'" class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>';
-            $data['top_links_right'] .= '<li><a href="http://http.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">官网</a></li>';
+            $data['top_links_right'] .= '<li><a href="http://http.07fly.xyz/" target="_blank" title="零起飞网络">官网</a></li>';
             $data['is_grant'] = 1;
 		}
 		$data['document'] = '<a target="_blank" href="http://www.07fly.xyz">http://www.07fly.xyz</a>';

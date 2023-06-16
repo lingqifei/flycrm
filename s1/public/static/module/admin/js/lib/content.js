@@ -462,10 +462,10 @@ $("body").on("click", ".ajax-open-more", function () {
         }
 
         //是否设置了参数字段data-ids="{'name':'张三','sex':'女'}"
-        if (typeof (ids) != "undefined" && ids != 0) {
-            var ids = ($.param(eval('(' + ids + ')'), true));
-            var target = target + "?" + ids;
-        }
+        // if (typeof (ids) != "undefined" && ids != 0) {
+        //     var ids = ($.param(eval('(' + ids + ')'), true));
+        //     var target = target + "?" + ids;
+        // }
 
         log('打开地址：' + target);
 

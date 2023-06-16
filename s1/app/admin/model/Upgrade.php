@@ -152,7 +152,6 @@ class Upgrade extends AdminBase
 		}else{
 			return array('code'=>0,'msg'=>'升级文件下载失败');
 		}
-
 	}
 
 }

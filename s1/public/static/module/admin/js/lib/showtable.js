@@ -19,7 +19,7 @@ if ($('a').is('.btn-field-set')) {
     }
 }
 
-//表格显示列设置* ***********************************************************
+//表格显示列设置,设置列表表格显示列
 $("body").on("click", ".btn-field-set", function () {
     a = JSON.parse(localStorage.getItem("listAll" + showTable));
     b = JSON.parse(localStorage.getItem("listSave" + showTable));
@@ -93,15 +93,8 @@ function initTableCell() {
     bindClass();
 }
 
-//点击隐藏区域显示提示
-$("body").on("click", ".MHover", function () {
-    var msg = $(this).html();
-    layer.tips(msg, $(this), {
-        tips: [1, '#3595CC'],
-        time: 4000
-    });
-    $(this).prev().hide();
-})
+
+
 
 /*表格长文字的过滤*/
 function filterTd(v) {
@@ -155,6 +148,17 @@ function bindClass() {
         $(this).next(".MALL").hide();
     });
 }
+
+
+//点击隐藏区域，显示所有文字
+$("body").on("click", ".MHover", function () {
+    var msg = $(this).html();
+    layer.tips(msg, $(this), {
+        tips: [1, '#3595CC'],
+        time: 4000
+    });
+    $(this).prev().hide();
+})
 
 //判断字符是否为空的方法
 function isEmpty(obj) {

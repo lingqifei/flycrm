@@ -165,7 +165,8 @@ class Store extends AdminBase
         return $result;
     }
 
-    /**获取远程版本详细信息
+    /**
+     * 获取远程版本详细信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
@@ -177,7 +178,8 @@ class Store extends AdminBase
         return $result;
     }
 
-    /**验证授权信息
+    /**
+     * 验证授权信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
@@ -190,7 +192,8 @@ class Store extends AdminBase
         return $result;
     }
 
-    /**验证平台信息
+    /**
+     * 验证平台信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001

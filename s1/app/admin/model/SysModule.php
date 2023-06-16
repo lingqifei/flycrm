@@ -165,8 +165,8 @@ class SysModule extends AdminBase
 *
 * {$name_lo}.{$action_lo}  模型
 *
-* =========================================================
-* 零起飞网络 - 专注于网站建设服务和行业系统开发
+* ----------------------------------------------
+* 零起飞网络 - 专注于企业管理系统开发
 * 以质量求生存，以服务谋发展，以信誉创品牌 !
 * ----------------------------------------------
 * @copyright Copyright (C) 2017-2022 07FLY Network Technology Co,LTD.
@@ -213,11 +213,11 @@ INFO;
         $config = <<<INFO
 <?php
 // +----------------------------------------------------------------------
-// | 07FLY系统 [基于ThinkPHP5.0开发]
+// | 07FLYCRM系统 [基于ThinkPHP5.0开发]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2016-2021 http://www.07fly.xyz
 // +----------------------------------------------------------------------
-// | 07FLY承诺基础框架永久开源，您可用于学习和商用，但必须保留软件版权信息。
+// |  以质量求生存，以服务谋发展，以信誉创品牌 !
 // +----------------------------------------------------------------------
 // | Author: 开发人生 <574249366@qq.com>
 // +----------------------------------------------------------------------
@@ -309,14 +309,13 @@ INFO;
      */
     public function importModuleSqlExec($param = [])
     {
-
         header('Content-Type:application/json; charset=utf-8');
 
         if (!isset($param['part']) && !isset($param['start'])) {
 
-            $module_table_file = $param['module_dir'] . DS . $param['sqlfile'];
+            $module_table_file = $param['module_dir']  .DS. $param['sqlfile'];
             if (!file_exists($module_table_file)) {
-                return [RESULT_SUCCESS, $module_table_file . '文件不存在,跳过数据导入步骤！'];
+                throw_response_error($module_table_file . '文件不存在,跳过数据导入步骤！');
                 exit;
             }
             //参数1为序号，2，文件，3 ，是否压缩

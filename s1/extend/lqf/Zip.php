@@ -59,7 +59,7 @@ class Zip
      */
     public function zip($zipfile, $folder, $ignored = null)
     {
-        $this->ignored_names = is_array($ignored) ? $ignored : $ignored ? array($ignored) : array();
+        $this->ignored_names = (is_array($ignored) ? $ignored : $ignored) ? array($ignored) : array();
         if ($this->zip->open($zipfile, ZIPARCHIVE::CREATE) !== true) {
             throw new Exception("cannot open <$zipfile>\n");
         }

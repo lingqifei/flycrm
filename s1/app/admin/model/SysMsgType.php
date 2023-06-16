@@ -278,6 +278,45 @@ class SysMsgType extends AdminBase
 
 
     /**
+     * 扫描=》提醒审批处理
+     * @param $data
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/4/1 10:40
+     */
+    public function scanWorkflowBusinessHistory($data = [])
+    {
+        $tablename = 'workflow_business_history';
+        $starttime = strtotime('- ' . $data['hours'] . 'hours', time());
+        $endtime = strtotime('+ ' . $data['hours'] . 'hours', time());
+        $where['create_time'] = ['between', [$starttime, $endtime]];
+        $where['deal_status'] = ['=', 0];//表示待处理的审批单
+        if (tableExists($tablename)) {
+            $buslist = Db::name($tablename)->field('id,create_time,deal_user_id')
+                ->where($where)
+                ->select();
+            foreach ($buslist as $one) {
+                $intoData = [
+                    'bus_type' => $data['type'],
+                    'bus_type_name' => $data['name'],
+                    'remind_sms' => $data['remind_sms'],
+                    'remind_sys' => $data['remind_sys'],
+                    'remind_email' => $data['remind_email'],
+                    'remind_weixin' => $data['remind_weixin'],
+                    'remind_nums' => $data['remind_nums'],//提醒的总次数
+                    'remind_interval' => $data['remind_interval'],//提醒间隔时间
+                    'remind_time' => format_time(),//开始提醒时间
+                    'bus_id' => $one['id'],
+                    'bus_name' => '有新的审批单待处理,开始时间：' . format_time(),
+                    'deal_user_id' => $one['deal_user_id'],
+                    'deal_time' => format_time(),//业务实际的时间
+                ];
+                $this->sysMsgTypeScanAdd($intoData);
+            }
+        }
+    }
+
+    /**
      * 消息的写入系统表
      * @param array $data
      * Author: 开发人生 goodkfrs@qq.com

@@ -4,7 +4,7 @@
  * ==============================================
  * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
  * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------------------------------------
+ * ----------------------------------------------
  * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
  * ==============================================
  * Agencyor: kfrs <goodkfrs@QQ.com> 574249366
@@ -266,15 +266,17 @@ class Upgrade extends AdminBase
             if ($res[0] == RESULT_ERROR) return $res;
         }
 
-        //2、执行升级的数据，在应用目录data/upgrade.sql文件
-        $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $admin_dir, 'sqlfile' => 'upgrade.sql'));
-
-        //3、判断是否有栏目数据表同步文件 menu.json
+        //2、判断是否有栏目数据表同步文件 menu.json
         $menu_file = $admin_dir . 'menu.json';
         if (file_exists($menu_file)) {
             $res = $this->modelSysModule->sysModuleSyncMenuFile($menu_file);
             if ($res[0] == RESULT_ERROR) return $res;
         }
+
+        //3、执行升级的数据，在应用目录data/upgrade.sql文件
+        $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $admin_dir, 'sqlfile' => 'upgrade.sql'));
+
+
         //执行升级SQL文件
         return [RESULT_SUCCESS, '数据库升级成功了哟'];
     }

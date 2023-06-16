@@ -133,6 +133,10 @@ class SysMsg extends AdminBase
                 case "oa_work_report":
                     $url = url('oa/OaWorkReport/detail', array('id' => $bus_id));
                     break;
+                //办公审批
+                case "workflow_business_history":
+                    $url = url('oa/WorkflowBusinessHistory/detail', array('id' => $bus_id));
+                    break;
                 default:
                     break;
             }

@@ -114,7 +114,6 @@ class SysModule extends AdminBase
         $data['status'] = 1;//安装
         $result = $this->modelSysModule->setInfo($data);
 
-
         $url = url('show');
         $result && action_log('新增', '新增模块：name' . $data['name']);
         return $result ? [RESULT_SUCCESS, '模块添加成功', $url] : [RESULT_ERROR, $this->modelSysModule->getError()];
@@ -381,17 +380,14 @@ class SysModule extends AdminBase
         //3、同步栏目
         $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
         if (!file_exists($app_menu_file)) {
-            $app_menu_file = $module_dir . 'data' . DS . 'menu.php';
+            $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
         }
 
         //4、判断是否有升级SQL脚本，执行升级脚本
-        $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade';
+        $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade.sql';
         if (file_exists($app_sql_upgrade)) {
-            $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data', 'sqlfile' => 'upgrade.sql'));
-            if ($res[0] == RESULT_ERROR) return $res;
+            $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'upgrade.sql'));
         }
-
-        $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
         return [RESULT_SUCCESS, '文件同步完成', ''];
     }
 
@@ -417,7 +413,7 @@ class SysModule extends AdminBase
             //2、存在=》更新
             if (!empty($moduel_info['identifier'])) {
                 $map['name'] = $app_name;
-                $map['identifier'] = $moduel_info['identifier'];
+                //$map['identifier'] = $moduel_info['identifier'];//模块打包的唯一标签
                 $info = $this->modelSysModule->getInfo($map);
                 if (empty($info)) {
                     $validate_result = $this->validateSysModule->scene('add')->check($moduel_info);
@@ -425,13 +421,11 @@ class SysModule extends AdminBase
                         return [RESULT_ERROR, $this->validateSysModule->getError()];
                     }
                     $sys_mid = $this->modelSysModule->setInfo($moduel_info);
-
                     dlog('install模块数据：' . $sys_mid);
                 } else {
                     $sys_mid = $info['id'];
                     $this->modelSysModule->updateInfo(['id' => $sys_mid], $moduel_info);
                     $app_is_install = false;//表示更新
-
                     dlog('upgrade模块数据：' . $sys_mid);
                 }
             }
@@ -449,8 +443,7 @@ class SysModule extends AdminBase
             //3、判断是否有栏目数据表同步文件 menu.json
             $app_menu_file = $app_path . '/data/menu.json';
             if (file_exists($app_menu_file)) {
-                $res = $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
-                if ($res[0] == RESULT_ERROR) return $res;
+                $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
                 dlog('3、同步文件 menu.json');
             }
 
@@ -458,17 +451,14 @@ class SysModule extends AdminBase
             // SQL文件存在 && 是执行安装操作
             $app_sql_install_file = $app_path . '/data/install.sql';
             if (file_exists($app_sql_install_file) && $app_is_install == true) {
-                $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'install.sql'));
-                if ($res[0] == RESULT_ERROR) return $res;
+                $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'install.sql'));
                 dlog('4、同步文件 install.sql');
             }
 
             //4.1、是否升级表字段
             $app_table_file = $app_path . '/data/table.php';
             if (file_exists($app_table_file)) {
-                $res = $this->modelSysModule->sysModuleSyncTableFile($app_table_file);
-                if ($res[0] == RESULT_ERROR) return $res;
-
+                $this->modelSysModule->sysModuleSyncTableFile($app_table_file);
                 dlog('4.1、同步文件 table.php');
             }
 
@@ -476,8 +466,6 @@ class SysModule extends AdminBase
             $app_sql_upgrade = $app_path . '/data/upgrade.sql';
             if (file_exists($app_sql_upgrade)) {
                 $res = $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data', 'sqlfile' => 'upgrade.sql'));
-                if ($res[0] == RESULT_ERROR) return $res;
-
                 dlog('4.3、同步文件 upgrade.sql');
             }
 
