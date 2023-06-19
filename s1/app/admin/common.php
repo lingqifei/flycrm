@@ -42,9 +42,11 @@ if (!function_exists("list2tree")) {
         foreach ($list as $k => $v) {
             if ($v[$pidk] == $pId) { //父亲找到儿子
                 $v['nodes'] = list2tree($list, $v[$pk], $level + 1, $pk, $pidk, $name);
+                $v['children'] = list2tree($list, $v[$pk], $level + 1, $pk, $pidk, $name);
                 $v['level'] = $level + 1;
                 $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
                 $v['tags'] = $v['id'];
+                $v['value'] = $v['id'];
                 $v['text'] = $v[$name];
                 $tree[] = $v;
             }

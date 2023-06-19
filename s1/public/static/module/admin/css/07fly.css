@@ -1,6 +1,9 @@
 /*自己定义的CSS*/
 * html .clearfix {height: 1%;}
 .clearfix {zoom: 1;}
+/* 左侧菜单 */
+.J_menuItem.active{background-color: #3F91FD;}
+
 /* select */
 .fly-form-select select {border: none;padding: 3px 22px 6px 6px;background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAXCAYAAACMLIalAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAFHSURBVEiJ7dY/SgNREMfx7wQrlSBLCo+RNMFY5Qapts4FFK0ClrmGNoEEcoGcQT2A5AQKVmqRRlTGwp8SdNk/8a27hQMPdmffzPvs48GuuTt1i0bVgKT4R+WNhpmNzSz+bSMzi81sHAJlwD3wBBy6+8OGoAi4BPbcfT8ErAc8AgvA3J0iQy+2UI9e0frEnmo8ABwYbYAaqXYQAvSFUvML4A3oFwD1VXMeCvQdtQNcAbdAlAMUAXeq2S4FpYXaOhvzHKi55rZDgn6gtNhQZ+QkBXSqOcPQoESUFp0AL0A34VkXeAUmZYDSUE1gCdwArbV8S7kl0PxTlAAd7dZ0LTdVrlMWKBUlxJHOTqzhwHGZoEyUYDPgWWNWNsjdPz4raWFmu8C1bg/cfZVaECC2sia4+8rMzj6vywYB2TtVRdTzJ69qQFLUEvUOCvU4pv7sx1oAAAAASUVORK5CYII=") no-repeat right center #fff;background-size: auto 40%;
     -webkit-appearance: none;-moz-appearance: none;appearance: none; border-radius: 1px;width: 100%;border: solid 1px #cfdadd;
@@ -54,15 +57,14 @@
 .form-control.daterange-btn{min-width: 180px;}/*双日历*/
 
 /*重写ibox增加阴影*/
-.ibox{box-shadow: 0 0 4px rgba(0,0,0,0.1); border-radius: 5px;/*max-width: 1600px;*/margin: auto;margin-bottom: 10px;}
+.ibox{box-shadow: 0 0 4px rgba(0,0,0,0.1); border-radius: 0px;/*max-width: 1600px;*/margin: auto;margin-bottom: 10px;}
 .ibox-head{background: #efefef;line-height: 30px;padding: 10px 0px;}
 .ibox-tools select{width: 150px;color:#0C1021;border: solid 1px #c4c4c4;padding: 2px;margin-top:-5px;border-radius: 3px;}
 .ibox-tools select option{line-height: 25px;height: 25px;}
 .ibox-tab{float: left;padding-left:10px;}
-.ibox-tab a{margin-right: 25px;cursor: pointer;}
-.ibox-tab a{color: #666;}
-.ibox-tab a:hover{color: #0e9aef}
-.ibox-tab a.on{color: #0e9aef}
+.ibox-tab a{margin-right: 25px;cursor: pointer;color: #666;font-weight: 500;}
+.ibox-tab a:hover{color: #3F91FD}
+.ibox-tab a.on{color: #3F91FD}
 
 /*下拉操作菜单*/
 .dropdown-menu lqf_link > li  a {display: block;clear: both;font-weight: 400;color: #333;white-space: nowrap;border-radius: 3px;line-height: 25px;margin: 4px;text-align: left;padding: 3px 20px;}

@@ -107,14 +107,14 @@
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
                                 <a data-url="{:url('SysUser/editInfo',array('id'=>$sys_user_info['id']))}"
-                                   class="ajax-open" title="个人资料" data-calback="">
+                                   class="ajax-open" title="个人资料" data-calback="" width="800" height="500">
                                     <div><i class="fa fa-envelope fa-fw"></i>个人资料</div>
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"
-                                   title="个人资料">
+                                   title="个人资料" width="600" height="400">
                                     <div><i class="fa fa-qq fa-fw"></i> 密码修改</div>
                                 </a>
                             </li>
@@ -151,14 +151,12 @@
         });
 
         $(document).ready(function () {
-
             //默认设置当前加载地址
             var iframeUrl = localStorage.getItem('iframeUrl');
             if (typeof (iframeUrl) != "undefined" && iframeUrl != null) {
             } else {
                 iframeUrl = "{:url('Index/main')}";
             }
-
             //阻止F5刷新
             document.onkeypress = function (e) {
                 if (e.keyCode == 116) {
@@ -179,20 +177,18 @@
             //保存点击=>记录当前链接地址
             $(".J_menuItem").on('click', function () {
                 var itemUrl = $(this).attr('href');
-                console.log(iframeUrl);
                 localStorage.setItem('iframeUrl', itemUrl);
+                $(".J_menuItem").removeClass('active')
+                $(this).addClass('active');
             });
 
             //点击任何事件开启语音提醒
             document.body.addEventListener('mousedown', function () {
                 var audio = document.getElementById("audioPlay");
                 audio.muted = false;
-
                 //audio.play();
                 log('取消静音效果')
-
             }, false);
-
         });
 
         //声音播放插件

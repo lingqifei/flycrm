@@ -48,5 +48,16 @@ class ApiBase extends ControllerBase
 
 		return $result;
 	}
+
+    /**
+     * 获取逻辑层实例
+     */
+    public function __get($name)
+    {
+
+        !str_prefix($name, LAYER_LOGIC_NAME) && exception('逻辑层引用需前缀:' . LAYER_LOGIC_NAME);
+
+        return model(sr($name, LAYER_LOGIC_NAME), LAYER_LOGIC_NAME);
+    }
 	
 }

@@ -208,14 +208,15 @@ class Upgrade extends AdminBase
                 exit;
             }
         }
-        $pack_zip = $this->upgrade_path_back . $date . '.zip';
+        $pack_name=$date . '.zip';
+        $pack_zip = $this->upgrade_path_back . $pack_name;
         $result = $this->zip->zip($pack_zip, $pack_dir);
         if ($result == false) {
             return [RESULT_ERROR, '打包模块失败'];
             exit;
         } else {
             $this->file->remove_dir($pack_dir);
-            return [RESULT_SUCCESS, $pack_zip];
+            return [RESULT_SUCCESS, $pack_name];
         }
     }
 

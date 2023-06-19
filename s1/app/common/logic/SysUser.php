@@ -139,25 +139,28 @@ class SysUser extends LogicBase
 				$posi_son = $this->logicSysPosition->getPositionAllSon($user['position_id']);
 			}
 
+            //默认为，同部门内下属职位用户id
 			$where['dept_id'] = ['=', $user['dept_id']];//自己部门
 			$where['position_id'] = ['in', $posi_son];//自己及下属
 			$ids = $this->modelSysUser->getColumn($where, 'id');
 
-			//叠加权限
+			//叠加权限,获得当前职位的数据查看权限
 			$data_role = $this->modelSysPosition->getValue(['id' => $user['position_id']], 'data_role');
 
 			$role_ids = [];
-			if ($data_role == 2) {//所在部门同部门其它同事
+
+            //所在部门,同部门其它同事id
+			if ($data_role == 2) {
 
 				$role_ids = $this->modelSysUser->getColumn(['dept_id' => $user['dept_id']], 'id');
 
-			} elseif ($data_role == 3) {//所在部门及所在部门的下级部门
+			} elseif ($data_role == 3) {//所在部门及所在部门的下级部门同事id
 
 				$dept_son = $this->logicSysDept->getDeptAllSon($user['dept_id']);
 				$dept_son[] = $user['dept_id'];
 				$role_ids = $this->modelSysUser->getColumn(['dept_id' => ['in', $dept_son]], 'id');
 
-			} elseif ($data_role == 4) {//全部数据
+			} elseif ($data_role == 4) {//全部数据,所有同事的id
 
 				$role_ids = $this->modelSysUser->getColumn([], 'id');
 

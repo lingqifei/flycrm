@@ -40,15 +40,30 @@ class AdminApiBase extends ApiBase
         Hook::listen('hook_controller_api_access_base', $this->request);
 
         //$this->param['access_token']=get_access_token();
+
+        //检查user_token
         $this->logicApiBase->checkUserTokenParam($this->param);
+
+        //根据用户token初始化常量
+        if (!empty($usertoken['data'])) {
+
+            $userinfo = obj2arr($usertoken['data']);
+
+            // 会员ID
+            defined('SYS_USER_ID') or define('SYS_USER_ID', $userinfo['id']);
+
+            //组织ID
+            defined('SYS_ORG_ID') or define('SYS_ORG_ID', $userinfo['org_id']);
+
+            //组织用户ID
+            defined('SYS_ORG_USER_ID') or define('SYS_ORG_USER_ID', is_org_id());
+
+            // 是否为超级管理员
+            defined('IS_ROOT') or define('IS_ROOT', is_administrator($userinfo['id']));
+        }
 
 		// 是否为超级管理员
 		defined('IS_ROOT') or define('IS_ROOT', is_administrator());
 
     }
-
-
-
-
-
 }

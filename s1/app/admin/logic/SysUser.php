@@ -297,4 +297,63 @@ class SysUser extends AdminBase
         return $where;
     }
 
+
+    /**
+     * 获取指定用户下属员工列表信息
+     * @param $stype
+     * @return array （[0]=array(''1)）
+     * Author: lingqifei created by at 2020/3/29 0029
+     */
+    public function getSysUserSons1($id = 1, $type = 'selfson'){
+        $ids = [];
+        $user = $this->modelSysUser->getInfo(['id' => $id], 'dept_id,position_id');
+
+        if (!empty($user)) {
+
+            //下属职位
+            $posi_son=[];
+            if (!empty($user['position_id'])) {
+                $posi_son = $this->logicSysPosition->getPositionAllSon($user['position_id']);
+            }
+
+            //默认为，同部门内下属职位用户id
+            $where['dept_id'] = ['=', $user['dept_id']];//自己部门
+            $where['position_id'] = ['in', $posi_son];//自己及下属
+            $ids = $this->modelSysUser->getColumn($where, 'id');
+
+            //叠加权限,获得当前职位的数据查看权限
+            $data_role = $this->modelSysPosition->getValue(['id' => $user['position_id']], 'data_role');
+
+            $role_ids = [];
+
+            //所在部门,同部门其它同事id
+            if ($data_role == 2) {
+
+                $role_ids = $this->modelSysUser->getColumn(['dept_id' => $user['dept_id']], 'id');
+
+            } elseif ($data_role == 3) {//所在部门及所在部门的下级部门同事id
+
+                $dept_son = $this->logicSysDept->getDeptAllSon($user['dept_id']);
+                $dept_son[] = $user['dept_id'];
+                $role_ids = $this->modelSysUser->getColumn(['dept_id' => ['in', $dept_son]], 'id');
+
+            } elseif ($data_role == 4) {//全部数据,所有同事的id
+
+                $role_ids = $this->modelSysUser->getColumn([], 'id');
+
+            }
+            $ids = array_merge($ids, $role_ids);
+        }
+
+        if ($type == 'selfson') $ids[] = $id;
+        if ($type == 'son')  $ids = delArrValue($ids,$id);//删除本身id
+        $ids = array_unique($ids);//去除重复的
+
+        $condition= [];
+        $ids && $condition['id'] = ['in', $ids];
+        $list = $this->modelSysUser->getList($condition, true, true, false)->toArray();
+        return $list;
+
+    }
+
 }
