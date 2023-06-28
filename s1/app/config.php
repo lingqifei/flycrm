@@ -173,8 +173,8 @@ return [
 
     'log'                    => [
         // 日志记录方式，内置 file socket 支持扩展
-        'type'  => 'File',
-//        'type'  => 'test',
+//        'type'  => 'File',
+        'type'  => 'test',
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
@@ -218,6 +218,11 @@ return [
         'type'           => '',
         // 是否自动开启 SESSION
         'auto_start'     => true,
+
+        //过期时间 单位秒
+        'path'=>TEMP_PATH,//表示session保存在自己网站根目录中的runtime目录中
+        'expire'=>3600*24*30,//过期时间
+
     ],
 
     // +----------------------------------------------------------------------
