@@ -107,15 +107,7 @@
 
 
 </div>
-
-<script>
-    $(document).ready(function () {
-        //自动输出=>客户关联 列表数
-        $('.ajax-list-table').each(function () {
-            var that = $(this);
-            ajaxListData(that);
-        });
-    });
+<script type="text/javascript">
 
     //加载数据
     function ajaxListData(that) {
@@ -165,8 +157,15 @@
                 html += '</tr>';
             }
         });
-
         return html;
     }
 
+
+    $(document).ready(function () {
+        //自动输出=>客户关联 列表数
+        $('.ajax-list-table').each(function () {
+            var that = $(this);
+            ajaxListData(that);
+        });
+    });
 </script>
