@@ -188,19 +188,19 @@ class SysMsg extends AdminBase
         $where['remind_time'] = ['<=',format_time()];//提醒时间要小于等于当前时间
         $where['remind_nums'] = ['>',0];//提醒次数要大于0
         $list = $this->modelSysMsg->getList($where, '', 'remind_nums desc', false);
-
         $updatalist=[];
-
         foreach ($list as $key => &$row) {
+            //业务的链接地址
             $row['bus_url'] = $this->modelSysMsg->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
             $row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
 
             //微信通知
             if(!empty($row['remind_weixin'])){
+                d('微信通知:');
                 $this->modelSysMsgSend->weixin_teplate_send($row);
             }
 
-            //下次提醒时间
+            //设置下次提醒时间
             $next_time= date_calc(format_time(), '+ ' . $row['remind_interval'] . '', 'hours', 'Y-m-d H:i:s');
             $updatalist[]=[
                 'id'=>$row['id'],

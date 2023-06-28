@@ -93,9 +93,6 @@ function initTableCell() {
     bindClass();
 }
 
-
-
-
 /*表格长文字的过滤*/
 function filterTd(v) {
     var rstr = '无';
@@ -148,7 +145,6 @@ function bindClass() {
         $(this).next(".MALL").hide();
     });
 }
-
 
 //点击隐藏区域，显示所有文字
 $("body").on("click", ".MHover", function () {

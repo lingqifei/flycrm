@@ -16,11 +16,36 @@ use think\db;
  */
 class Region extends AdminBase
 {
+
+    public $upid='100000';
+
+    public function __construct()
+    {
+
+        // 执行父类构造方法
+        parent::__construct();
+
+        if (!empty($this->param['upid'])) {
+            $this->upid=$this->param['upid'];
+            $this->assign('upid', $this->param['upid']);
+        }else{
+            $this->assign('upid', $this->upid);
+        }
+
+
+
+    }
     /**
      * 行政区域列表
      */
     public function show()
     {
+
+
+        $regionpath=$this->logicRegion->getRegionPidPath($this->upid);
+
+        $this->assign('regionpath', $regionpath);
+
         return  $this->fetch('show');
     }
 
@@ -61,15 +86,9 @@ class Region extends AdminBase
 
         IS_POST && $this->jump($this->logicRegion->regionAdd($this->param));
 
-        //获取行政区域Select结构数据
-        $dept_select=$this->logicRegion->getRegionTreeSelect();
-        $this->assign('dept_select', $dept_select);
 
-        if (!empty($this->param['id'])) {
-            $this->assign('upid', $this->param['id']);
-        }else{
-            $this->assign('upid', '0');
-        }
+        $this->assign('upid', $this->upid);
+
 
         return $this->fetch('add');
     }
@@ -84,10 +103,6 @@ class Region extends AdminBase
 
         $info = $this->logicRegion->getRegionInfo(['id' => $this->param['id']]);
 
-        //获取行政区域Select结构数据
-        $dept_select=$this->logicRegion->getRegionTreeSelect();
-
-        $this->assign('dept_select', $dept_select);
         $this->assign('info', $info);
 
         return $this->fetch('edit');

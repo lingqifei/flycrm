@@ -95,7 +95,7 @@ class SysUser extends AdminBase
         if (!$validate_result) {
             return [RESULT_ERROR, $this->validateSysUser->getError()];
         }
-
+        $data['intro']=strip_tags($data['intro']);
         $url = url('show');
         $result = $this->modelSysUser->setInfo($data);
         $result && action_log('编辑', '编辑用户，name：' . $data['username']);

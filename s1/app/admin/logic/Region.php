@@ -41,7 +41,6 @@ class Region extends AdminBase
 
     //得到tree的数据
     public function getRegionTreeSelect($where = [], $field = "id,name,upid", $order = 'sort asc', $paginate = false){
-
         $list=$this->getRegionList($where,$field,$order,$paginate)->toArray();
         $data=list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'upid');
         return $data;
@@ -103,7 +102,14 @@ class Region extends AdminBase
             return [RESULT_ERROR, $this->validateRegion->getError()];
         }
 
+        d($data);
+
+
         $result = $this->modelRegion->setInfo($data);
+d($result);
+
+        exit;
+
 
         $result && action_log('新增', '新增行政区域管理，name：' . $data['name']);
         
@@ -141,6 +147,7 @@ class Region extends AdminBase
     {
 
         $result = $this->modelRegion->setInfo($data);
+
         $result=$this->logicRegionUser->regionUserAdd($data['id'],$data['manager_user_id']);
 
         $result && action_log('编辑', '编辑行政区域管理员，name：' .$data['manager_user_id']);
@@ -161,35 +168,37 @@ class Region extends AdminBase
         return $result ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelRegion->getError()];
     }
 
-    /**获得所有指定id所有父级
+    /**
+     * 获得所有指定id所有父级
      * @param int $deptid
      * @param array $data
      * @return array
      */
-    public function getDeptAllPid($deptid=0, $data=[])
+    public function getRegionAllPid($deptid=0, $data=[])
     {
         $where['id']=['=',$deptid];
-        $info = $this->modelRegion->getInfo($where,true);
+        $info = $this->modelRegion->getInfo($where,'id,upid')->toArray();
         if(!empty($info) && $info['upid']){
             $data[]=$info['upid'];
-            return $this->getDeptAllPid($info['upid'],$data);
+            return $this->getRegionAllPid($info['upid'],$data);
         }
         return $data;
     }
 
-    /**获得所有指定id所有子级
+    /**
+     * 获得所有指定id所有子级
      * @param int $deptid
      * @param array $data
      * @return array
      */
-    public function getDeptAllSon($deptid=0, $data=[])
+    public function getRegionAllSon($deptid=0, $data=[])
     {
         $where['upid']=['=',$deptid];
         $sons = $this->modelRegion->getList($where,true,'sort asc',false);
         if (count($sons) > 0) {
             foreach ($sons as $v) {
                 $data[] = $v['id'];
-                $data = $this->getDeptAllSon($v['id'], $data); //注意写$data 返回给上级
+                $data = $this->getRegionAllSon($v['id'], $data); //注意写$data 返回给上级
             }
         }
         if (count($data) > 0) {
@@ -198,6 +207,27 @@ class Region extends AdminBase
             return false;
         }
         return $data;
+    }
+
+
+    /**
+     * 地区列表=》快捷导航
+     * @param $deptid
+     * @return string
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/6/17 10:59
+     */
+    public function getRegionPidPath($deptid=0)
+    {
+        $pids=$this->getRegionAllPid($deptid);
+        $pids=array_reverse($pids);
+        $pids[]=$deptid;
+        $path='';
+        foreach ($pids as $id){
+            $url=url("Region/show",array('upid'=>$id));
+            $path .='<a href="'.$url.'">'.$this->modelRegion->getValue(['id'=>$id],'name').'</a> >> ';
+        }
+        return $path;
     }
 
 }

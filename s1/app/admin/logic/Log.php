@@ -16,7 +16,28 @@ namespace app\admin\logic;
  */
 class Log extends AdminBase
 {
-    
+
+    /**
+     * 条件生成
+     * @param $data
+     * @return array
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/6/21 15:38
+     */
+    public function getWhere($data=[])
+    {
+        $where = [];
+        if(!empty($data['keywords'])){
+            $where['name|username|ip|url|describe']=['like','%'.$data['keywords'].'%'];
+        }
+        //创建时间
+        if (!empty($data['create_time'])) {
+            $range_date = rangedate2arr($data['create_time'], "-", 'int');
+            $where['create_time'] = ['between', $range_date];
+        }
+        return $where;
+    }
+
     /**
      * 获取日志列表
      */

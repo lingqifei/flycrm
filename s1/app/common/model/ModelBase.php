@@ -87,7 +87,9 @@ class ModelBase extends Model
 
         $this->updateCache($this);
 
-        return $this->allowField(true)->save($data, $where);
+        return Db::name($this->name)->where($where)->update($data);
+
+       // return $this->allowField(true)->isUpdate(false)->save($data, $where);
 
     }
 

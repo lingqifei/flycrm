@@ -38,7 +38,7 @@
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                             <th width="100">部门名称</th>
-                            <th width="200">部门描述</th>
+<!--                            <th width="200">部门描述</th>-->
                             <th width="60">排序</th>
                             <th width="60">启用</th>
                             <th width="80">操作</th>
@@ -48,7 +48,7 @@
                         </tbody>
                         <tfoot class="ibox-content">
                         <tr>
-                            <td colspan="6" align="center"></td>
+                            <td colspan="5" align="center"></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -69,16 +69,14 @@
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['name']%></td>
-        <td><%=data[i]['desc']%></td>
+<!--        <td><%=data[i]['desc']%></td>-->
         <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysDept/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
         <td>
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysDept/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
         <td>
-            <p>
                 <lqf_link><a class="ajax-open" data-url="{:url('SysDept/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
                 <lqf_link><a class="ajax-del confirm" data-url="{:url('SysDept/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
-            </p>
         </td>
     </tr>
     <% } %>

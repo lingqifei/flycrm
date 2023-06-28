@@ -111,7 +111,7 @@ class SysDept extends AdminBase
 
         $url = url('show', ['pid' => $data['pid'] ? $data['pid'] : 0]);
 
-        return $result ? [RESULT_SUCCESS, '部门添加成功', $result] : [RESULT_ERROR, $this->modelSysDept->getError()];
+        return $result ? [RESULT_SUCCESS, '添加成功', $result] : [RESULT_ERROR, $this->modelSysDept->getError()];
     }
 
     /**
@@ -133,7 +133,7 @@ class SysDept extends AdminBase
 
         $result && action_log('编辑', '编辑部门，name：' . $data['name']);
 
-        return $result ? [RESULT_SUCCESS, '部门编辑成功', $url] : [RESULT_ERROR, $this->modelSysDept->getError()];
+        return $result ? [RESULT_SUCCESS, '编辑成功', $url] : [RESULT_ERROR, $this->modelSysDept->getError()];
     }
 
     /**
@@ -146,7 +146,7 @@ class SysDept extends AdminBase
 
         $result && action_log('删除', '删除部门，where：' . http_build_query($where));
 
-        return $result ? [RESULT_SUCCESS, '部门删除成功'] : [RESULT_ERROR, $this->modelSysDept->getError()];
+        return $result ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelSysDept->getError()];
     }
 
     /**获得所有指定id所有父级

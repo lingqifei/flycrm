@@ -654,13 +654,14 @@ $("body").on("click", ".ajax-get-more", function () {
                     if (fun != null) {
                         eval(fun);
                     } else {
-                        turnPage(pageNum);
+                        setTimeout(function () {
+                            turnPage(pageNum);
+                        }, 1500);
                     }
                 } else {
                     parent.layer.msg(data.msg, {icon: 5});
                 }
             }, "json");
-
         }
     } else {
         parent.layer.msg('请选择批量操作数据', {icon: 5});

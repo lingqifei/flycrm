@@ -65,7 +65,6 @@ $(document).ready(function () {
 	//设置当前时间
 	$(".datetimepicker-now").datetimepicker("setDate", new Date())
 
-
 	//只选择月份
 	$('.datepicker-month').datepicker({
 		format: 'yyyy-mm',
@@ -106,7 +105,6 @@ $(document).ready(function () {
 		var sid=$(this).attr('data-sid');
 		$(this).parents('form').find("input[name='"+sid+"']").val(sdate);
 	});
-
 
 	//根据工作报告类型得到时间
 	$('.work_type_time').each(function(){

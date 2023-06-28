@@ -33,10 +33,7 @@ class Log extends AdminBase
      */
     public function show_json()
     {
-        $where = [];
-        if(!empty($this->param['keywords'])){
-            $where['name|username|ip|url|describe']=['like','%'.$this->param['keywords'].'%'];
-        }
+        $where = $this->logicLog->getWhere($this->param);
        return $this->logicLog->getLogList($where);
 
     }

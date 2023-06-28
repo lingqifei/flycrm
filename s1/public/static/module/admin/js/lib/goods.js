@@ -55,7 +55,7 @@ $(document).ready(function () {
 		});
 	});
 
-//规格创建功能
+	//规格创建功能
 
 	//点击小类，选择中大类
 	$(".spec_and_value").click(function(){
@@ -121,5 +121,4 @@ $(document).ready(function () {
 			}
 		});
 	});
-
 });

@@ -47,9 +47,14 @@
         var img_ids = $("#" + addons_name).val();
         
         var add_id = data.id;
-        
-        if(img_ids){ var lastChar = img_ids.charAt(img_ids.length - 1);  if(lastChar != ','){  add_id = img_ids + ',' + add_id; } }
-        
+
+        if(img_ids){
+            img_ids = img_ids.replace('0,', '');
+            var lastChar = img_ids.charAt(img_ids.length - 1);
+            if(lastChar != ','){
+                add_id = img_ids + ',' + add_id;
+            }
+        }
         $("#" + addons_name).val(add_id);
         
         //var src = '/upload/picture/' + data.path;
@@ -63,8 +68,7 @@
         
         var addons_name = "{$addons_data.name}";
         var img_ids = $("#" + addons_name).val();
-        
-        
+
         if(img_ids.indexOf(",") > 0)
         {
             

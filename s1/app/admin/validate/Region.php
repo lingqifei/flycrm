@@ -36,8 +36,8 @@ class Region extends AdminBase
     // 应用场景
     protected $scene = [
         
-        'add'  =>  ['name', 'sort'],
-        'edit' =>  ['name', 'sort'],
+        'add'  =>  ['name'],
+        'edit' =>  ['name'],
     ];
     
 }

@@ -109,7 +109,7 @@ class SysPosition extends AdminBase
         
         $url = url('show', ['pid' => $data['pid'] ? $data['pid'] : 0]);
         
-        return $result ? [RESULT_SUCCESS, '职位添加成功', $result] : [RESULT_ERROR, $this->modelSysPosition->getError()];
+        return $result ? [RESULT_SUCCESS, '添加成功', $result] : [RESULT_ERROR, $this->modelSysPosition->getError()];
     }
     
     /**
@@ -131,7 +131,7 @@ class SysPosition extends AdminBase
 
         $result && action_log('编辑', '编辑职位，name：' . $data['name']);
         
-        return $result ? [RESULT_SUCCESS, '职位编辑成功', $url] : [RESULT_ERROR, $this->modelSysPosition->getError()];
+        return $result ? [RESULT_SUCCESS, '编辑成功', $url] : [RESULT_ERROR, $this->modelSysPosition->getError()];
     }
     
     /**
@@ -144,7 +144,7 @@ class SysPosition extends AdminBase
         
         $result && action_log('删除', '删除职位，where：' . http_build_query($where));
         
-        return $result ? [RESULT_SUCCESS, '职位删除成功'] : [RESULT_ERROR, $this->modelSysPosition->getError()];
+        return $result ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelSysPosition->getError()];
     }
 
     /**获得所有指定id所有父级

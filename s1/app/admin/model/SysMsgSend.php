@@ -40,7 +40,7 @@ class SysMsgSend extends AdminBase
                     'color' => '',
                 ],
                 'keyword1' => [
-                    'value' => $data['bus_type_name'],
+                    'value' => $data['bus_name'],
                     'color' => '#ff0000',
                 ],
                 'keyword2' => [
@@ -51,18 +51,21 @@ class SysMsgSend extends AdminBase
                     'value' => $data['deal_time'],
                     'color' => '',
                 ],
+                'keyword4' => [
+                    'value' => $data['deal_time'],
+                    'color' => '',
+                ],
                 'remark' => [
                     'value' => $data['bus_name'],
                     'color' => '',
                 ],
             ],
         ];
-        $post_url = 'http://www.07fly.net' . url('api/Member/member_template_send');
+        $post_url = 'http://www.07fly.xyz' . url('api/Member/member_template_send');
         $post_data['access_token'] = get_access_token();
         $post_data['template_data'] = $message;
-
-        curl_post($post_url, $post_data, 'post');
-
+        $res=curl_post($post_url, $post_data, 'post');
+        d($res=curl_post($post_url, $post_data, 'post'));
     }
 
 

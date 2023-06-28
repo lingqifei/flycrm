@@ -20,7 +20,7 @@ class CronJob extends ControllerBase
 {
 
     /**
-     * 后台页面插件提醒=》系统消息发送
+     * 后台页面插件提醒=》系统消息
      * index.html调用执行
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43

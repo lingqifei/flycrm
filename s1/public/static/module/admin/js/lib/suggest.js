@@ -129,7 +129,6 @@ $(document).ready(function () {
             keyDown: 40,                    //向下方向键
             keyEnter: 13,                   //回车键
 
-
             //调整 ajax 请求参数方法，用于更多的请求配置需求。如对请求关键字作进一步处理、修改超时时间等
             /* methods */
             /*
