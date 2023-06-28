@@ -1,6 +1,6 @@
-﻿/* =========================================================
+﻿/* ----------------------------------------------
  * bootstrap-datetimepicker.js
- * =========================================================
+ * ----------------------------------------------
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
  * Improvements by Sébastien Malot
@@ -18,7 +18,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ========================================================= */
+ * ---------------------------------------------- */
 
 /*
  * Improvement by CuGBabyBeaR @ 2013-09-12

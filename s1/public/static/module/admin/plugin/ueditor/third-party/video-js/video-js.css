@@ -4,7 +4,7 @@ Version 4.3.0
 Create your own skin at http://designer.videojs.com
 */
 /* SKIN
-================================================================================
+----------------------------------------------=======================
 The main class name for all skin-specific styles. To make your own skin,
 replace all occurances of 'vjs-default-skin' with a new name. Then add your new
 skin name to your video tag instead of the default skin.
@@ -14,7 +14,7 @@ e.g. <video class="video-js my-skin-name">
   color: #cccccc;
 }
 /* Custom Icon Font
---------------------------------------------------------------------------------
+--------------------------------------------------
 The control icons are from a custom font. Each icon corresponds to a character
 (e.g. "\e001"). Font icons allow for easy scaling and coloring of icons.
 */
@@ -26,7 +26,7 @@ The control icons are from a custom font. Each icon corresponds to a character
   font-style: normal;
 }
 /* Base UI Component Classes
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 /* Slider - used for Volume bar and Seek bar */
 .vjs-default-skin .vjs-slider {
@@ -70,7 +70,7 @@ The control icons are from a custom font. Each icon corresponds to a character
   transform: rotate(-45deg);
 }
 /* Control Bar
---------------------------------------------------------------------------------
+--------------------------------------------------
 The default control bar that is a container for most of the controls.
 */
 .vjs-default-skin .vjs-control-bar {
@@ -177,7 +177,7 @@ fonts to show/hide properly.
   width: 1px;
 }
 /* Play/Pause
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-default-skin .vjs-play-control {
   width: 5em;
@@ -190,7 +190,7 @@ fonts to show/hide properly.
   content: "\e002";
 }
 /* Volume/Mute
--------------------------------------------------------------------------------- */
+-------------------------------------------------- */
 .vjs-default-skin .vjs-mute-control,
 .vjs-default-skin .vjs-volume-menu-button {
   cursor: pointer;
@@ -247,7 +247,7 @@ fonts to show/hide properly.
   left: -4em;
 }
 /* Progress
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-default-skin .vjs-progress-control {
   position: absolute;
@@ -319,7 +319,7 @@ fonts to show/hide properly.
   padding-top: 0.1em /* Minor adjustment */;
 }
 /* Time Display
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-default-skin .vjs-time-controls {
   font-size: 1em;
@@ -342,7 +342,7 @@ fonts to show/hide properly.
   line-height: 3em;
 }
 /* Fullscreen
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-default-skin .vjs-fullscreen-control {
   width: 3.8em;
@@ -357,7 +357,7 @@ fonts to show/hide properly.
   content: "\e00b";
 }
 /* Big Play Button (play button at start)
---------------------------------------------------------------------------------
+--------------------------------------------------
 Positioning of the play button in the center or other corners can be done more
 easily in the skin designer. http://designer.videojs.com/
 */
@@ -447,7 +447,7 @@ easily in the skin designer. http://designer.videojs.com/
   height: 100%;
 }
 /* Loading Spinner
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-loading-spinner {
   display: none;
@@ -511,7 +511,7 @@ easily in the skin designer. http://designer.videojs.com/
   }
 }
 /* SysMenu Buttons (Captions/Subtitles/etc.)
---------------------------------------------------------------------------------
+--------------------------------------------------
 */
 .vjs-default-skin .vjs-menu-button {
   float: right;
@@ -616,7 +616,7 @@ easily in the skin designer. http://designer.videojs.com/
 }
 /*
 REQUIRED STYLES (be careful overriding)
-================================================================================
+----------------------------------------------=======================
 When loading the player, the video tag is replaced with a DIV,
 that will hold the video tag or object tag for other playback methods.
 The div contains the video playback element (Flash or HTML5) and controls,
@@ -761,6 +761,6 @@ body.vjs-full-window {
   opacity: 1;
   visibility: visible;
 }
-/* -----------------------------------------------------------------------------
+/* -----------------------------------------------
 The original source of this file lives at
 https://github.com/videojs/video.js/blob/master/src/css/video-js.less */

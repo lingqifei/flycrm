@@ -14,7 +14,7 @@
 	color:#FFF;
 	cursor:pointer;
 	text-decoration:none;
-	max-width: 100px;
+	/*max-width: 100px;*/
 }
 .uploadify-button:hover{
 	background-color: #888;

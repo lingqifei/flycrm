@@ -1,7 +1,7 @@
 // 列表数据列处理
 var listAll = [];
 if ($('a').is('.btn-field-set')) {
-    showTable = $("a.btn-field-set").attr("data-id");
+    var showTable = $("a.btn-field-set").attr("data-id");
     listAll = [];//所有字段
     $(".ajax-list-table").find("thead tr th").each(function (e) {
         f_name = $(this).find("span").html();
@@ -21,6 +21,7 @@ if ($('a').is('.btn-field-set')) {
 
 //表格显示列设置,设置列表表格显示列
 $("body").on("click", ".btn-field-set", function () {
+    var showTable = $("a.btn-field-set").attr("data-id");
     a = JSON.parse(localStorage.getItem("listAll" + showTable));
     b = JSON.parse(localStorage.getItem("listSave" + showTable));
     var listHtml = '';

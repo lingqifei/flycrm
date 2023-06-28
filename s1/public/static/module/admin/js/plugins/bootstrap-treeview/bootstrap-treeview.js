@@ -1,6 +1,6 @@
-/* =========================================================
+/* ----------------------------------------------
  * patternfly-bootstrap-treeview.js v2.1.0
- * =========================================================
+ * ----------------------------------------------
  * Copyright 2013 Jonathan Miles
  * Project URL : http://www.jondmiles.com/bootstrap-treeview
  *
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ========================================================= */
+ * ---------------------------------------------- */
 
 ;(function ($, window, document, undefined) {
 

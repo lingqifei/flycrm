@@ -1,29 +1,29 @@
-var config = {
-    version: '1.0.3',
-    cssAr: [
-        'module/admin/plugin/daterangepicker/static/css/iconfont.css',
-        'module/admin/plugin/daterangepicker/static/css/daterangepicker.css'
-    ],
-    jsAr: [
-        'module/admin/plugin/daterangepicker/static/js/moment.js',
-        'module/admin/plugin/daterangepicker/static/js/daterangepicker.js'
-    ]
-}
-
-function link(cssAr = config.cssAr, type) {
-    for (var i = 0; i < cssAr.length; i++) {
-        document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
-    }
-}
-
-function script(jsAr = config.jsAr, type) {
-    for (var i = 0; i < jsAr.length; i++) {
-        document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
-    }
-}
-
-link();
-script();
+// var config = {
+//     version: '1.0.3',
+//     cssAr: [
+//         'module/admin/plugin/daterangepicker/static/css/iconfont.css',
+//         'module/admin/plugin/daterangepicker/static/css/daterangepicker.css'
+//     ],
+//     jsAr: [
+//         'module/admin/plugin/daterangepicker/static/js/moment.js',
+//         'module/admin/plugin/daterangepicker/static/js/daterangepicker.js'
+//     ]
+// }
+//
+// function link(cssAr = config.cssAr, type) {
+//     for (var i = 0; i < cssAr.length; i++) {
+//         document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
+//     }
+// }
+//
+// function script(jsAr = config.jsAr, type) {
+//     for (var i = 0; i < jsAr.length; i++) {
+//         document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
+//     }
+// }
+//
+// link();
+// script();
 
 $(document).ready(function () {
 

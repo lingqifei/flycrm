@@ -1,29 +1,93 @@
-var config = {
-    version: '1.0.2',
-    cssAr: [
-        'module/admin/plugin/daterangepicker/static/css/iconfont.css',
-    ],
-    jsAr: [
-        'module/admin/js/plugins/suggest/bootstrap-suggest.js',
-    ]
-}
-//外部css加载
-function link(cssAr = config.cssAr, type) {
-    for (var i = 0; i < cssAr.length; i++) {
-        document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
-    }
-}
-//外部JS加载
-function script(jsAr = config.jsAr, type) {
-    for (var i = 0; i < jsAr.length; i++) {
-        document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
-    }
-}
+// var config = {
+//     version: '1.0.2',
+//     cssAr: [
+//         'module/admin/plugin/daterangepicker/static/css/iconfont.css',
+//     ],
+//     jsAr: [
+//         'module/admin/js/plugins/suggest/bootstrap-suggest.js',
+//     ]
+// }
+// //外部css加载
+// function link(cssAr = config.cssAr, type) {
+//     for (var i = 0; i < cssAr.length; i++) {
+//         document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
+//     }
+// }
+// //外部JS加载
+// function script(jsAr = config.jsAr, type) {
+//     for (var i = 0; i < jsAr.length; i++) {
+//         document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
+//     }
+// }
 
 //link();
-script();
+// script();
 
 //操作方法
+
+/* 使用方法
+标签中设置class属性：
+（*）class=suggest-search-box：绑定事件元素
+（*）class=customer-suggest：绑定的区域范围，名称
+（*）searchFields：查询关键字名 如：searchFields="keywords"
+（*）target-group：查询结果后输出的区域，对应”class=customer-suggest“区域中的input值
+（*）target-name：查找后选择带回的字段，对应”class=customer-suggest“区域中的input 名称为
+    如：target-name='{"customer_id":"id","customer_name":"name"}'
+        customer_id  为页面input的名称
+        id  为查询为数据返回的数据源字段
+
+  （*）data-url：查找数据的地址
+
+  关联查询，在查询时获取当前面页页字段为参数，查询时带参数
+  属性标签：source-group="customer-suggest" source-name='{"customer_id":"客户"}'
+
+     source-group="customer-suggest"  要查询参数的区域
+     source-name='{"customer_id":"客户"}'  要查询参数的区域 input 的名称
+
+  （-）data-calback：查找选择确定之后，回调执行的函数，此函数一般在模板中用户单独设置
+  （-）data-calback-url：查找选择确定之后，回调执行的函数，调用的地址
+
+模板中调用实例：
+
+<div class="suggest-search-box">
+    <div class="input-group customer-suggest">
+        <input type="hidden" name="customer_id"  value="{$customer_id|default=''}">
+        <input type="text" name="customer_name"  value="{$customer_name|default=''}" class="form-control suggest-input"  placeholder="请输入搜索名称"
+               data-url="{:url('Comm/suggest_search',array('datatype'=>'customer'))}"
+               searchFields="keywords" value="{$customer_name|default=''}"
+               target-group="customer-suggest" target-name='{"customer_id":"id","customer_name":"name"}'>
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+        </div>
+    </div>
+</div>
+
+<label class="col-sm-2 control-label">客户联系人</label>
+<div class="col-sm-4">
+    <div class="suggest-search-box">
+        <div class="input-group linkman-suggest">
+            <input type="hidden" name="linkman_id" value="{$linkman_id|default=''}">
+            <input type="text"  name="linkman_name" value="{$linkman_name|default=''}" class="form-control suggest-input" placeholder="请输入搜索名称"
+                   data-url="{:url('Comm/suggest_search',array('datatype'=>'linkman'))}"
+                   searchFields="keywords" source-group="customer-suggest" source-name='{"customer_id":"客户"}'
+                   target-group="linkman-suggest" target-name='{"linkman_id":"id","linkman_name":"name"}'>
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+            </div>
+        </div>
+    </div>
+    <span class="help-block m-b-none"></span>
+</div>
+
+*
+* */
+
 $(document).ready(function () {
 
     //suggest-search,加载
