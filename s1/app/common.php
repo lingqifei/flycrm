@@ -803,14 +803,14 @@ function rm_empty_dir($path)
 function format_time($time = null, $format = 'Y-m-d H:i:s')
 {
 
-    if (null === $time) {
+    if (null === $time || empty($time)) {
 
         $time = TIME_NOW;
     }
 
-//    if(!intval($time)){
-//        $time=strtotime($time);
-//    }
+    if(!intval($time)){
+        $time=strtotime($time);
+    }
 
     return date($format, intval($time));
 }

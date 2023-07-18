@@ -15,7 +15,6 @@
     <!--    <link href="__STATIC__/module/admin/css/animate.css" rel="stylesheet">-->
     <!--    <link href="__STATIC__/module/admin/css/style.css?v=4.1.0" rel="stylesheet">-->
     <!--    <link href="__STATIC__/module/admin/css/07fly.css?v=1.1.0" rel="stylesheet">-->
-
     <!-- 全局js -->
     <script src="__STATIC__/module/admin/js/jquery.min.js?v=2.1.4"></script>
     <script src="__STATIC__/module/admin/js/bootstrap.min.js?v=3.3.6"></script>
@@ -25,7 +24,7 @@
         var static_root = "{$static_root|default=''}";
     </script>
 </head>
-
+<!--压缩过后的css-->
 <link href="__STATIC__/module/admin/mini/1afe45ed6d19c098df0b9e85d9f92f77.css" rel="stylesheet">
 
 <body class="fixed-sidebar gray-bg " style="overflow:hidden">
@@ -76,6 +75,21 @@
                     {$sys_config.top_links|default=''}
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
+
+                    <!--人工客服-->
+                    {if condition="$sys_config.is_grant eq '0'"}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-weixin"></i>人工客服
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <img src="__STATIC__/module/admin/img/lxwx.jpg" width="100%">
+                            </li>
+
+                        </ul>
+                    </li>
+                    {/if}
                     {$sys_config.top_links_right|default=''}
 
                     <!--系统公告-->
@@ -144,7 +158,6 @@
     <!--右侧部分结束-->
 </div>
 <audio id='audioPlay' src='' hidden='true' muted="true">
-
 {include file="layout/bottom"}
 <script type="text/javascript">
         //顶部菜单栏目

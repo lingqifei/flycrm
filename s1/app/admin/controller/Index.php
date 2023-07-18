@@ -23,13 +23,10 @@ class Index extends AdminBase
     public function index()
     {
         $this->view->engine->layout(false);
-        // 获取首页数据
-        $index_data = $this->logicAdminBase->getIndexData();
-
+        //生成压缩文件
         $this->getcss();
         $this->getjs();
 
-        $this->assign('info', $index_data);
         return $this->fetch('index');
     }
 
@@ -59,11 +56,11 @@ class Index extends AdminBase
             $static . 'module/admin/css/plugins/datapicker/datetimepicker.min.css',
             $static . 'module/admin/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css',
 //            $static . 'module/admin/css/animate.css',
-            $static . 'module/admin/css/style.css',
-            $static . 'module/admin/css/07fly.css',
-
             $static . 'module/admin/plugin/daterangepicker/static/css/iconfont.css',
             $static . 'module/admin/plugin/daterangepicker/static/css/daterangepicker.css',
+
+            $static . 'module/admin/css/style.css',
+            $static . 'module/admin/css/07fly.css',
 
         );
 
@@ -110,11 +107,7 @@ class Index extends AdminBase
             $static . 'module/admin/js/lib/suggest.js',
             $static . 'module/admin/js/lib/content.js',
         );
-
         $js = $this->combine_my_files($files, $static.'module/admin/mini/', md5("my_mini_file") . ".js", 'js');
-
-        //echo $css;
-        // d($rtn);
     }
 
     //合并文件
@@ -149,9 +142,7 @@ class Index extends AdminBase
                 $result = '<link href="' . $http . $dest_file_name . '"  rel="stylesheet" type="text/css">';
             }
         }
-
         $html = "<!--\r\ndocument.write('{$result}');\r\n-->\r\n";
-
         return $html;
     }
 

@@ -483,9 +483,9 @@
                 "sort": 61,
                 "module": "admin",
                 "url": "SysArea/show",
-                "visible": 1,
+                "visible": 0,
                 "is_shortcut": 0,
-                "is_menu": 1,
+                "is_menu": 0,
                 "icon": "",
                 "nodes": [
                     {

@@ -379,7 +379,7 @@ class SysModule extends AdminBase
 
         //3、同步栏目
         $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
-        if (!file_exists($app_menu_file)) {
+        if (file_exists($app_menu_file)) {
             $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
         }
 
@@ -388,6 +388,7 @@ class SysModule extends AdminBase
         if (file_exists($app_sql_upgrade)) {
             $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'upgrade.sql'));
         }
+
         return [RESULT_SUCCESS, '文件同步完成', ''];
     }
 
@@ -486,8 +487,8 @@ class SysModule extends AdminBase
             $result = $this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);
 
             dlog('app安装执行=》结束=====');
-
-            return $result ? [RESULT_SUCCESS, '应用插件安装部署成功'] : [RESULT_ERROR, $this->modelSysModule->getError()];
+            dlog($result);
+            return  [RESULT_SUCCESS, '应用插件安装部署成功'] ;
 
         } else {
             return [RESULT_ERROR, '模块目录中模块信息文件info.php不存在'];

@@ -264,7 +264,7 @@ class Store extends AdminBase
 	{
 
 		if (!isset($data['app_id']) || $data['app_id'] ==0 || empty($data['version']) ) {
-			return [RESULT_ERROR, 'app参数不正确,版本号不全'];
+			throw_response_error("app参数不正确,版本号不全");
 		}
 		$result = $this->modelStore->getCloudAppDownFile($data);
 		if (!isset($result['code']) || $result['code'] != 1) {

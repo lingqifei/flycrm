@@ -68,7 +68,6 @@ class ModelBase extends Model
 
             is_object($data) && $data = $data->toArray();
 
-
             !empty($data[TIME_CT_NAME]) && is_string($data[TIME_CT_NAME]) && $data[TIME_CT_NAME] = strtotime($data[TIME_CT_NAME]);
 
             $default_where[$pk] = $data[$pk];
@@ -480,13 +479,10 @@ class ModelBase extends Model
 
         foreach ($layer_array as $v) {
             if (str_prefix($name, $v)) {
-
                 $layer = $v;
-
                 break;
             }
         }
-
         return $layer;
     }
 }
