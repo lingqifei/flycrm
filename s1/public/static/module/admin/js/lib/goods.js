@@ -5,6 +5,7 @@ $(document).ready(function () {
 		path: static_root+'module/admin/js/plugins/layer/', //layer.js所在的目录，可以是绝对目录，也可以是相对目录
 		extend: 'extend/layer.ext.js'
 	});
+
 	$(".batch_modify_sale").click(function () {
 		layer.prompt({
 			title: '批量设置销售价格',
@@ -16,6 +17,7 @@ $(document).ready(function () {
 			layer.close(index);
 		});
 	});
+
 	$(".batch_modify_market").click(function () {
 		layer.prompt({
 			title: '批量设置市场价格',
@@ -27,6 +29,7 @@ $(document).ready(function () {
 			layer.close(index);
 		});
 	});
+
 	$(".batch_modify_cost").click(function () {
 		layer.prompt({
 			title: '批量设置成本价格',
@@ -38,6 +41,7 @@ $(document).ready(function () {
 			layer.close(index);
 		});
 	});
+
 	$(".batch_modify_stock").click(function () {
 		layer.prompt({
 			title: '批量设置库存',
@@ -55,20 +59,23 @@ $(document).ready(function () {
 		});
 	});
 
-	//规格创建功能
 
 	//点击小类，选择中大类
 	$(".spec_and_value").click(function(){
-		spec_id=$(this).attr("data-spec-id");
+		var spec_id=$(this).attr("data-spec-id");
 		$("#spec-id-"+spec_id).attr("checked", true);
 	});
+
 	//选择大类后，全先小类
 	$(".checkboxCtrlId").click(function(){
-		spec_id=$(this).val();
-		spec_id_class="spec-"+spec_id+"-value";
+		var spec_id=$(this).val();
+		var spec_id_class="spec-"+spec_id+"-value";
 		$("#"+spec_id_class+" input[type='checkbox']").prop("checked", $(this).prop('checked'));
 	});
+
+	//创建规格
 	$(".create_spec").click(function(){
+		var target=$(this).attr('data-url');
 		var chk_value =[];
 		$("tbody input[class='spec_and_value']:checked").each(function(){
 			spec_id=$(this).attr('data-spec-id');
@@ -84,9 +91,12 @@ $(document).ready(function () {
 			chk_value.push(single);
 		});
 		//chk_value_txt=JSON.stringify(chk_value);
+		// var target="{:url('GoodsSpec/create')}";
+		log(target);
+		log(chk_value);
 		$.ajax({
 			type: "POST",
-			url: "{:url('GoodsSpec/create')}",
+			url: target,
 			data:{"spec_list":chk_value},
 			dataType:"json",
 			success: function(data){
@@ -121,4 +131,72 @@ $(document).ready(function () {
 			}
 		});
 	});
+
+	//点击是否启用多计量单位
+	$(document).on("click", ".is_more_unit", function () {
+		var ischk=$(this).prop("checked");
+		if(ischk){
+			$(".goods_sku_unit_one").addClass("hidden")
+			$(".goods_sku_price_one").addClass("hidden")
+			$(".goods_sku_unit_more").removeClass("hidden")
+			$(".goods_sku_price_more").removeClass("hidden")
+
+
+		}else{
+			// $(".goods_sku_unit_one").css("display","block")
+			// $(".goods_sku_unit_more").css("display","none")
+			// $(".goods_sku_price_more").css("display","none")
+			// $(".goods_sku_price_one").css("display","block")
+
+			$(".goods_sku_unit_one").removeClass("hidden")
+			$(".goods_sku_price_one").removeClass("hidden")
+
+			$(".goods_sku_unit_more").addClass("hidden")
+			$(".goods_sku_price_more").addClass("hidden")
+
+		}
+	});
+
+	//选择多计量单位生成对应的扩展价格
+	$(document).on("change", ".goods_sku_unit_id", function () {
+		var obj = $(this);
+		var target = obj.attr('data-url');
+		var value = obj.val();
+		$.ajax({
+			type: "POST",
+			url: target,
+			data: {'id':value},
+			dataType: "json",
+			beforeSend:function () {
+
+			},
+			success: function (result) {
+				var html = '<table class="table table-bordered">';
+				html += '<tr>';
+				html += '<td>基本单位</td>';
+				html += '<td>'+result.name+'<input type="hidden" name="sku_unit_id[]" class="form-control" value="'+result.id+'"><input type="hidden" name="unit_name[]" class="form-control" value="'+result.name+'"></td>';
+				html += '<td><input type="text" name="market_price[]" class="form-control"></td>';
+				html += '<td><input type="text" name="sale_price[]" class="form-control"></td>';
+				html += '<td><input type="text" name="vip_price[]" class="form-control"></td>';
+				html += '<td><input type="text" name="cost_price[]" class="form-control"></td>';
+				html += '</tr>';
+				$.each(result.sublist, function(idx, row) {
+					html +='<tr>';
+					html += '<td>副单位'+(idx+1)+'</td>';
+					html += '<td>'+row.name+'<input type="hidden" name="sku_unit_id[]" class="form-control" value="'+row.id+'"><input type="hidden" name="unit_name[]" class="form-control" value="'+row.name+'"></td>';
+					html += '<td><input type="text" name="market_price[]" class="form-control"></td>';
+					html += '<td><input type="text" name="sale_price[]" class="form-control"></td>';
+					html += '<td><input type="text" name="vip_price[]" class="form-control"></td>';
+					html += '<td><input type="text" name="cost_price[]" class="form-control"></td>';
+					html +='</tr>';
+				});
+				$(".goods_sku_price_more tbody").html(html);
+			},
+			complete: function () { //执行完之后执行
+
+			},
+		});//end ajax post
+
+	});
+
 });

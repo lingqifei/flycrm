@@ -56,6 +56,14 @@
 .form-group select:before{font-family:"hui-font"; content:"\e63d"; font-size:12px;}
 .form-control.daterange-btn{min-width: 180px;}/*双日历*/
 
+.form-control.goods-lookup{
+    width: 100%;
+    border: solid 1px #ffffff;
+    height: 30px;
+    line-height: 30px;
+    margin: 0;
+}
+
 /*重写ibox增加阴影*/
 .ibox{box-shadow: 0 0 4px rgba(0,0,0,0.1); border-radius: 0px;/*max-width: 1600px;*/margin: auto;margin-bottom: 10px;}
 .ibox-head{background: #efefef;line-height: 30px;padding: 10px 0px;}
@@ -122,3 +130,15 @@
 /*look-group组件清除*/
 .lookup-group-box .clearable{font-size: 20px; z-index: 9;position: absolute;right: 20px;right: 40px;cursor: pointer;display: none;}
 .lookup-group-box:hover .clearable{display:block;font-weight: bold;}
+
+
+/* chose-goods-list 选择商品样式*/
+.table.table-goods-list td{padding:1px 2px;}
+.goods_code_box{position:relative;}
+.goods_code_search{position:absolute;top:10%;right:3px;display:inline-block;cursor:pointer;background:#ffffff;}
+.goods_code_search i{font-size:18px;line-height:25px;color:#DDDDDD;}
+.goods_code_search i:hover{color:#999;}
+
+.goods_code_chose_table{position:absolute;z-index:999;background:#fff;border:solid 1px #ccc;}
+.goods_code_chose_table table tr{cursor:pointer;}
+.goods_code_chose_table table tr:hover{background:#c1e2b3;}

@@ -246,9 +246,7 @@ class File
         $boolean = TRUE;
 
         while (FALSE !== ($file = readdir($dirHandle))) {
-
-
-            if ($file == '.' || $file == '..' || $file == '.git') continue;
+            if ($file == '.' || $file == '..') continue;
 
             if (!is_dir($old_path . $file)) {
                 $boolean = $this->handle_file($old_path . $file, $new_path . $file, $type, $overWrite);
