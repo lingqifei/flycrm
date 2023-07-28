@@ -92,7 +92,7 @@ class Menu extends Action
     //得到数形参数
     function getTree($data, $pId = 0, $level = 0)
     {
-        $tree = '';
+        $tree = [];
         foreach ($data as $k => $v) {
             if ($v['parentID'] == $pId) { //父亲找到儿子
                 $v['children'] = $this->getTree($data, $v['id'], $level + 1);
@@ -108,7 +108,7 @@ class Menu extends Action
     //得到数形参数,针对bootstrop
     function leftTree($data, $pId = 0, $level = 0)
     {
-        $tree = '';
+        $tree = [];
         foreach ($data as $k => $v) {
             if ($v['parentID'] == $pId) { //父亲找到儿子
                 $v['nodes'] = $this->leftTree($data, $v['id'], $level + 1);
