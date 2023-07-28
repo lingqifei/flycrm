@@ -34,14 +34,20 @@ class Action {
 //	}
 	
 	public function _REQUEST($filed){
-		$val = isset($_POST[$filed]) ? filter_input(INPUT_POST,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : (isset($_GET[$filed]) ? filter_input(INPUT_GET,$filed,FILTER_SANITIZE_SPECIAL_CHARS) : '');
-		$val = str_replace(array("#","(",")","--"),"",$val);
-		return $val;
-		//return @isset($_GET[$filed])?@$_GET[$filed]:@$_POST[$filed];
-		//return $_REQUEST[$filed];
+		if(isset($_POST[$filed])){
+			filter_input(INPUT_POST,$filed,FILTER_SANITIZE_SPECIAL_CHARS) ;
+			$val=$_POST[$filed];
+			$val = str_replace(array("#","(",")","--"),"",$val);
+			return $val;
+		}
+		if(isset($_GET[$filed])){
+			filter_input(INPUT_GET,$filed,FILTER_SANITIZE_SPECIAL_CHARS);
+			$val=$_GET[$filed];
+			$val = str_replace(array("#","(",")","--"),"",$val);
+			return $val;
+		}
 	}
-
-
+	//加载类函数
 	public function L($action,$args =array(),$fileDir=''){
 		$actionFile =  ACTION.$this->actionDir.$action.'.class.php';
 		//判断路径是否以'/'结尾，若无则加上
