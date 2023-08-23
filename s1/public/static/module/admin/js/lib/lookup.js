@@ -4,6 +4,7 @@
 （*）lookup-input-select：绑定事件属性
 （*）lookup-group：绑定的区域范围
 （*）lookup-fields：查找后选择带回的字段，对应”lookup-group“区域中的input值
+（*）lookup-fields-init：查找时初始已经存的的字段，对应”lookup-group“区域中的input值，在lookup列表页可以获取此字段的值，列表设置勾选中状态
 （*）lookup-url：查找数据的地址
 （-）data-calback：查找选择确定之后，回调执行的函数，此函数一般在模板中用户单独设置
 （-）data-calback-url：查找选择确定之后，回调执行的函数，调用的地址
@@ -17,6 +18,7 @@
                 lookup-group='purchase_box'
                 lookup-fields='{"purchase_id":"id","purchase_no":"purchase_no"}'
                 lookup-url="{:url('OfsuPurchase/lookup')}"
+                lookup-fields-init='purchase_id[]'
                 data-calback="javascript:lookupAjaxListTable('purchase_box','purchase_id');"
                 data-calback-url="{:url('OfsuPurchase/lookup',array('datatype'=>'info'))}"
         >选择
@@ -32,13 +34,33 @@ $("body").on("click", ".lookup-input-select", function () {
     lookupGroupFun = $(this).attr('data-calback');
     log('查找回带区域：' + lookupGroupName);
     log('查找回带函数：' + lookupGroupFun);
+
+
+    //存储初始化值到 localStorage
+    var lookupFields = $(this).attr('lookup-fields');
+    var lookupFieldsInit = $(this).attr('lookup-fields-init');
+    log('查找回带字段：' + lookupFields);
+
+    //存储默认字段的值 固定变量名=lookupInitFieldName  ，在lookup弹出页读取
+    //对应”lookup-group“区域中的input值，在lookup列表页可以获取此字段的值，列表设置勾选中状态
+    var lookupGroupObj = $("." + lookupGroupName + "");
+    localStorage.setItem('lookupInitFieldName', lookupGroupObj.find("input[name='" + lookupFieldsInit + "']").val());
+    var names = JSON.parse(lookupFields);
+    $.each(names, function (key, item) {
+        log(key + '==>' + item);
+        var lookupFieldsValue = lookupGroupObj.find("input[name='" + key + "']").val();
+        log('查找回带字段值：' + key + '=' + lookupFieldsValue);
+        localStorage.setItem(key, lookupFieldsValue);
+    });
+
     //判断设置的区域组是否存在
     if (typeof (lookupGroupName) == "undefined" || lookupGroupName == '') {
         layer.msg('参数有有错');
         return false;
     } else {
-        localStorage.setItem('lookupGroupKey', lookupGroupName)
+        localStorage.setItem('lookupGroupKey', lookupGroupName);//操作区域
     }
+
     //判断地址是否存
     if ((target = $(this).attr('lookup-url'))) {
         //是否带参数字段
@@ -79,9 +101,9 @@ $("body").on("click", ".lookup-input-select", function () {
     return false;
 });
 
-//选择确定=>回示列表
+//选择确定=>回示列表=>单个选择
 $("body").on("click", ".lookup-bring-select", function () {
-    var lookupGroupName = localStorage.getItem('lookupGroupKey');
+    var lookupGroupName = localStorage.getItem('lookupGroupKey');//操作区域
     var lookupGroupObj = parent.$("." + lookupGroupName + "");
     var lookupInputObj = lookupGroupObj.find(".lookup-input-select");
     var lookupFields = lookupInputObj.attr('lookup-fields');
@@ -102,15 +124,59 @@ $("body").on("click", ".lookup-bring-select", function () {
     });
     //关闭当前窗口
     var index = localStorage.getItem('lookupGroupIndex');
-    //var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
     parent.layer.close(index);
+
 })
 
+
+//选择确定=>回示列表=>多个选择
+$("body").on("click", ".lookup-bring-select-all", function () {
+    log('ddd');
+    var lookupGroupName = localStorage.getItem('lookupGroupKey');//操作区域
+    var lookupGroupObj = parent.$("." + lookupGroupName + "");
+    var lookupInputObj = lookupGroupObj.find(".lookup-input-select");
+    var lookupFields = lookupInputObj.attr('lookup-fields');
+
+    log("lookupGroup区域：" + lookupGroupName);
+
+    //多个选择的目标id
+    var selectDataList = [];
+    $('.ajax-list-table tbody input[class="checkboxCtrlId"]:checked').each(function () {
+        var selectData = $(this).attr('lookup-bring-fields');
+        var selectData = JSON.parse(selectData);
+        selectDataList.push(selectData);
+    });
+
+    log("多选择的数据");
+    log(selectDataList);
+
+    //返回字段
+    log("返回字段");
+    log(lookupFields);
+    var names = JSON.parse(lookupFields);
+    $.each(names, function (key, item) {
+
+        //这是把列表值按字段取出处理
+        var items = [];
+        $.each(selectDataList, function (k, row) {
+            items.push(row[item]);
+        });
+
+        log(key + '==>' + item + '=' + items);
+        lookupGroupObj.find("input[name='" + key + "']").val(items);
+    });
+    //关闭当前窗口
+    var index = localStorage.getItem('lookupGroupIndex');
+    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    parent.layer.close(index);
+
+})
 
 //独立点击清空=清空lookup-group中所有值
 $("body").on("click", ".lookup-group-box .clearable", function () {
     log('lookgroup-input 点击清空返回值');
-    var object=$(this).parents(".lookup-group-box");
+    var object = $(this).parents(".lookup-group-box");
     object.find("input").val('');
 });
 

@@ -138,7 +138,6 @@
 .goods_code_search{position:absolute;top:10%;right:3px;display:inline-block;cursor:pointer;background:#ffffff;}
 .goods_code_search i{font-size:18px;line-height:25px;color:#DDDDDD;}
 .goods_code_search i:hover{color:#999;}
-
 .goods_code_chose_table{position:absolute;z-index:999;background:#fff;border:solid 1px #ccc;}
 .goods_code_chose_table table tr{cursor:pointer;}
 .goods_code_chose_table table tr:hover{background:#c1e2b3;}
