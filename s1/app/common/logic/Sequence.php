@@ -47,7 +47,7 @@ class Sequence extends LogicBase
             $up_data=[
                 'current_value'=>$add_id,
             ];
-            $this->modelSequence->save($up_data,$where);
+            $this->modelSequence->updateInfo($up_data,$where);
         }
 
         $strMaxId=$device_name.$date.$separate.str_pad($add_id,$len,'0',STR_PAD_LEFT );
