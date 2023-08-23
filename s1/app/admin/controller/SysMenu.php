@@ -106,7 +106,6 @@ class SysMenu extends AdminBase
         $this->jump($this->logicSysMenu->sysMenuDel($this->param));
     }
 
-
     /**
      * 菜单添加
      */
@@ -143,6 +142,14 @@ class SysMenu extends AdminBase
             $this->assign('id', '0');
         }
         return $this->fetch('copy');
+    }
+
+    /**
+     * 菜单复制
+     */
+    public function copy_one()
+    {
+        $this->jump($this->logicSysMenu->sysMenuCopyOne($this->param));
     }
 
     /**

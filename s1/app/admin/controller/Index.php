@@ -58,10 +58,8 @@ class Index extends AdminBase
 //            $static . 'module/admin/css/animate.css',
             $static . 'module/admin/plugin/daterangepicker/static/css/iconfont.css',
             $static . 'module/admin/plugin/daterangepicker/static/css/daterangepicker.css',
-
             $static . 'module/admin/css/style.css',
             $static . 'module/admin/css/07fly.css',
-
         );
 
         $css = $this->combine_my_files($files, $static.'module/admin/mini/', md5("my_mini_file") . ".css");
@@ -84,9 +82,8 @@ class Index extends AdminBase
             $static . 'module/admin/js/jquery.cookie.js',
             $static . 'module/admin/js/plugins/metisMenu/jquery.metisMenu.js',
             $static . 'module/admin/js/plugins/slimscroll/jquery.slimscroll.min.js',
-
             $static . 'module/admin/js/baiduTemplate.js',
-            $static . 'module/admin/js/jquery.pjax.js',
+//            $static . 'module/admin/js/jquery.pjax.js',
             $static . 'module/admin/js/jquery.jqprint-0.3.js',
             $static . 'module/admin/js/plugins/datapicker/bootstrap-datepicker.js',
             $static . 'module/admin/js/plugins/datapicker/bootstrap-datetimepicker.js',
@@ -113,6 +110,8 @@ class Index extends AdminBase
     //合并文件
     function combine_my_files($array_files, $destination_dir, $dest_file_name, $filetype = 'css')
     {
+
+        !is_dir($destination_dir) && mkdir($destination_dir, 0755, true);
 
         $http = DOMAIN . dirname(URL_ROOT) . SYS_DS_PROS . SYS_STATIC_DIR_NAME . SYS_DS_PROS;
 
@@ -145,5 +144,4 @@ class Index extends AdminBase
         $html = "<!--\r\ndocument.write('{$result}');\r\n-->\r\n";
         return $html;
     }
-
 }

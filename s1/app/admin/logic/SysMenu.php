@@ -329,7 +329,8 @@ class SysMenu extends AdminBase
     }
 
 
-    /**菜单复制
+    /**
+     * 菜单复制
      * @param array $data
      * @return array
      * Author: 开发人生 goodkfrs@qq.com
@@ -360,6 +361,37 @@ class SysMenu extends AdminBase
         $url = url('show');
         return $result ? [RESULT_SUCCESS, '操作成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
     }
+
+    /**
+     * 菜单复制
+     * @param array $data
+     * @return array
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2022/3/12 0012 10:53
+     */
+    public function sysMenuCopyOne($data = [])
+    {
+
+        if (empty($data['id'])) {
+            return [RESULT_ERROR, '选择要复制参数不全'];
+            exit;
+        } else {
+            $ids = str2arr($data['id']);
+        }
+        $where['id'] = ['in', $ids];
+        $copylist = $this->modelSysMenu->getList($where, '', 'sort asc', false)->toArray();
+        foreach ($copylist as $key => &$row) {
+            unset($row['id']);
+            unset($row['create_time']);
+            unset($row['update_time']);
+        }
+        $result = $this->modelSysMenu->setList($copylist);
+        $result && action_log('编辑', '复制菜单，name：' . $data['id']);
+        $url = url('show');
+        return $result ? [RESULT_SUCCESS, '操作成功', $url] : [RESULT_ERROR, $this->modelSysMenu->getError()];
+    }
+
+
 
     /**
      * 批量导入菜单

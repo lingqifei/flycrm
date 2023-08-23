@@ -59,7 +59,7 @@
                             <th width="80">排序</th>
                             <th width="60" class="text-center">菜单</th>
                             <th width="60" class="text-center">启用</th>
-                            <th width="80" class="text-center">操作</th>
+                            <th width="120" class="text-center">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -109,6 +109,7 @@
         </td>
         <td class="text-center">
             <a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>">下级栏目</a>
+            <lqf_link><a class="ajax-get" data-url="{:url('SysMenu/copy_one')}" data-ids="{'id':'<%=data[i]['id']%>'}">复制</a></lqf_link>
             <lqf_link><a class="ajax-open" data-url="{:url('SysMenu/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
             <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMenu/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
         </td>
