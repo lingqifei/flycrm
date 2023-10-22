@@ -52,7 +52,7 @@ class Database {
 		$result = $this->db->query( $sql );
 		if ( $result ) {
 			$data = $result->fetch(PDO::FETCH_ASSOC);
-		} else {
+        } else {
 			_error( 'queryError', '数据表不存在 或SQL语法错误:' . $sql, true );
 		}
 		return $data;

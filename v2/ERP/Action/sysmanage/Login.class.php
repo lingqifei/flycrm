@@ -40,6 +40,7 @@ class Login extends Action{
 		}
 		$sql = "select * from fly_sys_user where account='$account' and password='".md5($password)."'";
 		$one = $this->C($this->cacheDir)->findOne($sql);
+
 		if(!empty($one)){
 			//定义SESSION变量值
 			$_SESSION["CRM"]["USER"]["account"]		= $one["account"];
