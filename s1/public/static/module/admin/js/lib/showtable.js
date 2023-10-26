@@ -111,12 +111,12 @@ function bindClass() {
     log('bindclsss');
     $(".MALL").hide();
     $(".MHover").mouseover(function (e) {
-        var clientWidth=document.body.clientWidth
-        var divWidth=clientWidth-e.pageX-45;
+        var clientWidth = document.body.clientWidth
+        var divWidth = clientWidth - e.pageX - 45;
         $(this).next(".MALL").css({
             "color": "#ffffff",
             "z-index": "1000",
-            "width": divWidth+"px",
+            "width": divWidth + "px",
             "padding": "1rem",
             "line-height": ": 1.5rem",
             "position": "absolute",
@@ -127,12 +127,12 @@ function bindClass() {
         }).show();
     });
     $(".MHover").mousemove(function (e) {
-        var clientWidth=document.body.clientWidth
-        var divWidth=clientWidth-e.pageX-45;
+        var clientWidth = document.body.clientWidth
+        var divWidth = clientWidth - e.pageX - 45;
         $(this).next(".MALL").css({
             "color": "#ffffff",
             "z-index": "1000",
-            "width": divWidth+"px",
+            "width": divWidth + "px",
             "padding": "1rem",
             "line-height": ": 200",
             "position": "absolute",

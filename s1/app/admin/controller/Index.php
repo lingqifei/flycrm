@@ -24,8 +24,8 @@ class Index extends AdminBase
     {
         $this->view->engine->layout(false);
         //生成压缩文件
-        $this->getcss();
-        $this->getjs();
+        //$this->getcss();
+        //$this->getjs();
 
         return $this->fetch('index');
     }

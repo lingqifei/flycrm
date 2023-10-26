@@ -142,7 +142,7 @@ function time_friend3($sTime, $type = 'normal', $alt = 'false')
             return abs(intval($dDay)) . "天后";
         } elseif ($dDay < -7 && $dDay >= -30) {
             return abs(intval($dDay / 7)) . '周后';
-        }elseif ($dDay < -30 && $dDay > -100) {
+        } elseif ($dDay < -30 && $dDay > -100) {
             return abs(intval($dDay / 30)) . '月后';
         }
         //前面时间
@@ -462,22 +462,19 @@ if (!function_exists('getDatesBetweenToWeeks')) {
 if (!function_exists('rangedate2arr')) {
     function rangedate2arr($rangedate, $pirx = '-', $type = 'str')
     {
-
         $date_arr = str2arr($rangedate, $pirx);
-
         //判断是单个时间还是时间组
         if (empty($date_arr[1])) {
-            $date_arr[1] = date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[0])));
+            $date_arr[1] = date('Y-m-d H:i:s', strtotime(" +86390 second", strtotime($date_arr[0])));
         } else {
-            $date_arr[1] = date('Y/m/d', strtotime(" +1 day", strtotime($date_arr[1])));
+            $date_arr[1] = date('Y-m-d H:i:s',strtotime(" +86390 second", strtotime($date_arr[1])));
         }
-
+        $date_arr[0] = date('Y-m-d H:i:s',strtotime($date_arr[0]));
         //返回的格式，是时间戳，还是文本
         if ($type == 'int') {
             $date_arr[0] = strtotime($date_arr[0]);
             $date_arr[1] = strtotime($date_arr[1]);
         }
-
         return $date_arr;
     }
 }
@@ -871,6 +868,12 @@ if (!function_exists('httpcode')) {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $timeout = 5; // 设置超时的时间[单位：秒]
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+
         curl_exec($ch); // $resp = curl_exec($ch);
         $curl_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
@@ -880,6 +883,9 @@ if (!function_exists('httpcode')) {
 //        } else {
 //            echo '连接失败，状态码：' . $curl_code;
 //        }
+
+
+
     }
 }
 
@@ -890,7 +896,7 @@ if (!function_exists('httpcode')) {
  * Author: kfrs <goodkfrs@QQ.com> created by at 2020/12/25 0025
  */
 if (!function_exists('curl_post')) {
-    function curl_post($url, $post_data,$contentType='post')
+    function curl_post($url, $post_data, $contentType = 'post')
     {
         //$post_data = http_build_query($post_data);
 
@@ -992,12 +998,12 @@ if (!function_exists('dd2char')) {
  * Date: 2021/5/31 0031 15:14
  */
 if (!function_exists('get_str_sum')) {
-    function get_str_sum($str, $glue='')
+    function get_str_sum($str, $glue = '')
     {
-        if($glue){
-            $cnt=count(explode($glue, $str));
-        }else{
-            $cnt=mb_strlen($str);
+        if ($glue) {
+            $cnt = count(explode($glue, $str));
+        } else {
+            $cnt = mb_strlen($str);
         }
         return $cnt;
     }
@@ -1153,7 +1159,7 @@ if (!function_exists('appExists')) {
     function appExists($appname)
     {
         $table = SYS_DB_PREFIX . 'sys_module';
-        $isTable = db()->query("select id from {$table} where name='".$appname."' and visible='1'");
+        $isTable = db()->query("select id from {$table} where name='" . $appname . "' and visible='1'");
         if ($isTable) {
             return true;//模块存在
         } else {

@@ -15,7 +15,7 @@ function log(data) {
     }
 }
 
-//animation.css
+//animation.css  加载动画
 function animationHover(element, animation) {
     element = $(element);
     element.hover(
@@ -64,7 +64,7 @@ $(document).ready(function () {
         });
     });
 
-    // 菜单切换
+    // 左边菜单切换
     $('.navbar-minimalize').click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();

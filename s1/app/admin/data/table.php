@@ -195,7 +195,7 @@ return [
 			'index' => [],
 		],
 
-        //表名公告映射用户
+        //文件表
         'file' => [
             'table_name' => 'file',
             'comment' => '[系统]文件表',
@@ -220,6 +220,25 @@ return [
             //索引
             'index' => [],
         ],
+
+        //文件表
+        'sys_module' => [
+            'table_name' => 'sys_module',
+            'comment' => '[系统] 模块',
+            'engine' => 'InnoDB',
+            'charset' => 'utf8mb4',
+            'collate' => 'utf8mb4_general_ci',
+            //字段信息
+            'columns' => [
+                'id' => ['type' => 'int', 'length' => 16, 'unsigned' => false, 'autoincrement' => true, 'comment' => '主id',],
+                'tables' => ['type' => 'varchar', 'length' => 2048, 'required' => true, 'default' => '', 'comment' => '模块关联数据表名',],
+            ],
+            //主键 多个主键['user_id','name']
+            'primary' => ['id'],
+            //索引
+            'index' => [],
+        ],
+
 	]// end table
 
 ];

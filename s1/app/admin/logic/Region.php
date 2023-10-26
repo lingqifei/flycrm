@@ -101,15 +101,7 @@ class Region extends AdminBase
         if (!$validate_result) {
             return [RESULT_ERROR, $this->validateRegion->getError()];
         }
-
-        d($data);
-
-
         $result = $this->modelRegion->setInfo($data);
-d($result);
-
-        exit;
-
 
         $result && action_log('新增', '新增行政区域管理，name：' . $data['name']);
         
@@ -177,8 +169,9 @@ d($result);
     public function getRegionAllPid($deptid=0, $data=[])
     {
         $where['id']=['=',$deptid];
-        $info = $this->modelRegion->getInfo($where,'id,upid')->toArray();
+        $info = $this->modelRegion->getInfo($where,'id,upid');
         if(!empty($info) && $info['upid']){
+            $info=$info->toArray();
             $data[]=$info['upid'];
             return $this->getRegionAllPid($info['upid'],$data);
         }

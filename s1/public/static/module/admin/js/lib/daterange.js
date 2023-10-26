@@ -1,29 +1,29 @@
-// var config = {
-//     version: '1.0.3',
-//     cssAr: [
-//         'module/admin/plugin/daterangepicker/static/css/iconfont.css',
-//         'module/admin/plugin/daterangepicker/static/css/daterangepicker.css'
-//     ],
-//     jsAr: [
-//         'module/admin/plugin/daterangepicker/static/js/moment.js',
-//         'module/admin/plugin/daterangepicker/static/js/daterangepicker.js'
-//     ]
-// }
-//
-// function link(cssAr = config.cssAr, type) {
-//     for (var i = 0; i < cssAr.length; i++) {
-//         document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
-//     }
-// }
-//
-// function script(jsAr = config.jsAr, type) {
-//     for (var i = 0; i < jsAr.length; i++) {
-//         document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
-//     }
-// }
-//
-// link();
-// script();
+var config = {
+    version: '1.0.3',
+    cssAr: [
+        'module/admin/plugin/daterangepicker/static/css/iconfont.css',
+        'module/admin/plugin/daterangepicker/static/css/daterangepicker.css'
+    ],
+    jsAr: [
+        'module/admin/plugin/daterangepicker/static/js/moment.js',
+        'module/admin/plugin/daterangepicker/static/js/daterangepicker.js'
+    ]
+}
+
+function link(cssAr = config.cssAr, type) {
+    for (var i = 0; i < cssAr.length; i++) {
+        document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
+    }
+}
+
+function script(jsAr = config.jsAr, type) {
+    for (var i = 0; i < jsAr.length; i++) {
+        document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
+    }
+}
+
+link();
+script();
 
 $(document).ready(function () {
 
@@ -88,7 +88,11 @@ $(document).ready(function () {
                 } else if (label == '未来90天') {
                     object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
                 } else {
-                    object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    if (start != null && end != null) {
+                        object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    }else{
+                        object.val(start.format('YYYY/MM/DD'));
+                    }
                 }
             }
         );
@@ -137,7 +141,11 @@ $(document).ready(function () {
                 } else if (label == '未来90天') {
                     object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
                 } else {
-                    object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    if (start != null && end != null) {
+                        object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    }else{
+                        object.val(start.format('YYYY/MM/DD'));
+                    }
                 }
             }
         );
@@ -178,7 +186,11 @@ $(document).ready(function () {
                      object.val(start.format('YYYY/MM/DD'));
                     //object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
                 } else {
-                    object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    if (start != null && end != null) {
+                        object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                    }else{
+                        object.val(start.format('YYYY/MM/DD'));
+                    }
                 }
             }
         );

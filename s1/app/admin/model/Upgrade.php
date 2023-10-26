@@ -31,8 +31,8 @@ class Upgrade extends AdminBase
     }
 
 
-	/**初始服务器变量
-	 *
+	/**
+     * 初始服务器变量
 	 */
 	function  ininServerUrl(){
 

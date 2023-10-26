@@ -95,7 +95,6 @@ class AdminBase extends LogicBase
 	{
 
 		if (is_object($list)) {
-
 			$list = $list->toArray();
 		}
 

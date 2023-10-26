@@ -1,27 +1,27 @@
-// var config = {
-//     version: '1.0.2',
-//     cssAr: [
-//         'module/admin/plugin/daterangepicker/static/css/iconfont.css',
-//     ],
-//     jsAr: [
-//         'module/admin/js/plugins/suggest/bootstrap-suggest.js',
-//     ]
-// }
-// //外部css加载
-// function link(cssAr = config.cssAr, type) {
-//     for (var i = 0; i < cssAr.length; i++) {
-//         document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
-//     }
-// }
-// //外部JS加载
-// function script(jsAr = config.jsAr, type) {
-//     for (var i = 0; i < jsAr.length; i++) {
-//         document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
-//     }
-// }
+var config = {
+    version: '1.0.2',
+    cssAr: [
+        'module/admin/plugin/daterangepicker/static/css/iconfont.css',
+    ],
+    jsAr: [
+        'module/admin/js/plugins/suggest/bootstrap-suggest.js',
+    ]
+}
+//外部css加载
+function link(cssAr = config.cssAr, type) {
+    for (var i = 0; i < cssAr.length; i++) {
+        document.write('<link rel="stylesheet" href="' + static_root + cssAr[i] + '?version=' + config.version + '"/>');
+    }
+}
+//外部JS加载
+function script(jsAr = config.jsAr, type) {
+    for (var i = 0; i < jsAr.length; i++) {
+        document.write('<script src="' + static_root + jsAr[i] + '?version=' + config.version + ' type="text/javascript" charset="utf-8"><\/script>');
+    }
+}
 
-//link();
-// script();
+link();
+script();
 
 //操作方法
 
