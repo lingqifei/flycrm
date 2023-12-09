@@ -13,20 +13,19 @@
 - (v1)版本：[http://v1.07fly.xyz](http://v1.07fly.xyz)
 - 账号：admin
 - 密码：admin123456
-- 
+
 - (v2)版本：[http://v2.07fly.xyz](http://v2.07fly.xyz)
 - 账号：admin
 - 密码：admin123456
-- 
+
 - (S1)演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
 - 账号：demo
 - 密码：123456
 
 
- V1/v2/S1区别：[点击查看说明文档](https://gitee.com/07fly/FLY-CRM/wikis/v1%20v2%20s1%E5%8C%BA%E5%88%AB)
+### V1/v2/S1区别
 
-
-
+- [点击查看说明文档](https://gitee.com/07fly/FLY-CRM/wikis/v1%20v2%20s1%E5%8C%BA%E5%88%AB)
 
 
 ### 在线帮助
