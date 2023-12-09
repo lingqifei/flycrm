@@ -23,6 +23,12 @@
 - 密码：123456
 
 
+ V1/v2/S1说明文档：https://gitee.com/07fly/FLY-CRM/wikis/v1%20v2%20s1%E5%8C%BA%E5%88%AB
+
+
+
+
+
 ### 在线帮助
 
 
