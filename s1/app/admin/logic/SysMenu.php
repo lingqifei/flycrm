@@ -37,7 +37,7 @@ class SysMenu extends AdminBase
             if (!empty($menu_info[$child]) && $menu_info['visible'] == 1) {
 
                 $icon = empty($menu_info['icon']) ? 'fa-dot-circle-o' : $menu_info['icon'];
-                $level_classname='';
+                $level_classname = '';
                 if ($level == 0) {
                     $level_classname = "nav-second-level";
                 } else if ($level == 1) {
@@ -204,15 +204,17 @@ class SysMenu extends AdminBase
      */
     public function getSysMenuList($where = [], $field = true, $order = '', $paginate = false)
     {
-
         //判断模块是否启用
         $module = $this->modelSysModule->getColumn(['visible' => 1], 'name');
-        $module[] = 'admin';//排除管理模块
-
+        $module[] = 'admin';//默认增加admin模块要启用的
         $where['module'] = ['in', $module];
-        $where['org_id'] = ['>', 0];
+//        $where['org_id'] = ['>', 0];
 
-        return $this->modelSysMenu->getList($where, $field, $order, $paginate);
+        $list = $this->modelSysMenu->getList($where, $field, $order, $paginate);
+        foreach ($list as &$row) {
+            $row['name'] = lang($row['name']);
+        }
+        return $list;
     }
 
     //得到tree的数据
@@ -236,7 +238,11 @@ class SysMenu extends AdminBase
      */
     public function getDefaultTitle()
     {
-        return $this->modelSysMenu->getValue(['module' => MODULE_NAME, 'url' => URL], 'name');
+        $name = $this->modelSysMenu->getValue(['module' => MODULE_NAME, 'url' => URL], 'name');
+        if(!empty($name)){
+            $name = lang($name);
+        }
+        return $name;
     }
 
     /**
@@ -244,7 +250,11 @@ class SysMenu extends AdminBase
      */
     public function getSysMenuInfo($where = [], $field = true)
     {
-        return $this->modelSysMenu->getInfo($where, $field);
+        $info = $this->modelSysMenu->getInfo($where, $field);
+        if(!empty($info)){
+            $info['name'] = lang($info['name']);
+        }
+        return $info;
     }
 
     /**
@@ -392,7 +402,6 @@ class SysMenu extends AdminBase
     }
 
 
-
     /**
      * 批量导入菜单
      * @param array $data 菜单数据
@@ -447,6 +456,17 @@ class SysMenu extends AdminBase
         $list = $this->modelSysMenu->getList($where, '', '', false)->toArray();
         $tree = list2tree2menu($list);
         return $tree;
+    }
+
+    /**
+     * 获取菜单列表
+     */
+    public function getAllList()
+    {
+        //判断模块是否启用
+        $where['module']=['in',['admin','dms']];
+        $list = $this->modelSysMenu->getColumn($where, 'name', 'name');
+        return $list;
     }
 
 }

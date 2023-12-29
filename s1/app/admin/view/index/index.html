@@ -45,7 +45,7 @@
                     <!--                        </a>-->
                     <!--                    </div>-->
                     <div class="profile-element">
-                        <a class="dropdown-toggle J_menuItem" href="{:url('index/main')}">
+                        <a class="dropdown-toggle J_menuItem" href="{:url('admin/Index/main')}">
                             <span class="clear">
                                 <span class="block m-t-xs" style="font-size:18px;">
                                 <strong class="font-bold">{$sys_config.main_title}</strong>
@@ -92,6 +92,31 @@
                     {/if}
                     {$sys_config.top_links_right|default=''}
 
+                    <!--语言包-->
+                    <li class="dropdown msg-icon">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-language "></i>{:lang('language')}
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="{:url('index/language',array('lang'=>'cn'))}" class="ajax-get" data-calback="window.location.reload();">
+                                    {:lang('chinese')}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{:url('index/language',array('lang'=>'en'))}" class="ajax-get" data-calback="window.location.reload();">
+                                    {:lang('english')}
+                                </a>
+                            </li>
+<!--                            <li>-->
+<!--                                <a href="{:url('index/language',array('lang'=>'brazil'))}" class="ajax-get" data-calback="window.location.reload();">-->
+<!--                                    {:lang('brazil')}-->
+<!--                                </a>-->
+<!--                            </li>-->
+                        </ul>
+                    </li>
+
                     <!--系统公告-->
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -132,7 +157,7 @@
                             <li>
                                 <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"
                                    title="个人资料" width="600" height="400">
-                                    <div><i class="fa fa-qq fa-fw"></i> 密码修改</div>
+                                    <div><i class="fa fa-qq fa-fw"></i> {:lang('password')}修改</div>
                                 </a>
                             </li>
                             <li class="divider"></li>
@@ -151,7 +176,7 @@
         </div>
         <!--右侧窗口数据-->
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="95%" src="{:url('Index/main')}" frameborder="0" data-id="index_v1.html" seamless></iframe>
+            <iframe id="J_iframe" width="100%" height="95%" src="{:url('admin/Index/main')}" frameborder="0" data-id="index_v1.html" seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->

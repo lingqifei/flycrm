@@ -42,7 +42,9 @@ return [
     // 默认时区
     'default_timezone'       => 'PRC',
     // 是否开启多语言
-    'lang_switch_on'         => false,
+    'lang_switch_on'         => true,
+    //允许的多语言列表
+    'lang_list'              => ['zh-cn','en-us','pt-br'],
     // 默认全局过滤方法 用逗号分隔多个
     'default_filter'         => 'trim',
     // 默认语言
