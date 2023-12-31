@@ -5,11 +5,10 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <lqf_link><a id="data_backup" class="btn btn-info" url="{:url('dataBackup')}"><i
-                            class="fa fa-download"></i> 备份数据</a></lqf_link>
+                            class="fa fa-download"></i> {:lang('backup data')}</a></lqf_link>
                     <lqf_link><a id='optimize' class="btn btn-info" url="{:url('optimize')}"><i
-                            class="fa fa-shield"></i> 优 化</a></lqf_link>
-                    <lqf_link><a id='repair' class="btn btn-info" url="{:url('repair')}"><i class="fa fa-wrench"></i> 修
-                        复</a></lqf_link>
+                            class="fa fa-shield"></i> {:lang('optimization')}</a></lqf_link>
+                    <lqf_link><a id='repair' class="btn btn-info" url="{:url('repair')}"><i class="fa fa-wrench"></i> {:lang('repair')}</a></lqf_link>
 
                 </div>
                 <div class="ibox-content">
@@ -17,13 +16,13 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>表名</th>
-                                <th>引擎</th>
-                                <th>注释</th>
-                                <th>数据量</th>
-                                <th>数据大小</th>
-                                <th>备份状态</th>
-                                <th>创建时间</th>
+                                <th>{:lang('table name')}</th>
+                                <th>{:lang('engine')}</th>
+                                <th>{:lang('annotation')}</th>
+                                <th>{:lang('data volume')}</th>
+                                <th>{:lang('data szie')}</th>
+                                <th>{:lang('backup status')}</th>
+                                <th>{:lang('backup data')}</th>
                             </tr>
                             </thead>
                             {notempty name='list'}

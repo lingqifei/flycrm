@@ -7,10 +7,10 @@
                     <tr>
                         <th>名称</th>
                         <th>标识</th>
-                        <th>描述</th>
+                        <th>{:lang('description')}</th>
                         <th>版本</th>
-                        <th>作者</th>
-                        <th>操作</th>
+                        <th>{:lang('author')}</th>
+                        <th>{:lang('operate')}</th>
                     </tr>
                     </thead>
                     {notempty name='list'}
@@ -24,9 +24,9 @@
                         <td>{$vo.author}</td>
                         <td>
                             {eq name='vo.is_install' value='1'}
-                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_uninstall', array('name' => $vo['name']))}"><i  class="fa fa-remove"></i> 卸 载</a></ob_link>
+                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_uninstall', array('name' => $vo['name']))}"><i  class="fa fa-remove"></i> {:lang('uninstall')}</a></ob_link>
                             {else/}
-                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_install', array('name' => $vo['name']))}"><i class="fa fa-refresh"></i> 安 装</a></ob_link>
+                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_install', array('name' => $vo['name']))}"><i class="fa fa-refresh"></i> {:lang('install')}</a></ob_link>
                             {/eq}
                         </td>
                     </tr>

@@ -27,14 +27,14 @@
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="group" value="{$group|default=''}">
                             <div class="col-sm-3 m-b-xs">
-                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('config/configAdd')}" data-title="模型添加" ><i class="fa fa-plus"></i> 添加</a></lqf_link>
+                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('config/configAdd')}" data-title="模型添加" ><i class="fa fa-plus"></i> {:lang('add')}</a></lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
-                                    <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                                    <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button></span>
                                 </div>
                             </div>
                         </form>
@@ -47,9 +47,9 @@
                             <th width="100">字段名称</th>
                             <th width="120">类型</th>
                             <th width="80">分组</th>
-                            <th width="100" orderField="by_sort" class="sort-filed"><span>排序</span></th>
-                            <th width="80">启用</th>
-                            <th width="80">操作</th>
+                            <th width="100" orderField="by_sort" class="sort-filed"><span>{:lang('sort')}</span></th>
+                            <th width="80">{:lang('enable')}</th>
+                            <th width="80">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,8 +82,8 @@
         </td>
         <td>
             <p>
-                <lqf_link><a class="ajax-open" data-url="{:url('config/configEdit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">修改</a></lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('config/configDel')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+                <lqf_link><a class="ajax-open" data-url="{:url('config/configEdit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">{:lang('modify')}</a></lqf_link>
+                <lqf_link><a class="ajax-del confirm" data-url="{:url('config/configDel')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
             </p>
         </td>
     </tr>
