@@ -3,32 +3,32 @@
     <form class="form-horizontal" method="post" action="{:url('OaNotifyUser/edit')}">
         <input type="hidden" name="id" value="{$info.id|default='0'}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">公告标题</label>
+            <label class="col-sm-2 control-label">{:lang('title')}</label>
             <div class="col-sm-10">
-                <input name="name" class="form-control" type="text" placeholder="请输入公告标题" value="{$info.name|default=''}"/>
+                <input name="name" class="form-control" type="text" placeholder="请输入{:lang('title')}" value="{$info.name|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">接收人员</label>
+            <label class="col-sm-2 control-label">{:lang('recipient')}</label>
             <div class="col-sm-10">
                 <select name="rece_type" class="form-control">
-                    <option value="0"  {notempty name="info['rece_type']"} {if condition="$info['rece_type'] eq 0 " }  selected="selected" {/if} {/notempty}>全体成员</option>
-                    <option value="1"  {notempty name="info['rece_type']"} {if condition="$info['rece_type'] eq 1 " }  selected="selected" {/if} {/notempty}>指定成员</option>
+                    <option value="0"  {notempty name="info['rece_type']"} {if condition="$info['rece_type'] eq 0 " }  selected="selected" {/if} {/notempty}>{:lang('all members')}</option>
+                    <option value="1"  {notempty name="info['rece_type']"} {if condition="$info['rece_type'] eq 1 " }  selected="selected" {/if} {/notempty}>{:lang('designated personnel')}</option>
                 </select>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">指定人员</label>
+            <label class="col-sm-2 control-label">{:lang('designated personnel')}</label>
             <div class="col-sm-10">
                 <input type="hidden" name="rece_user_id" value="{$info.rece_user_id|default=''}">
-                <input type="text" name="rece_user_name" id="rece_user_name" class="form-control" placeholder="选择指定人员" value="{$info.rece_user_name|default=''}">
-                <a class="btn btn-default ajax-open" data-url="{:url('admin/SysUser/lookup',array('input_ids'=>'rece_user_id','input_text'=>'rece_user_name'))}">选择人员</a>
+                <input type="text" name="rece_user_name" id="rece_user_name" class="form-control" placeholder="选择{:lang('designated personnel')}" value="{$info.rece_user_name|default=''}">
+                <a class="btn btn-default ajax-open" data-url="{:url('admin/SysUser/lookup',array('input_ids'=>'rece_user_id','input_text'=>'rece_user_name'))}">{:lang('select personnel')}</a>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">公告内容</label>
+            <label class="col-sm-2 control-label">{:lang('notice content')}</label>
             <div class="col-sm-10">
-                <textarea name="content" class="form-control" placeholder="公告内容">{$info.content|default=''}</textarea>
+                <textarea name="content" class="form-control" placeholder="{:lang('notice content')}">{$info.content|default=''}</textarea>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">

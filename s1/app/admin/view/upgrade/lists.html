@@ -3,9 +3,7 @@
         <div class="toast"></div>
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <i class="fa fa-home"></i>升级包列表
-                </div>
+                <div class="ibox-title">{:lang('upgrade package list')}</div>
                 <div class="ibox-content">
                     <table class="table table-hover upgrade-list"
                            data-url="{:url('upgrade/lists',array('action'=>'getdatalist'))}" width="100%">
@@ -13,12 +11,12 @@
                         {notempty name='list'}
                         {volist name='list' id='vo'}
                         <tr>
-                            <td width="100">更新包文件:{$vo.version}</td>
-                            <td width="200">状态:{$vo.status}</td>
+                            <td width="100">{:lang('update package files')}:{$vo.version}</td>
+                            <td width="200">{:lang('status')}:{$vo.status}</td>
                             <td width="100">{$vo.operate}</td>
                             <td width="100"><a class="ajax-open" data-url="{:url('upgrade/info')}"
                                                data-ids="{'version':'{$vo.version}'}"
-                                               data-calback="javascript:void(0);">本次更新内容</a></td>
+                                               data-calback="javascript:void(0);">{:lang('the content of this update')}</a></td>
                         </tr>
                         {/volist}
                         {/notempty}
@@ -26,11 +24,11 @@
                     </table>
                 </div>
                 <div class="upgrade-text text-left"></div>
-                <div class="ibox-title text-danger"><h5>升级有风险，操作需谨慎！</h5></div>
+                <div class="ibox-title text-danger"><h5>{:lang('upgrading carries risks and requires caution in operation')}！</h5></div>
                 <div class="ibox-content">
-                    <p>从零起飞研发中心服务器(www.07fly.xyz)上面下载可用更新文件列表....</p>
-                    <p>更新包用法:更新安装包以日期时间命名,时间早的先的安装,时间晚的后安装.</p>
-                    <p class="text-danger">注意：升级有一定的风险，请事先做好系统和数据的备份。</p>
+                    <p>{:lang('download the list of available updated files from center server')}...</p>
+                    <p>{:lang('usage of update package')}.</p>
+                    <p class="text-danger">{:lang('upgrading carries certain risks')}.</p>
                 </div>
             </div>
         </div>
@@ -74,7 +72,7 @@
             dataType: "json",
             async: true,
             beforeSend: function () {
-                layer.msg('下载升级程序，请不要关闭浏览器，请稍后...', {
+                layer.msg('{:lang(\'download the upgrade program\')}...', {
                     icon: 16,
                     time: 100000,
                     shade: [0.5, '#000', true]
@@ -82,7 +80,7 @@
             },
             success: function (data) {
                 if (data.code == '1') {
-                    layer.msg('下载成功', {icon: 1, time: 1000, shade: 0}, function () {
+                    layer.msg("{:lang('download successful')}", {icon: 1, time: 1000, shade: 0}, function () {
                         getUpgradeList();
                     });
                 } else {
@@ -98,8 +96,8 @@
         var step = 1;
         var target = $(this).attr('data-url');
         var version = $(this).attr('data-ver');
-        var title = '数据升级，正在备份程序，请不要关闭浏览器...';
-        $('.upgrade-text').append('<div class="ibox-title">升级日志：</div>');
+        var title = '{:lang("data upgrade")}...';
+        $('.upgrade-text').append('<div class="ibox-title">{:lang("upgrade log")}：</div>');
         upgrade(target, step, title, version);
     });
 
@@ -152,7 +150,7 @@
             dataType: "json",
             async: true,
             beforeSend: function () {
-                layermsg=layer.msg('数据加载中，请稍等',
+                layermsg=layer.msg("{:lang('data processing in progress, please wait')}",
                     {
                         time: 100000,
                         icon: 16,
@@ -170,10 +168,10 @@
 
                         html +='<tr>';
 
-                        html +='<td width="100">更新文件包：'+row.version+'</td>';
-                        html +='<td width="200">状态：'+row.status+'</td>';
+                        html +='<td width="100">{:lang(\'update package files\')}：'+row.version+'</td>';
+                        html +='<td width="200">{:lang(\'status\')}：'+row.status+'</td>';
                         html +='<td width="100">'+row.operate+'</td>';
-                        html +='<td width="100"><a class="ajax-open" data-url="'+view+'" data-ids="'+ids+'" data-calback="javascript:void(0);">本次更新内容</a></td>';
+                        html +='<td width="100"><a class="ajax-open" data-url="'+view+'" data-ids="'+ids+'" data-calback="javascript:void(0);">{:lang(\'the content of this update\')}</a></td>';
 
                         html +='</tr>';
 

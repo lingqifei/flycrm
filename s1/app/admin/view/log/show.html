@@ -3,27 +3,27 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-home"></i>行为日志</h5>
+                    <h5>{$page_title|default=''}</h5>
                     <div class="ibox-tools"><a href="?" class="btn btn-xs btn-danger"><i
-                            class="fa fa-refresh"></i>刷新</a></div>
+                            class="fa fa-refresh"></i>{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <div class="col-sm-3 m-b-xs">
                                 <lqf_link><a class="btn btn-danger confirm ajax-del" data-url="{:url('Log/clear')}"><i
-                                        class="fa fa-cog fa-spin"></i> 清空记录</a></lqf_link>
+                                        class="fa fa-cog fa-spin"></i> {:lang('clear records')}</a></lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group">
-                                    <input type="text" name="create_time" class="form-control w50 daterange-prev" placeholder="选择日志日期">
+                                    <input type="text" name="create_time" class="form-control w50 daterange-prev" placeholder="{:lang('creation time')}">
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                                   <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                                   </span>
                                 </div>
                             </div>
@@ -34,13 +34,13 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="100">名称</th>
-                            <th width="200">描述</th>
-                            <th width="100">执行者</th>
-                            <th width="100">执行IP</th>
-                            <th width="150">执行URL</th>
-                            <th width="100">执行时间</th>
-                            <th width="80">操作</th>
+                            <th width="100">{:lang('name')}</th>
+                            <th width="200">{:lang('description')}</th>
+                            <th width="100">{:lang('operators')}</th>
+                            <th width="100">{:lang('ip')}</th>
+                            <th width="150">{:lang('url')}</th>
+                            <th width="100">{:lang('creation time')}</th>
+                            <th width="80">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
         <td><%=data[i]['create_time']%></td>
         <td>
             <p>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('log/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+                <lqf_link><a class="ajax-del confirm" data-url="{:url('log/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
             </p>
         </td>
     </tr>

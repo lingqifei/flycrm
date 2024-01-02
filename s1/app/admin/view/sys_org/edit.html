@@ -3,44 +3,44 @@
         <input type="hidden" name="id" value="{$info['id']|default='0'}">
         <input type="hidden" name="username" value="{$info['username']|default='0'}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">帐号</label>
+            <label class="col-sm-2 control-label">{:lang('accounts')}</label>
             <div class="col-sm-8">
                 <p class="form-control-static">{$info['username']|default=''}</p>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">公司名称</label>
+            <label class="col-sm-2 control-label">{:lang('company name')}</label>
             <div class="col-sm-8">
-                <input name="company" class="form-control" type="text" placeholder="输入公司名称" value="{$info['company']|default=''}"/>
+                <input name="company" class="form-control" type="text" placeholder="输入{:lang('company name')}" value="{$info['company']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">联系人</label>
+            <label class="col-sm-2 control-label">{:lang('contacts')}</label>
             <div class="col-sm-8">
-                <input name="linkman" class="form-control" type="text" placeholder="输入联系人" value="{$info['linkman']|default=''}"/>
+                <input name="linkman" class="form-control" type="text" placeholder="{:lang('contacts')}" value="{$info['linkman']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">手机</label>
+            <label class="col-sm-2 control-label">{:lang('mobile phone')}</label>
             <div class="col-sm-8">
-                <input name="mobile" class="form-control" type="text" placeholder="输入手机号" value="{$info['mobile']|default=''}"/>
+                <input name="mobile" class="form-control" type="text" placeholder="{:lang('phone number')}" value="{$info['mobile']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">开始时间</label>
+            <label class="col-sm-2 control-label">{:lang('start time')}</label>
             <div class="col-sm-8">
-                <input name="start_date" class="form-control datepicker" type="text" placeholder="选择开始时间" value="{$info['start_date']|default=''}"/>
+                <input name="start_date" class="form-control datepicker" type="text" placeholder="{:lang('start time')}" value="{$info['start_date']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">结束时间</label>
+            <label class="col-sm-2 control-label">{:lang('end time')}</label>
             <div class="col-sm-8">
-                <input name="stop_date" class="form-control datepicker" type="text" placeholder="选择开始时间" value="{$info['stop_date']|default=''}"/>
+                <input name="stop_date" class="form-control datepicker" type="text" placeholder="{:lang('start time')}" value="{$info['stop_date']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">介绍</label>
+            <label class="col-sm-2 control-label">{:lang('description')}</label>
             <div class="col-sm-8">
                 <textarea name="remark" class="form-control" cols="80" rows="2">{$info['remark']|default=''}</textarea>
                 <span class="help-block m-b-none"></span> </div>

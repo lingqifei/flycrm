@@ -2,18 +2,18 @@
     <div class="row">
         <div class="col-md-12">
             <div class="ibox">
-                <div class="ibox-title">服务列表</div>
+                <div class="ibox-title">{:lang('service list')}</div>
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <table class="table  table-hover">
                             <thead>
                             <tr>
-                                <th>名称</th>
-                                <th>类名</th>
-                                <th>描述</th>
-                                <th>版本</th>
-                                <th>作者</th>
-                                <th>操作</th>
+                                <th>{:lang('name')}</th>
+                                <th>{:lang('class name')}</th>
+                                <th>{:lang('description')}</th>
+                                <th>{:lang('version')}</th>
+                                <th>{:lang('author')}</th>
+                                <th>{:lang('operate')}</th>
                             </tr>
                             </thead>
                             {notempty name='list'}
@@ -26,7 +26,7 @@
                                 <td>{$vo.version}</td>
                                 <td>{$vo.author}</td>
                                 <td class="col-md-1">
-                                    <a href="{:url('serviceList', array('service_name' => $vo['service_class']))}" class="btn"><i class="fa fa-sitemap"></i> 驱 动</a>
+                                    <a href="{:url('serviceList', array('service_name' => $vo['service_class']))}" class="btn"><i class="fa fa-sitemap"></i> {:lang('drive')}</a>
                                 </td>
                             </tr>
                             {/volist}

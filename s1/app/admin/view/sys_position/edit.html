@@ -3,10 +3,10 @@
         <input type="hidden" name="id" value="{$info['id']|default='0'}">
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">上级职位</label>
+            <label class="col-sm-2 control-label">{:lang('superior position')}</label>
             <div class="col-sm-8">
                 <select name="pid" class="form-control chosen-select">
-                    <option value="0">顶级菜单</option>
+                    <option value="0">{:lang('top level menu')}</option>
                     {volist name='dept_select' id='vo'}
                     <option value="{$vo.id}"  {notempty name="info['pid']"} {if condition="$info['pid'] eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
@@ -16,31 +16,31 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">职位名称</label>
+            <label class="col-sm-2 control-label">{:lang('position name')}</label>
             <div class="col-sm-8">
-                <input name="name" class="form-control" type="text" placeholder="请输入职位名称" value="{$info['name']|default=''}"/>
+                <input name="name" class="form-control" type="text" placeholder="请输入{:lang('position name')}" value="{$info['name']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">数据权限</label>
+            <label class="col-sm-2 control-label">{:lang('data permissions')}</label>
             <div class="col-sm-8">
                 <div class="radio radio-info">
                     <input type="radio" name="data_role" id="dataRole1" value="1" {eq name="info.data_role" value='1'} checked='checked' {/eq}>
-                    <label for="dataRole1"> 个人 (只能操作自己和下属的数据) </label>
+                    <label for="dataRole1">{:lang('individual data permissions')}  </label>
                 </div>
                 <div class="radio radio-info">
                     <input type="radio" name="data_role" id="dataRole2" value="2" {eq name="info.data_role" value='2'} checked='checked' {/eq}>
-                    <label for="dataRole2"> 所属部门 (能操作自己、下属、和自己所属部门的数据) </label>
+                    <label for="dataRole2">{:lang('department data permissions')}  </label>
                 </div>
                 <div class="radio radio-info">
                     <input type="radio" name="data_role" id="dataRole3" value="3" {eq name="info.data_role" value='3'} checked='checked' {/eq}>
-                    <label for="dataRole3"> 所属部门及下属部门 (所属部门及下属部门 能操作自己、下属和自己所属部门及其子部门的数据) </label>
+                    <label for="dataRole3">{:lang('belonging data permissions')}  </label>
                 </div>
 
                 <div class="radio radio-info">
                     <input type="radio" name="data_role" id="dataRole4" value="4" {eq name="info.data_role" value='4'} checked='checked' {/eq}>
-                    <label for="dataRole4"> 全公司 (能操作全公司的数据) </label>
+                    <label for="dataRole4">{:lang('whole company data permissions')}  </label>
                 </div>
 
                 <span class="help-block m-b-none"></span>
@@ -49,21 +49,21 @@
 
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">排位序号</label>
+            <label class="col-sm-2 control-label">{:lang('sort')}</label>
             <div class="col-sm-8">
-                <input name="sort" class="form-control" type="digits" placeholder="排位序号" value="{$info['sort']|default=''}"/>
+                <input name="sort" class="form-control" type="digits" placeholder="{:lang('sort')}" value="{$info['sort']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">是否启用</label>
+            <label class="col-sm-2 control-label">{:lang('is it enabled')}</label>
             <div class="col-sm-8">
                 <div class="radio radio-info radio-inline">
                     <input type="radio" id="inlineRadio1" value="1" name="visible" {eq name="info.visible" value='1'} checked='checked' {/eq}>
-                    <label for="inlineRadio1"> 是 </label>
+                    <label for="inlineRadio1"> {:lang('yes')} </label>
                 </div>
                 <div class="radio radio-info radio-inline">
                     <input type="radio" id="inlineRadio0" value="0" name="visible" {eq name="info.visible" value='0'} checked='checked' {/eq}>
-                    <label for="inlineRadio0"> 否 </label>
+                    <label for="inlineRadio0"> {:lang('no')} </label>
                 </div>
             </div>
         </div>

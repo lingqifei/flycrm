@@ -3,30 +3,25 @@
         <div class="toast"></div>
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <i class="fa fa-home"></i>系统信息
-                </div>
+                <div class="ibox-title">{:lang('system information')}</div>
                 <div class="ibox-content">
-                    <p>当前版本：{$ver.version} {$ver.upgrade}</p>
-                    <p>当前主机：{$ver.domain} </p>
-                    <p>通信状态：{$signal.msg}</p>
+                    <p>{:lang('current version')}：{$ver.version} {$ver.upgrade}</p>
+                    <p>{:lang('current host')}：{$ver.domain} </p>
+                    <p>{:lang('communication status')}：{$signal.msg}</p>
                 </div>
-                <div class="ibox-title">软件注册</div>
+                <div class="ibox-title">{:lang('software registration')}</div>
                 <div class="ibox-content">
                     {if condition="$authorize['code'] eq '1' "}
-                    <p>授权名称：<span>{$authorize.data.name}</span></p>
-                    <p>到期日期：<span>{$authorize.data.stop_date}</span></p>
-                    <p>授权认证：<span>{$authorize.data.syskey}</span></p>
-                    <p>授权域名：<span>{$authorize.data.domain}</span></p>
+                    <p>{:lang('authorization name')}：<span>{$authorize.data.name}</span></p>
+                    <p>{:lang('expiration date')}：<span>{$authorize.data.stop_date}</span></p>
+                    <p>{:lang('authorization authentication')}：<span>{$authorize.data.syskey}</span></p>
+                    <p>{:lang('authorized domain name')}：<span>{$authorize.data.domain}</span></p>
                     {else}
-                    <p><span class="help-block m-b-none">(注册码需要联系软件开发商获取,访问<a
-                            href="http://www.07fly.xyz"
-                            target="_blank">开发商网站</a>) </span></p>
+                    <p><span class="help-block m-b-none">({:lang('the registration code needs to be obtained by contacting the software developer')},<a href="http://www.07fly.xyz" target="_blank">https://www.07fly.xyz</a>) </span></p>
                     <p>
                     <div class="input-group m-b">
-                        <input name="syskey" id="syskey" class="form-control" type="text" placeholder="密钥KEY"/>
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary syskey-reg"
-                                                              data-url="{:url('upgrade/reg')}">提交注册码</button></span>
+                        <input name="syskey" id="syskey" class="form-control" type="text" placeholder="KEY"/>
+                        <span class="input-group-btn"><button type="button" class="btn btn-primary syskey-reg"  data-url="{:url('upgrade/reg')}">{:lang('submit registration code')}</button></span>
                     </div>
                     </p>
                     {/if}

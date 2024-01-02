@@ -5,21 +5,21 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <H5>{$page_title}</H5>
-                        <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_customer"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                        <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_customer"> <i class="fa fa-question-circle"> {:lang('help')}</i></a>
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <form id="pagerForm" method="post" class="form-inline searchForm">
-                                <div class="col-sm-12 m-b-xs text-right">
+                                <div class="col-sm-12">
                                     <div class="input-group">
-                                        <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                                        <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button></span>
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-btn"> <button type="button" class="btn btn-warning ajaxSearchForm resetForm"><i class="fa fa-recycle"></i> 重置</button></span>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-warning ajaxSearchForm resetForm"><i class="fa fa-recycle"></i> {:lang('resetting')}</button></span>
                                     </div>
                                 </div>
                             </form>
@@ -30,11 +30,11 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-10">
-                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('SysModule/add')}"><i class="fa fa-plus"></i> 生成模块</a></lqf_link>
-                                <lqf_link><a  class="btn btn-default btn-outline ajax-open" data-url="{:url('SysModule/upload')}"><i class="fa fa-upload"></i>导入模块</a></lqf_link>
+                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('SysModule/add')}"><i class="fa fa-plus"></i> {:lang('generate module')}</a></lqf_link>
+                                <lqf_link><a  class="btn btn-default btn-outline ajax-open" data-url="{:url('SysModule/upload')}"><i class="fa fa-upload"></i> {:lang('import module')}</a></lqf_link>
                             </div>
                             <div class="col-sm-2 text-right">
-                                <a href="javascript:void(0);" class="btn btn-default btn-outline btn-field-set" data-id="{$page_title|default=''}"> <i class="fa fa-columns"></i> 列</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-outline btn-field-set" data-id="{$page_title|default=''}"> <i class="fa fa-columns"></i> {:lang('display columns')}</a>
                             </div>
                         </div>
                     </div>
@@ -44,13 +44,13 @@
                             <thead>
                             <tr>
                                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                                <th width="80">模块标题</th>
-                                <th width="80">模块名称</th>
-                                <th width="200">模块描述</th>
-                                <th width="60">版本号</th>
-                                <th width="60">排序</th>
-                                <th width="50">启用</th>
-                                <th width="50">操作</th>
+                                <th width="80">{:lang('title')}</th>
+                                <th width="80">{:lang('name')}</th>
+                                <th width="200">{:lang('description')}</th>
+                                <th width="60">{:lang('version')}</th>
+                                <th width="60">{:lang('sort')}</th>
+                                <th width="50">{:lang('enable')}</th>
+                                <th width="50">{:lang('operate')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -85,7 +85,7 @@
         <td>
 
             <p>
-            <lqf_link><a  class="ajax-open" data-url="{:url('SysModule/edit',array('name'=>'visible'))}"  data-ids="{'id':'<%=data[i]['id']%>'}" >修改</a> </lqf_link>
+            <lqf_link><a  class="ajax-open" data-url="{:url('SysModule/edit',array('name'=>'visible'))}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('modify')}</a> </lqf_link>
             <% for(var j=0;j<data[i]['status_arr']['action'].length;j++) { %>
             <lqf_link>
                 <a class="<%=data[i]['status_arr']['action'][j]['class']%>"
@@ -97,8 +97,8 @@
             <% } %>
             </p>
             <p>
-            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >备份</a> </lqf_link>
-            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >同步</a> </lqf_link>
+            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('backup')}</a> </lqf_link>
+            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('sync')}</a> </lqf_link>
             </p>
         </td>
     </tr>

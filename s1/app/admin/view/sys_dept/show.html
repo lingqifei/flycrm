@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-3">
             <div class="ibox">
-                <div class="ibox-title"><h5>企业组织架构</h5>
-                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                <div class="ibox-title"><h5>{$page_title}</h5>
+                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="right_centent" style="">
                     <div id="left-tree" data-url="{:url('SysDept/get_list_tree')}"> </div>
@@ -12,23 +12,23 @@
         </div>
         <div class="col-md-9">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-title">{$page_title}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="">
                             <div class="col-sm-3 m-b-xs">
-                                <a class="btn btn-default refresh-tree"> <i class="fa fa-refresh"> </i>刷新</a>
-                                <lqf_link> <a class="btn btn-info ajax-open add-btn" data-url="{:url('SysDept/add')}" data-title="用户"><i class="fa fa-plus"></i>添加</a> </lqf_link>
+                                <a class="btn btn-default refresh-tree"> <i class="fa fa-refresh"> </i>{:lang('refresh')}</a>
+                                <lqf_link> <a class="btn btn-info ajax-open add-btn" data-url="{:url('SysDept/add')}" data-title="用户"><i class="fa fa-plus"></i> {:lang('add')}</a></lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
-                                                    </span>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
+                                    </span>
                                 </div>
                             </div>
                         </form>
@@ -37,11 +37,11 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="100">部门名称</th>
+                            <th width="100">{:lang('department name')}</a></th>
 <!--                            <th width="200">部门描述</th>-->
-                            <th width="60">排序</th>
-                            <th width="60">启用</th>
-                            <th width="80">操作</th>
+                            <th width="60">{:lang('sort')}</th>
+                            <th width="60">{:lang('enable')}</th>
+                            <th width="80">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,19 +75,16 @@
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysDept/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
         <td>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysDept/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('SysDept/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysDept/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysDept/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         //BindEvent();
-
         window.onload=onLoad();
-
         //页面加载
         function onLoad() {
             $('.searchForm').find("input[name='pid']").val('');
@@ -109,11 +106,8 @@
                     }
                 });
             }, "json");
-
             turnPage(1);//页面加载时初始化分页
-
         }
-
 
         //刷新加载-添加
         $("body").on("click", ".refresh-tree", function () {
@@ -133,7 +127,4 @@
         }
         /*-----页面pannel内容区高度自适应 end-----*/
     });
-
-
-
 </script>

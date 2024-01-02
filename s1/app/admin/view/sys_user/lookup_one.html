@@ -3,7 +3,7 @@
         <div class="col-sm-4">
             <div class="">
                 <div class="ibox-title"><h5>选择部门</h5>
-                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content no-padding">
                     <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"> </div>
@@ -12,18 +12,18 @@
         </div>
         <div class="col-sm-8">
             <div class="">
-                <div class="ibox-title">{$page_title}选择人员</div>
+                <div class="ibox-title">{$page_title}{:lang('select personnel')}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <input type="hidden" name="pid" value="" placeholder="部门编号">
                             <div class="col-sm-12 m-b-xs">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                           <span class="input-group-btn">
-                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                           </span></div>
                             </div>
                         </form>
@@ -32,9 +32,9 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">帐号</th>
-                            <th width="100">姓名</th>
-                            <th width="80" class="text-center">操作</th>
+                            <th width="80">{:lang('accounts')}</th>
+                            <th width="100">{:lang('realname')}</th>
+                            <th width="80" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>

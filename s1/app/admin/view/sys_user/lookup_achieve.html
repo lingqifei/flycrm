@@ -4,7 +4,7 @@
         <div class="col-sm-3">
             <div class="ibox">
                 <div class="ibox-title"><h5>部门结构</h5>
-                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content">
                     <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"></div>
@@ -20,7 +20,7 @@
                             <input type="hidden" name="pid" value="" placeholder="部门编号">
                             <div class="col-sm-12 m-b-xs text-right">
                                 <div class="input-group pd-b-5">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                           <span class="input-group-btn">
@@ -34,8 +34,8 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">帐号</th>
-                            <th width="80">姓名</th>
+                            <th width="80">{:lang('accounts')}</th>
+                            <th width="80">{:lang('realname')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -165,7 +165,7 @@
                 '                    <span class="help-block m-b-none">单位%</span>\n' +
                 '                </div>\n' +
                 '                <div class="col-xs-2">\n' +
-                '                   <p class="form-control-static"><a href="javascript:void(0);" onclick="delTr(this);" >删除</a></p> \n' +
+                '                   <p class="form-control-static"><a href="javascript:void(0);" onclick="delTr(this);" >{:lang('delete')}</a></p> \n' +
                 '                </div>\n' +
                 '            </div>';
 

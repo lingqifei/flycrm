@@ -1,54 +1,54 @@
 <div class="ibox-content">
     <form class="form-horizontal" method="post" action="{:url('SysModule/add')}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块标题</label>
+            <label class="col-sm-2 control-label">{:lang('title')}</label>
             <div class="col-sm-8">
-                <input name="title" class="form-control" type="text" placeholder="请输入模块标题" required/>
+                <input name="title" class="form-control" type="text" placeholder="{:lang('title')}" required/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块名</label>
+            <label class="col-sm-2 control-label">{:lang('name')}</label>
             <div class="col-sm-8">
-                <input name="name" class="form-control" type="text" placeholder="请输入模块名" required/>
-                <span class="help-block m-b-none">模块名称只能为字母</span> </div>
+                <input name="name" class="form-control" type="text" placeholder="{:lang('name')}" required/>
+                <span class="help-block m-b-none">{:lang('module names can only be letters')}模块名称只能为字母</span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块介绍</label>
+            <label class="col-sm-2 control-label">{:lang('description')}</label>
             <div class="col-sm-8">
                 <textarea name="intro" class="form-control" cols="80" rows="2"></textarea>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">作者</label>
+            <label class="col-sm-2 control-label">{:lang('author')}</label>
             <div class="col-sm-8">
-                <input name="author" class="form-control" type="text" placeholder="输入作者"/>
+                <input name="author" class="form-control" type="text" placeholder="{:lang('author')}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">作者网址</label>
+            <label class="col-sm-2 control-label">{:lang('author website')}</label>
             <div class="col-sm-8">
-                <input name="author_url" class="form-control" type="text" placeholder="输入作者网址"/>
+                <input name="author_url" class="form-control" type="text" placeholder="{:lang('author website')}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">版本号</label>
+            <label class="col-sm-2 control-label">{:lang('version')}</label>
             <div class="col-sm-8">
-                <input name="version" class="form-control" type="text" placeholder="输入版本号" />
+                <input name="version" class="form-control" type="text" placeholder="{:lang('version')}" />
                 <span class="help-block m-b-none"></span> </div>
         </div>
 
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>快速生成模块目录结构</legend>
+            <legend>{:lang('quickly generate module directory structure')}</legend>
         </fieldset>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">公共文件</label>
+            <label class="col-sm-2 control-label">{:lang('public documents')}</label>
             <div class="col-sm-8">
-                <input name="comm_file" class="form-control" type="text" placeholder="公共文件" value="command.php"/>
+                <input name="comm_file" class="form-control" type="text" placeholder="{:lang('public documents')}" value="command.php"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块目录</label>
+            <label class="col-sm-2 control-label">{:lang('module directory')}</label>
             <div class="col-sm-8">
                 <textarea name="module_dir" class="form-control" cols="80" rows="8">
 controller
@@ -62,7 +62,7 @@ view
                 <span class="help-block m-b-none"></span>
             </div>
             <div class="col-sm-2">
-                在当前模块下生成目录<br>
+                {:lang('generate directory under the current module')}<br>
                 controller(后台控制器)<br>
                 logic(逻辑层)<br>
                 service(服务层)<br>

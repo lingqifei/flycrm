@@ -7,16 +7,16 @@
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <div class="col-sm-3 m-b-xs">
                                 <lqf_link>
-                                <a class="btn btn-info ajax-open"  data-url="{:url('SysAuth/add')}" data-title="添加权限" ><i class="fa fa-plus"></i>添加</a>
+                                    <a class="btn btn-info ajax-open"  data-url="{:url('SysAuth/add')}" data-title="" width="600" height="400"><i class="fa fa-plus"></i> {:lang('add')}</a>
                                 </lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group pd-b-5">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                   <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                   </span></div>
                             </div>
                         </form>
@@ -25,10 +25,10 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="200">名称</th>
-                            <th>描述</th>
-                            <th width="150">排序</th>
-                            <th width="150">操作</th>
+                            <th width="200">{:lang('name')}</th>
+                            <th>{:lang('description')}</th>
+                            <th width="80"  class="text-center">{:lang('sort')}</th>
+                            <th width="250"  class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,17 +50,15 @@
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['name']%></td>
         <td><%=data[i]['intro']%></td>
-        <td><%=data[i]['sort']%>
+        <td  class="text-center"><%=data[i]['sort']%>
 <!--            <input type="text" data-url="{:url('SysAuth/setSort')}" data-ids="{'id':'<%=data[i]['id']%>'}" class="form-control ajax-sort" value="<%=data[i]['sort']%>">-->
         </td>
-        <td>
-            <p>
-    
-                <lqf_link> <a class="ajax-open" data-url="{:url('SysAuth/MenuAuth')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-val="">菜单受权</a></lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysAuth/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-val="">修改</a></lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('SysAuth/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
-                
-            </p>
+        <td class="text-center">
+
+            <lqf_link> <a class="ajax-open" data-url="{:url('SysAuth/MenuAuth')}"  data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('menu authorization')}</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysAuth/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" width="600" height="400">{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysAuth/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
+
         </td>
     </tr>
     <% } %>

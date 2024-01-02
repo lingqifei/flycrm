@@ -4,7 +4,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <H5>{$page_title}</H5>
-                        <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_customer"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                        <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_customer"> <i class="fa fa-question-circle"> {:lang('help')}</i></a>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -12,13 +12,13 @@
                             <form id="pagerForm" method="post" class="form-inline searchForm">
                                 <div class="col-sm-12 m-b-xs text-left">
                                     <div class="input-group">
-                                        <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                                        <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button></span>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button></span>
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-btn"> <button type="button" class="btn btn-warning ajaxSearchForm resetForm"><i class="fa fa-recycle"></i> 重置</button></span>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-warning ajaxSearchForm resetForm"><i class="fa fa-recycle"></i> {:lang('resetting')}</button></span>
                                     </div>
                                 </div>
                             </form>
@@ -29,7 +29,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-10">
-                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('Store/user')}" width="600" height="500"><i class="fa fa-user"></i>会员信息</a></lqf_link>
+                                <lqf_link><a class="btn btn-info ajax-open"  data-url="{:url('Store/user')}" width="600" height="500"><i class="fa fa-user"></i>{:lang('member information')}</a></lqf_link>
                             </div>
                             <div class="col-sm-2 text-right">
                             </div>
@@ -41,13 +41,13 @@
                             <thead>
                             <tr>
                                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                                <th width="100">应用名称</th>
-                                <th width="500">应用简介</th>
-                                <th width="80">作者</th>
-                                <th width="80">服务价格</th>
-                                <th width="80" title="到期时间是指购买应用模块在线升级服务的到期时间">到期时间</th>
-                                <th width="80">最新版本</th>
-                                <th width="100">操作</th>
+                                <th width="100">{:lang('apply name')}</th>
+                                <th width="500">{:lang('application introduction')}</th>
+                                <th width="80">{:lang('author')}</th>
+                                <th width="80">{:lang('service price')}</th>
+                                <th width="80" title="{:lang('the expiration time refers to the expiration time for purchasing online upgrade services for application modules')}">{:lang('expiration times')}</th>
+                                <th width="80">{:lang('latest version')}</th>
+                                <th width="100">{:lang('operate')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -82,13 +82,13 @@
         <td><%:=data[i]['app_expire']%></td>
         <td><%=data[i]['version']%></td>
         <td>
-            <lqf_link><a href="http://www.07fly.net/store/<%=data[i]['name']%>.html" target="_blank" class="text-primary">详细</a> </lqf_link>
-            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank">演示</a></lqf_link>
+            <lqf_link><a href="http://www.07fly.net/store/<%=data[i]['name']%>.html" target="_blank" class="text-primary">{:lang('detail')}</a> </lqf_link>
+            <lqf_link><a href="<%=data[i]['demourl']%>" target="_blank">{:lang('demo')}</a></lqf_link>
             <% if(data[i]['isinstall']=='0'){ %>
-            <lqf_link><a  class="ajax-open" data-url="{:url('Store/install')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}"  >安装</a> </lqf_link>
+            <lqf_link><a  class="ajax-open" data-url="{:url('Store/install')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}"  >{:lang('install')}</a> </lqf_link>
             <% } %>
             <% if(data[i]['isupdate']=='1'){ %>
-            <lqf_link><a  class="ajax-open text-danger" data-url="{:url('Store/upgrade')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}" >升级</a> </lqf_link>
+            <lqf_link><a  class="ajax-open text-danger" data-url="{:url('Store/upgrade')}"  data-ids="{'app_id':'<%=data[i]['id']%>'}" >{:lang('upgrade')}</a> </lqf_link>
             <% } %>
         </td>
     </tr>

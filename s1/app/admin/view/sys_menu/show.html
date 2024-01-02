@@ -3,7 +3,7 @@
         <div class="col-md-2">
             <div class="ibox">
                 <div class="ibox-title"><h5>分类目录</h5>
-                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content no-padding right_centent" style="">
                     <div id="left-tree" data-url="{:url('SysMenu/get_list_tree')}"> </div>
@@ -31,17 +31,17 @@
                                         <lqf_link><li><a data-url="{:url('SysMenu/move')}" class="ajax-open-more">批量移动</a></li></lqf_link>
                                         <lqf_link><li><a data-url="{:url('SysMenu/copy')}" class="ajax-open-more">批量复制</a></li></lqf_link>
                                         <li class="divider"></li>
-                                        <lqf_link><li><a data-url="{:url('SysMenu/del')}" class="ajax-get-more text-danger" >批量删除</a></li></lqf_link>
+                                        <lqf_link><li><a data-url="{:url('SysMenu/del')}" class="ajax-get-more text-danger" >批量{:lang('delete')}</a></li></lqf_link>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-sm-6 m-b-xs text-right">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                        <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                                     </span>
                                 </div>
                             </div>
@@ -56,10 +56,10 @@
                             <th width="80">菜单图标</th>
                             <th width="150">菜单地址</th>
                             <th width="100">所属模块</th>
-                            <th width="80">排序</th>
+                            <th width="80">{:lang('sort')}</th>
                             <th width="60" class="text-center">菜单</th>
-                            <th width="60" class="text-center">启用</th>
-                            <th width="120" class="text-center">操作</th>
+                            <th width="60" class="text-center">{:lang('enable')}</th>
+                            <th width="120" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -110,8 +110,8 @@
         <td class="text-center">
             <a href="javascript:void(0)" class="get-son-list" data-id="<%=data[i]['id']%>">下级栏目</a>
             <lqf_link><a class="ajax-get" data-url="{:url('SysMenu/copy_one')}" data-ids="{'id':'<%=data[i]['id']%>'}">复制</a></lqf_link>
-            <lqf_link><a class="ajax-open" data-url="{:url('SysMenu/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
-            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMenu/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysMenu/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMenu/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>

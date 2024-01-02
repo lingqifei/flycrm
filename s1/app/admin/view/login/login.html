@@ -38,7 +38,7 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>登录您的帐号密码</h3>
+                            <h3>{:lang('login to your account password')}</h3>
                             <p>{$info.login_demo}</p>
                         </div>
                         <div class="form-top-right">
@@ -49,19 +49,19 @@
                         <form role="form" action="{:url('Login/login')}" method="post" class="login-form ">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="username" placeholder="输入手机号码"
+                                <input type="text" name="username" placeholder="{:lang('accounts')}}"
                                        class="form-username form-control" id="form-username">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="password" placeholder="输入密码"
+                                <input type="password" name="password" placeholder="{:lang('password')}"
                                        class="form-password form-control" id="form-password">
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12">
                                         <input type="text" name="verify" class="form-control verify"
-                                               placeholder="请输入您的验证码">
+                                               placeholder="please enter your verification code">
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <img src="{:captcha_src()}" alt="captcha"
@@ -69,9 +69,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn login-btn">登录</button>
+                            <button type="button" class="btn login-btn">{:lang('login')}</button>
                             <div class="form-group">
-                                <p class="form-control-static">没有帐号，<a href="{:url('Reg/reg')}">去注册</a></p>
+                                <p class="form-control-static">{:lang('no account yet')}，<a href="{:url('Reg/reg')}">go register</a></p>
                             </div>
                         </form>
                     </div>
@@ -81,9 +81,8 @@
                 <div class="col-sm-6 col-sm-offset-3">
                     <div class="social-login-buttons">
                         <a class="btn btn-link-1 btn-link-1-weixin" data-url="{:url('Login/login_wx')}">
-                            <i class="fa fa-weixin"></i> 微信
+                            <i class="fa fa-weixin"></i> {:lang('wechat')}
                         </a>
-
                     </div>
                 </div>
             </div>

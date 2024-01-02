@@ -8,12 +8,12 @@
                         <table class="table  table-hover">
                             <thead>
                             <tr>
-                                <th>名称</th>
-                                <th>驱动</th>
-                                <th>描述</th>
-                                <th>版本</th>
-                                <th>作者</th>
-                                <th>操作</th>
+                                <th>{:lang('name')}</th>
+                                <th>{:lang('drive')}</th>
+                                <th>{:lang('description')}</th>
+                                <th>{:lang('version')}</th>
+                                <th>{:lang('author')}</th>
+                                <th>{:lang('operate')}</th>
                             </tr>
                             </thead>
                             {notempty name='list'}
@@ -29,14 +29,14 @@
                                     {eq name="vo['is_install']" value="1"}
                                     <ob_link><a
                                             href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"
-                                            class="btn"><i class="fa fa-edit"></i> 设 置</a></ob_link>
+                                            class="btn"><i class="fa fa-edit"></i> {:lang('set up')}</a></ob_link>
                                     <ob_link><a class="btn confirm ajax-get"
                                                 href="{:url('driverUninstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"><i
-                                            class="fa fa-remove"></i> 卸 载</a></ob_link>
+                                            class="fa fa-remove"></i> {:lang('uninstall')}</a></ob_link>
                                     {else/}
                                     <ob_link><a
                                             href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"
-                                            class="btn"><i class="fa fa-refresh"></i> 安 装</a></ob_link>
+                                            class="btn"><i class="fa fa-refresh"></i> {:lang('install')}</a></ob_link>
                                     {/eq}
                                 </td>
                             </tr>

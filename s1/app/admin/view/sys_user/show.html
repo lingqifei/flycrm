@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-sm-2">
             <div class="ibox">
-                <div class="ibox-title"><h5>部门结构</h5>
-                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>
+                <div class="ibox-title"><h5>{:lang('department name')}</h5>
+                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="">
                     <div id="left-tree" class="right_centent" data-url="{:url('SysDept/get_list_tree')}"> </div>
@@ -13,50 +13,50 @@
         </div>
         <div class="col-sm-10">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-title">{$page_title}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <input type="hidden" name="pid" value="">
                             <div class="col-sm-8 m-b-xs">
                                 <lqf_link>
-                                    <a class="btn btn-info ajax-open" data-url="{:url('SysUser/add')}" data-title="用户">
-                                        <i class="fa fa-plus"></i>添加
+                                    <a class="btn btn-info ajax-open" data-url="{:url('SysUser/add')}">
+                                        <i class="fa fa-plus"></i>{:lang('add')}
                                     </a>
                                 </lqf_link>
                                 <lqf_link>
-                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userAuth')}" data-title="用户设置权限">
-                                        <i class="fa fa-asterisk"></i> 设置权限
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userAuth')}" data-title="{:lang('set permissions')}">
+                                        <i class="fa fa-asterisk"></i> {:lang('set permissions')}
                                     </a>
                                 </lqf_link>
                                 <lqf_link>
-                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userDept')}" data-title="用户设置权限">
-                                        <i class="fa fa-asterisk"></i> 设置部门
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userDept')}" data-title="{:lang('set department')}">
+                                        <i class="fa fa-asterisk"></i> {:lang('set department')}
                                     </a>
                                 </lqf_link>
                                 <lqf_link>
-                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userPosition')}" data-title="用户设置权限">
-                                        <i class="fa fa-asterisk"></i> 设置职位
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/userPosition')}" data-title="{:lang('set position')}">
+                                        <i class="fa fa-asterisk"></i> {:lang('set position')}
                                     </a>
                                 </lqf_link>
                                 <lqf_link>
-                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/reset_pwd')}" data-title="用户重置密码">
-                                        <i class="fa fa-key"></i> 重置密码
+                                    <a class="btn btn-info btn-outline ajax-open-more" data-url="{:url('SysUser/reset_pwd')}" data-title="{:lang('reset password')}">
+                                        <i class="fa fa-key"></i> {:lang('reset password')}
                                     </a>
                                 </lqf_link>
                                 <lqf_link>
-                                    <a class="btn btn-danger btn-outline ajax-get-more confirm" data-url="{:url('SysUser/del')}" data-title="用户重置密码">
-                                        <i class="fa fa-key"></i> 批量删除
+                                    <a class="btn btn-danger btn-outline ajax-get-more confirm" data-url="{:url('SysUser/del')}">
+                                        <i class="fa fa-key"></i> {:lang('delete')}
                                     </a>
                                 </lqf_link>
                             </div>
                             <div class="col-sm-4 m-b-xs text-right">
                                 <div class="input-group ">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                           <span class="input-group-btn">
-                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                          <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                           </span></div>
                             </div>
                         </form>
@@ -65,23 +65,23 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">帐号</th>
-                            <th width="80">姓名</th>
-                            <th width="60">性别</th>
-                            <th width="80">手机</th>
+                            <th width="80">{:lang('accounts')}</th>
+                            <th width="80">{:lang('realname')}</th>
+                            <th width="60">{:lang('gender')}</th>
+                            <th width="80">{:lang('mobile phone')}</th>
                             <th width="80">QQ</th>
-                            <th width="80">邮箱</th>
-                            <th width="80">部门</th>
-                            <th width="80">职位</th>
-                            <th width="150">权限组</th>
-                            <th width="100" class="text-center">操作</th>
+                            <th width="80">{:lang('email')}</th>
+                            <th width="80">{:lang('department name')}</th>
+                            <th width="80">{:lang('position name')}</th>
+                            <th width="100">{:lang('permission role')}</th>
+                            <th width="120" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot class="ibox-content">
                         <tr>
-                            <td colspan="9" align="center"></td>
+                            <td colspan="11" align="center"></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -97,7 +97,7 @@
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['username']%></td>
         <td><%=data[i]['realname']%></td>
-        <td><% if(data[i]['gender']==1){%>男<%}else{%>女 <%}%></td>
+        <td><% if(data[i]['gender']==1){%>{:lang('male')}<%}else{%>{:lang('female')} <%}%></td>
         <td><%=data[i]['mobile']%></td>
         <td><%=data[i]['qicq']%></td>
         <td><%=data[i]['email']%></td>
@@ -105,12 +105,12 @@
         <td><%=data[i]['position_name']%></td>
         <td><%=data[i]['sys_auth_name']%></td>
         <td class="text-center">
-                <lqf_link><a class="ajax-open" data-url="{:url('SysUser/userRules')}"
-                             data-ids="{'id':'<%=data[i]['id']%>'}" data-title="菜单授权">菜单授权</a></lqf_link>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a>
-                </lqf_link>
-                <lqf_link><a class="ajax-del confirm" data-url="{:url('SysUser/del')}"
-                             data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysUser/userRules')}"
+                         data-ids="{'id':'<%=data[i]['id']%>'}" data-title="{:lang('menu authorization')}">{:lang('menu authorization')}</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a>
+            </lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysUser/del')}"
+                         data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>

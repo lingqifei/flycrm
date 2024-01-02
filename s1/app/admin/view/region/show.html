@@ -3,7 +3,7 @@
 <!--        <div class="col-md-3">-->
 <!--            <div class="ibox">-->
 <!--                <div class="ibox-title"><h5>地区结构</h5>-->
-<!--                    <div class="ibox-tools"><a class="refresh-tree">刷新</a></div>-->
+<!--                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>-->
 <!--                </div>-->
 <!--                <div class="ibox-content right_centent" style="">-->
 <!--                    <div id="left-tree" data-url="{:url('Region/get_list_tree')}"></div>-->
@@ -19,11 +19,11 @@
                             <input type="hidden" name="upid" value="{$upid|default='100000'}">
                             <div class="col-sm-3 m-b-xs">
                                 <lqf_link><a class="btn btn-info ajax-open add-btn" data-url="{:url('Region/add',array('upid'=>$upid))}"
-                                             data-title="用户"><i class="fa fa-plus"></i>添加</a></lqf_link>
+                                             data-title="用户"><i class="fa fa-plus"></i> {:lang('add')}</a></lqf_link>
                             </div>
                             <div class="col-sm-9 m-b-xs text-right">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                                                     <span class="input-group-btn">
@@ -46,10 +46,10 @@
                             <th width="100">行政编码</th>
                             <th width="100">邮政编码</th>
                             <th width="100">拼音代码</th>
-                            <th width="60">排序</th>
-                            <th width="60">启用</th>
+                            <th width="60">{:lang('sort')}</th>
+                            <th width="60">{:lang('enable')}</th>
                             <th width="60">加热</th>
-                            <th width="80">操作</th>
+                            <th width="80">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -98,8 +98,8 @@
         </td>
         <td>
             <lqf_link><a class="ajax-goto" data-url="{:url('Region/show')}" data-ids="{'upid':'<%=data[i]['id']%>'}">下级</a></lqf_link>
-            <lqf_link><a class="ajax-open" data-url="{:url('Region/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
-            <lqf_link><a class="ajax-del confirm" data-url="{:url('Region/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('Region/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('Region/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>

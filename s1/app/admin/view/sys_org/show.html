@@ -1,13 +1,11 @@
-
 <div class="wrapper wrapper-content">
-
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox">
 
                 <div class="ibox-title">
                     <h5>{$page_title}</h5>
-                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> {:lang('help')}</i></a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -15,11 +13,11 @@
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <div class="col-sm-12 text-right">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                                   <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                                   </span>
                                 </div>
                             </div>
@@ -40,14 +38,14 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">帐号</th>
-                            <th width="100">公司名称</th>
-                            <th width="80">联系人</th>
-                            <th width="80">手机</th>
-                            <th width="100">开始时间</th>
-                            <th width="100">结束时间</th>
-                            <th width="100">创建时间</th>
-                            <th width="100">操作</th>
+                            <th width="80">{:lang('accounts')}</th>
+                            <th width="100">{:lang('company name')}</th>
+                            <th width="80">{:lang('contacts')}</th>
+                            <th width="80">{:lang('mobile phone')}</th>
+                            <th width="100">{:lang('start time')}</th>
+                            <th width="100">{:lang('end time')}</th>
+                            <th width="100">{:lang('creation time')}</th>
+                            <th width="100">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,10 +73,10 @@
         <td><%=data[i]['stop_date']%></td>
         <td><%=data[i]['create_time']%></td>
         <td>
-            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/create_user')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="初始化系统用户"><i class="fa fa-user-plus"></i>用户</a></lqf_link>
-            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >修改</a></lqf_link>
-            <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}"  data-title="重置密码">密码</a></lqf_link>
-            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysOrg/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/create_user')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="{:lang('initialize system users')}"><i class="fa fa-user-plus"></i>{:lang('user')}</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysOrg/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysUser/edit')}"  data-ids="{'id':'<%=data[i]['id']%>'}"  data-title="{:lang('reset password')}">{:lang('password')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysOrg/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>

@@ -4,19 +4,19 @@
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>{$page_title}</h5>
-                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> 操作说明</i></a>
+                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> {:lang('help')}</i></a>
                     </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <div class="col-sm-12 m-b-xs text-right">
+                            <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" name="keywords" placeholder="输入主题关键字搜索" class="form-control">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
                                   <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> 搜索</button>
+                                  <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
                                   </span>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-sm-6 m-b-xs">
                             <lqf_link>
-                                <a class="btn btn-info ajax-open" data-url="{:url('SysMsgType/add')}" data-title="添加企业"><i class="fa fa-plus"></i> 添加</a>
+                                <a class="btn btn-info ajax-open" data-url="{:url('SysMsgType/add')}" data-title="添加企业"><i class="fa fa-plus"></i> {:lang('add')}</a>
                             </lqf_link>
                         </div>
                         <div class="col-sm-6 text-right">
@@ -44,14 +44,14 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">提醒类型</th>
-                            <th width="80">业务标识</th>
-                            <th width="150">事件说明</th>
-                            <th width="80" class="text-center">提前时间(小时)</th>
-                            <th width="80" class="text-center">通知总次数</th>
-                            <th width="80" class="text-center">间隔(小时)</th>
-                            <th width="150">提醒方式</th>
-                            <th width="60">操作</th>
+                            <th width="80">{:lang('reminder type')}</th>
+                            <th width="80">{:lang('business identification')}</th>
+                            <th width="150">{:lang('event description')}</th>
+                            <th width="80" class="text-center">{:lang('advance time')}({:lang('hour')})</th>
+                            <th width="80" class="text-center">{:lang('total number of notifications')}</th>
+                            <th width="80" class="text-center">{:lang('interval')}({:lang('hour')})</th>
+                            <th width="150">{:lang('reminder method')}</th>
+                            <th width="60">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,14 +84,14 @@
         <td class="text-center"><%=data[i]['remind_nums']%></td>
         <td class="text-center"><%=data[i]['remind_interval']%></td>
         <td class="">
-            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > 手机
-            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > 系统
-            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > 邮件
-            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > 微信
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > {:lang('mobile phone')}
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > {:lang('system')}
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > {:lang('email')}
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > {:lang('wechat')}
         </td>
         <td>
-            <lqf_link><a class="ajax-open" data-url="{:url('SysMsgType/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">修改</a></lqf_link>
-            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMsgType/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">删除</a></lqf_link>
+            <lqf_link><a class="ajax-open" data-url="{:url('SysMsgType/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
+            <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMsgType/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
     <% } %>
