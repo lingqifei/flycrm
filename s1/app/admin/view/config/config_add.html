@@ -3,68 +3,68 @@
         <div class="box">
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">名称</label>
-                    <div class="col-sm-10"><input class="form-control " name="name" placeholder="请输入配置名称"
+                    <label class="col-sm-2 control-label">{:lang('name')}</label>
+                    <div class="col-sm-10"><input class="form-control " name="name" placeholder="{:lang('please enter the configuration name')}"
                                                   value="{$info['name']|default=''}" type="text">
-                        <span class="help-block m-b-none">（用于config函数调用，只能使用英文且不能重复）</span></div>
+                        <span class="help-block m-b-none">（{:lang('can only be used in english and cannot be duplicated')}）</span></div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">配置标题</label>
+                    <label class="col-sm-2 control-label">{:lang('configure title')}</label>
                     <div class="col-sm-10">
-                        <input class="form-control " name="title" placeholder="请输入配置标题"
+                        <input class="form-control " name="title" placeholder="{:lang('configure title')}"
                                value="{$info['title']|default=''}" type="text">
-                        <span class="help-block m-b-none">（用于后台显示的配置标题）</span></div>
+                        <span class="help-block m-b-none">（{:lang('configuration title for backend display')}）</span></div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">配置类型</label>
+                    <label class="col-sm-2 control-label">{:lang('configuration type')}</label>
                     <div class="col-sm-10">
                         <select name="type" class="form-control">
                             {volist name='config_type_list' id='type'}
                             <option value="{$key}">{$type}</option>
                             {/volist}
                         </select>
-                        <span class="help-block m-b-none">（系统会根据不同类型解析配置值）</span>
+                        <span class="help-block m-b-none">（{:lang('the system will parse configuration values based on different types')}）</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">配置分组</label>
+                    <label class="col-sm-2 control-label">{:lang('configure grouping')}</label>
                     <div class="col-sm-10">
                         <select name="group" class="form-control">
-                            <option value="0">不分组</option>
+                            <option value="0">{:lang('not grouped')}</option>
                             {volist name='config_group_list' id='group'}
                             <option value="{$key}">{$group}</option>
                             {/volist}
                         </select>
-                        <span class="help-block m-b-none">（配置分组，不分组则不会显示在系统设置中）</span>
+                        <span class="help-block m-b-none">（{:lang('configure grouping remarks')}）</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">配置值</label>
+                    <label class="col-sm-2 control-label">{:lang('configuration value')}</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="value" rows="3" placeholder="请输入配置取值">{$info['value']|default=''}</textarea>
-                        <span class="help-block m-b-none">（配置取值）</span>
+                        <textarea class="form-control" name="value" rows="3" placeholder="{:lang('please enter the configuration value')}">{$info['value']|default=''}</textarea>
+                        <span class="help-block m-b-none">（{:lang('configuration values')}）</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">配置项</label>
+                    <label class="col-sm-2 control-label">{:lang('configuration items')}</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="extra" rows="3" placeholder="请输入配置项">{$info['extra']|default=''}</textarea>
-                        <span class="help-block m-b-none">（如果是枚举型 需要配置该项）</span>
+                        <textarea class="form-control" name="extra" rows="3" placeholder="{:lang('configuration items')}">{$info['extra']|default=''}</textarea>
+                        <span class="help-block m-b-none">（{:lang('if it is an enumeration type, this item needs to be configured')}）</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">描述信息</label>
+                    <label class="col-sm-2 control-label">{:lang('descriptive information')}</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="describe" rows="3" placeholder="请输入描述信息">{$info['describe']|default=''}</textarea>
-                        <span class="help-block m-b-none">（描述信息/备注）</span>
+                        <textarea class="form-control" name="describe" rows="3" placeholder="{:lang('descriptive information')}">{$info['describe']|default=''}</textarea>
+                        <span class="help-block m-b-none">（{:lang('descriptive information')}）</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">{:lang('sort')}值</label>
+                    <label class="col-sm-2 control-label">{:lang('sort')}</label>
                     <div class="col-sm-10">
-                        <input class="form-control" name="sort" placeholder="请输入菜单{:lang('sort')}值"
+                        <input class="form-control" name="sort" placeholder="{:lang('sort')}"
                                value="{$info['sort']|default='0'}" type="text">
-                        <span class="help-block m-b-none">（用于分组显示的顺序，默认为 0）</span>
+                        <span class="help-block m-b-none">（{:lang('order used for grouping display')}）</span>
                     </div>
                 </div>
             </div>

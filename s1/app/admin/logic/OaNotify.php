@@ -164,7 +164,7 @@ class OaNotify extends AdminBase
 		if(!empty($data['id'])){
 //			$where['notify_id']=['in',$data['id']];
 //			$where['owner_user_id']=['=',SYS_USER_ID];
-			Db::name('oa_notify_user')->where($data['id'])->update(['read_state'=>'1']);
+			Db::name('oa_notify_user')->where(['id'=>$data['id']])->update(['read_state'=>'1']);
 		}
 
 	}

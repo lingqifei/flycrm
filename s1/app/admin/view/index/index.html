@@ -11,7 +11,8 @@
     <link href="__STATIC__/module/admin/css/plugins/chosen/chosen.css" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/plugins/datapicker/datetimepicker.min.css" rel="stylesheet">
-    <link href="__STATIC__/module/admin/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"  rel="stylesheet">
+    <link href="__STATIC__/module/admin/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+          rel="stylesheet">
     <link href="__STATIC__/module/admin/css/animate.css" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="__STATIC__/module/admin/css/07fly.css?v=1.1.0" rel="stylesheet">
@@ -80,7 +81,7 @@
                     {if condition="$sys_config.is_grant eq '0'"}
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-weixin"></i>人工客服
+                            <i class="fa fa-weixin"></i>{:lang('manual customer service')}
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
@@ -99,26 +100,22 @@
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
-                                <a href="{:url('index/language',array('lang'=>'cn'))}" class="ajax-get" data-calback="window.location.reload();">
+                                <a href="{:url('index/language',array('lang'=>'cn'))}" class="ajax-get"
+                                   data-calback="window.location.reload();">
                                     {:lang('chinese')}
                                 </a>
                             </li>
                             <li class="divider"></li>
-<!--                            <li>-->
-<!--                                <a href="{:url('index/language',array('lang'=>'en'))}" class="ajax-get" data-calback="window.location.reload();">-->
-<!--                                    {:lang('english')}-->
-<!--                                </a>-->
-<!--                            </li>-->
-
                             <li>
-                                <a href="{:url('index/language',array('lang'=>'brazil'))}" class="ajax-get" data-calback="window.location.reload();">
-                                    {:lang('brazil')}
+                                <a href="{:url('index/language',array('lang'=>'en'))}" class="ajax-get"
+                                   data-calback="window.location.reload();">
+                                    {:lang('english')}
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <!--系统公告-->
+                    <!--{:lang("system announcement")}-->
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell "></i> <span class="label label-danger msg-icon-nums">0</span>
@@ -127,7 +124,7 @@
                             <li>
                                 <a href="{:url('admin/SysMsg/show_my')}" class="J_menuItem">
                                     <div>
-                                        <i class="fa fa-qq fa-fw"></i> 您有<span class="msg-icon-my">0</span>条未读消息
+                                        <i class="fa fa-qq fa-fw"></i> <span class="msg-icon-my">0</span>{:lang('unread messages')}
                                     </div>
                                 </a>
                             </li>
@@ -135,7 +132,7 @@
                             <li>
                                 <a href="{:url('admin/OaNotifyUser/show')}" class="J_menuItem">
                                     <div>
-                                        <i class="fa fa-volume-up fa-fw"></i> <span class="msg-icon-noti">0</span>条未读公告
+                                        <i class="fa fa-volume-up fa-fw"></i> <span class="msg-icon-noti">0</span>{:lang('unread announcements')}
                                     </div>
                                 </a>
                             </li>
@@ -150,14 +147,14 @@
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
                                 <a data-url="{:url('SysUser/editInfo',array('id'=>$sys_user_info['id']))}"
-                                   class="ajax-open" title="个人资料" data-calback="" width="800" height="500">
-                                    <div><i class="fa fa-envelope fa-fw"></i>个人资料</div>
+                                   class="ajax-open" title="{:lang('personal data')}" data-calback="" width="800" height="500">
+                                    <div><i class="fa fa-envelope fa-fw"></i>{:lang('personal data')}</div>
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{:url('SysUser/editPwd',array('id'=>$sys_user_info['id']))}" class="ajax-open"
-                                   title="个人资料" width="600" height="400">
+                                   title="{:lang('personal data')}" width="600" height="400">
                                     <div><i class="fa fa-qq fa-fw"></i> {:lang('password')}修改</div>
                                 </a>
                             </li>
@@ -166,7 +163,7 @@
                                 <div class="text-center link-block">
                                     <a class="ajax-get" href="{:url('Login/logout')}"
                                        data-calback="window.location.reload();">
-                                        <strong>退出登录 </strong> <i class="fa fa-angle-right"></i>
+                                        <strong>{:lang('login out')} </strong> <i class="fa fa-angle-right"></i>
                                     </a>
                                 </div>
                             </li>
@@ -177,14 +174,15 @@
         </div>
         <!--右侧窗口数据-->
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="95%" src="{:url('admin/Index/main')}" frameborder="0" data-id="index_v1.html" seamless></iframe>
+            <iframe id="J_iframe" width="100%" height="95%" src="{:url('admin/Index/main')}" frameborder="0"
+                    data-id="index_v1.html" seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->
 </div>
 <audio id='audioPlay' src='' hidden='true' muted="true">
-{include file="layout/bottom"}
-<script type="text/javascript">
+    {include file="layout/bottom"}
+    <script type="text/javascript">
         //顶部菜单栏目
         $(".navbar-module a").click(function () {
             $(this).addClass("on");
@@ -286,7 +284,7 @@
             toastr.options.onclick = function () {
                 layer.open({
                     type: 2,
-                    title: '查看通知',
+                    title: '{:lang("view notifications")}',
                     shadeClose: true,
                     fixed: false, //不固定
                     area: ['90%', '90%'],
@@ -305,7 +303,7 @@
                 dataType: 'json',
                 success: function (jsonData) {
                     $(jsonData.data).each(function (index, item) {
-                        playNotice(item.id, '系统提醒', item.bus_name, item.bus_url);
+                        playNotice(item.id, '{:lang("system reminder")}', item.bus_name, item.bus_url);
                     });
                     if (jsonData.data.length > 0) {
 
@@ -320,7 +318,7 @@
                 }
             });
         }
-        //系统公告
+        //{:lang("system announcement")}
         var runSysNotify = function () {
             var target = "{:url('admin/rpc.CronJob/oa_notify_plug',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
             var detail = "{:url('admin/rpc.CronJob/oa_notify_plug')}";
@@ -331,7 +329,7 @@
                 dataType: 'json',
                 success: function (jsonData) {
                     $(jsonData.data).each(function (index, item) {
-                        playNotice(item.id, '系统公告', item.name, detail + '?id=' + item.id);
+                        playNotice(item.id, '{:lang("system announcement")}', item.name, detail + '?id=' + item.id);
                     });
                     if (jsonData.data.length > 0) {
 
@@ -361,4 +359,5 @@
         setInterval("runSysMsg()", 1000 * 60 * 10);
         runSysNotify();
         runSysMsg();
+
     </script>

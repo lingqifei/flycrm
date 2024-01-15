@@ -28,7 +28,7 @@
                                 <div class="input-group">
                                                     <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary ajaxSearchForm"><i
-                                                            class="fa fa-search"></i> 搜索</button>
+                                                            class="fa fa-search"></i> {:lang('search')}</button>
                                                     </span>
                                 </div>
                             </div>
@@ -39,16 +39,16 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="100">地区编码</th>
-                            <th width="100">地区名称</th>
-                            <th width="100">上级编码</th>
-                            <th width="100">地区简称</th>
-                            <th width="100">行政编码</th>
-                            <th width="100">邮政编码</th>
-                            <th width="100">拼音代码</th>
+                            <th width="100">{:lang('regional code')}</th>
+                            <th width="100">{:lang('region name')}</th>
+                            <th width="100">{:lang('superior code')}</th>
+                            <th width="100">{:lang('regional abbreviation')}</th>
+                            <th width="100">{:lang('administrative code')}</th>
+                            <th width="100">{:lang('zip code')}</th>
+                            <th width="100">{:lang('pinyin code')}</th>
                             <th width="60">{:lang('sort')}</th>
                             <th width="60">{:lang('enable')}</th>
-                            <th width="60">加热</th>
+                            <th width="60">{:lang('hots')}</th>
                             <th width="80">{:lang('operate')}</th>
                         </tr>
                         </thead>
@@ -97,7 +97,7 @@
             <%=ishot%> >
         </td>
         <td>
-            <lqf_link><a class="ajax-goto" data-url="{:url('Region/show')}" data-ids="{'upid':'<%=data[i]['id']%>'}">下级</a></lqf_link>
+            <lqf_link><a class="ajax-goto" data-url="{:url('Region/show')}" data-ids="{'upid':'<%=data[i]['id']%>'}">{:lang('lower level')}</a></lqf_link>
             <lqf_link><a class="ajax-open" data-url="{:url('Region/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
             <lqf_link><a class="ajax-del confirm" data-url="{:url('Region/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>

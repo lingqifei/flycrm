@@ -68,5 +68,14 @@ class SysMsgSend extends AdminBase
         d($res=curl_post($post_url, $post_data, 'post'));
     }
 
+    /**
+     * 邮件发送
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/12/4 21:14
+     */
+    public function email_teplate_send($data=[]){
+        send_email('web@07fly.com',$data['bus_type_name'],$data['bus_name']);
+    }
 
 }

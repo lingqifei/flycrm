@@ -1,10 +1,10 @@
 <div class="ibox-content">
     <form class="form-horizontal" method="post" action="{:url('SysMenu/add')}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">上级菜单</label>
+            <label class="col-sm-2 control-label">{:lang('superior menu')}</label>
             <div class="col-sm-8">
                 <select name="pid" class="form-control chosen-select">
-                    <option value="0">选择上级菜单</option>
+                    <option value="0">{:lang('select superior menu')}</option>
                     {volist name='menu_select' id='vo'}
                     <option value="{$vo.id}"  {notempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
@@ -13,27 +13,27 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">菜单名称</label>
+            <label class="col-sm-2 control-label">{:lang('menu name')}</label>
             <div class="col-sm-8">
-                <input name="name" class="form-control" type="text" placeholder="请输中文栏目名称" required/>
+                <input name="name" class="form-control" type="text" placeholder="" required/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块名称</label>
+            <label class="col-sm-2 control-label">{:lang('module name')}</label>
             <div class="col-sm-8">
-                <input name="module" class="form-control" type="text" placeholder="请输模块名称名称"  required/>
+                <input name="module" class="form-control" type="text" placeholder="{:lang('module name')}"  required/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">ICON图标</label>
+            <label class="col-sm-2 control-label">{:lang('menu icons')}</label>
             <div class="col-sm-8">
-                <input name="icon" class="form-control" type="text" placeholder="ICON图标" required/>
+                <input name="icon" class="form-control" type="text" placeholder="{:lang('menu icons')}" required/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">链接地址</label>
+            <label class="col-sm-2 control-label">{:lang('menu url')}</label>
             <div class="col-sm-8">
-                <input name="url" class="form-control" type="text" placeholder="请输入超链接地址"/>
+                <input name="url" class="form-control" type="text" placeholder="{:lang('menu url')}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
@@ -43,7 +43,7 @@
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">是否菜单</label>
+            <label class="col-sm-2 control-label">{:lang('is it a menu')}</label>
             <div class="col-sm-8">
                 <div class="radio radio-info radio-inline">
                     <input type="radio" id="ismenu1" value="1" name="is_menu" checked='checked'>

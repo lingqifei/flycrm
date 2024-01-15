@@ -131,16 +131,14 @@ function string_from_column_index($pColumnIndex = 0)
  */
 function send_email($address, $title, $message)
 {
-
 	$mail = new \lqf\PHPMailer();
-
 	$mail->isSMTP();
 	$mail->Host = "smtp.exmail.qq.com";
 	$mail->SMTPAuth = true;
 	$mail->Username = "";
 	$mail->Password = "";
-	$mail->SMTPSecure = 'tls';
-	$mail->Port = 587;
+	$mail->SMTPSecure = 'ssl';
+	$mail->Port = 465;
 	$mail->CharSet = 'UTF-8';
 	$mail->setFrom('', '');
 	$mail->addAddress($address);
@@ -148,11 +146,9 @@ function send_email($address, $title, $message)
 	$mail->Subject = $title;
 	$mail->Body = $message;
 	$mail->AltBody = '07flyCRM';
-
 	if (!$mail->send()) {
 		return $mail->ErrorInfo;
 	}
-
 	return true;
 }
 

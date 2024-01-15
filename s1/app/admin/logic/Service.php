@@ -136,7 +136,6 @@ class Service extends AdminBase
         return self::$instance;
     }
 
-
     public function  testSms(){
         // 短信发送
         $parameter['nationCode']='86';

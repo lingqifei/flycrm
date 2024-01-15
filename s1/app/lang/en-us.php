@@ -20,7 +20,8 @@ return [
     '会员中心'=>'Member Center',
     '系统管理'=>'System Management',
     '组织结构'=>'Organization Structure',
-    '权限角色'=>'Permission List',
+    '权限列表'=>'Permission Role',
+    '权限角色'=>'Permission Role',
     '权限浏览'=>'Permission Browsing',
     '权限添加'=>'Add Permissions',
     '权限修改'=>'Permission Modification',
@@ -239,5 +240,7 @@ return [
     '在售商品'=>'Products On Sale',
     '未售商品'=>'Unsold Items',
     '待采购'=>'To Be Purchased',
+
+    '运输公司'=>'Companhia de transporte',
 ];
 ?>

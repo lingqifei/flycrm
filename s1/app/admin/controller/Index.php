@@ -40,6 +40,7 @@ class Index extends AdminBase
         $this->assign('info', $index_data);
         return $this->fetch('main');
     }
+
     // 多语言支持
     public function language()
     {
@@ -61,6 +62,7 @@ class Index extends AdminBase
         $rtn = [RESULT_SUCCESS, lang('set success')];
         $this->jump($rtn);
     }
+
     public function getcss()
     {
 

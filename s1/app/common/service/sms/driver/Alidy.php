@@ -58,7 +58,6 @@ class Alidy extends Sms implements Driver
         $sms = new alidy\SmsApi($alidy_config['access_key'], $alidy_config['secret_key']);
 
         $response = $sms->sendSms(
-
             $parameter['sign_name'],
             $parameter['template_code'],
             $parameter['phone_number'],

@@ -20,7 +20,7 @@ case value
             <div class="box">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li><h3>基本配置</h3></li>
+                        <li><h3>{:lang('basic configuration')}</h3></li>
                         {volist name='config_group_list' id='vo'}
                         {neq name="group" value="$key"}
                         <li><a href="{:url('setting',array('group' => $key))}">{$vo}</a></li>
@@ -44,20 +44,20 @@ case value
                                             {/notempty}
                                             {switch name="vo.type"}
                                             {case value="0"}
-                                            <input class="form-control" name="{$vo.name}" placeholder="请输入设置值"
+                                            <input class="form-control" name="{$vo.name}" placeholder="{:lang('please enter the setting value')}"
                                                    value="{$vo.value}" type="text">
                                             {/case}
                                             {case value="1"}
-                                            <input class="form-control" name="{$vo.name}" placeholder="请输入设置值"
+                                            <input class="form-control" name="{$vo.name}" placeholder="{:lang('please enter the setting value')}"
                                                    value="{$vo.value}" type="text">
                                             {/case}
                                             {case value="2"}
                                             <textarea class="form-control" name="{$vo.name}" rows="3"
-                                                      placeholder="请输入设置值">{$vo.value}</textarea>
+                                                      placeholder="{:lang('please enter the setting value')}">{$vo.value}</textarea>
                                             {/case}
                                             {case value="3"}
                                             <textarea class="form-control" name="{$vo.name}" rows="3"
-                                                      placeholder="请输入设置值">{$vo.value}</textarea>
+                                                      placeholder="{:lang('please enter the setting value')}">{$vo.value}</textarea>
                                             {/case}
                                             {case value="4"}
                                             <select name="{$vo.name}" class="form-control">
@@ -123,15 +123,15 @@ case value
                                             </div>
                                             {/case}
                                             {case value="10"}
-                                            <input class="form-control date" name="{$vo.name}" placeholder="请选择或输入日期"
+                                            <input class="form-control date" name="{$vo.name}" placeholder="{:lang('please select or enter a date')}"
                                                    value="{$vo.value}" type="text">
                                             {/case}
                                             {case value="11"}
-                                            <input class="form-control time" name="{$vo.name}" placeholder="请选择或输入时间"
+                                            <input class="form-control time" name="{$vo.name}" placeholder="{:lang('please select or enter a time')}"
                                                    value="{$vo.value}" type="text">
                                             {/case}
                                             {case value="12"}
-                                            <input class="form-control" name="{$vo.name}" placeholder="请选择或输入颜色值"
+                                            <input class="form-control" name="{$vo.name}" placeholder="{:lang('please select or enter a color value')}"
                                                    value="{$vo.value}" type="color">
                                             {/case}
                                             {/switch}

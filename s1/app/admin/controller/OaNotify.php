@@ -95,7 +95,8 @@ class OaNotify extends AdminBase
 	{
 		if(empty($this->param['id'])){
 			$list = $this->logicOaNotify->getOaNotifyListMy($this->param);
-			return $list;
+            $data=[RESULT_SUCCESS,'操作成功','',$list];
+			return  $this->jump($data);
 		}else{
 			$this->logicOaNotify->oaNotifyUserRead($this->param);
 			$info = $this->logicOaNotify->getOaNotifyInfo(['id' => $this->param['id']]);

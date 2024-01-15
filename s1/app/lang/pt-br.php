@@ -141,7 +141,7 @@ return [
     '出库单'=>'Saídas',
     '确认入库'=>'确认入库',
     '入库明细'=>'入库明细',
-    '库存查询'=>'库存查询',
+    '库存查询'=>'Investigação de inventário',
     '入库单'=>'Entradas',
     '撤消入库'=>'撤消入库',
     '库存盘点单'=>'库存盘点单',
@@ -229,5 +229,6 @@ return [
     '盘点单'=>'Folha de inventário',
     '商品报表分析'=>'Relatório de produtos',
 
+    '运输公司'=>'Companhia de transporte',
 ];
 ?>

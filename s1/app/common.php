@@ -802,16 +802,12 @@ function rm_empty_dir($path)
  */
 function format_time($time = null, $format = 'Y-m-d H:i:s')
 {
-
     if (null === $time || empty($time)) {
-
         $time = TIME_NOW;
     }
-
-    if(!intval($time)){
+    if(!is_numeric($time)){
         $time=strtotime($time);
     }
-
     return date($format, intval($time));
 }
 
@@ -823,21 +819,15 @@ function format_time($time = null, $format = 'Y-m-d H:i:s')
  */
 function get_date_from_range($startdate, $enddate)
 {
-
     $stimestamp = strtotime($startdate);
     $etimestamp = strtotime($enddate);
-
     // 计算日期段内有多少天
     $days = ($etimestamp - $stimestamp) / 86400 + 1;
-
     // 保存每天日期
     $date = [];
-
     for ($i = 0; $i < $days; $i++) {
-
         $date[] = date('Y-m-d', $stimestamp + (86400 * $i));
     }
-
     return $date;
 }
 

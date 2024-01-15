@@ -190,6 +190,7 @@ class SysMsg extends AdminBase
         $list = $this->modelSysMsg->getList($where, '', 'remind_nums desc', false);
         $updatalist=[];
         foreach ($list as $key => &$row) {
+
             //业务的链接地址
             $row['bus_url'] = $this->modelSysMsg->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
             $row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
@@ -198,6 +199,12 @@ class SysMsg extends AdminBase
             if(!empty($row['remind_weixin'])){
                 d('微信通知:');
                 $this->modelSysMsgSend->weixin_teplate_send($row);
+            }
+
+            //邮件通知
+            if(!empty($row['remind_email'])){
+                d('邮件通知:');
+                $this->modelSysMsgSend->email_teplate_send($row);
             }
 
             //设置下次提醒时间
@@ -212,7 +219,6 @@ class SysMsg extends AdminBase
         }
         d($updatalist);
         $res=$this->modelSysMsg->setList($updatalist,true);
-        d($res);
     }
 
 }
