@@ -189,7 +189,5 @@ class CstAttachment extends Action{
             $this->location('文件不存在');
         }
     }
-
-
 }//end class
 ?>

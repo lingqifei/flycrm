@@ -198,8 +198,5 @@ class CstLinkman extends Action{
 		$one =$this->C($this->cacheDir)->findOne($sql);
 		return $one;
 	}
-	
-	
-	
 }//end class
 ?>

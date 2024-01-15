@@ -209,7 +209,7 @@ if (!function_exists("array_column")) {
         $indexKeyIsNumber = (is_numeric($indexKey)) ? TRUE : FALSE;
         $result = array();
 
-        foreach ((array)$input AS $key => $row) {
+        foreach ((array)$input as $key => $row) {
             if ($columnKeyIsNumber) {
                 $tmp = array_slice($row, $columnKey, 1);
                 $tmp = (is_array($tmp) && !empty($tmp)) ? current($tmp) : NULL;
@@ -272,13 +272,13 @@ if (!function_exists("list2select")) {
      * @return array|string
      * Author: lingqifei created by at 2020/4/1 0001
      */
-    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name',$data=array())
+    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name', $data = array())
     {
         foreach ($list as $k => $v) {
             $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
             if ($v[$pidk] == $pId) { //父亲找到儿子
-                $data[] =$v;
-                $data   = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name,$data);
+                $data[] = $v;
+                $data = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name, $data);
             }
         }
         return $data;
@@ -292,18 +292,19 @@ if (!function_exists("array2string")) {
      * @return string
      * Author: lingqifei created by at 2020/4/4 0004
      */
-    function array2string($array){
+    function array2string($array)
+    {
 
         $string = [];
 
-        if($array && is_array($array)){
+        if ($array && is_array($array)) {
 
-            foreach ($array as $key=> $value){
-                $string[] = $key.'->'.$value;
+            foreach ($array as $key => $value) {
+                $string[] = $key . '->' . $value;
             }
         }
 
-        return implode(',',$string);
+        return implode(',', $string);
     }
 }
 if (!function_exists("date_range")) {
@@ -314,8 +315,9 @@ if (!function_exists("date_range")) {
      * Author: lingqifei created by at 2020/4/4 0004
      */
     //时间计算
-    function date_range($range,$format='Y-m-d'){
-        $date_range=date($format,strtotime($range,time()));
+    function date_range($range, $format = 'Y-m-d')
+    {
+        $date_range = date($format, strtotime($range, time()));
         return $date_range;
     }
 }
@@ -362,7 +364,7 @@ if (!function_exists('download')) {
      * 文件下载函数
      * Author: lingqifei created by at 2020/6/4 0004
      */
-    function download($filepath,$filename='downfile.zip')
+    function download($filepath, $filename = 'downfile.zip')
     {
         // 检查文件是否存在
         if (!file_exists($filepath)) {

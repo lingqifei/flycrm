@@ -111,8 +111,6 @@ class CstCustomerComm extends Action{
 		);
 		$this->C($this->cacheDir)->modify('cst_customer',$data,"customer_id in ($customer_id)");
 		$this->L("Common")->ajax_json_success("操作成功");	
-	}	
-	
-
+	}
 }//end class
 ?>

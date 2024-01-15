@@ -246,6 +246,5 @@ class CstCustomer extends Action{
         $this->C($this->cacheDir)->update($sql);
         $this->L("Common")->ajax_json_success("操作成功");
     }
-
 }//end class
 ?>

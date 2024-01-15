@@ -126,6 +126,5 @@ class CstLinkmanExport extends Action{
         flush();
         ob_end_clean();
     }
-		
 }//end class
 ?>
