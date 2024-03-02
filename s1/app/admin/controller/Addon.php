@@ -49,9 +49,7 @@ class Addon extends AdminBase
      */
     public function addon_list()
     {
-
         $this->assign('list', $this->logicAddon->getAddonList());
-
         return $this->fetch('addon_list');
     }
 

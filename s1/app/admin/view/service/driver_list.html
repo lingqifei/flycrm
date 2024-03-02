@@ -12,8 +12,7 @@
                                 <th>{:lang('drive')}</th>
                                 <th>{:lang('description')}</th>
                                 <th>{:lang('version')}</th>
-                                <th>{:lang('author')}</th>
-                                <th>{:lang('operate')}</th>
+                                <th class="text-center">{:lang('operate')}</th>
                             </tr>
                             </thead>
                             {notempty name='list'}
@@ -24,19 +23,18 @@
                                 <td>{$vo.driver_class}</td>
                                 <td>{$vo.driver_describe}</td>
                                 <td>{$vo.version}</td>
-                                <td>{$vo.author}</td>
-                                <td class="col-md-2">
+                                <td class="text-center">
                                     {eq name="vo['is_install']" value="1"}
-                                    <ob_link><a
+                                    <lqf_link><a
                                             href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"
-                                            class="btn"><i class="fa fa-edit"></i> {:lang('set up')}</a></ob_link>
-                                    <ob_link><a class="btn confirm ajax-get"
+                                            class=""><i class="fa fa-edit"></i> {:lang('set up')}</a></lqf_link>
+                                    <lqf_link><a class="confirm ajax-get"
                                                 href="{:url('driverUninstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"><i
-                                            class="fa fa-remove"></i> {:lang('uninstall')}</a></ob_link>
+                                            class="fa fa-remove"></i> {:lang('uninstall')}</a></lqf_link>
                                     {else/}
-                                    <ob_link><a
+                                    <lqf_link><a
                                             href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"
-                                            class="btn"><i class="fa fa-refresh"></i> {:lang('install')}</a></ob_link>
+                                            class=""><i class="fa fa-refresh"></i> {:lang('install')}</a></lqf_link>
                                     {/eq}
                                 </td>
                             </tr>

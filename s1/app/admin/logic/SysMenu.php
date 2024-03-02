@@ -464,7 +464,7 @@ class SysMenu extends AdminBase
     public function getAllList()
     {
         //判断模块是否启用
-        $where['module']=['in',['admin','dms']];
+        $where=[];
         $list = $this->modelSysMenu->getColumn($where, 'name', 'name');
         return $list;
     }

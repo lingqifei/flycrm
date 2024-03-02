@@ -52,11 +52,8 @@ class Tencent extends Sms implements Driver
      */
     public function sendSms($parameter = [])
     {
-
         $tencent_config = $this->config();
-
         $sms = new tencent\SmsApi($tencent_config['app_id'], $tencent_config['app_key']);
-
         /**
          * @param string $nationCode  国家码，如 86 为中国
          * @param string $phoneNumber 不带国家码的手机号
@@ -69,7 +66,6 @@ class Tencent extends Sms implements Driver
          *
          * 如：$sms->sendSms($nationCode, $phoneNumber, $templId = 0, $params, $sign = "", $extend = "", $ext = "")
          */
-
         $response = $sms->sendSms(
             $parameter['nationCode'],
             $parameter['mobile'],

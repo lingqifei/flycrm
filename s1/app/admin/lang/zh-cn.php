@@ -1,6 +1,7 @@
 <?php
 return [
     //数据恢复页面：app/admin/view/database
+    'backup' => '备份',
     'backup name' => '备份名称',
     'compress' => '压缩',
     'data size' => '数据大小',
@@ -48,6 +49,7 @@ return [
     'mobile phone' => '手机',
     'system' => '系统',
     'mail' => '邮件',
+    'email' => '邮件',
     'wechat' => '微信',
     'modify' => '修改',
     'delete' => '删除',
@@ -171,6 +173,7 @@ return [
     'expiration time'=>'到期时间',
     'latest version'=>'最新版本',
     'demo'=>'演示',
+    'upgrade'=>'升级',
 
     //企业会员 app/admin/view/sys_org
     'company name'=>'公司名称',
@@ -262,6 +265,7 @@ return [
     'official website'=>'官方网址',
     'qq communication group'=>'QQ交流群',
     'development manual'=>'开发手册',
+    'content'=>'内容',
 
 ];
 ?>

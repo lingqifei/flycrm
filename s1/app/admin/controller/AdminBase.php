@@ -68,6 +68,7 @@ class AdminBase extends ControllerBase
 		// 获取授权菜单列表，=》根据开启的模块=》查询菜单
 		$visibleModel=$this->logicSysModule->getSysModuleColumn(['visible'=>'1'],'name');
 		$visibleModel[]='admin';//默认开启admin
+
 		$this->authMenuList = $this->logicSysAuthAccess->getAuthMenuList(SYS_USER_ID,$visibleModel);
 		// 获得权限菜单URL列表
 		$this->authMenuUrlList = $this->logicSysAuthAccess->getAuthMenuUrlList($this->authMenuList);
@@ -82,7 +83,6 @@ class AdminBase extends ControllerBase
 
 		// 权限验证不通过则跳转提示
 		RESULT_SUCCESS == $jump_type ?: $this->jump($jump_type, $message, url('/admin/index/index'));
-
 
 		$this->initBaseInfo();
 
@@ -116,9 +116,6 @@ class AdminBase extends ControllerBase
 		// 获取当前登录帐号组织机组
 		$this->org = $this->logicSysOrg->getSysOrgInfo(SYS_ORG_ID);
 
-		//系统配置
-		$this->assign('sys_config', $this->logicLogin->getConfigData());
-
 		// 设置组织机组
 		$this->assign('sys_org', $this->org);
 
@@ -136,6 +133,7 @@ class AdminBase extends ControllerBase
 
 		// 登录会员信息
 		$this->assign('sys_user_info', session('sys_user_info'));
+
 	}
 
 	/**

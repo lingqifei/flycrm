@@ -17,7 +17,6 @@ var lastMonth = lastMonthDate.getMonth();
 
 // 初始化时间插件格式
 $(document).ready(function () {
-
 	// //日期选择插件yyyy-mm-dd
 	$(".datepicker").datepicker({
 		language: "zh-CN",
@@ -88,7 +87,6 @@ $(document).ready(function () {
 
 	// //日期时间选择插件 yyyy-mm-dd H:i:s
 	$('.clockpicker').clockpicker();
-
 
 	//根据开始时间 计算出结束时间
 	$("body").on("click", ".date-add-interval", function () {

@@ -73,6 +73,12 @@
 .ibox-tab a{margin-right: 25px;cursor: pointer;color: #666;font-weight: 500;}
 .ibox-tab a:hover{color: #3F91FD}
 .ibox-tab a.on{color: #3F91FD}
+@media (max-width: 768px) {
+    .ibox-tab{float:none;line-height:25px;}
+    .ibox-tab a{margin-right: 15px;}
+    .ibox-title{height:auto;}
+    .ibox-tools{display:none;}
+}
 
 /*下拉操作菜单*/
 .dropdown-menu lqf_link > li  a {display: block;clear: both;font-weight: 400;color: #333;white-space: nowrap;border-radius: 3px;line-height: 25px;margin: 4px;text-align: left;padding: 3px 20px;}

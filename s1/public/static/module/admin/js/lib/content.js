@@ -1,79 +1,7 @@
 //初始化一些效果
 $(function () {
-    //实现全选反选+全先后背景变色
-    $(".checkboxCtrl").on('click', function () {
-        $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
-
-        if($(this).prop('checked')){
-           $(".ajax-list-table tbody tr").addClass('active')
-        }else{
-            $(".ajax-list-table tbody tr").removeClass('active')
-        }
-    });
-
-    //点击列表前面checkbox背景变色
-    $("body").on("click", ".checkboxCtrlId", function () {
-        if($(this).prop('checked')){
-            $(this).parents('tr').addClass('active')
-        }else{
-            $(this).parents('tr').removeClass('active')
-        }
-    });
 
 
-    //全局返回
-    $(".btn-history").on('click', function () {
-        window.history.go(-1);
-    });
-
-    //刷新验证码
-    $(".captcha_change").click(function () {
-        var captcha_img_obj = $("#captcha_img");
-        captcha_img_obj.attr("src", captcha_img_obj.attr("src") + "?" + Math.random());
-    });
-
-    //表格行超出之后隐藏
-    $("body").on("click", ".overflow-td", function () {
-        var that = $(this);
-        var cont = $(this).html();
-        //小tips
-        layer.tips(cont, that, {
-            tips: [4, '#3595CC'],
-            time: 9000
-        });
-    });
-
-    //菜单授权全选择
-    $('.auth-box .rules_all').click(function () {
-        $(this).parent().parent().next('.ibox-content').find("input").prop("checked", $(this).prop('checked'));
-    });
-
-    //树形目录展开，折叠
-    $(".treeClassBody lable").click(function () {
-        var UL = $(this).parent().siblings("ul");
-        $(this).html('');
-        if (UL.css("display") == "none") {
-            UL.css("display", "block");
-            $(this).html(' - ');
-        } else {
-            UL.css("display", "none");
-            $(this).html(' + ');
-        }
-    });
-
-    //panel面板显示隐藏
-    $("body").on("click", ".collapse-link", function () {
-        $(this).find('i').toggleClass("fa-chevron-up");
-        $(this).find('i').toggleClass("fa-chevron-down");
-    });
-
-    //设置有搜索列表页中，点击加回车提交搜索
-    $("body").keydown(function (e) {
-        var e = event || window.event;
-        if (e.keyCode == 13) {
-            $("form.searchForm .btn-primary.ajaxSearchForm").click();
-        }
-    });
 
 });
 
@@ -128,7 +56,6 @@ $("body").on("change", ".searchForm select", function () {
     turnPage(1);
 })
 
-
 //设置分页每页条数及跳转页数
 $("body").on("change", ".tfootPageBar", function () {
 
@@ -150,7 +77,6 @@ $("body").on("click", ".tfootClickPageNum", function () {
     ajaxSearchFormData = $("form").serialize();
     turnPage(pageNum, ajaxListTable);
 });
-
 
 //获取分页数据及模板
 function turnPage(pageNum, ajaxListTable = '') {
@@ -577,14 +503,12 @@ $("body").on("click", ".ajax-del", function () {
 
 //ajax get请求=》单个请求
 $("body").on("click", ".ajax-get", function () {
-
     //提示操作
     if ($(this).hasClass('confirm')) {
         if (!confirm('确认要执行该操作吗?')) {
             return false;
         }
     }
-
     //是否有加载提示
     if ($(this).hasClass('ajaxload')) {
         //页面层-自定义
@@ -854,7 +778,6 @@ $("body").on("click", ".ajax-post-trace", function () {
     }
     return false;
 });
-
 
 //更改列表字段,
 $("body").on("change", ".ajax-input", function () {

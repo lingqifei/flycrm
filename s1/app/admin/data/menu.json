@@ -14,7 +14,7 @@
                 "sort": 1,
                 "module": "admin",
                 "url": "SysOrg/show",
-                "visible": 1,
+                "visible": 0,
                 "is_shortcut": 0,
                 "is_menu": 1,
                 "icon": "",
@@ -131,10 +131,21 @@
                         "nodes": []
                     },
                     {
-                        "name": "浏览",
+                        "name": "数据浏览",
                         "sort": 1,
                         "module": "admin",
                         "url": "SysDept/show_json",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "树形结构浏览",
+                        "sort": 1,
+                        "module": "admin",
+                        "url": "SysDept/get_list_tree",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,
@@ -224,6 +235,39 @@
                         "sort": 4,
                         "module": "admin",
                         "url": "SysUser/lookup",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "设置职位",
+                        "sort": 6,
+                        "module": "admin",
+                        "url": "SysUser/userPosition",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "重置密码",
+                        "sort": 6,
+                        "module": "admin",
+                        "url": "SysUser/reset_pwd",
+                        "visible": 1,
+                        "is_shortcut": 0,
+                        "is_menu": 0,
+                        "icon": "",
+                        "nodes": []
+                    },
+                    {
+                        "name": "设置部门",
+                        "sort": 6,
+                        "module": "admin",
+                        "url": "SysUser/userDept",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,
@@ -781,45 +825,23 @@
                 ]
             },
             {
-                "name": "系统消息",
-                "sort": 21,
+                "name": "消息通知",
+                "sort": 100,
                 "module": "admin",
-                "url": "SysMsg/show",
+                "url": "message notification",
                 "visible": 1,
                 "is_shortcut": 0,
                 "is_menu": 1,
-                "icon": "",
+                "icon": "fa-volume-up",
                 "nodes": [
                     {
-                        "name": "删除",
-                        "sort": 4,
-                        "module": "admin",
-                        "url": "SysMsg/del",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "处理",
-                        "sort": 5,
-                        "module": "admin",
-                        "url": "SysMsg/set_visible",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "提醒配置",
-                        "sort": 6,
+                        "name": "消息设置",
+                        "sort": 22,
                         "module": "admin",
                         "url": "SysMsgType/show",
                         "visible": 1,
                         "is_shortcut": 0,
-                        "is_menu": 0,
+                        "is_menu": 1,
                         "icon": "",
                         "nodes": [
                             {
@@ -880,104 +902,194 @@
                         ]
                     },
                     {
-                        "name": "修改",
-                        "sort": 3,
+                        "name": "系统消息",
+                        "sort": 21,
                         "module": "admin",
-                        "url": "SysMsg/edit",
+                        "url": "SysMsg/show",
                         "visible": 1,
                         "is_shortcut": 0,
-                        "is_menu": 0,
+                        "is_menu": 1,
                         "icon": "",
-                        "nodes": []
+                        "nodes": [
+                            {
+                                "name": "删除",
+                                "sort": 4,
+                                "module": "admin",
+                                "url": "SysMsg/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "处理",
+                                "sort": 5,
+                                "module": "admin",
+                                "url": "SysMsg/set_visible",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "修改",
+                                "sort": 3,
+                                "module": "admin",
+                                "url": "SysMsg/edit",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "添加",
+                                "sort": 2,
+                                "module": "admin",
+                                "url": "SysMsg/add",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "数据浏览",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysMsg/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            }
+                        ]
                     },
                     {
-                        "name": "添加",
-                        "sort": 2,
+                        "name": "系统公告",
+                        "sort": 10,
                         "module": "admin",
-                        "url": "SysMsg/add",
+                        "url": "SysNotify/show",
                         "visible": 1,
                         "is_shortcut": 0,
-                        "is_menu": 0,
+                        "is_menu": 1,
                         "icon": "",
-                        "nodes": []
+                        "nodes": [
+                            {
+                                "name": "详细",
+                                "sort": 5,
+                                "module": "admin",
+                                "url": "SysNotify/detail",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "删除",
+                                "sort": 4,
+                                "module": "admin",
+                                "url": "SysNotify/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "修改",
+                                "sort": 3,
+                                "module": "admin",
+                                "url": "SysNotify/edit",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "浏览",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysNotify/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "添加",
+                                "sort": 2,
+                                "module": "admin",
+                                "url": "SysNotify/add",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            }
+                        ]
                     },
                     {
-                        "name": "数据浏览",
-                        "sort": 1,
+                        "name": "邮件管理",
+                        "sort": 22,
                         "module": "admin",
-                        "url": "SysMsg/show_json",
+                        "url": "SysEmail/show",
                         "visible": 1,
                         "is_shortcut": 0,
-                        "is_menu": 0,
+                        "is_menu": 1,
                         "icon": "",
-                        "nodes": []
-                    }
-                ]
-            },
-            {
-                "name": "系统公告",
-                "sort": 20,
-                "module": "admin",
-                "url": "OaNotify/show",
-                "visible": 1,
-                "is_shortcut": 0,
-                "is_menu": 1,
-                "icon": "",
-                "nodes": [
-                    {
-                        "name": "详细",
-                        "sort": 5,
-                        "module": "admin",
-                        "url": "OaNotify/detail",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "删除",
-                        "sort": 4,
-                        "module": "admin",
-                        "url": "OaNotify/del",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "修改",
-                        "sort": 3,
-                        "module": "admin",
-                        "url": "OaNotify/edit",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "浏览",
-                        "sort": 1,
-                        "module": "admin",
-                        "url": "OaNotify/show_json",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
-                    },
-                    {
-                        "name": "添加",
-                        "sort": 2,
-                        "module": "admin",
-                        "url": "OaNotify/add",
-                        "visible": 1,
-                        "is_shortcut": 0,
-                        "is_menu": 0,
-                        "icon": "",
-                        "nodes": []
+                        "nodes": [
+                            {
+                                "name": "邮件记录",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysEmail/show_json",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "邮件配置",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysEmail/config",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "发送邮件",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysEmail/send",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            },
+                            {
+                                "name": "删除邮件",
+                                "sort": 1,
+                                "module": "admin",
+                                "url": "SysEmail/del",
+                                "visible": 1,
+                                "is_shortcut": 0,
+                                "is_menu": 0,
+                                "icon": "",
+                                "nodes": []
+                            }
+                        ]
                     }
                 ]
             }
@@ -1377,7 +1489,7 @@
                 "name": "系统公告",
                 "sort": 1,
                 "module": "admin",
-                "url": "OaNotifyUser/show",
+                "url": "SysNotifyUser/show",
                 "visible": 1,
                 "is_shortcut": 0,
                 "is_menu": 1,
@@ -1387,7 +1499,7 @@
                         "name": "查看详细",
                         "sort": 2,
                         "module": "admin",
-                        "url": "OaNotifyUser/detail",
+                        "url": "SysNotifyUser/detail",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,
@@ -1398,7 +1510,7 @@
                         "name": "删除",
                         "sort": 2,
                         "module": "admin",
-                        "url": "OaNotifyUser/del",
+                        "url": "SysNotifyUser/del",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,
@@ -1409,7 +1521,7 @@
                         "name": "标记已读",
                         "sort": 2,
                         "module": "admin",
-                        "url": "OaNotifyUser/read",
+                        "url": "SysNotifyUser/read",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,
@@ -1420,7 +1532,7 @@
                         "name": "数据浏览",
                         "sort": 2,
                         "module": "admin",
-                        "url": "OaNotifyUser/show_json",
+                        "url": "SysNotifyUser/show_json",
                         "visible": 1,
                         "is_shortcut": 0,
                         "is_menu": 0,

@@ -21,7 +21,7 @@ return [
     'storage_driver' => "",
 
 	/* 不需要权限控制方法 */
-	'allow_url_diy'=>'admin/SysMsgType/scanbus;admin/SysUser/lookup;',
+	'allow_url_diy'=>'admin/SysMsgType/scanbus;admin/SysUser/lookup;admin/Index/language;',
 
     /* 模板布局配置 */
     'template'  =>  [

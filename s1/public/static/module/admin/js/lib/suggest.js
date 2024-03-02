@@ -72,7 +72,8 @@ script();
             <input type="hidden" name="linkman_id" value="{$linkman_id|default=''}">
             <input type="text"  name="linkman_name" value="{$linkman_name|default=''}" class="form-control suggest-input" placeholder="请输入搜索名称"
                    data-url="{:url('Comm/suggest_search',array('datatype'=>'linkman'))}"
-                   searchFields="keywords" source-group="customer-suggest" source-name='{"customer_id":"客户"}'
+                   searchFields="keywords"
+                   source-group="customer-suggest" source-name='{"customer_id":"客户"}'
                    target-group="linkman-suggest" target-name='{"linkman_id":"id","linkman_name":"name"}'>
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -89,7 +90,6 @@ script();
 * */
 
 $(document).ready(function () {
-
     //suggest-search,加载
     $('.suggest-search-box').each(function () {
         initSuggest($(this));
@@ -109,9 +109,7 @@ $(document).ready(function () {
             log(key + '==>' + item);
             object.find("." + targetGroup + " input[name='" + key + "']").val('');
         })
-
     });
-
 
 });
 
@@ -215,6 +213,10 @@ function initSuggest(object) {
                 log(names)
                 $.each(names, function (key, item) {
                     var itemVal = $("." + sourceGroup + " input[name='" + key + "']").val();
+
+                    log('查找查参数：');
+                    log(itemVal);
+
                     if (itemVal == null || itemVal == '' || typeof (itemVal) == 'undefined') {
                         layer.msg('选择' + item + '数据');
                         itemVal = '还没有选择' + item;

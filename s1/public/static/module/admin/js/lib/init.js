@@ -101,6 +101,7 @@ $(document).ready(function () {
             NavToggle();
         }
     });
+
     $('#side-menu>li li a').click(function () {
         if ($(window).width() < 769) {
             NavToggle();
@@ -147,11 +148,80 @@ $(document).ready(function () {
         $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked", true);//保证所有低级勾选上
 
     });
+    //实现全选反选+全先后背景变色
+    $(".checkboxCtrl").on('click', function () {
+        $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
 
-    //表格点击行之后选中+添加颜色
+        if($(this).prop('checked')){
+            $(".ajax-list-table tbody tr").addClass('active')
+        }else{
+            $(".ajax-list-table tbody tr").removeClass('active')
+        }
+    });
+    //点击列表前面checkbox背景变色
+    $("body").on("click", ".checkboxCtrlId", function () {
+        if($(this).prop('checked')){
+            $(this).parents('tr').addClass('active')
+        }else{
+            $(this).parents('tr').removeClass('active')
+        }
+    });
+
+    //全局返回
+    $(".btn-history").on('click', function () {
+        window.history.go(-1);
+    });
+
+    //刷新验证码
+    $(".captcha_change").click(function () {
+        var captcha_img_obj = $("#captcha_img");
+        captcha_img_obj.attr("src", captcha_img_obj.attr("src") + "?" + Math.random());
+    });
+
+    //表格行超出之后隐藏
+    $("body").on("click", ".overflow-td", function () {
+        var that = $(this);
+        var cont = $(this).html();
+        //小tips
+        layer.tips(cont, that, {
+            tips: [4, '#3595CC'],
+            time: 9000
+        });
+    });
+
+    //菜单授权全选择
+    $('.auth-box .rules_all').click(function () {
+        $(this).parent().parent().next('.ibox-content').find("input").prop("checked", $(this).prop('checked'));
+    });
+
+    //树形目录展开，折叠
+    $(".treeClassBody lable").click(function () {
+        var UL = $(this).parent().siblings("ul");
+        $(this).html('');
+        if (UL.css("display") == "none") {
+            UL.css("display", "block");
+            $(this).html(' - ');
+        } else {
+            UL.css("display", "none");
+            $(this).html(' + ');
+        }
+    });
+
+    //panel面板显示隐藏
+    $("body").on("click", ".collapse-link", function () {
+        $(this).find('i').toggleClass("fa-chevron-up");
+        $(this).find('i').toggleClass("fa-chevron-down");
+    });
+
+    //设置有搜索列表页中，点击加回车提交搜索
+    $("body").keydown(function (e) {
+        var e = event || window.event;
+        if (e.keyCode == 13) {
+            $("form.searchForm .btn-primary.ajaxSearchForm").click();
+        }
+    });
 
 });
-
 
 //判断窗口是否小于769
 $(window).bind("load resize", function () {
@@ -261,9 +331,7 @@ var toast = {
      * @param title 标题
      */
     success: function (text, title) {
-
         $(".toast").remove();
-
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -361,7 +429,6 @@ var toast = {
  * 搜索表单url
  */
 var searchFormUrl = function (obj) {
-
     var url = $(obj).attr('url');
     var query = $('.search-form').find('input,select').serialize();
     query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
@@ -371,7 +438,6 @@ var searchFormUrl = function (obj) {
     } else {
         url += '?' + query;
     }
-
     return url;
 };
 
@@ -602,6 +668,7 @@ function textToImg(str) {
     context.fillText(name, fontSize, fontSize);
     return canvas.toDataURL("image/png")
 }
+
 //随机颜色
 function getBG() {
     var bgArray = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",

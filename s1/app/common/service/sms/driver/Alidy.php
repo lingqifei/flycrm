@@ -43,7 +43,6 @@ class Alidy extends Sms implements Driver
      */
     public function config()
     {
-
         return $this->driverConfig('Alidy');
     }
 
@@ -52,19 +51,14 @@ class Alidy extends Sms implements Driver
      */
     public function sendSms($parameter = [])
     {
-
         $alidy_config = $this->config();
-
         $sms = new alidy\SmsApi($alidy_config['access_key'], $alidy_config['secret_key']);
-
         $response = $sms->sendSms(
             $parameter['sign_name'],
             $parameter['template_code'],
             $parameter['phone_number'],
             $parameter['template_param']
         );
-
         return $response->Code == 'OK' ? true : false;
     }
-
 }

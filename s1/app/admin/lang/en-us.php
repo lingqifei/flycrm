@@ -2,6 +2,7 @@
 return [
 
     //数据恢复页面：app/admin/view/database/data_restore.html
+    'backup' => 'Backup',
     'backup name' => 'Backup Name',
     'compress' => 'Compress',
     'data size' => 'Data Size',
@@ -48,6 +49,7 @@ return [
     'mobile phone' => 'Mobile Phone',
     'system' => 'System',
     'mail' => 'Mail',
+    'email' => 'Mail',
     'wechat' => 'WeChat',
     'modify' => 'Modify',
     'delete' => 'Delete',
@@ -263,5 +265,6 @@ return [
     'qq communication group'=>'QQ Communication Group',
     'development manual'=>'Development Manual',
 
+    'content'=>'Content',
 ];
 ?>

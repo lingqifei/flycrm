@@ -42,18 +42,18 @@ class CronJob extends ControllerBase
      * Author: 开发人生 goodkfrs@qq.com
      * Date: 2022/5/19 0019 17:43
      */
-    public function oa_notify_plug()
+    public function sys_notify_plug()
     {
         //转入的id标记已经读
         if (!empty($this->param['id'])) {
-            $this->logicOaNotifyUser->oaNotifyUserRead($this->param);
-            $info = $this->logicOaNotifyUser->getOaNotifyUserInfo(['a.id' => $this->param['id']]);
+            $this->logicSysNotifyUser->oaNotifyUserRead($this->param);
+            $info = $this->logicSysNotifyUser->getSysNotifyUserInfo(['a.id' => $this->param['id']]);
             $this->assign('info', $info);
-            return $this->fetch('oa_notify_user/detail');
+            return $this->fetch('sys_notify_user/detail');
         }
         $where['read_state'] = 0;//未读
         $where['owner_user_id'] = $this->param['owner_user_id'];//当前登录人
-        $list['data'] = $this->logicOaNotifyUser->getOaNotifyUserList($where, 'a.*,n.name,n.create_user_id', '', false);
+        $list['data'] = $this->logicSysNotifyUser->getSysNotifyUserList($where, 'a.*,n.name,n.create_user_id', '', false);
 //        $list['nums'] = count($list['data']);
         return $list;
     }
@@ -89,9 +89,9 @@ class CronJob extends ControllerBase
     public function notify_weixin()
     {
         $where['a.read_state'] = 0;
-        $list = $this->logicOaNotifyUser->getOaNotifyUserList($where, 'a.*,n.name,n.content,n.create_user_id', 'a.id desc', false);
+        $list = $this->logicSysNotifyUser->getSysNotifyUserList($where, 'a.*,n.name,n.content,n.create_user_id', 'a.id desc', false);
         foreach ($list as $row) {
-            $this->logicOaNotifyUser->send_weixin_msg($row);
+            $this->logicSysNotifyUser->send_weixin_msg($row);
         }
     }
 }

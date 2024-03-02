@@ -26,6 +26,8 @@ class Index extends AdminBase
         //生成压缩文件
         //$this->getcss();
         //$this->getjs();
+        //系统配置
+        $this->assign('sys_config', $this->logicLogin->getConfigData());
 
         return $this->fetch('index');
     }

@@ -129,18 +129,18 @@ function string_from_column_index($pColumnIndex = 0)
 /**
  * 发送邮件
  */
-function send_email($address, $title, $message)
+function send_email($address, $title, $message,$config=[])
 {
 	$mail = new \lqf\PHPMailer();
 	$mail->isSMTP();
 	$mail->Host = "smtp.exmail.qq.com";
 	$mail->SMTPAuth = true;
-	$mail->Username = "";
-	$mail->Password = "";
+	$mail->Username = "admin@07fly.com";
+	$mail->Password = "tpVihdnwCwjGvdSV";
 	$mail->SMTPSecure = 'ssl';
 	$mail->Port = 465;
 	$mail->CharSet = 'UTF-8';
-	$mail->setFrom('', '');
+	$mail->setFrom('admin@07fly.com', '零起飞');//发件地址，标题
 	$mail->addAddress($address);
 	$mail->isHTML(true);
 	$mail->Subject = $title;

@@ -24,9 +24,9 @@
                         <td>{$vo.author}</td>
                         <td>
                             {eq name='vo.is_install' value='1'}
-                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_uninstall', array('name' => $vo['name']))}"><i  class="fa fa-remove"></i> {:lang('uninstall')}</a></ob_link>
+                            <lqf_link><a class="btn confirm ajax-get" href="{:url('addon_uninstall', array('name' => $vo['name']))}"><i  class="fa fa-remove"></i> {:lang('uninstall')}</a></lqf_link>
                             {else/}
-                            <ob_link><a class="btn confirm ajax-get" href="{:url('addon_install', array('name' => $vo['name']))}"><i class="fa fa-refresh"></i> {:lang('install')}</a></ob_link>
+                            <lqf_link><a class="btn confirm ajax-get" href="{:url('addon_install', array('name' => $vo['name']))}"><i class="fa fa-refresh"></i> {:lang('install')}</a></lqf_link>
                             {/eq}
                         </td>
                     </tr>

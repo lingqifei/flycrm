@@ -140,7 +140,6 @@ class InitBase
      */
     private function initPathConst()
     {
-
         define('PATH_ADDON', ROOT_PATH . SYS_ADDON_DIR_NAME . DS);
         define('PATH_APP', ROOT_PATH . SYS_APP_NAMESPACE . DS);
 		define('PATH_DATA', ROOT_PATH . 'data' . DS);
@@ -157,7 +156,6 @@ class InitBase
      */
     private function initSystemConst()
     {
-
         define('SYS_APP_NAMESPACE', config('app_namespace'));
         define('SYS_HOOK_DIR_NAME', 'hook');
         define('SYS_ADDON_DIR_NAME', 'addon');
@@ -179,16 +177,12 @@ class InitBase
      */
     private function initConfig()
     {
-
         $model = model(SYS_COMMON_DIR_NAME . SYS_DS_PROS . 'Config');
         $config_list = auto_cache('config_list', create_closure($model, 'all'));
-
         foreach ($config_list as $info) {
             $config_array[$info['name']] = $info['value'];
         }
-
         config($config_array);
-
         $this->initTmconfig();
     }
 
@@ -197,12 +191,10 @@ class InitBase
      */
     private function initTmconfig()
     {
-
         $list_rows = config('list_rows');
         $api_key = config('api_key');
         $jwt_key = config('jwt_key');
         $static_domain = config('static_domain');
-
         define('DB_LIST_ROWS', empty($list_rows) ? 20 : $list_rows);
         define('API_KEY', empty($api_key) ? 'LingQiFei' : $api_key);
         define('JWT_KEY', empty($jwt_key) ? 'LingQiFei' : $jwt_key);
@@ -214,7 +206,6 @@ class InitBase
      */
     private function registerNamespace()
     {
-
         // 注册插件根命名空间
         Loader::addNamespace(SYS_ADDON_DIR_NAME, PATH_ADDON);
     }
@@ -224,28 +215,21 @@ class InitBase
      */
     private function initAutoCache()
     {
-
         $lqf_auto_cache = cache('lqf_auto_cache');
         $lqf_auto_cache_keys = cache('lqf_auto_cache_keys');
 
         !false === $lqf_auto_cache_keys ?: cache('lqf_auto_cache_keys', []);
 
         if (empty($lqf_auto_cache)) {
-
             $list = Db::query('SHOW TABLE STATUS');
-
             $lqf_auto_cache = [];
-
             foreach ($list as $v) {
-
                 $lqf_auto_cache[$v['Name']]['name'] = $v['Name'];
                 $lqf_auto_cache[$v['Name']]['version'] = DATA_NORMAL;
                 $lqf_auto_cache[$v['Name']]['data_version'] = DATA_NORMAL;
             }
-
             cache('lqf_auto_cache', $lqf_auto_cache, DATA_DISABLE);
         }
-
         $this->autoClearCache($lqf_auto_cache_keys);
     }
 
@@ -254,7 +238,6 @@ class InitBase
      */
     private function autoClearCache($keys = [])
     {
-
         // 检查自动缓存是否过期
         if (!empty($keys)) {
 

@@ -44,17 +44,14 @@ class TableField extends LogicBase
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` text COMMENT '$desc'";
 
             } elseif ($type == 'int') {
-
                 empty($default) && $default = '0';
                 empty($maxlength) && $maxlength = '11';
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` int($maxlength) default 0 COMMENT '$desc'";
 
             } elseif ($type == 'float') {
-
                 empty($default) && $default = '0';
                 $default = (float)$default;
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` decimal(20,2)  default 0.00 COMMENT '$desc'";
-
             } elseif ($type == 'datetime') {
 
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` datetime NULL COMMENT '$desc'";
@@ -64,10 +61,8 @@ class TableField extends LogicBase
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` date NULL COMMENT '$desc'";
 
             } else {
-
                 empty($default) && $default = '';
                 empty($maxlength) && $maxlength = '256';
-
                 $sql = "ALTER TABLE `$table` ADD COLUMN `$fieldname` varchar($maxlength) COMMENT '$desc'";
 
             }

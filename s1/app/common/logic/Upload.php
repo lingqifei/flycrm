@@ -21,6 +21,7 @@ class Upload extends LogicBase
 {
 
     private $files_path = '';
+
     public function __construct()
     {
         $this->files_path = PATH_UPLOAD . 'files' . DS;
@@ -34,6 +35,9 @@ class Upload extends LogicBase
      */
     public function uploadFile($data = [])
     {
+        if (!empty($data['uploadfilefather'])) {
+            $this->files_path = $this->files_path . $data['uploadfilefather'] . DS;
+        }
         if (!empty($data['uploadfilepath'])) {
             $this->files_path = $this->files_path . $data['uploadfilepath'] . DS;
         }
@@ -52,6 +56,9 @@ class Upload extends LogicBase
     public function getUploadFile($data = [])
     {
         $result['data'] = [];
+        if (!empty($data['uploadfilefather'])) {
+            $this->files_path = $this->files_path . $data['uploadfilefather'] . DS;
+        }
         if (!empty($data['uploadfilepath'])) {
             $this->files_path = $this->files_path . $data['uploadfilepath'] . DS;
         }
@@ -66,20 +73,32 @@ class Upload extends LogicBase
         $result['data'] = $dirlist;
         return $result;
     }
+
     /**
      * 上传目录文件列表=>删除目录文件
      * @param array $data
      * Author: lingqifei created by at 2020/6/4 0004
      */
-    public function delUploadFile($data=[])
+    public function delUploadFile($data = [])
     {
-
-        if(!empty($data['pathname'])){
-            if(file_exists($data['pathname'])){
+        //按路径+文件名删除
+        if (!empty($data['pathname'])) {
+            if (file_exists($data['pathname'])) {
+                unlink($data['pathname']);
+            }
+        }
+        if (!empty($data['uploadfilefather'])) {
+            $this->files_path = $this->files_path . $data['uploadfilefather'] . DS;
+        }
+        //按文件名删除
+        if (!empty($data['uploadfilepath']) && !empty($data['basename'])) {
+            $data['pathname'] = $this->files_path . $data['uploadfilepath'] . DS . $data['basename'];
+            if (file_exists($data['pathname'])) {
                 unlink($data['pathname']);
             }
         }
         return [RESULT_SUCCESS, '删除成功'];
     }
+
 
 }

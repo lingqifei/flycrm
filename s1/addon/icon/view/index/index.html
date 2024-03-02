@@ -7,7 +7,7 @@
     <div id="icon_tab">
         <div class="tab-content js-icon-content">
             <div class="tab-pane fade active in" id="fa">
-                <ul class="js-icon-list items-push-2x text-center" input_name="{$addons_data['name']}">
+                <ul class="js-icon-list items-push-2x text-left" input_name="{$addons_data['name']}">
                     <li title="fa-glass"><i class="fa fa-fw fa-glass"></i> <code>fa-glass</code></li>
                     <li title="fa-music"><i class="fa fa-fw fa-music"></i> <code>fa-music</code></li>
                     <li title="fa-search"><i class="fa fa-fw fa-search"></i> <code>fa-search</code></li>
@@ -883,28 +883,24 @@
         </div>
     </div>
 </div>
-
+<link rel="stylesheet" href="__STATIC__/addon/icon/remodal/remodal.css" >
+<link rel="stylesheet" href="__STATIC__/addon/icon/remodal/remodal-default-theme.css" >
+<script src="__STATIC__/addon/icon/remodal/remodal.js" ></script>
 <script type="text/javascript">
 
     $("#icon_modal{$addons_data['name']}").hide();
 
     $(".addon-icon-select").click(function () {
-
         var addons_icon_name = $(this).attr('name');
-
         $('#icon_modal' + addons_icon_name).remodal().open();
-
         $("#icon_modal" + addons_icon_name).show();
     });
 
     $('.js-icon-list li').unbind();
 
     $(".js-icon-list li").click(function () {
-
         var input_name = $(this).parent().attr('input_name');
-
         $("#" + input_name).val($(this).attr('title'));
-
         $("#icon_modal" + input_name).remodal().close();
     });
 

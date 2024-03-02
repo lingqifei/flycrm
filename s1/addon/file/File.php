@@ -19,7 +19,6 @@ use addon\AddonInterface;
  */
 class File extends AddonBase implements AddonInterface
 {
-
     /**
      * 实现钩子
      */
@@ -31,9 +30,7 @@ class File extends AddonBase implements AddonInterface
             $param['addons_model']=$param['addons_model'];
         }
         $this->assign('addons_data', $param);
-
         $this->assign('addons_config', $this->addonConfig($param));
-
         $this->fetch('index/' . $param['type']);
     }
 
@@ -42,7 +39,6 @@ class File extends AddonBase implements AddonInterface
      */
     public function addonInstall()
     {
-
         return [RESULT_SUCCESS, '安装成功'];
     }
 
@@ -51,7 +47,6 @@ class File extends AddonBase implements AddonInterface
      */
     public function addonUninstall()
     {
-
         return [RESULT_SUCCESS, '卸载成功'];
     }
 
@@ -60,23 +55,17 @@ class File extends AddonBase implements AddonInterface
      */
     public function addonInfo()
     {
-
         return ['name' => 'File', 'title' => '文件上传', 'describe' => '文件上传插件', 'author' => 'Jack', 'version' => '1.0'];
     }
-
     /**
      * 插件配置信息
      */
     public function addonConfig($param)
     {
-
         $addons_config['maxwidth'] = '150px';
         $addons_config['height'] = '85px';
-
         $addons_config['allow_postfix'] = $param['type'] == 'img' ? '*.jpg; *.png; *.gif;' : '*.jpg; *.png; *.gif; *.zip; *.rar; *.tar; *.gz; *.7z; *.doc; *.docx; *.txt; *.xml; *.xlsx; *.xls;*.mp4;*.pdf;';
-
         $addons_config['max_size'] = 50 * 1024;
-
         return $addons_config;
     }
 }

@@ -12,8 +12,7 @@
                                 <th>{:lang('class name')}</th>
                                 <th>{:lang('description')}</th>
                                 <th>{:lang('version')}</th>
-                                <th>{:lang('author')}</th>
-                                <th>{:lang('operate')}</th>
+                                <th class="text-center">{:lang('operate')}</th>
                             </tr>
                             </thead>
                             {notempty name='list'}
@@ -24,8 +23,7 @@
                                 <td>{$vo.service_class}</td>
                                 <td>{$vo.service_describe}</td>
                                 <td>{$vo.version}</td>
-                                <td>{$vo.author}</td>
-                                <td class="col-md-1">
+                                <td class="text-center">
                                     <a href="{:url('serviceList', array('service_name' => $vo['service_class']))}" class="btn"><i class="fa fa-sitemap"></i> {:lang('drive')}</a>
                                 </td>
                             </tr>

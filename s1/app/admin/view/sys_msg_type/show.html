@@ -50,8 +50,8 @@
                             <th width="80" class="text-center">{:lang('advance time')}({:lang('hour')})</th>
                             <th width="80" class="text-center">{:lang('total number of notifications')}</th>
                             <th width="80" class="text-center">{:lang('interval')}({:lang('hour')})</th>
-                            <th width="150">{:lang('reminder method')}</th>
-                            <th width="60">{:lang('operate')}</th>
+                            <th width="150" class="text-center">{:lang('reminder method')}</th>
+                            <th width="60" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,13 +83,13 @@
         <td class="text-center"><%=data[i]['hours']%></td>
         <td class="text-center"><%=data[i]['remind_nums']%></td>
         <td class="text-center"><%=data[i]['remind_interval']%></td>
-        <td class="">
+        <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > {:lang('mobile phone')}
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > {:lang('system')}
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > {:lang('email')}
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsgType/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > {:lang('wechat')}
         </td>
-        <td>
+        <td class="text-center">
             <lqf_link><a class="ajax-open" data-url="{:url('SysMsgType/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
             <lqf_link><a class="ajax-del confirm" data-url="{:url('SysMsgType/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>

@@ -7,7 +7,7 @@
                 </div>
                 <div class="ibox-content">
                     <table class="table table-hover ajax-list-table" data-type="oanotify"
-                           data-url="{:url('admin/OaNotify/main_json',array('owner_user_id'=>$sys_user_info.id))}"
+                           data-url="{:url('admin/SysNotify/main_json',array('owner_user_id'=>$sys_user_info.id))}"
                            width="100%">
                         <tbody>
 
@@ -156,7 +156,7 @@
         $.each(data, function (idx, obj) {
             if (type == 'oanotify') {
                 html += '<tr>';
-                html += '<td width="70"><a class="ajax-open" data-calback="javascript:void(0)" data-ids="{\'id\':\'' + obj.id + '\'}" data-url="{:url(\'OaNotify/main_json\')}" >' + obj.name + '</td></a>';
+                html += '<td width="70"><a class="ajax-open" data-calback="javascript:void(0)" data-ids="{\'id\':\'' + obj.id + '\'}" data-url="{:url(\'SysNotify/main_json\')}" >' + obj.name + '</td></a>';
                 html += '<td width="30" class="text-right">' + obj.create_time + '</td>';
                 html += '</tr>';
             } else if (type == 'sysmsg') {

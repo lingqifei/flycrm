@@ -4,13 +4,15 @@
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>{$page_title}</h5>
-                    <div class="ibox-tools"><a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue"> <i class="fa fa-question-circle"> {:lang('help')}</i></a>
+                    <div class="ibox-tools">
+                        <a href="javascript:void(0);" class="btn btn-xs btn-default btn-help-detail"  data-type="cst_clue">
+                            <i class="fa fa-question-circle"> {:lang('help')}</i>
+                        </a>
                     </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-
                             <div class="col-sm-12 m-b-xs">
                                 <div class="input-group text-left">
                                     <select  name="bus_type" class="chosen-select">
@@ -38,13 +40,16 @@
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
                             <lqf_link>
-                                <a class="btn btn-default ajax-goto" data-url="{:url('SysMsgType/show')}"><i class="fa fa-wrench"></i> {:lang('message settings')}</a>
+                                <a class="btn btn-info btn-outline ajax-goto" data-url="{:url('SysMsgType/show')}"><i class="fa fa-wrench"></i> {:lang('message settings')}</a>
                             </lqf_link>
                             <lqf_link>
-                                <a class="btn btn-danger ajax-get-more" data-url="{:url('SysMsg/del')}"><i class="fa fa-remove"></i> {:lang('batch delete')}</a>
+                                <a class="btn btn-info btn-outline ajax-get-more" data-url="{:url('SysMsg/del')}"><i class="fa fa-remove"></i> {:lang('batch delete')}</a>
                             </lqf_link>
                             <lqf_link>
-                                <a class="btn btn-success ajax-get-more" data-url="{:url('SysMsg/set_deal')}"><i class="fa fa-thumb-tack"></i> {:lang('set as processing')}</a>
+                                <a class="btn btn-info btn-outline ajax-get-more" data-url="{:url('SysMsg/set_deal')}"><i class="fa fa-thumb-tack"></i> {:lang('set as processing')}</a>
+                            </lqf_link>
+                            <lqf_link>
+                                <a class="btn btn-info btn-outline ajax-get-more" data-url="{:url('SysMsg/send_msg')}"><i class="fa fa-send"></i> {:lang('send')}</a>
                             </lqf_link>
                         </div>
                     </div>
@@ -55,15 +60,15 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80"><span>{:lang('reminder type')}</span></th>
-                            <th width="150"><span>{:lang('reminder message')}</span></th>
-                            <th width="80"><span>{:lang('reminder time')}</span></th>
-                            <th width="120" class="text-center"><span>{:lang('reminder method')}</span></th>
+                            <th width="100"><span>{:lang('reminder type')}</span></th>
+                            <th width="200"><span>{:lang('reminder message')}</span></th>
+                            <th width="100" class="text-center"><span>{:lang('reminder time')}</span></th>
+                            <th width="140" class="text-center"><span>{:lang('reminder method')}</span></th>
                             <th width="80" class="text-center"><span>{:lang('remaining times')}</span></th>
                             <th width="80" class="text-center"><span>{:lang('push count')}</span></th>
                             <th width="80" class="text-center"><span>{:lang('push time')}</span></th>
                             <th width="80" class="text-center"><span>{:lang('set as processing')}</span></th>
-                            <th width="60" class="text-center">{:lang('operate')}</th>
+                            <th width="80" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,11 +87,11 @@
 <script id="tableListTpl" type="text/html">
     <%
     for(var i=0;i<data.length;i++) {
-    deal_status='';if(data[i]['deal_status']=='1') visible='checked';
-    sms='';if(data[i]['remind_sms']=='1') sms='checked';
-    sys='';if(data[i]['remind_sys']=='1') sys='checked';
-    email='';if(data[i]['remind_email']=='1') email='checked';
-    weixin='';if(data[i]['remind_weixin']=='1') weixin='checked';
+    var deal_status='';if(data[i]['deal_status']=='1') visible='checked';
+    var sms='';if(data[i]['remind_sms']=='1') sms='checked';
+    var sys='';if(data[i]['remind_sys']=='1') sys='checked';
+    var email='';if(data[i]['remind_email']=='1') email='checked';
+    var weixin='';if(data[i]['remind_weixin']=='1') weixin='checked';
     %>
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
@@ -96,7 +101,7 @@
                 <%=data[i]['bus_name']%>
             </a>
         </td>
-        <td><%=data[i]['remind_time']%></td>
+        <td class="text-center"><%=data[i]['remind_time']%></td>
         <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > {:lang('mobile phone')}
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > {:lang('system')}

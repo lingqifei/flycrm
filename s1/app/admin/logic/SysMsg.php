@@ -181,44 +181,47 @@ class SysMsg extends AdminBase
     /**
      * 消息=>发送
      */
-    public function sysMsgSend()
+    public function sysMsgSend($data = [])
     {
-        $where['deal_status'] = ['=',0];//未处理
-        $where['remind_status'] = ['=',1];//提醒中
-        $where['remind_time'] = ['<=',format_time()];//提醒时间要小于等于当前时间
-        $where['remind_nums'] = ['>',0];//提醒次数要大于0
-        $list = $this->modelSysMsg->getList($where, '', 'remind_nums desc', false);
-        $updatalist=[];
+        //判断是否指定发送的信息
+        if (!empty($data['id'])) {
+            $where['id'] = ['in', $data['id']];
+        } else {
+            $where['deal_status'] = ['=', 0];//未处理
+            $where['remind_status'] = ['=', 1];//提醒中
+            $where['remind_time'] = ['<=', format_time()];//提醒时间要小于等于当前时间
+            $where['remind_nums'] = ['>', 0];//提醒次数要大于0
+        }
+        $list = $this->modelSysMsg->getList($where, '', 'remind_nums desc', false)->toArray();
+        $updatalist = [];
         foreach ($list as $key => &$row) {
-
             //业务的链接地址
             $row['bus_url'] = $this->modelSysMsg->getSysMsgBusUrl($row['bus_type'], $row['bus_id']);
-            $row['deal_user_name'] = $this->modelSysUser->getValue($row['deal_user_id'], 'realname');
-
+            //消息处理人员信息
+            $sysUser = $this->modelSysUser->getInfo($row['deal_user_id']);
+            $row['deal_user_name'] = !empty($sysUser['realname']) ? $sysUser['realname'] : '';
+            $row['email'] = !empty($sysUser['email']) ? $sysUser['email'] : '';
             //微信通知
-            if(!empty($row['remind_weixin'])){
-                d('微信通知:');
+            if (!empty($row['remind_weixin'])) {
+                dlog('微信通知:');
                 $this->modelSysMsgSend->weixin_teplate_send($row);
             }
-
             //邮件通知
-            if(!empty($row['remind_email'])){
-                d('邮件通知:');
+            if (!empty($row['remind_email'])) {
+                dlog('邮件通知:');
                 $this->modelSysMsgSend->email_teplate_send($row);
             }
-
             //设置下次提醒时间
-            $next_time= date_calc(format_time(), '+ ' . $row['remind_interval'] . '', 'hours', 'Y-m-d H:i:s');
-            $updatalist[]=[
-                'id'=>$row['id'],
-                'remind_time'=>$next_time,//下次提醒的时间
-                'remind_nums'=>$row['remind_nums']-1,//剩余提醒次数
-                'send_nums'=>$row['send_nums']+1,//发送次数
-                'send_time'=>format_time(),//发送次数
+            $next_time = date_calc(format_time(), '+ ' . $row['remind_interval'] . '', 'hours', 'Y-m-d H:i:s');
+            $updatalist[] = [
+                'id' => $row['id'],
+                'remind_time' => $next_time,//下次提醒的时间
+                'remind_nums' => $row['remind_nums'] - 1,//剩余提醒次数
+                'send_nums' => $row['send_nums'] + 1,//发送次数
+                'send_time' => format_time(),//发送次数
             ];
         }
-        d($updatalist);
-        $res=$this->modelSysMsg->setList($updatalist,true);
+        $this->modelSysMsg->setList($updatalist, true);
+        return [RESULT_SUCCESS, '发送成功'];
     }
-
 }

@@ -27,7 +27,6 @@ class SysMsg extends AdminBase
         $this->assign('type_list', $type_list);
 		return $this->fetch('show');
 	}
-
 	/**
 	 * 消息列表
 	 */
@@ -62,15 +61,11 @@ class SysMsg extends AdminBase
 	 * 编辑
 	 * @return mixed|string
 	 */
-
 	public function edit()
 	{
-
 		IS_POST && $this->jump($this->logicSysMsg->sysMsgEdit($this->param));
-
 		$info = $this->logicSysMsg->getSysMsgInfo(['id' => $this->param['id']]);
 		$this->assign('info', $info);
-
 		return $this->fetch('edit');
 	}
 
@@ -81,6 +76,14 @@ class SysMsg extends AdminBase
 	{
 		$this->jump($this->logicSysMsg->sysMsgDel($this->param));
 	}
+
+    /**
+     * 发送消息
+     */
+    public function send_msg()
+    {
+        $this->jump($this->logicSysMsg->sysMsgSend($this->param));
+    }
 
 	/**
 	 * 启用
