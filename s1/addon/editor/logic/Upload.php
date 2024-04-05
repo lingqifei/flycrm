@@ -29,13 +29,14 @@ class Upload
         $fileLogic = get_sington_object('fileLogic', LogicFile::class);
         
         $result = $fileLogic->pictureUpload('imgFile');
-        
+
         if (false === $result) : return [RESULT_ERROR => DATA_NORMAL, RESULT_MESSAGE => '文件上传失败']; endif;
         
         $url = get_picture_url($result['id']);
         
         return [RESULT_ERROR => DATA_DISABLE, RESULT_URL => $url];
     }
+
     /**
      * 图片上传=>Editormd
      */

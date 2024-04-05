@@ -203,12 +203,12 @@ class SysMsg extends AdminBase
             $row['email'] = !empty($sysUser['email']) ? $sysUser['email'] : '';
             //微信通知
             if (!empty($row['remind_weixin'])) {
-                dlog('微信通知:');
+                dlog('系统消息中=>微信通知', 'cronjob.txt');
                 $this->modelSysMsgSend->weixin_teplate_send($row);
             }
             //邮件通知
             if (!empty($row['remind_email'])) {
-                dlog('邮件通知:');
+                dlog('系统消息中=>邮件通知', 'cronjob.txt');
                 $this->modelSysMsgSend->email_teplate_send($row);
             }
             //设置下次提醒时间

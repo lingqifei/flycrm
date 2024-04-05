@@ -61,7 +61,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12">
                                         <input type="text" name="verify" class="form-control verify"
-                                               placeholder="please enter your verification code">
+                                               placeholder="{:lang('please enter your verification code')}">
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <img src="{:captcha_src()}" alt="captcha"
@@ -95,14 +95,13 @@
     <span style="display: none;"><a href="http://www.07fly.xyz">技术支持:零起飞网络</a></span>
 
 </div>
-
 <!-- Javascript -->
 <script src="__STATIC__/module/login/js/jquery-1.11.1.min.js"></script>
 <script src="__STATIC__/module/login/bootstrap/js/bootstrap.min.js"></script>
 <script src="__STATIC__/module/login/js/jquery.backstretch.min.js"></script>
+<script src="__STATIC__/module/login/js/scripts.js"></script>
 <!-- layer javascript -->
 <script src="__STATIC__/module/admin/js/plugins/layer/layer.min.js"></script>
-
 <!--[if lt IE 10]>
 <script src="__STATIC__/module/login/js/placeholder.js"></script>
 <![endif]-->
@@ -124,11 +123,11 @@
     $("body").on("click", ".login-btn", function () {
         ajaxlogin();
     });
-
+    //登录
     function ajaxlogin() {
-        form = $('.login-form');
-        target = form.get(0).action;
-        FormData = $("form").serialize();
+        var form = $('.login-form');
+        var target = form.get(0).action;
+        var FormData = $("form").serialize();
         $.ajax({
             type: "POST",
             url: target,
@@ -145,7 +144,6 @@
             }
         });
     }
-
     //刷新验证码
     function reloadcode() {
         var captcha_img_obj = $("#captcha_img");

@@ -128,6 +128,7 @@ class SysMsgType extends AdminBase
      */
     public function sysMsgTypeScan()
     {
+        dlog('业务提醒扫描出来=>系统消息中', 'cronjob.txt');
         $list = $this->modelSysMsgType->getList([], 'name,type,hours,remind_sms,remind_sys,remind_email,remind_weixin,remind_nums,remind_interval', '', false);
         foreach ($list as $key => $row) {
             switch ($row['type']) {
@@ -155,7 +156,7 @@ class SysMsgType extends AdminBase
                 case 'oa_schedule':
                     $this->modelSysMsgType->scanOaSchedule($row);
                     break;
-                 //工单提醒
+                //工单提醒
                 case 'oa_service':
                     $this->modelSysMsgType->scanOaService($row);
                     break;

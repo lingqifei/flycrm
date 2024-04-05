@@ -171,7 +171,7 @@ return [
         ],
         //公告映射用户
         'sys_notify_user' => [
-            'table_name' => 'oa_notify_user',
+            'table_name' => 'sys_notify_user',
             'comment' => '[系统]系统公告用户',
             'engine' => 'InnoDB',
             'charset' => 'utf8mb4',

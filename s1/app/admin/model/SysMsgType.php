@@ -122,7 +122,6 @@ class SysMsgType extends AdminBase
         }
     }
 
-
     /**
      * 扫描=》销售合同到期提醒
      * @param $data

@@ -1,11 +1,15 @@
 <audio id='audioPlay' src='' hidden='true' muted="true">
     <script type="text/javascript">
-        //顶部菜单栏目
-        $(".navbar-module a").click(function () {
-            $(this).addClass("on");
-            $(this).siblings().removeClass('on');
-        });
+
+
         $(document).ready(function () {
+
+            //顶部菜单栏目
+            $(".navbar-module a").click(function () {
+                $(this).addClass("on");
+                $(this).siblings().removeClass('on');
+            });
+
             //默认设置当前加载地址
             var iframeUrl = localStorage.getItem('iframeUrl');
             if (typeof (iframeUrl) != "undefined" && iframeUrl != null) {
@@ -150,14 +154,11 @@
                         playNotice(item.id, '{:lang("system announcement")}', item.name, detail + '?id=' + item.id);
                     });
                     if (jsonData.data.length > 0) {
-
                         $(".msg-icon-noti").text(jsonData.data.length);
-
                         //插件提醒声音
                         playSound();
                         //插件显示消息条数
                         getMsgNums();
-
                     }
                 }
             });
@@ -177,5 +178,4 @@
         setInterval("runSysMsg()", 1000 * 60 * 10);
         runSysNotify();
         runSysMsg();
-
     </script>

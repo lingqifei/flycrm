@@ -2,6 +2,18 @@
 <script src="__STATIC__/addon/editor/kindeditor/kindeditor-all-min.js"></script>
 <script src="__STATIC__/addon/editor/kindeditor/lang/zh-CN.js"></script>
 <script type="text/javascript">
+    // base64转blob
+    function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
     $(function(){
         var editor_{$addons_data.name};
         editor_{$addons_data.name} = KindEditor.create('textarea[name="{$addons_data.name}"]', {
@@ -20,6 +32,90 @@
                 'italic','underline','strikethrough','removeformat','image','multiimage','table',
                 'link','unlink','fullscreen'
                 ],
+            afterCreate: function () {
+                var editorObj = this;
+                var doc = editorObj.edit.doc;
+                $(doc.body).bind('paste', function (event) {
+                    setTimeout(function () {
+                        // 处理bug
+                        var useless = $(doc.body).find(".__kindeditor_paste__");
+                        if (useless) {
+                            useless.removeAttr("style");
+                            useless.removeClass("__kindeditor_paste__");
+                        }
+                        var imgs = $(doc.body).find("img");
+                        $.each(imgs, function (index, item) {
+                            // layer
+                            layerindex = layer.load(1, {
+                                shade: [0.3, '#fff'],
+                                content: '转存中',
+                                success: function (layero) {
+                                    layero.find('.layui-layer-content').css({
+                                        'padding-top': '39px',
+                                        'width': '120px',
+                                        'margin-left': '-60px'
+                                    });
+                                }
+                            });
+                            var _that = $(this);
+                            var imgSrc = decodeURIComponent(_that.attr("src"));
+                            if (imgSrc.indexOf("file://") > -1) {
+                                layer.close(layerindex);
+                            } else if (imgSrc.indexOf("data:") > -1) {
+                                var blob = dataURLtoBlob(imgSrc);
+                                // 上传粘贴板中的截图到服务器
+                                    var form = document.imgForm;
+                                    var formData = new FormData(form);
+                                    formData.append("imgFile", blob);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '{:addons_url("editor://Upload/pictureUpload")}',
+                                        data: formData,
+                                        dataType: "json",
+                                        // async: false,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (res) {
+                                            layer.close(layerindex);
+                                            if (res.error==0) {
+                                                _that.attr('src',res.url);
+                                                _that.attr('data-ke-src',res.url);
+                                                _that.attr('alt', res.url);
+                                            }
+                                        },
+                                        fail: function () {
+                                            layer.close(layerindex);
+                                        }
+                                    });
+                            } else if (imgSrc.indexOf("/upload/") === -1) {
+                                // ajax异步上传其他网络图片
+                                $.ajax({
+                                    type: "POST",
+                                    url:'{:addons_url("editor://Upload/pictureUpload")}',
+                                    data: JSON.stringify({ url: imgSrc }),
+                                    dataType: "json",
+                                    // async: false,
+                                    processData: false,
+                                    contentType: "application/json;charset=UTF-8",
+                                    success: function (res) {
+                                        layer.close(layerindex);
+                                        // 重置图片
+                                        _that.attr('src', res.url);
+                                        _that.attr('data-ke-src', res.url);
+                                        _that.attr('alt', res.name);
+                                    },
+                                    fail: function () {
+                                        layer.close(layerindex);
+                                    }
+                                });
+                            } else {
+                                // 本站网络图片不处理
+                                layer.close(layerindex);
+                            }
+                        });
+                    }, 10);
+                });
+            },
                 extraFileUploadParams: { session_id : '{:session_id()}'}
             });
 
