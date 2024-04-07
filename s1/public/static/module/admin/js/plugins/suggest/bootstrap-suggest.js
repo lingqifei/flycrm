@@ -407,7 +407,8 @@
                     tds.push('<td data-name="', field, '">', dataI[field], '</td>');
                 }
             }
-
+            //20231228 411行，增加代码,解决返回结果有双引号时，代码中断的bug
+            keyValue = keyValue.replace(/"/g, '\\"');
             html.push('<tr data-index="', (dataI.__index || i),
                 '" data-id="', idValue,
                 '" data-key="', keyValue, '">',

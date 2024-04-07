@@ -1,6 +1,10 @@
 <?php
 
 namespace Firebase\JWT;
+require_once '../vendor/firebase/php-jwt/src/SignatureInvalidException.php';
+require_once '../vendor/firebase/php-jwt/src/BeforeValidException.php';
+require_once '../vendor/firebase/php-jwt/src/ExpiredException.php';
+
 use \DomainException;
 use \InvalidArgumentException;
 use \UnexpectedValueException;

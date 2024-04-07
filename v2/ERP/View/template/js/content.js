@@ -72,7 +72,7 @@ function animationHover(element, animation) {
 $(function () {
 
     //禁用输入框提示
-    $("input[type='text']").attr('autocomplete','off');
+    $("input[type='text']").attr('autocomplete', 'off');
 
     //下拉框初始样式
     $('.chosen-select').chosen({search_contains: true});
@@ -110,61 +110,61 @@ $(function () {
         return false;
     });
 
-	//单击操作
-	$("body").on("click", ".ajax-open", function () {
-		var target = $(this).attr("data-url");
-		var id = $(this).attr("data-id");
-		if (typeof (id) != "undefined" && id != 0) {
-			var target = target + "?id=" + id;
-		}
-		var title = $(this).attr("data-title");
-		log(target);
-		layer.open({
-			type: 2,
-			title: title,
-			shadeClose: true,
-			fixed: false, //不固定
-			area: ['90%', '90%'],
-			content: target,
-			end: function () {
-				turnPage(1);//页面加载时初始化分页
-			}
-		});
-		return false;
-	});
-
-	//单击操作
-	$("body").on("click", ".ajax-get", function () {
-		var target = $(this).attr("data-url");
-		var id = $(this).attr("data-id");
-		if (typeof (id) != "undefined" && id != 0) {
-			var target = target + "?id=" + id;
-		}
-        var ids =$(this).attr('data-ids');
-        //是否设置了参数字段
-        if( typeof(ids)!="undefined" && ids!=0 ){
-            var ids=($.param(eval('('+ids+')'),true));
-            var target=target+"?"+ids;
-        }
-		$.ajax({
-			type: "POST",
-			url: target,
-			data:{"id":id},
-			dataType:"json",
-			success: function(data){
-				if(data.statusCode=='200'){
-					layer.msg('操作成功', {icon: 1});
-					turnPage(1);
-				}
-			},
-			complete: function () {//完成响应
-			}
-		});
-	});
-
-    $("body").on("blur", ".ajax-sort", function() {
+    //单击操作
+    $("body").on("click", ".ajax-open", function () {
         var target = $(this).attr("data-url");
-        var sort =$(this).val();
+        var id = $(this).attr("data-id");
+        if (typeof (id) != "undefined" && id != 0) {
+            var target = target + "?id=" + id;
+        }
+        var title = $(this).attr("data-title");
+        log(target);
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            fixed: false, //不固定
+            area: ['90%', '90%'],
+            content: target,
+            end: function () {
+                turnPage(1);//页面加载时初始化分页
+            }
+        });
+        return false;
+    });
+
+    //单击操作
+    $("body").on("click", ".ajax-get", function () {
+        var target = $(this).attr("data-url");
+        var id = $(this).attr("data-id");
+        if (typeof (id) != "undefined" && id != 0) {
+            var target = target + "?id=" + id;
+        }
+        var ids = $(this).attr('data-ids');
+        //是否设置了参数字段
+        if (typeof (ids) != "undefined" && ids != 0) {
+            var ids = ($.param(eval('(' + ids + ')'), true));
+            var target = target + "?" + ids;
+        }
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: {"id": id},
+            dataType: "json",
+            success: function (data) {
+                if (data.statusCode == '200') {
+                    layer.msg('操作成功', {icon: 1});
+                    turnPage(1);
+                }
+            },
+            complete: function () {//完成响应
+            }
+        });
+    });
+
+    $("body").on("blur", ".ajax-sort", function () {
+        var target = $(this).attr("data-url");
+        var sort = $(this).val();
         var id = $(this).attr("data-id");
         if (typeof (id) != "undefined" && id != 0) {
             var target = target + "?id=" + id;
@@ -172,10 +172,10 @@ $(function () {
         $.ajax({
             type: "POST",
             url: target,
-            data:{"sort":sort,"id":id},
-            dataType:"json",
-            success: function(data){
-                if(data.statusCode=='200'){
+            data: {"sort": sort, "id": id},
+            dataType: "json",
+            success: function (data) {
+                if (data.statusCode == '200') {
                     layer.msg('操作成功', {icon: 1});
                     turnPage(1);
                 }
@@ -187,16 +187,16 @@ $(function () {
     //启用关闭
     $("body").on("click", ".ajax-checkbox", function () {
         var target;
-        var val=0;
+        var val = 0;
         var chk = $(this).prop('checked');
         log(chk);
-        var id=$(this).attr('data-id');
-
-        if(chk){ val=1; }
-
+        var id = $(this).attr('data-id');
+        if (chk) {
+            val = 1;
+        }
         if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
             $.post(target, {id: id, value: val}, function (data) {
-                if(data.statusCode=='200'){
+                if (data.statusCode == '200') {
                     layer.msg('操作成功', {icon: 1});
                 } else {
                     layer.msg(data.msg, {icon: 5});

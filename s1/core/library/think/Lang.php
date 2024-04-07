@@ -191,13 +191,22 @@ class Lang
     public static function detect()
     {
         $langSet = '';
-
+        // **************20240311-默认语言不生效  start ************
+        $langSet = Config::get('default_lang');
+        // **************20240311-默认语言不生效  end ************
         if (isset($_GET[self::$langDetectVar])) {
             // url 中设置了语言变量
             $langSet = strtolower($_GET[self::$langDetectVar]);
         } elseif (isset($_COOKIE[self::$langCookieVar])) {
             // Cookie 中设置了语言变量
             $langSet = strtolower($_COOKIE[self::$langCookieVar]);
+
+       // **************20240311-默认语言不生效  start ************
+        } elseif ($langSet) {
+            // 获取默认语言
+            Cookie::set(self::$langCookieVar, $langSet, 3600);
+       // **************20240311-默认语言不生效  end ************
+
         } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // 自动侦测浏览器语言
             preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
