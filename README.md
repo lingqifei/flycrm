@@ -33,11 +33,15 @@
 
 -  QQ交流群: QQ2群:317163556
 
--  操作手册： [http://www.07fly.xyz/doc/v2doc/1.html](http://www.07fly.xyz/doc/v2doc/1.html)
+-  操作手册(V2)： [https://www.07fly.xyz/doc/v2doc.html](https://www.07fly.xyz/doc/v2doc.html)
+
+-  S1帮助手册：[https://www.07fly.xyz/doc/s1.html](https://www.07fly.xyz/doc/s1.html)
+
+-  ERP帮助手册：[https://www.07fly.xyz/doc/erp.html](https://www.07fly.xyz/doc/erp.html)
+
+-  OA帮助手册：[https://www.07fly.xyz/doc/oa.html](https://www.07fly.xyz/doc/oa.html)
 
 -  应用手册：[http://www.07fly.xyz/html/doc](http://www.07fly.xyz/html/doc)
-
-
 
 ### 使用前需知：
 
