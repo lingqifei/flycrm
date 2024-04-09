@@ -10,15 +10,15 @@
 ### 演示地址
 
 
-- (v1)版本：[http://v1.07fly.xyz](http://v1.07fly.xyz)
+- (v1)版本：[http://v1.07fly.net](http://v1.07fly.xyz)
 - 账号：admin
 - 密码：admin123456
 - 
-- (v2)版本：[http://v2.07fly.xyz](http://v2.07fly.xyz)
+- (v2)版本：[http://v2.07fly.net](http://v2.07fly.xyz)
 - 账号：admin
 - 密码：admin123456
 - 
-- (S1)演示：[http://erp.07fly.xyz](http://erp.07fly.xyz)
+- (S1)演示：[http://erp.07fly.net](http://erp.07fly.xyz)
 - 账号：demo
 - 密码：123456
 
