@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="row">
+                    <form id="pagerForm" method="post" class="form-inline searchForm">
+                        <div class="col-sm-12 m-b-xs">
+                            <div class="input-group">
+                                <input type="text" name="keywords" placeholder="输入关键字搜索" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary ajaxSearchForm">
+                                        <i class="fa fa-search"></i> 搜索</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="ibox-content table-responsive">
+                <table class="table table-hover sorttable ajax-list-table" data-url="{:url('MaterialShelvesCell/show_json')}"
+                       width="100%">
+                    <thead>
+                    <tr>
+                        <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                        <th width="120"><span>货架格断名称</span></th>
+                        <th width="200"><span>货架格断管理人员</span></th>
+                        <th width="80" class="text-center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot class="ibox-content">
+                    <tr>
+                        <td colspan="4" align="center"></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i
+    <data.length;i++) {
+    visible='';
+    if(data[i]['visible']=='1') visible='checked';
+    %>
+    <tr>
+        <td><input name="id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><%=data[i]['name']%></td>
+        <td><%=data[i]['manage_user_name']%></td>
+        <td class="text-center">
+            <lqf_link>
+                <a class="btn btn-success lookup-bring-select" lookup-bring-fields={"id":"<%=data[i]["id"]%>","name":"<%=data[i]["name"]%>"}>
+                    <i class="fa fa-check"></i>选择</a>
+            </lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);//页面加载时初始化分页
+    });
+</script>

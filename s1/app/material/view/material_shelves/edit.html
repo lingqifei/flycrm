@@ -1,0 +1,50 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('MaterialShelves/edit')}">
+        <input type="hidden" name="id" value="{$info.id|default='0'}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">货架名称</label>
+            <div class="col-sm-10">
+                <input name="name" class="form-control" type="text" placeholder="请输入名称" value="{$info.name|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">货架编码</label>
+            <div class="col-sm-10">
+                <input name="shelves_code" class="form-control" type="text" placeholder="请输入货架编码" value="{$info.shelves_code|default=''}"/>
+                <span class="help-block m-b-none">货架编码为英文字母，不能重复</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所在仓库</label>
+            <div class="col-sm-10">
+                <div class="suggest-search-box">
+                    <div class="input-group store-suggest">
+                        <input type="hidden" name="store_id" value="{$info.store_id|default='0'}">
+                        <input type="text" name="store_name" value="{$info.store_name|default=''}" class="form-control suggest-input"  placeholder="请输入搜索名称"
+                               data-url="{:url('Comm/suggest_search',array('datatype'=>'store'))}"
+                               searchFields="keywords"
+                               target-group="store-suggest" target-name='{"store_id":"id","store_name":"name"}'>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                    </div>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">排序</label>
+            <div class="col-sm-10">
+                <input name="sort" class="form-control" type="text" placeholder="请输入排序" value="{$info.sort|default=''}"/>
+                <span class="help-block m-b-none"></span></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="admin@layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>

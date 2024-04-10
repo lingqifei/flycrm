@@ -30,9 +30,7 @@ class Sequence extends AdminBase
 
         $where['name']=['=',$device_name];
         $where['current_date']=['=',$date];
-
         $curid= $this->modelSequence->stat($where, 'max','current_value');
-
         $add_id=$curid+1;
         if($curid==0){
             $up_data=[
@@ -48,11 +46,7 @@ class Sequence extends AdminBase
             ];
             $this->modelSequence->updateInfo($where,$up_data);
         }
-
         $strMaxId=$device_name.$date.$separate.str_pad($add_id,$len,'0',STR_PAD_LEFT );
-
         return $strMaxId;
-
     }
-
 }

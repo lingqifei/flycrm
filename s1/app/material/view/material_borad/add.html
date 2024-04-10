@@ -1,0 +1,160 @@
+<div class="ibox-content">
+    <form class="form-horizontal" method="post" action="{:url('MaterialBorad/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">名称</label>
+            <div class="col-sm-4">
+                <input name="name" class="form-control" type="text" placeholder="请输入板子名称" value="{$info.name|default=''}"/>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">型号</label>
+            <div class="col-sm-4">
+                <input name="model_code" class="form-control" type="text" placeholder="请输入型号" value="{$info.model_code|default=''}"/>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">颜色</label>
+            <div class="col-sm-4">
+                <div class="suggest-search-box">
+                    <div class="input-group colour-suggest">
+                        <input type="hidden" name="colour_id" value="{$colour_id|default='0'}">
+                        <input type="text" name="colour_name" value="{$colour_name|default=''}" class="form-control suggest-input"  placeholder="请输入颜色名称"
+                               data-url="{:url('Comm/suggest_search',array('datatype'=>'colour'))}"
+                               searchFields="keywords"
+                               target-group="colour-suggest" target-name='{"colour_id":"id","colour_name":"name"}'>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                    </div>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">材质</label>
+            <div class="col-sm-4">
+                <div class="suggest-search-box">
+                    <div class="input-group quality-suggest">
+                        <input type="hidden" name="quality_id" value="{$quality_id|default='0'}">
+                        <input type="text" name="quality_name" value="{$quality_name|default=''}" class="form-control suggest-input"  placeholder="请输入材质名称"
+                               data-url="{:url('Comm/suggest_search',array('datatype'=>'quality'))}"
+                               searchFields="keywords"
+                               target-group="quality-suggest" target-name='{"quality_id":"id","quality_name":"name"}'>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                    </div>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">货架</label>
+            <div class="col-sm-4">
+                <div class="suggest-search-box">
+                    <div class="input-group shelves-suggest">
+                        <input type="hidden" name="shelves_id" value="{$shelves_id|default='0'}">
+                        <input type="text" name="shelves_name" value="{$shelves_name|default=''}" class="form-control suggest-input"  placeholder="请输入货架名称"
+                               data-url="{:url('Comm/suggest_search',array('datatype'=>'shelves'))}"
+                               searchFields="keywords"
+                               target-group="shelves-suggest" target-name='{"shelves_id":"id","shelves_name":"name"}'>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                    </div>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+            <label class="col-sm-2 control-label">格子</label>
+            <div class="col-sm-4">
+                <div class="suggest-search-box">
+                    <div class="input-group shelves-cell-suggest">
+                        <input type="hidden" name="shelves_cell_id" value="{$shelves_cell_id|default='0'}">
+                        <input type="text" name="shelves_cell_code" value="{$shelves_cell_code|default=''}" class="form-control suggest-input"  placeholder="请选择格子名称"
+                               data-url="{:url('Comm/suggest_search',array('datatype'=>'shelves_cell'))}"
+                               searchFields="keywords"
+                               source-group="shelves-suggest" source-name='{"shelves_id":"货架"}'
+                               target-group="shelves-cell-suggest" target-name='{"shelves_cell_id":"id","shelves_cell_code":"name"}'>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                    </div>
+                </div>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">长度</label>
+            <div class="col-sm-2">
+                <input name="leng" class="form-control getareafun" type="text" placeholder="请输入长度" value="{$info.sort|default='0'}"/>
+                <span class="help-block m-b-none">单位毫米（mm）</span>
+            </div>
+            <label class="col-sm-2 control-label">宽度</label>
+            <div class="col-sm-2">
+                <input name="width" class="form-control getareafun" type="text" placeholder="请输入宽度" value="{$info.sort|default='0'}"/>
+                <span class="help-block m-b-none">单位毫米（mm）</span>
+            </div>
+            <label class="col-sm-2 control-label">面积</label>
+            <div class="col-sm-2">
+                <input name="area" class="form-control getareafun" type="text" placeholder="面积=长*宽自动计算出来" value="{$info.sort|default='10'}"/>
+                <span class="help-block m-b-none">面积=长*宽，单位平方（m²）</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">缩略图 </label>
+            <div class="col-sm-10">
+                {assign name="litpic" value="$info.litpic|default='0'" /}
+                {:hook('File', ['name' => 'litpic', 'value' => $litpic, 'type' => 'imgpath'])}
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">排序</label>
+            <div class="col-sm-10">
+                <input name="sort" class="form-control" type="text" placeholder="请输入排序" value="{$info.sort|default='10'}"/>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注说明</label>
+            <div class="col-sm-10">
+                <textarea name="remark" class="form-control" placeholder="备注说明">{$info.remark|default=''}</textarea>
+                <span class="help-block m-b-none"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                {include file="admin@layout/save_btn"}
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("body").on("keyup", "input.getareafun", function () {
+            getArea();
+        });
+    });
+
+    //计算面积
+    function getArea() {
+        var leng = $("input[name='leng']").val();
+        var width = $("input[name='width']").val();
+        var area=leng*width/1000000;
+        $("input[name='area']").val(area);
+    }
+</script>
