@@ -118,7 +118,6 @@ function turnPage(pageNum, ajaxListTable = '') {
         }
 
     } else {
-
         ajaxSearchFormData = $("form").serialize();
         log("第一步：点击查询了：ajaxSearchFormData:" + ajaxSearchFormData);
 
@@ -186,6 +185,19 @@ function turnPage(pageNum, ajaxListTable = '') {
                 mergeTableRowspan();
             }
 
+            //4、设置数据区域高度
+            var stickyTable = ajaxListTable.parents('.sticky-table');
+            if (stickyTable.hasClass('sticky-table')) {
+                log('需要重新设置高度：');
+                var height = $(window).height();
+                var centerHight = height - 300;
+                stickyTable.height(centerHight).css("overflow", "auto");
+                stickyTable.css("background", "#fff");
+
+                $(window).resize(function () {
+                    setStickyTableHeight(stickyTable);
+                });
+            }
         },
         error: function () {
             layer.msg('数据加载失败', {
@@ -195,10 +207,17 @@ function turnPage(pageNum, ajaxListTable = '') {
         }
     });
 }
+//设置stickyTable的高度
+function setStickyTableHeight(stickyTable) {
+    var height = $(window).height();
+    var centerHight = height - 300;
+    stickyTable.height(centerHight).css("overflow", "auto");
+    stickyTable.css("background", "#fff");
+}
+
 
 //获取分页条（分页按钮栏的规则和样式根据自己的需要来设置）
 function getPageBar(object, pageNum, pageSize, totalCount) {
-
     var pageNum = parseInt(pageNum);
     var pageSize = parseInt(pageSize);
     var totalPage = Math.ceil(totalCount / pageSize);

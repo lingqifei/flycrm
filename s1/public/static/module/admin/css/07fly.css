@@ -16,9 +16,9 @@
 .ajax-list-table {table-layout:fixed;word-break:break-all;}
 .ajax-list-table th,.ajax-list-table td{font-size:13px;word-break:break-all;}
 .ellipsis{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-
 /*表格列表td超出长度隐藏*/
 .ajax-list-table .MHover{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+
 /*数据表格选中样式*/
 .ajax-list-table .active{background-color: #F5F5F5;}
 
@@ -28,6 +28,37 @@
 .sort-filed.asc span:after {font: normal normal normal 14px/1 FontAwesome; content: "\f0de"; margin-left: 10px;/*background: url(../img/arrow-up.png) no-repeat right;*/}
 .sort-filed.desc span:after {font: normal normal normal 14px/1 FontAwesome;content: "\f0dd";margin-left: 10px; /*background: url(../img/arrow-down.png) no-repeat right;*/}
 .chosen-container{min-width: 150px;}
+
+/**
+ * 分页面，表格数据区域固定样式，滚动条样式
+ */
+.sticky-table {overflow:auto;width:100%;padding:0;position:relative;-webkit-overflow-scrolling:touch;}
+/* 首行永远固定在头部*/
+.sticky-table thead {
+    position:sticky;top:0;
+    background-color:#F5F5F6;
+    z-index:20;
+}
+/* 首列永远固定在左侧*/
+.sticky-table td:first-child,.sticky-table th:first-child {position:sticky;left:0;z-index:1;background-color:#F5F5F6;width:30px;max-width:30px;}
+/* 第2列永远固定在左侧*/
+.sticky-table td:nth-child(2),.sticky-table th:nth-child(2) {position:sticky;left:30px;z-index:10;}
+.sticky-table td:nth-child(2) {background-color:#fff;}
+/* 分页固定在下方列*/
+.sticky-table .table-page-bar {bottom:-30px;position:fixed;width:calc(100% - 43px);background:#F6F8F8;}
+.sticky-table .table-page-bar td {background:#F5F5F6;}
+.sticky-table .page-list {padding-top:0px;padding-bottom:10px;}
+.sticky-table th > div {
+    width:100%;white-space:normal;
+    /*允许在单元格内正常换行。*/
+    word-wrap:break-word;/*当单元格内的单词太长时，允许将单词拆分成多个行。*/
+    word-break:break-all;/*允许在单元格内的单词内进行换行，而不仅限于字母间的换行。*/;
+}
+/* 滚动条宽度*/
+.sticky-table ::-webkit-scrollbar {width:4px;background-color:transparent;}
+/* 滚动条颜色*/
+.sticky-table ::-webkit-scrollbar-thumb {background-color:#A8A8A8;}
+
 
 /*分页面*/
 .page-list {padding-top: 20px;}
@@ -55,7 +86,7 @@
 .form-group select{border:none; padding:3px 22px 6px 6px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAXCAYAAACMLIalAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAFHSURBVEiJ7dY/SgNREMfx7wQrlSBLCo+RNMFY5Qapts4FFK0ClrmGNoEEcoGcQT2A5AQKVmqRRlTGwp8SdNk/8a27hQMPdmffzPvs48GuuTt1i0bVgKT4R+WNhpmNzSz+bSMzi81sHAJlwD3wBBy6+8OGoAi4BPbcfT8ErAc8AgvA3J0iQy+2UI9e0frEnmo8ABwYbYAaqXYQAvSFUvML4A3oFwD1VXMeCvQdtQNcAbdAlAMUAXeq2S4FpYXaOhvzHKi55rZDgn6gtNhQZ+QkBXSqOcPQoESUFp0AL0A34VkXeAUmZYDSUE1gCdwArbV8S7kl0PxTlAAd7dZ0LTdVrlMWKBUlxJHOTqzhwHGZoEyUYDPgWWNWNsjdPz4raWFmu8C1bg/cfZVaECC2sia4+8rMzj6vywYB2TtVRdTzJ69qQFLUEvUOCvU4pv7sx1oAAAAASUVORK5CYII=") no-repeat right center #fff; background-size:auto 40%; -webkit-appearance:none; -moz-appearance:none; appearance:none; border-radius:1px;width: 100%; border:solid 1px #cfdadd;}
 .form-group select:before{font-family:"hui-font"; content:"\e63d"; font-size:12px;}
 .form-control.daterange-btn{min-width: 180px;}/*双日历*/
-
+/*这个商品查询框，下拉样式*/
 .form-control.goods-lookup{
     width: 100%;
     border: solid 1px #ffffff;
@@ -73,6 +104,8 @@
 .ibox-tab a{margin-right: 25px;cursor: pointer;color: #666;font-weight: 500;}
 .ibox-tab a:hover{color: #3F91FD}
 .ibox-tab a.on{color: #3F91FD}
+
+/*重写ibox-tab移动效果*/
 @media (max-width: 768px) {
     .ibox-tab{float:none;line-height:25px;}
     .ibox-tab a{margin-right: 15px;}
