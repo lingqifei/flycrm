@@ -220,7 +220,6 @@ $(document).ready(function () {
             $("form.searchForm .btn-primary.ajaxSearchForm").click();
         }
     });
-
 });
 
 //判断窗口是否小于769
@@ -252,6 +251,105 @@ function SmoothlyMenu() {
         $('#side-menu').removeAttr('style');
     }
 }
+
+/**
+ * 操纵toastor的便捷类
+ * @type {{success: success, error: error, info: info, warning: warning}}
+ */
+var toast = {
+    /**
+     * 成功提示
+     * @param text 内容
+     * @param title 标题
+     */
+    success: function (text, title) {
+        $(".toast").remove();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.success(text, title);
+    },
+    /**
+     * 失败提示
+     * @param text 内容
+     * @param title 标题
+     */
+    error: function (text, title) {
+        $(".toast").remove();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.error(text, title);
+    },
+    /**
+     * 信息提示
+     * @param text 内容
+     * @param title 标题
+     */
+    info: function (text, title) {
+        $(".toast").remove();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.info(text, title);
+    },
+    /**
+     * 警告提示
+     * @param text 内容
+     * @param title 标题
+     */
+    warning: function (text, title) {
+        $(".toast").remove();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.warning(text, title);
+    }
+};
 
 /**
   * 将form里面的内容序列化成json
@@ -320,110 +418,6 @@ $.fn.setForm = function (jsonValue) {
     })
 }
 
-/**
- * 操纵toastor的便捷类
- * @type {{success: success, error: error, info: info, warning: warning}}
- */
-var toast = {
-    /**
-     * 成功提示
-     * @param text 内容
-     * @param title 标题
-     */
-    success: function (text, title) {
-        $(".toast").remove();
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "1000",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        toastr.success(text, title);
-    },
-    /**
-     * 失败提示
-     * @param text 内容
-     * @param title 标题
-     */
-    error: function (text, title) {
-
-        $(".toast").remove();
-
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "1000",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        toastr.error(text, title);
-    },
-    /**
-     * 信息提示
-     * @param text 内容
-     * @param title 标题
-     */
-    info: function (text, title) {
-
-        $(".toast").remove();
-
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "1000",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        toastr.info(text, title);
-    },
-    /**
-     * 警告提示
-     * @param text 内容
-     * @param title 标题
-     */
-    warning: function (text, title) {
-
-        $(".toast").remove();
-
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "1000",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        toastr.warning(text, title);
-    }
-};
 
 /**
  * 搜索表单url
@@ -440,7 +434,6 @@ var searchFormUrl = function (obj) {
     }
     return url;
 };
-
 
 //将url转化为json数据
 function url2json(url) {
@@ -461,133 +454,6 @@ function url2json(url) {
     res = JSON.stringify(res);//转化为JSON字符串
     return res; //{"a": "1", "b": "2", "c": "test", "d": ""}
 }
-
-//时间格式转换
-jQuery.fn.extend(Date.prototype, {
-    Format: function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    },
-    /* 给Date的原型添加年运算的方法
-* @param {Object} num  要加减的时间的数量,加时间填正整数，减时间填负整数
-*/
-    opYear: function (num) {
-        var d = this.getFullYear();
-        this.setFullYear(d + num);
-        return this;
-    },
-    /* 给Date的原型添加月运算的方法
-    * @param {Object} num  要加减的时间的数量,加时间填正整数，减时间填负整数
-    */
-    opMonth: function (num) {
-        var d = this.getMonth();
-        this.setMonth(d + num);
-        return this;
-    },
-    /* 给Date的原型添加天运算的方法
-    * @param {Object} num  要加减的时间的数量,加时间填正整数，减时间填负整数
-    */
-    opDay: function (num) {
-        var d = this.getDate();
-        this.setDate(d + num);
-        return this;
-    },
-    /* 给Date的原型添加分钟运算的方法
-    * @param {Object} num  要加减的时间的数量,加时间填正整数，减时间填负整数
-    */
-    opMinutes: function (num) {
-        var d = this.getMinutes();
-        this.setMinutes(d + num);
-        return this;
-    },
-
-    /***参数都是以周一为基准的***/
-    //上周的开始时间
-    //console.log(getTime(7));
-    //上周的结束时间
-    //console.log(getTime(1));
-    //本周的开始时间
-    //console.log(getTime(0));
-    //本周的结束时间
-    //console.log(getTime(-6));
-    getWeekTime: function (n) {
-        var year = this.getFullYear();
-        //因为月份是从0开始的,所以获取这个月的月份数要加1才行
-        var month = this.getMonth() + 1;
-        var date = this.getDate();
-        var day = this.getDay();
-//		console.log(date);
-        //判断是否为周日,如果不是的话,就让今天的day-1(例如星期二就是2-1)
-        if (day !== 0) {
-            n = n + (day - 1);
-        } else {
-            n = n + day;
-        }
-        if (day) {
-            //这个判断是为了解决跨年的问题
-            if (month > 1) {
-                month = month;
-            } else {
-                //这个判断是为了解决跨年的问题,月份是从0开始的
-                year = year - 1;
-                month = 12;
-            }
-        }
-        this.setDate(this.getDate() - n);
-        year = this.getFullYear();
-        month = this.getMonth() + 1;
-        date = this.getDate();
-//		console.log(year+"-"+(month<10?('0'+month):month)+"-"+(date<10?('0'+date):date));
-        return year + "-" + (month < 10 ? ('0' + month) : month) + "-" + (date < 10 ? ('0' + date) : date);
-    },
-
-    pattern: function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours() % 24 == 0 ? 24 : this.getHours() % 24, //小时
-            "H+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        var week = {
-            "0": "/u65e5",
-            "1": "/u4e00",
-            "2": "/u4e8c",
-            "3": "/u4e09",
-            "4": "/u56db",
-            "5": "/u4e94",
-            "6": "/u516d"
-        };
-        if (/(y+)/.test(fmt)) {
-            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        }
-        if (/(E+)/.test(fmt)) {
-            fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
-        }
-        for (var k in o) {
-            if (new RegExp("(" + k + ")").test(fmt)) {
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            }
-        }
-        return fmt;
-    }
-
-});
-
 
 /**
  * null => ''
@@ -611,19 +477,30 @@ function null2zero(data) {
     return data;
 }
 
-
-/*-----页面pannel内容区高度自适应 start-----*/
-$(window).resize(function () {
-    setCenterHeight();
-});
-function setCenterHeight() {
-    var height = $(window).height();
-    var centerHight = height - 40;
-    $(".auto-height-box").height(centerHight).css("overflow", "auto");
-    $(".auto-height-box").css("background", "#fff");
+/**
+ * null => ''
+ * @param {*} data 要处理的数据
+ */
+function null2empty(data) {
+    if (data === null) {
+        return '';
+    }
+    for (let x in data) {
+        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+            data[x] = '';
+        } else {
+            if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                data[x] = data[x].map(z => {
+                    return null2empty(z);
+                });
+            }
+            if (typeof (data[x]) === 'object') { // 是json 递归继续处理
+                data[x] = null2empty(data[x])
+            }
+        }
+    }
+    return data;
 }
-setCenterHeight();//自适应高度
-/*-----页面pannel内容区高度自适应 end-----*/
 
 //文字转为图片
 function textToImg(str) {
@@ -668,7 +545,6 @@ function textToImg(str) {
     context.fillText(name, fontSize, fontSize);
     return canvas.toDataURL("image/png")
 }
-
 //随机颜色
 function getBG() {
     var bgArray = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
@@ -678,3 +554,18 @@ function getBG() {
     var color = bgArray[Math.floor(Math.random() * bgArray.length)];
     return color
 };
+
+
+/*-----页面pannel内容区高度自适应 start-----*/
+$(window).resize(function () {
+    setCenterHeight();
+});
+function setCenterHeight() {
+    var height = $(window).height();
+    var centerHight = height - 40;
+    $(".auto-height-box").height(centerHight).css("overflow", "auto");
+    $(".auto-height-box").css("background", "#fff");
+}
+setCenterHeight();//自适应高度
+/*-----页面pannel内容区高度自适应 end-----*/
+

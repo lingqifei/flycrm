@@ -193,7 +193,6 @@ function turnPage(pageNum, ajaxListTable = '') {
                 var centerHight = height - 300;
                 stickyTable.height(centerHight).css("overflow", "auto");
                 stickyTable.css("background", "#fff");
-
                 $(window).resize(function () {
                     setStickyTableHeight(stickyTable);
                 });
@@ -209,8 +208,8 @@ function turnPage(pageNum, ajaxListTable = '') {
 }
 //设置stickyTable的高度
 function setStickyTableHeight(stickyTable) {
-    var height = $(window).height();
-    var centerHight = height - 300;
+    var height = $(".wrapper-content").height();
+    var centerHight = height - 330;
     stickyTable.height(centerHight).css("overflow", "auto");
     stickyTable.css("background", "#fff");
 }
