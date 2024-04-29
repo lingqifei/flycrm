@@ -482,6 +482,17 @@ class SysModule extends AdminBase
                 dlog('5、同步模板');
             }
 
+            //6、判断是公共文件
+            $app_theme_dir = $app_path . '/data/public';//模模板公共目录
+            if (is_dir($app_theme_dir)) {
+                $theme_dir = PATH_PUBLIC;
+                $result = $file->handle_dir($app_theme_dir, $theme_dir, 'copy', true);
+                if ($result == false) {
+                    throw_response_error('模模板公共目录失败');
+                }
+                dlog('6、判断是公共文件，复制公共文件');
+            }
+
             //10、开启模块,
             $updata = ['status' => 1, 'visible' => 1];
             $result = $this->modelSysModule->updateInfo(['id' => $sys_mid], $updata);

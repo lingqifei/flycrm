@@ -224,9 +224,7 @@ class Store extends AdminBase
 
         //zip解压目录
 		$tmppath=$dirpath.rtrim($filename,'.zip').DS;
-
 		if (file_exists($filepath)) {
-
 			//1、解压应用插件包
 			$zip=new \lqf\Zip();
 			$res=$zip->unzip($filepath, $tmppath);
@@ -241,14 +239,11 @@ class Store extends AdminBase
 			if (empty($app_path)) {
 				return [RESULT_ERROR, '应用插件压缩包缺少目录文件'];
 			}
-
             dlog('zip包文件路径：' . $filepath);
             dlog('zip解压后目录：' . $tmppath);
             dlog('app目录：' . $app_path);
-
             //3、app目录执行安装
             return $this->logicSysModule->sysModuleInstallExec($app_name, $app_path);
-
 		}
 
 	}

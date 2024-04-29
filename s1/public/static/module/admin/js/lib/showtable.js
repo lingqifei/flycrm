@@ -11,7 +11,7 @@ if ($('a').is('.btn-field-set')) {
     });
     //存所有字段
     log(showTable);
-    //localStorage.setItem("listAll" + showTable, JSON.stringify(listAll));
+    localStorage.setItem("listAll" + showTable, JSON.stringify(listAll));
 
     //未设置显示全部列
     if (localStorage.getItem("listSave" + showTable) == null) {
