@@ -42,7 +42,7 @@ class SysNotify extends AdminBase
 	 * @param array $data
 	 * @return array
 	 */
-	public function oaNotifyAdd($data = [])
+	public function sysNotifyAdd($data = [])
 	{
 		$validate_result = $this->validateSysNotify->scene('add')->check($data);
 		if (!$validate_result) {
@@ -67,7 +67,7 @@ class SysNotify extends AdminBase
 				'create_time' => time(),
 			];
 		}
-		Db::name('oa_notify_user')->insertAll($user_data);
+		Db::name('sys_notify_user')->insertAll($user_data);
 
 		$url = url('show');
 		$result && action_log('新增', '新增系统公告：' . $data['name']);
@@ -80,7 +80,7 @@ class SysNotify extends AdminBase
 	 * @param array $data
 	 * @return array
 	 */
-	public function oaNotifyEdit($data = [])
+	public function sysNotifyEdit($data = [])
 	{
 
 		$validate_result = $this->validateSysNotify->scene('edit')->check($data);
@@ -99,12 +99,12 @@ class SysNotify extends AdminBase
 	 * @param array $where
 	 * @return array
 	 */
-	public function oaNotifyDel($data = [])
+	public function sysNotifyDel($data = [])
 	{
 		if(!empty($data['id'])){
 			$where['id']=['in',$data['id']];
 			$result = $this->modelSysNotify->deleteInfo($where, true);
-			Db::name('oa_notify_user')->where('notify_id','in',$data['id'])->delete();
+			Db::name('sys_notify_user')->where('notify_id','in',$data['id'])->delete();
 			$result && action_log('删除', '删除系统公告，where：' . http_build_query($where));
 		}
 		return $result ? [RESULT_SUCCESS, '删除成功'] : [RESULT_ERROR, $this->modelSysNotify->getError()];
@@ -144,7 +144,7 @@ class SysNotify extends AdminBase
 		}
 		$this->modelSysNotify->alias('a');
 		$join = [
-			[SYS_DB_PREFIX . 'oa_notify_user u', 'a.id = u.notify_id','RIGHT'],
+			[SYS_DB_PREFIX . 'sys_notify_user u', 'a.id = u.notify_id','RIGHT'],
 		];
 		$this->modelSysNotify->join = $join;
 		$list = $this->modelSysNotify->getList($where, 'a.name,a.create_user_id,a.id,a.create_time', 'u.create_time desc', false);
@@ -159,12 +159,12 @@ class SysNotify extends AdminBase
 	 * @param array $where
 	 * @return array
 	 */
-	public function oaNotifyUserRead($data = [])
+	public function sysNotifyUserRead($data = [])
 	{
 		if(!empty($data['id'])){
 //			$where['notify_id']=['in',$data['id']];
 //			$where['owner_user_id']=['=',SYS_USER_ID];
-			Db::name('oa_notify_user')->where(['id'=>$data['id']])->update(['read_state'=>'1']);
+			Db::name('sys_notify_user')->where(['id'=>$data['id']])->update(['read_state'=>'1']);
 		}
 
 	}

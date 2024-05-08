@@ -46,7 +46,7 @@ class CronJob extends ControllerBase
     {
         //转入的id标记已经读
         if (!empty($this->param['id'])) {
-            $this->logicSysNotifyUser->oaNotifyUserRead($this->param);
+            $this->logicSysNotifyUser->sysNotifyUserRead($this->param);
             $info = $this->logicSysNotifyUser->getSysNotifyUserInfo(['a.id' => $this->param['id']]);
             $this->assign('info', $info);
             return $this->fetch('sys_notify_user/detail');

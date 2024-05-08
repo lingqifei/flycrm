@@ -27,7 +27,7 @@ class SysNotifyUser extends AdminApiBase
 	}
     //设置为已经读
 	public function set_read(){
-        $result=$this->logicSysNotifyUser->oaNotifyUserRead($this->param['req']);
+        $result=$this->logicSysNotifyUser->sysNotifyUserRead($this->param['req']);
         return $this->apiReturn($result);
     }
 
@@ -37,7 +37,7 @@ class SysNotifyUser extends AdminApiBase
      */
     public function del()
     {
-        $result = $this->logicSysNotifyUser->oaNotifyUserDel(['id' => $this->param['req']['id']]);
+        $result = $this->logicSysNotifyUser->sysNotifyUserDel(['id' => $this->param['req']['id']]);
         return $this->apiReturn($result);
     }
 

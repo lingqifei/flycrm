@@ -31,7 +31,7 @@ class SysNotifyUser extends AdminBase
 
         $this->modelSysNotifyUser->alias('a');
         $join = [
-            [SYS_DB_PREFIX . 'oa_notify n', 'n.id = a.notify_id','LEFT'],
+            [SYS_DB_PREFIX . 'sys_notify n', 'n.id = a.notify_id','LEFT'],
         ];
         $this->modelSysNotifyUser->join = $join;
         $list = $this->modelSysNotifyUser->getList($where, $field, $order, $paginate);
@@ -47,7 +47,7 @@ class SysNotifyUser extends AdminBase
      * @param array $data
      * @return array
      */
-    public function oaNotifyUserAdd($data = [])
+    public function sysNotifyUserAdd($data = [])
     {
         $sys_user_arr=[];
         if($data['rece_type']=='1'){
@@ -73,7 +73,7 @@ class SysNotifyUser extends AdminBase
      * @param array $data
      * @return array
      */
-    public function oaNotifyUserRead($data = [])
+    public function sysNotifyUserRead($data = [])
     {
         $map['id']=['in',$data['id']];
         $data=[
@@ -92,7 +92,7 @@ class SysNotifyUser extends AdminBase
      * @param array $where
      * @return array
      */
-    public function oaNotifyUserDel($where = [])
+    public function sysNotifyUserDel($where = [])
     {
 
         $result = $this->modelSysNotifyUser->deleteInfo($where,true);
@@ -111,7 +111,7 @@ class SysNotifyUser extends AdminBase
     {
         $this->modelSysNotifyUser->alias('a');
         $join = [
-            [SYS_DB_PREFIX . 'oa_notify n', 'n.id = a.notify_id','LEFT'],
+            [SYS_DB_PREFIX . 'sys_notify n', 'n.id = a.notify_id','LEFT'],
         ];
         $this->modelSysNotifyUser->join = $join;
         $info =  $this->modelSysNotifyUser->getInfo($where, $field);

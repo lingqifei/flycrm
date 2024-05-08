@@ -47,7 +47,7 @@ class SysNotify extends AdminBase
      */
     public function add()
     {
-        IS_POST && $this->jump($this->logicSysNotify->oaNotifyAdd($this->param));
+        IS_POST && $this->jump($this->logicSysNotify->sysNotifyAdd($this->param));
         return $this->fetch('add');
     }
 
@@ -58,7 +58,7 @@ class SysNotify extends AdminBase
 
     public function edit()
     {
-        IS_POST && $this->jump($this->logicSysNotify->oaNotifyEdit($this->param));
+        IS_POST && $this->jump($this->logicSysNotify->sysNotifyEdit($this->param));
         $info = $this->logicSysNotify->getSysNotifyInfo(['id' => $this->param['id']]);
         $this->assign('info', $info);
         return $this->fetch('edit');
@@ -81,7 +81,7 @@ class SysNotify extends AdminBase
      */
     public function del()
     {
-        $this->jump($this->logicSysNotify->oaNotifyDel($this->param));
+        $this->jump($this->logicSysNotify->sysNotifyDel($this->param));
     }
 
 
@@ -96,7 +96,7 @@ class SysNotify extends AdminBase
             $data=[RESULT_SUCCESS,'操作成功','',$list];
 			return  $this->jump($data);
 		}else{
-			$this->logicSysNotify->oaNotifyUserRead($this->param);
+			$this->logicSysNotify->sysNotifyUserRead($this->param);
 			$info = $this->logicSysNotify->getSysNotifyInfo(['id' => $this->param['id']]);
 			$this->assign('info', $info);
 			return $this->fetch('detail');

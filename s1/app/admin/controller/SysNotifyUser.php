@@ -45,7 +45,7 @@ class SysNotifyUser extends AdminBase
 
 	public function detail()
 	{
-		$this->logicSysNotifyUser->oaNotifyUserRead($this->param);
+		$this->logicSysNotifyUser->sysNotifyUserRead($this->param);
 		$info = $this->logicSysNotifyUser->getSysNotifyUserInfo(['a.id' => $this->param['id']]);
 		$this->assign('info', $info);
 		return $this->fetch('detail');
@@ -58,7 +58,7 @@ class SysNotifyUser extends AdminBase
 
 	public function read()
 	{
-		IS_POST && $this->jump($this->logicSysNotifyUser->oaNotifyUserRead($this->param));
+		IS_POST && $this->jump($this->logicSysNotifyUser->sysNotifyUserRead($this->param));
 	}
 
 	/**
@@ -67,7 +67,7 @@ class SysNotifyUser extends AdminBase
 	public function del()
 	{
 		$where = empty($this->param['id']) ? ['id' => 0] : ['id' => $this->param['id']];
-		$this->jump($this->logicSysNotifyUser->oaNotifyUserDel($where));
+		$this->jump($this->logicSysNotifyUser->sysNotifyUserDel($where));
 	}
 
 }
