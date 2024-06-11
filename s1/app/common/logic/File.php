@@ -28,6 +28,11 @@ class File extends LogicBase
     {
 
         $object_info = request()->file($name);
+        //没有文件上传
+        if (empty($object_info)) {
+            return false;
+        }
+
         $sha1 = $object_info->hash();
         $picture_info = $this->modelPicture->getInfo(['sha1' => $sha1], 'id,name,path,sha1');
         if (!empty($picture_info)) {
@@ -293,11 +298,13 @@ class File extends LogicBase
         return $arr;
     }
 
+    //检查图片是否存在记录
     public function checkPictureExists($param = [])
     {
         return $this->modelPicture->where('sha1', $param['sha1'])->find();
     }
 
+    //检查文件是否存在记录
     public function checkFileExists($param = [])
     {
         return $this->modelFile->where('sha1', $param['sha1'])->find();
@@ -317,7 +324,6 @@ class File extends LogicBase
         $imgPath = PATH_PICTURE . $picture_dir;
         $milliSecond = strftime("%H%M%S", time());
         if (!is_dir($imgPath)) @mkdir($imgPath, 0777);
-
         foreach ($img_array as $key => $value) {
             $value = trim($value);
             $get_file = @file_get_contents($value);
@@ -328,7 +334,6 @@ class File extends LogicBase
                 @fwrite($fp, $get_file);
                 @fclose($fp);
             }
-
             $file_path = $root_url . 'upload/picture/' . $picture_dir . $filename;
             $body = sr($body, $value, $file_path);
         }
