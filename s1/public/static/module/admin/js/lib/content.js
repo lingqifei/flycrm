@@ -166,6 +166,11 @@ function turnPage(pageNum, ajaxListTable = '') {
             var html = tpl('tableListTpl', returnJsonData);
             ajaxListTable.find("tbody").html(html);
 
+
+            //把表格列表数据保存localStorage
+            var row_value = JSON.stringify(returnJsonData)
+            localStorage.setItem('tableListTpl', row_value);
+
         },
         complete: function () {
 
@@ -197,6 +202,8 @@ function turnPage(pageNum, ajaxListTable = '') {
                     setStickyTableHeight(stickyTable);
                 });
             }
+
+
         },
         error: function () {
             layer.msg('数据加载失败', {

@@ -156,14 +156,14 @@ class Login extends AdminBase
     }
 
     /**
-     * 注销当前用户
+     * 退出登录
      */
     public function logout()
     {
 
         clear_login_session();
 
-        return [RESULT_SUCCESS, '注销成功', url('admin/Login/login')];
+        return [RESULT_SUCCESS, '退出成功', url('admin/Login/login')];
     }
 
     /**
