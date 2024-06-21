@@ -21,7 +21,6 @@ class Database
     {
 
         //$this->db = _instance($GLOBALS['DB']['DBtype'],'',1);
-
         $host = $GLOBALS['DB']['DBhost'];
         $name = $GLOBALS['DB']['DBname'];
         $port = $GLOBALS['DB']['DBport'];
@@ -419,8 +418,6 @@ class Database
     {
         $this->db = null;
     }
-
-
     /*  +------------------------------------------------------------------------------ */
 
 } //

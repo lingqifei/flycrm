@@ -22,6 +22,7 @@ $GLOBALS['Debug'] ? error_reporting(E_ALL) : error_reporting(0);
 if ($GLOBALS['Session']) session_start();
 if (version_compare(PHP_VERSION, '5.0.0', '>')) @date_default_timezone_set('Asia/Shanghai');
 
+//定义常量
 define('NOWTIME', date('Y-m-d H:i:s', time()));
 define('NOWDATE', date('Y-m-d ', time()));
 //@set_magic_quotes_runtime(0);

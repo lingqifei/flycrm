@@ -27,14 +27,14 @@ class Action
         return new Cache($cacheDir, $cacheTime);
     }
 
-
     /*
     实例化数据操作类并传入数据缓存文件夹与缓存时间参数
     */
-//	public function db() {	
-//		return _instance($GLOBALS['SDB']['DBtype'],$GLOBALS['SDB']['DBpath'],1);	
-//		//return new Cache($cacheDir,$cacheTime);
-//	}
+    public function db()
+    {
+        return _instance($GLOBALS['SDB']['DBtype'], $GLOBALS['SDB']['DBpath'], 1);
+        //return new Cache($cacheDir,$cacheTime);
+    }
 
     public function _REQUEST($filed)
     {

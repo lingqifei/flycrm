@@ -28,7 +28,6 @@ return array(
         'DBuser' => 'root',
         'DBpsw' => 'root',
         'DBname' => 'sq_framkdb',
-
     ),
 
     'setSmarty' => array(

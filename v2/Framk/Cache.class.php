@@ -10,17 +10,14 @@
 
 class Cache
 {
-
     private $cacheDir;
     private $cacheTime;
 
     /*
     构造函数，初始化缓存目录与缓存时间
     */
-    public
-    function __construct($cacheDir, $cacheTime)
+    public function __construct($cacheDir, $cacheTime)
     {
-
         $this->cacheDir = $cacheDir; //缓存目录
         $this->cacheTime = $cacheTime; //缓存延迟时间，Framk框架对更新频率太高的数据，用户可以设置缓存时间来延迟更新数据
     }
@@ -29,10 +26,8 @@ class Cache
     php魔术函数，回调数据操作方法
     进行各种查询操作，包括单条记录、多条记录、记录数，用户可以根据需要在Database与Mysql中扩展更多方法
     */
-    public
-    function __call($method, $args)
+    public function __call($method, $args)
     {
-
         $sql = @$args[0];
         if (!empty($this->cacheDir)) {
             $data = $this->findByCache($sql, $method); //读取缓存
@@ -40,14 +35,12 @@ class Cache
             $data = $this->findByDB($sql, $method); //若缓存目录为空，说明不使用缓存技术，直接从数据库查询
         }
         return $data; //返回数据数组
-
     }
 
     /*
     直接从数据库查询
     */
-    private
-    function findByDB($sql, $method)
+    private function findByDB($sql, $method)
     {
         // 使用前检查类是否存在
         $database = _instance('Database', '', 1);
@@ -61,10 +54,8 @@ class Cache
     /*
         判断缓存是否存在，若存在直接读取，否则生成缓存再读取
     */
-    private
-    function findByCache($sql, $method)
+    private function findByCache($sql, $method)
     {
-
         $cacheDir = _mkdir(CACHE . str_replace('/', S, $this->cacheDir) . S); //建立缓存目录
         $timeFile = $cacheDir . str_replace('/', '_', $this->cacheDir) . '.txt'; //时间文件
         $cacheFile = $cacheDir . md5(str_replace(' ', '', $sql)) . '.php'; //缓存文件
@@ -82,16 +73,13 @@ class Cache
             _error('readError', '读取缓存失败，请检查缓存文件是否存在:' . $cacheFile, true);
         }
         //读取缓存
-
     }
 
     /*
     判断是否需要缓存更新
     */
-    private
-    function isCacheCheck($cacheFile, $timeFile)
+    private function isCacheCheck($cacheFile, $timeFile)
     {
-
         if (!file_exists($timeFile)) fclose(fopen($timeFile, "w")); //时间文件不存则创建
         if (!file_exists($cacheFile) || filemtime($cacheFile) + $this->cacheTime < filemtime($timeFile)) {
             return true; //如果缓存文件不存在或缓存文件过期则返回真，否则假
@@ -103,8 +91,7 @@ class Cache
     /*
     更新数据,包括增、删、改、替操作统一用此方法，返回值为影响记录数或新增记录ID 或false
     */
-    public
-    function update($sql)
+    public function update($sql)
     {
         $database = _instance('Database', '', 1);
         $result = $database->updt($sql); //执行更新的SQL语句
