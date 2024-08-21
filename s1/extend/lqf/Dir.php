@@ -24,7 +24,6 @@ class Dir
 		$this->listFile($path, $pattern);
 	}
 
-
 	/**
 	 * 生成目录
 	 * @param string $path 目录
@@ -453,7 +452,6 @@ class Dir
 				}
 			}
 		}
-
 		return $result;
 	}
 }

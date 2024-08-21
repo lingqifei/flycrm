@@ -17,6 +17,26 @@ REPLACE INTO `#@__sys_msg_type` (`id`, `name`, `type`, `maintable`, `url`, `rema
 
 
 -- -----------------------------
+-- Records of `#@__sys_seqnum` 增加默认的编码规则
+-- -----------------------------
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (1, '销售合同', 'salcontract', 'XSHT', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 0, 1720584406, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (2, '销售订单', 'salorder', 'XSDD', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581059, 1720584398, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (3, '采购合同', 'poscontract', 'CGHT', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720584399, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (4, '报价', 'quoted', 'BJ', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720584400, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (5, '入库', 'stockinto', 'RK', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720584401, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (6, '出库', 'stockout', 'CK', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720584402, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (7, '盘点', 'stockcheck', 'PD', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720584402, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (8, '调拨', 'stockchange', 'DB', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583484, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (9, '组装单', 'stockassemble', 'ZZ', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583482, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (10, '付款', 'finpayrecord', 'FK', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583481, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (11, '收款', 'finrecerecord', 'HK', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583480, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (12, '开票', 'fininvoicepay', 'KP', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583479, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (13, '收票', 'fininvoicerece', 'SP', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583479, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (14, '报销', 'finremiburs', 'BX', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583478, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (15, '客户', 'customer', 'KF', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583477, 1);
+REPLACE INTO `#@__sys_seqnum` (`id`, `title`, `name`, `pre`, `suffix`, `y`, `m`, `d`, `h`, `i`, `s`, `len`, `nums`, `enable`, `create_time`, `update_time`, `org_id`) VALUES (16, '供应商', 'supplier', 'GYS', '', 1, 1, 0, 0, 0, 0, 3, 1, 1, 1720581092, 1720583477, 1);
+
+-- -----------------------------
 -- Records of 修改菜单标签、解决增加菜单无法合入问题
 -- -----------------------------
 UPDATE `#@__sys_menu` SET url='organization' WHERE NAME='组织结构' AND url='index/main';

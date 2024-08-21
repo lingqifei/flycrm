@@ -76,7 +76,6 @@ class Aliyun extends Storage implements Driver
         }
         
         $thumb_file_path = PATH_PICTURE . $path_arr[0] . DS . 'thumb' . DS;
-        
         $thumb_save_path = 'upload' . SYS_DS_PROS . 'picture' . SYS_DS_PROS . $path_arr[0] . SYS_DS_PROS . 'thumb' . SYS_DS_PROS;
         
         $oss->uploadFile($config['bucket_name'], $thumb_save_path . 'small_'    . $path_arr[1], $thumb_file_path . 'small_'     . $path_arr[1]);

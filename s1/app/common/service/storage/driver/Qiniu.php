@@ -77,7 +77,6 @@ class Qiniu extends Storage implements Driver
         $uploadMgr->putFile($token, $thumb_save_path . 'big_'     . $path_arr[1]   , $thumb_file_path . 'big_'     . $path_arr[1]);
         
         if ($result[1] !== null) {
-            
             return false;
         }
 

@@ -73,7 +73,6 @@ class Upgrade extends AdminBase
      */
     public function initVersion()
     {
-
         $version_file = APP_PATH . 'admin' . DS . 'data' . DS . 'version';
         $version = $this->file->read_file($version_file);
         if ($version) {
@@ -276,7 +275,6 @@ class Upgrade extends AdminBase
 
         //3、执行升级的数据，在应用目录data/upgrade.sql文件
         $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $admin_dir, 'sqlfile' => 'upgrade.sql'));
-
 
         //执行升级SQL文件
         return [RESULT_SUCCESS, '数据库升级成功了哟'];

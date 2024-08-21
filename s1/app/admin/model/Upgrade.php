@@ -35,7 +35,6 @@ class Upgrade extends AdminBase
      * 初始服务器变量
 	 */
 	function  ininServerUrl(){
-
         if(DOMAIN=='http://127.0.0.1:8002'){//生产
 
 			$server=['http://127.0.0.1:8002'];
@@ -69,7 +68,8 @@ class Upgrade extends AdminBase
         return $result;
     }
 
-    /**获取远程版本详细信息
+    /**
+     * 获取远程版本详细信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
@@ -88,7 +88,8 @@ class Upgrade extends AdminBase
 		}
     }
 
-    /**验证授权信息
+    /**
+     * 验证授权信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
@@ -100,7 +101,8 @@ class Upgrade extends AdminBase
         return $result;
     }
 
-    /**验证平台信息
+    /**
+     * 验证平台信息
      * @param null $version
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
@@ -153,5 +155,4 @@ class Upgrade extends AdminBase
 			return array('code'=>0,'msg'=>'升级文件下载失败');
 		}
 	}
-
 }

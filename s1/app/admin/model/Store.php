@@ -36,13 +36,9 @@ class Store extends AdminBase
      */
     function  initServerUrl(){
 		if($_SERVER['HTTP_HOST']=='127.0.0.1:8002'){//生产
-
 			$server=['http://127.0.0.1:8002'];
-
 		} else if($_SERVER['HTTP_HOST']=='test.07fly.xyz'){//测试
-
 			$server=['http://erp.07fly.xyz'];
-
 		}else{ //运营
 			$server=[
 				"http://www.07fly.xyz",
@@ -55,7 +51,6 @@ class Store extends AdminBase
 				break;
 			}
 		}
-		//echo $this->server_url;exit;
     }
 
 
@@ -99,8 +94,6 @@ class Store extends AdminBase
 //		$result = $this->getRemoteCotent($url,$postdata);
 		return $result;
 	}
-
-
 
 	/**
 	 * 获取云应用=>AppOrderInfo
@@ -217,11 +210,8 @@ class Store extends AdminBase
      * Author: kfrs <goodkfrs@QQ.com> created by at 2020/12/25 0025
      */
     public function  getRemoteCotent($url, $postdata=[]){
-
-        dlog($postdata);
 		$result=curl_post($url,$postdata);
 		$result = json_decode($result, true);
-
 //        if (httpcode($url)==200) {
 //            $result=curl_post($url,$postdata);
 //            $result = json_decode($result, true);
@@ -230,5 +220,4 @@ class Store extends AdminBase
 //        }
         return $result;
     }
-
 }

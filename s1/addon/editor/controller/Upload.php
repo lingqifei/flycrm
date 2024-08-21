@@ -20,17 +20,31 @@ use addon\editor\logic\Upload as LogicUpload;
  */
 class Upload extends AddonBase
 {
-
     /**
      * 图片上传
      */
     public function pictureUpload()
     {
-        
+        $param = $this->param;
         $UploadLogic = new LogicUpload();
-        
-        $result = $UploadLogic->pictureUpload();
-        
+        if (!empty($param['dir'])) {
+            switch ($param['dir']) {
+                case 'media':
+                    $result = $UploadLogic->fileUpload();
+                    break;
+                case 'file':
+                    $result = $UploadLogic->fileUpload();
+                    break;
+                case 'image':
+                    $result = $UploadLogic->pictureUpload();
+                    break;
+                default:
+                    $result = $UploadLogic->pictureUpload();
+                    break;
+            }
+        } else {
+            $result = $UploadLogic->pictureUpload();
+        }
         return throw_response_exception($result);
     }
 
@@ -39,11 +53,8 @@ class Upload extends AddonBase
      */
     public function pictureUploadEditormd()
     {
-
         $UploadLogic = new LogicUpload();
-
         $result = $UploadLogic->pictureUploadEditormd();
-
         return throw_response_exception($result);
     }
 

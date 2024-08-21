@@ -81,10 +81,8 @@
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('config/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>"  <%=visible%> />
         </td>
         <td>
-            <p>
                 <lqf_link><a class="ajax-open" data-url="{:url('config/configEdit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">{:lang('modify')}</a></lqf_link>
                 <lqf_link><a class="ajax-del confirm" data-url="{:url('config/configDel')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
-            </p>
         </td>
     </tr>
     <% } %>

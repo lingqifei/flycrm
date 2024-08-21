@@ -100,7 +100,6 @@ class SysMsg extends AdminBase
                         $url = url($model_name . '/CstClue/detail', array('id' => $bus_id));
                     }
                     break;
-
                 case "sal_contract":
                     if (tableExists('sal_contract')) {
                         //$info = Db::name('sal_contract')->where(['id' => $bus_id])->find();

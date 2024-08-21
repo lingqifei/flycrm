@@ -46,8 +46,6 @@ $(document).ready(function () {
         daterangeinit($(this));
     });
 
-
-
     //未来几天
     function daterangeinit(object) {
         object.daterangepicker({
@@ -90,7 +88,7 @@ $(document).ready(function () {
                 } else {
                     if (start != null && end != null) {
                         object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
-                    }else{
+                    } else {
                         object.val(start.format('YYYY/MM/DD'));
                     }
                 }
@@ -112,8 +110,8 @@ $(document).ready(function () {
                     '今天': [moment(), moment()],
                     '明天': [moment().subtract(-1, 'days'), moment().subtract(-2, 'days')],
                     '未来七天': [moment(), moment().subtract(-6, 'days')],
-					'未来30天': [moment(),moment().subtract(-29, 'days')],
-					'未来90天': [moment(),moment().subtract(-89, 'days'), ],
+                    '未来30天': [moment(), moment().subtract(-29, 'days')],
+                    '未来90天': [moment(), moment().subtract(-89, 'days'),],
                     '本月': [moment().startOf('month'), moment().endOf('month')],
                     '下月': [moment().subtract(-1, 'month').startOf('month'), moment().subtract(-1, 'month').endOf('month')],
                     '今年': [moment().startOf('year'), moment().endOf('year')],
@@ -130,7 +128,7 @@ $(document).ready(function () {
                 if (label == '今天') {
                     object.val(start.format('YYYY/MM/DD'));
                 } else if (label == '明天') {
-                   // object.val(start.format('YYYY/MM/DD'));
+                    // object.val(start.format('YYYY/MM/DD'));
                     object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
                 } else if (label == '未来七天') {
                     object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
@@ -143,7 +141,7 @@ $(document).ready(function () {
                 } else {
                     if (start != null && end != null) {
                         object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
-                    }else{
+                    } else {
                         object.val(start.format('YYYY/MM/DD'));
                     }
                 }
@@ -164,9 +162,9 @@ $(document).ready(function () {
                 ranges: {
                     '今天': [moment(), moment()],
                     '昨天': [moment().subtract(1, 'days'), moment().subtract(2, 'days')],
-                    '最近七天': [moment().subtract(6, 'days'),moment()],
-                    '最近30天': [moment().subtract(29, 'days'),moment()],
-                    '最近90天': [moment().subtract(89, 'days'),moment() ],
+                    '最近七天': [moment().subtract(6, 'days'), moment()],
+                    '最近30天': [moment().subtract(29, 'days'), moment()],
+                    '最近90天': [moment().subtract(89, 'days'), moment()],
                     '本月': [moment().startOf('month'), moment().endOf('month')],
                     '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                     '今年': [moment().startOf('year'), moment().endOf('year')],
@@ -183,12 +181,12 @@ $(document).ready(function () {
                 if (label == '今天') {
                     object.val(start.format('YYYY/MM/DD'));
                 } else if (label == '昨天') {
-                     object.val(start.format('YYYY/MM/DD'));
+                    object.val(start.format('YYYY/MM/DD'));
                     //object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
                 } else {
                     if (start != null && end != null) {
                         object.val(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
-                    }else{
+                    } else {
                         object.val(start.format('YYYY/MM/DD'));
                     }
                 }

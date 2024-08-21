@@ -7,7 +7,12 @@
 
 <div class="upload-img-box{$addons_data['name']}">
     {notempty name="$info[$addons_data['name']]"}
-    <div class="upload-pre-file"><span class="upload_icon_all"></span><a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url}">{$info[$addons_data['name']]|default=''|get_file_url}</a></div>
+    <div class="upload-pre-file">
+        <span class="upload_icon_all"></span>
+        <a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url}">
+            {$info[$addons_data['name']]|default=''|get_file_url}
+        </a>
+    </div>
     {/notempty}
 </div>
 
@@ -18,23 +23,39 @@
         height: 30,
         fileObjName: "file",
         buttonText: "上传文件",
-        uploader: "{:url($addons_data.addons_model.'/File/fileUpload',array('session_id'=>session_id()))}",
+        uploader: "{$addons_config['upload_url']}",
         width: 120,
         removeTimeout: 1,
         fileSizeLimit:"{$addons_config['max_size']}",
         fileTypeExts: "{$addons_config['allow_postfix']}",
         onUploadComplete: uploadFile{$addons_data.name}
     });
-    
+
+    //上传回调
     function uploadFile{$addons_data.name}(file, data){
-        
         var data = $.parseJSON(data);
-        
+        //上传回调保存文件路径
         $("#{$addons_data['name']}").val(data.path);
-        
-        var src = '__UPLOAD__/file/' + data.path;
-        
-        $(".upload-img-box{$addons_data['name']}").html('<div class="upload-pre-file"><span class="upload_icon_all"></span><a target="_blank" href="'+src+'"> ' + src + ' <a></div>');
+
+        //文件路径
+        var src ='__STATIC__/upload/file/' + data.path;
+        var src =src.replace(/\/static/g, '');
+        var html = '' +
+            '<div class="upload-pre-file">' +
+            '   <span class="upload_icon_all"></span>' +
+            '   <a target="_blank" href="'+src+'"> ' + src + ' <a>' +
+            '   <span style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" >\n' +
+            '       <img src="__STATIC__/addon/file/uploadify-cancel.png" />\n' +
+            '   </span>' +
+            '</div>';
+        $(".upload-img-box{$addons_data['name']}").html(html);
+    }
+    //删除
+    function picDel{$addons_data.name}(obj)
+    {
+        var addons_name = "{$addons_data.name}";
+        $("#" + addons_name).val('');
+        $(obj).parents('.upload-pre-file').remove();
     }
     
 </script>

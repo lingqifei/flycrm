@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="__STATIC__/addon/editor/kindeditor/themes/default/default.css" />
-<script src="__STATIC__/addon/editor/kindeditor/kindeditor-all-min.js"></script>
+<script src="__STATIC__/addon/editor/kindeditor/kindeditor-all.js"></script>
 <script src="__STATIC__/addon/editor/kindeditor/lang/zh-CN.js"></script>
 <script type="text/javascript">
     // base64转blob
@@ -17,21 +17,25 @@
     $(function(){
         var editor_{$addons_data.name};
         editor_{$addons_data.name} = KindEditor.create('textarea[name="{$addons_data.name}"]', {
-                themesPath: KindEditor.basePath+'/themes/',//主题路径
-                width: '100%',
-                height: '{$addons_config.editor_height}',
-                resizeType: {eq name="addons_config.editor_resize_type" value="1"}1 {else /} 0 {/eq},
-                pasteType : 2,
-                urlType : 'absolute',
-                fileManagerJson : '{:url('fileManagerJson')}',
-                uploadJson : '{:addons_url("editor://Upload/pictureUpload")}',
-                items : [
-                'source', 'undo', 'redo', 'cut', 'copy','paste', 'plainpaste', 'wordpaste','selectall',
-                'justifyleft','justifycenter','justifyright','justifyfull','insertorderedlist','insertunorderedlist','indent',
-                'outdent','subscript','superscript','fontname','fontsize','forecolor','hilitecolor','bold',
-                'italic','underline','strikethrough','removeformat','image','multiimage','table',
-                'link','unlink','fullscreen'
-                ],
+            themesPath: KindEditor.basePath+'/themes/',//主题路径
+            width: '100%',
+            height: '{$addons_config.editor_height}',
+            resizeType: {eq name="addons_config.editor_resize_type" value="1"}1 {else /} 0 {/eq},
+            pasteType : 2,
+            urlType : 'absolute',
+            fileManagerJson : '{:url('fileManagerJson')}',
+            uploadJson : '{:addons_url("editor://Upload/pictureUpload")}',
+            items : [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut','copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter','justifyright', 'justifyfull',
+                'insertorderedlist', 'insertunorderedlist', 'indent','outdent', 'subscript', 'superscript',
+                'clearhtml', 'quickformat', 'selectall', '|','fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor','hilitecolor',
+                'bold', 'italic', 'underline', 'strikethrough', 'lineheight','removeformat', '|',
+                'image', 'multiimage', 'flash', 'media', 'insertfile', 'table','hr', 'emoticons',
+                'baidumap', 'pagebreak', 'anchor', 'link', 'unlink', '|', 'formatbrush'
+            ],////配置编辑器的工具栏，其中”/”表示换行，”|”表示分隔符。
+            //创建编辑器的回调函数.复制图片上传
             afterCreate: function () {
                 var editorObj = this;
                 var doc = editorObj.edit.doc;
@@ -115,10 +119,9 @@
                         });
                     }, 10);
                 });
-            },
+            },////创建编辑器的回调函数.复制图片上传*********结束
                 extraFileUploadParams: { session_id : '{:session_id()}'}
             });
-
         //ajax提交之前同步
         $('button[type="submit"],#submit,.ajax-post,#autoSave').click(function(){
                 editor_{$addons_data.name}.sync();

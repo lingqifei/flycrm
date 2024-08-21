@@ -19,6 +19,7 @@ use think\Db;
 class SysEmail extends AdminBase
 {
 
+    //默认配置
     private $config = [
         'smtp' => 'smtp.exmail.qq.com',
         'username' => 'admin@07fly.com',
@@ -41,7 +42,7 @@ class SysEmail extends AdminBase
 
     /**
      * 发送邮件
-     * @param $data
+     * @param $data ['address'=>'接收邮箱','title'=>'标题','content'=>'内容']
      * @return bool|string
      * @throws \lqf\phpmailerException
      * @author: 开发人生 goodkfrs@qq.com

@@ -54,7 +54,21 @@ class File extends LogicBase
                 case 'image/gif':
                     $extension = '.gif';
                     break;
-                // 其他情况...
+                case 'image/bmp':
+                    $extension = '.bmp';
+                    break;
+                case 'image/tiff':
+                    $extension = '.tiff';
+                    break;
+                case 'image/x-icon':
+                    $extension = '.ico';
+                    break;
+                case 'image/webp':
+                    $extension = '.webp';
+                    break;
+                case 'image/svg+xml':
+                    $extension = '.svg';
+                    break;
                 default:
                     // 如果无法确定，可以拒绝上传或设定一个默认后缀
                     $extension = '.unknown';
@@ -74,11 +88,11 @@ class File extends LogicBase
         $filename = $object->getFilename();
 
         //缩略图生成
-        $thumb_dir_path = PATH_PICTURE . $picture_dir_name . DS . 'thumb';
-        !file_exists($thumb_dir_path) && @mkdir($thumb_dir_path, 0777, true);
-        Image::open($save_path)->thumb($thumb_config['small'], $thumb_config['small'])->save($thumb_dir_path . DS . 'small_' . $filename);
-        Image::open($save_path)->thumb($thumb_config['medium'], $thumb_config['medium'])->save($thumb_dir_path . DS . 'medium_' . $filename);
-        Image::open($save_path)->thumb($thumb_config['big'], $thumb_config['big'])->save($thumb_dir_path . DS . 'big_' . $filename);
+//        $thumb_dir_path = PATH_PICTURE . $picture_dir_name . DS . 'thumb';
+//        !file_exists($thumb_dir_path) && @mkdir($thumb_dir_path, 0777, true);
+//        Image::open($save_path)->thumb($thumb_config['small'], $thumb_config['small'])->save($thumb_dir_path . DS . 'small_' . $filename);
+//        Image::open($save_path)->thumb($thumb_config['medium'], $thumb_config['medium'])->save($thumb_dir_path . DS . 'medium_' . $filename);
+//        Image::open($save_path)->thumb($thumb_config['big'], $thumb_config['big'])->save($thumb_dir_path . DS . 'big_' . $filename);
 
         $data = ['name' => $filename, 'path' => $picture_dir_name . SYS_DS_PROS . $filename, 'sha1' => $sha1];
         $result = $this->modelPicture->setInfo($data);
@@ -103,11 +117,8 @@ class File extends LogicBase
     {
 
         $object_info = request()->file($name);
-
         $sha1 = $object_info->hash();
-
         $picture_info = $this->modelPicture->getInfo(['sha1' => $sha1], 'id,name,path,sha1');
-
         if (!empty($picture_info)) {
             return $picture_info;
         }
@@ -146,30 +157,22 @@ class File extends LogicBase
     {
 
         $object_info = request()->file($name);
-
         $sha1 = $object_info->hash();
-
         $file_info = $this->modelFile->getInfo(['sha1' => $sha1], 'id,name,path,sha1');
-
         if (!empty($file_info)) {
-
             return $file_info;
         }
 
         $object = $object_info->move(PATH_FILE);
-
         $save_name = $object->getSaveName();
 
         $file_dir_name = substr($save_name, 0, strrpos($save_name, DS));
-
         $filename = $object->getFilename();
 
         $data = ['name' => $filename, 'path' => $file_dir_name . SYS_DS_PROS . $filename, 'sha1' => $sha1];
-
         $result = $this->modelFile->setInfo($data);
 
         unset($object);
-
         $url = $this->checkStorage($result, 'uploadFile');
 
         if ($result) {
@@ -189,18 +192,13 @@ class File extends LogicBase
      */
     public function checkStorage($result = 0, $method = 'uploadPicture')
     {
-
         $storage_driver = config('storage_driver');
-
         if (empty($storage_driver)) {
-
             return false;
         }
 
         $driver = SYS_DRIVER_DIR_NAME . $storage_driver;
-
         $storage_result = $this->serviceStorage->$driver->$method($result);
-
         $method != 'uploadPicture' ? $this->modelFile->setFieldValue(['id' => $result], 'url', $storage_result) : $this->modelPicture->setFieldValue(['id' => $result], 'url', $storage_result);
 
         return $storage_result;
@@ -227,7 +225,6 @@ class File extends LogicBase
         $root_url = get_file_root_path();
         if (!empty($info['path'])) {
             return $root_url . 'upload/picture/' . $info['path'];
-
         }
         return $root_url . 'static/module/admin/img/onimg.png';
     }
@@ -316,7 +313,7 @@ class File extends LogicBase
         $img_array = explode('&', $body);
         $root_url = get_file_root_path();
         $img_array = array();
-        preg_match_all("/(src)=[\"|\'| ]{0,}(http:\/\/(.*)\.(gif|jpg|jpeg|bmp|png|JPEG|GIF|PNG))[\"|\'| ]{0,}/isU", $body, $img_array);
+        preg_match_all("/(src)=[\"|\'| ]{0,}(https?:\/\/(.*)\.(gif|jpg|jpeg|bmp|png|JPEG|GIF|PNG))[\"|\'| ]{0,}/isU", $body, $img_array);
         $img_array = array_unique($img_array[2]);//也可以自动匹配
 
         set_time_limit(0);
@@ -339,5 +336,4 @@ class File extends LogicBase
         }
         return $body;
     }
-
 }

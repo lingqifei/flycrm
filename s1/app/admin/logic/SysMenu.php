@@ -348,7 +348,6 @@ class SysMenu extends AdminBase
      */
     public function sysMenuCopy($data = [])
     {
-
         if (empty($data['id']) || empty($data['pid'])) {
             return [RESULT_ERROR, '参数不全'];
             exit;

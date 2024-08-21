@@ -12,7 +12,7 @@
                     <img src="__STATIC__/addon/file/uploadify-cancel.png" />
                 </div>
                 <a target="_blank" href="{$vo|default='0'|get_picture_url=$addons_data.addons_model}">
-                    <img style="max-width: {$addons_config['maxwidth']};" src="{$vo|default='0'|get_picture_url=$addons_data.addons_model}"/>
+                    <img style="max-width:{$addons_config['maxwidth']};" src="{$vo|default='0'|get_picture_url=$addons_data.addons_model}"/>
                 </a>
             </div>
         {/volist}
@@ -21,7 +21,7 @@
 <div id="upload_pictures_{$addons_data['name']}"></div>
 
 <script type="text/javascript">
-    
+
     var maxwidth = "{$addons_config['maxwidth']}";
     var height = "{$addons_config['height']}";
 
@@ -30,22 +30,20 @@
         height          : 30,
         fileObjName     : "file",
         buttonText      : "选择上传图片",
-        uploader        : "{:url($addons_data.addons_model.'/File/pictureUpload',array('session_id'=>session_id()))}",
+        uploader        : "{$addons_config['upload_url']}",
         width         : 120,
         removeTimeout	  : 1,
         fileSizeLimit:"{$addons_config['max_size']}",
         fileTypeExts	  : "{$addons_config['allow_postfix']}",
         onUploadComplete : uploadPicture{$addons_data.name}
     });
-    
+
     function uploadPicture{$addons_data.name}(file, data){
-        
-        var data = $.parseJSON(data);
-        
+        var data = $.parseJSON(data);//上传返回数据
         var addons_name = "{$addons_data.name}";
-        
-        var img_ids = $("#" + addons_name).val();
-        
+
+        var img_ids = $("#" + addons_name).val();//插件值
+
         var add_id = data.id;
 
         if(img_ids){
@@ -56,30 +54,25 @@
             }
         }
         $("#" + addons_name).val(add_id);
-        
+
         //var src = '/upload/picture/' + data.path;
         var src ='__STATIC__/upload/picture/' + data.path;
         var src =src.replace(/\/static/g, '');
         $(".upload-img-box" + addons_name).prepend('<div class="upload-pre-item" style="float:left; margin: 10px;"> <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this,'+data.id+')" ><img src="__STATIC__/addon/file/uploadify-cancel.png" /></div> <a target="_blank" href="' + src + '"> <img style="max-width: ' + maxwidth + ';height: ' + height + ';" src="' + src + '"/></a></div>');
     }
-    
+
     function picDel{$addons_data.name}(obj, pic_id)
     {
-        
+
         var addons_name = "{$addons_data.name}";
         var img_ids = $("#" + addons_name).val();
-
         if(img_ids.indexOf(",") > 0)
         {
-            
             img_ids.indexOf(pic_id) == 0 ? img_ids = img_ids.replace(pic_id + ',', '') : img_ids = img_ids.replace(',' + pic_id, '');
-            
             $("#" + addons_name).val(img_ids);
         }else{
-            
             $("#" + addons_name).val('');
         }
-        
         $(obj).parent().remove();
     }
 </script>

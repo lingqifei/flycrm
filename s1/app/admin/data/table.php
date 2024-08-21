@@ -281,5 +281,38 @@ return [
             //索引
             'index' => [],
         ],
+
+        //序号配置
+        'sys_seqnum' => [
+            'table_name' => 'sys_seqnum',
+            'comment' => '[系统]邮件记录',
+            'engine' => 'InnoDB',
+            'charset' => 'utf8mb4',
+            'collate' => 'utf8mb4_general_ci',
+            //字段信息
+            'columns' => [
+                'id' => ['type' => 'int', 'length' => 16, 'unsigned' => false, 'autoincrement' => true, 'comment' => '主id',],
+                'title' => ['type' => 'varchar', 'length' => 64, 'required' => true, 'default' => '', 'comment' => '序号名称',],
+                'name' => ['type' => 'varchar', 'length' => 64, 'required' => true, 'default' => '', 'comment' => '标识名称',],
+                'pre' => ['type' => 'varchar', 'length' => 64, 'required' => true, 'default' => '', 'comment' => '前缀符号',],
+                'suffix' => ['type' => 'varchar', 'length' => 64, 'required' => true, 'default' => '', 'comment' => '后缀符号',],
+                'y' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '年',],
+                'm' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '月',],
+                'd' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '日',],
+                'h' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '时',],
+                'i' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '分',],
+                's' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '秒',],
+                'len' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '长度',],
+                'nums' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '起始数',],
+                'enable' => ['type' => 'int', 'length' => 16, 'required' => true, 'default' => 0, 'comment' => '是否启用',],
+                'create_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '创建日期',],
+                'update_time' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 0, 'comment' => '更新日期',],
+                'org_id' => ['type' => 'int', 'length' => 16, 'required' => false, 'default' => 1, 'comment' => '企业编号',],
+            ],
+            //主键 多个主键['user_id','name']
+            'primary' => ['id'],
+            //索引
+            'index' => [],
+        ],
     ]// end table
 ];

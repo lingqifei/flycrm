@@ -4,7 +4,7 @@
  * ==============================================
  * 版权所有 2015-2028   成都零起飞网络，并保留所有权利。
  * 网站地址: http://www.07fly.xyz
- * ----------------------------------------------
+ * ----------------------------------------------------------------------------
  * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
  * ==============================================
  * Memberor: kfrs <goodkfrs@QQ.com> 574249366
@@ -29,12 +29,12 @@ class Region extends LogicBase
      * @param int|mixed $paginate
      * @return
      */
-    public function getRegionList($where = [])
+    public function getRegionList($where = [],$field='',$order='id asc',$page=false)
     {
-        $cache_key = 'cache_region_' . md5(serialize($where));
+        $cache_key = 'cache_region_' . md5(serialize($where)). md5(serialize($field));
         $cache_list = cache($cache_key);
         if (!empty($cache_list)) : return $cache_list; endif;
-        $list = Db::name('region')->where($where)->field(true)->select();
+        $list = Db::name('region')->where($where)->field($field)->order($order)->select();
         !empty($list) && cache($cache_key, $list);
         return $list;
     }
@@ -49,7 +49,7 @@ class Region extends LogicBase
      */
     public function getRegionColumn($where = [],$field='shortname',$key='id')
     {
-        $cache_key = 'cache_getRegionColumn_' . md5(serialize($where));
+        $cache_key = 'cache_getRegionColumn_' . md5(serialize($where)). md5(serialize($field)). md5(serialize($key));
         $cache_list = cache($cache_key);
         if (!empty($cache_list)){
             $list=$cache_list;
@@ -60,6 +60,37 @@ class Region extends LogicBase
         return $list;
     }
 
+    /**
+     * 地区列表管理=>id=key name=value
+     * @param array $where
+     * @param bool $field
+     * @param string $order
+     * @param int|mixed $paginate
+     * @return array
+     */
+    public function getRegionName($id,$field='shortname',$key='id')
+    {
+        $list=$this->getRegionColumn([],$field,$key);
+        if(empty($list[$id])){
+            return  '';
+        }else{
+            return $list[$id];
+        }
+    }
+
+    /**
+     * 地区列表管理=>id=key name=value
+     * @param array $where
+     * @param bool $field
+     * @param string $order
+     * @param int|mixed $paginate
+     * @return array
+     */
+    public function getRegionInfo($where=[],$field=true)
+    {
+        $info= $this->logicRegion->getInfo($where,$field);
+        return  $info;
+    }
 
     /**获得所有指定id所有父级
      * @param int $typeid
@@ -147,7 +178,4 @@ class Region extends LogicBase
         }
         return $pid;
     }
-
-
-
 }

@@ -63,7 +63,6 @@ class SysMenu extends AdminBase
      */
     public function get_list_tree()
     {
-
         $tree = $this->logicSysMenu->getSysMenuListTree();
         return $tree;
     }
@@ -87,13 +86,11 @@ class SysMenu extends AdminBase
         //获取菜单Select结构数据
         $menu_select = $this->logicSysMenu->getSysDeptTreeSelect();
         $this->assign('menu_select', $menu_select);
-
         if (!empty($this->param['id'])) {
             $this->assign('pid', $this->param['id']);
         } else {
             $this->assign('pid', '0');
         }
-
         return $this->fetch('add');
     }
 
@@ -133,7 +130,6 @@ class SysMenu extends AdminBase
         //获取菜单Select结构数据
         $menu_select = $this->logicSysMenu->getSysDeptTreeSelect();
         $this->assign('menu_select', $menu_select);
-
         if (!empty($this->param['id'])) {
             $this->assign('id', $this->param['id']);
         } else {

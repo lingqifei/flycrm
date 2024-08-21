@@ -35,7 +35,6 @@ $("body").on("click", ".ajax-list-table .sort-filed", function () {
 $('.ajaxSearchForm').click(function () {
     $(this).children("input").prop("checked", true);
     var searchform = $(this).parents("form");
-
     //是否重置搜索条件
     if ($(this).hasClass('resetForm')) {
         searchform[0].reset();
@@ -43,7 +42,6 @@ $('.ajaxSearchForm').click(function () {
         //     $(this).val('');
         //  });
     }
-
     ajaxSearchFormData = searchform.serialize();
     turnPage(1);
 });
@@ -96,22 +94,17 @@ function turnPage(pageNum, ajaxListTable = '') {
     var searchItemData = localStorage.getItem(ajaxUrl);
 
     pageSize = ajaxListTable.find("tfoot td input[name='pageSize']").val();
-
     if (pageSize == null) pageSize = '';
 
+/******************记录存储查询条件***************************************/
+/**
     // 为在保存搜索条件离开返回不失效
     if (pageSize == '' && ajaxSearchFormData == '') {
-
         log("第一步：进入pagesize=0,ajaxsearch=''：");
-
         if (searchItemData != null && searchItemData != 'null') {
-
             log("第二步：判断是否之前点击查询过，searchItemData：" + searchItemData);
-
             //searchForm.setForm(JSON.parse(url2json('?'+searchItemData)));
-
             ajaxSearchFormData = searchItemData;
-
         } else {
             log("第二步：还没有点击查询，直接获取表单数据：");
             ajaxSearchFormData = $("form").serialize();
@@ -122,15 +115,15 @@ function turnPage(pageNum, ajaxListTable = '') {
         log("第一步：点击查询了：ajaxSearchFormData:" + ajaxSearchFormData);
 
     }
-
     //存储上次查询条件
     localStorage.setItem(ajaxUrl, decodeURIComponent(ajaxSearchFormData));
+ **/
+/******************************************************************************/
 
     //ajax 请求数据
-    ajaxSearchFormData = $("form").serialize();
+    ajaxSearchFormData = searchForm.serialize();
     ajaxPostJsonData = ajaxSearchFormData + "&pageNum=" + pageNum + "&pageSize=" + pageSize + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
 
-    // log(ajaxPostJsonData);
     $.ajax({
         type: 'POST',
         url: ajaxUrl,     //这里是请求的后台地址，自己定义
@@ -153,21 +146,18 @@ function turnPage(pageNum, ajaxListTable = '') {
             //移除原来的文档
             ajaxListTable.find("tbody").empty();
 
-            totalCount = returnJsonData.total;
-
-            pageSize = returnJsonData.per_page;
-
-            pageNum = returnJsonData.current_page;
+            totalCount = returnJsonData.total;//总条数
+            pageSize = returnJsonData.per_page;//每页条数
+            pageNum = returnJsonData.current_page;//当前页
 
             //returnJsonData=null2str(returnJsonData);
 
             //模板引擎使用
             var tpl = baidu.template;
             var html = tpl('tableListTpl', returnJsonData);
-            ajaxListTable.find("tbody").html(html);
+            ajaxListTable.find("tbody").html(html);//添加数据
 
-
-            //把表格列表数据保存localStorage
+            //把表格列表数据保存localStorage，方便在查询条件返回
             var row_value = JSON.stringify(returnJsonData)
             localStorage.setItem('tableListTpl', row_value);
 
@@ -193,17 +183,23 @@ function turnPage(pageNum, ajaxListTable = '') {
             //4、设置数据区域高度
             var stickyTable = ajaxListTable.parents('.sticky-table');
             if (stickyTable.hasClass('sticky-table')) {
-                log('需要重新设置高度：');
-                var height = $(window).height();
-                var centerHight = height - 300;
-                stickyTable.height(centerHight).css("overflow", "auto");
-                stickyTable.css("background", "#fff");
+                setStickyTableHeight(stickyTable)
+                //窗口大小改变的时候，重新设置高度
                 $(window).resize(function () {
                     setStickyTableHeight(stickyTable);
                 });
+                //滚动条滚动的时候，判断是否需要添加固定列第一列，二列，固定样式
+                $('.sticky-table').unbind("scroll").on("scroll", function (e) {
+                    var sum = this.scrollHeight;
+                    var $obj = $(this);
+                    var left = $obj.scrollLeft();
+                    if(left>10){
+                        $obj.addClass("scroll-left");//表示开努左右滚动了，添加第一列，二列，固定样式
+                    }else {
+                        $obj.removeClass("scroll-left");
+                    }
+                });
             }
-
-
         },
         error: function () {
             layer.msg('数据加载失败', {
@@ -213,10 +209,14 @@ function turnPage(pageNum, ajaxListTable = '') {
         }
     });
 }
+
 //设置stickyTable的高度
 function setStickyTableHeight(stickyTable) {
-    var height = $(".wrapper-content").height();
-    var centerHight = height - 330;
+    log('需要重新设置高度：');
+    var distanceFromTop=stickyTable.offset().top; // 获取元素相对于文档的位置
+    //当前文档的高度
+    var height = $(window).height();
+    var centerHight = height - distanceFromTop-60;//根据当前元素位置，浏览器高度计算，当前元素可用高度
     stickyTable.height(centerHight).css("overflow", "auto");
     stickyTable.css("background", "#fff");
 }
@@ -341,9 +341,7 @@ $("body").on("click", ".ajax-open", function () {
         if (typeof (id) != "undefined" && id != 0) {
             var target = target + "?id=" + id;
         }
-
         log('打开地址：' + target);
-
 
         //重定义打开宽度和高度
         var width = $(this).attr('width');

@@ -5,24 +5,25 @@
 <div class="upload-img-box{$addons_data['name']}">
     {notempty name="$info[$addons_data['name']]"}
     <div class="upload-pre-item">
-        <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" ><img src="__STATIC__/addon/file/uploadify-cancel.png" /></div>
+        <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" >
+            <img src="__STATIC__/addon/file/uploadify-cancel.png" />
+        </div>
         <a target="_blank" href="{$info[$addons_data['name']]|default='0'|get_picture_url=$addons_data.addons_model}">
-            <img  style="max-width: {$addons_config['maxwidth']};" src="{$info[$addons_data['name']]|default='0'|get_picture_url=$addons_data.addons_model}"/>
+            <img  style="max-width: {$addons_config['maxwidth']};"
+                  src="{$info[$addons_data['name']]|default='0'|get_picture_url=$addons_data.addons_model}"/>
         </a>
     </div>
     {/notempty}
 </div>
 <div id="upload_picture_{$addons_data['name']}"></div>
-
 <script type="text/javascript">
     var maxwidth = "{$addons_config['maxwidth']}";
-
     $("#upload_picture_{$addons_data.name}").Huploadify({
         auto: true,
         height: 30,
         fileObjName: "file",
         buttonText: "上传图片",
-        uploader: "{:url($addons_data.addons_model.'/File/pictureUpload',array('session_id'=>session_id()))}",
+        uploader: "{$addons_config['upload_url']}",
         width: 120,
         removeTimeout: 1,
         fileSizeLimit:"{$addons_config['max_size']}",
@@ -30,25 +31,32 @@
         onUploadComplete: uploadPicture{$addons_data.name}
     });
 
+    //上传成功后执行
     function uploadPicture{$addons_data.name}(file, data)
     {
-
         var data = $.parseJSON(data);
 
+        //上传回调保存图片id
         $("#{$addons_data['name']}").val(data.id);
 
+        //图片路径
         var src ='__STATIC__/upload/picture/' + data.path;
-        
         var src =src.replace(/\/static/g, '');
-
-        $(".upload-img-box{$addons_data['name']}").html('<div class="upload-pre-item"> <a target="_blank" href="' + src + '"> <img style="max-width: ' + maxwidth + ';" src="' + src + '"/></a></div>');
+        var html='' +
+            '<div class="upload-pre-item"> ' +
+            '    <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" >\n' +
+            '       <img src="__STATIC__/addon/file/uploadify-cancel.png" />\n' +
+            '    </div>'+
+            '   <a target="_blank" href="' + src + '"> <img style="max-width: ' + maxwidth + ';" src="' + src + '"/></a>' +
+            '</div>';
+        $(".upload-img-box{$addons_data['name']}").html(html);
     }
 
+    //删除图片
     function picDel{$addons_data.name}(obj)
     {
         var addons_name = "{$addons_data.name}";
         $("#" + addons_name).val('');
         $(obj).parent().remove();
     }
-
 </script>

@@ -5,7 +5,9 @@
 <div class="upload-img-box{$addons_data['name']}">
     {notempty name="$info[$addons_data['name']]"}
     <div class="upload-pre-item">
-        <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" ><img src="__STATIC__/addon/file/uploadify-cancel.png" /></div>
+        <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" >
+            <img src="__STATIC__/addon/file/uploadify-cancel.png" />
+        </div>
         <a target="_blank" href="{$info[$addons_data['name']]|default='0'|get_picture_url2=$addons_data.addons_model}">
             <img  style="max-width:{$addons_config['maxwidth']};" src="{$info[$addons_data['name']]|default='0'|get_picture_url2=$addons_data.addons_model}"/>
         </a>
@@ -22,7 +24,7 @@
         height: 30,
         fileObjName: "file",
         buttonText: "上传图片",
-        uploader: "{:url($addons_data.addons_model.'/File/pictureUpload',array('session_id'=>session_id()))}",
+        uploader: "{$addons_config['upload_url']}",
         width: 120,
         removeTimeout: 1,
         fileSizeLimit:"{$addons_config['max_size']}",

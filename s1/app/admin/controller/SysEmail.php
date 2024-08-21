@@ -25,7 +25,6 @@ class SysEmail extends AdminBase
         $this->assign('param', $param);
         $this->assign('info', $config);
         return $this->fetch('config');
-
     }
 
     public function send()
@@ -33,11 +32,10 @@ class SysEmail extends AdminBase
         IS_POST && $this->jump($this->logicSysEmail->sendSysEmail($this->param));
         $this->assign('info', $this->param);
         return $this->fetch('send');
-
     }
 
     /**
-     * 消息列表
+     * 列表模块
      */
     public function show()
     {
@@ -45,7 +43,7 @@ class SysEmail extends AdminBase
     }
 
     /**
-     * 消息列表
+     * 列表数据
      */
     public function show_json()
     {
@@ -54,10 +52,9 @@ class SysEmail extends AdminBase
         return $list;
     }
 
+    //删除
     public function del()
     {
         $this->jump($this->logicSysEmail->sysEmailLogDel($this->param));
     }
-
-
 }

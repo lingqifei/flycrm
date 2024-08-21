@@ -24,13 +24,12 @@ class File extends AddonBase implements AddonInterface
      */
     public function File($param = [])
     {
-        if(empty($param['addons_model'])){
-            $param['addons_model']='admin';
-        }else{
-            $param['addons_model']=$param['addons_model'];
+        if (empty($param['addons_model'])) {
+            $param['addons_model'] = 'admin';
         }
         $this->assign('addons_data', $param);
         $this->assign('addons_config', $this->addonConfig($param));
+
         $this->fetch('index/' . $param['type']);
     }
 
@@ -55,8 +54,9 @@ class File extends AddonBase implements AddonInterface
      */
     public function addonInfo()
     {
-        return ['name' => 'File', 'title' => '文件上传', 'describe' => '文件上传插件', 'author' => 'Jack', 'version' => '1.0'];
+        return ['name' => 'File', 'title' => '文件上传', 'describe' => '文件上传插件', 'author' => 'niaomuniao', 'version' => '1.0'];
     }
+
     /**
      * 插件配置信息
      */
@@ -64,7 +64,35 @@ class File extends AddonBase implements AddonInterface
     {
         $addons_config['maxwidth'] = '150px';
         $addons_config['height'] = '85px';
-        $addons_config['allow_postfix'] = $param['type'] == 'img' ? '*.jpg; *.png; *.gif;' : '*.jpg; *.png; *.gif; *.zip; *.rar; *.tar; *.gz; *.7z; *.doc; *.docx; *.txt; *.xml; *.xlsx; *.xls;*.mp4;*.pdf;';
+
+        //图片类型
+        $imgsTypes = array('img', 'imgs', 'imgpath');
+        //判断上传类型,判断是否是图片类型
+        if (in_array($param['type'], $imgsTypes)) {
+            $addons_config['allow_postfix'] = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG;';
+        } else {
+            $addons_config['allow_postfix'] = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG; *.zip; *.rar; *.tar; *.gz; *.7z; *.doc; *.docx; *.txt; *.xml; *.xlsx; *.xls;*.mp4;*.pdf;';
+        }
+        //配置上传地址
+        //1、模板指定了固定的地址
+        //2、模板没有指定地址，则自动判断,默认为
+        if (!empty($param['url'])) {
+
+            $addons_config['upload_url'] = url($param['url'], array('session_id' => session_id()));
+
+        } else {
+            //自动判断,默认为admin
+            $model = empty($param['addons_model']) ? 'admin' : $param['addons_model'];
+
+            //判断上传类型,判断是否是图片类型,还是文件上传
+            if (in_array($param['type'], $imgsTypes)) {
+                $methodName = 'pictureUpload';
+            } else {
+                $methodName = 'fileUpload';
+            }
+            $addons_config['upload_url'] = url($model . '/File/' . $methodName, array('session_id' => session_id()));
+        }
+        //配置上传大小
         $addons_config['max_size'] = 50 * 1024;
         return $addons_config;
     }

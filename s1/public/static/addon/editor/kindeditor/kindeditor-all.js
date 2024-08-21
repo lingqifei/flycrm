@@ -302,6 +302,7 @@ K.options = {
 		],
 		a : ['id', 'class', 'href', 'target', 'name'],
 		embed : ['id', 'class', 'src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess', 'wmode'],
+		video : ['id', 'class', 'src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess','controls'],
 		img : ['id', 'class', 'src', 'width', 'height', 'border', 'alt', 'title', 'align', '.width', '.height', '.border'],
 		'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : [
 			'id', 'class', 'align', '.text-align', '.color', '.background-color', '.font-size', '.font-family', '.background',
@@ -931,6 +932,9 @@ function _mediaType(src) {
 	if (/\.(swf|flv)(\?|$)/i.test(src)) {
 		return 'application/x-shockwave-flash';
 	}
+	if (/\.(mp4)(\?|$)/i.test(src)) {
+		return 'video/mp4';
+	}
 	return 'video/x-ms-asf-plugin';
 }
 
@@ -952,6 +956,13 @@ function _mediaEmbed(attrs) {
 		html += key + '="' + val + '" ';
 	});
 	html += '/>';
+	if (attrs.type == 'video/mp4') {
+		var html = '<video  ';
+		_each(attrs, function(key, val) {
+			html += key + '="' + val + '" ';
+		});
+		html += ' controls="controls" />';
+	}
 	return html;
 }
 function _mediaImg(blankPath, attrs) {
@@ -970,6 +981,17 @@ function _mediaImg(blankPath, attrs) {
 	} else if (height > 0) {
 		style += 'height:' + height + 'px;';
 	}
+	if (attrs.src.indexOf(".mp4") != -1) {
+		var html = "<video controls width="+width+" height="+height+" src='"+attrs.src+"'></video>";
+		return html;
+	} else {
+		var html = '<img class="' + _mediaClass(type) + '" src="' + blankPath + '" ';
+		if (style !== '') {
+			html += 'style="' + style + '" ';
+		}
+		html += 'data-ke-tag="' + escape(srcTag) + '" alt="" />';
+	}
+
 	var html = '<img class="' + _mediaClass(type) + '" src="' + blankPath + '" ';
 	if (style !== '') {
 		html += 'style="' + style + '" ';
@@ -6094,6 +6116,7 @@ _plugin('core', function(K) {
 KindEditor.lang({
 	source : 'HTML代码',
 	preview : '预览',
+	formatbrush : '格式刷',
 	undo : '后退(Ctrl+Z)',
 	redo : '前进(Ctrl+Y)',
 	cut : '剪切(Ctrl+X)',
@@ -9897,4 +9920,110 @@ KindEditor.plugin('fixtoolbar', function (K) {
     } else {
         self.afterCreate(init);
     }
+});
+
+
+
+
+//
+//格式刷功能
+KindEditor.plugin('formatbrush', function(K) {
+	var self = this;
+	var savedFormat = null; // 用于保存格式的数据
+
+	self.plugin.formatbrush = {
+		applyFormat: function() {
+			var range = self.cmd.range;
+
+			// 获取当前选中的元素
+			var commonNode=self.cmd.commonNode({
+				'*' : '.font-size,.font-family,.font-weight,.font-style,.text-decoration,.color,' +
+					'.background-color,.text-indent,.line-height,.list-style-type,.list-style-image'
+			});
+
+			//格式数据
+			var formatData = {};
+			if (commonNode) {
+				formatData.fontWeight = commonNode.css('font-weight');
+				formatData.fontStyle = commonNode.css('font-style');
+				formatData.textDecoration = commonNode.css('text-decoration');
+				formatData.color = commonNode.css('color');
+				formatData.backgroundColor = commonNode.css('background-color');
+				formatData.fontSize = commonNode.css('font-size');
+				formatData.fontFamily = commonNode.css('font-family');
+				formatData.textIndent = commonNode.css('text-indent');
+				formatData.lineHeight = commonNode.css('line-height');
+			}
+
+			console.log(formatData);
+
+			if (!savedFormat) {
+				// 保存格式
+				savedFormat = formatData;
+				alert('格式已保存');
+			} else {
+				// 应用格式
+				self.plugin.formatbrush.applyFormatStyle(range, savedFormat);
+				savedFormat = null;
+				alert('格式已应用');
+			}
+			// Refocus the editor
+			self.focus();
+		},
+		applyFormatStyle: function(range,savedFormat) {
+			// 创建一个新的span元素
+			var span = document.createElement('span');
+			// 遍历savedFormat对象并应用样式
+			for (var prop in savedFormat) {
+				if (savedFormat.hasOwnProperty(prop)) {
+					span.style[prop] = savedFormat[prop];
+				}
+			}
+			// 使用range来插入新的span元素
+			range.surroundContents(span);
+
+			// 重新选择新span内的内容
+			var newRange = document.createRange();
+			newRange.selectNodeContents(span);
+			var sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(newRange);
+			// 重新聚焦编辑器
+			self.focus();
+		},
+		commonNode:function(range){
+			let startContainer = range.startContainer;
+			let endContainer = range.endContainer;
+			let commonAncestor = startContainer;
+			while (startContainer !== endContainer) {
+				startContainer = startContainer.parentNode;
+				if (startContainer === endContainer) {
+					commonAncestor = startContainer;
+					break;
+				}
+				if (startContainer.contains(endContainer)) {
+					commonAncestor = startContainer;
+					break;
+				}
+				endContainer = endContainer.parentNode;
+				if (endContainer === startContainer) {
+					commonAncestor = endContainer;
+					break;
+				}
+				if (endContainer.contains(startContainer)) {
+					commonAncestor = endContainer;
+					break;
+				}
+			}
+			return commonAncestor;
+		}
+	};
+	// Add the format brush button to the toolbar
+	self.clickToolbar('formatbrush', self.plugin.formatbrush.applyFormat);
+	// 监听编辑器内容变化，清除保存的格式数据
+	K(document).bind('change', function(e){
+		console.log('change');
+		savedFormat = null;
+	});
+
 });

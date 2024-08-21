@@ -43,9 +43,10 @@
 .sticky-table td:first-child,.sticky-table th:first-child {position:sticky;left:0;z-index:1;background-color:#F5F5F6;width:30px;max-width:30px;}
 /* 第2列永远固定在左侧*/
 .sticky-table td:nth-child(2),.sticky-table th:nth-child(2) {position:sticky;left:30px;z-index:10;}
-.sticky-table td:nth-child(2) {background-color:#fff;}
+.sticky-table.scroll-left td:nth-child(2) {background-color:#fff;}
+
 /* 分页固定在下方列*/
-.sticky-table .table-page-bar {bottom:-22px;position:fixed;width:calc(100% - 43px);background:#F6F8F8;margin-bottom:0px;}
+.sticky-table .table-page-bar {bottom:0px;position:fixed;width:calc(100% - 43px);background:#F6F8F8;margin-bottom:0px;}
 .sticky-table .table-page-bar td {background:#F5F5F6;}
 .sticky-table .page-list {padding-top:0px;padding-bottom:10px;}
 .sticky-table th > div {

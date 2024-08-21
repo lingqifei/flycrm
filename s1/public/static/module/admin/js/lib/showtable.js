@@ -108,7 +108,7 @@ function filterTd(v) {
 
 //绑定鼠标事件
 function bindClass() {
-    log('bindclsss');
+    log('绑定鼠标事件：bindclsss');
     $(".MALL").hide();
     $(".MHover").mouseover(function (e) {
         var clientWidth = document.body.clientWidth

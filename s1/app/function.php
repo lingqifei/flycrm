@@ -11,6 +11,10 @@
 
 // 扩展函数文件，系统研发过程中需要的函数建议放在此处，与框架相关函数分离
 
+// +---------------------------------------------------------------------+
+// | 时间相关函数
+// +---------------------------------------------------------------------+
+
 /**
  * 时间计算函数
  * @param int $time
@@ -72,7 +76,6 @@ function date_to_day($dates = [])
     return $days;
 }
 
-
 /**
  * [time_friend 时间美化函数v2.0]
  */
@@ -103,7 +106,6 @@ function time_friend($time)
 
     return $res;
 }
-
 
 /**
  * 友好的时间显示 3.0
@@ -199,7 +201,6 @@ function time_friend3($sTime, $type = 'normal', $alt = 'false')
         }
     }
 }
-
 
 /**时间生成时间段，开始和结束时间
  * 今天，昨天，前天，本周，上周，上上周，本月，上月，上上月，本季度，上季度，上上季度，本年，上年，上上年
@@ -429,6 +430,7 @@ if (!function_exists('getDatesBetweenToMonths')) {
 
     }
 }
+
 /**
  * 获取两个日期之间所有周
  * @param string $start_time 2018-01-01
@@ -450,6 +452,7 @@ if (!function_exists('getDatesBetweenToWeeks')) {
         return $monthArray;
     }
 }
+
 /**
  * 时间段转为两个数组
  * @param $rangedate    格式为：2023/01/01 - 2023/08/08
@@ -478,6 +481,10 @@ if (!function_exists('rangedate2arr')) {
         return $date_arr;
     }
 }
+
+// +---------------------------------------------------------------------+
+// | 字符处理相关函数
+// +---------------------------------------------------------------------+
 
 /**
  * 字符串截取，支持中文和其他编码
@@ -682,26 +689,6 @@ if (!function_exists('func_preg_replace')) {
     }
 }
 
-
-/**
- * 判断url是否完整的链接
- *
- * @param string $url 网址
- * @return boolean
- */
-if (!function_exists('is_http_url')) {
-    function is_http_url($url)
-    {
-        // preg_match("/^(http:|https:|ftp:|svn:)?(\/\/).*$/", $url, $match);
-        preg_match("/^((\w)*:)?(\/\/).*$/", $url, $match);
-        if (empty($match)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-}
-
 /**字符串按符号截取
  * $str='123/456/789/abc';
  * 示例：
@@ -884,8 +871,6 @@ if (!function_exists('httpcode')) {
 //            echo '连接失败，状态码：' . $curl_code;
 //        }
 
-
-
     }
 }
 
@@ -958,6 +943,10 @@ if (!function_exists('hide_mobile')) {
     }
 }
 
+// +---------------------------------------------------------------------+
+// | 数组处理相关函数
+// +---------------------------------------------------------------------+
+
 /**
  *  生成一个随机字符
  *
@@ -1017,7 +1006,6 @@ if (!function_exists('get_str_sum')) {
  * @return    string
  */
 if (!function_exists('obj2arr')) {
-
     function obj2arr($array)
     {
         if (is_object($array)) {
@@ -1057,9 +1045,9 @@ if (!function_exists('get_2arr_sum')) {
  * Author: 开发人生 goodkfrs@qq.com
  * Date: 2021/5/31 0031 15:14
  */
-if (!function_exists('delArrValue')) {
+if (!function_exists('arr_del_val')) {
     //foreach遍历后unset删除,这种方法也是最容易想到的方法
-    function delArrValue($arr, $value)
+    function arr_del_val($arr, $value)
     {
         if (!is_array($arr)) {
             return $arr;
@@ -1072,7 +1060,6 @@ if (!function_exists('delArrValue')) {
         return $arr;
     }
 }
-
 
 /**
  * 二维数组去重（保留各个键值的同时去除重复的项）
@@ -1099,7 +1086,6 @@ if (!function_exists('array2unique_bykey')) {
     }
 }
 
-
 /**
  * 二维数组按照指定的键来进行排序
  *
@@ -1123,6 +1109,101 @@ if (!function_exists('array2Sort')) {
             $newArr[$key] = $array[$key];
         }
         return $newArr;
+    }
+}
+
+/**
+ * 清除html文件的空格注释信息
+ * @param $uncompress_html_source
+ * @return string
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2022/3/23 0023 9:33
+ */
+function compress_html($uncompress_html_source)
+{
+    $chunks = preg_split('/(<pre.*?\/pre>)/ms', $uncompress_html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $uncompress_html_source = '';//修改压缩html : 清除换行符,清除制表符,去掉注释标记
+    foreach ($chunks as $c) {
+        if (strpos($c, '<pre') !== 0) {
+            //remove new lines & tabs
+            $c = preg_replace('/[\\n\\r\\t]+/', ' ', $c);
+            // remove extra whitespace
+            $c = preg_replace('/\\s{2,}/', ' ', $c);
+            // remove inter-tag whitespace
+            $c = preg_replace('/>\\s</', '><', $c);
+            // remove CSS & JS comments
+            $c = preg_replace('/\\/\\*.*?\\*\\//i', '', $c);
+        }
+        $uncompress_html_source .= $c;
+    }
+    return $uncompress_html_source;
+}
+
+/**合并压缩css
+ * 多个CSS文件压缩为一个CSS文件
+ * @param $urls
+ * @return mixed|string
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2022/3/23 0023 9:34
+ */
+function parse_css($urls)
+{
+    $url = md5(implode(',', $urls));
+    $path = FCPATH . 'static/parse/';
+    $css_url = $path . $url . '.css';
+    if (!file_exists($css_url)) {
+        if (!file_exists($path))
+            mkdir($path, 0777);
+        $css_content = '';
+        foreach ($urls as $url) {
+            $css_content .= file_get_contents($url);
+        }
+        $css_content = str_replace("\r\n", '', $css_content); //清除换行符
+        $css_content = str_replace("\n", '', $css_content); //清除换行符
+        $css_content = str_replace("\t", '', $css_content); //清除制表符
+        @file_put_contents($css_url, $css_content);
+    }
+    $css_url = str_replace(FCPATH, '', $css_url);
+    return $css_url;
+
+}
+
+// +---------------------------------------------------------------------+
+// | 判断相关函数
+// +---------------------------------------------------------------------+
+
+/**
+ * 判断是否为微信打开
+ * @return bool
+ * Author: 开发人生 goodkfrs@qq.com
+ * Date: 2021/12/24 0024 14:09
+ */
+if (!function_exists('is_weixin')) {
+    function is_weixin()
+    {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+            return true;
+        }
+        return false;
+    }
+}
+
+/**
+ * 判断url是否完整的链接
+ *
+ * @param string $url 网址
+ * @return boolean
+ */
+if (!function_exists('is_http_url')) {
+    function is_http_url($url)
+    {
+        // preg_match("/^(http:|https:|ftp:|svn:)?(\/\/).*$/", $url, $match);
+        preg_match("/^((\w)*:)?(\/\/).*$/", $url, $match);
+        if (empty($match)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -1168,105 +1249,113 @@ if (!function_exists('appExists')) {
     }
 }
 
-/**
- * 清除html文件的空格注释信息
- * @param $uncompress_html_source
- * @return string
- * Author: 开发人生 goodkfrs@qq.com
- * Date: 2022/3/23 0023 9:33
- */
-function compress_html($uncompress_html_source)
-{
-    $chunks = preg_split('/(<pre.*?\/pre>)/ms', $uncompress_html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $uncompress_html_source = '';//修改压缩html : 清除换行符,清除制表符,去掉注释标记
-    foreach ($chunks as $c) {
-        if (strpos($c, '<pre') !== 0) {
-            //remove new lines & tabs
-            $c = preg_replace('/[\\n\\r\\t]+/', ' ', $c);
-            // remove extra whitespace
-            $c = preg_replace('/\\s{2,}/', ' ', $c);
-            // remove inter-tag whitespace
-            $c = preg_replace('/>\\s</', '><', $c);
-            // remove CSS & JS comments
-            $c = preg_replace('/\\/\\*.*?\\*\\//i', '', $c);
-        }
-        $uncompress_html_source .= $c;
-    }
-    return $uncompress_html_source;
-}
-
-
-/**合并压缩css
- * 多个CSS文件压缩为一个CSS文件
- * @param $urls
- * @return mixed|string
- * Author: 开发人生 goodkfrs@qq.com
- * Date: 2022/3/23 0023 9:34
- */
-function parse_css($urls)
-{
-    $url = md5(implode(',', $urls));
-    $path = FCPATH . 'static/parse/';
-    $css_url = $path . $url . '.css';
-    if (!file_exists($css_url)) {
-        if (!file_exists($path))
-            mkdir($path, 0777);
-        $css_content = '';
-        foreach ($urls as $url) {
-            $css_content .= file_get_contents($url);
-        }
-        $css_content = str_replace("\r\n", '', $css_content); //清除换行符
-        $css_content = str_replace("\n", '', $css_content); //清除换行符
-        $css_content = str_replace("\t", '', $css_content); //清除制表符
-        @file_put_contents($css_url, $css_content);
-    }
-    $css_url = str_replace(FCPATH, '', $css_url);
-    return $css_url;
-
-}
-
-
-/**合并压缩js，
- * 需要引用第三方库，gkralik/php-uglifyjs
- * @param $urls
- * @return mixed|string
- * Author: 开发人生 goodkfrs@qq.com
- * Date: 2022/3/23 0023 9:39
- */
-function parse_script($urls)
-{
-    $url = md5(implode(',', $urls));
-    $path = FCPATH . '/static/parse/';
-    $js_url = $path . $url . '.js';
-    if (!file_exists($js_url)) {
-        if (!file_exists($path))
-            mkdir($path, 0777);
-        load_qy_lib('JavaScriptPacker');
-        $js_content = '';
-        foreach ($urls as $url) {
-            $append_content = @file_get_contents($url) . "\r\n";
-            $packer = new JavaScriptPacker($append_content);
-            $append_content = $packer->_basicCompression($append_content);
-            $js_content .= $append_content;
-        }
-        @file_put_contents($js_url, $js_content);
-    }
-    $js_url = str_replace(FCPATH, '', $js_url);
-    return $js_url;
-}
+// +---------------------------------------------------------------------+
+// | 模块编码相关函数
+// +---------------------------------------------------------------------+
 
 /**
- * 判断是否为微信打开
- * @return bool
- * Author: 开发人生 goodkfrs@qq.com
- * Date: 2021/12/24 0024 14:09
+ * 获取系统编码
+ * $name=>模块名称
  */
-if (!function_exists('is_weixin')) {
-    function is_weixin()
+if (!function_exists('get_sys_seqnum')) {
+    function get_sys_seqnum($name, $isupdate = false)
     {
-        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
-            return true;
+        $time = time();
+        $re = '';
+        $info = db('sys_seqnum')->where(['name' => $name])->find();
+
+        //先判断是否存在，如果不存在，调用默认的配置
+        if (empty($info['enable'])) {
+            //默认
+            $default = [
+                'salcontract' => ['pre' => 'XSHD', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'salorder' => ['pre' => 'XSDD', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'sale' => ['pre' => 'XH', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'resale' => ['pre' => 'XHTH', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'quoted' => ['pre' => 'BJD', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'poscontract' => ['pre' => 'CGHD', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'stockinto' => ['pre' => 'DB', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'stockout' => ['pre' => 'CK', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'stockcheck' => ['pre' => 'PD', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'stockchange' => ['pre' => 'DB', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'stockassemble' => ['pre' => 'ZZ', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'finpayrecord' => ['pre' => 'FK', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'finrecerecord' => ['pre' => 'HK', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'fininvoicepay' => ['pre' => 'KP', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'fininvoicerece' => ['pre' => 'SP', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'finremiburs' => ['pre' => 'BX', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'exchange' => ['pre' => 'JFDH', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1],
+                'sohoworker' => ['pre' => 'SOHO', 'y' => 0, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '3', 'enable' => 1],
+                'eft' => ['pre' => 'ZZDB', 'y' => 1, 'm' => 0, 'd' => 0, 'h' => 0, 'i' => 0, 's' => 0, 'suffix' => '', 'nums' => '1', 'len' => '0', 'enable' => 1]
+            ];
+            //编号不可为空的模块
+            if (isset($default[$name])) {
+                $info = $default[$name];//替换默认
+            }
         }
-        return false;
+        //再次判断启用情况
+        if (!empty($info['enable'])) {
+            //字符前缀
+            $re .= $info['pre'];
+
+            //日期
+            !empty($info['y']) && $re .= date('Y', $time);
+            !empty($info['m']) && $re .= date('m', $time);
+            !empty($info['d']) && $re .= date('d', $time);
+            !empty($info['h']) && $re .= date('H', $time);
+            !empty($info['i']) && $re .= date('i', $time);
+            !empty($info['s']) && $re .= date('s', $time);
+
+            //数字,是否启用数字
+            if (!empty($info['nums'])) {
+
+                //字符后缀
+                !empty($info['suffix']) && $re .= $info['suffix'];
+
+                //更新编码规则自增
+                $isupdate && set_sequence_nums($name, $re, $info['nums']);
+
+                //获取模块开始数字
+                $nums = get_sequence_nums($name, $re);
+                if (!empty($info['len'])) {
+                    $re .= str_pad($nums, $info['len'], '0', STR_PAD_LEFT);
+                } else {
+                    $re .= $nums;
+                }
+            }
+        }
+        return $re;
+    }
+}
+
+/**
+ * 获取自增编码
+ */
+if (!function_exists('get_sequence_nums')) {
+//获取自增编码
+    function get_sequence_nums($name = '', $prekey = '', $value = 1)
+    {
+        $db = db('sequence');
+        $info = $db->where(['name' => $name, 'current_date' => $prekey])->find();
+        if (!empty($info['current_value'])) {
+            $value = $info['current_value'];
+        } else {
+            $intodata = ['name' => $name, 'current_value' => $value, 'current_date' => $prekey];
+            $db->insert($intodata);
+        }
+        return $value;
+    }
+}
+
+//更新自增编码
+if (!function_exists('set_sequence_nums')) {
+    function set_sequence_nums($name = '', $prekey = '')
+    {
+        $db = db('sequence');
+        $where = ['name' => $name, 'current_date' => $prekey];
+        $info = $db->where($where)->find();
+        if (!empty($info['current_value'])) {
+            $db->where($where)->setInc('current_value');
+        }
     }
 }

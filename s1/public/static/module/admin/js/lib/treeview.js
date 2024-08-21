@@ -1,9 +1,18 @@
 $(document).ready(function () {
 	window.onload=onLoad();
+
+	$(".right_centent").each(function (key, row) {
+		setCenterHeight($(this));
+	})
+
+
 	//页面加载
 	function onLoad() {
 		$('.searchForm').find("input[name='pid']").val('');
 		var target = $('#left-tree').attr('data-url');
+
+		log(target);
+
 		$.get(target).success(function (jsonData) {
 			//渲染树
 			$('#left-tree').treeview({
@@ -35,11 +44,15 @@ $(document).ready(function () {
 	$(window).resize(function () {
 		setCenterHeight();
 	});
-	setCenterHeight();
+
 	function setCenterHeight() {
-		var height = $(window).height();
-		var centerHight = height - 240;
-		$(".right_centent").height(centerHight).css("overflow", "auto");
+		var object=$(".right_centent");
+		var offsetTop=object.offset().top;
+		var windowHeight = $(window).height();
+		var centerHight = windowHeight - offsetTop -50;
+		object.height(centerHight).css("overflow", "auto");
+		log("offsetTop:"+offsetTop)
+		log("centerHight:"+centerHight)
 	}
 	/*-----页面pannel内容区高度自适应 end-----*/
 });

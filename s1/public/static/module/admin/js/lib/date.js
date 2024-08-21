@@ -404,3 +404,8 @@ jQuery.fn.extend(Date.prototype, {
         return fmt;
     }
 });
+// 时间格式转换  =》 调用方法
+// var date = new Date();
+// console.log(date.pattern("yyyy-MM-dd hh:mm:ss E")); // 2022-09-22 16:30:00 周四
+// console.log(date.pattern("yy-M-d h:m:s q")); // 22-9-22 4:30:00 3
+// console.log(date.pattern("yyyy-MM-dd E")); // 2022-09-22 周四

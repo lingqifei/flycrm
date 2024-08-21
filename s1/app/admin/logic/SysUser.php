@@ -346,7 +346,7 @@ class SysUser extends AdminBase
         }
 
         if ($type == 'selfson') $ids[] = $id;
-        if ($type == 'son')  $ids = delArrValue($ids,$id);//删除本身id
+        if ($type == 'son')  $ids = arr_del_val($ids,$id);//删除本身id
         $ids = array_unique($ids);//去除重复的
 
         $condition= [];

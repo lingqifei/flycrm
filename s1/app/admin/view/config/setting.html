@@ -68,8 +68,7 @@ case value
                                             {/case}
                                             {case value="5"}
                                             {assign name="case_img_var" value="$vo.value|default='0'" /}
-                                            {:widget('file/index', ['name' => $vo['name'], 'value' => $case_img_var,
-                                            'type' =>'img'])}
+                                            {:hook('File', ['name' => $vo['name'], 'value' => $case_img_var, 'type' => 'img'])}
                                             {notempty name="case_img_var"}
                                             <div class="upload-pre-item">
                                                 {assign name="case_img_var_url" value="$case_img_var|get_picture_url" /}
@@ -81,9 +80,7 @@ case value
                                             {/case}
                                             {case value="6"}
                                             {assign name="case_file_var" value="$vo.value|default='0'" /}
-                                            {:widget('file/index', ['name' => $vo['name'], 'value' => $case_file_var,
-                                            'type' =>
-                                            'file'])}
+                                            {:hook('File', ['name' => $vo['name'], 'value' => $case_file_var, 'type' => 'file'])}
                                             {notempty name="case_file_var"}
                                             <div class="upload-pre-file">
                                                 {assign name="case_file_var_url" value="$case_file_var|get_file_url" /}
@@ -96,14 +93,13 @@ case value
                                             {case value="7"}
                                             <textarea class="form-control textarea_editor" name="{$vo.name}"
                                                       placeholder="请输入富文本内容">{$vo.value|html_entity_decode}</textarea>
-                                            {:widget('editor/index', array('name'=> $vo.name,'value'=> ''))}
+                                                {:hook('ArticleEditor', ['name' => $vo.name,'type'=>'simple'])}
                                             {/case}
                                             {case value="8"}
                                             {volist name=":parse_config_attr($vo['extra'])" id='vv'}
                                             <div class="radio">
                                                 <label>
-                                                    <input name="{$vo.name}" id="{$vo.name}" value="{$key}" {eq
-                                                           name="vo.value" value="$key" } checked="" {/eq} type="radio">
+                                                    <input name="{$vo.name}" id="{$vo.name}" value="{$key}" {eq name="vo.value" value="$key" } checked="" {/eq} type="radio">
                                                     {$vv}
                                                 </label>
                                             </div>

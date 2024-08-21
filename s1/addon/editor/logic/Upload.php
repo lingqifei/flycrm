@@ -36,16 +36,27 @@ class Upload
         return [RESULT_ERROR => DATA_DISABLE, RESULT_URL => $url];
     }
 
+    //文件上传
+    public function fileUpload()
+    {
+        $fileLogic = get_sington_object('fileLogic', LogicFile::class);
+
+        $result = $fileLogic->fileUpload('imgFile');
+
+        if (false === $result) : return [RESULT_ERROR => DATA_NORMAL, RESULT_MESSAGE => '文件上传失败']; endif;
+
+        $url = get_file_url($result['id']);
+
+        return [RESULT_ERROR => DATA_DISABLE, RESULT_URL => $url];
+    }
+
     /**
      * 图片上传=>Editormd
      */
     public function pictureUploadEditormd()
     {
-
         $fileLogic = get_sington_object('fileLogic', LogicFile::class);
-
         $result = $fileLogic->pictureUpload('editormd-image-file');
-
         if (false === $result) {
             $data['success'] = 0;
             $data['message'] = '上传失败';

@@ -74,9 +74,15 @@ class SysEmail extends AdminBase
         if (empty($data['content'])) {
             throw_response_error('内容不能为空');
         }
+
         $result = true;
         $config = $this->getSysEmailConf();
+        if (empty($config)) {
+            throw_response_error('请先配置邮件服务');
+        }
         $this->modelSysEmail->setConfig($config['config']);
+
+        //数组转成数组
         $addressArray = str2arr($data['address']);
         $logDataList = [];
         foreach ($addressArray as $address) {
@@ -130,7 +136,6 @@ class SysEmail extends AdminBase
         $where = [];
         //关键字查
         !empty($data['keywords']) && $where['receiver|title|content'] = ['like', '%' . $data['keywords'] . '%'];
-
         if (!empty($data['status'])) {
             $where['status'] = ['=', '' . $data['status'] . ''];
         }

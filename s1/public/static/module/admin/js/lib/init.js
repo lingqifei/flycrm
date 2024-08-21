@@ -148,6 +148,7 @@ $(document).ready(function () {
         $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked", true);//保证所有低级勾选上
 
     });
+
     //实现全选反选+全先后背景变色
     $(".checkboxCtrl").on('click', function () {
         $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
@@ -557,15 +558,22 @@ function getBG() {
 
 
 /*-----页面pannel内容区高度自适应 start-----*/
-$(window).resize(function () {
-    setCenterHeight();
-});
-function setCenterHeight() {
-    var height = $(window).height();
-    var centerHight = height - 40;
+$(".auto-height-box").each(function (key, row) {
+    setAutoHeightBox($(this));
+    $(window).resize(function () {
+        setAutoHeightBox();
+    });
+})
+function setAutoHeightBox() {
+    var object=$(".auto-height-box");
+    var offsetTop=object.offset().top;
+
+    log('offsetTop:'+offsetTop);
+
+    var windowHeight = $(window).height();
+    var centerHight = windowHeight - offsetTop -40;
     $(".auto-height-box").height(centerHight).css("overflow", "auto");
     $(".auto-height-box").css("background", "#fff");
 }
-setCenterHeight();//自适应高度
 /*-----页面pannel内容区高度自适应 end-----*/
 
