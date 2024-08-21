@@ -1,0 +1,192 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-content table-responsive">
+                    <div class="row">
+                        <form id="pagerForm" method="post" class="form-inline searchForm">
+                            <input type="hidden" name="pid" value="">
+                            <div class="col-sm-3 m-b-xs">
+                                <lqf_link>
+                                    <a class="btn btn-info ajax-open add-btn" data-url="{:url('SysSeqnum/add')}"
+                                       data-title="添加" width="600" height="300"><i class="fa fa-plus"></i> {:lang('add')}</a>
+                                </lqf_link>
+                            </div>
+                            <div class="col-sm-9 m-b-xs text-right">
+                                <div class="input-group">
+                                    <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}"
+                                           class="form-control">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary ajaxSearchForm">
+                                        <i class="fa fa-search"></i> {:lang('search')}
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="m-t-sm"></p>
+                    <table class="table table-hover table-bordered sorttable ajax-list-table"
+                           data-url="{:url('SysSeqnum/show_json')}">
+                        <thead>
+                        <tr>
+                            <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                            <th width="100">{:lang('title')}</th>
+                            <th width="100">{:lang('name')}</th>
+                            <th width="80">{:lang('前缀')}</th>
+                            <th width="50" class="text-center">{:lang('年')}</th>
+                            <th width="50" class="text-center">{:lang('月')}</th>
+                            <th width="50" class="text-center">{:lang('日')}</th>
+                            <th width="50" class="text-center">{:lang('时')}</th>
+                            <th width="50" class="text-center">{:lang('分')}</th>
+                            <th width="50" class="text-center">{:lang('秒')}</th>
+                            <th width="80" class="text-center">{:lang('后缀')}</th>
+                            <th width="60" class="text-center">{:lang('起始数')}</th>
+                            <th width="60" class="text-center">{:lang('长度')}</th>
+                            <th width="60" class="text-center">{:lang('enable')}</th>
+                            <th width="120" class="text-center">{:lang('示列')}</th>
+                            <th width="80" class="text-center">{:lang('operate')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="ibox-content">
+                        <tr>
+                            <td colspan="16" align="center"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="__STATIC__/module/admin/js/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
+
+<script id="tableListTpl" type="text/html">
+    <% for(var i=0;i<data.length;i++) {
+        var enable='';  if(data[i]['enable']=='1') enable='checked';
+        var y=''; if(data[i]['y']=='1') {y='checked';}
+        var m=''; if(data[i]['m']=='1') {m='checked';}
+        var d=''; if(data[i]['d']=='1') {d='checked';}
+        var h=''; if(data[i]['h']=='1') {h='checked';}
+        var ii=''; if(data[i]['i']=='1') {ii='checked';}
+        var s=''; if(data[i]['s']=='1') {s='checked';}
+    %>
+    <tr>
+        <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
+        <td><%=data[i]['title']%></td>
+        <td><%=data[i]['name']%></td>
+        <td>
+            <input type="text" name="pre" value="<%=data[i]['pre']%>" class="form-control ajax-field"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'pre'))}" data-id="<%=data[i]['id']%>">
+        </td>
+        <td class="text-center">
+            <input name="y" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'y'))}" data-id="<%=data[i]['id']%>" <%=y%> >
+        </td>
+        <td class="text-center">
+            <input name="m" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'m'))}" data-id="<%=data[i]['id']%>" <%=m%> >
+        </td>
+        <td class="text-center">
+            <input name="d" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'d'))}" data-id="<%=data[i]['id']%>" <%=d%> >
+        </td>
+        <td class="text-center">
+            <input name="h" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'h'))}" data-id="<%=data[i]['id']%>" <%=h%> >
+        </td>
+        <td class="text-center">
+            <input name="i" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'i'))}" data-id="<%=data[i]['id']%>" <%=ii%> >
+        </td>
+        <td class="text-center">
+            <input name="s" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'s'))}" data-id="<%=data[i]['id']%>" <%=s%> >
+        </td>
+        <td class="text-center">
+            <input type="text" name="suffix" value="<%=data[i]['suffix']%>" class="form-control ajax-field"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'suffix'))}" data-id="<%=data[i]['id']%>">
+        </td>
+        <td class="text-center">
+            <input type="text" name="nums" value="<%=data[i]['nums']%>" class="form-control ajax-field"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'nums'))}" data-id="<%=data[i]['id']%>">
+        </td>
+        <td class="text-center">
+            <input type="text" name="len" value="<%=data[i]['len']%>" class="form-control ajax-field"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'len'))}" data-id="<%=data[i]['id']%>">
+        </td>
+        <td class="text-center">
+            <input name="enable" class="ajax-checkbox" type="checkbox"
+                   data-url="{:url('SysSeqnum/set_visible',array('name'=>'enable'))}" data-id="<%=data[i]['id']%>"
+            <%=enable%> >
+        </td>
+        <td class="text-center">
+            <span class="text-info text-example"></span>
+        </td>
+        <td class="text-center">
+            <lqf_link>
+                <a class="ajax-open" data-url="{:url('SysSeqnum/edit')}"
+                   data-ids="{'id':'<%=data[i]['id']%>'}" width="600" height="300">{:lang('modify')}</a>
+            </lqf_link>
+            <lqf_link>
+                <a class="ajax-del confirm" data-url="{:url('SysSeqnum/del')}"
+                   data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a>
+            </lqf_link>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        turnPage(1);
+
+        var now = new Date(); //当前日期
+        var nowYear = now.getFullYear(); //当前年
+        var nowMonth = now.getMonth(); //当前年
+
+        seqnuminfo();
+
+        $("body").on("click", ".ajax-list-table tbody tr input", function () {
+            seqnuminfo();
+        });
+
+        function seqnuminfo() {
+            $(".ajax-list-table tbody tr").each(function (index, element) {
+                var exampleStr = '';
+                var pre = $(this).find("input[name='pre']").val();
+                var suffix = $(this).find("input[name='suffix']").val();
+                var nums = $(this).find("input[name='nums']").val();
+                var len = $(this).find("input[name='len']").val();
+
+                var y = $(this).find("input[name='y']").prop('checked');
+                var m = $(this).find("input[name='m']").prop('checked');
+                var d = $(this).find("input[name='d']").prop('checked');
+                var h = $(this).find("input[name='h']").prop('checked');
+                var i = $(this).find("input[name='i']").prop('checked');
+                var s = $(this).find("input[name='s']").prop('checked');
+
+                //字符串拼接
+                if (pre) exampleStr += pre;
+                if (y) exampleStr += nowYear;
+                if (m) exampleStr += now.Format("M").toString().padStart(2, '0');
+                if (d) exampleStr += now.Format("d");
+                if (h) exampleStr += now.Format("h");
+                if (i) exampleStr += now.Format("m");
+                if (s) exampleStr += now.Format("s");
+
+                if (suffix) exampleStr += suffix;
+                if (nums) exampleStr += nums.padStart(len, '0');
+
+                log(exampleStr);
+                $(this).find("span.text-example").text(exampleStr);
+            });
+        }
+    });
+</script>
