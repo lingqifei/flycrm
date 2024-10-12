@@ -30,7 +30,6 @@ function export_excel($titles = '', $keys = '', $data = [], $file_name = '导出
     $titles_arr = str2arr($titles);
 
     foreach ($titles_arr as $k => $v) {
-
         $objPHPExcel->setActiveSheetIndex($s)->setCellValue(string_from_column_index($k) . $y, $v);
     }
 

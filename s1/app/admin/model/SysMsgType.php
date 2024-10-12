@@ -322,7 +322,8 @@ class SysMsgType extends AdminBase
     public function sysMsgTypeScanAdd($data = [])
     {
         $uniquekey = md5($data['bus_type'] . $data['bus_id'] . $data['deal_user_id'] . $data['deal_time']);
-        $info = $this->modelSysMsg->getValue(['uniquekey' => $uniquekey], 'uniquekey');
+        //$info = $this->modelSysMsg->getValue(['uniquekey' => $uniquekey], 'uniquekey');
+        $info = Db::name('sys_msg')->where('uniquekey', $uniquekey)->find('uniquekey');
         $data['uniquekey'] = $uniquekey;
         if (empty($info)) {
             Db::name('sys_msg')->insert($data);
