@@ -53,77 +53,74 @@ $("body").on("change", ".searchForm select", function () {
     ajaxSearchFormData = searchform.serialize();
     turnPage(1);
 })
-
 //设置分页每页条数及跳转页数
 $("body").on("change", ".tfootPageBar", function () {
-
-    var ajaxListTable = $('.ajax-list-table');
-
-    pageNum = ajaxListTable.find("tfoot td input[name='pageNum']").val();
-
+    var ajaxListTableId = $(this).parents('.page-list').attr('data-list-table');
+    if (ajaxListTableId == '') {
+        pageNum = $('.ajax-list-table').find("tfoot td input[name='pageNum']").val();
+    } else {
+        pageNum = $('#' + ajaxListTableId).find(".tfootPageBar.pageNum").val();
+    }
+    log('设置分页每页条数及跳转页数：');
+    log(pageNum);
     if (pageNum == null) pageNum = '';
-
     ajaxSearchFormData = $("form").serialize();
-
-    turnPage(pageNum, ajaxListTable);
+    turnPage(pageNum, ajaxListTableId);
 });
 
 //输入页数跳转到批定页
 $("body").on("click", ".tfootClickPageNum", function () {
-    var ajaxListTable = $('.ajax-list-table');
+    var ajaxListTable = $(this).parents('.page-list').attr('data-list-table');
+    log('点击页码获得ajaxListTableId：'+ajaxListTable);
     pageNum = $(this).attr('data-id')
     ajaxSearchFormData = $("form").serialize();
     turnPage(pageNum, ajaxListTable);
 });
 
 //获取分页数据及模板
-function turnPage(pageNum, ajaxListTable = '') {
+function turnPage(pageNum, ajaxListTableId = '') {
+    log('获取分页数据及模板：');
+    log('当前pageNum=' + pageNum);
 
     //查询表单
     var searchForm = $('.searchForm');
-
-    //如果没有传入对像默认为
-    if (ajaxListTable == '') {
-        var ajaxListTable = $('.ajax-list-table');
-    }
-
-    var ajaxUrl = ajaxListTable.attr("data-url");
-
-    //获取查询表单数据
-    //ajaxSearchFormData = searchForm.serialize();
-    var searchItemData = localStorage.getItem(ajaxUrl);
-
-    pageSize = ajaxListTable.find("tfoot td input[name='pageSize']").val();
-    if (pageSize == null) pageSize = '';
-
-/******************记录存储查询条件***************************************/
-/**
-    // 为在保存搜索条件离开返回不失效
-    if (pageSize == '' && ajaxSearchFormData == '') {
-        log("第一步：进入pagesize=0,ajaxsearch=''：");
-        if (searchItemData != null && searchItemData != 'null') {
-            log("第二步：判断是否之前点击查询过，searchItemData：" + searchItemData);
-            //searchForm.setForm(JSON.parse(url2json('?'+searchItemData)));
-            ajaxSearchFormData = searchItemData;
-        } else {
-            log("第二步：还没有点击查询，直接获取表单数据：");
-            ajaxSearchFormData = $("form").serialize();
-        }
-
+    //如果没有传入对像默认为,表格参数,为最开始的写法
+    if (ajaxListTableId == '') {
+        var ajaxListTableObject = $('.ajax-list-table');
+        var tableListTpl = 'tableListTpl';
+        pageSize = ajaxListTableObject.find("tfoot td input[name='pageSize']").val();
     } else {
-        ajaxSearchFormData = $("form").serialize();
-        log("第一步：点击查询了：ajaxSearchFormData:" + ajaxSearchFormData);
-
+        //获取表格对象，默认为指定样式下面的，.ajax-list-table
+        var ajaxListTableObject = $('#' + ajaxListTableId).find('.ajax-list-table');
+        var tableListTpl = 'tableListTpl-' + ajaxListTableId;
+        pageSize = $('#' + ajaxListTableId).find(".tfootPageBar.pageSize").val();
     }
-    //存储上次查询条件
-    localStorage.setItem(ajaxUrl, decodeURIComponent(ajaxSearchFormData));
- **/
-/******************************************************************************/
+
+    //这里主要是兼容之前的模板调用
+    //当获取不到表格对象时，默认为ajax-list-table，模板默认为tableListTpl
+    if (typeof (ajaxListTableObject) != "undefined" && ajaxListTableObject == '') {
+        ajaxListTableObject = $('.ajax-list-table');
+        tableListTpl = 'tableListTpl';
+        pageSize = ajaxListTableObject.find("tfoot td input[name='pageSize']").val();
+    }
+
+    if (pageSize == null) pageSize = '';//每页条数
+
+
+    log('请求ajaxListTableId：' + ajaxListTableId);
+    log('请求tableListTpl：' + tableListTpl);
+
+    var ajaxUrl = ajaxListTableObject.attr("data-url");
+    log('请求地址：' + ajaxUrl);
+    if (typeof (ajaxUrl) != "undefined" && ajaxUrl == '') {
+        layer.msg('请求地址不存在');
+        return false;
+    }
 
     //ajax 请求数据
-    ajaxSearchFormData = searchForm.serialize();
-    ajaxPostJsonData = ajaxSearchFormData + "&pageNum=" + pageNum + "&pageSize=" + pageSize + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
-
+    var ajaxSearchFormData = searchForm.serialize();
+    var ajaxPostJsonData = ajaxSearchFormData + "&pageNum=" + pageNum + "&pageSize=" + pageSize + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
+    log('请求参数：' + ajaxPostJsonData);
     $.ajax({
         type: 'POST',
         url: ajaxUrl,     //这里是请求的后台地址，自己定义
@@ -144,7 +141,7 @@ function turnPage(pageNum, ajaxListTable = '') {
                 toast.error(returnJsonData.msg);
             }
             //移除原来的文档
-            ajaxListTable.find("tbody").empty();
+            ajaxListTableObject.find("tbody").empty();
 
             totalCount = returnJsonData.total;//总条数
             pageSize = returnJsonData.per_page;//每页条数
@@ -154,8 +151,8 @@ function turnPage(pageNum, ajaxListTable = '') {
 
             //模板引擎使用
             var tpl = baidu.template;
-            var html = tpl('tableListTpl', returnJsonData);
-            ajaxListTable.find("tbody").html(html);//添加数据
+            var html = tpl('' + tableListTpl + '', returnJsonData);//调用模板
+            ajaxListTableObject.find("tbody").html(html);
 
             //把表格列表数据保存localStorage，方便在查询条件返回
             var row_value = JSON.stringify(returnJsonData)
@@ -165,7 +162,7 @@ function turnPage(pageNum, ajaxListTable = '') {
         complete: function () {
 
             //1、添加分页按钮栏
-            getPageBar(ajaxListTable, pageNum, pageSize, totalCount);
+            getPageBar(ajaxListTableId, pageNum, pageSize, totalCount);
 
             //2、判断表格是否设置显示列
             if ($('a').is('.btn-field-set')) {
@@ -176,12 +173,12 @@ function turnPage(pageNum, ajaxListTable = '') {
             bindClass();
 
             //3、判断是否有表格需要合并
-            if (ajaxListTable.hasClass('merge-table-rowspan')) {
+            if (ajaxListTableObject.hasClass('merge-table-rowspan')) {
                 mergeTableRowspan();
             }
 
             //4、设置数据区域高度
-            var stickyTable = ajaxListTable.parents('.sticky-table');
+            var stickyTable = ajaxListTableObject.parents('.sticky-table');
             if (stickyTable.hasClass('sticky-table')) {
                 setStickyTableHeight(stickyTable)
                 //窗口大小改变的时候，重新设置高度
@@ -223,7 +220,7 @@ function setStickyTableHeight(stickyTable) {
 
 
 //获取分页条（分页按钮栏的规则和样式根据自己的需要来设置）
-function getPageBar(object, pageNum, pageSize, totalCount) {
+function getPageBar(ajaxListTableId, pageNum, pageSize, totalCount) {
     var pageNum = parseInt(pageNum);
     var pageSize = parseInt(pageSize);
     var totalPage = Math.ceil(totalCount / pageSize);
@@ -234,7 +231,7 @@ function getPageBar(object, pageNum, pageSize, totalCount) {
         pageNum = 1;
     }
     var pageBar;
-    pageBar = "<div class='page-list'>";
+    pageBar = "<div class='page-list' data-list-table='" + ajaxListTableId + "'>";
     pageBar += "<div class=\"btn-group\"> <span class='btn btn-white'> 共 " + totalCount + "条 </span>";
     pageBar += "<span class='btn btn-white'> 每页 <input type='text' name='pageSize' class='tfootPageBar pageSize' style='width:50px;height:20px;border:solid #ccc 1px;' value='" + pageSize + "'> 条 </span>";
     //如果不是第一页
@@ -279,6 +276,12 @@ function getPageBar(object, pageNum, pageSize, totalCount) {
     pageBar += "<span class='btn btn-white'> 跳 <input type='text' name='pageNum' class='tfootPageBar pageNum' style='width:50px;height:20px;border:solid #ccc 1px;'> 页 <a>GO</a></span>";
     pageBar += "</div></div>";
 
+    //如果没数据，则显示提示信息
+    if (ajaxListTableId == '') {
+        var object = $(".ajax-list-table");
+    } else {
+        var object = $("#" + ajaxListTableId);
+    }
     if (totalCount == 0) {
         object.find("tfoot td").html('噢噢噢，暂时没有查询到数据~~');
     } else {
