@@ -45,7 +45,7 @@ class Upgrade extends Action
      */
     public function server_upgrade()
     {
-        $server = "http://soft.s5.07fly.com/index/AuthVersion";
+        $server = "http://www.07fly.xyz/index/AuthVersion";
         return $server;
     }
 
@@ -56,7 +56,7 @@ class Upgrade extends Action
      */
     public function serverip_auth()
     {
-        $server = "http://soft.s5.07fly.com";
+        $server = "http://www.07fly.xyz/";
         return $server;
     }
 

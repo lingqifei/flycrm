@@ -59,6 +59,7 @@ class FieldExt extends Action{
 				$sql="ALTER TABLE `$table` ADD COLUMN `$fied` varchar($maxlength) COMMENT '$desc'";	
 			}
 			$rtn=$this->C($this->cacheDir)->update($sql);
+            return array('statusCode'=>200,'message'=>'添加成功');
 			if($rtn>0){
 				return array('statusCode'=>200,'message'=>'添加成功');
 			}else{

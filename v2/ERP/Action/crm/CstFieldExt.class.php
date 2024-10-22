@@ -124,7 +124,6 @@ class CstFieldExt extends Action
                 $error = $rtn['message'];
                 $this->L("Common")->ajax_json_error($error);
             }
-
         }
     }
 
