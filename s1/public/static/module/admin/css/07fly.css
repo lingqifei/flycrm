@@ -47,9 +47,9 @@
 .sticky-table.scroll-left .sorttable td:nth-child(2) {background-color:#fff;box-shadow: 4px 0 4px rgba(0, 0, 0, 0.1);}
 
 /* 移动横向滚动条时 最后一列*/
-.sticky-table.scroll-left .sorttable td:last-child,
-.sticky-table.scroll-left .sorttable th:last-child {position:sticky;right:0;z-index:1;background-color:#F5F5F6;min-width:30px;}
-.sticky-table.scroll-left .sorttable td:last-child{background:#ffffff; box-shadow: -4px 0 4px rgba(0, 0, 0, 0.1);}
+.sticky-table .sorttable.fixed-last-td td:last-child,
+.sticky-table .sorttable.fixed-last-td th:last-child {position:sticky;right:0;z-index:1;background-color:#F5F5F6;min-width:30px;}
+.sticky-table .sorttable.fixed-last-td td:last-child{background:#ffffff; box-shadow: -4px 0 4px rgba(0, 0, 0, 0.1);}
 
 /* 分页固定在下方列*/
 .sticky-table .table-page-bar {bottom:0px;position:fixed;width:calc(100% - 43px);background:#F6F8F8;margin-bottom:0px;}
@@ -117,7 +117,7 @@
 .dropdown-menu lqf_link > li a:hover {color:#262626;text-decoration:none;background-color:#f5f5f5}
 
 /*新增加ibox-content tabs*/
-.ibox-content .nav-tabs{margin-bottom: 20px;}
+.ibox-content .nav-tabs{margin-bottom: 0px;}
 .ibox-content .nav-tabs h3{font-weight: 600;font-size:14px;  padding: 5px 30px 0px 5px;}
 .ibox-content.nopadding{padding: 0;}
 

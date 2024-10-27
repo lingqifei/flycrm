@@ -279,12 +279,12 @@ class AdminBase extends LogicBase
             $data['top_links_right']='';
 			$data['is_grant'] = 1;
 		} else {
-			$data['seo_title'] = '07FLY-ERP是一款开放式的管理平台，能快速搭建适合自己的是一款开放式的管理平台-零起飞科技';
+			$data['seo_title'] = '07FLY-ERP是一款开放式的管理平台，能快速搭建适合自己的是一款开放式的管理平台-零起飞ERP';
 			$data['seo_description'] = '07FLY-ERP是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；能快速搭建适合自己的是一款开放式的管理平台，能容纳管理各种数据、实现信息互通共享；';
 			$data['seo_keywords'] = 'CMS（会员中心）、办工OA、客户CRM、进销ERP、财务管理FMS、项目管理PMS';
 			$data['login_title'] = '零起飞企业管理系统';
 			$data['login_desc'] = '软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理';
-			$data['login_demo'] = '<font color="red">演示帐号/密码：admin/123456</font>';
+			$data['login_demo'] = '<font color="red">为您提供“专心、耐心、细心、贴心、放心”五心级服务</font>';
 			$data['login_copyright'] = '<a href="http://www.07fly.xyz">技术支持:零起飞网络</a>';
 			$data['main_title'] = '零起飞网络中心';
 			$data['main_weburl'] = 'http://www.07fly.xyz/';

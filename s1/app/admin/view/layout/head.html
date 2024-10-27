@@ -2,9 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        {notempty name="page_title"}
-        {$page_title} -
-        {/notempty}
+        {notempty name="page_title"}{$page_title} - {/notempty}
         {$sys_config.main_title|default=''}-Powered by 07FLY pro
     </title>
     <meta name="keywords" content="{$sys_config.seo_keywords|default=''}">

@@ -304,7 +304,6 @@ class Upgrade extends AdminBase
         }
     }
 
-
     /**
      * 验证平台信息
      * @param null $version
@@ -368,5 +367,4 @@ class Upgrade extends AdminBase
         $syskey = $this->getSysKey();
         return $this->modelUpgrade->getAuthorizeInfo($domain, $syskey);
     }
-
 }

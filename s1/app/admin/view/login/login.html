@@ -20,7 +20,6 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="__STATIC__/module/login/ico/favicon.png">
 </head>
-
 <body>
 <!-- Top content -->
 <div class="top-content">
@@ -71,7 +70,7 @@
                             </div>
                             <button type="button" class="btn login-btn">{:lang('login')}</button>
                             <div class="form-group">
-                                <p class="form-control-static">{:lang('no account yet')}，<a href="{:url('Reg/reg')}">{:lang('go register')}</a></p>
+<!--                                <p class="form-control-static">{:lang('no account yet')}，<a href="{:url('Reg/reg')}">{:lang('go register')}</a></p>-->
                             </div>
                         </form>
                     </div>
@@ -93,7 +92,6 @@
 <div class="copyrights">
     {$info.login_copyright}
     <span style="display: none;"><a href="http://www.07fly.xyz">技术支持:零起飞网络</a></span>
-
 </div>
 <!-- Javascript -->
 <script src="__STATIC__/module/login/js/jquery-1.11.1.min.js"></script>
@@ -149,7 +147,6 @@
         var captcha_img_obj = $("#captcha_img");
         captcha_img_obj.attr("src", captcha_img_obj.attr("src") + "?" + Math.random());
     }
-
 </script>
 </body>
 

@@ -180,11 +180,15 @@ function turnPage(pageNum, ajaxListTableId = '') {
             //4、设置数据区域高度
             var stickyTable = ajaxListTableObject.parents('.sticky-table');
             if (stickyTable.hasClass('sticky-table')) {
+
+                //获取表格高度，设置表格高度
                 setStickyTableHeight(stickyTable)
+
                 //窗口大小改变的时候，重新设置高度
                 $(window).resize(function () {
                     setStickyTableHeight(stickyTable);
                 });
+
                 //滚动条滚动的时候，判断是否需要添加固定列第一列，二列，固定样式
                 $('.sticky-table').unbind("scroll").on("scroll", function (e) {
                     var sum = this.scrollHeight;
@@ -213,9 +217,23 @@ function setStickyTableHeight(stickyTable) {
     var distanceFromTop=stickyTable.offset().top; // 获取元素相对于文档的位置
     //当前文档的高度
     var height = $(window).height();
+    var width = $(window).width();
+
     var centerHight = height - distanceFromTop-60;//根据当前元素位置，浏览器高度计算，当前元素可用高度
     stickyTable.height(centerHight).css("overflow", "auto");
     stickyTable.css("background", "#fff");
+
+
+    var stickyTableWidth=stickyTable.width();
+    var sorttableWidth=stickyTable.find('table.sorttable').width();
+
+    if(stickyTableWidth<sorttableWidth){
+        stickyTable.find('table.sorttable').addClass('fixed-last-td');
+    }else{
+        stickyTable.find('table.sorttable').removeClass('fixed-last-td');
+    }
+    log('stickyTableWidth='+stickyTableWidth)
+    log('sorttableWidth='+sorttableWidth)
 }
 
 
@@ -538,9 +556,12 @@ $("body").on("click", ".ajax-get", function () {
     //是否有加载提示
     if ($(this).hasClass('ajaxload')) {
         //页面层-自定义
-        var ajaxload=layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        var ajaxload=layer.msg('正在处理,请稍等...', {
+            icon: 16,
+            time: 100000,
+            shade: [0.5, '#000', true]
+        }); //0代表加载的风格，支持0-2
     }
-
     var target;
     if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
 
@@ -688,7 +709,7 @@ $("body").on("click", ".ajax-post", function () {
             data: query,
             dataType: "json",
             beforeSend:function (){
-                //layer.msg('正在处理,请稍等...', {icon: 16,time: 100000,shade : [0.5 , '#333' , true]});
+                layer.msg('正在处理,请稍等...', {icon: 16,time: 100000,shade : [0.5 , '#333' , true]});
             },
             success: function (result) {
                 if (result.code == '1') {
@@ -749,13 +770,11 @@ $("body").on("click", ".ajax-post-trace", function () {
                     nead_confirm = true;
                 }
             })
-
             if (nead_confirm && $(this).hasClass('confirm')) {
                 if (!confirm('确认要执行该操作吗?')) {
                     return false;
                 }
             }
-
             query = form.serialize();
         } else {
 
@@ -768,11 +787,9 @@ $("body").on("click", ".ajax-post-trace", function () {
         }
 
         var is_repeat_button = $(that).hasClass('no-repeat-button');
-
         if (is_repeat_button) {
             $(that).prop('disabled', true);
         }
-
         $.ajax({
             type: "POST",
             url: target,
@@ -780,9 +797,7 @@ $("body").on("click", ".ajax-post-trace", function () {
             dataType: "json",
             success: function (result) {
                 if (result.code == '1') {
-
                     form[0].reset();
-
                     layer.msg(result.msg, {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
                         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                         parent.layer.close(index);
@@ -800,7 +815,6 @@ $("body").on("click", ".ajax-post-trace", function () {
                 }
             },
         });//end ajax post
-
     }
     return false;
 });
@@ -819,8 +833,7 @@ $("body").on("change", ".ajax-input", function () {
             var ids = ($.param(eval('(' + ids + ')'), true));
             var target = target + "?" + ids;
         }
-
-        $.post(target, {id: $(this).attr('data-id'), value: val}, function (data) {
+        $.post(target, {"id": $(this).attr('data-id'), "value": val}, function (data) {
             if (data.code) {
                 parent.layer.msg(data.msg, {icon: 1});
             } else {
@@ -837,7 +850,6 @@ $("body").on("click", ".ajax-checkbox", function () {
     var target;
     var val = 0;
     var chk = $(this).prop('checked');
-    log(chk);
     var id = $(this).attr('data-id');
     if (chk) {
         val = 1;

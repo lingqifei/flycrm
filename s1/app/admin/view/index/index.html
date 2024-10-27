@@ -24,9 +24,6 @@
         var static_root = "{$static_root|default=''}";
     </script>
 </head>
-<!--压缩过后的css-->
-<!--<link href="__STATIC__/module/admin/mini/1afe45ed6d19c098df0b9e85d9f92f77.css" rel="stylesheet">-->
-
 <body class="fixed-sidebar gray-bg " style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
@@ -53,7 +50,6 @@
         </div>
     </nav>
     <!--左侧导航结束-->
-
     <!--右侧部分开始-->
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row  black-bg">
@@ -83,7 +79,6 @@
                     </li>
                     {/if}
                     {$sys_config.top_links_right|default=''}
-
                     <!--语言包-->
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -105,7 +100,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <!--{:lang("system announcement")}-->
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -129,7 +123,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <!--修改详细-->
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -171,6 +164,5 @@
     </div>
     <!--右侧部分结束-->
 </div>
-
 {include file="layout/bottom"}
 {include file="index/function"}
