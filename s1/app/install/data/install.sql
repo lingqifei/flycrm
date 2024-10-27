@@ -1,4 +1,3 @@
-
 -- -----------------------------
 -- Table structure for `#@__action_log`
 -- -----------------------------
@@ -66,7 +65,7 @@ CREATE TABLE `#@__config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='[系统]配置表';
 
 -- -----------------------------
 -- Records of `config`
@@ -118,7 +117,7 @@ CREATE TABLE `#@__driver` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安装时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='插件表';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='[系统]插件表';
 
 -- -----------------------------
 -- Table structure for `#@__hook`
@@ -158,7 +157,7 @@ CREATE TABLE `#@__picture` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='图片表';
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='[系统]图片表';
 
 -- -----------------------------
 -- Table structure for `#@__file`
@@ -214,7 +213,7 @@ CREATE TABLE `#@__sequence` (
   `update_time` int(11) DEFAULT NULL,
   `org_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='唯一序号生成表';
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='[系统]唯一序号生成表';
 
 -- -----------------------------
 -- Table structure for `#@__sys_auth`
@@ -533,25 +532,27 @@ INSERT INTO `#@__sys_position` VALUES ('8', '组员', '7', '1', '2', '1', '16012
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__sys_user`;
 CREATE TABLE `#@__sys_user` (
-  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
-  `username` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
-  `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
-  `realname` varchar(64) NOT NULL DEFAULT '' COMMENT '真实姓名',
-  `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '性别',
-  `dept_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '所在部门',
-  `position_id` int(2) NOT NULL DEFAULT '1' COMMENT '职位id号',
-  `email` varchar(64) NOT NULL DEFAULT '' COMMENT '邮箱',
-  `qicq` varchar(64) NOT NULL DEFAULT '',
-  `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '手机',
-  `intro` varchar(256) NOT NULL DEFAULT '' COMMENT '介绍',
-  `rules` mediumtext COMMENT '权限节点',
-  `create_time` int(11) NOT NULL DEFAULT '0',
-  `update_time` int(11) NOT NULL DEFAULT '0',
-  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
-  `visible` int(11) NOT NULL DEFAULT '1' COMMENT '1=显示、0=隐藏',
-  `org_id` int(11) NOT NULL DEFAULT '1' COMMENT '组织结构',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]用户表';
+    `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+    `username` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
+    `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
+    `realname` varchar(64) NOT NULL DEFAULT '' COMMENT '真实姓名',
+    `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '性别',
+    `dept_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '所在部门',
+    `position_id` int(2) NOT NULL DEFAULT '1' COMMENT '职位id号',
+    `email` varchar(64) NOT NULL DEFAULT '' COMMENT '邮箱',
+    `qicq` varchar(64) NOT NULL DEFAULT '' COMMENT 'qq',
+    `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '手机',
+    `intro` varchar(256) NOT NULL DEFAULT '' COMMENT '介绍',
+    `open_id` varchar(256) NOT NULL DEFAULT '' COMMENT '微信openid',
+    `rules` mediumtext COMMENT '权限节点',
+    `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+    `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+    `visible` int(11) NOT NULL DEFAULT '1' COMMENT '1=显示、0=隐藏',
+    `org_id` int(11) NOT NULL DEFAULT '1' COMMENT '组织结构',
+    `is_rank` int(2) NOT NULL DEFAULT '1' COMMENT '是否参与排名',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]用户表';
 
 -- -----------------------------
 -- Records of `sys_user`
@@ -591,11 +592,6 @@ CREATE TABLE `#@__sys_area` (
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='[系统]地区表';
 
 -- -----------------------------
--- Records of `sys_area`
--- -----------------------------
-INSERT INTO `#@__sys_area` VALUES ('1', '成都', 'http://www.07fly.com', '0', '1', '1', '1,84,1', '开发人生,匆道,开发人生', '1597672045', '1608727787', '1', '028-61833149', '李先生', '四川省成都市量力钢材城4-3-3', '', '', '028-61833149', '地铁4号线', 'goodmuzi@qq.com', '104.072642', '30.674467', '', '', '成都零起飞科技有限公司');
-
--- -----------------------------
 -- Table structure for `#@__sys_area_user`
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__sys_area_user`;
@@ -608,39 +604,36 @@ CREATE TABLE `#@__sys_area_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='[系统]地区授权表';
 
 -- -----------------------------
--- Records of `sys_area_user`
--- -----------------------------
-INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
-INSERT INTO `#@__sys_area_user` VALUES ('84', '1', '0', '1608727787', '1');
-INSERT INTO `#@__sys_area_user` VALUES ('1', '1', '0', '1608727787', '1');
-
--- -----------------------------
 -- Table structure for `#@__sys_msg`
 -- -----------------------------
 DROP TABLE IF EXISTS `#@__sys_msg`;
 CREATE TABLE `#@__sys_msg` (
-  `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
-  `bus_type` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型',
-  `bus_type_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型名称',
-  `bus_id` int(16) DEFAULT '0' COMMENT '业务id',
-  `bus_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务名称',
-  `deal_time` datetime DEFAULT NULL COMMENT '业务处理时间',
-  `deal_remark` varchar(1024) NOT NULL DEFAULT '' COMMENT '备注说明',
-  `deal_status` int(16) NOT NULL DEFAULT '0' COMMENT '0=待处理，1=已经处理',
-  `deal_user_id` int(16) NOT NULL DEFAULT '0' COMMENT '提醒处理人员',
-  `uniquekey` varchar(256) NOT NULL DEFAULT '' COMMENT '业务提醒标识',
-  `remind_status` int(16) DEFAULT '1' COMMENT '0=未提醒，1=提醒中，2=不提醒了',
-  `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
-  `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
-  `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
-  `remind_sms` int(2) NOT NULL DEFAULT '0' COMMENT '短信提醒 0=不开启，1=开启',
-  `remind_sys` int(2) DEFAULT '0' COMMENT '系统提醒 0=不开启，1=开启',
-  `remind_email` int(2) DEFAULT '0' COMMENT '邮箱提醒 0=不开启，1=开启',
-  `remind_weixin` int(2) DEFAULT '0' COMMENT '微信提醒 0=不开启，1=开启',
-  `bus_url` varchar(256) NOT NULL DEFAULT '' COMMENT '业务详细地址',
-  `remind_time` datetime DEFAULT NULL COMMENT '提醒处理时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息';
+   `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+   `bus_type` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型',
+   `bus_type_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务类型名称',
+   `bus_id` int(16) DEFAULT '0' COMMENT '业务id',
+   `bus_name` varchar(256) NOT NULL DEFAULT '' COMMENT '业务名称',
+   `bus_url` varchar(256) NOT NULL DEFAULT '' COMMENT '业务详细地址',
+   `deal_time` datetime DEFAULT NULL COMMENT '业务处理时间',
+   `deal_remark` varchar(1024) NOT NULL DEFAULT '' COMMENT '备注说明',
+   `deal_status` int(16) NOT NULL DEFAULT '0' COMMENT '0=待处理，1=已经处理',
+   `deal_user_id` int(16) NOT NULL DEFAULT '0' COMMENT '提醒处理人员',
+   `uniquekey` varchar(256) NOT NULL DEFAULT '' COMMENT '业务提醒标识',
+   `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+   `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+   `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+   `remind_status` int(16) NOT NULL DEFAULT '1' COMMENT '0=未提醒，1=提醒中，2=不提醒了',
+   `remind_sms` int(2) NOT NULL DEFAULT '0' COMMENT '短信提醒 0=不开启，1=开启',
+   `remind_sys` int(2) NOT NULL DEFAULT '0' COMMENT '系统提醒 0=不开启，1=开启',
+   `remind_email` int(2) NOT NULL DEFAULT '0' COMMENT '邮箱提醒 0=不开启，1=开启',
+   `remind_weixin` int(2) NOT NULL DEFAULT '0' COMMENT '微信提醒 0=不开启，1=开启',
+   `remind_interval` int(11) NOT NULL DEFAULT '0' COMMENT '提醒间隔时间，默认为分钟',
+   `remind_nums` int(11) NOT NULL DEFAULT '1' COMMENT '提醒的总次数，默认为1',
+   `remind_time` datetime DEFAULT NULL COMMENT '提醒处理开始时间',
+   `send_nums` int(11) NOT NULL DEFAULT '0' COMMENT '提醒发送的次数',
+   `send_time` datetime DEFAULT NULL COMMENT '提醒发送的时间',
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]系统消息';
 
 -- -----------------------------
 -- Table structure for `#@__sys_msg_type`
@@ -665,7 +658,8 @@ CREATE TABLE `#@__sys_msg_type` (
     `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
     `ahead_minute` int(11) NOT NULL DEFAULT '0' COMMENT '提前多分钟提醒',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='[oask]系统消息配置';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]系统消息配置';
+
 -- -----------------------------
 -- Records of `sys_msg_type`
 -- -----------------------------
@@ -682,6 +676,7 @@ INSERT INTO `#@__sys_msg_type` VALUES ('10', '任务提醒', 'oa_task', '', '10'
 INSERT INTO `#@__sys_msg_type` VALUES ('11', '工作报告提醒', 'oa_work_report', '', '10', '有新的工作报告提醒批阅人、抄送人员', '24', '1', '1', '0', '0', '3', '0', '1635313894', '1635412897', '1', '0');
 INSERT INTO `#@__sys_msg_type` VALUES ('12', '工单提醒', 'oa_service', '', '10', '有新的工单提醒负责人、通知人员', '24', '1', '1', '0', '0', '3', '0', '1635313894', '1635412897', '1', '0');
 INSERT INTO `#@__sys_msg_type` VALUES ('13', '审批提醒', 'workflow_business_history', '', '10', '有新的审批任务时提醒审批人员审批、通知人员', '24', '1', '1', '0', '0', '3', '0', '1635313894', '1635412897', '1', '0');
+INSERT INTO `#@__sys_msg_type` VALUES ('14', '客户未跟进回收提醒', 'cst_customer_recover', '', '#', '并在划入公海前（N）天提醒销售人员及时跟进', '72', '0', '1', '0', '0', '3', '1', '1726130313', '1726130334', '1', '0');
 
 -- -----------------------------
 -- Table structure for `#@__sys_notify`
@@ -699,7 +694,7 @@ CREATE TABLE `#@__sys_notify` (
     `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '创建人员id',
     `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='系统通知';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]系统通知';
 
 -- -----------------------------
 -- Table structure for `#@__sys_notify_user`
@@ -716,7 +711,7 @@ CREATE TABLE `#@__sys_notify_user` (
     `create_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '发布人员',
     `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COMMENT='系统通知用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]系统通知用户表';
 
 -- -----------------------------
 -- Table structure for `#@__sys_email`
@@ -747,3 +742,48 @@ CREATE TABLE `#@__sys_email_log` (
      `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]邮件记录';
+
+-- -----------------------------
+-- Table structure for `#@__sys_seqnum`
+-- -----------------------------
+DROP TABLE IF EXISTS `#@__sys_seqnum`;
+CREATE TABLE `#@__sys_seqnum` (
+    `id` int(16) NOT NULL AUTO_INCREMENT COMMENT '主id',
+    `title` varchar(64) NOT NULL DEFAULT '' COMMENT '序号名称',
+    `name` varchar(64) NOT NULL DEFAULT '' COMMENT '标识名称',
+    `pre` varchar(64) NOT NULL DEFAULT '' COMMENT '前缀符号',
+    `suffix` varchar(64) NOT NULL DEFAULT '' COMMENT '后缀符号',
+    `y` int(16) NOT NULL DEFAULT '0' COMMENT '年',
+    `m` int(16) NOT NULL DEFAULT '0' COMMENT '月',
+    `d` int(16) NOT NULL DEFAULT '0' COMMENT '日',
+    `h` int(16) NOT NULL DEFAULT '0' COMMENT '时',
+    `i` int(16) NOT NULL DEFAULT '0' COMMENT '分',
+    `s` int(16) NOT NULL DEFAULT '0' COMMENT '秒',
+    `len` int(16) NOT NULL DEFAULT '0' COMMENT '长度',
+    `nums` int(16) NOT NULL DEFAULT '0' COMMENT '起始数',
+    `enable` int(16) NOT NULL DEFAULT '0' COMMENT '是否启用',
+    `create_time` int(16) DEFAULT '0' COMMENT '创建日期',
+    `update_time` int(16) DEFAULT '0' COMMENT '更新日期',
+    `org_id` int(16) DEFAULT '1' COMMENT '企业编号',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='[系统]邮件记录';
+
+-- -----------------------------
+-- Records of `sys_seqnum`
+-- -----------------------------
+INSERT INTO `#@__sys_seqnum` VALUES ('1', '销售合同', 'salcontract', 'XSHT', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '0', '1720664896', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('2', '销售订单', 'salorder', 'XSDD', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581059', '1720584398', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('3', '采购合同', 'poscontract', 'CGHT', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720584399', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('4', '报价', 'quoted', 'BJ', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720584400', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('5', '入库', 'stockinto', 'RK', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720584401', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('6', '出库', 'stockout', 'CK', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720584402', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('7', '盘点', 'stockcheck', 'PD', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720584402', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('8', '调拨', 'stockchange', 'DB', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583484', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('9', '组装单', 'stockassemble', 'ZZ', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583482', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('10', '付款', 'finpayrecord', 'FK', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583481', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('11', '收款', 'finrecerecord', 'HK', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583480', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('12', '开票', 'fininvoicepay', 'KP', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583479', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('13', '收票', 'fininvoicerece', 'SP', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583479', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('14', '报销', 'finremiburs', 'BX', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583478', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('15', '客户', 'customer', 'KF', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583477', '1');
+INSERT INTO `#@__sys_seqnum` VALUES ('16', '供应商', 'supplier', 'GYS', '', '1', '1', '0', '0', '0', '0', '3', '1', '1', '1720581092', '1720583477', '1');

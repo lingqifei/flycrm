@@ -68,7 +68,7 @@ return [
         //表名 系统消息
         'sys_msg' => [
             'table_name' => 'sys_msg',
-            'comment' => '[oask]系统消息',
+            'comment' => '[系统]系统消息',
             'engine' => 'InnoDB',
             'charset' => 'utf8mb4',
             'collate' => 'utf8mb4_general_ci',
@@ -112,7 +112,7 @@ return [
         //表名 系统消息配置
         'sys_msg_type' => [
             'table_name' => 'sys_msg_type',
-            'comment' => '[oask]系统消息配置',
+            'comment' => '[系统]系统消息配置',
             'engine' => 'InnoDB',
             'charset' => 'utf8mb4',
             'collate' => 'utf8mb4_general_ci',
