@@ -430,7 +430,6 @@ class SysModule extends AdminBase
                     dlog('upgrade模块数据：' . $sys_mid);
                 }
             }
-
             //第2步：移动包到应用目录
             $module_dir = PATH_APP . $app_name . DS;
             $file = new \lqf\File();

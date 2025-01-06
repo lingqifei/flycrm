@@ -33,15 +33,13 @@ class Store extends AdminBase
 
 
 	/**
-	 * 显示备份例表
+	 * 用户登录
 	 */
 	public function user()
 	{
 		IS_POST && $this->jump($this->logicStore->cloudUserLogin($this->param));
-
 		$info=$this->logicStore->getCloudUserInfo();
 		$this->assign('info', $info);
-
 		return $this->fetch('user');
 	}
 
@@ -58,7 +56,6 @@ class Store extends AdminBase
 	 */
 	public function apps()
 	{
-
 		return $this->fetch('apps');
 	}
 
@@ -119,7 +116,6 @@ class Store extends AdminBase
 			return $this->fetch('upgrade');
 		}
 	}
-
 	/**
 	 * 下载升级
 	 */
@@ -127,5 +123,4 @@ class Store extends AdminBase
 	{
 		$this->jump($this->logicStore->getCloudAppDownUpgrade($this->param));
 	}
-
 }

@@ -303,6 +303,3 @@ function initSuggest(object) {
         // })
     });
 }
-
-
-

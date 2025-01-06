@@ -16,7 +16,6 @@
                             <th>{:lang('operate')}</th>
                         </tr>
                         </thead>
-                        
                         {notempty name='list'}
                         <tbody>
                         {volist name='list' id='vo'}
@@ -47,7 +46,6 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     $(".db-import").click(function () {
         var self = this, status = ".";
@@ -56,9 +54,7 @@
             return "正在还原数据库，请不要关闭！"
         }
         return false;
-
         function success(data) {
-
             if (data.status) {
                 if (data.gz) {
                     data.msg += status;
@@ -68,7 +64,6 @@
                         status += ".";
                     }
                 }
-
                 $(self).parent().parent().prev().text(data.msg);
                 if (data.part) {
                     $.get(self.href,

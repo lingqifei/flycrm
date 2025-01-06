@@ -172,12 +172,30 @@ function get_sington_object($object_name = '', $class = null)
  */
 function get_addon_class($name = '')
 {
-
     $lower_name = strtolower($name);
-
     $class = SYS_ADDON_DIR_NAME . SYS_DS_CONS . $lower_name . SYS_DS_CONS . $name;
-
     return $class;
+}
+
+/**
+ * 获取模块类的类名
+ * @param $moduleName
+ * @param $className
+ * @return false|mixed
+ * @author: 开发人生 goodkfrs@qq.com
+ * @Time: 2024/5/12 9:09
+ */
+function get_module_class($moduleName = '', $className = '')
+{
+    // 检查模块是否存在
+    $modulePath = APP_PATH . $moduleName . DIRECTORY_SEPARATOR;
+    if (is_dir($modulePath)) {
+        // 模块存在，则使用model方法调用模型
+        $classstring = 'app\\' . $moduleName . '\model\\' . $className;
+        return new $classstring;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -242,9 +260,7 @@ function addon_ioc($this_class, $name, $layer)
  */
 function throw_response_exception($data = [], $type = 'json')
 {
-
     $response = Response::create($data, $type);
-
     throw new HttpResponseException($response);
 }
 
@@ -262,7 +278,6 @@ function throw_response_error($msg = '', $code = '0')
  */
 function get_access_token()
 {
-
     return md5('LingQiFei' . API_KEY);
 }
 
@@ -337,6 +352,9 @@ function list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root 
     return $tree;
 }
 
+/**
+ * 把返回的数据转换成Tree
+ */
 if (!function_exists("list2select")) {
 
     /**r把列表数据转为树形下拉
@@ -363,7 +381,8 @@ if (!function_exists("list2select")) {
 }
 
 /**
- * 分析数组及枚举类型配置值 格式 a:名称1,b:名称2
+ * 分析数组及枚举类型配置值
+ * 格式 a:名称1,b:名称2
  * @return array
  */
 function parse_config_attr($string)
@@ -395,7 +414,6 @@ function parse_config_attr($string)
  */
 function parse_config_array($name = '')
 {
-
     return parse_config_attr(config($name));
 }
 
@@ -404,19 +422,13 @@ function parse_config_array($name = '')
  */
 function array_extract($array = [], $key = 'id')
 {
-
     $count = count($array);
-
     $new_arr = [];
-
     for ($i = 0; $i < $count; $i++) {
-
         if (!empty($array) && !empty($array[$i][$key])) {
-
             $new_arr[] = $array[$i][$key];
         }
     }
-
     return $new_arr;
 }
 
@@ -425,8 +437,6 @@ function array_extract($array = [], $key = 'id')
  */
 function array_extract_map($array = [], $key = 'id')
 {
-
-
     $count = count($array);
 
     $new_arr = [];
@@ -476,7 +486,6 @@ function transform_array($array)
  */
 function transform_array_to_json($array)
 {
-
     return json_encode(transform_array($array));
 }
 
@@ -536,29 +545,25 @@ function arr22str($arr)
     return $t;
 }
 
-
-if (!function_exists('get_arr_column')) {
-    /**
-     * 获取数组中的某一列
-     *
-     * @param array $arr 数组
-     * @param string $key_name 列名
-     * @return array  返回那一列的数组
-     */
-    function get_arr_column($arr, $key_name)
-    {
-        if (function_exists('array_column')) {
-            return array_column($arr, $key_name);
-        }
-
-        $arr2 = array();
-        foreach ($arr as $key => $val) {
-            $arr2[] = $val[$key_name];
-        }
-        return $arr2;
+/**
+ * 获取数组中的某一列
+ *
+ * @param array $arr 数组
+ * @param string $key_name 列名
+ * @return array  返回那一列的数组
+ */
+function get_arr_column($arr, $key_name)
+{
+    if (function_exists('array_column')) {
+        return array_column($arr, $key_name);
     }
-}
 
+    $arr2 = array();
+    foreach ($arr as $key => $val) {
+        $arr2[] = $val[$key_name];
+    }
+    return $arr2;
+}
 
 // +---------------------------------------------------------------------+
 // | 字符串相关函数
@@ -572,7 +577,6 @@ if (!function_exists('get_arr_column')) {
  */
 function str2arr($str, $glue = ',')
 {
-
     return explode($glue, $str);
 }
 
@@ -581,7 +585,6 @@ function str2arr($str, $glue = ',')
  */
 function sr($str = '', $target = '', $content = '')
 {
-
     return str_replace($target, $content, $str);
 }
 
@@ -691,8 +694,6 @@ function get_picture_url($id = 0, $member = 'picture')
         }
     }
 }
-
-
 /**
  * 获取图片url=>根据地址
  */
@@ -703,7 +704,6 @@ function get_picture_url2($path = '')
 
     return $fileLogic->getPictureWebUrl($path);
 }
-
 /**
  * 获取文件url=>根据 file id
  */
@@ -731,18 +731,6 @@ function get_file_url($id = 0)
 }
 
 /**
- * 获取文件url=>根据 file url
- */
-function get_file_url2($path = '')
-{
-
-    $fileLogic = get_sington_object('fileLogic', LogicFile::class);
-
-    return $fileLogic->getFileWebUrl($path);
-}
-
-
-/**
  * 下载内容中图片
  */
 function get_picture_body($body = '')
@@ -759,16 +747,11 @@ function get_picture_body($body = '')
  */
 function rm_empty_dir($path)
 {
-
     if (!(is_dir($path) && ($handle = opendir($path)) !== false)) {
-
         return false;
     }
-
     while (($file = readdir($handle)) !== false) {
-
         if (!($file != '.' && $file != '..')) {
-
             continue;
         }
 
@@ -790,7 +773,6 @@ function rm_empty_dir($path)
     closedir($handle);
 }
 
-
 // +---------------------------------------------------------------------+
 // | 时间相关函数
 // +---------------------------------------------------------------------+
@@ -805,8 +787,8 @@ function format_time($time = null, $format = 'Y-m-d H:i:s')
     if (null === $time || empty($time)) {
         $time = TIME_NOW;
     }
-    if(!is_numeric($time)){
-        $time=strtotime($time);
+    if (!is_numeric($time)) {
+        $time = strtotime($time);
     }
     return date($format, intval($time));
 }
@@ -995,7 +977,12 @@ function update_cache_version($obj = null)
     cache('lqf_auto_cache', $lqf_auto_cache);
 }
 
-//api签名函数
+
+// +---------------------------------------------------------------------+
+// | api签名函数
+// +---------------------------------------------------------------------+
+
+//引用签名类
 use \Firebase\JWT\JWT;
 
 // 解密user_token
@@ -1049,7 +1036,7 @@ function encoded_user_token($param)
     $token = [
         "iss" => "lingqifei JWT",         // 签发者
         "iat" => TIME_NOW,              // 签发时间
-        "exp" => TIME_NOW + 30*24*3600,   // 过期时间
+        "exp" => TIME_NOW + 30 * 24 * 3600,   // 过期时间
         "aud" => 'lingqifei',             // 接收方
         "sub" => 'lingqifei',             // 面向的用户
         "data" => $jwt_data

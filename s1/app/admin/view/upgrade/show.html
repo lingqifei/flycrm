@@ -5,9 +5,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">{:lang('system information')}</div>
                 <div class="ibox-content">
-                    <p>{:lang('current version')}：{$ver.version} {$ver.upgrade}</p>
-                    <p>{:lang('current host')}：{$ver.domain} </p>
-                    <p>{:lang('communication status')}：{$signal.msg}</p>
+                    <p>{:lang('current version')}：{$ver.version|default=''} {$ver.upgrade|default=''}</p>
+                    <p>{:lang('current host')}：{$ver.domain|default=''} </p>
+                    <p>{:lang('communication status')}：{$signal.msg|default=''}</p>
+                    <p>
+                        {:lang('主机标识')}：
+                        <span class="hostname_key">{$reqkey|default='未激活'}</span>
+                    </p>
                 </div>
                 <div class="ibox-title">{:lang('software registration')}</div>
                 <div class="ibox-content">
@@ -17,15 +21,21 @@
                     <p>{:lang('authorization authentication')}：<span>{$authorize.data.syskey}</span></p>
                     <p>{:lang('authorized domain name')}：<span>{$authorize.data.domain}</span></p>
                     {else}
-                    <p><span class="help-block m-b-none">({:lang('the registration code needs to be obtained by contacting the software developer')},<a href="http://www.07fly.xyz" target="_blank">https://www.07fly.xyz</a>) </span></p>
+                    <p><span class="help-block m-b-none">
+                        ({:lang('the registration code needs to be obtained by contacting the software developer')},
+                        <a href="http://www.07fly.xyz" target="_blank">https://www.07fly.xyz</a>) </span>
+                    </p>
                     <p>
                     <div class="input-group m-b">
                         <input name="syskey" id="syskey" class="form-control" type="text" placeholder="KEY"/>
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary syskey-reg"  data-url="{:url('upgrade/reg')}">{:lang('submit registration code')}</button></span>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary syskey-reg"
+                                    data-url="{:url('upgrade/reg')}">
+                                {:lang('submit registration code')}</button>
+                        </span>
                     </div>
                     </p>
                     {/if}
-
                 </div>
             </div>
         </div>
@@ -51,11 +61,39 @@
                         window.location.reload();
                     });
                 } else {
-                    layer.msg(data.msg, {icon: 5});
+                    layer.msg(data.msg, {icon: 5, time: 3000, shade: [0.5, '#000', true], shadeClose: true});
                 }
             }
         });
     });
 
+    get_hostname_key();
 
+    function get_hostname_key(action = 'get') {
+        $.ajax({
+            type: "POST",
+            url: "{:url('upgrade/show')}",
+            data: {'action': action},
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                layer.msg('获取数据中，请稍后...', {icon: 16, time: 1000, shade: [0.5, '#000', true]});
+            },
+            success: function (res) {
+                log(res);
+                if (res.code == '1') {
+
+                    log('dataLeng='+res.data.length);
+
+                    if (res.data.length > 10) {
+                        var html = res.data + '<a href="javascript:void(0);" onclick="get_hostname_key(\'del\');"> 删除 </a>';
+                        $(".hostname_key").html(html);
+                    } else {
+                        var html = '<a href="javascript:void(0);" onclick="get_hostname_key(\'reg\');">未激活,点击获取</a>';
+                        $(".hostname_key").html(html);
+                    }
+                }
+            }
+        })
+    }
 </script>

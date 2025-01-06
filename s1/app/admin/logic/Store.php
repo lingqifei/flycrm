@@ -50,8 +50,6 @@ class Store extends AdminBase
         !is_dir($path) && mkdir($path, 0755, true);
         $this->syskey_path = $path;
     }
-
-
 	/**
 	 * 登录云
 	 * @return string
@@ -70,7 +68,6 @@ class Store extends AdminBase
 			return [RESULT_ERROR, '登录失败'];
 		}
 	}
-
 	/**
 	 * 登出云
 	 * @return string
@@ -102,10 +99,8 @@ class Store extends AdminBase
 	 */
 	public function getCloudStoreList($data=[])
 	{
-
 		//得到云服务应用插件列表
 		$info = $this->modelStore->getCloudStoreList($data);
-
 		$listdata = array();
 		if($info['code']===0){
 			if(!empty($info['data'])){
@@ -189,16 +184,13 @@ class Store extends AdminBase
 		if(empty($data['order_id']) || empty($data['order_code'])){
 			return [RESULT_ERROR, '订单检查参数不全，order_id,order_code'];
 		}
-
 		$info = $this->modelStore->getCloudAppOrderCheck($data);
-
 		if($info['code']===0){
 			return $info['data'];
 		}else{
 			return [RESULT_ERROR, $info['msg']];
 		}
 	}
-
 
 	/**
 	 * 获取应用插件的安装信息
@@ -209,11 +201,9 @@ class Store extends AdminBase
 	 */
 	public function getCloudAppDownInstall($data=[])
 	{
-
 		if (!isset($data['app_id']) || $data['app_id'] ==0 ) {
 			return [RESULT_ERROR, 'app参数不正确'];
 		}
-
 		$result = $this->modelStore->getCloudAppDownFile($data);
 		if (!isset($result['code']) || $result['code'] != 1) {
 			return [RESULT_ERROR, $result['code']];
@@ -221,7 +211,6 @@ class Store extends AdminBase
 		$filepath = $result['filepath'];//远程下载件全路经
 		$filename = $result['filename'];//远程下载文件名
 		$dirpath = $result['dirpath'];//远程下载目录
-
         //zip解压目录
 		$tmppath=$dirpath.rtrim($filename,'.zip').DS;
 		if (file_exists($filepath)) {
@@ -245,7 +234,6 @@ class Store extends AdminBase
             //3、app目录执行安装
             return $this->logicSysModule->sysModuleInstallExec($app_name, $app_path);
 		}
-
 	}
 
 	/**
@@ -257,7 +245,6 @@ class Store extends AdminBase
 	 */
 	public function getCloudAppDownUpgrade($data=[])
 	{
-
 		if (!isset($data['app_id']) || $data['app_id'] ==0 || empty($data['version']) ) {
 			throw_response_error("app参数不正确,版本号不全");
 		}
@@ -270,7 +257,6 @@ class Store extends AdminBase
 		$dirpath = $result['dirpath'];//远程下载目录
 
 		$tmppath=$dirpath.rtrim($filename,'.zip').DS;//解压包目录
-
 		if (file_exists($filepath)) {
 			//1、解压应用插件包
 			$zip=new \lqf\Zip();
@@ -293,6 +279,5 @@ class Store extends AdminBase
             //3、app目录执行安装
             return $this->logicSysModule->sysModuleInstallExec($app_name, $app_path);
 		}
-
 	}
 }

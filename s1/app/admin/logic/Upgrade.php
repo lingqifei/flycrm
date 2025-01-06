@@ -20,7 +20,7 @@ class Upgrade extends AdminBase
 {
 
     private $version = '1.0.1';//当前版本
-    private $syskey_path = '';//注册码目录
+    private $key_path = '';//注册码目录
     private $upgrade_path_back = '';//升级备份目录
     private $upgrade_path_down = '';//升级下载目录
 
@@ -45,11 +45,6 @@ class Upgrade extends AdminBase
      */
     public function initUpgradeDir()
     {
-        //授权码目录
-        $path = PATH_DATA;
-        !is_dir($path) && mkdir($path, 0755, true);
-        $this->syskey_path = $path;
-
         //升级目录
         $path = PATH_DATA . 'upgrade/';
         !is_dir($path) && mkdir($path, 0755, true);
@@ -95,15 +90,20 @@ class Upgrade extends AdminBase
      * @return string
      * Author: lingqifei created by at 2020/5/16 0016
      */
-    public function getSysKey()
+    public function getServerSysKey()
     {
-        $syskey = $this->syskey_path . 'syskey';
-        $txt = $this->file->read_file($syskey);
-        if ($txt) {
-            return $txt;
-        } else {
-            return '123456';
-        }
+        return $this->modelSysKey->getSysKey();
+    }
+
+    /**
+     * 获取当前服务器唯一识别码
+     * @return bool|string
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2025/1/1 10:42
+     */
+    public function getServerReqKey()
+    {
+        return $this->modelSysKey->getReqKey();
     }
 
     /**
@@ -170,7 +170,6 @@ class Upgrade extends AdminBase
         return $info;
     }
 
-
     /**
      * 下载升级文件
      * @param null $version
@@ -186,7 +185,6 @@ class Upgrade extends AdminBase
             return [RESULT_ERROR, '下载升级文件不存在'];
         }
     }
-
 
     /**
      * 备份文件目录
@@ -207,7 +205,7 @@ class Upgrade extends AdminBase
                 exit;
             }
         }
-        $pack_name=$date . '.zip';
+        $pack_name = $date . '.zip';
         $pack_zip = $this->upgrade_path_back . $pack_name;
         $result = $this->zip->zip($pack_zip, $pack_dir);
         if ($result == false) {
@@ -258,21 +256,18 @@ class Upgrade extends AdminBase
     {
 
         $admin_dir = PATH_APP . 'admin' . DS . 'data' . DS;
-
         //1、判断是否有更新字段
         $table_file = $admin_dir . 'table.php';
         if (file_exists($table_file)) {
             $res = $this->modelSysModule->sysModuleSyncTableFile($table_file);
             if ($res[0] == RESULT_ERROR) return $res;
         }
-
         //2、判断是否有栏目数据表同步文件 menu.json
         $menu_file = $admin_dir . 'menu.json';
         if (file_exists($menu_file)) {
             $res = $this->modelSysModule->sysModuleSyncMenuFile($menu_file);
             if ($res[0] == RESULT_ERROR) return $res;
         }
-
         //3、执行升级的数据，在应用目录data/upgrade.sql文件
         $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $admin_dir, 'sqlfile' => 'upgrade.sql'));
 
@@ -312,7 +307,7 @@ class Upgrade extends AdminBase
      */
     public function upgrade_signal_check()
     {
-        return $this->modelUpgrade->getSignalInfo();
+        return $this->modelSysKey->getSignalInfo();
     }
 
     /**
@@ -337,19 +332,18 @@ class Upgrade extends AdminBase
      * 授权注册
      * Author: lingqifei created by at 2020/6/6 0006
      */
-    public function upgrade_auth_reg($data = [])
+    public function regAuthKey($data = [])
     {
-        $filepath = $this->syskey_path . 'syskey';
+        $sysKeyFile = $this->modelSysKey->getSysKeyFile();
         if (empty($data['syskey'])) {
-            return [RESULT_ERROR, '授权码不能为空'];
+            throw_response_error('授权码不能为空');
         } else {
-            file_put_contents($filepath, $data['syskey']);
-            $res = $this->upgrade_auth_check();
+            file_put_contents($sysKeyFile, $data['syskey']);
+            $res = $this->chkAuthKey();
             if ($res['code'] == '1') {
                 return [RESULT_SUCCESS, '授权码注册成功'];
-                $rtn = array('code' => 1, 'msg' => '授权码注册成功');
             } else {
-                return [RESULT_ERROR, $res['msg']];
+                throw_response_error($res['msg']);
             }
         }
         return $rtn;
@@ -361,10 +355,31 @@ class Upgrade extends AdminBase
      * @return bool
      * Author: lingqifei created by at 2020/4/1 0001
      */
-    public function upgrade_auth_check()
+    public function chkAuthKey()
     {
-        $domain = $_SERVER['HTTP_HOST'];
-        $syskey = $this->getSysKey();
-        return $this->modelUpgrade->getAuthorizeInfo($domain, $syskey);
+        return $this->modelSysKey->getAuthCheckInfo();
+    }
+
+    /**
+     * 注册服务器唯一标识
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2025/1/1 10:42
+     */
+    public function setReqKey()
+    {
+        return $this->modelSysKey->setReqKey();
+    }
+
+    //获取服务器唯一标识
+    public function getReqKey()
+    {
+        $key = $this->modelSysKey->getReqKey();
+        return [RESULT_SUCCESS, '获得服务器唯一标识成功', '',$key];
+    }
+    public function delReqKey()
+    {
+        $this->modelSysKey->delReqKey();
+        return [RESULT_SUCCESS, '删除标识成功', '',''];
     }
 }

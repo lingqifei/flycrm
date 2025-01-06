@@ -26,15 +26,15 @@
 <div class="ibox-content">
     <div class="row">
         <div class="col-sm-2">订单标题：</div>
-        <div class="col-sm-8">{$orderinfo.order_name}</div>
+        <div class="col-sm-8">{$orderinfo.order_name|default=''}</div>
     </div>
     <div class="row m-t-md">
         <div class="col-sm-2">订单编号：</div>
-        <div class="col-sm-8">{$orderinfo.order_code}</div>
+        <div class="col-sm-8">{$orderinfo.order_code|default=''}</div>
     </div>
     <div class="row m-t-md">
         <div class="col-sm-2">订单价格：</div>
-        <div class="col-sm-8 text-danger">￥：{$orderinfo.order_amount}</div>
+        <div class="col-sm-8 text-danger">￥：{$orderinfo.order_amount|default=''}</div>
     </div>
 
 </div>

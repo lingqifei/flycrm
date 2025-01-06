@@ -16,15 +16,33 @@ namespace app\admin\controller;
  */
 class Upgrade extends AdminBase
 {
-
     /**
      * 升级页
      */
     public function show()
     {
+        if (IS_AJAX) {
+            if (!empty($this->param['action'])) {
+                switch ($this->param['action']) {
+                    case 'get':
+                        $serReqKey = $this->logicUpgrade->getReqKey();
+                        $this->jump($serReqKey);
+                        break;
+                    case 'del':
+                        $serReqKey = $this->logicUpgrade->delReqKey();
+                        $this->jump($serReqKey);
+                        break;
+                    case 'reg':
+                        $serReqKey = $this->logicUpgrade->setReqKey();
+                        break;
+                }
+            }
+            return $serReqKey;
+        }
+
         $signal = $this->logicUpgrade->upgrade_signal_check();//检查通信
 
-        $this->assign('authorize', $this->logicUpgrade->upgrade_auth_check());//检查是否授权
+        $this->assign('authorize', $this->logicUpgrade->chkAuthKey());//检查是否授权
 
         $this->assign('ver', $this->logicUpgrade->getVersionInfo());//检查版本
 
@@ -38,7 +56,7 @@ class Upgrade extends AdminBase
      */
     public function reg()
     {
-        $this->jump($this->logicUpgrade->upgrade_auth_reg($this->param));
+        $this->jump($this->logicUpgrade->regAuthKey($this->param));
     }
 
     /**
@@ -58,9 +76,7 @@ class Upgrade extends AdminBase
      */
     public function info()
     {
-
         $info = $this->logicUpgrade->getUpgradeVersionInfo($this->param['version']);
-
         $this->assign('info', $info);
         return $this->fetch('info');
     }
