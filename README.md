@@ -41,6 +41,8 @@
 
 -  OA帮助手册：[https://www.07fly.xyz/doc/oa.html](https://www.07fly.xyz/doc/oa.html)
 
+-  进销存手册：[https://www.07fly.xyz/doc/dms.html](https://www.07fly.xyz/doc/dms.html)
+
 -  应用手册：[http://www.07fly.xyz/html/doc](http://www.07fly.xyz/html/doc)
 
 ### 使用前需知：
