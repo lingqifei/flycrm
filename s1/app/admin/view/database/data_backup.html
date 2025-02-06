@@ -34,7 +34,7 @@
                                 <td>{$vo.comment}</td>
                                 <td>{$vo.rows}</td>
                                 <td>{$vo.data_length|format_bytes}</td>
-                                <td class="info">未备份</td>
+                                <td class="info">{:lang('未备份')}</td>
                                 <td>{$vo.create_time}<input type="hidden" name="tables[]" value="{$vo.name}"></td>
                             </tr>
                             {/volist}
@@ -75,7 +75,7 @@
     }
     var $form = $("#export-form"), tables;
     $("#data_backup").click(function () {
-        layer.msg('备份中...请勿关闭浏览器');
+        layer.msg('{:lang('备份中')}...{:lang('请勿关闭浏览器')}');
         $.post("{:url('dataBackup')}", $form.serialize(),
             function (data) {
                 if (data.status) {
@@ -92,13 +92,13 @@
     });
 
     function backup(tab, status) {
-        status && showmsg(tab.id, "开始备份...(0%)");
+        status && showmsg(tab.id, "{:lang('开始备份')}...(0%)");
         $.get($form.attr("action"), tab, function (data) {
             if (data.status) {
                 showmsg(tab.id, data.msg);
                 if (!$.isPlainObject(data.tab)) {
                     window.onbeforeunload = function () {
-                        return "备份中...请勿关闭浏览器！"
+                        return "{:lang('备份中')}...{:lang('请勿关闭浏览器')}！"
                     }
                     return;
                 }

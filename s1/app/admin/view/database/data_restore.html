@@ -26,8 +26,8 @@
                             <td>{$key}</td>
                             <td>-</td>
                             <td style="width: 200px;">
-                                <lqf_link><a class="btn ajax-get db-import" href="{:url('dataRestoreHandle?time='.$vo['time'])}" class="btn"><i class="fa fa-exchange"></i> 还 原</a></lqf_link>
-                                <lqf_link><a class="btn ajax-get" href="{:url('backupDel?time='.$vo['time'])}"><i  class="fa fa-trash-o"></i> 删 除</a></lqf_link>
+                                <lqf_link><a class="btn ajax-get db-import" href="{:url('dataRestoreHandle?time='.$vo['time'])}" class="btn"><i class="fa fa-exchange"></i> {:lang('还')} {:lang('原')}</a></lqf_link>
+                                <lqf_link><a class="btn ajax-get" href="{:url('backupDel?time='.$vo['time'])}"><i  class="fa fa-trash-o"></i> {:lang('删除')}</a></lqf_link>
                             </td>
                         </tr>
                         {/volist}
@@ -51,7 +51,7 @@
         var self = this, status = ".";
         $.get(self.href, success, "json");
         window.onbeforeunload = function () {
-            return "正在还原数据库，请不要关闭！"
+            return "{:lang('正在还原数据库')}，{:lang('请不要关闭')}！"
         }
         return false;
         function success(data) {

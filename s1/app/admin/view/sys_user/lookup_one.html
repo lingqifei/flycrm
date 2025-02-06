@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="">
-                <div class="ibox-title"><h5>选择部门</h5>
+                <div class="ibox-title"><h5>{:lang('选择部门')}</h5>
                     <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content no-padding">
@@ -16,7 +16,7 @@
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <input type="hidden" name="pid" value="" placeholder="{:lang('部门编号')}">
                             <div class="col-sm-12 m-b-xs">
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
@@ -57,7 +57,7 @@
         <td><%=data[i]['realname']%></td>
         <td class="text-center">
             <button type="button" class="btn btn-success btn-small checkedSave" data-val="<%=JSON.stringify(data[i])%>">
-                <i class="fa fa-check"></i>选择
+                <i class="fa fa-check"></i>{:lang('选择')}
             </button>
         </td>
     </tr>
@@ -68,13 +68,10 @@
 <script src="__STATIC__/module/admin/js/lib/treeview.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
-    //获取窗口索引关闭窗口
     var list_add_index = parent.layer.getFrameIndex(window.name);
-    var lookupGroup='{$lookupgroup}';//回显操作区域
-
-    //保存选中产品
+    var lookupGroup='{$lookupgroup}';
     $("body").on("click", ".checkedSave", function () {
         var item=$(this).attr('data-val');
         var row=JSON.parse(item);
@@ -82,7 +79,6 @@
         var lookupName=lookupObject.find(".lookup-btn").attr('lookup-name');
         log('lookupName');
         log(lookupName);
-        //返回字段
         var names = JSON.parse(lookupName);
         $.each(names, function (key, item) {
             log(key + '==>' + item);

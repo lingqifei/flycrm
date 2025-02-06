@@ -13,9 +13,9 @@
                 <table class="table table-hover sorttable ajax-list-table-file" data-url="{$ajaxtarget}" width="100%">
                     <thead>
                     <tr>
-                        <th width=""><span>文件名称</span></th>
-                        <th width="200"><span>修改时间</span></th>
-                        <th width="150"><span>大小</span></th>
+                        <th width=""><span>{:lang('文件名称')}</span></th>
+                        <th width="200"><span>{:lang('修改时间')}</span></th>
+                        <th width="150"><span>{:lang('大小')}</span></th>
                         <th width="100" class="text-center">{:lang('operate')}</th>
                     </tr>
                     </thead>
@@ -36,10 +36,8 @@
 <script type="text/javascript">
     var target = '';
     $(document).ready(function () {
-
         //文件目录
         getUploadFile();
-
         //删除
         $("body").on("click", ".uploadfile-del", function () {
             var pathname = $(this).attr('data-val');
@@ -140,8 +138,8 @@
                     html += '<td>' + row.uptime + '</td>';
                     html += '<td>' + row.size + '</td>';
                     html += '<td class="text-center"> ' +
-                        '<a href="#" class="uploadfile-install" data-val="' + row.pathname + '"> 导入</a> | ' +
-                        '<a href="#" class="uploadfile-del" data-val="' + row.pathname + '"> 删除 </a> ' +
+                        '<a href="#" class="uploadfile-install" data-val="' + row.pathname + '"> {:lang("导入")}</a> | ' +
+                        '<a href="#" class="uploadfile-del" data-val="' + row.pathname + '"> {:lang("删除")} </a> ' +
                         '</td>';
                     html += '</tr>';
                 });

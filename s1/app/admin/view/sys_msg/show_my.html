@@ -110,7 +110,7 @@
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sms'))}"  data-id="<%=data[i]['id']%>" <%=sms%> > {:lang('mobile phone')}
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_sys'))}"  data-id="<%=data[i]['id']%>" <%=sys%> > 系统
             <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_email'))}"  data-id="<%=data[i]['id']%>" <%=email%> > 邮件
-            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > 微信
+            <input name="visible" class="ajax-checkbox" type="checkbox" data-url="{:url('SysMsg/set_visible',array('name'=>'remind_weixin'))}"  data-id="<%=data[i]['id']%>" <%=weixin%> > {:lang('微信')}
         </td>
         <td class="text-center"><%=data[i]['remind_nums']%></td>
         <td class="text-center"><%=data[i]['send_nums']%></td>
@@ -127,6 +127,6 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

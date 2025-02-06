@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="ibox">
-                <div class="ibox-title"><h5>部门结构</h5>
+                <div class="ibox-title"><h5>{:lang('部门结构')}</h5>
                     <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content">
@@ -13,11 +13,11 @@
         </div>
         <div class="col-sm-5">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-title">{$page_title}{:lang('列表')}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <input type="hidden" name="pid" value="" placeholder="{:lang('部门编号')}">
                             <div class="col-sm-12">
                                 <div class="input-group pd-b-5">
                                     <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
@@ -53,7 +53,7 @@
             <div class="ibox">
                 <div class="ibox-title">已选人员
                     <div class="ibox-tools">
-                        <button class="btn btn-info btn-xs checkboxItemSave">确认选择</button>
+                        <button class="btn btn-info btn-xs checkboxItemSave">{:lang('确认选择')}</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -65,8 +65,7 @@
     </div>
 </div>
 <script id="tableListTpl" type="text/html">
-    <% for(var i=0;i
-    <data.length;i++) { %>
+    <% for(var i=0;i<data.length;i++) { %>
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox">
             <div class="checkboxItem" style="display: none">
@@ -153,19 +152,19 @@
             var user_id = $(this).attr('data-id');
             var user_name = $(this).attr('data-user-name');
             html += '<div class="form-group">\n' +
-                '                <label class="col-sm-1 control-label">业绩人</label>\n' +
+                '                <label class="col-sm-1 control-label">{:lang("业绩人")}</label>\n' +
                 '                <div class="col-xs-4">\n' +
-                '                    <input name="user_id[]" class="form-control" type="hidden" placeholder="业绩分配" required value="' + user_id + '"/>\n' +
-                '                    <input name="user_name[]" class="form-control" type="text" placeholder="选择员工" required  value="' + user_name + '" readonly/>\n' +
+                '                    <input name="user_id[]" class="form-control" type="hidden" placeholder="{:lang("业绩分配")}" required value="' + user_id + '"/>\n' +
+                '                    <input name="user_name[]" class="form-control" type="text" placeholder="{:lang("选择员工")}" required  value="' + user_name + '" readonly/>\n' +
                 '                    <span class="help-block m-b-none"></span>\n' +
                 '                </div>\n' +
-                '                <label class="col-sm-1 control-label">比例</label>\n' +
+                '                <label class="col-sm-1 control-label">{:lang("比例")}</label>\n' +
                 '                <div class="col-xs-4">\n' +
-                '                    <input name="user_rate[]" class="form-control" type="text" placeholder="所占比例" required  value="'+set_dist_rate+'"/>\n' +
-                '                    <span class="help-block m-b-none">单位%</span>\n' +
+                '                    <input name="user_rate[]" class="form-control" type="text" placeholder="{:lang("所占比例")}" required  value="'+set_dist_rate+'"/>\n' +
+                '                    <span class="help-block m-b-none">{:lang("单位")}%</span>\n' +
                 '                </div>\n' +
                 '                <div class="col-xs-2">\n' +
-                '                   <p class="form-control-static"><a href="javascript:void(0);" onclick="delTr(this);" >{:lang('delete')}</a></p> \n' +
+                '                   <p class="form-control-static"><a href="javascript:void(0);" onclick="delTr(this);" >{:lang("delete")}</a></p> \n' +
                 '                </div>\n' +
                 '            </div>';
 

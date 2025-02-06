@@ -91,8 +91,7 @@
     </div>
 </div>
 <script id="tableListTpl" type="text/html">
-    <% for(var i=0;i
-    <data.length;i++) { %>
+    <% for(var i=0;i<data.length;i++) { %>
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
         <td><%=data[i]['username']%></td>
@@ -121,6 +120,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

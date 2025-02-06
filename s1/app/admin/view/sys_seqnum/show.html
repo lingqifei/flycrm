@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-title">{$page_title}{:lang('列表')}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
@@ -147,16 +147,15 @@
     $(document).ready(function () {
         turnPage(1);
 
-        var now = new Date(); //当前日期
-        var nowYear = now.getFullYear(); //当前年
-        var nowMonth = now.getMonth(); //当前年
-
         seqnuminfo();
+
+        var now = new Date();
+        var nowYear = now.getFullYear();
+        var nowMonth = now.getMonth();
 
         $("body").on("click", ".ajax-list-table tbody tr input", function () {
             seqnuminfo();
         });
-
         function seqnuminfo() {
             $(".ajax-list-table tbody tr").each(function (index, element) {
                 var exampleStr = '';
@@ -172,7 +171,6 @@
                 var i = $(this).find("input[name='i']").prop('checked');
                 var s = $(this).find("input[name='s']").prop('checked');
 
-                //字符串拼接
                 if (pre) exampleStr += pre;
                 if (y) exampleStr += nowYear;
                 if (m) exampleStr += now.Format("M").toString().padStart(2, '0');

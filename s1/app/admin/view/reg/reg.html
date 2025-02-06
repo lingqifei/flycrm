@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>注册中心-零起飞网络管理中心</title>
+    <title>{:lang('注册中心')}-{:lang('零起飞网络管理中心')}</title>
     <meta name="keywords" content="免费CRM,客户管理系统,客户关系管理系统,CRM系统">
     <meta name="description"   content="零起飞客户管理CRM系统针对企业不同阶段提供不同的客户管理功能，以实现企业对客户管理的需要，网络中只需一台电脑安装本客户管理CRM系统，其它电脑均可通过浏览器使用。">
     <!-- CSS -->
@@ -30,9 +30,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>零起飞企业管理系统</strong></h1>
+                    <h1><strong>{:lang('零起飞企业管理系统')}</strong></h1>
                     <div class="description">
-                        <p>软件集ERP、CRM、OA在线办公等主要功能，PC和{:lang('mobile phone')}端一体化管理</p>
+                        <p>{:lang('软件集')}ERP、CRM、OA{:lang('在线办公等主要功能')}，PC{:lang('和')}{:lang('mobile phone')}{:lang('端一体化管理')}</p>
                     </div>
                 </div>
             </div>
@@ -40,8 +40,8 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>欢迎注册使用</h3>
-                            <p>优化企业资源，提高管理效率。</p>
+                            <h3>{:lang('欢迎注册使用')}</h3>
+                            <p>{:lang('优化企业资源')}，{:lang('提高管理效率')}。</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-key"></i>
@@ -51,29 +51,29 @@
                         <form role="form" action="{:url('Reg/reg')}" method="post" class="login-form ">
                             <div class="form-group">
                                 <label class="sr-only" >company</label>
-                                <input type="text" name="company" placeholder="输入您的企业名称..." class="form-username form-control">
+                                <input type="text" name="company" placeholder="{:lang('输入您的企业名称')}..." class="form-username form-control">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Username</label>
-                                <input type="text" name="username" placeholder="输入您的{:lang('phone number')}..." class="form-username form-control">
+                                <input type="text" name="username" placeholder="{:lang('输入您的')}{:lang('phone number')}..." class="form-username form-control">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" >Password</label>
-                                <input type="password" name="password" placeholder="输入{:lang('password')}" class="form-password form-control" >
+                                <input type="password" name="password" placeholder="{:lang('输入')}{:lang('password')}" class="form-password form-control" >
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12">
-                                        <input type="text" name="verify" class="form-control verify" placeholder="请输入您的验证码">
+                                        <input type="text" name="verify" class="form-control verify" placeholder="{:lang('请输入您的验证码')}">
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <img src="{:captcha_src()}" alt="captcha" class="admin-login-captcha-img captcha_change" id="captcha_img"/>
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn login-btn">注 册</button>
+                            <button type="button" class="btn login-btn">{:lang('注册')}</button>
                             <div class="form-control-static">
-                                <p class="form-control-static">已有账户，<a href="{:url('Login/login')}">去登录</a> </p>
+                                <p class="form-control-static">{:lang('已有账户')}，<a href="{:url('Login/login')}">{:lang('去登录')}</a> </p>
                             </div>
                         </form>
                     </div>
@@ -82,7 +82,7 @@
         </div>
     </div>
 </div>
-<div class="copyrights"><a href="http://www.07fly.xyz">技术支持:成都零起飞网络 </a></div>
+<div class="copyrights"><a href="http://www.07fly.xyz">{:lang('技术支持')}:{:lang('成都零起飞网络')} </a></div>
 
 
 <!-- Javascript -->
@@ -105,12 +105,12 @@
         });
         $.backstretch("__STATIC__/module/login/img/backgrounds/1.jpg");
     });
-    //刷新验证码
+    //{:lang('刷新验证码')}
     $(".captcha_change").click(function () {
         var captcha_img_obj = $("#captcha_img");
         captcha_img_obj.attr("src", captcha_img_obj.attr("src") + "?" + Math.random());
     });
-    //绑定登录
+    //{:lang('绑定登录')}
     $("body").on("click", ".login-btn", function () {
         ajaxlogin();
     });

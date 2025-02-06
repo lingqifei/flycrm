@@ -13,7 +13,7 @@
                         <form id="pagerForm" method="post" class="form-inline searchForm">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" name="pubdate_s" class="form-control w50 datepicker" placeholder="选择发布时间{:lang('start time')}">
+                                    <input type="text" name="pubdate_s" class="form-control w50 datepicker" placeholder="{:lang('选择发布时间')}{:lang('start time')}">
                                 </div>
                                 <div class="input-group">
                                     <input type="text" name="pubdate_e" class="form-control w50 datepicker" placeholder="{:lang('creation time')}">
@@ -87,6 +87,6 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

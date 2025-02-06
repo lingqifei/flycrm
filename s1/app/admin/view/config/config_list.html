@@ -7,11 +7,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <ul class="nav nav-tabs m-b-lg">
-                                <li><h3>配置列表</h3></li>
+                                <li><h3>{:lang('配置列表')}</h3></li>
                                 {empty name="group"}
-                                <li class="active"><a >全部</a></li>
+                                <li class="active"><a >{:lang('全部')}</a></li>
                                 {else/}
-                                <li><a href="{:url('configList')}">全部</a></li>
+                                <li><a href="{:url('configList')}">{:lang('全部')}</a></li>
                                 {/empty}
                                 {volist name='config_group_list' id='vo'}
                                 {neq name="group" value="$key"}
@@ -81,7 +81,7 @@
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('config/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>"  <%=visible%> />
         </td>
         <td>
-                <lqf_link><a class="ajax-open" data-url="{:url('config/configEdit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="修改">{:lang('modify')}</a></lqf_link>
+                <lqf_link><a class="ajax-open" data-url="{:url('config/configEdit')}"  data-ids="{'id':'<%=data[i]['id']%>'}" data-title="{:lang('修改')}">{:lang('modify')}</a></lqf_link>
                 <lqf_link><a class="ajax-del confirm" data-url="{:url('config/configDel')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
         </td>
     </tr>
@@ -89,6 +89,6 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

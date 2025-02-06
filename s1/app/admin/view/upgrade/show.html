@@ -10,7 +10,7 @@
                     <p>{:lang('communication status')}：{$signal.msg|default=''}</p>
                     <p>
                         {:lang('主机标识')}：
-                        <span class="hostname_key">{$reqkey|default='未激活'}</span>
+                        <span class="hostname_key">{$reqkey|default="lang('未激活')"}</span>
                     </p>
                 </div>
                 <div class="ibox-title">{:lang('software registration')}</div>
@@ -86,10 +86,10 @@
                     log('dataLeng='+res.data.length);
 
                     if (res.data.length > 10) {
-                        var html = res.data + '<a href="javascript:void(0);" onclick="get_hostname_key(\'del\');"> 删除 </a>';
+                        var html = res.data + '<a href="javascript:void(0);" onclick="get_hostname_key(\'del\');"> {:lang("删除")} </a>';
                         $(".hostname_key").html(html);
                     } else {
-                        var html = '<a href="javascript:void(0);" onclick="get_hostname_key(\'reg\');">未激活,点击获取</a>';
+                        var html = '<a href="javascript:void(0);" onclick="get_hostname_key(\'reg\');">{:lang("未激活点击获取")}</a>';
                         $(".hostname_key").html(html);
                     }
                 }

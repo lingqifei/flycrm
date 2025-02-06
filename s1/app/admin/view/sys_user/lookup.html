@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="">
-                <div class="ibox-title"><h5>选择部门</h5>
+                <div class="ibox-title"><h5>{:lang('选择部门')}</h5>
                     <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content no-padding">
@@ -16,7 +16,7 @@
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
-                            <input type="hidden" name="pid" value="" placeholder="部门编号">
+                            <input type="hidden" name="pid" value="" placeholder="{:lang('部门编号')}">
                             <div class="col-sm-12">
                                 <div class="input-group">
                                     <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
@@ -50,9 +50,9 @@
         </div>
         <div class="col-sm-3">
             <div class="">
-                <div class="ibox-title">已选人员
+                <div class="ibox-title">{:lang('已选人员')}
                     <div class="ibox-tools">
-                        <button class="btn btn-info btn-xs checkboxItemSave">确认选择</button>
+                        <button class="btn btn-info btn-xs checkboxItemSave">{:lang('确认选择')}</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -135,12 +135,10 @@
         }
     });
 
-    //删除选中产品
     $("body").on("click", ".checkboxItemDel", function () {
         $(this).parent().remove();
     });
 
-    //保存选中产品
     $("body").on("click", ".checkboxItemSave", function () {
         var html = '';
         var user_id_arr=[];
@@ -153,13 +151,12 @@
         });
         parent.$("form input[name='{$input_ids}']").val(user_id_arr.join(','));
         parent.$("form input[name='{$input_text}']").val(user_name_arr.join(','));
-        layer.msg('添加成功', {icon: 1, shade: [0.5, '#000', true]});
+        layer.msg("{:lang('添加成功')}", {icon: 1, shade: [0.5, '#000', true]});
         setTimeout(function () {
             parent.layer.close(list_add_index);
         }, 500);
     });
 
-    //删除项目
     function delCheckItem(val){
         $('.checked-users-list').find('li').each(function () {
             var id = $(this).attr('data-id');

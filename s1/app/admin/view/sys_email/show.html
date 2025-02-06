@@ -29,10 +29,10 @@
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
                             <lqf_link>
-                                <a class="btn btn-info ajax-open" data-url="{:url('SysEmail/send')}" data-title="发送邮件"><i class="fa fa-plus"></i> 发送邮件</a>
+                                <a class="btn btn-info ajax-open" data-url="{:url('SysEmail/send')}" data-title="发送邮件"><i class="fa fa-plus"></i> {:lang('发送邮件')}</a>
                             </lqf_link>
                             <lqf_link>
-                                <a class="btn btn-info ajax-open" data-url="{:url('SysEmail/config')}" data-title="邮件配置"><i class="fa fa-cog"></i> 邮件配置</a>
+                                <a class="btn btn-info ajax-open" data-url="{:url('SysEmail/config')}" data-title="邮件配置"><i class="fa fa-cog"></i> {:lang('邮件配置')}</a>
                             </lqf_link>
                         </div>
                     </div>
@@ -43,10 +43,10 @@
                         <thead>
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                            <th width="80">接收邮箱</th>
-                            <th width="100">标题</th>
-                            <th width="200">内容</th>
-                            <th width="80" class="text-center">发送时间</th>
+                            <th width="80">{:lang('接收邮箱')}</th>
+                            <th width="100">{:lang('标题')}</th>
+                            <th width="200">{:lang('内容')}</th>
+                            <th width="80" class="text-center">{:lang('发送时间')}</th>
                             <th width="80" class="text-center">{:lang('operate')}</th>
                         </tr>
                         </thead>
@@ -79,6 +79,6 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

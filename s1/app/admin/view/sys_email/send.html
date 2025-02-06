@@ -2,10 +2,10 @@
 <div class="ibox-content">
     <form class="form-horizontal" method="post" action="{:url('SysEmail/send')}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">收件邮箱</label>
+            <label class="col-sm-2 control-label">{:lang('收件邮箱')}</label>
             <div class="col-sm-10">
                 <textarea name="address" class="form-control" cols="80" rows="2">{$info.address|default=''}</textarea>
-                <span class="help-block m-b-none">多个邮箱用英文,逗号分隔</span>
+                <span class="help-block m-b-none">{:lang('多个邮箱用英文')},{:lang('逗号分隔')}</span>
             </div>
         </div>
         <div class="form-group">

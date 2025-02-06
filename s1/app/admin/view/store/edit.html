@@ -2,19 +2,19 @@
     <form class="form-horizontal" method="post" action="{:url('SysModule/edit')}">
         <input type="hidden" name="id" value="{$info.id|default='0'}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块标题</label>
+            <label class="col-sm-2 control-label">{:lang('模块标题')}</label>
             <div class="col-sm-8">
-                <input name="title" class="form-control" type="text" placeholder="请输入模块标题" value="{$info.title|default=''}" required/>
+                <input name="title" class="form-control" type="text" placeholder="{:lang('请输入模块标题')}" value="{$info.title|default=''}" required/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('module name')}</label>
             <div class="col-sm-8">
-                <input name="name" class="form-control" type="text" placeholder="请输入模块名" value="{$info.name|default=''}" readonly/>
-                <span class="help-block m-b-none">{:lang('module name')}只能为字母(创建模块之后不能修改)</span> </div>
+                <input name="name" class="form-control" type="text" placeholder="{:lang('请输入模块名')}" value="{$info.name|default=''}" readonly/>
+                <span class="help-block m-b-none">{:lang('module name')}{:lang('只能为字母')}({:lang('创建模块之后不能修改')})</span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">模块{:lang('description')}</label>
+            <label class="col-sm-2 control-label">{:lang('模块')}{:lang('description')}</label>
             <div class="col-sm-8">
                 <textarea name="intro" class="form-control" cols="80" rows="2">{$info.intro|default=''}</textarea>
                 <span class="help-block m-b-none"></span> </div>
@@ -22,26 +22,26 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('author')}</label>
             <div class="col-sm-8">
-                <input name="author" class="form-control" type="text" placeholder="输入{:lang('author')}" value="{$info.author|default=''}"/>
+                <input name="author" class="form-control" type="text" placeholder="{:lang('输入')}{:lang('author')}" value="{$info.author|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('author website')}</label>
             <div class="col-sm-8">
-                <input name="author_url" class="form-control" type="text" placeholder="输入{:lang('author website')}" value="{$info.author_url|default=''}"/>
+                <input name="author_url" class="form-control" type="text" placeholder="{:lang('输入')}{:lang('author website')}" value="{$info.author_url|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('version')}</label>
             <div class="col-sm-8">
-                <input name="version" class="form-control" type="text" placeholder="输入{:lang('version')}" value="{$info.version|default=''}" />
+                <input name="version" class="form-control" type="text" placeholder="{:lang('输入')}{:lang('version')}" value="{$info.version|default=''}" />
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">关联数据表</label>
+            <label class="col-sm-2 control-label">{:lang('关联数据表')}</label>
             <div class="col-sm-8">
                 <textarea name="tables" class="form-control" cols="80" rows="2">{$info.tables|default=''}</textarea>
-                <span class="help-block m-b-none">关联数据表是指模块所需要的数据表名称，如果有多个表用英文逗号（,）分隔。如：table1,table2</span> </div>
+                <span class="help-block m-b-none">{:lang('关联数据表是指模块所需要的数据表名称')}，{:lang('如果有多个表用英文逗号')}（,）{:lang('分隔')}。如：table1,table2</span> </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-8">

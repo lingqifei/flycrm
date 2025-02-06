@@ -3,10 +3,10 @@
         <input type="hidden" name="id" value="{$info['id']|default='0'}">
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">上级地区</label>
+            <label class="col-sm-2 control-label">{:lang('上级地区')}</label>
             <div class="col-sm-8">
                 <select name="pid" class="form-control chosen-select">
-                    <option value="0">顶级地区</option>
+                    <option value="0">{:lang('顶级地区')}</option>
                     {volist name='dept_select' id='vo'}
                     <option value="{$vo.id}"  {notempty name="pid"} {if condition="$pid eq $vo['id'] " }  selected="selected" {/if} {/notempty}>{$vo.treename}</option>
                     {/volist}
@@ -18,104 +18,104 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('region name')}</label>
             <div class="col-sm-8">
-                <input name="name" class="form-control" type="text" placeholder="请输中文栏目名称" value="{$info['name']|default=''}"/>
+                <input name="name" class="form-control" type="text" placeholder="{:lang('请输中文栏目名称')}" value="{$info['name']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">绑定域名</label>
+            <label class="col-sm-2 control-label">{:lang('绑定域名')}</label>
             <div class="col-sm-8">
-                <input name="domain" class="form-control" type="text" placeholder="请输绑定域名" value="{$info['domain']|default=''}"/>
+                <input name="domain" class="form-control" type="text" placeholder="{:lang('请输绑定域名')}" value="{$info['domain']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('contacts')}</label>
             <div class="col-sm-8">
-                <input name="linkman" class="form-control" type="text" placeholder="请输{:lang('contacts')}" value="{$info['linkman']|default=''}"/>
+                <input name="linkman" class="form-control" type="text" placeholder="{:lang('请输')}{:lang('contacts')}" value="{$info['linkman']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">联系电话</label>
+            <label class="col-sm-2 control-label">{:lang('联系电话')}</label>
             <div class="col-sm-8">
-                <input name="tel" class="form-control" type="text" placeholder="请输联系地址" value="{$info['tel']|default=''}"/>
+                <input name="tel" class="form-control" type="text" placeholder="{:lang('请输联系地址')}" value="{$info['tel']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('phone number')}</label>
             <div class="col-sm-8">
-                <input name="mobile" class="form-control" type="text" placeholder="请输{:lang('phone number')}" value="{$info['mobile']|default=''}"/>
+                <input name="mobile" class="form-control" type="text" placeholder="{:lang('请输')}{:lang('phone number')}" value="{$info['mobile']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">电子{:lang('email')}</label>
+            <label class="col-sm-2 control-label">{:lang('电子')}{:lang('email')}</label>
             <div class="col-sm-8">
-                <input name="email" class="form-control" type="text" placeholder="请输电子{:lang('email')}" value="{$info['email']|default=''}"/>
+                <input name="email" class="form-control" type="text" placeholder="{:lang('请输电子')}{:lang('email')}" value="{$info['email']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">联系地址</label>
+            <label class="col-sm-2 control-label">{:lang('联系地址')}</label>
             <div class="col-sm-8">
-                <input name="address" class="form-control" type="text" placeholder="请输联系地址" value="{$info['address']|default=''}"/>
+                <input name="address" class="form-control" type="text" placeholder="{:lang('请输联系地址')}" value="{$info['address']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">交通线路</label>
+            <label class="col-sm-2 control-label">{:lang('交通线路')}</label>
             <div class="col-sm-8">
-                <input name="traffic" class="form-control" type="text" placeholder="请输交通线路" value="{$info['traffic']|default=''}"/>
+                <input name="traffic" class="form-control" type="text" placeholder="{:lang('请输交通线路')}" value="{$info['traffic']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">百度地图X坐标</label>
+            <label class="col-sm-2 control-label">{:lang('百度地图')}X{:lang('坐标')}</label>
             <div class="col-sm-8">
-                <input name="map_x" class="form-control" type="text" placeholder="请输交通线路" value="{$info['map_x']|default=''}"/>
+                <input name="map_x" class="form-control" type="text" placeholder="{:lang('请输交通线路')}" value="{$info['map_x']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">百度地图Y坐标</label>
+            <label class="col-sm-2 control-label">{:lang('百度地图')}Y{:lang('坐标')}</label>
             <div class="col-sm-8">
-                <input name="map_y" class="form-control" type="text" placeholder="请输交通线路" value="{$info['map_y']|default=''}"/>
+                <input name="map_y" class="form-control" type="text" placeholder="{:lang('请输交通线路')}" value="{$info['map_y']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">在线工具</label>
+            <label class="col-sm-2 control-label">{:lang('在线工具')}</label>
             <div class="col-sm-8">
-                <input name="talk" class="form-control" type="text" placeholder="请输在线工具" value="{$info['talk']|default=''}"/>
-                <span class="help-block m-b-none">商务通网络地址</span></div>
+                <input name="talk" class="form-control" type="text" placeholder="{:lang('请输在线工具')}" value="{$info['talk']|default=''}"/>
+                <span class="help-block m-b-none">{:lang('商务通网络地址')}</span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">弹窗代码</label>
+            <label class="col-sm-2 control-label">{:lang('弹窗代码')}</label>
             <div class="col-sm-8">
-                <input name="popup" class="form-control" type="text" placeholder="请输弹窗代码" value="{$info['popup']|default=''}"/>
-                <span class="help-block m-b-none">商务通网络地址</span></div>
+                <input name="popup" class="form-control" type="text" placeholder="{:lang('请输弹窗代码')}" value="{$info['popup']|default=''}"/>
+                <span class="help-block m-b-none">{:lang('商务通网络地址')}</span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">公司全称</label>
+            <label class="col-sm-2 control-label">{:lang('公司全称')}</label>
             <div class="col-sm-8">
-                <input name="fullname" class="form-control" type="text" placeholder="请输公司全称" value="{$info['fullname']|default=''}"/>
-                <span class="help-block m-b-none">商务通网络地址</span></div>
+                <input name="fullname" class="form-control" type="text" placeholder="{:lang('请输公司全称')}" value="{$info['fullname']|default=''}"/>
+                <span class="help-block m-b-none">{:lang('商务通网络地址')}</span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">备案号码</label>
+            <label class="col-sm-2 control-label">{:lang('备案号码')}</label>
             <div class="col-sm-8">
-                <input name="beian" class="form-control" type="text" placeholder="请输备案号码" value="{$info['beian']|default=''}"/>
-                <span class="help-block m-b-none">商务通网络地址</span></div>
+                <input name="beian" class="form-control" type="text" placeholder="{:lang('请输备案号码')}" value="{$info['beian']|default=''}"/>
+                <span class="help-block m-b-none">{:lang('商务通网络地址')}</span></div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">微信公众号</label>
+            <label class="col-sm-2 control-label">{:lang('微信公众号')}</label>
             <div class="col-sm-8">
-                <input name="weixin" class="form-control" type="text" placeholder="请输微信公众号" value="{$info['weixin']|default=''}"/>
-                <span class="help-block m-b-none">输入微信公众号图片地址</span></div>
+                <input name="weixin" class="form-control" type="text" placeholder="{:lang('请输微信公众号')}" value="{$info['weixin']|default=''}"/>
+                <span class="help-block m-b-none">{:lang('输入微信公众号图片地址')}</span></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('sort')}</label>
             <div class="col-sm-8">
-                <input name="sort" class="form-control" type="digits" placeholder="栏目{:lang('sort')}号" value="{$info['sort']|default=''}"/>
+                <input name="sort" class="form-control" type="digits" placeholder="{:lang('排序')}" value="{$info['sort']|default=''}"/>
                 <span class="help-block m-b-none"></span></div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('is it enabled')}</label>
             <div class="col-sm-8">
                 <input type="radio" name="visible" value="1"  checked>是
-                <input type="radio" name="visible" value="0">否
+                <input type="radio" name="visible" value="0">{:lang('否')}
             </div>
         </div>
         <div class="form-group">

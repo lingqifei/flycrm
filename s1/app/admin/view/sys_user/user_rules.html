@@ -2,7 +2,7 @@
     <form class="form-horizontal" method="post" action="{:url('SysUser/userRules')}">
         <input type="hidden" name="id" value="{$id}" />
         <div class="ibox-content bg-success">
-            用户权限菜单必须勾选：系统首页，我的主页
+            {:lang('用户权限菜单必须勾选')}：{:lang('系统首页')}，{:lang('我的主页')}
         </div>
         <div class="ibox-content">
             <div class="menu-tree-checkbox">

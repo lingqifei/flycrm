@@ -2,7 +2,7 @@
     <div class="row">
 <!--        <div class="col-md-3">-->
 <!--            <div class="ibox">-->
-<!--                <div class="ibox-title"><h5>地区结构</h5>-->
+<!--                <div class="ibox-title"><h5>{:lang('地区结构')}</h5>-->
 <!--                    <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>-->
 <!--                </div>-->
 <!--                <div class="ibox-content right_centent" style="">-->
@@ -26,10 +26,10 @@
                                     <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i
-                                                            class="fa fa-search"></i> {:lang('search')}</button>
-                                                    </span>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i
+                                            class="fa fa-search"></i> {:lang('search')}</button>
+                                    </span>
                                 </div>
                             </div>
                         </form>
@@ -108,57 +108,4 @@
     $(document).ready(function () {
         turnPage(1);
     });
-    //     //BindEvent();
-    //
-    //     window.onload = onLoad();
-    //
-    //     //页面加载
-    //     function onLoad() {
-    //         $('.searchForm').find("input[name='upid']").val('100000');
-    //         var target = $('#left-tree').attr('data-url');
-    //         $.get(target).success(function (jsonData) {
-    //             //渲染树
-    //             $('#left-tree').treeview({
-    //                 data: jsonData,
-    //                 levels: 1,
-    //                 showTags: false,//显示右边tags
-    //                 showCheckbox: false,//是否显示多选
-    //                 multiSelect: false,
-    //                 showBorder: false,
-    //                 onNodeSelected: function (event, node) {
-    //                     //设置新增时的父节点
-    //                     $('.searchForm').find("input[name='upid']").val(node.id);
-    //                     $('.add-btn').attr('data-id', node.id);
-    //                     turnPage(1);
-    //                 }
-    //             });
-    //         }, "json");
-    //
-    //         turnPage(1);//页面加载时初始化分页
-    //
-    //     }
-    //
-    //
-    //     //刷新加载-添加
-    //     $("body").on("click", ".refresh-tree", function () {
-    //         onLoad();
-    //         turnPage(1);
-    //     });
-    //
-    //     /*-----页面pannel内容区高度自适应 start-----*/
-    //     $(window).resize(function () {
-    //         setCenterHeight();
-    //     });
-    //     setCenterHeight();
-    //
-    //     function setCenterHeight() {
-    //         var height = $(window).height();
-    //         var centerHight = height - 240;
-    //         $(".right_centent").height(centerHight).css("overflow", "auto");
-    //     }
-    //
-    //     /*-----页面pannel内容区高度自适应 end-----*/
-    // });
-
-
 </script>

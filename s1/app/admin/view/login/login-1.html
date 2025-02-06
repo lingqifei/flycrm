@@ -2,12 +2,12 @@
 <div class="middle-box text-center loginscreen  animated fadeInDown">
     <div>
         <div>
-            <h1 class="logo-name" style="font-size: 40px;letter-spacing: 10px;">零起飞网络</h1>
+            <h1 class="logo-name" style="font-size: 40px;letter-spacing: 10px;">{:lang('零起飞网络')}</h1>
         </div>
         <h3></h3>
         <form class="login-panel" role="form" action="{:url('Login/login')}" method="post">
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="用户名">
+                <input type="text" name="username" class="form-control" placeholder="{:lang('用户名')}">
             </div>
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="{:lang('password')}">
@@ -18,19 +18,19 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-8">
-                        <input type="text" name="verify" class="form-control verify" placeholder="请输入您的验证码">
+                        <input type="text" name="verify" class="form-control verify" placeholder="{:lang('请输入您的验证码')}">
                     </div>
                     <div class="col-xs-4">
-                        <button type="button" class="btn btn-primary  captcha_change">换一张</button>
+                        <button type="button" class="btn btn-primary  captcha_change">{:lang('换一张')}</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-primary block full-width m-b  login-btn" target-form="login-panel">登录</button>
+                <button type="button" class="btn btn-primary block full-width m-b  login-btn" target-form="login-panel">{:lang('登录')}</button>
             </div>
 
-            <p class="text-muted text-center"><a href="http://www.07fly.com">技术支持:成都零起飞网络 </a></p>
+            <p class="text-muted text-center"><a href="http://www.07fly.com">{:lang('技术支持')}:{:lang('成都零起飞网络')} </a></p>
         </form>
     </div>
 </div>
@@ -44,7 +44,7 @@
         });
     });
 
-    //绑定登录
+    //{:lang('绑定登录')}
     $("body").on("click", ".login-btn", function () {
         ajaxlogin();
     });

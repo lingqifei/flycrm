@@ -56,25 +56,6 @@
         log('播放当前地址');
         log(src);
         audio.play();
-        // if (borswer.indexOf("ie") >= 0) {
-        //     //IE内核浏览器
-        //     var strEmbed = '<embed name="embedPlay" src="' + video + '" autostart="true" hidden="true" loop="false" muted></embed>';
-        //     if ($("body").find("embed").length <= 0)
-        //         $("body").append(strEmbed);
-        //     var embed = document.embedPlay;
-        //     //浏览器不支持 audion，则使用 embed 播放
-        //     embed.volume = 100;
-        //     //embed.play();这个不需要
-        // } else {
-        //     //非IE内核浏览器
-        //     var strAudio = "<audio id='audioPlay' src='" + video + "' hidden='true' muted>";
-        //     if ($("#audioPlay").length <= 0) {
-        //         $("body").append(strAudio);
-        //     }
-        //     var audio = document.getElementById("audioPlay");
-        //     //浏览器支持 audio
-        //     audio.play();
-        // }
     }
     //提示通知插件
     var playNotice = function (id, title, content, url = '') {
@@ -108,7 +89,7 @@
     }
     //提示通知插件
     var runSysMsg = function () {
-        var target = "{:url('admin/rpc.CronJob/sys_msg_plug',array('deal_user_id'=>$sys_user_info.id))}";//显示系统通知
+        var target = "{:url('admin/rpc.CronJob/sys_msg_plug',array('deal_user_id'=>$sys_user_info.id))}";
         $.ajax({
             type: 'POST',
             url: target,
@@ -119,19 +100,14 @@
                     playNotice(item.id, '{:lang("system reminder")}', item.bus_name, item.bus_url);
                 });
                 if (jsonData.data.length > 0) {
-
                     $(".msg-icon-my").text(jsonData.data.length);
-
-                    //插件提醒声音
                     playSound();
-
-                    //插件显示消息条数
                     getMsgNums();
                 }
             }
         });
     }
-    //公告函数
+    //提示公告插件
     var runSysNotify = function () {
         var target = "{:url('admin/rpc.CronJob/sys_notify_plug',array('owner_user_id'=>$sys_user_info.id,'read_state'=>0))}";
         var detail = "{:url('admin/rpc.CronJob/sys_notify_plug')}";
@@ -146,23 +122,19 @@
                 });
                 if (jsonData.data.length > 0) {
                     $(".msg-icon-noti").text(jsonData.data.length);
-                    //插件提醒声音
+
                     playSound();
-                    //插件显示消息条数
                     getMsgNums();
                 }
             }
         });
     }
-
-    // 插件显示消息条数
     function getMsgNums() {
         var my = $(".msg-icon-my").text();
         var noti = $(".msg-icon-noti").text();
         var nums = Number(my) + Number(noti);
         $(".msg-icon-nums").text(nums);
     }
-    //主动调用
     //setInterval("func()", 60000);
     setInterval("runSysNotify()", 1000 * 60 * 5);
     setInterval("runSysMsg()", 1000 * 60 * 10);

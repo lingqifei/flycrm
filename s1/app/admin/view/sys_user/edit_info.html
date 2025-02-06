@@ -3,7 +3,7 @@
         <input type="hidden" name="id" value="{$info['id']|default='0'}">
         <input type="hidden" name="username" value="{$info['username']|default='0'}">
         <div class="form-group">
-            <label class="col-sm-2 control-label">账号</label>
+            <label class="col-sm-2 control-label">{:lang('账号')}</label>
             <div class="col-sm-8">
                 <input name="username" class="form-control" type="text" placeholder="{:lang('accounts')}" value="{$info['username']|default=''}"  readonly/>
                 <span class="help-block m-b-none"></span> </div>
@@ -11,8 +11,8 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('realname')}</label>
             <div class="col-sm-8">
-                <input name="realname" class="form-control" type="text" placeholder="请输入{:lang('real name')}" value="{$info['realname']|default=''}"/>
-                <span class="help-block m-b-none">（用户真实{:lang('realname')}，主要用于显示）</span> </div>
+                <input name="realname" class="form-control" type="text" placeholder="{:lang('请输入')}{:lang('real name')}" value="{$info['realname']|default=''}"/>
+                <span class="help-block m-b-none">（{:lang('用户真实')}{:lang('realname')}，{:lang('主要用于显示')}）</span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('gender')}</label>
@@ -26,19 +26,19 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('mobile phone')}</label>
             <div class="col-sm-8">
-                <input name="mobile" class="form-control" type="text" placeholder="输入{:lang('phone number')}" value="{$info['mobile']|default=''}"/>
+                <input name="mobile" class="form-control" type="text" placeholder="{:lang('输入')}{:lang('phone number')}" value="{$info['mobile']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">QQ</label>
             <div class="col-sm-8">
-                <input name="qicq" class="form-control" type="text" placeholder="输入QQ号码" value="{$info['qicq']|default=''}"/>
+                <input name="qicq" class="form-control" type="text" placeholder="{:lang('输入')}QQ{:lang('号码')}" value="{$info['qicq']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">{:lang('email')}</label>
             <div class="col-sm-8">
-                <input name="email" class="form-control" type="email" placeholder="输入{:lang('email')}地址" value="{$info['email']|default=''}"/>
+                <input name="email" class="form-control" type="email" placeholder="{:lang('输入')}{:lang('email')}{:lang('地址')}" value="{$info['email']|default=''}"/>
                 <span class="help-block m-b-none"></span> </div>
         </div>
         <div class="form-group">

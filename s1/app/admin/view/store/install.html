@@ -1,46 +1,46 @@
 <div class="tabs-container">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">标准授权</a></li>
-        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">高级授权</a></li>
+        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">{:lang('标准授权')}</a></li>
+        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">{:lang('高级授权')}</a></li>
     </ul>
     <div class="tab-content">
         <div id="tab-1" class="tab-pane active">
             <div class="panel-body">
-                <p>一年免费更新升级</p>
-                <p>一年免费更新升级，仅支持自营项目使用，禁止用于外包</p>
-                <p class="text-danger">部分代码加密处理，可以修改模板内容，但无法深度二次开发</p>
+                <p>{:lang('一年免费更新升级')}</p>
+                <p>{:lang('一年免费更新升级')}，{:lang('仅支持自营项目使用')}，{:lang('禁止用于外包')}</p>
+                <p class="text-danger">{:lang('部分代码加密处理')}，{:lang('可以修改模板内容')}，{:lang('但无法深度二次开发')}</p>
             </div>
         </div>
         <div id="tab-2" class="tab-pane">
             <div class="panel-body">
-                <p>永久免费更新升级</p>
-                <p>永久免费更新升级，支持自营项目、外包项目使用</p>
-                <p class="text-danger">代码开源可二开使用，所有代码无加密，提供技术支持（购买高级版本：联系专员微信：1871720801处理。）</p>
+                <p>{:lang('永久免费更新升级')}</p>
+                <p>{:lang('永久免费更新升级')}，{:lang('支持自营项目')}、{:lang('外包项目使用')}</p>
+                <p class="text-danger">{:lang('代码开源可二开使用')}，{:lang('所有代码无加密')}，{:lang('提供技术支持')}（{:lang('购买高级版本')}：{:lang('联系专员微信')}：1871720801{:lang('处理')}。）</p>
             </div>
         </div>
     </div>
 </div>
 
 {notempty name='orderinfo'}
-<div class="ibox-title">订单信息：</div>
+<div class="ibox-title">{:lang('订单信息')}：</div>
 <div class="ibox-content">
     <div class="row">
-        <div class="col-sm-2">订单标题：</div>
+        <div class="col-sm-2">{:lang('订单标题')}：</div>
         <div class="col-sm-8">{$orderinfo.order_name|default=''}</div>
     </div>
     <div class="row m-t-md">
-        <div class="col-sm-2">订单编号：</div>
+        <div class="col-sm-2">{:lang('订单编号')}：</div>
         <div class="col-sm-8">{$orderinfo.order_code|default=''}</div>
     </div>
     <div class="row m-t-md">
-        <div class="col-sm-2">订单价格：</div>
+        <div class="col-sm-2">{:lang('订单价格')}：</div>
         <div class="col-sm-8 text-danger">￥：{$orderinfo.order_amount|default=''}</div>
     </div>
 
 </div>
 <!--表示未购买-->
 {if condition="$orderinfo.ispayment eq 0"}
-<div class="ibox-title">扫一扫付款：</div>
+<div class="ibox-title">{:lang('扫一扫付款')}：</div>
 <div class="ibox-content app_order_payinfo"  data-url="{:url('Store/app_order_check')}">
     <div class="row">
         <div class="col-sm-4"></div>
@@ -55,8 +55,8 @@
                             <i class="qrcode-scan-icon"></i>
                         </div>
                         <div class="col-sm-7 text-left">
-                            <p class="m-t-xs">请使用微信扫一扫</p>
-                            <p>扫描二维码支付</p>
+                            <p class="m-t-xs">{:lang('请使用微信扫一扫')}</p>
+                            <p>{:lang('扫描二维码支付')}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
 <!--已经购买同时在授权时间内-->
 {if condition="$orderinfo.ispayment eq 1"}
-<div class="ibox-title">已经购买授权：</div>
+<div class="ibox-title">{:lang('已经购买授权')}：</div>
 <div class="ibox-content">
     <div class="row">
         <div class="col-sm-4"></div>
@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-sm-12 text-center down-install"
                              data-url="{:url('Store/down_install',array('app_id'=>$orderinfo.app_id))}">
-                            请点击按钮执行安装操作
+                            {:lang('请点击按钮执行安装操作')}
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,6 @@
         var order_id="{$orderinfo.order_id}";
         var order_code="{$orderinfo.order_code}";
 
-        //是否支付
         if(ispay==0){
             time1 = window.setInterval("checkOrderPay()",5000);
         }
@@ -110,10 +109,6 @@
         });
 
     });
-
-
-
-    //下载安装
     function appDownInstall() {
         var target = $('.down-install').attr('data-url');
         var layerLoadIndex,layerMsgIndex;
@@ -123,19 +118,19 @@
             data: '',
             dataType: "json",
             beforeSend: function () {
-                layerMsgIndex=layer.msg('请不要关闭浏览器,正在下载升级程序升级，...',
+                layerMsgIndex=layer.msg("{:lang('请不要关闭浏览器')},{:lang('正在下载升级程序升级')}，...",
                     {
                         time: 0,
                         icon: '1',
                         shade: 0.01
                     }
                 );
-                layerLoadIndex = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                layerLoadIndex = layer.load(0, {shade: false});
             },
             success: function (result) {
                 if (result.code == '1') {
                     layer.msg(result.msg, {icon: 1, time: 1000, shade: [0.5, '#000', true]}, function () {
-                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        var index = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(index);
                     });
                 } else {
@@ -147,8 +142,6 @@
             }
         });//end ajax post
     }
-
-    //检查订单是否支付
     function checkOrderPay() {
         var order_id="{$orderinfo.order_id}";
         var order_code="{$orderinfo.order_code}";
@@ -160,7 +153,7 @@
             dataType: "json",
             success: function (result) {
                 if(result.ispayment==1){
-                    layer.msg('支付成功', {icon: 1});
+                    layer.msg("{:lang('支付成功')}", {icon: 1});
                     location.reload();
                 }else{
                     //layer.msg(result.ispayment_text, {icon: 5});

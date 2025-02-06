@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="ibox">
-                <div class="ibox-title"><h5>地区结构</h5>
+                <div class="ibox-title"><h5>{:lang('地区结构')}</h5>
                     <div class="ibox-tools"><a class="refresh-tree">{:lang('refresh')}</a></div>
                 </div>
                 <div class="ibox-content right_centent" style="">
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-9">
             <div class="ibox float-e-margins">
-                <div class="ibox-title">{$page_title}列表</div>
+                <div class="ibox-title">{$page_title}{:lang('列表')}</div>
                 <div class="ibox-content table-responsive">
                     <div class="row">
                         <form id="pagerForm" method="post" class="form-inline searchForm">
@@ -26,9 +26,9 @@
                                     <input type="text" name="keywords" placeholder="{:lang('enter keyword search')}" class="form-control">
                                 </div>
                                 <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
-                                                    </span>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary ajaxSearchForm"><i class="fa fa-search"></i> {:lang('search')}</button>
+                                    </span>
                                 </div>
                             </div>
                         </form>
@@ -38,8 +38,8 @@
                         <tr>
                             <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
                             <th width="100">{:lang('region name')}</th>
-                            <th width="100">绑定域名</th>
-                            <th width="200">负责人员</th>
+                            <th width="100">{:lang('绑定域名')}</th>
+                            <th width="200">{:lang('负责人员')}</th>
                             <th width="60">{:lang('sort')}</th>
                             <th width="60">{:lang('enable')}</th>
                             <th width="80">{:lang('operate')}</th>
@@ -54,7 +54,7 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="ibox-content">本功能针对CMS中多城市站点使用</div>
+                <div class="ibox-content">{:lang('本功能针对')}CMS{:lang('中多城市站点使用')}</div>
             </div>
         </div>
     </div>
@@ -65,8 +65,8 @@
 
 <script id="tableListTpl" type="text/html">
     <% for(var i=0;i<data.length;i++) {
-    visible='';
-    if(data[i]['visible']=='1') visible='checked';
+        visible='';
+        if(data[i]['visible']=='1') visible='checked';
     %>
     <tr>
         <td><input name="user_id" class="checkboxCtrlId" value="<%=data[i]['id']%>" type="checkbox"></td>
@@ -79,7 +79,7 @@
         </td>
         <td>
             <p>
-                <lqf_link><a class="ajax-open" data-url="{:url('SysArea/manage')}" data-ids="{'id':'<%=data[i]['id']%>'}">负责人员</a></lqf_link>
+                <lqf_link><a class="ajax-open" data-url="{:url('SysArea/manage')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('负责人员')}</a></lqf_link>
                 <lqf_link><a class="ajax-open" data-url="{:url('SysArea/edit')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('modify')}</a></lqf_link>
                 <lqf_link><a class="ajax-del confirm" data-url="{:url('SysArea/del')}" data-ids="{'id':'<%=data[i]['id']%>'}">{:lang('delete')}</a></lqf_link>
             </p>
@@ -89,26 +89,21 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         //BindEvent();
-
         window.onload=onLoad();
-
-        //页面加载
         function onLoad() {
             $('.searchForm').find("input[name='pid']").val('');
             var target = $('#left-tree').attr('data-url');
             $.get(target).success(function (jsonData) {
-                //渲染树
+
                 $('#left-tree').treeview({
                     data: jsonData,
                     levels: 1,
-                    showTags: false,//显示右边tags
-                    showCheckbox: false,//是否显示多选
+                    showTags: false,
+                    showCheckbox: false,
                     multiSelect: false,
                     showBorder: false,
                     onNodeSelected: function (event, node) {
-                        //设置新增时的父节点
                         $('.searchForm').find("input[name='pid']").val(node.id);
                         $('.add-btn').attr('data-id',node.id);
                         turnPage(1);
@@ -116,18 +111,13 @@
                 });
             }, "json");
 
-            turnPage(1);//页面加载时初始化分页
-
+            turnPage(1);
         }
-
-
-        //刷新加载-添加
         $("body").on("click", ".refresh-tree", function () {
             onLoad();
             turnPage(1);
         });
 
-        /*-----页面pannel内容区高度自适应 start-----*/
         $(window).resize(function () {
             setCenterHeight();
         });
@@ -137,9 +127,6 @@
             var centerHight = height - 240;
             $(".right_centent").height(centerHight).css("overflow", "auto");
         }
-        /*-----页面pannel内容区高度自适应 end-----*/
+
     });
-
-
-
 </script>

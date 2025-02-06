@@ -1,7 +1,6 @@
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-12">
-
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <H5>{$page_title}</H5>
@@ -44,13 +43,13 @@
                             <thead>
                             <tr>
                                 <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-                                <th width="80">{:lang('title')}</th>
+                                <th width="120">{:lang('title')}</th>
                                 <th width="80">{:lang('name')}</th>
-                                <th width="200">{:lang('description')}</th>
-                                <th width="60">{:lang('version')}</th>
-                                <th width="60">{:lang('sort')}</th>
-                                <th width="50">{:lang('enable')}</th>
-                                <th width="50">{:lang('operate')}</th>
+                                <th width="300">{:lang('description')}</th>
+                                <th width="80" class="text-center">{:lang('version')}</th>
+                                <th width="60" >{:lang('sort')}</th>
+                                <th width="50" class="text-center">{:lang('enable')}</th>
+                                <th width="100" class="text-center">{:lang('operate')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -77,14 +76,12 @@
         <td><%=data[i]['title']%></td>
         <td><%=data[i]['name']%></td>
         <td><%=data[i]['intro']%></td>
-        <td><%=data[i]['version']%></td>
-        <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysModule/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
-        <td>
+        <td class="text-center"><%=data[i]['version']%></td>
+        <td class="text-center"><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysModule/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
+        <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysModule/set_visible',array('name'=>'visible'))}"  data-id="<%=data[i]['id']%>" <%=visible%> >
         </td>
-        <td>
-
-            <p>
+        <td class="text-center">
             <lqf_link><a  class="ajax-open" data-url="{:url('SysModule/edit',array('name'=>'visible'))}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('modify')}</a> </lqf_link>
             <% for(var j=0;j<data[i]['status_arr']['action'].length;j++) { %>
             <lqf_link>
@@ -95,17 +92,15 @@
                 </a>
             </lqf_link>
             <% } %>
-            </p>
-            <p>
             <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('backup')}</a> </lqf_link>
             <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('sync')}</a> </lqf_link>
-            </p>
+
         </td>
     </tr>
     <% } %>
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        turnPage(1);//页面加载时初始化分页
+        turnPage(1);
     });
 </script>

@@ -92,7 +92,7 @@ case value
                                             {/case}
                                             {case value="7"}
                                             <textarea class="form-control textarea_editor" name="{$vo.name}"
-                                                      placeholder="请输入富文本内容">{$vo.value|html_entity_decode}</textarea>
+                                                      placeholder="{:lang('请输入富文本内容')}">{$vo.value|html_entity_decode}</textarea>
                                                 {:hook('ArticleEditor', ['name' => $vo.name,'type'=>'simple'])}
                                             {/case}
                                             {case value="8"}
@@ -151,7 +151,7 @@ case value
                 <div class="box-footer">
                     <button type="submit" class="btn  btn-info no-repeat-button ajax-post" data-style="slide-up"
                             target-form="form-save" data-loading-text="Loading...">
-                        <span class="ladda-label"><i class="fa fa-send"></i> 确 定 </span>
+                        <span class="ladda-label"><i class="fa fa-send"></i> {:lang('确定')} </span>
                     </button>
                 </div>
             </div>
@@ -179,7 +179,7 @@ case value
         var checkbox_obj = $(obj).parent().parent().parent().prev();
         var checkbox_obj_ids = checkbox_obj.val();
         var add_id = $(obj).val();
-        // 选中
+        // {:lang('选中')}
         if ($(obj).is(':checked')) {
             if (checkbox_obj_ids == '') {
                 checkbox_obj_ids = add_id;
