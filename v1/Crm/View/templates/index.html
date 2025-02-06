@@ -88,18 +88,25 @@ $(function(){
 <body scroll="no">
 <div id="layout">
   <div id="header">
-    <div class="headerNav"> #{if $sys.manager_spath eq '' }# <a class="logo" href="http://bbs.07fly.com"></a> #{else}# <img src='#{$smarty.const.APP}#/Cache/#{$sys.manager_spath}#' width="200" height="50" /> #{/if}#
+    <div class="headerNav">
+      #{if $sys.manager_spath eq '' }#
+      <a class="logo" href="http://bbs.07fly.com"></a> #{else}#
+      <img src='#{$smarty.const.APP}#/Cache/#{$sys.manager_spath}#' width="200" height="50" />
+      #{/if}#
       <ul class="nav">
         <li><a href="http://oa.07fly.com/" target="_blank" title="07FLY-CRM开源系统V1版本">V1版本</a></li>
         <li><a href="http://erp.07fly.com/" target="_blank" title="07FLY-CRM开源系统V2版本">V2版本</a></li>
         <li><a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a></li>
-        <li><a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a></li>
-        <li><a href="http://wos.demo.07fly.xyz/" target="_blank" title="零起飞工单系统">工单系统</a></li>
-        <li><a href="http://oa.demo.07fly.xyz/" target="_blank" title="零起飞OA系统">OA系统</a></li>
-        <li><a href="http://pms.demo.07fly.xyz/" target="_blank" title="零起飞项目管理">项目管理</a></li>
-        <li><a href="http://crm.demo.07fly.xyz/" target="_blank" title="零起飞客户管理系统S1版">S1CRM</a></li>
+        <li><a href="http://crm.demo.07fly.xyz/" target="_blank" title="零起飞客户管理系统S1版">CRM(S1版)</a></li>
+        <li><a href="http://erp.demo.07fly.xyz/" target="_blank" title="零起飞客户管理系统S1版">ERP(S1版)</a></li>
         <li><a href="http://cms.demo.07fly.xyz/" target="_blank" title="零起飞内容管理系统">CMS系统</a></li>
         <li><a href="http://erp.07fly.xyz/" target="_blank" title="人力资源管理系统">Hrm系统</a></li>
+        <li><a href="http://oa.demo.07fly.xyz/" target="_blank" title="零起飞OA系统">OA系统</a></li>
+        <li><a href="http://dms.demo.07fly.xyz/" target="_blank" title="零起飞进销存系统">进销存</a></li>
+        <li><a href="http://wos.demo.07fly.xyz/" target="_blank" title="零起飞工单系统">工单系统</a></li>
+        <li><a href="http://pms.demo.07fly.xyz/" target="_blank" title="零起飞项目管理">项目管理</a></li>
+        <li><a href="http://eam.demo.07fly.xyz/" target="_blank" title="零起飞资产管理系统">资产管理</a></li>
+        <li><a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a></li>
         <li><a href="http://www.07fly.xyz/" target="_blank">技术支持</a></li>
         <li><a href="http://blog.csdn.net/lx_mai" target="_blank">博客</a></li>
         <li><a href="http://weibo.com/u/2299441430" target="_blank">微博</a></li>
