@@ -1,5 +1,6 @@
 // 列表数据列处理
 var listAll = [];
+var tableColumnUrl = "/admin/Index/getTableColumn";//获取表字段地址
 if ($('a').is('.btn-field-set')) {
     var showTable = $("a.btn-field-set").attr("data-id");
     listAll = [];//所有字段
@@ -10,12 +11,27 @@ if ($('a').is('.btn-field-set')) {
         }
     });
     //存所有字段
-    log(showTable);
     localStorage.setItem("listAll" + showTable, JSON.stringify(listAll));
 
     //未设置显示全部列
+    //未设置时，显示全部列，初始化默认
     if (localStorage.getItem("listSave" + showTable) == null) {
-        localStorage.setItem("listSave" + showTable, JSON.stringify(listAll));
+        $.ajax({
+            url: tableColumnUrl,
+            type: "post",
+            dataType: "json",
+            data: {
+                "table": showTable
+            },
+            success: function (result) {
+                log(result);
+                if (result.data.length <= 0) {
+                    localStorage.setItem("listSave" + showTable, JSON.stringify(listAll));
+                } else {
+                    localStorage.setItem("listSave" + showTable, JSON.stringify(result.data));
+                }
+            }
+        });
     }
 }
 
@@ -46,25 +62,51 @@ $("body").on("click", ".btn-field-set", function () {
         skin: 'layui-layer-demo', //加上边框
         area: ['80%', '60%'], //宽高
         content: listHtml,
-        btn: ['保存', '取消'],
+        btn: ['保存', '取消', '默认保存'],
         yes: function (index, layero) {
-            listSave = [];
-            $(".list-all-field input[name='listFieldCheckbox']:checked").each(function (e) {
-                if (true == $(this).prop("checked")) {
-                    value = $(this).prop('value');
-                    listSave[e] = value
-                }
-            });
-            localStorage.setItem("listSave" + showTable, JSON.stringify(listSave));
-            turnPage(pageNum);
-            //事件
-            layer.close(indxe_list_field);
+            btnFieldSaveSet(index);//保存
         },
         btn2: function (index, layero) {
             layer.close(index)
+        },
+        btn3: function (index, layero) {
+            btnFieldSaveSet(index, true);//全部
         }
     });
 });
+
+//保存字段到本地，全部保存
+function btnFieldSaveSet(index, $issave = false) {
+    var listSave = [];
+    $(".list-all-field input[name='listFieldCheckbox']:checked").each(function (e) {
+        if (true == $(this).prop("checked")) {
+            var value = $(this).prop('value');
+            listSave[e] = value
+        }
+    });
+    localStorage.setItem("listSave" + showTable, JSON.stringify(listSave));
+    turnPage(pageNum);
+    if ($issave) {
+        $.ajax({
+            url: tableColumnUrl,
+            type: "post",
+            dataType: "json",
+            data: {
+                "table": showTable,
+                "column": listSave
+            },
+            success: function (result) {
+                layer.msg(result.msg, {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
+                    layer.close(index)
+                });
+                log(result);
+            }
+        })
+    }
+    layer.msg('操作成功', {icon: 1, time: 500, shade: [0.5, '#000', true]}, function () {
+        layer.close(index)
+    });
+}
 
 //初始化隐藏表的列
 function initTableCell() {

@@ -340,7 +340,29 @@ $("body").on("click", ".ajax-goto", function () {
     }
     return false;
 });
-
+//导出=》选择数据
+$("body").on("click", ".ajax-export-check", function () {
+    if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
+        var cIds = '';
+        var checkedArr = $('.ajax-list-table input[class="checkboxCtrlId"]:checked');
+        checkedArr.each(function () {
+            cIds += $(this).val() + ",";
+        });
+        if (cIds.length > 0) {
+            cIds = cIds.substring(0, cIds.length - 1);
+            var target = target + "?id=" + cIds;
+            log('执行地址：' + target);
+            if ($(this).attr('target') == '_blank') {
+                window.open(target)
+            } else {
+                window.location.href = target;
+            }
+        } else {
+            parent.layer.msg('请选择操作数据', {icon: 5});
+        }
+    }
+    return false;
+});
 //ajax打开,普通打开
 $("body").on("click", ".ajax-open", function () {
 
@@ -348,7 +370,6 @@ $("body").on("click", ".ajax-open", function () {
 
         var tit = $(this).attr('data-title');//打开标题
         var fun = $(this).attr('data-calback');//回调函数
-
         //是否带参数字段
         //参数传，支持多个参数传送 格式：data-ids="{'tid':'2',''name':'张三'}"
         var ids = $(this).attr('data-ids');
@@ -356,7 +377,6 @@ $("body").on("click", ".ajax-open", function () {
             var ids = ($.param(eval('(' + ids + ')'), true));
             var target = target + "?" + ids;
         }
-
         //是否设置了单个值
         var id = $(this).attr("data-id");
         if (typeof (id) != "undefined" && id != 0) {
@@ -377,7 +397,6 @@ $("body").on("click", ".ajax-open", function () {
         } else {
             height = "90%";
         }
-
         //判断是否是手机页
         var wwithd = $(window).width();
         if (wwithd <= 750) {
@@ -606,7 +625,6 @@ $("body").on("click", ".ajax-get-more", function () {
     checkedArr.each(function () {
         cIds += $(this).val() + ",";
     });
-
     if (cIds.length > 0) {
         cIds = cIds.substring(0, cIds.length - 1);
         if ((target = $(this).attr('href')) || (target = $(this).attr('url')) || (target = $(this).attr('data-url'))) {
@@ -620,7 +638,7 @@ $("body").on("click", ".ajax-get-more", function () {
             }
 
             $.post(target, {id: cIds}, function (data) {
-                if (data.code) {
+                if (data.code=='1') {
                     parent.layer.msg(data.msg, {icon: 1});
                     if (fun != null) {
                         eval(fun);
