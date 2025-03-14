@@ -113,10 +113,8 @@ class ApiBase extends LogicBase
      */
     public function checkUserTokenParam($param = [])
     {
-
         //用户检查，通信息码
         $this->checkAccessToken($param);
-
         if (empty($param['user_token'])) {
             $this->apiError(CodeApiBase::$userTokenNull);
         } else {
@@ -125,6 +123,4 @@ class ApiBase extends LogicBase
         }
         return $decoded_user_token;
     }
-
-
 }
