@@ -56,6 +56,7 @@ return [
                 'id' => ['type' => 'int', 'length' => 16, 'unsigned' => false, 'autoincrement' => true, 'comment' => '主id',],
                 'is_rank' => ['type' => 'int', 'length' => 2, 'required' => true, 'default' => 1, 'comment' => '是否参与排名',],
                 'open_id' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '微信openid',],
+                'scene_qrcode' => ['type' => 'varchar', 'length' => 256, 'required' => true, 'default' => '', 'comment' => '微信扫码场景',],
             ],
             //主键 多个主键['user_id','name']
             'primary' => ['id'],

@@ -22,7 +22,6 @@ use think\Db;
  */
 class TableField extends LogicBase
 {
-
     //增加字段
     public function add_field($table, $fieldname, $type, $maxlength, $default = NULL, $desc = NULL)
     {

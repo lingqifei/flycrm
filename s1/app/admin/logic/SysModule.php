@@ -357,7 +357,6 @@ class SysModule extends AdminBase
      */
     public function sysModuleSyncTable($data = [])
     {
-
         //查询模块信息
         $info = $this->modelSysModule->getInfo(['id' => $data['id']], true);
         if (empty($info)) {
@@ -377,13 +376,7 @@ class SysModule extends AdminBase
         $app_table_file = $module_dir . 'data' . DS . 'table.php';
         $this->modelSysModule->sysModuleSyncTableFile($app_table_file);
 
-        //3、同步栏目
-        $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
-        if (file_exists($app_menu_file)) {
-            $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
-        }
-
-        //4、判断是否有升级SQL脚本，执行升级脚本
+        //3、判断是否有升级SQL脚本，执行升级脚本
         $app_sql_upgrade = $module_dir . 'data' . DS . 'upgrade.sql';
         if (file_exists($app_sql_upgrade)) {
             $this->modelSysModule->importModuleSqlExec(array('time' => time(), 'module_dir' => $module_dir . 'data' . DS, 'sqlfile' => 'upgrade.sql'));
@@ -392,7 +385,31 @@ class SysModule extends AdminBase
         return [RESULT_SUCCESS, '文件同步完成', ''];
     }
 
+    //栏目同步
+    public function sysModuleSyncMenu($data = [])
+    {
+        //查询模块信息
+        $info = $this->modelSysModule->getInfo(['id' => $data['id']], true);
+        if (empty($info)) {
+            return [RESULT_ERROR, '本模块数据不存在'];
+            exit;
+        }
+        $module_name = $info['name'];
 
+        //1、判断目录是否在
+        $module_dir = $this->app_path . $module_name . DS;
+        if (!is_dir($module_dir)) {
+            return [RESULT_ERROR, '模块文件目录不存在'];
+            exit;
+        }
+        //1、同步栏目
+        $app_menu_file = $module_dir . 'data' . DS . 'menu.json';
+        if (file_exists($app_menu_file)) {
+            $this->modelSysModule->sysModuleSyncMenuFile($app_menu_file);
+        }
+
+        return [RESULT_SUCCESS, '文件同步完成', ''];
+    }
     /**
      * app安装执行=》目录
      * @param $app_path

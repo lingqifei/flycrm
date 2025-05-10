@@ -98,9 +98,9 @@
         </td>
         </td>
         <td>
-            <input type="text" name="module" value="<%=data[i]['module']%>" class="form-control w100 ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'module'))}" data-id="<%=data[i]['id']%>" size="10">
+            <input type="text" name="module" value="<%=data[i]['module']%>" class="form-control ajax-field" data-url="{:url('SysMenu/set_field',array('name'=>'module'))}" data-id="<%=data[i]['id']%>" size="10">
         </td>
-        <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control w50 ajax-sort" data-url="{:url('SysMenu/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
+        <td><input type="text" name="sort" value="<%=data[i]['sort']%>" class="form-control ajax-sort" data-url="{:url('SysMenu/set_sort',array('name'=>'sort'))}" data-id="<%=data[i]['id']%>" size="5"></td>
         <td class="text-center">
             <input name="visible" class="ajax-checkbox" type="checkbox"   data-url="{:url('SysMenu/set_visible',array('name'=>'is_menu'))}"  data-id="<%=data[i]['id']%>" <%=is_menu%> >
         </td>

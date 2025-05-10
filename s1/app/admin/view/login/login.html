@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
                     <div class="social-login-buttons">
-                        <a class="btn btn-link-1 btn-link-1-weixin" data-url="{:url('Login/login_wx')}" title="在移动端下面可以点击微信登录">
+                        <a class="btn btn-link-1 btn-link-1-weixin login_scene_qrcode_create" data-url="{:url('Login/login_wx')}" title="在移动端下面可以点击微信登录">
                             <i class="fa fa-weixin"></i> {:lang('wechat')}
                         </a>
                     </div>
@@ -119,6 +119,10 @@
     $("body").on("click", ".login-btn", function () {
         ajaxlogin();
     });
+    // 登录
+    $("body").on("click", ".login_scene_qrcode_create", function () {
+        login_scene_qrcode_create();
+    });
     function ajaxlogin() {
         var form = $('.login-form');
         var target = form.get(0).action;
@@ -142,6 +146,50 @@
     function reloadcode() {
         var captcha_img_obj = $("#captcha_img");
         captcha_img_obj.attr("src", captcha_img_obj.attr("src") + "?" + Math.random());
+    }
+    //获取登录的二维码
+    function login_scene_qrcode_create() {
+        var target = "{:url('admin/Login/login_scene_qrcode_create')}";
+        console.log(target);
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: '',
+            dataType: "json",
+            success: function (rtnJsonData) {
+                var html = '<img src="' + rtnJsonData.qrcode_url + '" data-id="' + rtnJsonData.scene + '" style="width:98%;height:98%;">';
+                layer.open({
+                    type: 1,
+                    title: '微信扫码登录',
+                    area: ['400px', '400px'],
+                    content: html,
+                })
+            },
+            complete: function () { //执行完之后执行
+                window.setInterval("login_scene_qrcode_chk()", 3000);
+            },
+        });//end ajax post
+    }
+
+    //检查登录二维码
+    function login_scene_qrcode_chk() {
+        var target = "{:url('admin/Login/login_scene_qrcode_chk')}";
+        console.log(target);
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: '',
+            dataType: "json",
+            success: function (rtnJsonData) {
+                if (rtnJsonData.code == '1') {
+                    layer.msg(rtnJsonData.msg, {icon: 1, time: 2000, shade: [0.5, '#000', true]}, function () {
+                        window.location.reload();
+                    });
+                }
+            },
+            complete: function () { //执行完之后执行
+            },
+        });//end ajax post
     }
 </script>
 </body>

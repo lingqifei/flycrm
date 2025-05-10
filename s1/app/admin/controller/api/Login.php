@@ -20,26 +20,27 @@ use think\Hook;
 class Login extends ApiBase
 {
 
-	/**
-	 * 基类初始化
-	 */
-	public function __construct()
-	{
+    /**
+     * 基类初始化
+     */
+    public function __construct()
+    {
 
-		parent::__construct();
+        parent::__construct();
 
-		$this->logicApiBase->checkAccessToken($this->param);//下放到具体模块只使用
+        $this->logicApiBase->checkAccessToken($this->param);//下放到具体模块只使用
 
-		// 接口控制器钩子
-		Hook::listen('hook_controller_api_base', $this->request);
+        // 接口控制器钩子
+        Hook::listen('hook_controller_api_base', $this->request);
 
-		debug('api_begin');
-	}
+        debug('api_begin');
+    }
 
-	public function login(){
-		$info = $this->logicLogin->loginHandleToApi($this->param);
-		return $this->apiReturn($info);
-	}
+    public function login()
+    {
+        $info = $this->logicLogin->loginHandleToApi($this->param);
+        return $this->apiReturn($info);
+    }
 
     /**
      * 注销登录
@@ -47,7 +48,7 @@ class Login extends ApiBase
     public function logout()
     {
 
-        $result=$this->logicLogin->logout();
+        $result = $this->logicLogin->logout();
 
         return $this->apiReturn($result);
     }

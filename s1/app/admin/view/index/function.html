@@ -45,6 +45,10 @@
             //audio.play();
             log('取消静音效果')
         }, false);
+
+        $(".qrcode-bind-weixin").click(function () {
+            bind_scene_qrcode_create();//刷新登录二维码
+        });
     });
     //声音播放插件
     var playSound = function () {
@@ -135,6 +139,51 @@
         var nums = Number(my) + Number(noti);
         $(".msg-icon-nums").text(nums);
     }
+    //获取登录的二维码
+    function bind_scene_qrcode_create() {
+        var target = "{:url('admin/Login/bind_scene_qrcode_create')}";
+        console.log(target);
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: '',
+            dataType: "json",
+            success: function (rtnJsonData) {
+                var html = '<img src="' + rtnJsonData.qrcode_url + '" data-id="' + rtnJsonData.scene + '" style="width:98%;height:98%;">';
+                layer.open({
+                    type: 1,
+                    title: '微信二维码绑定',
+                    area: ['400px', '400px'],
+                    content: html,
+                })
+            },
+            complete: function () { //执行完之后执行
+                time1 = window.setInterval("bind_scene_qrcode_chk()", 5000);
+            },
+        });//end ajax post
+    }
+
+    //检查登录二维码
+    function bind_scene_qrcode_chk() {
+        var target = "{:url('admin/Login/bind_scene_qrcode_chk')}";
+        console.log(target);
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: '',
+            dataType: "json",
+            success: function (rtnJsonData) {
+                if (rtnJsonData.code == '1') {
+                    layer.msg(rtnJsonData.msg, {icon: 1, time: 2000, shade: [0.5, '#000', true]}, function () {
+                        window.location.reload();
+                    });
+                }
+            },
+            complete: function () { //执行完之后执行
+            },
+        });//end ajax post
+    }
+
     //setInterval("func()", 60000);
     setInterval("runSysNotify()", 1000 * 60 * 5);
     setInterval("runSysMsg()", 1000 * 60 * 10);

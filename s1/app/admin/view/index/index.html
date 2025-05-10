@@ -80,26 +80,24 @@
                     {/if}
                     {$sys_config.top_links_right|default=''}
                     <!--语言包-->
+                    {notempty name="language_list"}
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-language "></i>{:lang('language')}
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
+                            {volist name="language_list" id="vo"}
                             <li>
-                                <a href="{:url('index/language',array('lang'=>'cn'))}" class="ajax-get"
+                                <a href="{:url('index/chgLanguage',array('lang'=>$vo.language_tag))}" class="ajax-get"
                                    data-calback="window.location.reload();">
-                                    {:lang('chinese')}
+                                    {:lang($vo.name)}
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li>
-                                <a href="{:url('index/language',array('lang'=>'en'))}" class="ajax-get"
-                                   data-calback="window.location.reload();">
-                                    {:lang('english')}
-                                </a>
-                            </li>
+                            {/volist}
                         </ul>
                     </li>
+                    {/notempty}
                     <!--{:lang("system announcement")}-->
                     <li class="dropdown msg-icon">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -143,6 +141,31 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
+                            {if condition="($sys_user_info.open_id == '')"}
+                            <!--<li>
+                                <a href="{:url('Login/login_wx_bind',array('id'=>$sys_user_info['id']))}"
+                                   class="ajax-goto"
+                                   title="{:lang('personal data')}" width="600" height="400">
+                                    <div><i class="fa fa-wechat fa-fw"></i> {:lang('手机绑定微信')}</div>
+                                </a>
+                            </li>-->
+                            <li>
+                                <a href="#" class="qrcode-bind-weixin"
+                                   title="{:lang('personal data')}" width="600" height="400">
+                                    <div><i class="fa fa-wechat fa-fw"></i> {:lang('扫码绑定微信')}</div>
+                                </a>
+                            </li>
+                            {else/}
+                            <li>
+                                <a href="{:url('Login/login_wx_unbind',array('id'=>$sys_user_info['id']))}"
+                                   class="ajax-get" data-calback="window.location.reload();"
+                                   title="{:lang('personal data')}" width="600" height="400">
+                                    <div class="text-danger"><i class="fa fa-remove fa-fw"></i> {:lang('微信解绑')}
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            {/if}
                             <li>
                                 <div class="text-center link-block">
                                     <a class="ajax-get" href="{:url('Login/logout')}"

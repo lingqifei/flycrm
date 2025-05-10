@@ -666,18 +666,24 @@ function get_file_root_path()
 /**
  * 获取图片url=》根据picture id
  */
-function get_picture_url($id = 0, $member = 'picture')
+function get_picture_url($id = 0, $module = 'picture')
 {
 
-    $fileLogic = get_sington_object('fileLogic', LogicFile::class);
+    // 如果提供了模块名称，则构建完整的类名,同时兼容模块名称为空
+    if ($module) {
+        $class = 'app\\' . $module . '\logic\\File';
+        $fileLogic = get_sington_object('fileLogic', $class);
+    } else {
+        $fileLogic = get_sington_object('fileLogic', LogicFile::class);
+    }
 
     if (is_numeric($id)) {
-        return $fileLogic->getPictureUrl($id, $member);
+        return $fileLogic->getPictureUrl($id, $module);
     } else {
         //1、表示为多张图的id 如：1，2，3，4
         if (strpos($id, '/') === false) {
 
-            return $fileLogic->getPictureUrl($id, $member);
+            return $fileLogic->getPictureUrl($id, $module);
 
         } else if (strpos($id, 'http') === 0) {//表示外网路路不要转换 如：http://www.07fly.com/upload/img/demo.jpg
 
@@ -694,6 +700,7 @@ function get_picture_url($id = 0, $member = 'picture')
         }
     }
 }
+
 /**
  * 获取图片url=>根据地址
  */
@@ -704,13 +711,19 @@ function get_picture_url2($path = '')
 
     return $fileLogic->getPictureWebUrl($path);
 }
+
 /**
  * 获取文件url=>根据 file id
  */
-function get_file_url($id = 0)
+function get_file_url($id = 0, $module = '')
 {
-
-    $fileLogic = get_sington_object('fileLogic', LogicFile::class);
+    // 如果提供了模块名称，则构建完整的类名,同时兼容模块名称为空
+    if ($module) {
+        $class = 'app\\' . $module . '\logic\\File';
+        $fileLogic = get_sington_object('fileLogic', $class);
+    } else {
+        $fileLogic = get_sington_object('fileLogic', LogicFile::class);
+    }
 
     if (is_numeric($id)) {
 

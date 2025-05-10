@@ -49,7 +49,7 @@ class Login extends AdminBase
     }
 
     /**
-     * 登录后绑定openid
+     * 登录后绑定openid=》微信浏览中
      * @param array $data
      * @return int
      * Author: 开发人生 goodkfrs@qq.com
@@ -84,14 +84,39 @@ class Login extends AdminBase
     {
         $user = $this->modelSysUser->getInfo(['open_id' => $data['open_id']]);
         if (!empty($user)) {
-
             $this->loginHandleSession($user);
-
             return $user['id'];
-
         } else {
             return 0;
         }
+    }
+
+    //扫码绑定微信检查
+    public function bindSceneQrcode($data = [])
+    {
+        $user = $this->modelSysUser->getInfo(['scene_qrcode' => $data['scene_qrcode']]);
+        if ($user) {
+            return [RESULT_SUCCESS, '扫码绑定成功', url('Index/index')];
+        }
+        return [RESULT_ERROR, '未检查到绑定数据！'];
+    }
+
+    /**
+     * 扫码登录检查，
+     * @param array $data
+     * @return int 成功为id,失败为0
+     * Author: 开发人生 goodkfrs@qq.com
+     * Date: 2021/12/24 0024 17:28
+     */
+    public function loginSceneQrcode($data = [])
+    {
+        $user = $this->modelSysUser->getInfo(['scene_qrcode' => $data['scene_qrcode']]);
+        if ($user) {
+            //登录session
+            $this->loginHandleSession($user);
+            return [RESULT_SUCCESS, '扫码登录成功', url('Index/index')];
+        }
+        return [RESULT_ERROR, '未检查到登录'];
     }
 
     /**
@@ -99,18 +124,13 @@ class Login extends AdminBase
      */
     public function loginHandleToApi($data = [])
     {
-
         if (empty($data['username']) || empty($data['password'])) {
             return [RESULT_ERROR, '用户名称和密码不能空~'];
             exit;
         }
-
         $user = $this->logicSysUser->getSysUserInfo(['username' => $data['username']]);
-
         if (!empty($user['password']) && data_md5_key($data['password']) == $user['password']) {
-
             $this->loginHandleSession($user);
-
             //生成user token
             $user_token = encoded_user_token($user);
             $user_token['userinfo'] = [
@@ -123,11 +143,8 @@ class Login extends AdminBase
                 'email' => $user['email']
             ];
             return [RESULT_SUCCESS, '登录成功', url('index/index'), $user_token];
-
         } else {
-
             $error = empty($user['id']) ? '用户账号不存在' : '密码输入错误';
-
             return [RESULT_ERROR, $error];
         }
     }
@@ -160,9 +177,7 @@ class Login extends AdminBase
      */
     public function logout()
     {
-
         clear_login_session();
-
         return [RESULT_SUCCESS, '退出成功', url('admin/Login/login')];
     }
 
@@ -171,9 +186,7 @@ class Login extends AdminBase
      */
     public function clearCache()
     {
-
         \think\Cache::clear();
-
         return [RESULT_SUCCESS, '清理成功', url('index/index')];
     }
 }

@@ -92,8 +92,9 @@
                 </a>
             </lqf_link>
             <% } %>
-            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('backup')}</a> </lqf_link>
-            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('sync')}</a> </lqf_link>
+<!--            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/backup')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('backup')}</a> </lqf_link>-->
+            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/synctable')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('同步数据')}</a> </lqf_link>
+            <lqf_link><a  class="ajax-get ajaxload" data-url="{:url('SysModule/syncmenu')}"  data-ids="{'id':'<%=data[i]['id']%>'}" >{:lang('同步栏目')}</a> </lqf_link>
 
         </td>
     </tr>

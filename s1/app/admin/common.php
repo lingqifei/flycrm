@@ -19,7 +19,7 @@ function action_log($name = '', $describe = '')
 {
 
     $logLogic = get_sington_object('logLogic', LogicLog::class);
-    
+
     $logLogic->logAdd($name, $describe);
 }
 
@@ -28,8 +28,8 @@ function action_log($name = '', $describe = '')
  */
 function clear_login_session()
 {
-    session('sys_user_info',      null);
-    session('sys_user_auth',      null);
+    session('sys_user_info', null);
+    session('sys_user_auth', null);
     session('sys_user_auth_sign', null);
 }
 
@@ -62,18 +62,18 @@ if (!function_exists("list2tree2menu")) {
     function list2tree2menu($list, $pId = 0, $pk = 'id', $pidk = 'pid', $name = 'name')
     {
         $tree = [];
-        $tmp=[];
+        $tmp = [];
         foreach ($list as $k => $v) {
             if ($v[$pidk] == $pId) { //父亲找到儿子
-                $tmp['name']=$v['name'];
-                $tmp['sort']=$v['sort'];
-                $tmp['module']=$v['module'];
-                $tmp['url']=$v['url'];
-                $tmp['visible']=$v['visible'];
-                $tmp['is_shortcut']=$v['is_shortcut'];
-                $tmp['is_menu']=$v['is_menu'];
-                $tmp['icon']=$v['icon'];
-                $tmp['url']=$v['url'];
+                $tmp['name'] = $v['name'];
+                $tmp['sort'] = $v['sort'];
+                $tmp['module'] = $v['module'];
+                $tmp['url'] = $v['url'];
+                $tmp['visible'] = $v['visible'];
+                $tmp['is_shortcut'] = $v['is_shortcut'];
+                $tmp['is_menu'] = $v['is_menu'];
+                $tmp['icon'] = $v['icon'];
+                $tmp['url'] = $v['url'];
                 $tmp['nodes'] = list2tree2menu($list, $v[$pk], $pk, $pidk, $name);
                 $tree[] = $tmp;
             }
@@ -94,13 +94,13 @@ if (!function_exists("list2select")) {
      * @return array|string
      * Author: lingqifei created by at 2020/4/1 0001
      */
-    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name',$data=[])
+    function list2select($list, $pId = 0, $level = 0, $pk = 'id', $pidk = 'pid', $name = 'name', $data = [])
     {
         foreach ($list as $k => $v) {
             $v['treename'] = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . '|--' . $v[$name];
             if ($v[$pidk] == $pId) { //父亲找到儿子
-                $data[] =$v;
-                $data   = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name,$data);
+                $data[] = $v;
+                $data = list2select($list, $v[$pk], $level + 1, $pk, $pidk, $name, $data);
             }
         }
         return $data;
@@ -110,12 +110,13 @@ if (!function_exists("list2select")) {
 if (!function_exists('parse_sql')) {
     /**
      * 解析sql语句
-     * @param  string $content sql内容
-     * @param  int $limit  如果为1，则只返回一条sql语句，默认返回所有
-     * @param  array $prefix 替换表前缀
+     * @param string $content sql内容
+     * @param int $limit 如果为1，则只返回一条sql语句，默认返回所有
+     * @param array $prefix 替换表前缀
      * @return array|string 除去注释之后的sql语句数组或一条语句
      */
-    function parse_sql($sql = '', $limit = 0, $prefix = []) {
+    function parse_sql($sql = '', $limit = 0, $prefix = [])
+    {
         // 被替换的前缀
         $from = '';
         // 要替换的前缀
@@ -123,7 +124,7 @@ if (!function_exists('parse_sql')) {
 
         // 替换表前缀
         if (!empty($prefix)) {
-            $to   = current($prefix);
+            $to = current($prefix);
             $from = current(array_flip($prefix));
         }
 
@@ -174,9 +175,9 @@ if (!function_exists('parse_sql')) {
 
                 // 替换表前缀
                 if ($from != '') {
-                    $line = str_replace('`'.$from, '`'.$to, $line);
+                    $line = str_replace('`' . $from, '`' . $to, $line);
                 }
-                if ($line == 'BEGIN;' || $line =='COMMIT;') {
+                if ($line == 'BEGIN;' || $line == 'COMMIT;') {
                     continue;
                 }
                 // sql语句
@@ -202,14 +203,15 @@ if (!function_exists('parse_sql')) {
 if (!function_exists('isJson')) {
 
     /**
-    * 判断字符串是否为 Json 格式
-    *
-    * @param string $data Json 字符串
-    * @param bool $assoc 是否返回关联数组。默认返回对象
-    *
-    * @return array|bool|object 成功返回转换后的对象或数组，失败返回 false
-    */
-    function isJson($data = '', $assoc = false) {
+     * 判断字符串是否为 Json 格式
+     *
+     * @param string $data Json 字符串
+     * @param bool $assoc 是否返回关联数组。默认返回对象
+     *
+     * @return array|bool|object 成功返回转换后的对象或数组，失败返回 false
+     */
+    function isJson($data = '', $assoc = false)
+    {
         $data = json_decode($data, $assoc);
         if (($data && is_object($data)) || (is_array($data) && !empty($data))) {
             return $data;
@@ -218,8 +220,9 @@ if (!function_exists('isJson')) {
     }
 }
 
-if(!function_exists('get_client_ip')){
-    function get_client_ip() {
+if (!function_exists('get_client_ip')) {
+    function get_client_ip()
+    {
         $ip = false;
         if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
             $ip = $_SERVER["HTTP_CLIENT_IP"];

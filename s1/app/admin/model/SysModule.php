@@ -551,6 +551,7 @@ INFO;
                 $result = $info['id'];//设置本为上级栏目
                 $this->sysModuleMenuImport($childs, $result);
             }
+
             if (!$result) {
                 return false;
             }

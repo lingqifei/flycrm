@@ -89,7 +89,7 @@
 <script id="tableListTpl" type="text/html">
     <%
     for(var i=0;i<data.length;i++) {
-    var deal_status='';if(data[i]['deal_status']=='1') visible='checked';
+    var deal_status='';if(data[i]['deal_status']=='1') deal_status='checked';
     var sms='';if(data[i]['remind_sms']=='1') sms='checked';
     var sys='';if(data[i]['remind_sys']=='1') sys='checked';
     var email='';if(data[i]['remind_email']=='1') email='checked';

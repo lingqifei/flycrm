@@ -132,6 +132,13 @@ class SysModule extends AdminBase
 	}
 
     /**
+     * 模块同步
+     */
+    public function syncmenu()
+    {
+        return $this->jump($this->logicSysModule->sysModuleSyncMenu($this->param));
+    }
+    /**
      * 模块上传
      */
     public function upload()

@@ -75,6 +75,7 @@ $(document).ready(function () {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
     }
+
     fix_height();
 
     $(window).bind("load resize click scroll", function () {
@@ -145,7 +146,11 @@ $(document).ready(function () {
     $('.menu-tree-checkbox li input[type="checkbox"]').on('click', function (e) {
         var ischecked = $(this).prop('checked');
         $(this).nextAll("ul").find("li input[type='checkbox']").prop("checked", ischecked);
-        $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked", true);//保证所有低级勾选上
+
+        var isCheckParent = $(this).parent('li').hasClass("dont-check-parent");
+        if (!isCheckParent) {
+            $(this).parent().parents("li.has_child").find("input[type='checkbox']:first").prop("checked", true);//保证所有低级勾选上
+        }
 
     });
 
@@ -153,17 +158,17 @@ $(document).ready(function () {
     $(".checkboxCtrl").on('click', function () {
         $("tbody input[class='checkboxCtrlId']:checkbox").prop("checked", $(this).prop('checked'));
 
-        if($(this).prop('checked')){
+        if ($(this).prop('checked')) {
             $(".ajax-list-table tbody tr").addClass('active')
-        }else{
+        } else {
             $(".ajax-list-table tbody tr").removeClass('active')
         }
     });
     //点击列表前面checkbox背景变色
     $("body").on("click", ".checkboxCtrlId", function () {
-        if($(this).prop('checked')){
+        if ($(this).prop('checked')) {
             $(this).parents('tr').addClass('active')
-        }else{
+        } else {
             $(this).parents('tr').removeClass('active')
         }
     });
@@ -546,6 +551,7 @@ function textToImg(str) {
     context.fillText(name, fontSize, fontSize);
     return canvas.toDataURL("image/png")
 }
+
 //随机颜色
 function getBG() {
     var bgArray = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
@@ -564,16 +570,18 @@ $(".auto-height-box").each(function (key, row) {
         setAutoHeightBox();
     });
 })
-function setAutoHeightBox() {
-    var object=$(".auto-height-box");
-    var offsetTop=object.offset().top;
 
-    log('offsetTop:'+offsetTop);
+function setAutoHeightBox() {
+    var object = $(".auto-height-box");
+    var offsetTop = object.offset().top;
+
+    log('offsetTop:' + offsetTop);
 
     var windowHeight = $(window).height();
-    var centerHight = windowHeight - offsetTop -40;
+    var centerHight = windowHeight - offsetTop - 40;
     $(".auto-height-box").height(centerHight).css("overflow", "auto");
     $(".auto-height-box").css("background", "#fff");
 }
+
 /*-----页面pannel内容区高度自适应 end-----*/
 

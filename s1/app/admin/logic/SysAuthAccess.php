@@ -23,22 +23,18 @@ class SysAuthAccess extends AdminBase
 	 */
 	public function getAuthMenuList($sys_user_id = 0,$model='')
 	{
-
 		$sort = 'sort';
-
+        // 判断是否是超级管理员, 则返回全部菜单
 		if (IS_ROOT) {
 			$map=[];
 			if(!empty($model)) $map['module']=['in',$model];
 			return $this->logicSysMenu->getSysMenuList($map, true, $sort);
 		}
 
-		// 获取用户组列表
+		// 获取用户组对应的权限节点ID集合
 		$group_list = $this->getUserAuthInfo($sys_user_id);
-
 		$menu_ids = [];
-
 		foreach ($group_list as $group_info) {
-
 			// 合并多个分组的权限节点并去重
 			!empty($group_info['rules']) && $menu_ids = array_unique(array_merge($menu_ids, explode(',', trim($group_info['rules'], ','))));
 		}
@@ -46,12 +42,11 @@ class SysAuthAccess extends AdminBase
 		//2019-12-11 新增加加用户单独权限设置
 		$userinfo = session('sys_user_info');
 		$menu_ids = array_unique(array_merge($menu_ids, explode(',', trim($userinfo['rules'], ','))));
-
-		// 户单独权限设置************end
+		//2019-12-11 *** 户单独权限设置 ************end
 
 		if (empty($menu_ids))  return $menu_ids;// 若没有权限节点则返回空数组
 
-		// 查询条件=>区别按模块
+		// 根据权限节点=》查询菜单
 		$where['id'] = ['in', $menu_ids];
 		if(!empty($model)) $where['module'] = ['in', $model];//判断模块是否开启
 		return $this->logicSysMenu->getSysMenuList($where, true, $sort)->toArray();
@@ -62,13 +57,10 @@ class SysAuthAccess extends AdminBase
 	 */
 	public function getAuthMenuUrlList($auth_menu_list = [])
 	{
-
 		$auth_list = [];
-
 		foreach ($auth_menu_list as $info) {
 			$auth_list[] = $info['url'];
 		}
-
 		return $auth_list;
 	}
 

@@ -101,14 +101,21 @@ class Login extends ControllerBase
      */
     public function login_wx_bind()
     {
+        //判断是否登录,
+        $userinfo = Session::get('sys_user_info');
+        if (empty($userinfo)) {
+            $redirect = url('Login/login');
+            $rtn = [RESULT_ERROR, '微信未绑定帐号，需要使用账号先登录系统，然后在绑定微信', $redirect];
+            $this->jump($rtn);
+        }
         //加载微信
-        $weixin = new \app\weixin\Portal();
-
+        //$weixin = new \app\weixin\Portal();
+        //当前这个入口的地址
         $this->param['redirect'] = DOMAIN . SYS_DS_PROS . MODULE_NAME . SYS_DS_PROS . CONTROLLER_NAME . SYS_DS_PROS . ACTION_NAME;
         $this->param['scope'] = 'snsapi_userinfo';
-        $info = $weixin->getAccessToken($this->param);
+        $info = $this->weixin->getAccessToken($this->param);
         if ($info['openid']) {
-            $userinfo = $weixin->getUserInfo($info);
+            $userinfo = $this->weixin->getUserInfo($info);
             $login_data['open_id'] = $userinfo['openid'];
             $login_data['nickname'] = $userinfo['nickname'];
             $login_data['sex'] = $userinfo['sex'];
@@ -127,6 +134,69 @@ class Login extends ControllerBase
                 exit;
             }
         }
+    }
+
+    /**
+     * 生成扫描的绑定的二维码
+     * @return bool|string
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/3/24 8:43
+     */
+    public function bind_scene_qrcode_create()
+    {
+        $memberinfo = session('sys_user_info');
+        $scene = 'adminSysUserWeixinBind_' . $memberinfo['id'];
+        session('scene_qrcode', $scene);
+        $post_url = DOMAIN . url('weixin/Portal/qrcode');
+        $res['qrcode_url'] = curl_post($post_url, ['scene' => $scene]);
+        $res['scene'] = $scene;
+        return $res;
+    }
+
+    /**
+     * 二维码检查是否绑定成功
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/3/24 15:40
+     */
+    public function bind_scene_qrcode_chk()
+    {
+        $scene_qrcode = session('scene_qrcode');
+        $this->jump($this->logicLogin->bindSceneQrcode(['scene_qrcode' => $scene_qrcode]));
+    }
+
+    /**
+     * 生成扫描的绑定的二维码
+     * @return bool|string
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/3/24 8:43
+     */
+    public function login_scene_qrcode_create()
+    {
+        $scene = 'adminSysUserWeixinLogin_'.uniqid();
+        session('scene_qrcode', $scene);
+        $post_url = DOMAIN . url('weixin/Portal/qrcode');
+        $res['qrcode_url'] = curl_post($post_url, ['scene' => $scene]);
+        $res['scene'] = $scene;
+        return $res;
+    }
+
+    /**
+     * 二维码检查是否扫描登录成功
+     * @return void
+     * @author: 开发人生 goodkfrs@qq.com
+     * @Time: 2023/3/24 15:40
+     */
+    public function login_scene_qrcode_chk()
+    {
+        $scene_qrcode = session('scene_qrcode');
+        $this->jump($this->logicLogin->loginSceneQrcode(['scene_qrcode' => $scene_qrcode]));
+    }
+
+    //删除微信绑定
+    public function login_wx_unbind()
+    {
+        $this->jump($this->logicLogin->loginUnbindOpenId());
     }
 
     /**

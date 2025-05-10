@@ -82,6 +82,8 @@ class ControllerBase extends Controller
     final protected function jump($jump_type = null, $message = null, $url = null)
     {
 
+        $message=lang($message);//语言包
+
         $data = is_array($jump_type) ? $this->parseJumpArray($jump_type) : $this->parseJumpArray([$jump_type, $message, $url]);
 
         $success = RESULT_SUCCESS;
