@@ -666,17 +666,15 @@ function get_file_root_path()
 /**
  * 获取图片url=》根据picture id
  */
-function get_picture_url($id = 0, $module = 'picture')
+function get_picture_url($id = 0, $module = '')
 {
-
     // 如果提供了模块名称，则构建完整的类名,同时兼容模块名称为空
-    if ($module) {
+    if ($module && $module != 'admin') {
         $class = 'app\\' . $module . '\logic\\File';
         $fileLogic = get_sington_object('fileLogic', $class);
     } else {
         $fileLogic = get_sington_object('fileLogic', LogicFile::class);
     }
-
     if (is_numeric($id)) {
         return $fileLogic->getPictureUrl($id, $module);
     } else {
@@ -718,7 +716,7 @@ function get_picture_url2($path = '')
 function get_file_url($id = 0, $module = '')
 {
     // 如果提供了模块名称，则构建完整的类名,同时兼容模块名称为空
-    if ($module) {
+    if ($module && $module != 'admin') {
         $class = 'app\\' . $module . '\logic\\File';
         $fileLogic = get_sington_object('fileLogic', $class);
     } else {

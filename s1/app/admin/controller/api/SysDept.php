@@ -30,8 +30,6 @@ class SysDept extends AdminApiBase
 		return $this->apiReturn($list);
 	}
 
-
-
     /**
      * 删除
      * @return mixed|string

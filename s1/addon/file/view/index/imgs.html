@@ -11,8 +11,8 @@
                 <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this, {$vo})" >
                     <img src="__STATIC__/addon/file/uploadify-cancel.png" />
                 </div>
-                <a target="_blank" href="{$vo|default='0'|get_picture_url=$addons_data.addons_model}">
-                    <img style="max-width:{$addons_config['maxwidth']};" src="{$vo|default='0'|get_picture_url=$addons_data.addons_model}"/>
+                <a target="_blank" href="{$vo|default=''|get_picture_url=$addons_data.addons_model}">
+                    <img style="max-width:{$addons_config['maxwidth']};" src="{$vo|default=''|get_picture_url=$addons_data.addons_model}"/>
                 </a>
             </div>
         {/volist}

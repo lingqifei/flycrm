@@ -9,7 +9,7 @@
     {notempty name="$info[$addons_data['name']]"}
     <div class="upload-pre-file">
         <span class="upload_icon_all"></span>
-        <a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url}">
+        <a target="_blank" href="{$info[$addons_data['name']]|default=''|get_file_url=$addons_data.addons_model}">
             {$info[$addons_data['name']]|default=''|get_file_url}
         </a>
     </div>

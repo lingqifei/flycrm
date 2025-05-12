@@ -8,9 +8,9 @@
         <div style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this)" >
             <img src="__STATIC__/addon/file/uploadify-cancel.png" />
         </div>
-        <a target="_blank" href="{$info[$addons_data['name']]|default='0'|get_picture_url=$addons_data.addons_model}">
+        <a target="_blank" href="{$info[$addons_data['name']]|default=''|get_picture_url=$addons_data.addons_model}">
             <img  style="max-width: {$addons_config['maxwidth']};"
-                  src="{$info[$addons_data['name']]|default='0'|get_picture_url=$addons_data.addons_model}"/>
+                  src="{$info[$addons_data['name']]|default=''|get_picture_url=$addons_data.addons_model}"/>
         </a>
     </div>
     {/notempty}

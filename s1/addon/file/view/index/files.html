@@ -8,7 +8,7 @@
         {assign name="file_ids_list" value="$info[$addons_data['name']]|str2arr" /}
         {volist name="file_ids_list" id='vo'}
             <div class="upload-pre-file" style="float:left; margin: 10px;">
-                <a target="_blank" href="{$vo|default='0'|get_file_url=$addons_data.addons_model}">
+                <a target="_blank" href="{$vo|default=''|get_file_url=$addons_data.addons_model}">
                     {$info[$addons_data['name']]|default=''|get_file_url}
                 </a>
                 <span style="cursor:pointer; color:red;" class="pic_del"  onclick="picDel{$addons_data.name}(this, {$vo})" >
