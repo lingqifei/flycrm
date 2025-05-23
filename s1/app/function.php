@@ -1112,6 +1112,26 @@ if (!function_exists('array2Sort')) {
     }
 }
 
+//php字符串转换表达式,php处理字符串格式的计算表达式
+if (!function_exists('rowlist2arr')) {
+    function rowlist2arr($datalist)
+    {
+        $originalArray = $datalist;
+        $keys = array_keys($originalArray);
+        // 初始化新数组,
+        $newArray = [];
+        // 遍历原数组的长度，构建新的二维数组
+        foreach ($originalArray[$keys[0]] as $index => $value) {
+            $newArray[] = [];
+            foreach ($keys as $key) {
+                $newArray[$index][$key] = empty($originalArray[$key][$index]) ? '' : $originalArray[$key][$index];
+            }
+        }
+        return $newArray;
+    }
+}
+
+
 /**
  * 清除html文件的空格注释信息
  * @param $uncompress_html_source

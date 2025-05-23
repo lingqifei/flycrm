@@ -44,6 +44,10 @@ function export_excel($titles = '', $keys = '', $data = [], $file_name = '导出
             $num = array_search($kk, $keys_arr);
 
             false !== $num && $objPHPExcel->setActiveSheetIndex($s)->setCellValue(string_from_column_index($num) . ($y + $k + 1), '' . $vv);
+            // 当字段超过10位，则设置为文本格式，防止显示为科学计数法
+            if (is_numeric($vv) && strlen($vv) > 10) {
+                $objPHPExcel->setActiveSheetIndex($s)->getStyle(string_from_column_index($num) . ($y + $k + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
+            }
         }
     }
 

@@ -18,6 +18,32 @@ use app\common\logic\LogicBase;
  */
 class AdminBase extends LogicBase
 {
+    /**
+     * 获取过滤后的菜单树
+     */
+    public function getMenuTree($menu_list = [], $url_list = [])
+    {
+        foreach ($menu_list as $key => $menu_info) {
+            list($status, $message) = $this->authCheck(strtolower($menu_info['url']), $url_list);
+            [$message];
+            //提取为菜单
+            if ((!IS_ROOT && RESULT_ERROR == $status) || empty($menu_info['is_menu'])) {
+                unset($menu_list[$key]);
+            }
+        }
+        return $this->getListTree($menu_list);
+    }
+
+    /**
+     * 获取列表树结构
+     */
+    public function getListTree($list = [])
+    {
+        if (is_object($list)) {
+            $list = $list->toArray();
+        }
+        return list_to_tree(array_values($list), 'id', 'pid', 'child');
+    }
 
     /**
      * 权限检测
@@ -66,32 +92,6 @@ class AdminBase extends LogicBase
         return $result ? $pass_data : [RESULT_ERROR, '未授权操作,检查权限'];
     }
 
-    /**
-     * 获取过滤后的菜单树
-     */
-    public function getMenuTree($menu_list = [], $url_list = [])
-    {
-        foreach ($menu_list as $key => $menu_info) {
-            list($status, $message) = $this->authCheck(strtolower($menu_info['url']), $url_list);
-            [$message];
-            //提取为菜单
-            if ((!IS_ROOT && RESULT_ERROR == $status) || empty($menu_info['is_menu'])) {
-                unset($menu_list[$key]);
-            }
-        }
-        return $this->getListTree($menu_list);
-    }
-
-    /**
-     * 获取列表树结构
-     */
-    public function getListTree($list = [])
-    {
-        if (is_object($list)) {
-            $list = $list->toArray();
-        }
-        return list_to_tree(array_values($list), 'id', 'pid', 'child');
-    }
 
     /**
      * 通过完整URL获取检查标准URL
@@ -99,62 +99,81 @@ class AdminBase extends LogicBase
      */
     public function getCheckUrl($full_url = '')
     {
+        // 去除项目基础URL部分（如 http://domain/admin/ -> 变为 user/edit）
         $temp_url = sr($full_url, URL_ROOT);
 
-        $url_array_tmp = explode(SYS_DS_PROS, $temp_url);
+        // 去除GET参数部分（如 ?id=1）
+        $path = parse_url($temp_url, PHP_URL_PATH);
 
-        //解析出的地址为
-        /*
-            $url_array_tmp=array(4) {
-            [0] => string(0) ""
-            [1] => string(5) "admin"
-            [2] => string(9) "SysModule"
-            [3] => string(11) "upload.html"
-            }
-        */
-        //获得真地址
-        $subscript = 1;
-        if (empty($url_array_tmp[0])) $subscript = 1;
-        !defined('BIND_MODULE') && $subscript++;
-        $return_url = $url_array_tmp[$subscript] . SYS_DS_PROS . $url_array_tmp[++$subscript];
+        // 分割路径
+        $url_array_tmp = explode(SYS_DS_PROS, $path);
 
-        //$return_url = $url_array_tmp[1] . SYS_DS_PROS . $url_array_tmp[2]. SYS_DS_PROS . $url_array_tmp[3];
-        $index = strpos($return_url, '.');
+        // 过滤掉空值
+        $url_array_tmp = array_values(array_filter($url_array_tmp));
 
-        $index !== false && $return_url = substr($return_url, DATA_DISABLE, $index);
+        // 获取控制器和方法的位置
+        $controllerIndex = 0;
+        $methodIndex = 1;
 
+        // 如果定义了模块（非单模块模式），跳过模块名
+        if (!defined('BIND_MODULE') || empty(BIND_MODULE)) {
+            $controllerIndex = 1;
+            $methodIndex = 2;
+        }
+
+        // 提取控制器和方法
+        $controller = isset($url_array_tmp[$controllerIndex]) ? $url_array_tmp[$controllerIndex] : '';
+        $method = isset($url_array_tmp[$methodIndex]) ? $url_array_tmp[$methodIndex] : '';
+
+        // 去除方法中的后缀（如 .html）
+        $dotPos = strpos($method, '.');
+        if ($dotPos !== false) {
+            $method = substr($method, 0, $dotPos);
+        }
+        $return_url = trim("$controller/$method", '/');
+
+        // 组合返回值
         return $return_url;
     }
 
     /**
-     * 过滤页面内容权限地方，不存在权限直接过滤掉
+     * 过滤页面内容中无权限的链接标签 <lqf_link>...</lqf_link>
+     * 根据权限判断是否显示或替换为禁止图标
+     *
+     * @param string $content 页面HTML内容
+     * @param array $url_list 用户授权的URL列表
+     * @return string 已过滤的内容
      */
     public function filter($content = '', $url_list = [])
     {
-        $results = [];
-        preg_match_all('/<lqf_link>.*?[\s\S]*?<\/lqf_link>/', $content, $results);
-        foreach ($results[0] as $a) {
+        // 匹配所有<lqf_link>标签内的内容
+        preg_match_all('/<lqf_link\b[^>]*>(.*?)<\/lqf_link>/is', $content, $matches);
+        $elements = $matches[0];
 
-            $match_results = [];
+        // 已检查过的URL缓存，避免重复校验
+        static $checkedUrls = [];
 
-            preg_match_all('/data-url="(.+?)"|url="(.+?)"/', $a, $match_results);
-            $full_url = '';
-            if (empty($match_results[1][0]) && empty($match_results[2][0])) {
-                continue;
-            } elseif (!empty($match_results[1][0])) {
-                $full_url = $match_results[1][0];
-            } else {
-                $full_url = $match_results[2][0];
-            }
-            //正则到内容在的地址，判断是否有权限
-            if (!empty($full_url)) {
-                $url = $this->getCheckUrl($full_url);
-                $result = $this->authCheck($url, $url_list);
-                $result[0] != RESULT_SUCCESS && $content = sr($content, $a, '<i class="text-danger fa fa-power-off"></i>');
+        foreach ($elements as $element) {
+            // 提取 data-url 或 url 属性值
+            if (preg_match('/(?:data-url|url)=(["\'])(.*?)(?:$1)/i', $element, $urlMatch)) {
+                $full_url = $urlMatch[2];
+                $checkUrl = $this->getCheckUrl($full_url);
+
+                // 缓存已检查的URL，避免重复调用 authCheck
+                if (!isset($checkedUrls[$checkUrl])) {
+                    $checkedUrls[$checkUrl] = $this->authCheck($checkUrl, $url_list);
+                }
+
+                // 如果没有权限，替换为禁用图标
+                if ($checkedUrls[$checkUrl][0] != RESULT_SUCCESS) {
+                    $content = str_replace($element, '<i class="text-danger fa fa-power-off"></i>', $content);
+                }
             }
         }
+
         return $content;
     }
+
 
     /**
      * 数据状态设置

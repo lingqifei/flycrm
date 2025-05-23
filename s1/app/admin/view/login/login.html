@@ -78,6 +78,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
+                    {$info.login_wxmp|default=''}
                     <div class="social-login-buttons">
                         <a class="btn btn-link-1 btn-link-1-weixin login_scene_qrcode_create" data-url="{:url('Login/login_wx')}" title="在移动端下面可以点击微信登录">
                             <i class="fa fa-weixin"></i> {:lang('wechat')}

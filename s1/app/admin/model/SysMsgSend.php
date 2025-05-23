@@ -80,5 +80,4 @@ class SysMsgSend extends AdminBase
         $sendParam['content'] = $data['bus_name'];
         $this->logicSysEmail->sendSysEmail($sendParam);
     }
-
 }
