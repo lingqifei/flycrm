@@ -76,14 +76,6 @@ class SysModule extends AdminBase
     }
 
     /**
-     * 模块备份
-     */
-    public function backup()
-    {
-        $this->jump($this->logicSysModule->sysModuleBackup($this->param));
-    }
-
-    /**
      * 模块安装
      */
     public function install()
@@ -166,5 +158,4 @@ class SysModule extends AdminBase
         $this->assign('uploadtarget', $uploadtarget);
         return $this->fetch('upload');//上传接口模板
     }
-
 }

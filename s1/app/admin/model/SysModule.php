@@ -127,7 +127,6 @@ class SysModule extends AdminBase
                     $file->handle_dir($source, $target, 'copy', true);
                 }
             }
-
         }
 //        //模块子目录
 //        $dir_list = ['controller', 'logic', 'model', 'service', 'validate'];

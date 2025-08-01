@@ -62,20 +62,30 @@ class File extends AddonBase implements AddonInterface
      */
     public function addonConfig($param)
     {
+
         $addons_config['maxwidth'] = '150px';
         $addons_config['height'] = '85px';
 
-        //图片类型
+        //模板调用图片类型
         $imgsTypes = array('img', 'imgs', 'imgpath');
+
         //判断上传类型,判断是否是图片类型
         if (in_array($param['type'], $imgsTypes)) {
-            $addons_config['allow_postfix'] = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG;';
+            $allow_postfix = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG;';
         } else {
-            $addons_config['allow_postfix'] = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG; *.zip; *.rar; *.tar; *.gz; *.7z; *.doc; *.docx; *.txt; *.xml; *.xlsx; *.xls;*.mp4;*.pdf;';
+            $allow_postfix = '*.jpg; *.png; *.gif; *.jpeg; *.JPG; *.PNG; *.GIF; *.JPEG; *.zip; *.rar; *.tar; *.gz; *.7z; *.doc; *.docx; *.txt; *.xml; *.xlsx; *.xls;*.mp4;*.pdf;';
         }
+
+        // 构造带大小写的通配符字符串，如：*.jpg; *.JPG;
+        $display_postfix = implode('; ', array_map(function ($ext) {
+            return "*." . strtolower($ext) . "; *." . strtoupper($ext);
+        }, explode(',', $allow_postfix)));
+
+        $addons_config['allow_postfix'] = $display_postfix;
+
         //配置上传地址
-        //1、模板指定了固定的地址
-        //2、模板没有指定地址，则自动判断,默认为
+        //1、模板指定了固定的上传地址
+        //2、模板没有指定地址，则自动判断,默认为使用admin后台上传
         if (!empty($param['url'])) {
 
             $addons_config['upload_url'] = url($param['url'], array('session_id' => session_id()));
@@ -92,8 +102,10 @@ class File extends AddonBase implements AddonInterface
             }
             $addons_config['upload_url'] = url($model . '/File/' . $methodName, array('session_id' => session_id()));
         }
+
         //配置上传大小
         $addons_config['max_size'] = 50 * 1024;
+
         return $addons_config;
     }
 }

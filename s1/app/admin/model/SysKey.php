@@ -43,7 +43,7 @@ class SysKey extends AdminBase
     }
 
     //初始化服务器地址
-    public  function ininServerUrl()
+    public function ininServerUrl()
     {
         if (DOMAIN == 'http://127.0.0.1:8002') {//生产
             $server = ['http://127.0.0.1:8002'];
@@ -185,7 +185,7 @@ class SysKey extends AdminBase
     public function delReqKey()
     {
         $filepath = $this->key_path . 'reqkey';
-        file_put_contents($filepath,'');
+        file_put_contents($filepath, '');
     }
 
     //获取授权信息
@@ -203,7 +203,8 @@ class SysKey extends AdminBase
             $data['main_title'] = config('main_title');
             $data['main_weburl'] = config('main_weburl');
             $data['top_links'] = '';
-            $data['top_links_right']='';
+            $data['top_links_right'] = '';
+            $data['login_wxmp'] = '';
             $data['is_grant'] = 1;
         } else {
             $data['seo_title'] = '07FLY-ERP是一款开放式的管理平台，能快速搭建适合自己的是一款开放式的管理平台-零起飞ERP';
@@ -213,6 +214,7 @@ class SysKey extends AdminBase
             $data['login_desc'] = '软件集ERP、CRM、OA在线办公等主要功能，PC和手机端一体化管理';
             $data['login_demo'] = '<font color="red">为您提供“专心、耐心、细心、贴心、放心”五心级服务</font>';
             $data['login_copyright'] = '<a href="http://www.07fly.xyz">技术支持:零起飞网络</a>';
+            $data['login_wxmp'] = '<span style="font-size:14px;color:#FA4012;">获取演示帐号</span><br><script src="https://www.07fly.xyz/index/Ads/v/aid/2"></script>';
             $data['main_title'] = '零起飞网络中心';
             $data['main_weburl'] = 'http://www.07fly.xyz/';
             $data['top_links'] = '
@@ -221,7 +223,7 @@ class SysKey extends AdminBase
                     <a href="http://erp.07fly.xyz/" target="_blank" title="07FLY-ERP企业管理系统">S1版本</a>
                     <a href="http://djt.07fly.xyz/" target="_blank" title="旅行社ERP管理软件地接版">地接通</a>
                   ';
-            $data['top_links_right']  = '<li><a href="'.url('admin/Store/apps').'" class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>';
+            $data['top_links_right'] = '<li><a href="' . url('admin/Store/apps') . '" class="J_menuItem" target="_blank"><i class="fa fa-fire"></i>应用</a></li>';
             $data['top_links_right'] .= '<li><a href="http://www.07fly.xyz/" target="_blank" title="零起飞网络">官网</a></li>';
             $data['is_grant'] = 0;
         }

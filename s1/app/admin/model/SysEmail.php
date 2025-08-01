@@ -21,13 +21,23 @@ class SysEmail extends AdminBase
 
     //默认配置
     private $config = [
-        'smtp' => 'smtp.exmail.qq.com',
+        'host' => 'smtp.exmail.qq.com',
         'username' => 'admin@07fly.com',
         'password' => 'tpVihdnwCwjGvdSV',
         'port' => '465',
         'realname' => '零起飞',
     ];
 
+    //获取邮件服务参数
+    public function getConfig()
+    {
+        $sysEmailConfig = $this->value('config');
+        if (!empty($sysEmailConfig)) {
+            $config = json_decode($sysEmailConfig, true);
+            $this->setConfig($config);
+        }
+        return $this->config;
+    }
     /*
      * 设置邮件服务参数
      */

@@ -260,7 +260,6 @@ class SysModule extends AdminBase
         }
         $module_name = $info['name'];
 
-
         //1、把app目录复制到打包目录下
         $module_dir = $this->app_path . $module_name;
         if (!is_dir($module_dir)) {

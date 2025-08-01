@@ -79,7 +79,6 @@ class SyncTableDesc
                     $fieldSql = str_replace("AUTO_INCREMENT", "", $fieldSql);//删除自增及主键，方便面删除主键
                     Db::execute("alter table `{$tableName}` modify {$fieldSql}");
                 }
-
             } else {
                 //不存在的字段直接新增
                 $addFieldSql = "alter table {$tableName} add  ";
